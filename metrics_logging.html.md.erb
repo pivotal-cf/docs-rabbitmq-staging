@@ -1,0 +1,72 @@
+---
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry&reg; Documentation
+title: Configuring syslog and metrics for the RabbitMQ service
+owner: London Services
+---
+
+# Logging
+
+It is possible to designate an external syslog endpoint for RabbitMQ logs through Ops Manager at deployment time in RabbitMq for PCF 1.6.0 and above.  Navigate to the the Syslog page in the Settings tab and enter the Syslog address and port.  Updating this setting will require a redeployment to take effect.
+
+A correctly configured system will emit metrics for all RabbitMQ and HAproxy nodes deployed in the service.  Logs from individual nodes can be identified by their index, which corresponds to the index of the RabbitMQ nodes displayed in Ops Manager.
+
+The logs for RabbitMQ server nodes will be in the following format: <code> [job=rabbitmq-server-partition-GUID index=X]</code>.
+
+The logs for HAproxy nodes will be in the following format:<code> [job=rabbitmq-haproxy-partition-GUID index=X]</code>.
+
+The logs for the RabbitMQ service broker will be in the following format:<code>   [job=rabbitmq-broker-partition-GUID index=X]</code>.
+
+RabbitMQ and HAproxy servers are configured to log at the <code>info</code> level, and will capture errors, warnings and informational messages.
+
+# Heartbeats
+
+In RabbitMQ for PCF 1.6 and above the key system components are configured to peridocially emit heartbeats for RabbitMQ server nodes, HAproxy nodes and the Service Broker. They are boolian metrics with <code>1</code> meaning the system is available.  A <code>0</code> or an absence of a heartbeat metric will mean an expect service is not responseing and should be investigated.  The heartbeats will be visible on the firehose and will look as follows:
+- HAproxy heartbeat: <code> "/p-rabbitmq/haproxy/heartbeat" value:1 unit:"boolean" </code>
+- RabbitMQ heartbeat: <code> "/p-rabbitmq/rabbitmq/heartbeat" value:1 unit:"boolean" </code>
+- Service Broker heartbeat: <code> "/p-rabbitmq/service_broker/heartbeat" value:1 unit:"boolean" </code>
+
+# Metrics
+
+RabbitMQ and HAproxy metrics have been exposed via the Cloud Foundry Firehose and can be directed to an external metrics endpoint of your choice.  It is possible for the metrics polling interval to be changed from the default of 30 seconds.  It can be necessary to increase the polling interval on very busy systems.  The configuration is in the RabbitMQ section of the settings page and looks as follows:
+
+<%= image_tag("images/metrics_polling.jpeg") %>
+
+The format of the emmitted metrics is as per the example below:
+
+<code>origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB"></code>
+
+The table below shows the current list of RabbitMQ metrics emitted and their description.
+
+**Name Space** | **Unit** | **Description**
+--- | ---
+/*cf_service_name*/*node_type*/*metric_name* | *unit* |
+/p-rabbitmq/rabbitmq/erlang/erlang_processes: | count | The count of Erlang Processes running on the node
+/p-rabbitmq/rabbitmq/system/memory:  |  MB | The memory in MB used by the node
+/p-rabbitmq/rabbitmq/connections/count:  | count | The total number of Connections to the node
+/p-rabbitmq/rabbitmq/consumers/count:  | count | The total number of Consumers registered in the node
+/p-rabbitmq/rabbitmq/messages/delivered:  |  count | The total count of messages with the status 'deliver_get' on the node
+/p-rabbitmq/rabbitmq/messages/delivered_no_ack:  |  count | The count of messages with the status 'deliver_no_ack' on the node
+/p-rabbitmq/rabbitmq/messages/delivered_rate:  |  rate | The rate at which messages are being delivered to consumers/ clients on the node
+/p-rabbitmq/rabbitmq/messages/published:  |  count | The total count of messages with the status 'publish' on the node
+/p-rabbitmq/rabbitmq/messages/published_rate:  | rate | The rate at which messages are being published by the node
+/p-rabbitmq/rabbitmq/messages/redelivered:  | count | The total count of messages with the status 'redeliver' on the node
+/p-rabbitmq/rabbitmq/messages/redelivered_rate:  | rate | The rate at which messages are getting the status 'redeliver' on the node
+/p-rabbitmq/rabbitmq/messages/got _no_ack:  | count | The count of messages with the status 'get_no_ack' on the node
+/p-rabbitmq/rabbitmq/messages/got _no_ack_rate:  |  rate | The rate at which messages get the status 'get_no_ack' on the node
+/p-rabbitmq/rabbitmq/messages/pending : | count | the count of messages with the status 'messages_unacknowledged' on the node
+/p-rabbitmq/rabbitmq/system/file descriptors:  | count | The count of open file descriptors on the node
+/p-rabbitmq/rabbitmq/exchanges/count:  | count | The total number of Exchanges on the node
+/p-rabbitmq/rabbitmq/messages/available: | count | The total count of messages with the status 'messages_ready' on the node
+/p-rabbitmq/rabbitmq/queues/count:  | count | The count of queues on the node
+/p-rabbitmq/rabbitmq/channels/count | count | The count of channels on the node
+
+
+The table below shows the current list of HAproxy metrics emitted and their description.
+
+**Name Space** | **Unit** | **Description**
+--- | ---
+/*cf_service_name*/*node_type*/*metric_name* | *unit* |
+/p-rabbitmq/haproxy/health/connections : | count | The total number of concurrent frontend connections to the server
+/p-rabbitmq/haproxy/backend/qsize/amqp:  | size | The total size of the amqp queue on the server
+/p-rabbitmq/haproxy/backend/retries/amqp:  |  count | The number of amqp retries to the server
+/p-rabbitmq/haproxy/backend/ctime/amqp:  | time | The total time to establish the TCP amqp connection to the server
