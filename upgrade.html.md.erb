@@ -17,7 +17,7 @@ To upgrade the product:
 * Update any new mandatory configuration parameters (*if required*)
 * Press "Apply changes" and the rest of the process is automated
 
-It is necessary to increase the number of HAproxy instances from the default of one to two, before an upgrade is initiated to enable a zero downtime upgrade.  During a typical upgrade deployment, nodes are upgraded one at a time in the cluster providing a zero downtime deployment. Applications may experience a disconnected session, if the application attempts to reconnect it will be directed to another working node automatically.
+It is necessary to increase the number of HAProxy instances from the default of one to two, before an upgrade is initiated to enable a zero downtime upgrade.  During a typical upgrade deployment, nodes are upgraded one at a time in the cluster providing a zero downtime deployment. Applications may experience a disconnected session, if the application attempts to reconnect it will be directed to another working node automatically.
 
 Only when upgrading between specific versions of Erlang or RabbitMQ is an outage required on the cluster. This will be clearly stated on the release notes for that version, should this be required.
 
@@ -25,9 +25,9 @@ The length of the downtime depends on whether there is a stemcell update to repl
 
 Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
 
-Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.  (In future releases of the product the default number of HAproxy instances will be increased to two).
+Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.  (In future releases of the product the default number of HAProxy instances will be increased to two).
 
-Please note that it may take busy RabbitMQ nodes a long time to shutdown during the upgrade and this process should not be forcably stopped.  Where possible it is advised to fully drain queues before an upgrade involving an update to the version of RabbitMQ running.
+Please note that it may take busy RabbitMQ nodes a long time to shutdown during the upgrade and this process should not be forcibly stopped.  Where possible it is advised to fully drain queues before an upgrade involving an update to the version of RabbitMQ running.
 
 # Release policy
 
