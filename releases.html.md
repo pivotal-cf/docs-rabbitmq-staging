@@ -17,6 +17,20 @@ Features included in this release:
 * Includes the latest version of RabbitMQ OSS 3.6.2
 * You may now select the partition response for RabbitMQ to be either <code>pause/_minority</code> or `automatic`.  The default behavior has been changed from `automatic` to `pause_minority`.
 
+### 1.5.13
+**Release Date: 30th June 2016**
+
+Features included in this release:
+
+* Updated stemcell to 3232.12
+
+### 1.5.12
+**Release Date: 6th June 2016**
+
+Features included in this release:
+
+* Updated stemcell to 3232.6
+
 ### 1.5.11
 **Release Date: 26th May 2016**
 
