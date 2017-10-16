@@ -2,7 +2,9 @@
 
 ### Branch Management
 
-**master** - all documentation for the next unreleased version of **RabbitMQ** is in master. This is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes
+**MASTER** - Use for the **1.11** release. 
+
+All documentation for the next unreleased version of **RabbitMQ** is in master. This is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
 
 * Unreleased features
 * Doc bug fixes
