@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring RabbitMQ for PCF as an On-Demand Service
+title: Installing and Configuring <br>the On-Demand Service
 owner: London Services
 ---
 
@@ -29,9 +29,34 @@ For information on the on-demand service architecture, see [this page](about.htm
 
 ## <a id="tile_configurations"></a> Configure RabbitMQ for PCF
 
-The configuration screen appears when you click the RabbitMQ for PCF tile in Ops Manager:
+The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager. An orange circle beside a tab indicates that you must complete a configuration in the tab. A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 
-![Configuring Errand Run Rules](images/errands-pane.png)
+![Rabbit Tile Configuration](images/rmq_tile_config.png)
+
+### <a id="config-tabs"></a> Which Settings Tabs Do I Use for the On-Demand Service
+
+Use the following tabs for configuring the on-demand service:
+
+<table>
+  <tr><th>RabbitMQ Settings Tab</th><th>Instructions</th>
+  </tr>
+  <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Configure AZs and Networks</a></td>
+  </tr>
+  <tr><td>RabbitMQ</td><td>Set the Metrics polling interval only. See <a href="./monitor.html#metrics">this topic</a>.</td>
+  </tr>
+  <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
+  </tr>
+  <tr><td>Dedicated Instance: Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
+  </tr>
+  <tr><td>Dedicated Instance: Single Node Plans</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>Dedicated Instance: Cluster Plan</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>Errands</td><td><a href="#errands">Errands</a></td>
+  </tr>
+  <tr><td>Stemcell</td><td><a href="#stemcell">Verify the Stemcell</a></td>
+  </tr>
+</table>
 
 ### <a id="azs-networks"></a>  Configure AZs and Networks
 
@@ -65,6 +90,15 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
 
  3. Click **Save**.
 
+### <a id="polling"></a> Set the Metrics Polling Interval
+
+On the **RabbitMQ** tab, set a metrics polling interval. For more information, see [What are Metrics](./monitor.html#metrics).
+
+### <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
+
+Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [this procedure](./monitor.html#config) to configure logging.
+
+
 ### <a id="global"></a>Configure Global Settings
 
 Follow the steps below to configure global settings.
@@ -77,10 +111,10 @@ Follow the steps below to configure global settings.
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to enable the on-demand service plan(s), you must configure the  **Dedicated Instance: Single Node Plan** or **Dedicated Instance: Cluster Plan**.
+In order to enable the on-demand service plan(s), you must configure either of these plans:
 
-**Dedicated Instance: Single Node Plan**: It is a single node of RabbitMQ Server.
-**Dedicated Instance: Cluster Plan**: It is a cluster with three to seven RabbitMQ Server nodes.
+**Dedicated Instance: Single Node Plan**: Configures a single node of RabbitMQ Server
+**Dedicated Instance: Cluster Plan**: Configures a cluster with three to seven RabbitMQ Server nodes
 
 
 <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
@@ -240,21 +274,7 @@ Your installation is not complete until you apply your configuration changes. Fo
 
 2. Click **Apply Changes**.
 
-## <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
 
-Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [this procedure](./monitor.html#config) to configure logging.
-
-## <a id="no-overwrite"></a>RabbitMQ Server Settings That Cannot Be Disabled
-
-The following plugins are enabled by default and cannot be disabled:
-
-* `rabbitmq_management`
-* `rabbitmq_mqtt`
-* `rabbitmq_stomp`
-* `rabbitmq_federation`
-* `rabbitmq_federation_management`
-* `rabbitmq_shovel`
-* `rabbitmq_shovel_management`
 
 ## <a id='errands'></a>Errands
 
@@ -378,3 +398,16 @@ To create an admin user on a RabbitMQ instance do the following:
      ...
    }
 </pre>
+
+## <a id="no-overwrite"></a>RabbitMQ Server Settings That Cannot Be Disabled
+
+The following plugins are enabled by default and cannot be disabled:
+
+* `rabbitmq_management`
+* `rabbitmq_mqtt`
+* `rabbitmq_stomp`
+* `rabbitmq_federation`
+* `rabbitmq_federation_management`
+* `rabbitmq_shovel`
+* `rabbitmq_shovel_management`
+
