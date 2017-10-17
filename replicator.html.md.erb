@@ -127,25 +127,29 @@ The On-Demand service is not offered on replica tiles.
 
 ## <a id="org-access"></a> Limiting Access to Replica Tiles to Specific Orgs
 
-When you replicate RabbitMQ for PCF, the replica tile has the **Broker Registrar** errand set to **On** by default. This field appears in the **Errands** tab the tile:
+When you replicate RabbitMQ for PCF, the replica tile has the **Broker Registrar** errand set to **On** by default.
+This field appears in the **Errands** tab in the tile:
 <br><br>![registrar_errand](/images/broker_registrar_errand.png)
 
-With any tile, if the **Broker Registrar** errand is set to **On**, it runs automatically when you finish installing the tile, and causes the tile to be available to all CF orgs. 
+With any tile, if the **Broker Registrar** errand is set to **On**, it runs automatically when you finish installing the tile
+and causes the tile to be available to all CF orgs. 
 
 If you want to limit access to the tile to a specific org, follow these steps:
 
 1. Set the broker registrar errand to **Off**, and apply your changes. 
 
-1. Manually register the tile with a specific CF org using the following commands. Refer to the above table for `BROKER_NAME`, `BROKER_URL`, and `SERVICE_NAME`:
+1. Manually register the tile with a specific CF org using the following command.
+   See the above table for `BROKER_NAME`, `BROKER_URL`, and `SERVICE_NAME`:
 
 	```
 	cf create-service-broker BROKER_NAME BROKER_USERNAME BROKER_PASSWORD BROKER_URL
 	```
 
+1. To give access to the org, use the following command and repeat for each additional org:
+
 	```
 	cf enable-service-access SERVICE_NAME -o ORG_NAME
 	```
-1. To give access to additional orgs, repeat the command `cf enable-service-access SERVICE_NAME -o ORG_NAME` for each org.
 
 ## <a id="upgrading"></a> Upgrading Replica Tiles
 
