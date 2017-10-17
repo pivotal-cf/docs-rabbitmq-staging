@@ -22,7 +22,7 @@ In this use case:
 	* A pre-provisioned service is used as a backing service for SCS <br>
 	* An on-demand service is used to create three completely isolated single node service instances 
 * Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team. 
-<br><br>![alt text](/images/flowchart.png)
+<br><br>![flowchart](/images/flowchart.png)
 
 These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Pre-Provisioned Dedicated Cluster](#dedicated).
 
@@ -66,6 +66,7 @@ and migrate data and users over to the new cluster over a period of time.
 Speak with your Platform Architect about how to enable this workflow.
 
 
+
 ## <a id="generate"></a> Generating Replica Tiles
 
 This topic describes how to install the replicator and generate replica tiles of RabbitMQ for PCF.
@@ -99,6 +100,24 @@ The following are the parameters expected in the above syntax:
 | `output`   | The desired file name and path for the replica tile                                                                                              |
 
 
+### <a id="naming"></a> Naming Conventions in Original and Replica Tiles
+
+The table below shows the naming conventions for various components related to the original RabbitMQ for PCF tile and to the replica tile. 
+
+For the purposes of this example, assume that when you generate a replica tile as shown above, in the `name` field you provide the string `finance\`. Then the attributes for the original and replica tiles are as follows:
+
+| **Component**                              | **Name with Original Tile**                         | **Name with Replica Tile**                              |
+|----------------------------------------|------------------------------------------|--------------------------------------------------|
+| Broker name                            | p-rabbitmq                               | p-rabbitmq-finance                               |
+| Broker URL                             | pivotal-rabbitmq-broker.YOUR\_CF\_DOMAIN | pivotal-rabbitmq-broker-finance.YOUR\_CF\_DOMAIN |
+| Service name                    | p-rabbitmq                               | p-rabbitmq-finance                               |
+| URL for the RabbitMQ Management UI Dashboard | pivotal-rabbitmq.YOUR\_CF\_DOMAIN        | pivotal-rabbitmq-finance.YOUR\_CF\_DOMAIN        |
+| Tile display name in Ops Manager                     | RabbitMQ                                 | RabbitMQ (finance)                               |
+| Tile name used internally by Ops Manager                             | p-rabbitmq                               | p-rabbitmq-finance                               |
+| Metrics/Logging Origin                 | p-rabbitmq                               | p-rabbitmq-finance                               |
+
+
+
 ## <a id="install"></a> Installing Replica Tiles
 
 After you have generated a replica tile, you can upload it to Ops Manager as you would any other tile.
@@ -106,6 +125,27 @@ After you have uploaded it, follow the instructions for [Installing and Configur
 Pre-Provisioned Service](https://docs.pivotal.io/rabbitmq-cf/install-config-pp.html).
 The On-Demand service is not offered on replica tiles.
 
+## <a id="org-access"></a> Exposing the Service Broker to Specific Orgs
+
+When you replicate RabbitMQ for PCF, the replica tile has the **Broker Registrar** errand set to **On** by default. This field appears in the **Errands** tab the tile:
+<br><br>![registrar_errand](/images/broker_registrar_errand.png)
+
+With any tile, if the **Broker Registrar** errand is set to **On**, it runs automatically when you finish installing the tile, and causes the tile to be available to all CF orgs. 
+
+If you want to limit access to the tile to a specific org, follow these steps:
+
+1. Set the broker registrar errand to **Off**, and apply your changes. 
+
+1. Manually register the tile with a specific CF org using the following commands. Refer to the above table for `BROKER_NAME`, `BROKER_URL`, and `SERVICE_NAME`:
+
+	```
+	cf create-service-broker BROKER_NAME BROKER_USERNAME BROKER_PASSWORD BROKER_URL
+	```
+
+	```
+	cf enable-service-access SERVICE_NAME -o ORG_NAME
+	```
+1. To give access to additional orgs, repeat the command `cf enable-service-access SERVICE_NAME -o ORG_NAME` for each org.
 
 ## <a id="upgrading"></a> Upgrading Replica Tiles
 
