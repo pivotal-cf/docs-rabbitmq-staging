@@ -1,380 +1,365 @@
 ---
-title: Installing and Configuring RabbitMQ for PCF as an On-Demand Service
+title: Installing and Configuring the <br>Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service.
+This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide
+a pre-provisioned service.
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
-as a pre-provisioned service, see
-<a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
+<p class="note"><strong>Note</strong>: For instructions about how to install, configure, and deploy the RabbitMQ for PCF tile
+as an on-demand service, see <a href="./install-config.html">
+Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
-## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
-
-Before deploying RabbitMQ for PCF as an on-demand service, you must ensure that the required network rules are in place to allow various components to communicate.
-
-See [Required Networking Rules for On-Demand Services](about.html#network-rules) for details on the network connections that must be open to enable the on-demand service.
-
-For information on the on-demand service architecture, see [this page](about.html).
-
-## <a id="install"></a> Download and Install RabbitMQ for PCF
+## <a id="install"></a> Download and Install the Tile
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
-
-4. Click the newly added **RabbitMQ for PCF** tile to configure the service.
-
-## <a id="tile_configurations"></a> Configure RabbitMQ for PCF
-
-The configuration screen appears when you click the RabbitMQ for PCF tile in Ops Manager:
-
-![Configuring Errand Run Rules](images/errands-pane.png)
-
-### <a id="azs-networks"></a>  Configure AZs and Networks
-
- Follow the steps below to configure the AZs and networks.
-
- 1. Click **Assign AZs and Networks**.
-     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
-
- 2. Configure the fields on the **Assign AZs and Networks** as follows:
-   <table>
-     <tr><th>Field</th><th>Instructions</th></tr>
-     <tr><td><strong>Place singleton jobs in</strong></td>
-         <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
-     <tr><td><strong>Balance other jobs in</strong></td>
-         <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
-     <tr><td><strong>Network</strong></td>
-         <td>Select a network for the RabbitMQ On-Demand Broker.<br><br>
-             This should be a separate network from the one you select for <strong>Service Network</strong>. This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
-             Typically, you select the network used for the Pivotal Elastic Runtime components.
-         </td></tr>
-     <tr><td><strong>Service Network</strong></td>
-         <td> Select a separate network that the on-demand service instances run on.<br><br>
-              A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.  
-              This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. <br><br>
-              This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
-   </table>
-
-    <p class="note warning"><strong>WARNING</strong>: Changing the Network or Service Network, or changing their IP configurations,
-       results in a failed deployment.
-       For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
-
- 3. Click **Save**.
-
-### <a id="global"></a>Configure Global Settings
-
-Follow the steps below to configure global settings.
-
-1. Click **Dedicated Instance: Global Settings** and configure the following:<br><br>
-  * **Service instance quota**  min: 0, max: 50  set the total number of dedicated service instances which can be deployed.<br><br>
-  * **VM options**:<br><br>
-       **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
-1. Click **Save**.
-
-### <a id="service-plan"></a> Configure the Service Plan
-
-In order to enable the on-demand service plan(s), you must configure the  **Dedicated Instance: Single Node Plan** or **Dedicated Instance: Cluster Plan**.
-
-**Dedicated Instance: Single Node Plan**: It is a single node of RabbitMQ Server.
-**Dedicated Instance: Cluster Plan**: It is a cluster with three to seven RabbitMQ Server nodes.
-
-
-<p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
-
-
-1. Choose the dedicated service instance you want to configure:<br><br>For the single node plan:
-
-    ![service-plan-tab-v1.10.0](images/single-node-plan-configuration.png)
-
-    For the cluster plan:
+3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. 
+This adds the tile to your staging area.
 
-    ![service-plan-tab-v1.10.0](images/cluster-plan-configuration.png)
-
-2. Configure the fields as follows:
-  <table>
-    <tr><th>Field</th><th>Instructions</th></tr>
-    <tr><td><strong>Enable this plan</strong></strong></td>
-        <td>(Cluster Plan Only) Select plan enable.</td></tr>
-    <tr><td><strong>CF Service Access</strong></strong></td>
-    <td>For the Cluster Plan, select an access level.
-        This setting is enabled by default.
-        If you change this default setting, the smoke tests fail.
-        Therefore, disable the smoke tests [errand](#errands) for this plan if you change the default.<br>
-      <br><ul>
-        <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
-        </li>
-        <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the Marketplace. This setting cannot be selected at a later time in the UI.
-        </li>
-        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can [change the access settings](#access) later manually using the cf CLI.
-        </li>
-      </ul></td></tr>
-    <tr><td><strong>Plan name</strong></td>
-        <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
-    <tr><td><strong>Plan description</strong></td>
-        <td>Accept the default or enter a description.</td></tr>
-    <tr><td><strong>Service instance quota</strong></td>
-        <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
-    <tr><td><strong>Plan features</strong></td>
-        <td>Accept the default or enter information about the plan to help your app developers.</td></tr>
-    <tr><td><strong>Number of nodes</strong></strong></td>
-        <td>(Cluster Plan Only) Enter 3, 5 or 7. This setting only affects new service instances.
-            Previously deployed service instances are **not** updated.</td></tr>
-    <tr><td><strong>Network partition behaviour</strong></strong></td>
-        <td>(Cluster Plan Only) Select pause minority or autoheal. Pivotal recommends using pause minority.
-            For more information, see <a href="./ondemand.html#tradeoff">this topic</a>.</td></tr>
-    <tr><td><strong>RabbitMQ VM Type</strong></td>
-        <td>Select a large VM type. The plan creates a service instance of this size.</td></tr>
-    <tr><td><strong>Persistent disk type</strong></td>
-    <td>This is where RabbitMQ pages messages to disk.
-    Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
-    For more information, see <a href="#resources">Resource Types and Disk Size Concerns</a> below.</td></tr>
-    <tr><td><strong>AZ placement</strong></td>
-    <td>This field is available after you complete the [Assign AZs and Networks](#azs-networks) page.
-        <ul><li>For a single-node plan, select one or more AZs.</li>
-          <li>For a cluster plan, select only one AZ.
-        Pivotal recommends deploying a cluster plan to only one AZ to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.</li>
-      </ul></td></tr>
-  </table>
+4. Click the newly added **RabbitMQ for PCF** tile.
 
-    <p class='note warning'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
-       existing instances are <strong>not</strong> placed in the newly configured AZs when the <strong>Upgrade All Service Instances</strong> errand is run.
-       This prevents re-creation of the VMs in different AZs, which can lead to data loss.
-       <br>All new service instances, however, will be created in the newly configured AZs.</p>
+## <a id="config-pre-provisioned"></a>Configure the Tile for Pre-Provisioned Service
 
-    <p class='note'><strong>Note</strong>: To determine which AZs a service instance is placed in, do one of the following:<br><br>
-      &#9702; Retrieve the service GUID using the <code>cf service SERVICE_INSTANCE --guid</code> command
-       and then run the <code>bosh instances</code> command for the <code>service-instance_GUID</code> deployment.<br><br>
-      &#9702; With syslog forwarding enabled, inspect the service broker logs
-          when running the <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the log message includes the service instance GUID and the AZs the service instance is running in.</p>
+### <a id='dash'></a>Management Dashboard
 
-3. Click **Save**.
+You must choose an admin username and password for RabbitMQ.
 
-#### <a id="access"></a> Change Access to Service Plans Manually
+This will grant you full admin access to RabbitMQ through the Management UI.
 
-You might want to restrict access to a service plan, enabling it only for a specific org.
+<%= image_tag("images/config_credentials.jpeg") %>
 
-<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs,
-   you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs.
-   See the <strong>CF Service Access</strong> field in the above table.</p>
+<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, 
+  save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
-To enable access to a plan for a specific org, run this command:
+### <a id='ha-cluster'></a>Plugins
 
-`cf enable-service-access p.rabbitmq -p PLAN_NAME -o ORG_NAME`
+You can choose which plugins you wish to enable.
 
-For example:
+You must leave the management plugin enabled otherwise nothing will work.
 
-<pre class="terminal">
-  $ cf enable-service-access p.rabbitmq -p my-cluster-plan -o my-dev-org
-</pre>
+<%= image_tag("images/config_plugins.jpeg") %>
 
-For more information on the above command, see [Enable Access to Service Plans](https://docs.cloudfoundry.org/services/access-control.html#enable-access).
+[Click here for more information about RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)
 
-#### <a id="resources"></a> Resource Types and Disk Size Concerns
+### <a id="haproxy"></a>HAProxy Ports
 
-It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is going to be attached to the RabbitMQ instances.
-Suggested value is twice the amount of RAM of the selected VM type.
-For more information, see the [Pivotal RabbitMQ](https://rabbitmq.docs.pivotal.io/index.html) documentation.
+You can choose which ports HAProxy should load balance to the RabbitMQ nodes.
 
-<%= image_tag("images/vm-ram-disk-example.png") %>
+<%= image_tag("images/config_haproxy.jpeg") %>
 
-RabbitMQ raises alarms when disk space drops below the configured limit.
-Incorrect disk sizes might cause the deployed instance not to start.
-RabbitMQ declines to start if there is not enough space available according to the threshold.
+* By default, all the default ports of all the available plugins will be load-balanced. However, if you install extra protocol plugins, or provide a custom configuration that changes the ports RabbitMQ listens on, then you must update the list of load-balanced ports.
 
-Dedicated instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
-Use the following table as a guide when selecting the size of the persistent disk.
+* You must always leave the management plugin listening on port `15672` and load balance that port.
 
-The following table shows an example of possible RAM values, absolute minimal value below which
-RabbitMQ declines to start, and the disk size suggested for an average use case.
+* If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
-<table border="1" class="nice">
-  <tr>
-    <th>RAM</th>
-    <th>Free disk alarm threshold (1.5xRAM)</td>
-    <th>Suggested disk size (2xRAM)</th>
-  <tr>
-  <tr>
-    <td>10 GB</td>
-    <td>4 GB</td>
-    <td>20 GB</td>
-  <tr>
-  <tr>
-    <td>16 GB</td>
-    <td>6.4 GB</td>
-    <td>32 GB</td>
-  <tr>
-  <tr>
-    <td>32 GB</td>
-    <td>12.8 GB</td>
-    <td>64 GB</td>
-  <tr>
-</table>
-
-
-For more information, see the following:
-
-+ [Memory and Disk Alarms](http://www.rabbitmq.com/alarms.html)
-+ [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
-
-### <a id="stemcell"></a> Verify the Stemcell
-
-1. Click **Stemcell**.
-
-2. Verify and, if necessary, import a new stemcell version.
-    For more information, see the information about importing the stemcell for your IaaS:
-    [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
-    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
-    [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
-    [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
-
-
-### <a id="apply-changes"></a> Apply Changes from your Configuration
-
-Your installation is not complete until you apply your configuration changes. Follow the steps below:
-
-1. Return to the Ops Manager Installation Dashboard.
-
-2. Click **Apply Changes**.
-
-## <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
-
-Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [this procedure](./monitor.html#config) to configure logging.
-
-## <a id="no-overwrite"></a>RabbitMQ Server Settings That Cannot Be Disabled
-
-The following plugins are enabled by default and cannot be disabled:
-
-* `rabbitmq_management`
-* `rabbitmq_mqtt`
-* `rabbitmq_stomp`
-* `rabbitmq_federation`
-* `rabbitmq_federation_management`
-* `rabbitmq_shovel`
-* `rabbitmq_shovel_management`
-
-## <a id='errands'></a>Errands
-
-When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
-
-You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
-
-![Configuring One-time Errands](images/errands-installation.png)
-
-<p class='note warning'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
-    Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
-    and dedicated instances of RabbitMQ for PCF may fall behind
-    if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
-
-However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
-
-For more information on errand run rules, see the [Ops Manager documentation](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
-
-### <a id='post-deploy-errands'></a>Post-Deploy Errands
-
-<table class="nice">
-  <th>Errand</th>
-  <th>Description</th>
-  <tr>
-    <td><strong>Broker Registrar</strong></td>
-    <td>Makes the pre-provisioned RabbitMQ service plans available in the Marketplace</td>
-  </tr>
-  <tr>
-    <td><strong>Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
-  </tr>
-  <tr>
-    <td><strong>Register On-Demand Service Broker</strong></td>
-    <td>Makes the on-demand RabbitMQ service plans available in the Marketplace. If you change the Service Plan Configuration,
-    you must run this errand in order for the changes to be reflected in the Marketplace.</td>
-  </tr>
-  <tr>
-    <td><strong>Dedicated Instance Smoke Tests</strong></td>
-    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
-  </tr>
-  <tr>
-    <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the
-    tile is upgraded. If this errand is set to "Off" or "When Changed", updates to Dedicated Instance settings will <strong>not</strong>
-    be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
-  </tr>
-</table>
-
-### <a id='pre-delete-errands'></a>Pre-Delete Errands
-
-<table class="nice">
-  <th>Errand</th>
-  <th>Description</th>
-  <tr>
-    <td><strong>Broker Deregistrar</strong></td>
-    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings</td>
-  </tr>
-  <tr>
-    <td><strong>Delete All Service Instances</strong></td>
-    <td>Unbinds and deletes existing dedicated service instances.
-    The duration of this errand depends on the number of deployed dedicated instances.</td>
-  </tr>
-  <tr>
-    <td><strong>Deregister On-Demand Service Broker</strong></td>
-    <td>Removes the on-demand RabbitMQ service from the Marketplace</td>
-  </tr>
-</table>
-
-
-### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
-
-Smoke tests only run against the cluster plan. The smoke tests perform the following steps:
-
-1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
+### Disk free alarm limit <a id="disk_free_alarm_selector"></a>
+
+You can choose how much disk space rabbit should attempt to keep free at any
+given time. For more information about how this works 'under the hood', see
+[here](https://www.rabbitmq.com/disk-alarms.html). In summary, rabbit will
+periodically check if there is sufficient free space on disk. If there is not,
+rabbit will temporarily stop accepting new messages. This gives your apps time
+to consume existing messages, and thus free up some disk space. In the RabbitMQ
+Tile, we provide four options for this value:
+
+<%= image_tag("images/disk_alarm_threshold.png") %>
+
+* `50MB` is a bare minimum value.
+* `100% Memory` ensures that at the time when rabbit checks the available disk,
+  there must be enough space for rabbit to page all memory-based messages out
+  to disk.
+* `150% Memory` is recommended. This is because it is possible that in between disk-space-checks, rabbit may:
+  - write persistent messages to disk (using up some disk space)
+  - accept more memory-based messages into various queues
+  - page all memory-based messages to disk.
+  In these circumstances, rabbit may require more free disk than it has memory.
+* `200% Memory` is a conservative value, for when the operator wants higher
+  confidence that rabbit will never run out of disk.
+
+  Selecting *50MB* is not recommended and could cause data loss. See below.
+
+#### What are the dangers of setting this value too low?
+
+If the disk of a given rabbit node completely fills while rabbit is running,
+that node will crash. This can lead to data loss, and loss of availability.
+
+Rabbit reserves the right to page any and all messages in memory (even
+transient messages) to disk at any time. You should set your `disk free alarm
+limit` high enough to ensure that rabbit always has at least enough space to do
+this.
+
+#### What are the disadvantages of setting this value too high?
+
+If you set your `disk free alarm limit` to a value larger than the size of your
+persistent disk, then rabbit will never be able to free up enough disk space to
+accept new messages. You should ensure that you have a large enough disk to
+persist all the messages you intend to persist while *also* leaving enough
+space free to satisfy the `disk free alarm limit` that you have chosen.
+
+#### When should I use the `50MB` value?
+
+This is not recommended in production. However, if you are experimenting with a
+development environment you might wish to use a small disk to keep down costs,
+at the expense of increasing the chances that rabbit might crash and lose data.
+
+### <a id='ha-cluster'></a>Connecting to a Highly Available RabbitMQ Cluster
+
+The RabbitMQ tile, allows for a highly available cluster through multiple
+HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added
+and should be used in preference over the equivalent singular properties. The
+singular properties are maintained for backwards compatibility and will always
+contain the first value from the equivalent plural property. The singular
+properties will eventually be deprecated.
+
+For example with two HAProxy jobs deployed the following properties will be present:
+<pre><code>"hostname": "10.0.0.41",
+"hostnames": [
+    "10.0.0.41",
+    "10.0.0.51"]
+</code></pre>
+
+### <a id='port-map'></a>Port to protocol mappings
+
+* 15672 = Management dashboard
+* 5672 = RabbitMQ
+* 5671 = RabbitMQ SSL
+* 1883 = MQTT
+* 8883 = MQTT SSL
+* 61613 = STOMP
+* 61614 = STOMP SSL
+* 15674 = Web STOMP
+* 4567 = RabbitMQ Service Broker
+* 3457 - 3459 = CF Loggregator
+
+### <a id='sec-groups'></a>Security Groups
+
+To enable access to the RabbitMQ tile service, you must ensure your security
+group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. 
+You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
+Ensure the following ports are enabled for those VMs:
+
+* 15672
+* 5672
+* 5671
+* 1883
+* 8883
+* 61613
+* 61614
+* 15674
+* 4567
+* 3457 - 3459
+
+The following is a template for configuring your Cloud Foundry security groups:
+```
+[
+{"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},
+{"protocol":"tcp","destination":"<service-broker-node-IP-addresses>","ports":"4567"}
+]
+```
+
+### <a id="asg"></a>Application Security Groups
+
+To allow this service to have network access you must create
+[Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
+
+<p class="note"><strong>Note</strong>: The service is unusable without Application Security Groups.</p>
+
+### Application Container Network Connections
+
+Application containers that use instances of the RabbitMQ service require the following outbound network connections:
+
+|Destination        |Ports       |Protocol   |Reason
+|---                |---         |---        |---
+|`HAProxy IPs`     |5672         |tcp        |Application containers using AMQP
+|`HAProxy IPs`     |5671       |tcp        |Application containers using AMQP over SSL
+|`HAProxy IPs`     |1883         |tcp        |Application containers using MQTT
+|`HAProxy IPs`     |8883        |tcp        |Application containers using MQTT over SSL
+|`HAProxy IPs`     |61613         |tcp        |Application containers using STOMP
+|`HAProxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
+|`HAProxy IPs`     |61613         |tcp        |Application containers using Web STOMP
+
+Create an ASG named `rabbitmq-app-containers` with the above configuration and bind it to either:
+
+* the appropriate space 
+* the `default-running` ASG set if you want to provide access to all started apps. Then restart your apps. 
+
+  If you are using an external 
+  load balancer, or have more than one IP address for HAProxy, you must also create egress rules for these. For example:
+
+```
+[
+  {
+      "ports": "5671-5672",
+      "protocol": "tcp",
+      "destination": "10.10.10.10/32"
+  }
+]
+```
+
+## <a id="ssl"></a> SSL
+
+You can provide SSL certificates and keys for use by the RabbitMQ cluster.
+
+<%= image_tag("images/config_ssl.jpeg") %>
+
+SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672).
+
+If you provide SSL keys and certificates, you disable non-SSL support.
+
+No other plugins are automatically configured for use with SSL.
+
+SSL settings are applied equally across all machines in the cluster.
+
+For more information about SSL support, see [https://www.rabbitmq.com/ssl.html](https://www.rabbitmq.com/ssl.html).
+
+## <a id="erlang"></a>Erlang Cookie
+
+You can provide an Erlang cookie to be used by the cluster.
+This can be useful if you want to connect directly to the RabbitMQ cluster, such as with `rabbitmqctl`, 
+  or to connect other machines running Erlang.
+
+<%= image_tag("images/config_erlang.jpeg") %>
+
+### <a id="scaling-issue"></a> Cluster Scaling Known Issue
+
+If you have not set the Erlang cookie and you wish to scale-out your cluster
+size without downtime, you'll need to perform the following steps:
+
+* Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
+* `bosh ssh rabbitmq-server/0`
+* `sudo -i`
+* `echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)`
+* Paste the value from the above command into the Erlang cookie field displayed above.
+
+You'll then be able to adjust the size of your cluster and run **Apply Changes**.
+
+**Note**: BOSH will tell you that the cookie has changed - this is because the
+default value in the manifest is empty, which results in an auto-generated
+cookie. The value of the cookie on the server will remain the same, so the section
+below will **not** apply.
+
+### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
+
+If you wish to change your Erlang cookie value, this will require cluster downtime.
+It is also *strongly* recommended that you do not change anything else, as it is
+possible for configuration to be inconsistently applied during this process.
+
+The deployment may also fail---if it does, redeploying will fix the issue.
+
+## <a id="config"></a>RabbitMQ Config
+
+You can optionally provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.  
+  
+<%= image_tag("images/config_rabbitmq.png") %>
+  
+This `rabbitmq.config` file is then provided to all the nodes in the cluster.
+
+You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
+For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
+
+The input must be Base64 encoded.
+
+For example, to configure the
+`rates_mode` of the `rabbitmq_management` stats, which looks like this:
+
+```
+[
+  {rabbitmq_management, [
+    {rates_mode, detailed}
+  ]}
+].
+```
+
+1. Encode the file into Base64: 
+
+    ```
+    WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
+    ```
+
+2. Paste it into the **RabbitMQ configuration** field:
+
+    <%= image_tag("images/config_rabbitmq_file.png") %>
+
+## <a id="tls"></a>TLS Support
+
+TLS v1.0 is disabled by default, due to security issues.
+
+<%= image_tag("images/config_tls.png") %>
+
+TLS v1.1 and v1.2 are enabled by default and can be turned on and off.
+
+## External load balancer
+<%= image_tag("images/config_elb.jpeg") %>
+
+You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
+  to application developers. In this case, HAProxy instance count can be set to zero to avoid an unnecessary vm deployment.
+
+## <a id="assigned_ips"></a> Assigned IPs
+
+RabbitMQ for PCF does not support changing the IP addresses which have been assigned to the RabbitMQ deployments.
+For example, you cannot change the subnet into which the RabbitMQ cluster was originally provisioned.
+Doing so causes the deployment to fail.
+For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+## <a id="static_ips"></a> Static IP addresses
+
+### <a id="switching"></a>Switching from dynamic IPs to static IPs (Upgrading)
+
+You cannot switch from dynamic IP addresses to a different set of static IP addresses, but you can configure Ops Manager so the 
+  current set of dynamically assigned IP addresses always continue to be used. To do this, follow these steps:
+
+1. Go to the Status page on the RabbitMQ product.
+2. Note the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
+3. Go to the Settings tab, and navigate to the Networking page.
+4. Fill the IP addresses you got from the Status page. IP addresses should be in a comma-separated list.
+
+<%= image_tag("images/config_static_ip.png") %>
+
+## <a id="no-overwrite"></a>RabbitMQ Server settings that cannot be overwritten
+* `rabbit halt_on_upgrade_failure false`
+* `rabbitmq_mqtt subscription_ttl 1800000`
+* `log_levels [{connection,info}]`
+* `halt_on_upgrade_failure false`
+* `{rabbit, [ {collect_statistics_interval, 60000}] }`
+* `{rabbitmq_management, [ {rates_mode, none}] }`
+
+When SSL is enabled:
+
+* `rabbit tcp_listeners []`
+* `rabbit ssl_listeners [5671]`
+* `rabbitmq_management listener [{port,15672},{ssl,false}]`
+* `rabbitmq_mqtt ssl_listeners [8883]`
+* `rabbitmq_stomp ssl_listeners [61614]`
+
+## <a id="polling"></a>Configuring Metrics Polling Interval
+The default polling interval is 30 seconds for all deployed components. Pivotal recommends that you do not change this interval. 
+  The lowest interval setting is 10 seconds to avoid overwhelming components.
+This change will affect all deployed instances.
+
+<%= image_tag("images/metrics_polling.png") %>
+
+
+## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
+
+Return to the Ops Manager Installation Dashboard and click **Apply Changes** to complete the installation of RabbitMQ for PCF.
+
+
+## <a id="smoke_test_process"></a> Smoke Test Process
+
+Smoke tests run as a post-deployment errand. The smoke tests perform the following for each available service plan:
+
+1. Target the org <code>system</code> and create a cf space to run the tests.
 1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
-1. Create the RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
+1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
 1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
 1. Clean up the deployed Example App and all its service bindings.
-1. Delete the cf org and space created for the tests.
+1. Delete the cf space created for the tests.
 
 <p class="note"><strong>Note</strong>: Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the <code>system</code> org without specifying a space. To enable global default ASGs, use <code>cf bind-running-security-group</code>.</p>
-## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
 
-If you want to give app developers admin privileges to the RabbitMQ Management UI, you can create an admin user for a service instance and share the user credentials with app developers.
+For more information, see [Errands](./install-config.html#errands).
 
-Both operators and app developers can use this procedure.
-
-To create an admin user on a RabbitMQ instance do the following:
-
-1. Run this command to create a service key:
-
-    <br>`cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
-
-    <br>where:
-
-    <br>`SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`. <br> `SERVICE_KEY` is a name you choose to identify the service key.
-
-    <br>For example:
-
-    <pre class="terminal">
-   $ cf create-service-key my-instance my-admin-key -c '{"tags":"administrator"}'<br>
-   Creating service key my-admin-key for service instance my-instance as user<span>@</span>example.com...
-   OK
-</pre>
-
-1. Run this command to get the admin user credentials:
-
-    <br>`cf service-key SERVICE_INSTANCE SERVICE_KEY` where the variables are the same as above.
-
-    <br>This returns a Dashboard URL containing the admin credentials, which can be used to access the management UI. For example:
-
-    <pre class="terminal">
-   $ cf service-key my-instance my-admin-key<br>
-   Getting key my-admin-key for service instance my-instance as user<span>@</span>example.com...
-   {
-     "dashboard_url": "https://my-instance.bosh-lite.com/#/login/admin-username/admin-password",
-     "username": "admin-username",
-     "password": "admin-password",
-     ...
-   }
-</pre>
