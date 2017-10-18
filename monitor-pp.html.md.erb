@@ -13,9 +13,9 @@ Pre-provisioned RabbitMQ for PCF components generate many of the [same metrics](
 
 See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.html) for general information about logging and metrics in PCF.
 
-## <a id="config"></a>Direct the Logs
+## <a id="config"></a>Set up Syslog Forwarding
 
-To enable monitoring for RabbitMQ for PCF, operators designate an external syslog endpoint for RabbitMQ component log messages. The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
+To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating an external syslog endpoint for RabbitMQ component log messages. The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
 
@@ -43,7 +43,7 @@ RabbitMQ and HAProxy servers log at the <code>info</code> level and capture erro
 ## <a id="metrics"></a>Metrics
 
 Metrics are regularly-generated log messages that report measured component states. The metrics polling interval defaults to 30 seconds.
-This interval is a configuration option on the RabbitMQ tile (**Settings** > **RabbitMQ**).  The interval setting applies to all components deployed by the tile.
+The **metrics polling interval** is a configuration option on the RabbitMQ tile (**Settings** > **RabbitMQ**).  The interval setting applies to all components deployed by the tile.
 
 Metrics are long, single lines of text that follow the format:
 
