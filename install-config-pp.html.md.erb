@@ -21,7 +21,56 @@ This adds the tile to your staging area.
 
 4. Click the newly added **RabbitMQ for PCF** tile.
 
-## <a id="config-pre-provisioned"></a>Configure the Tile for Pre-Provisioned Service
+## <a id="tile_configurations"></a>Configure Pre-Provisioned RabbitMQ for PCF
+
+The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager. An orange circle beside a tab indicates that you must complete a configuration in the tab. A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
+
+![Rabbit Tile Configuration](images/rmq_tile_config.png)
+
+### <a id="config-tabs"></a> Which Settings Tabs Do I Use for the Pre-Provisioned Service
+
+Use the following tabs for configuring the pre-provisioned service:
+
+<table>
+  <tr><th>RabbitMQ Settings Tab</th><th>Instructions</th>
+  </tr>
+  <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Configure AZs and Networks</a></td>
+  </tr>
+  <tr><td>RabbitMQ</td><td><a href="#rabbitmq-cluster">RabbitMQ Cluster Configuration</a></td>
+  </tr>
+  <tr><td>Syslog</td><td><a href="./monitor-pp.html#config">Set up Syslog Forwarding</a></td>
+  </tr>
+  <tr><td>Errands</td><td><a href="#errands">Errands</a></td>
+  </tr>
+  <tr><td>Stemcell</td><td><a href="#stemcell">Verify the Stemcell</a></td>
+  </tr>
+</table>
+
+### <a id="azs-networks"></a>  Configure AZs and Networks
+
+ Follow the steps below to configure the AZs and networks.
+
+ 1. Click **Assign AZs and Networks**.
+     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+
+ 2. Configure the fields on the **Assign AZs and Networks** as follows:
+   <table>
+     <tr><th>Field</th><th>Instructions</th></tr>
+     <tr><td><strong>Balance other jobs in</strong></td>
+         <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
+     <tr><td><strong>Network</strong></td>
+         <td>Select a network for the RabbitMQ On-Demand Broker.<br><br>
+             This should be a separate network from the one you select for <strong>Service Network</strong>. This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
+             Typically, you select the network used for the Pivotal Elastic Runtime components.
+         </td></tr>
+   </table>
+
+    <p class="note warning"><strong>WARNING</strong>: Changing the Network after you have configured it, or changing the IP configuration,
+       results in a failed deployment.
+       For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
+
+ 3. Click **Save**.
+
 
 ### <a id='dash'></a>Management Dashboard
 
@@ -250,7 +299,7 @@ possible for configuration to be inconsistently applied during this process.
 
 The deployment may also fail---if it does, redeploying will fix the issue.
 
-## <a id="config"></a>RabbitMQ Config
+## <a id="rabbitmq-cluster"></a>RabbitMQ Cluster Configuration
 
 You can optionally provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.  
   
@@ -342,10 +391,90 @@ This change will affect all deployed instances.
 
 <%= image_tag("images/metrics_polling.png") %>
 
+## <a id="stemcell"></a> Verify the Stemcell
+
+1. Click **Stemcell**.
+
+2. Verify and, if necessary, import a new stemcell version.
+    For more information, see the information about importing the stemcell for your IaaS:
+    [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
+    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
+    [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell),
+    [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
+
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
 
 Return to the Ops Manager Installation Dashboard and click **Apply Changes** to complete the installation of RabbitMQ for PCF.
+
+## <a id='errands'></a>Errands
+
+When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+
+You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
+
+![Configuring One-time Errands](images/errands-installation.png)
+
+<p class='note warning'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
+    Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
+    and dedicated instances of RabbitMQ for PCF may fall behind
+    if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
+
+However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
+
+For more information on errand run rules, see the [Ops Manager documentation](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### <a id='post-deploy-errands'></a>Post-Deploy Errands
+
+<table class="nice">
+  <th>Errand</th>
+  <th>Description</th>
+  <tr>
+    <td><strong>Broker Registrar</strong></td>
+    <td>Makes the pre-provisioned RabbitMQ service plans available in the Marketplace</td>
+  </tr>
+  <tr>
+    <td><strong>Smoke Tests</strong></td>
+    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
+    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+  </tr>
+  <tr>
+    <td><strong>Register On-Demand Service Broker</strong></td>
+    <td>Makes the on-demand RabbitMQ service plans available in the Marketplace. If you change the Service Plan Configuration,
+    you must run this errand in order for the changes to be reflected in the Marketplace.</td>
+  </tr>
+  <tr>
+    <td><strong>Dedicated Instance Smoke Tests</strong></td>
+    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
+    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+  </tr>
+  <tr>
+    <td><strong>Upgrade All Service Instances</strong></td>
+    <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the
+    tile is upgraded. If this errand is set to "Off" or "When Changed", updates to Dedicated Instance settings will <strong>not</strong>
+    be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
+  </tr>
+</table>
+
+### <a id='pre-delete-errands'></a>Pre-Delete Errands
+
+<table class="nice">
+  <th>Errand</th>
+  <th>Description</th>
+  <tr>
+    <td><strong>Broker Deregistrar</strong></td>
+    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings</td>
+  </tr>
+  <tr>
+    <td><strong>Delete All Service Instances</strong></td>
+    <td>Unbinds and deletes existing dedicated service instances.
+    The duration of this errand depends on the number of deployed dedicated instances.</td>
+  </tr>
+  <tr>
+    <td><strong>Deregister On-Demand Service Broker</strong></td>
+    <td>Removes the on-demand RabbitMQ service from the Marketplace</td>
+  </tr>
+</table>
 
 
 ## <a id="smoke_test_process"></a> Smoke Test Process
