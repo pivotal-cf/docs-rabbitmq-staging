@@ -357,7 +357,6 @@ Smoke tests only run against the cluster plan. The smoke tests perform the follo
 1. Clean up the deployed Example App and all its service bindings.
 1. Delete the cf org and space created for the tests.
 
-<p class="note"><strong>Note</strong>: Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the <code>system</code> org without specifying a space. To enable global default ASGs, use <code>cf bind-running-security-group</code>.</p>
 ## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
 
 If you want to give app developers admin privileges to the RabbitMQ Management UI, you can create an admin user for a service instance and share the user credentials with app developers.
