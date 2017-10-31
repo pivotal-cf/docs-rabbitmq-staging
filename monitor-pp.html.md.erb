@@ -13,19 +13,9 @@ Pre-provisioned RabbitMQ for PCF components generate many of the [same metrics](
 
 See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.html) for general information about logging and metrics in PCF.
 
-## <a id="config"></a>Set up Syslog Forwarding
+## <a id="config"></a>Setting up Syslog Forwarding
 
-To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating an external syslog endpoint for RabbitMQ component log messages. The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
-
-To specify the destination for RabbitMQ for PCF log messages, do the following:
-
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
-1. In the RabbitMQ tile, click the **Settings** tab.
-1. Click **Syslog**.
-1. Enter your syslog address and port.
-  ![Configure syslog pane](syslog-config.png)
-1. Click **Save**.
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
+To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating an external syslog endpoint for RabbitMQ component log messages. For instructions on setting up syslog forwarding, see [Syslog](./install-config-pp.html#syslog).
 
 ## <a id="format"></a>Logging Formats
 
