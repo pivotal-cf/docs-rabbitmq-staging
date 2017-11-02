@@ -58,13 +58,13 @@ Use the following tabs for configuring the pre-provisioned service:
  2. Configure the fields on the **Assign AZs and Networks** as follows.
     All fields are required, though some do not apply to the pre-provisioned service.
    <table>
-     <tr><th>Field</th><th>Instructions</th></tr>
+     <tr><th>Required Fields</th><th>Instructions</th></tr>
      <tr><td><strong>Place singleton jobs in</strong></td>
          <td>Select a region.
-             This selection does not affect the pre-provisioned service.</td></tr>
+             This selection only affects the on-demand service.</td></tr>
      <tr><td><strong>Balance other jobs in</strong></td>
          <td>Select additional region(s).
-             This selection does not affect the on-demand service.</td></tr>
+             This selection only affects the pre-provisioned service.</td></tr>
      <tr><td><strong>Network</strong></td>
          <td>Select a network for the RabbitMQ Broker.<br><br>
              This should be a separate network from the one you select for <strong>Service Network</strong>.
@@ -74,7 +74,7 @@ Use the following tabs for configuring the pre-provisioned service:
          </td></tr>
      <tr><td><strong>Service Network</strong></td>
          <td>Select a network.
-             This selection does not affect the pre-provisioned service.</td></tr>
+             This selection only affects the on-demand service.</td></tr>
    </table>
 
     <p class="note warning"><strong>WARNING</strong>: Changing the Network after you have configured it, or changing the IP configuration,
