@@ -331,7 +331,7 @@ This is a one-time setting on the installation dashboard:
 
 <p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
-    and dedicated instances of RabbitMQ for PCF may fall behind
+    and on-demand instances of RabbitMQ for PCF may fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
@@ -365,9 +365,9 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the
+    <td>On-demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
     tile is upgraded.
-    If this errand is set to "Off" or "When Changed", updates to Dedicated Instance settings will <strong>not</strong>
+    If this errand is set to "Off" or "When Changed", updates to <strong>Dedicated Instance</strong> settings will <strong>not</strong>
     be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
   </tr>
 </table>
@@ -399,7 +399,7 @@ For more information, see [Errands](./install-config.html#errands).
   <tr>
     <td><strong>Delete All Service Instances</strong></td>
     <td>Unbinds and deletes existing dedicated service instances.
-    The duration of this errand depends on the number of deployed dedicated instances.</td>
+    The duration of this errand depends on the number of deployed on-demand instances.</td>
   </tr>
   <tr>
     <td><strong>Deregister On-Demand Service Broker</strong></td>
