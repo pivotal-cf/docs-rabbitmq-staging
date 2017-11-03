@@ -52,7 +52,7 @@ This interval is a configuration option on the RabbitMQ tile (**Settings** > **R
 Metrics are long, single lines of text that follow the format:
 
 ```mac
-origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB">
+origin:"p.rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p.rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB">
 ```
 
 ### <a id="partition-indicator"></a>Partition Indicator
@@ -65,7 +65,7 @@ indication that that node might be in a partition.
 An example of that metrics is:
 
 ```mac
-origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/erlang/reachable_nodes" value:3 unit:"count">
+origin:"p.rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p.rabbitmq/rabbitmq/erlang/reachable_nodes" value:3 unit:"count">
 ```
 
 Monitors can be created to emit alerts in case a cluster seems to be in a
@@ -98,7 +98,7 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
 #### <a id="broker-heartbeat"></a> Service Broker Heartbeat
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.service_broker.heartbeat<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq.service_broker.heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RabbitMQ Service Broker <code>is alive</code> poll, which indicates if the component is available and able to respond to requests.<br><br>
@@ -129,7 +129,7 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
 #### <a id="server-heartbeat"></a> Server Heartbeat
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.heartbeat<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq.rabbitmq.heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RabbitMQ Server <code>is alive</code> poll, which indicates if the component is available and 
@@ -166,7 +166,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="file-descriptors"></a> File Descriptors
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.file_descriptors<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq.rabbitmq.system.file_descriptors<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>File descriptors consumed.<br><br>
@@ -198,7 +198,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="erlang-processes"></a> Erlang Processes
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.erlang_processes<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq.rabbitmq.system.erlang_processes<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td><a href="https://www.erlang.org/docs">Erlang</a> processes consumed by RabbitMQ, which runs on an Erlang VM.<br><br>
@@ -373,128 +373,128 @@ RabbitMQ for PCF message server components emit the following metrics.
         <th>Description</th>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq.rabbitmq.heartbeat</code></td>
+        <td><code>/p.rabbitmq.rabbitmq.heartbeat</code></td>
         <td>boolean</td>
         <td>Indicates whether the RabbitMQ server is available and able to respond to requests</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/erlang/erlang_processes</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/erlang/erlang_processes</code></td>
         <td>count</td>
         <td>The number of Erlang processes</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/system/memory</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/system/memory</code></td>
         <td>MB</td>
         <td>The memory in MB used by the node</td>
     </tr>
 
     <tr>
-      <td><code>/p-rabbitmq/rabbitmq/system/mem_alarm</code></td>
+      <td><code>/p.rabbitmq/rabbitmq/system/mem_alarm</code></td>
       <td>boolean</td>
       <td>Indicates if the memory alarm has gone off</td>
     </tr>
 
     <tr>
-      <td><code>/p-rabbitmq/rabbitmq/system/disk_free_alarm</code></td>
+      <td><code>/p.rabbitmq/rabbitmq/system/disk_free_alarm</code></td>
       <td>boolean</td>
       <td>Indicates if the disk free alarm has gone off</td>
     </tr>
 
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/connections/count</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/connections/count</code></td>
         <td>count</td>
         <td>The total number of connections to the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/consumers/count</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/consumers/count</code></td>
         <td>count</td>
         <td>The total number of consumers registered in the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/delivered</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/delivered</code></td>
         <td>count</td>
         <td>The total number of messages with the status <code>deliver_get</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/delivered_no_ack</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/delivered_no_ack</code></td>
         <td>count</td>
         <td>The number of messages with the status <code>deliver_no_ack</code> on the node</td>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/delivered_rate</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/delivered_rate</code></td>
         <td>rate</td>
         <td>The rate at which messages are being delivered to consumers or clients on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/published</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/published</code></td>
         <td>count</td>
         <td>The total number of messages with the status <code>publish</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/published_rate</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/published_rate</code></td>
         <td>rate</td>
         <td>The rate at which messages are being published by the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/redelivered</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/redelivered</code></td>
         <td>count</td>
         <td>The total number of messages with the status <code>redeliver</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/redelivered_rate</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/redelivered_rate</code></td>
         <td>rate</td>
         <td>The rate at which messages are getting the status <code>redeliver</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/got _no_ack</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/got _no_ack</code></td>
         <td>count</td>
         <td>The number of messages with the status <code>get_no_ack</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/get _no_ack_rate</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/get _no_ack_rate</code></td>
         <td>rate</td>
         <td>The rate at which messages get the status <code>get_no_ack</code> on the node</td>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/pending</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/pending</code></td>
         <td>count</td>
         <td>The number of messages with the status <code>messages_unacknowledged</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/depth</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/depth</code></td>
         <td>count</td>
         <td>The number of messages with the status <code>messages_unacknowledged</code> or <code>messages_ready</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/system/file descriptors</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/system/file descriptors</code></td>
         <td>count</td>
         <td>The number of open file descriptors on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/exchanges/count</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/exchanges/count</code></td>
         <td>count</td>
         <td>The total number of exchanges on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/available</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/messages/available</code></td>
         <td>count</td>
         <td>The total number of messages with the status <code>messages_ready</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/queues/count</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/queues/count</code></td>
         <td>count</td>
         <td>The number of queues on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/channels/count</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/channels/count</code></td>
         <td>count</td>
         <td>The number of channels on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/consumers</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/consumers</code></td>
         <td>count</td>
         <td>The number of consumers per virtual host per queue </td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/depth</code></td>
+        <td><code>/p.rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/depth</code></td>
         <td>count</td>
         <td>The number of messages with the status <code>messages_unacknowledged</code> or <code>messages_ready</code> per virtual host per queue </td>
     </tr>
