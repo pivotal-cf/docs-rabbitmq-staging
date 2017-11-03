@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring <br>the On-Demand Service
+title: Installing and Configuring the On-Demand Service
 owner: London Services
 ---
 
@@ -7,7 +7,7 @@ This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about 
 
 <p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
 as a pre-provisioned service, see
-<a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
+<a href="./install-config-pp.html">Installing and Configuring the Pre-Provisioned Service</a>.</p>
 
 ## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
 
@@ -15,7 +15,7 @@ Before deploying RabbitMQ for PCF as an on-demand service, you must ensure that 
 
 See [Required Networking Rules for On-Demand Services](about.html#network-rules) for details on the network connections that must be open to enable the on-demand service.
 
-For information on the on-demand service architecture, see [this page](about.html).
+For information about the on-demand service architecture, see [On-Demand Service Architecture](about.html).
 
 ## <a id="install"></a> Download and Install RabbitMQ for PCF
 
@@ -42,7 +42,7 @@ Use the following tabs for configuring the on-demand service:
   </tr>
   <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Configure AZs and Networks</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td>Set the Metrics polling interval only. See <a href="./monitor.html#metrics">this topic</a>.</td>
+  <tr><td>RabbitMQ</td><td>Set the Metrics polling interval only. See <a href="./monitor.html#metrics">What Are Metrics</a>.</td>
   </tr>
   <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
   </tr>
@@ -63,7 +63,7 @@ Use the following tabs for configuring the on-demand service:
  Follow the steps below to configure the AZs and networks.
 
  1. Click **Assign AZs and Networks**.
-     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [Apply Changes from Your Configuration](#apply-changes) below.</p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
@@ -74,13 +74,14 @@ Use the following tabs for configuring the on-demand service:
          <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
      <tr><td><strong>Network</strong></td>
          <td>Select a network for the RabbitMQ On-Demand Broker.<br><br>
-             This should be a separate network from the one you select for <strong>Service Network</strong>. This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
+             This should be a separate network from the one you select for <strong>Service Network</strong>.
+             For more information about the Default Network, see <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
              Typically, you select the network used for the Pivotal Elastic Runtime components.
          </td></tr>
      <tr><td><strong>Service Network</strong></td>
          <td> Select a separate network that the on-demand service instances run on.<br><br>
               A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.  
-              This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. <br><br>
+              For information about the Service Network, see <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
               This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
    </table>
 
@@ -96,7 +97,7 @@ On the **RabbitMQ** tab, set a metrics polling interval. For more information, s
 
 ### <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
 
-Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [this procedure](./monitor.html#config) to configure logging.
+Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [Set Up Syslog Forwarding](./monitor.html#config) to configure logging.
 
 
 ### <a id="global"></a>Configure Global Settings
@@ -138,13 +139,14 @@ In order to enable the on-demand service plan(s), you must enable either of thes
     <td>For the Cluster Plan, select an access level.
         This setting is enabled by default.
         If you change this default setting, the smoke tests fail.
-        Therefore, disable the smoke tests [errand](#errands) for this plan if you change the default.<br>
+        Therefore, disable the smoke tests errand for this plan if you change the default.
+        For more information, see [Errands](#errands).<br>
       <br><ul>
         <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
         </li>
         <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the Marketplace. This setting cannot be selected at a later time in the UI.
         </li>
-        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can [change the access settings](#access) later manually using the cf CLI.
+        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can change the access settings later using the cf CLI. For more information, see [Change Access to Service Plans Manually](#access) below.
         </li>
       </ul></td></tr>
     <tr><td><strong>Plan name</strong></td>
@@ -160,7 +162,7 @@ In order to enable the on-demand service plan(s), you must enable either of thes
             Previously deployed service instances are **not** updated.</td></tr>
     <tr><td><strong>Network partition behaviour</strong></strong></td>
         <td>(Cluster Plan Only) Select pause minority or autoheal. Pivotal recommends using pause minority.
-            For more information, see <a href="./ondemand.html#tradeoff">this topic</a>.</td></tr>
+            For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type. The plan creates a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
@@ -267,7 +269,7 @@ For more information, see the following:
     [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
 
 
-### <a id="apply-changes"></a> Apply Changes from your Configuration
+### <a id="apply-changes"></a> Apply Changes from Your Configuration
 
 Your installation is not complete until you apply your configuration changes. Follow the steps below:
 
@@ -279,7 +281,7 @@ Your installation is not complete until you apply your configuration changes. Fo
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [Post-Deploy Errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
 You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
 
@@ -292,7 +294,7 @@ You can decide whether to run errands by toggling them on or off before an updat
 
 However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
 
-For more information on errand run rules, see the [Ops Manager documentation](https://docs.pivotal.io/pivotalcf/1-12/customizing/managing_errands.html#rules).
+For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/1-12/customizing/managing_errands.html#rules).
 
 ### <a id='post-deploy-errands'></a>Post-Deploy Errands
 
@@ -306,7 +308,8 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <tr>
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+    publish and subscribe to a RabbitMQ cluster.
+    See <a href="#dedicated_instance_smoke_test_process">Dedicated Instance Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -316,7 +319,8 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <tr>
     <td><strong>Dedicated Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+    publish and subscribe to a RabbitMQ cluster.
+    See <a href="#dedicated_instance_smoke_test_process">Dedicated Instance Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
@@ -352,7 +356,7 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 Smoke tests only run against the cluster plan. The smoke tests perform the following steps:
 
 1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
-1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
+1. Deploy an instance of the [RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
 1. Create the RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
 1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
 1. Clean up the deployed Example App and all its service bindings.
