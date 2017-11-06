@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring the On-Demand Service
+title: Installing and Configuring the <br>On-Demand Service
 owner: London Services
 ---
 
@@ -112,14 +112,14 @@ Follow the steps below to configure global settings.
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to enable the on-demand service plan(s), you must enable either of these plans:
+In order to enable the on-demand service plan(s), you must enable one or both of these plans:
 
-* **Dedicated Instance: Single Node Plan**---Configures a single node of RabbitMQ Server. You must complete the required fields on this tab even if you disable this plan.
+* **Dedicated Instance: Single Node Plan**---Configures a single node of RabbitMQ Server. You must complete the required fields on this tab even if you disable access to this plan (see **CF Service Access** in the table below).
 
 * **Dedicated Instance: Cluster Plan**---Configures a cluster with three to seven RabbitMQ Server nodes. This plan is disabled by default.
 
 
-<p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
+<p class="note"><strong>Note</strong>: If the on-demand service is not enabled, the on-demand broker is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
 1. Choose the dedicated service instance you want to configure:<br><br>**Single Node Plan** (complete required fields even if you disable this plan):
@@ -134,12 +134,12 @@ In order to enable the on-demand service plan(s), you must enable either of thes
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
-        <td>(Cluster Plan Only) Select plan enable.</td></tr>
+        <td>(Cluster Plan Only) To enable, select **Plan Enable**.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
-    <td>For the Cluster Plan, select an access level.
-        This setting is enabled by default.
+    <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
+        If you enable the cluster plan, the default setting is **Enable Service Access**.
         If you change this default setting, the smoke tests fail.
-        Therefore, disable the smoke tests errand for this plan if you change the default.
+        Therefore, set the **Dedicated Instance Smoke Tests** errand to **Off** if you enable the cluster plan and change this default.
         For more information, see [Errands](#errands).<br>
       <br><ul>
         <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
