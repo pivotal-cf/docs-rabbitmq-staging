@@ -128,7 +128,7 @@ It is important to be aware that message queue availability is different from cl
 So, having cluster availability does not mean that all of the messages within the queues are also available.
 
 By default, queues within a RabbitMQ cluster are located on a single node---the node on which they were first declared.
-However, queues can be configured to mirror across multiple nodes, so that any message published to the queue is replicated to all mirrors. 
+However, queues can be configured to mirror across multiple nodes, so that any message published to the queue is replicated to all mirrors.
 Enabling mirroring can have a negative impact on queue performance because messages must be copied to all mirrors before being acknowledged.
 
 Each mirrored queue consists of one master and one or more mirrors, with the oldest mirror being promoted to the new master if the old master disappears for any reason.
@@ -212,6 +212,16 @@ This section explains these options.
 
 The following is pre-configured for both the single node and the cluster plans:
 
+* **RabbitMQ VM Type**---When installing on `PCF 2.0` or later, each RabbitMQ node will be configured to have the following properties:
+  - cpus: 2
+  - ram: 8GB
+  - ephemeral disk: 16GB
+
+  This can be altered by going to a plan page and selecting a different option from the `RabbitMQ VM Type` dropdown list. Changing this will effect all nodes.
+
+* **Persistent Disk Type**---When installing on `PCF 2.0` or later, each RabbitMQ node will be configured to have `30GB` of persistent disk space. This can be altered by going to a plan page a selecting an option from the `Persistent Disk Type` dropdown list.
+  > Please configure this value to be 2x the amount of RAM of the selected RabbitMQ VM Type
+
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
   The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.
   Due to the impact of some of the cluster settings detailed below,
@@ -225,7 +235,7 @@ The following is pre-configured for both the single node and the cluster plans:
   For example, if you select an instance type with 10&nbsp;GB of RAM, the disk free space limit is set to 15&nbsp;GB.
   A cluster-wide alarm is triggered if the amount of free disk space drops below this, and all publishers are blocked.
   Instances must be configured to have persistent disks that are at least twice the size of instance RAM.
-  For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html). 
+  For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html).
 
 * **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM.
   This means that when the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.

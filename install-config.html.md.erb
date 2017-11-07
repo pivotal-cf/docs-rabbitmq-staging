@@ -212,9 +212,8 @@ For more information on the above command, see [Enable Access to Service Plans](
 
 #### <a id="resources"></a> Resource Types and Disk Size Concerns
 
-It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is going to be attached to the RabbitMQ instances.
-Suggested value is twice the amount of RAM of the selected VM type.
-For more information, see the [Pivotal RabbitMQ](https://rabbitmq.docs.pivotal.io/index.html) documentation.
+It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is going to be attached to the RabbitMQ instances. If you are installing on `PCF 2.0` or later, these properties are pre-configured. Please see the [pre-configured documentation](https://docs.pivotal.io/rabbitmq-cf/1-10/ondemand.html#preconfigurd) for more information. When choosing a `Persistent Disk Type`, the suggested value is twice the amount of RAM of the selected `RabbitMQ VM Type`.
+For more information on this, see the [Pivotal RabbitMQ](https://rabbitmq.docs.pivotal.io/index.html) documentation.
 
 <%= image_tag("images/vm-ram-disk-example.png") %>
 
@@ -414,4 +413,3 @@ The following plugins are enabled by default and cannot be disabled:
 * `rabbitmq_federation_management`
 * `rabbitmq_shovel`
 * `rabbitmq_shovel_management`
-
