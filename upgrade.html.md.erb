@@ -1,9 +1,7 @@
 ---
-title: RabbitMQ&reg; for Pivotal Cloud Foundry
+title: Upgrading RabbitMQ&reg; for PCF
 owner: London Services
 ---
-
-# Upgrades
 
 This product enables automated upgrades between versions of the product and is deployed through Ops Manager, and due to RabbitMQ product limitations may require the cluster to be taken offline.  When this is necessary it is clearly noted in the release notes for that version.
 
@@ -11,6 +9,8 @@ Note there is a difference between the cluster remaining available during a tile
 The upgrade paths are detailed [here](http://docs.pivotal.io/rabbitmq-cf/index.html) for each released version.
 
 A reference guide for deployments is shown the table below.  Please be aware that this is a guide only and that the release notes for the version you are updating to must be checked before upgrading.
+
+## <a id="downtime"></a> Downtime When Upgrading
 
 <table border="1" class="nice">
 <tr>
@@ -94,16 +94,16 @@ the upgrade and this process must not be interrupted.
 For any issues upgrading RabbitMQ, please refer to the
 [Troubleshooting](./troubleshoot.html) section.
 
-### What do I need to do before upgrading to a newer version of RabbitMQ or Erlang?
+## <a id="preupgrade"></a> What do I need to do before upgrading to a newer version of RabbitMQ or Erlang?
 Ensure the cluster is healthy via the RabbitMQ Management UI. You cannot rely
 on the `bosh instances` output, that reflects the state of Erlang VM, not
 RabbitMQ.
 
-## Why do I want to stop RabbitMQ?
+### Why do I want to stop RabbitMQ?
 We have to stop RabbitMQ when we are upgrading RabbitMQ package or Erlang VM
 version.
 
-## Release policy
+## <a id="policy"></a> Release Policy
 
 When a new version of RabbitMQ is released we aim to release a new version of
 the product containing this soon after.
