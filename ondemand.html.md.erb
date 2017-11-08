@@ -128,7 +128,8 @@ It is important to be aware that message queue availability is different from cl
 So, having cluster availability does not mean that all of the messages within the queues are also available.
 
 By default, queues within a RabbitMQ cluster are located on a single node---the node on which they were first declared.
-However, queues can be configured to mirror across multiple nodes, so that any message published to the queue is replicated to all mirrors.
+However, queues can be configured to mirror across multiple nodes,
+so that any message published to the queue is replicated to all mirrors.
 Enabling mirroring can have a negative impact on queue performance because messages must be copied to all mirrors before being acknowledged.
 
 Each mirrored queue consists of one master and one or more mirrors, with the oldest mirror being promoted to the new master if the old master disappears for any reason.
@@ -212,16 +213,19 @@ This section explains these options.
 
 The following is preconfigured for both the single node and the cluster plans:
 
-* **RabbitMQ VM Type**---When installing on PCF 2.0 or later, each RabbitMQ node is configured to have the following properties:
+* **RabbitMQ VM Type**---When installing on PCF v2.0 or later, each RabbitMQ node is configured to have the following properties:
   - CPUs: 2
-  - RAM: 8GB
-  - Ephemeral disk: 16GB
+  - RAM: 8&nbsp;GB
+  - Ephemeral disk: 16&nbsp;GB
 
-    You can change these settings in the [Service Plan Configuration](./install-config.html#service-plan) page. Changing these settings affects all nodes.
+    You can change these settings in the [Service Plan Configuration](./install-config.html#service-plan) page.
+    Changing these settings affects all nodes.
 
-* **Persistent Disk Type**---When installing on PCF 2.0 or later, each RabbitMQ node will be configured to have 30GB of persistent disk space. 
+* **Persistent Disk Type**---When installing on PCF v2.0 or later,
+    each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space. 
 
-    <br>You can change this setting in the [Service Plan Configuration](./install-config.html#service-plan) page. Pivotal recommends you set this value to be 2x the amount of RAM of the selected **RabbitMQ VM Type**.
+    <br>You can change this setting in the [Service Plan Configuration](./install-config.html#service-plan) page.
+        Pivotal recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
   The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.
