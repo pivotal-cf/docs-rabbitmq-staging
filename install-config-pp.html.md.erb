@@ -20,6 +20,7 @@ Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 This adds the tile to your staging area.
 
 4. Click the newly added **RabbitMQ for PCF** tile.
+This lets you begin configuring the tile. The installation is complete when you apply the changes from the configuration.
 
 ## <a id="tile_configurations"></a>Configure Pre-Provisioned RabbitMQ for PCF
 
@@ -29,9 +30,9 @@ A green checkmark indicates that the tab is preconfigured and you may optionally
 
 ![Rabbit Tile Configuration](images/rmq_tile_config.png)
 
-### <a id="config-tabs"></a> Which Settings Tabs to Use for the Pre-Provisioned Service
+### <a id="config-tabs"></a> Which Settings Tabs to Configure for the Pre-Provisioned Service
 
-Use the following tabs for configuring the pre-provisioned service:
+Configure the following tabs for the pre-provisioned service:
 
 <table>
   <tr><th>RabbitMQ Settings Tab</th><th>Instructions</th>
@@ -92,12 +93,12 @@ To configure the following sections in the **RabbitMQ** tab, in the [Settings](#
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
-You must choose an admin username and password for RabbitMQ.
+Enter an admin username and password for RabbitMQ.
 This grants you full admin access to the RabbitMQ Management UI.
 
 Enter the desired credentials in this section of the RabbitMQ tab:
 
-<br><%= image_tag("images/config-credentials.png") %>
+<%= image_tag("images/config-credentials.png") %>
 
 <p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, 
   save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
@@ -105,9 +106,9 @@ Enter the desired credentials in this section of the RabbitMQ tab:
 
 ### <a id='ha-cluster'></a>Plugins
 
-You can choose which plugins you want to enable in this section of the **RabbitMQ** tab.
+Choose which plugins you want to enable in this section of the **RabbitMQ** tab.
 
-You must leave the management plugin enabled for this product to work.
+You must leave the **rabbitmq_management** plugin enabled for this product to work.
 
 <%= image_tag("images/config-plugins.png") %>
 
@@ -115,71 +116,75 @@ For more information about RabbitMQ plugins, see the [RabbitMQ documentation](ht
 
 ### <a id="haproxy"></a>HAProxy Ports
 
-You can choose which ports HAProxy should load balance to the RabbitMQ nodes in this section of the **RabbitMQ** tab:
+Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config-haproxy.png") %>
 
-* By default, all the default ports of all the available plugins will be load-balanced.
-However, if you install extra protocol plugins or provide a custom configuration that changes the ports RabbitMQ listens on,
+* All the default ports of all the available plugins are load-balanced by default.
+However, if you install extra protocol plugins, or provide a custom configuration that changes the ports RabbitMQ listens on,
 then you must update the list of load-balanced ports.
 
-* You must always leave the management plugin listening on port `15672` and load balance that port.
+* You must leave the management plugin listening on port `15672` and load balance that port.
 
 * If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
 ### <a id="ssl"></a> SSL
 
-You can provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **RabbitMQ** tab:
+You can optionally provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config_ssl.png") %>
 
-* SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672).
+* SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). No other plugins are automatically configured for use with SSL.
 
-* If you provide SSL keys and certificates, you disable non-SSL support.
-
-* No other plugins are automatically configured for use with SSL.
+* If you provide SSL keys and certificates non-SSL support is disabled.
 
 * SSL settings are applied equally across all VMs in the cluster.
 
-For more information about SSL support, see [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
+For more information about SSL support, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
 
 ### <a id="erlang"></a>Erlang Cookie
 
-You can provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
+You can optionally provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
 This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`, 
 or to connect other VMs running Erlang.
 
 <%= image_tag("images/config-erlang.png") %>
 
-### Known Issues with Erlang Cookie
+#### Known Issues with Erlang Cookie
 
-There are a couple of know issues associated with the Erlang cookie. 
+There are two known issues associated with the Erlang cookie when you do the following: 
+
+* [Cluster Scaling](#scaling-issue)
+* [Changing the Erlang Cookie Value](#changing-issue)
 
 #### <a id="scaling-issue"></a> Cluster Scaling Known Issue
 
 If you have not set the Erlang cookie and you want to scale-out your cluster
-size without downtime, you'll need to perform the following steps:
+size without downtime, follow these steps:
 
-* Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
-* `bosh ssh rabbitmq-server/0`
-* `sudo -i`
-* `echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)`
-* Paste the value from the above command into the Erlang cookie field displayed above.
+1. Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
+1. Run the following commands: 
+  <pre class="terminal">
+  bosh ssh rabbitmq-server/0
+  sudo -i
+  echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
+</pre>
+1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown above.
 
-You'll then be able to adjust the size of your cluster and run **Apply Changes**.
+1. Adjust the size of your cluster in the **Resource Config** tab, return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
 
-<p class="note"><strong>Note</strong>: BOSH will tell you that the cookie has changed---this is because the
+<p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
 default value in the manifest is empty, which results in an auto-generated
-cookie. The value of the cookie on the server will remain the same, so the section
-below will <strong>not</strong> apply.</p> 
+cookie. However, the value of the cookie on the server remains the same, so the known issue
+below does <strong>not</strong> apply.</p> 
 
 #### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
-If you want to change your Erlang cookie value, this will require cluster downtime.
-Pivotal *strongly* recommends that you do not change anything else, because it is
-possible for configuration to be inconsistently applied during this process.
+Changing the Erlang cookie value requires cluster downtime.
+Pivotal *strongly* recommends that you do not change anything else during this time, because it is
+possible for the configuration to be inconsistently applied during this process.
 
-The deployment might also fail---if it does, redeploying will fix the issue.
+The deployment may fail after this process. If so, redeploying fixes the issue.
 
 ### <a id="configfile"></a> RabbitMQ Configuration
 
@@ -189,11 +194,7 @@ This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 <%= image_tag("images/config_rabbitmq.png") %>
   
 
-
-You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
-For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
-
-The input must be Base64 encoded.
+The input in this field must be Base64 encoded.
 
 For example, suppose you want to configure the
 `rates_mode` of the `rabbitmq_management` stats below:
@@ -216,6 +217,10 @@ For example, suppose you want to configure the
 
     <%= image_tag("images/config_rabbitmq_file.png") %>
 
+
+You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
+For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
+
 ### <a id="tls"></a>TLS Support
 
 Configure TLS in this section of the **RabbitMQ** tab: 
@@ -229,97 +234,101 @@ Configure TLS in this section of the **RabbitMQ** tab:
 
 ### External Load Balancer
 
-In this section of the **RabbitMQ** tab, you can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
-  to application developers. 
-  In this case, you can set the HAProxy instance count in the **Resource Config** tab to zero to avoid an unnecessary VM deployment. 
+You can optionally enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
+  to application developers. Enter this in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config-elb.png") %>
 
 
+If you configure an external load balancer, to avoid an unnecessary VM deployment, in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**. 
 
-### <a id="polling"></a>Configuring Metrics Polling Interval
 
-The default metrics polling interval is set in this section of the **RabbitMQ** tab.
-The default setting is 30 seconds for all deployed components.
-Pivotal recommends that you do not change this interval. 
-  The lowest interval setting is 10 seconds to avoid overwhelming components.
+### <a id="polling"></a>Metrics Polling Interval
 
-Changing this setting affects all deployed instances.
+The metrics polling interval is set in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/metrics_polling.png") %>
+
+The default setting is 30 seconds for all deployed components.
+Pivotal recommends that you do not change this interval. 
+  In order to avoid overwhelming components, do not set this below 10 seconds.
+
+Changing this setting affects all deployed instances.
 
 
 ### Disk Free Alarm Limit <a id="disk_free_alarm_selector"></a>
 
-You can choose how much disk space RabbitMQ should attempt to keep free at any
-given time in this section of the **RabbitMQ** tab.  
+Choose how much disk space RabbitMQ attempts to keep free at any
+given time in this section of the **RabbitMQ** tab: 
+
+<%= image_tag("images/disk_alarm_threshold.png") %> 
 
 RabbitMQ periodically checks if there is sufficient free space on disk. If there is not,
 RabbitMQ temporarily stops accepting new messages. This gives your apps time
 to consume existing messages, and thus free up some disk space. The RabbitMQ
 tile provides four options for this value:
 
-<%= image_tag("images/disk_alarm_threshold.png") %>
+* **50MB** is the minimum value. (Not Recommended)
 
-* `50MB` is a bare minimum value. (Not Recommended)
-* `100% Memory` ensures that at the time when RabbitMQ checks the available disk,
+    Selecting **50MB** is not recommended and can cause data loss. For more information, see [Dangers of Setting This Value Too Low](#too-low) and [When to Use the 50MB Value](#50mb) below.
+
+* **100% Memory** ensures that at the time when RabbitMQ checks the available disk,
   there must be enough space for RabbitMQ to page all memory-based messages out
   to disk.
-* `150% Memory` is recommended.
-  This is because it is possible that in between disk-space-checks, RabbitMQ may:
+* **150% Memory** is recommended.
+  This is because it is possible that in between disk-space checks, RabbitMQ may:
   - Write persistent messages to disk (using up some disk space).
   - Accept more memory-based messages into various queues.
   - Page all memory-based messages to disk.
-  In these circumstances, RabbitMQ might require more free disk than it has memory.
-* `200% Memory` is a conservative value, for when the operator wants higher
-  confidence that RabbitMQ will never run out of disk.
+  
+    In the above situations, RabbitMQ might require more free disk than it has memory.
+* **200% Memory** is a conservative value used when the operator wants higher
+  confidence that RabbitMQ never runs out of disk space.
 
-  Selecting **50MB** is not recommended and can cause data loss.
-  For more information, see [What are the dangers of setting this value too low?](#too-low) 
-  and [When should I use the 50 MB value?](#50mb) below.
+  
 
 For more information about disk alarms, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html).
 
-####<a name='too-low'></a> What are the dangers of setting this value too low?
+####<a name='too-low'></a> Dangers of Setting This Value Too Low
 
 If the disk of a given RabbitMQ node completely fills while RabbitMQ is running,
-that node will crash.
+that node crashes.
 This can lead to data loss, and loss of availability.
 
 RabbitMQ reserves the right to page any and all messages in memory (even
-transient messages) to disk at any time. You should set your `disk free alarm
-limit` high enough to ensure that RabbitMQ always has at least enough space to do
+transient messages) to disk at any time. You must set your **Disk free alarm
+limit** high enough to ensure that RabbitMQ always has at least enough space to do
 this.
 
-#### What are the disadvantages of setting this value too high?
+#### Disadvantages of Setting This Value Too High
 
-If you set your `disk free alarm limit` to a value larger than the size of your
-persistent disk, then RabbitMQ will never be able to free up enough disk space to
-accept new messages. You should ensure that you have a large enough disk to
+If you set your **Disk free alarm limit** to a value larger than the size of your
+persistent disk, then RabbitMQ is not able to free up enough disk space to
+accept new messages. Ensure that you have a large enough disk to
 persist all the messages you intend to persist while *also* leaving enough
-space free to satisfy the `disk free alarm limit` that you have chosen.
+space free to satisfy the **Disk free alarm limit** that you choose.
 
-#### <a name='50mb'></a> When should I use the `50MB` value?
+#### <a name='50mb'></a> When to Use the 50MB Value
 
-Pivotal does not recommend using this in production. However, if you are experimenting with a
-development environment you might want to use a small disk to keep down costs,
-at the expense of increasing the chances that RabbitMQ might crash and lose data.
+Pivotal does not recommend using this value in production. However, if you are experimenting with a
+development environment you may want to use a small disk to keep down costs, though this increases the possibility that RabbitMQ may crash and lose data.
 
 ## <a id="syslog"></a>Syslog
 
+Specify a syslog destination in the **Syslog** tab.
+
 To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating an external syslog endpoint for RabbitMQ component log messages.
-The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
+This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
 
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
-1. In the RabbitMQ tile, click the **Settings** tab.
-1. Click **Syslog**.
+1. In the RabbitMQ tile, click the **Syslog** tab.
 1. Enter your syslog address and port.
   ![Configure syslog pane](syslog-config.png)
 1. Click **Save**.
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
+
+Changes take effect when you [apply changes](#apply-changes) and redeploy.
 
 ## <a id="singlenode"></a> Dedicated Instance: Single Node Plan
 
@@ -331,20 +340,24 @@ For information on configuring the on-demand service, see [Installing and Config
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
-An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+In the **Errands** tab, you can optionally choose the defaults for when errands run. 
 
-You can decide whether to run errands by toggling them on or off before an update.
-This is a one-time setting on the installation dashboard:
+Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
+An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+
+
+
+You can decide whether to run post-deploy errands by toggling them on or off before you click **Apply Changes** to update a configuration in the Ops Manager Installation Dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
+
+This is a one-time action before an update. You can change the above defaults in the **Errands** tab, as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 <p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
     and on-demand instances of RabbitMQ for PCF may fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
-However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
@@ -360,7 +373,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   <tr>
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+    publish and subscribe to a RabbitMQ cluster. See <a href="#smoke_test_process">Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -371,19 +384,19 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   <tr>
     <td><strong>Dedicated Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+    publish and subscribe to a RabbitMQ cluster. See <a href="./install-config.html#dedicated_instance_smoke_test_process">Dedicated Instance Smoke Test Process</a>.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
     <td>On-demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
     tile is upgraded.
-    If this errand is set to "Off" or "When Changed", updates to <strong>Dedicated Instance</strong> settings will <strong>not</strong>
+    If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to <strong>Dedicated Instance</strong> settings will <i>not</i>
     be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
   </tr>
 </table>
 
 
-### <a id="smoke_test_process"></a> Smoke Test Errand and Smoke Test Process
+### <a id="smoke_test_process"></a> Smoke Test Process
 
 Smoke tests run as a post-deployment errand.
 The smoke tests perform the following for each available service plan:
@@ -397,7 +410,9 @@ The smoke tests perform the following for each available service plan:
 
 For more information, see [Errands](./install-config.html#errands).
 
-### <a id='pre-delete-errands'></a>Pre-Delete Errands
+### <a id="pre-delete-errands"></a>Pre-Delete Errands
+
+Pre-delete errands run after an operator chooses to delete a product in the Ops Manager Installation Dashboard, but before Ops Manager finishes deleting the product.
 
 <table class="nice">
   <th>Errand</th>
@@ -421,7 +436,7 @@ For more information, see [Errands](./install-config.html#errands).
 
 1. Click **Stemcell**.
 
-2. Verify and, if necessary, import a new stemcell version.
+2. If prompted, import a new stemcell version.
     For more information, see the information about importing the stemcell for your IaaS:
     [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
     [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
