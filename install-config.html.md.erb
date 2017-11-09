@@ -164,11 +164,11 @@ In order to enable the on-demand service plan(s), you must enable one or both of
         <td>(Cluster Plan Only) Select pause minority or autoheal. Pivotal recommends using pause minority.
             For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
-        <td>Select a large VM type. The plan creates a service instance of this size.</td></tr>
+        <td>Select a large VM type. The plan creates a service instance of this size. For more information, see <a href="#resources">Understanding RabbitMQ VM Types and Persistent Disk Size</a> below. </td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
     <td>This is where RabbitMQ pages messages to disk.
     Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
-    For more information, see <a href="#resources">Resource Types and Disk Size Concerns</a> below.</td></tr>
+    For more information, see <a href="#resources">Understanding RabbitMQ VM Types and Persistent Disk Size</a> below.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
     <td>This field is available after you complete the [Assign AZs and Networks](#azs-networks) page.
         <ul><li>For a single-node plan, select one or more AZs.</li>
@@ -210,21 +210,22 @@ For example:
 
 For more information on the above command, see [Enable Access to Service Plans](https://docs.cloudfoundry.org/services/access-control.html#enable-access).
 
-#### <a id="resources"></a> Resource Types and Disk Size Concerns
+#### <a id="resources"></a> Understanding RabbitMQ VM Types and Persistent Disk Size
 
-It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is attached to the RabbitMQ instances.
-If you are installing on PCF v2.0 or later, these properties are pre-configured.
-For more information, see [Things that are Preconfigured](./ondemand.html#preconfigured). 
-
-Pivotal recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
+The **RabbitMQ VM Type** and **Persistent disk type** are required fields on the service plan configuration pages. 
+If you are installing on PCF v2.0 or later, these properties are pre-configured by default.
 
 <%= image_tag("images/vm-ram-disk-example.png") %>
 
-RabbitMQ raises alarms when disk space drops below the configured limit.
+Pivotal recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
+
+* You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the RabbitMQ instances. For example, if you are running out of disk space you may want to increase the persistent disk size by changing the **Persistent disk type** field. If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the RabbitMQ VM type.
+
+* RabbitMQ raises alarms when disk space drops below the configured limit.
 Incorrect disk sizes might cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
-On-demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
+* On-demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
 Use the following table as a guide when selecting the size of the persistent disk.
 
 The following table shows an example of possible RAM values, absolute minimal value below which
@@ -258,6 +259,9 @@ For more information, see the following:
 
 + [Memory and Disk Alarms](http://www.rabbitmq.com/alarms.html)
 + [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
+
+For information on all preconfigured settings, see [Things that are Preconfigured](./ondemand.html#preconfigured). 
+
 
 ### <a id="stemcell"></a> Verify the Stemcell
 
