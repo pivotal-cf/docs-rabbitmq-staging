@@ -130,7 +130,7 @@ then you must update the list of load-balanced ports.
 
 ### <a id="ssl"></a> SSL
 
-You can optionally provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **RabbitMQ** tab:
+(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config_ssl.png") %>
 
@@ -144,7 +144,7 @@ For more information about SSL support, see the [RabbitMQ documentation](https:/
 
 ### <a id="erlang"></a>Erlang Cookie
 
-You can optionally provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
+(Optional) Provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
 This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`, 
 or to connect other VMs running Erlang.
 
@@ -188,7 +188,7 @@ The deployment may fail after this process. If so, redeploying fixes the issue.
 
 ### <a id="configfile"></a> RabbitMQ Configuration
 
-You can optionally provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.
+(Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
   
 <%= image_tag("images/config_rabbitmq.png") %>
@@ -234,8 +234,9 @@ Configure TLS in this section of the **RabbitMQ** tab:
 
 ### External Load Balancer
 
-You can optionally enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
-  to application developers. Enter this in this section of the **RabbitMQ** tab:
+(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
+to application developers.
+Enter this in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config-elb.png") %>
 
@@ -340,7 +341,7 @@ For information on configuring the on-demand service, see [Installing and Config
 
 ## <a id='errands'></a>Errands
 
-In the **Errands** tab, you can optionally choose the defaults for when errands run. 
+(Optional) In the **Errands** tab, choose the defaults for when errands run. 
 
 Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
@@ -508,7 +509,7 @@ The following is a template for configuring your Cloud Foundry security groups:
 
 ### <a id="asg"></a>Application Security Groups
 
-To allow this service to have network access you must create
+To allow this service to have network access, you must create
 [Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
 
 <p class="note"><strong>Note</strong>: The service is unusable without Application Security Groups.</p>
