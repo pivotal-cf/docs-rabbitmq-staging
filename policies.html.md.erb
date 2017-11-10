@@ -6,7 +6,7 @@ owner: London Services
 
 ## <a id="policy"></a> Understanding a RabbitMQ Policy
 
-You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile, to be applied to their RabbitMQ cluster. 
+You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster. 
 After you deploy the tile, Pivotal recommends that you use the RabbitMQ Management Interface to make configuration changes.
 
 For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
@@ -27,13 +27,14 @@ The following rules apply to polices set through the RabbitMQ for PCF tile:
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management Interface.
 
-Operators should consider some of the performance implications of making queues and exchanges highly available. For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
+Operators should consider some of the performance implications of making queues and exchanges highly available.
+For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
 
 ## <a id="viewing"></a> Setting or Changing the Policy
 
-To set ther RabbitMQ policy, do the following:
+To set the RabbitMQ policy, do the following:
 
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ for PCF tile, then click **RabbitMQ Policy**.
+1. From the Ops Manager Installation Dashboard, click the RabbitMQ for PCF tile and then click **RabbitMQ Policy**.
 
 	<%= image_tag("images/policy_opsman.png") %>
 
@@ -42,19 +43,25 @@ To set ther RabbitMQ policy, do the following:
 
 	The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
 
-1. In the **Select the network partition behavior of the RabbitMQ cluster**, choose the desired behavior: **pause_minority** or **autoheal**. 
+1. In the **Select the network partition behavior of the RabbitMQ cluster**,
+   choose the desired behavior: **pause_minority** or **autoheal**. 
 
-	<br>For more information on these options, and RabbitMQ clusters and network partitions, see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
+	<br>For more information on these options and on RabbitMQ clusters and network partitions,
+            see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
 
-	<br>For production purposes, Pivotal recommends that customers have at least three RabbitMQ server nodes and two HAProxies spread across low latency availability zones.
+	<br>For production purposes, Pivotal recommends that customers have at least three RabbitMQ server nodes
+            and two HAProxies spread across low latency availability zones.
 
 
-<p class="note"><strong>Note</strong>: No policy validation occurs during the deployment, and errors can cause the deployment to fail or policies to be applied incorrectly.</p>
+<p class="note"><strong>Note</strong>: No policy validation occurs during the deployment,
+   and errors can cause the deployment to fail or policies to be applied incorrectly.</p>
 
 
 ## <a id="dashboard"></a> Viewing Policies in the RabbitMQ Management Dashboard
 
-You can view RabbitMQ policies in the RabbitMQ Management Dashboard, shown below. The example policy we entered in the RabbitMQ for PCF tile above is applied to all queues and given a **Priority** of **50**. This allows you to override it by defining another policy with a higher priority.
+You can view RabbitMQ policies in the RabbitMQ Management Dashboard, shown below.
+The example policy entered in the RabbitMQ for PCF tile above is applied to all queues and given a **Priority** of **50**.
+This allows you to override it by defining another policy with a higher priority.
 
 <%= image_tag("images/policy_config.jpeg") %>
 
@@ -62,6 +69,6 @@ In the **Queues** section shown below, you can see that any new queues created h
 
 <%= image_tag("images/policy_queue.jpeg") %>
 
-<p class="note"><strong>Note</strong>: Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code> for application developers.</p>
+<p class="note"><strong>Note</strong>: Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code> for app developers.</p>
 
 
