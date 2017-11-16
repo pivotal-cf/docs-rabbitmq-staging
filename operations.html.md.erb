@@ -3,25 +3,21 @@ title: RabbitMQ&reg; for PCF Operations FAQ's
 owner: London Services
 ---
 
-
 ## What should I check before deploying a new version of the tile?
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  
-You cannot rely solely
-on the `bosh instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
-the RabbitMQ application.
+Use the RabbitMQ Management UI to confirm that all nodes in the cluster are healthy. Alternatively, you can use the health metrics exposed by the firehose.  
 
+You cannot rely solely on the `bosh instances` output. That output reflects the state of the Erlang VM used by RabbitMQ, not the RabbitMQ application.
 
 ## <a id="stopstart"></a> What is the correct way to stop and start RabbitMQ in PCF?
 
 Only use BOSH commands to interact with the RabbitMQ application. For example:
 
-`bosh stop rabbitmq-server`
+* `bosh stop rabbitmq-server`
+* `bosh start rabbitmq-server`
 
-`bosh start rabbitmq-server`
-
-There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH. You can also stop individual instances by running `bosh stop JOB [index]`.
+There are BOSH job lifecycle hooks which only fire when `rabbitmq-server` is
+stopped in BOSH. You can also stop individual instances by running `bosh stop JOB [index]`.
 
 <p class="note"><strong>Note:</strong> Do not use `monit stop rabbitmq-server`. It does not call the drain scripts.</p>
 
@@ -29,14 +25,13 @@ stopped through BOSH. You can also stop individual instances by running `bosh st
 
 BOSH initiates the shutdown sequence from the bootstrap instance.
 
-We start by telling the RabbitMQ application to shut down and then shutdown the
-Erlang VM it is running. If this succeeds, we run the following
-checks to ensure that the RabbitMQ application and Erlang VM have stopped:
+The sequence begins when an operator instructs the RabbitMQ application to shut down. Part of the shutdown process requires the Erlang VM the application runs to shut down as well. 
+
+If both shutdowns are successful, perform the following checks to ensure that the RabbitMQ application and Erlang VM have stopped:
 
 1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside
-this file does not point to a running Erlang VM process. Notice that we are
-tracking the Erlang PID and not the RabbitMQ PID.
-1. Check that `rabbitmqctl` does not return an Erlang VM PID
+this file does not point to a running Erlang VM process. Be sure you're tracking the Erlang PID and not the RabbitMQ PID.
+1. Check that `rabbitmqctl` does not return an Erlang VM PID.
 
 Once this completes on the bootstrap instance, BOSH will continue the same
 sequence on the next instance. All remaining rabbitmq-server instances will be
@@ -68,15 +63,15 @@ failing.
 
 ## <a id="backup"></a> How can I manually back up the state of the RabbitMQ cluster?
 
-It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services using the RabbitMQ Management API. Backups include vhosts, exchanges, queues, and users. 
+You can back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services using the RabbitMQ Management API. Backups include vhosts, exchanges, queues, and users. 
 
-### Back up Manually
+### Back Up Manually
 
 1. Log in to the RabbitMQ Management UI as the admin user you created.  
 
 1. Select **export definitions** from the main page.  
 
-### Back up and Restore with a Script
+### Back Up and Restore with a Script
 
 Use the API to run scripts with code similar to the following:  
 
@@ -96,7 +91,7 @@ Use the API to run scripts with code similar to the following:
 </li>
 </ol>
 
-## <a id="preupgrade"></a> What pre-upgrade checks should I do?
+## <a id="preupgrade"></a> What pre-upgrade checks should I perform?
 
 Before upgrading RabbitMQ, Pivotal recommends confirming the following items:
 
