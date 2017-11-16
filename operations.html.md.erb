@@ -20,8 +20,7 @@ Only BOSH commands should be used by the operator to interact with the RabbitMQ 
 
 `bosh start rabbitmq-server`
 
-There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH.  You can also stop individual instances by running:
+<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. It does not call the drain scripts.</p>
 
 `bosh stop JOB [index]`
 
@@ -49,9 +48,8 @@ stopped one by one.
 If the `bosh stop` fails, you will likely get an error saying that the drain
 script failed with:
 
-```
-result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
-```
+<pre class="terminal">result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
+</pre>
 
 ## <a id="serverfailactions"></a> What do I do when bosh stop rabbitmq-server fails?
 
