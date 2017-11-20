@@ -1,0 +1,29 @@
+---
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
+title: Controlling Access to Service Plans <br>by Org
+owner: London Services
+---
+
+If you want to restrict access to a service plan to a specific org, follow the instructions below. 
+
+You can also limit the number of service instances by setting quotas---for instructions, see [Setting Limits for On-Demand Instances](./set-quotas.html). 
+
+
+## <a id="access"></a> Change Access to Service Plans
+
+<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs,
+   you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs.
+   Use the <strong>CF Service Access</strong> field to disable access in the <a href="./install-config.html#service-plan"> service plan configuration.</a></p>
+
+To restrict access to a plan for a specific org, run this command:
+
+`cf enable-service-access p.rabbitmq -p PLAN_NAME -o ORG_NAME`
+
+For example:
+
+<pre class="terminal">
+  $ cf enable-service-access p.rabbitmq -p my-cluster-plan -o my-dev-org
+</pre>
+
+For more information on the above command, 
+see [Access Control](https://docs.pivotal.io/pivotalcf/1-11/services/access-control.html).

@@ -148,7 +148,7 @@ In order to enable the on-demand service plan(s), you must enable one or both of
         </li>
         <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the Marketplace. This setting cannot be selected at a later time in the UI.
         </li>
-        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can change the access settings later using the cf CLI. For more information, see [Change Access to Service Plans Manually](#access) below.
+        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can change the access settings later using the cf CLI. For instructions, see [Controlling Access to Service Plans by Org](./control-access.html).
         </li>
       </ul></td></tr>
     <tr><td><strong>Plan name</strong></td>
@@ -175,43 +175,30 @@ In order to enable the on-demand service plan(s), you must enable one or both of
     <td>This field is available after you complete the [Assign AZs and Networks](#azs-networks) page.
         <ul><li>For a single-node plan, select one or more AZs.</li>
           <li>For a cluster plan, select only one AZ.
-        Pivotal recommends deploying a cluster plan to only one AZ to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.</li>
+        Pivotal recommends deploying a cluster plan to only one AZ to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
+        <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz).</li>
       </ul></td></tr>
   </table>
 
-    <p class='note warning'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
+
+3. Click **Save**.
+
+#### <a id="determineaz"></a> Determine which AZs a Service Instance Uses
+
+<p class='note warning'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
        existing instances are <strong>not</strong> placed in the newly configured AZs when the <strong>Upgrade All Service Instances</strong> errand is run.
        This prevents re-creation of the VMs in different AZs, which can lead to data loss.
        <br>All new service instances, however, will be created in the newly configured AZs.</p>
 
-    <p class='note'><strong>Note</strong>: To determine which AZs a service instance is placed in, do one of the following:<br><br>
-      &#9702; Retrieve the service GUID using the <code>cf service SERVICE_INSTANCE --guid</code> command
-       and then run the <code>bosh instances</code> command for the <code>service-instance_GUID</code> deployment.<br><br>
-      &#9702; With syslog forwarding enabled, inspect the service broker logs
-          when running the <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the log message includes the service instance GUID and the AZs the service instance is running in.</p>
+<br>To determine which AZs a service instance is placed in, do one of the following:
 
-3. Click **Save**.
+<ul><li>Retrieve the service GUID using the <code>cf service SERVICE_INSTANCE --guid</code> command
+       and then run the <code>bosh instances</code> command for the <code>service-instance_GUID</code> deployment.</li>
 
-#### <a id="access"></a> Change Access to Service Plans Manually
+  <li>With syslog forwarding enabled, inspect the service broker logs
+          when running the <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the log message includes the service instance GUID and the AZs the service instance is running in.</li>
+</ul>
 
-You might want to restrict access to a service plan, enabling it only for a specific org.
-
-<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs,
-   you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs.
-   See the <strong>CF Service Access</strong> field in the above table.</p>
-
-To enable access to a plan for a specific org, run this command:
-
-`cf enable-service-access p.rabbitmq -p PLAN_NAME -o ORG_NAME`
-
-For example:
-
-<pre class="terminal">
-  $ cf enable-service-access p.rabbitmq -p my-cluster-plan -o my-dev-org
-</pre>
-
-For more information on the above command, 
-see [Access Control](https://docs.pivotal.io/pivotalcf/1-12/services/access-control.html).
 
 #### <a id="resources"></a> Resource Types and Disk Size Concerns
 
