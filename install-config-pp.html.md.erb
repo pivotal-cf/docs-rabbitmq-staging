@@ -319,20 +319,52 @@ development environment you may want to use a small disk to keep down costs, tho
 
 ## <a id="syslog"></a>Syslog
 
-Specify a syslog destination in the **Syslog** tab.
-
 To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating an external syslog endpoint for RabbitMQ component log messages.
 This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
 
-1. In the RabbitMQ tile, click the **Syslog** tab.
-1. Enter your syslog address and port.
-  ![Configure syslog pane](syslog-config.png)
+1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
+1. In the RabbitMQ tile, click the **Settings** tab. ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
+1. Click **Syslog**.
+1. Configure the fields on the Syslog pane as follows:
+<table class="nice">
+    <th>Option</th>
+    <th>Description</th>
+    <tr>
+        <td>Syslog address</td>
+        <td>IP or DNS address of the syslog server</td>
+    </tr>
+    <tr>
+        <td>Syslog port</td>
+        <td>Port of the syslog server</td>
+    </tr>
+    <tr>
+        <td>Transport protocol</td>
+        <td>Transport protocol of the syslog server. One of `udp`, `tcp`, `relp`.</td>
+    </tr>
+    <tr>
+        <td>Format for logs</td>
+        <td>Format for logs. Pivotal recommends `RFC 5424`, but `Legacy Format` can be used for compatibility reasons.</td>
+    </tr>
+    <tr>
+        <td>Enable TLS</td>
+        <td>Enable TLS to the syslog server.</td>
+    </tr>
+    <tr>
+        <td>Permitted Peer</td>
+        <td>If there are several peer servers that can respond to remote syslog connections,
+            then you may provide a wildcard in the domain, such as `*.example.com`.</td>
+    </tr>
+    <tr>
+        <td>Custom CA Certificate</td>
+        <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
+            provide the CA certificate of the log management service endpoint.</td>
+    </tr>
+</table>
+
 1. Click **Save**.
-
-Changes take effect when you [apply changes](#apply-changes) and redeploy.
-
+1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
 ## <a id="singlenode"></a> Dedicated Instance: Single Node Plan
 
 This tab only applies to the on-demand service. However, you must complete the fields on this tab even if you are not using the on-demand service. Therefore, if you are not using the on-demand service:
