@@ -20,10 +20,12 @@ Only BOSH commands should be used by the operator to interact with the RabbitMQ 
 
 `bosh start rabbitmq-server`
 
-There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH.  You can also stop individual instances by running:
+`bosh2 stop rabbitmq-server`
 
-`bosh stop JOB [index]`
+`bosh2 start rabbitmq-server`
+
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
+stopped through BOSH.  You can also stop individual instances by running the stop command and specifying `JOB [index]`
 
 *Note* Do not use `monit stop rabbitmq-server` as this does not call the drain scripts
 
