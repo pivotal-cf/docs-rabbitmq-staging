@@ -16,10 +16,6 @@ owner: London Services Enablement
 
 This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for Pivotal Cloud Foundry (PCF).
 
-## <a id="errors"></a>Troubleshooting Errors
-
-Start here if you're responding to a specific errors or error messages.
-
 ## <a id="about-cli"></a>About the BOSH CLI
 The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
 
@@ -37,6 +33,10 @@ This topic provides examples of using each version of the BOSH CLI. Consult the 
         <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
     </tr>
 </table>
+
+## <a id="errors"></a>Troubleshooting Errors
+
+Start here if you're responding to a specific error or error messages.
 
 ### <a id="install-fail"></a>Failed Install
 
@@ -71,6 +71,13 @@ This topic provides examples of using each version of the BOSH CLI. Consult the 
 ### <a id="missing-logs"></a>Missing Logs and Metrics
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-missing-logs' %>
+
+### <a id="address-change"></a>RabbitMQ Server IP Address Change
+
+If you change the IP addresses assigned to a `RabbitMQ Server` job, the tile fails to deploy. 
+This includes changes made to your current installation or during an upgrade.
+RabbitMQ for PCF requires that these IP addresses do not change once assigned.
+For information about how to diagnose and solve this issue, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ## <a id="components"></a>Troubleshooting Components
 
