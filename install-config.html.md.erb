@@ -111,7 +111,7 @@ Pivotal recommends that you configure logging to monitor the health of RabbitMQ 
 
 Follow the steps below to configure global settings.
 
-1. Click **Dedicated Instance: Global Settings** and configure the following:<br><br>
+1. Click **On-Demand Instance: Global Settings** and configure the following:<br><br>
   * **Service instance quota**  min: 0, max: 50  set the total number of on-demand service instances which can be deployed.
 For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).<br><br>
   * **VM options**:<br><br>
@@ -144,7 +144,7 @@ If the on-demand service is not enabled, the on-demand broker is deployed alongs
     <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
         If you enable Plan 1, the default setting is **Enable Service Access**.
         If you change this default setting, the smoke tests fail.
-        Therefore, set the **Dedicated Instance Smoke Tests** errand to **Off** if you enable Plan 1 and change this default.
+        Therefore, set the **On-Demand Instance Smoke Tests** errand to **Off** if you enable Plan 1 and change this default.
         For more information, see [Errands](#errands).<br>
       <br><ul>
         <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
@@ -218,7 +218,7 @@ Pivotal recommends that the value of **Persistent disk type** be twice the amoun
 Incorrect disk sizes might cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
-* On-demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
+* On-Demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
 Use the following table as a guide when selecting the size of the persistent disk.
 
 The following table shows an example of possible RAM values, absolute minimal value below which
@@ -308,7 +308,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
     publish and subscribe to a RabbitMQ cluster.
-    See <a href="#on-demand_instance_smoke_test_process">On-demand Instance Smoke Test Process</a> below.</td>
+    See <a href="#on_demand_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -319,11 +319,11 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
     <td><strong>On-Demand Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
     publish and subscribe to a RabbitMQ cluster.
-    See <a href="#dedicated_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
+    See <a href="#on_demand_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
+    <td>On-Demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
     tile is upgraded. If this errand is set to "Off" or "When Changed", updates to <strong>Dedicated Instance</strong> settings will <strong>not</strong>
     be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
   </tr>
@@ -350,7 +350,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
 </table>
 
 
-### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
+### <a id="on_demand_instance_smoke_test_process"></a> On-Demand Instance Smoke Test Process
 
 Smoke tests only run against Plan 1. The smoke tests perform the following steps:
 
