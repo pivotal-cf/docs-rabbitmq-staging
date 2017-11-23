@@ -47,11 +47,17 @@ Configure the following tabs for the on-demand service:
   </tr>
   <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
   </tr>
-  <tr><td>Dedicated Instance: Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
+  <tr><td>On Demand Instance: Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
   </tr>
   <tr><td>On Demand Instance: Plan 1</td><td><a href="#service-plan">Configure the Service Plan</a></td>
   </tr>
   <tr><td>On Demand Instance: Plan 2</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>On Demand Instance: Plan 3</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>On Demand Instance: Plan 4</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>On Demand Instance: Plan 5</td><td><a href="#service-plan">Configure the Service Plan</a></td>
   </tr>
   <tr><td>Errands</td><td><a href="#errands">Errands</a></td>
   </tr>
@@ -81,7 +87,7 @@ Configure the following tabs for the on-demand service:
          </td></tr>
      <tr><td><strong>Service Network</strong></td>
          <td> Select a separate network that the on-demand service instances run on.<br><br>
-              A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.  
+              A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.
               For information about the Service Network, see <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
               This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
    </table>
@@ -114,7 +120,7 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to avail of on-demand service plan(s), you can configure one or both of the available plans: **On Demand Instance: Plan 1**, **On Demand Instance: Plan 2**. Either plan can be configured to have 1,3,5 or 7 RabbitMQ nodes.
+In order to avail of on-demand service plan(s), you can configure up to five of the available plans: **On Demand Instance: Plan 1 - 5**. Either plan can be configured to have 1,3,5 or 7 RabbitMQ nodes.
 
 <p class="note"><strong>Note</strong>:
 On Demand Instance: Plan 1 must be fully configured even if you disable access to this plan (see **CF Service Access** in the table below).
@@ -136,9 +142,9 @@ If the on-demand service is not enabled, the on-demand broker is deployed alongs
         <td>(Except Plan 1) To enable, select **Plan Enable**.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
     <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
-        If you enable the cluster plan, the default setting is **Enable Service Access**.
+        If you enable Plan 1, the default setting is **Enable Service Access**.
         If you change this default setting, the smoke tests fail.
-        Therefore, set the **Dedicated Instance Smoke Tests** errand to **Off** if you enable the cluster plan and change this default.
+        Therefore, set the **Dedicated Instance Smoke Tests** errand to **Off** if you enable Plan 1 and change this default.
         For more information, see [Errands](#errands).<br>
       <br><ul>
         <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
@@ -346,7 +352,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
 
 ### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
 
-Smoke tests only run against the cluster plan. The smoke tests perform the following steps:
+Smoke tests only run against Plan 1. The smoke tests perform the following steps:
 
 1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
 1. Deploy an instance of the [RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
