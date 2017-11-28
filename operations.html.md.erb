@@ -29,71 +29,94 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
 
 ## <a id="newversion"></a> What should I check before deploying a new version of the tile?
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose. You cannot rely solely
-on the `bosh instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
-the RabbitMQ application.
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose. 
 
+Do not rely on `bosh instances`, or `bosh2 instances` for v2 of the BOSH CLI, to execute this task correctly. That output reflects the state of the Erlang VM used by RabbitMQ, not the RabbitMQ application.
 
 ## <a id="stopstart"></a> What is the correct way to stop and start RabbitMQ in PCF?
 
-Only BOSH commands should be used by the operator to interact with the RabbitMQ application. For example:
+Only BOSH commands should be used by the operator to interact with the RabbitMQ application. Examples for both versions of the CLI are given below.
+
+#### BOSH CLI v2: Stopping and starting RabbitMQ
+
+`bosh2 stop rabbitmq-server`
+
+`bosh2 start rabbitmq-server`
+
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is stopped through BOSH.  You can also stop individual instances by running:
+
+`bosh2 stop JOB [index]`
+
+<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. This command does not call the drain scripts.</p>
+
+#### BOSH CLI v1: Stopping and starting RabbitMQ
 
 `bosh stop rabbitmq-server`
 
 `bosh start rabbitmq-server`
 
-There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH.  You can also stop individual instances by running:
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is stopped through BOSH.  You can also stop individual instances by running:
 
 `bosh stop JOB [index]`
 
-*Note* Do not use `monit stop rabbitmq-server` as this does not call the drain scripts
+<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. This command does not call the drain scripts.</p>
 
-## <a id="boshstopprocess"></a> What happens when I run bosh stop rabbitmq-server?
+## <a id="boshstopprocess"></a> What happens when I stop the RabbitMQ server?
+
+You can stop the RabbitMQ server with `bosh stop` or `bosh2 stop`, depending on which version of the BOSH CLI you use.
 
 BOSH starts the shutdown sequence from the bootstrap instance.
 
-We start by telling the RabbitMQ application to shutdown and then shutdown the
-Erlang VM within which it is running. If this succeeds, we run the following
+This command tells the RabbitMQ application to shut down and then shut down the Erlang VM in which it is running. If this succeeds, run the following
 checks to ensure that the RabbitMQ application and Erlang VM have stopped:
 
-1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside
-this file does not point to a running Erlang VM process. Notice that we are
-tracking the Erlang PID and not the RabbitMQ PID.
-1. Check that `rabbitmqctl` does not return an Erlang VM PID
+1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside this file does not point to a running Erlang VM process. This process checks the Erlang PID and not the RabbitMQ PID.
+1. Check that `rabbitmqctl` does not return an Erlang VM PID.
 
-Once this completes on the bootstrap instance, BOSH will continue the same
-sequence on the next instance. All remaining rabbitmq-server instances will be
-stopped one by one.
+Once this completes on the bootstrap instance, BOSH will continue the same sequence on the next instance. All remaining rabbitmq-server stop sequentially after that.
 
-## <a id="boshstopresult"></a> What happens when bosh stop rabbitmq-server fails?
+## <a id="boshstopresult"></a> What happens when the RabbitMQ server fails to stop?
 
-If the `bosh stop` fails, you will likely get an error saying that the drain
+If `bosh stop` or `bosh2 stop` fails, you will likely get an error saying that the drain
 script failed with:
 
-```
+<pre class="terminal">
 result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
-```
+</pre>
 
-## <a id="boshstopaction"></a> What do I do when bosh stop rabbitmq-server fails?
+## <a id="boshstopaction"></a> What do I do when the RabbitMQ server fails to stop?
 
 The drain script logs to `/var/vcap/sys/log/rabbitmq-server/drain.log`. If you
 have a remote syslog configured, this will appear as the `rmq_server_drain`
 program.
 
-First, `bosh ssh` into the failing rabbitmq-server instance and start the
-rabbitmq-server job by running `monit start rabbitmq-server`). You will not be
-able to start the job via `bosh start` as this always runs the drain script first
-and will fail since the drain script is failing.
+#### BOSH CLI v2: Troubleshooting the server
 
-Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
+This procedure is for v2 of the BOSH CLI.
+
+1. `bosh2 ssh` into the failing rabbitmq-server instance and start the
+rabbitmq-server job by running `monit start rabbitmq-server`).
+1. When the rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
 `/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
 failing.
 
+<p class="note"><strong>Note:</strong> You will not be
+able to start the job with <code>bosh2 start</code> as this command always runs the drain script first. It will fail since the drain script is failing.</p>
+
+#### BOSH CLI v1: Troubleshooting the server
+
+This procedure is for v1 of the BOSH CLI.
+
+1. `bosh ssh` into the failing rabbitmq-server instance and start the rabbitmq-server job by running `monit start rabbitmq-server`). 
+1. When the rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
+`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s failing.
+
+<p class="note"><strong>Note:</strong> You will not be
+able to start the job with <code>bosh start</code> as this command always runs the drain script first. It will fail since the drain script is failing.</p>
+
 ## <a id="backup"></a> How can I manually back up the state of the RabbitMQ cluster?
 
-It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the 
-RabbitMQ Management API. Backups include vhosts, exchanges, queues and users. 
+You can back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the RabbitMQ Management API. Backups include vhosts, exchanges, queues and users. 
 
 ### Back up Manually
 
