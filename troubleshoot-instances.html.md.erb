@@ -5,6 +5,28 @@ owner: London Services
 
 This topic provides basic instructions for app developers troubleshooting On-Demand RabbitMQ&reg; for PCF.
 
+## <a id="about-cli"></a>About the BOSH CLI
+The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
+
+This topic provides examples of using each version of the BOSH CLI. While all versions of the BOSH CLI work with RabbitMQ for PCF v1.9.x, your PCF installation may affect which version of the BOSH CLI you can use. Consult the table below to determine which version of the CLI is supported for your installation.
+
+<table class="nice">
+    <th>PCF Version</th>
+    <th>BOSH CLI Version</th>
+    <tr>
+        <td>1.10</td>
+        <td>CLI v1</td>
+    </tr>
+    <tr>
+        <td>1.11</td>
+        <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
+    </tr>
+    <tr>
+        <td>1.12</td>
+        <td>CLI v2</td>
+    </tr>
+</table>
+
 ## <a id="errors"></a> Errors
 
 You may see an error when using the Cloud Foundry Command Line Interface (cf CLI) to perform basic operations on a RabbitMQ for PCF service instance:
@@ -53,10 +75,17 @@ You may see an error when using the Cloud Foundry Command Line Interface (cf CLI
 
 ## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instance
 
-On-Demand Broker provides a BOSH to delete all the On-Demand Broker deployed
-instances. After setting the deployment to the On-Demand Broker in BOSH, the
-command to delete all the instances is `bosh run errand delete-sub-deployments`.
-This command runs the `bosh delete <deployment>` serially on the deployments,
-it is very destructive and the operation cannot be undone.
+On-Demand Broker provides a BOSH command to delete all the On-Demand Broker deployed
+instances. 
 
+#### BOSH CLI v2: Deleting deployed instances
 
+After you set the deployment to the On-Demand Broker in BOSH, the command to delete all the instances is `bosh2 run-errand delete-sub-deployments`.
+
+This command runs `bosh2 delete <deployment>` serially on the deployments. It is very destructive and the operation cannot be undone.
+
+#### BOSH CLI v1: Deleting deployed instances
+
+After you set the deployment to the On-Demand Broker in BOSH, the command to delete all the instances is `bosh run errand delete-sub-deployments`.
+
+This command runs `bosh delete <deployment>` serially on the deployments. It is very destructive and the operation cannot be undone.
