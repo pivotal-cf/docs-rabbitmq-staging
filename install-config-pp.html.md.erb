@@ -257,21 +257,43 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 
 ### <a id="scaling-issue"></a> Cluster Scaling Known Issue
 
-If you have not set the Erlang cookie and you want to scale-out your cluster
-size without downtime, you'll need to perform the following steps:
+If you have not set the Erlang cookie and you want to scale out your cluster
+size without downtime, follow these steps:
 
-* Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
-* `bosh ssh rabbitmq-server/0`
-* `sudo -i`
-* `echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)`
-* Paste the value from the above command into the Erlang cookie field displayed above.
+#### BOSH CLI v2: Scaling your cluster
 
-You'll then be able to adjust the size of your cluster and run **Apply Changes**.
+1. Follow the steps in [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather), up to and including [Log in to the BOSH Director](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#log-in).
+1. Run the following commands: 
+  <pre class="terminal">
+  bosh2 ssh rabbitmq-server/0
+  sudo -i
+  echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
+</pre>
+1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
 
-**Note**: BOSH will tell you that the cookie has changed - this is because the
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
+
+1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
+
+#### BOSH CLI v1: Scaling your cluster
+
+1. Follow the steps in [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare), up to and including [Log in to the BOSH Director](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#log-in).
+1. Run the following commands: 
+  <pre class="terminal">
+  bosh ssh rabbitmq-server/0
+  sudo -i
+  echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
+</pre>
+1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
+
+1. To increase the size of your cluster, navigate to the **Resource Config** tab, and in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
+
+1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
+
+<p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
 default value in the manifest is empty, which results in an auto-generated
-cookie. The value of the cookie on the server will remain the same, so the section
-below will **not** apply.
+cookie. However, the value of the cookie on the server remains the same, so the known issue
+below does <strong>not</strong> apply.</p> 
 
 ### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
