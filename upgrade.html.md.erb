@@ -57,12 +57,11 @@ configuration.
 the upgrade and you must not interrupt this process.
 
 * The benefit you get from stemcell rolling
-upgrades depends on how you have configured network partition handling and the
-**Resource Config** tab. The default HAProxy instance count has changed from 1 to 2 and the
-RabbitMQ node count from 2 to 3. This is required for rolling stemcell
-upgrades, as well as the minimum deployment size that Pivotal recommends for the default
-`pause_minority` RabbitMQ network partition behavior.
-For more information, see [Clustering and Network Partitions](./partitions.html).
+  upgrades depends on how you have configured network partition handling and the
+  **Resource Config** tab.
+  An HAproxy instance count of 2 and a RabbitMQ node count of 3 is required for for rolling stem cell upgrades.
+  As of v1.x, these counts are the default. 
+  For more information, see [Clustering and Network Partitions](./partitions.html).
 
 * The length of the downtime depends on whether there is a stemcell update to
 replace the operating system image or if the existing VM can just have
