@@ -33,7 +33,7 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
 
 ## <a id="config"></a>Direct the Logs
 
-To enable monitoring for RabbitMQ for PCF, operators designate an external syslog endpoint for RabbitMQ component log messages. i
+To enable monitoring for RabbitMQ for PCF, operators designate an external syslog endpoint for RabbitMQ component log messages.
 The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
@@ -110,7 +110,7 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
    <tr>
       <th>Recommended response</th>
       <td>
-      Check the RabbitMQ Service Broker logs for errors. You can find this VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code>. 
+      Check the RabbitMQ Service Broker logs for errors. You can find this VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code> for BOSH CLI v1, or <code>bosh2 vms</code> for BOSH CLI v2. 
       </td>
    </tr>
 </table>
@@ -142,7 +142,7 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
    <tr>
       <th>Recommended response</th>
       <td>
-         Check the RabbitMQ HAProxy logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code>, which lists <code>HAProxy_GUID</code>.
+         Check the RabbitMQ HAProxy logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code> for BOSH CLI v1, or <code>bosh2 vms</code> for BOSH CLI v2. This command lists <code>HAProxy_GUID</code>.
       </td>
    </tr>
 </table>
@@ -174,7 +174,7 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
    <tr>
       <th>Recommended response</th>
       <td>
-         Check the RabbitMQ Server logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code>, which lists <code>rabbitmq</code>.
+         Check the RabbitMQ Server logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code> for BOSH CLI v1, or <code>bosh2 vms</code> for BOSH CLI v2. This command lists <code>rabbitmq</code>.
 
       </td>
    </tr>
