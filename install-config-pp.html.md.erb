@@ -3,12 +3,28 @@ title: Installing and Configuring RabbitMQ for PCF as a Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide 
-a pre-provisioned service. 
+This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide a pre-provisioned service. 
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile 
-as an on-demand service, see <a href="./install-config.html">
+<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
+
+## <a id="about-cli"></a>About the BOSH CLI
+The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
+
+This topic provides examples of using each version of the BOSH CLI. While all versions of the BOSH CLI work with RabbitMQ for PCF v1.8.x, your PCF installation may affect which version of the BOSH CLI you can use. Consult the table below to determine which version of the CLI is supported for your installation.
+
+<table class="nice">
+    <th>PCF Version</th>
+    <th>BOSH CLI Version</th>
+    <tr>
+        <td>1.10</td>
+        <td>CLI v1</td>
+    </tr>
+    <tr>
+        <td>1.11</td>
+        <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
+    </tr>
+</table>
 
 ## <a id="install"></a> Download and Install the Tile
 
@@ -60,13 +76,12 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 
 You can choose how much disk space rabbit should attempt to keep free at any
 given time. For more information about how this works 'under the hood', see
-[here](https://www.rabbitmq.com/disk-alarms.html). 
+[the RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html). 
 
 If this is a fresh deployment please check that the 'Resource Config' settings you choose for the RabbitMQ server, match the constraints which you choose as outlined below.
 For example the default resource configurations will not work if you choose the '150% Memory' option, as it it optimized for high message volumes.
 
-In summary, rabbit will periodically check if there is sufficient free space on disk. If there is not,
-rabbit will temporarily stop accepting new messages. This gives your apps time
+In summary, Rabbit will periodically check if there is sufficient free space on disk. If there is not, Rabbit will temporarily stop accepting new messages. This gives your apps time
 to consume existing messages, and thus free up some disk space. In the RabbitMQ
 Tile, we provide four options for this value:
 
@@ -221,8 +236,8 @@ rabbit cluster, and also between the rabbit cluster and rabbit clients (these
 will usually be apps deployed to CF).
 
 TLS support can include both:
-- Ensuring that communications between any two actors are encrypted
-- Ensuring that the identities of any two actors are known to each other
+* Ensuring that communications between any two actors are encrypted
+* Ensuring that the identities of any two actors are known to each other
 
 ### Configuring RabbitMQ TLS for Production
 
@@ -262,15 +277,42 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 **Scaling Known Issue**
 
 If you have not set the Erlang cookie and you want to scale-out your cluster
-size without downtime, you'll need to perform the following steps:
+size without downtime, you'll need to complete the following procedure.
 
-* Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
-* `bosh ssh rabbitmq-server/0`
-* `sudo -i`
-* `echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)`
-* Paste the value from the above command into the Erlang cookie field displayed above.
+#### BOSH CLI v2:
 
-You'll then be able to adjust the size of your cluster and run **Apply Changes**.
+This procedure is for v2 of the BOSH CLI.
+
+<ol>
+<li>Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare).<br/>
+<pre class="terminal">
+bosh2 ssh rabbitmq-server/0
+sudo -i
+echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)</pre></li>
+<li>Paste the value from the above command into the Erlang cookie field displayed above.</li>
+<li>Adjust the size of your cluster as needed.</li>
+<li>Click **Apply Changes**.</li>
+</ol>
+
+**Note**: BOSH will tell you that the cookie has changed - this is because the
+default value in the manifest is empty, which results in an auto-generated
+cookie. The value of the cookie on the server will remain the same, so the section
+below will **not** apply.
+
+#### BOSH CLI v1:
+
+This procedure is for v1 of the BOSH CLI.
+
+<ol>
+<li>Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare).<br/>
+<pre class="terminal">
+bosh ssh rabbitmq-server/0
+sudo -i
+echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)</pre></li>
+<li>Paste the value from the above command into the Erlang cookie field displayed above.</li>
+<li>Adjust the size of your cluster as needed.</li>
+<li>Click **Apply Changes**.</li>
+</ol>
 
 **Note**: BOSH will tell you that the cookie has changed - this is because the
 default value in the manifest is empty, which results in an auto-generated
@@ -283,7 +325,7 @@ If you want to change your Erlang cookie value, this will require cluster downti
 It is also *strongly* recommended that you do not change anything else, as it is
 possible for configuration to be inconsistently applied during this process.
 
-The deployment may also fail---if it does, redeploying will fix the issue.
+The deployment may also fail. If it does, redeploying will fix the issue.
 
 ## <a id="config"></a>RabbitMQ Config
 
@@ -377,9 +419,6 @@ When SSL is enabled:
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install RabbitMQ for PCF tile.
-
-2. **Q:** How does one follow the progress of the tile, what to check? how long does it take?
-
+Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install RabbitMQ for PCF tile.
 
 
