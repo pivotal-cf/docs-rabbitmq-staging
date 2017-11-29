@@ -124,12 +124,11 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-failing-jobs' %>
 
-## <a id="techniques"></a>Techniques for Troubleshooting
+<h2><a id="techniques"></a>Techniques for Troubleshooting</h2>
 
 This section contains instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks.
 
-### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
-
+<h3><a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message</h3>
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-parse-error' %>
 
 <h3><a id="bosh-cf-access"></a>Access Broker and Instance Logs and VMs</h3>
@@ -140,27 +139,27 @@ This section contains instructions on interacting with the on-demand service bro
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-broker' %>
 
-#### <a id="access-instance"></a>Access Service Instance Logs and VMs
+<h4><a id="access-instance"></a>Access Service Instance Logs and VMs</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-instance' %>
 
-### <a id="broker-errands"></a>Run Service Broker Errands to Manage Brokers and Instances
+<h3><a id="broker-errands"></a>Run Service Broker Errands to Manage Brokers and Instances</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-broker-errands' %>
 
-#### <a id="register-broker"></a>Register Broker
+<h4><a id="register-broker"></a>Register Broker</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-register-broker' %>
 
-#### <a id="deregister-broker"></a>Deregister Broker
+<h4><a id="deregister-broker"></a>Deregister Broker</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-deregister-broker' %>
 
-#### <a id="upgrade-all"></a>Upgrade All Service Instances
+<h4><a id="upgrade-all"></a>Upgrade All Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-upgrade-all' %>
 
-#### <a id="delete-all"></a>Delete All Service Instances
+<h4><a id="delete-all"></a>Delete All Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-delete-all' %>
 
