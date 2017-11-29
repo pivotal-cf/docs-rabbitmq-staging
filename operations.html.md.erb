@@ -1,41 +1,79 @@
 ---
-title: RabbitMQ&reg; for PCF Operations FAQ's
+title: RabbitMQ&reg; for PCF Operations FAQs
 owner: London Services
 ---
 
-## What should I check before deploying a new version of the tile?
+This topic asks and answers some frequently asked questions (FAQs) about RabbitMQ for PCF.
 
-Use the RabbitMQ Management UI to confirm that all nodes in the cluster are healthy. Alternatively, you can use the health metrics exposed by the firehose.  
+## <a id="about-cli"></a>About the BOSH CLI
+The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
 
-You cannot rely solely on the `bosh instances` output. That output reflects the state of the Erlang VM used by RabbitMQ, not the RabbitMQ application.
+This topic provides examples of using each version of the BOSH CLI. While all versions of the BOSH CLI work with RabbitMQ for PCF v1.9.x, your PCF installation may affect which version of the BOSH CLI you can use. Consult the table below to determine which version of the CLI is supported for your installation.
+
+<table class="nice">
+    <th>PCF Version</th>
+    <th>BOSH CLI Version</th>
+    <tr>
+        <td>1.10</td>
+        <td>CLI v1</td>
+    </tr>
+    <tr>
+        <td>1.11</td>
+        <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
+    </tr>
+    <tr>
+        <td>1.12</td>
+        <td>CLI v2</td>
+    </tr>
+</table>
+
+## <a id="newversion"></a> What should I check before deploying a new version of the tile?
+
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose. 
+
+Do not rely on `bosh instances`, or `bosh2 instances` for v2 of the BOSH CLI, to execute this task correctly. That output reflects the state of the Erlang VM used by RabbitMQ, not the RabbitMQ application.
 
 ## <a id="stopstart"></a> What is the correct way to stop and start RabbitMQ in PCF?
 
-Only use BOSH commands to interact with the RabbitMQ application. For example:
+Only BOSH commands should be used by the operator to interact with the RabbitMQ application. Examples for both versions of the CLI are given below.
 
-* `bosh stop rabbitmq-server`
-* `bosh start rabbitmq-server`
+#### BOSH CLI v2: Stopping and starting RabbitMQ
 
-There are BOSH job lifecycle hooks which only fire when `rabbitmq-server` is
-stopped in BOSH. You can also stop individual instances by running `bosh stop JOB [index]`.
+`bosh2 stop rabbitmq-server`
 
-<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. It does not call the drain scripts.</p>
+`bosh2 start rabbitmq-server`
 
-## <a id="boshstop"></a> What happens when I run bosh stop rabbitmq-server?
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is stopped through BOSH.  You can also stop individual instances by running:
 
-BOSH initiates the shutdown sequence from the bootstrap instance.
+`bosh2 stop JOB [index]`
 
-The sequence begins when an operator instructs the RabbitMQ application to shut down. Part of the shutdown process requires the Erlang VM the application runs to shut down as well. 
+<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. This command does not call the drain scripts.</p>
 
-If both shutdowns are successful, perform the following checks to ensure that the RabbitMQ application and Erlang VM have stopped:
+#### BOSH CLI v1: Stopping and starting RabbitMQ
 
-1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside
-this file does not point to a running Erlang VM process. Be sure you're tracking the Erlang PID and not the RabbitMQ PID.
+`bosh stop rabbitmq-server`
+
+`bosh start rabbitmq-server`
+
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is stopped through BOSH.  You can also stop individual instances by running:
+
+`bosh stop JOB [index]`
+
+<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. This command does not call the drain scripts.</p>
+
+## <a id="boshstopprocess"></a> What happens when I stop the RabbitMQ server?
+
+You can stop the RabbitMQ server with `bosh stop` or `bosh2 stop`, depending on which version of the BOSH CLI you use.
+
+BOSH starts the shutdown sequence from the bootstrap instance.
+
+This command tells the RabbitMQ application to shut down and then shut down the Erlang VM in which it is running. If this succeeds, run the following
+checks to ensure that the RabbitMQ application and Erlang VM have stopped:
+
+1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside this file does not point to a running Erlang VM process. This process checks the Erlang PID and not the RabbitMQ PID.
 1. Check that `rabbitmqctl` does not return an Erlang VM PID.
 
-Once this completes on the bootstrap instance, BOSH will continue the same
-sequence on the next instance. All remaining rabbitmq-server instances will be
-stopped one by one.
+Once this completes on the bootstrap instance, BOSH will continue the same sequence on the next instance. All remaining RabbitMQ servers stop sequentially after that.
 
 ## <a id="serverfailprocess"></a> What happens when bosh stop rabbitmq-server fails?
 
@@ -45,55 +83,79 @@ script failed with:
 <pre class="terminal">result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
 </pre>
 
-## <a id="serverfailactions"></a> What do I do when bosh stop rabbitmq-server fails?
+## <a id="boshstopresult"></a> What happens when the RabbitMQ server fails to stop?
+
+If `bosh stop` or `bosh2 stop` fails, you will likely get an error saying that the drain
+script failed with:
+
+<pre class="terminal">
+result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
+</pre>
+
+## <a id="boshstopaction"></a> What do I do when the RabbitMQ server fails to stop?
 
 The drain script logs to `/var/vcap/sys/log/rabbitmq-server/drain.log`. If you
 have a remote syslog configured, this will appear as the `rmq_server_drain`
 program.
 
-First, `bosh ssh` into the failing rabbitmq-server instance and start the
-rabbitmq-server job by running `monit start rabbitmq-server`. 
+#### BOSH CLI v2: Troubleshooting the server
 
-You will not be able to start the job with `bosh start` since that command always runs the drain script first. If the drain script is failing, `bosh start` will fail.
+This procedure is for v2 of the BOSH CLI.
 
-Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
-`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you why it’s
+1. `bosh2 ssh` into the failing rabbitmq-server instance and start the
+rabbitmq-server job by running `monit start rabbitmq-server`).
+1. When the rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
+`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
 failing.
+
+<p class="note"><strong>Note:</strong> You will not be
+able to start the job with <code>bosh2 start</code> as this command always runs the drain script first. It will fail since the drain script is failing.</p>
+
+#### BOSH CLI v1: Troubleshooting the server
+
+This procedure is for v1 of the BOSH CLI.
+
+1. `bosh ssh` into the failing rabbitmq-server instance and start the rabbitmq-server job by running `monit start rabbitmq-server`). 
+1. When the rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
+`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s failing.
+
+<p class="note"><strong>Note:</strong> You will not be
+able to start the job with <code>bosh start</code> as this command always runs the drain script first. It will fail since the drain script is failing.</p>
 
 ## <a id="backup"></a> How can I manually back up the state of the RabbitMQ cluster?
 
-You can back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services using the RabbitMQ Management API. Backups include vhosts, exchanges, queues, and users. 
+You can back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the RabbitMQ Management API. Backups include vhosts, exchanges, queues and users. 
 
-### Back Up Manually
+### Back up Manually
 
 1. Log in to the RabbitMQ Management UI as the admin user you created.  
 
 1. Select **export definitions** from the main page.  
 
-### Back Up and Restore with a Script
+### Back up and Restore with a Script
 
 Use the API to run scripts with code similar to the following:  
 
-<ol>
-<li>Enter the following command to run the backup script:
-	<pre class="terminal">
+1. For the backup:
+
+	```
 	curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
 	-o "$BACKUP_FOLDER/rabbit-backup.json"
-	</pre>
-</li>
-<li>For the restore:
-	<pre class="terminal">
+	```
+
+2. For the restore:
+
+	```
 	curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
 	-X POST -H "Content-Type: application/json" -d
 	"@$BACKUP_FOLDER/rabbit-backup.json"
-	</pre>
-</li>
-</ol>
+	```
+## <a id="preupgrade"></a> What pre-upgrade checks should I do?
 
-## <a id="preupgrade"></a> What pre-upgrade checks should I perform?
+Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 
-Before upgrading RabbitMQ, Pivotal recommends confirming the following items:
-
-1. In Operations Manager, confirm that all instances are healthy.
-2. Log into the RabbitMQ Management UI and confirm that no alarms have been triggered and that all nodes are healthy. They should display as green.
-3. Confirm that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been consumed by each node in the RabbitMQ Managment UI.
+1. In Operations Manager check that the status of all of the instances is healthy.
+2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy, that is, 
+they should display as green.
+3. Check that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been 
+consumed by each node in the RabbitMQ Managment UI.
