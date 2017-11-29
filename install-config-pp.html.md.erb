@@ -251,7 +251,7 @@ provided.
 Ops Manager allow to create a pair of public and private key signed by its own Certificate Authority
 
 ### Known TLS Vulnerabilities, and What To Do About Them
-By default only TLSv1.1 and TLSv1.2 are enabled, TLSv1.0 is disabled by default because is vulnerable to attach such [POODLE](https://www.openssl.org/~bodo/ssl-poodle.pdf) and [BEAST](http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack).
+By default only TLSv1.1 and TLSv1.2 are enabled, TLSv1.0 is disabled by default because is vulnerable to attacks such as [POODLE](https://www.openssl.org/~bodo/ssl-poodle.pdf) and [BEAST](http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack).
 Is possible to enable TLSv1.0 to allow legacy application to connect (e.g. application based on JDK 6.0)
 
 
@@ -291,7 +291,7 @@ sudo -i
 echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)</pre></li>
 <li>Paste the value from the above command into the Erlang cookie field displayed above.</li>
 <li>Adjust the size of your cluster as needed.</li>
-<li>Click **Apply Changes**.</li>
+<li>Click <strong>Apply Changes</strong>.</li>
 </ol>
 
 **Note**: BOSH will tell you that the cookie has changed - this is because the
@@ -311,13 +311,12 @@ sudo -i
 echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)</pre></li>
 <li>Paste the value from the above command into the Erlang cookie field displayed above.</li>
 <li>Adjust the size of your cluster as needed.</li>
-<li>Click **Apply Changes**.</li>
+<li>Click <strong>Apply Changes</strong>.</li>
 </ol>
 
-**Note**: BOSH will tell you that the cookie has changed - this is because the
-default value in the manifest is empty, which results in an auto-generated
+<p class="note"><strong>Note:</strong> BOSH will tell you that the cookie has changed - this is because the default value in the manifest is empty, which results in an auto-generated
 cookie. The value of the cookie on the server will remain the same, so the section
-below will **not** apply.
+below will <strong>not</strong> apply.</p>
 
 **Changing the Value Known Issue**
 
