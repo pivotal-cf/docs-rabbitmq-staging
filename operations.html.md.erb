@@ -14,22 +14,20 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
     <th>PCF Version</th>
     <th>BOSH CLI Version</th>
     <tr>
-        <td>1.10</td>
+        <td>v1.9, 1.10</td>
         <td>CLI v1</td>
     </tr>
     <tr>
-        <td>1.11</td>
+        <td>v1.11</td>
         <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
     </tr>
 </table>
 
 ## What should I check before deploying a new version of the tile?
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  
-You cannot rely solely
-on the `bosh instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
-the RabbitMQ application.
-
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the Firehose.  
+Do not rely on `bosh instances`, or `bosh2 instances` for v2 of the BOSH CLI, to execute this task correctly. 
+That output reflects the state of the Erlang VM used by RabbitMQ, not the RabbitMQ application.
 
 ## <a id="stopstart"></a> What is the correct way to stop and start RabbitMQ in PCF?
 
