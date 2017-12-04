@@ -162,6 +162,23 @@ There are two known issues associated with the Erlang cookie when you do the fol
 If you have not set the Erlang cookie and you want to scale out your cluster
 size without downtime, follow these steps:
 
+##### BOSH CLI v2: Scaling Your Cluster
+
+1. Follow the steps in [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather), up to and including [Log in to the BOSH Director](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#log-in).
+1. Run the following commands: 
+  <pre class="terminal">
+  bosh2 ssh rabbitmq-server/0
+  sudo -i
+  echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
+</pre>
+1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
+
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
+
+1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
+
+##### BOSH CLI v1: Scaling Your Cluster
+
 1. Follow the steps in [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare), up to and including [Log in to the BOSH Director](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#log-in).
 1. Run the following commands: 
   <pre class="terminal">

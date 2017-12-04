@@ -47,11 +47,17 @@ Configure the following tabs for the on-demand service:
   </tr>
   <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
   </tr>
-  <tr><td>Dedicated Instance: Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
+  <tr><td>On Demand Instance: Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
   </tr>
   <tr><td>On Demand Instance: Plan 1</td><td><a href="#service-plan">Configure the Service Plan</a></td>
   </tr>
   <tr><td>On Demand Instance: Plan 2</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>On Demand Instance: Plan 3</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>On Demand Instance: Plan 4</td><td><a href="#service-plan">Configure the Service Plan</a></td>
+  </tr>
+  <tr><td>On Demand Instance: Plan 5</td><td><a href="#service-plan">Configure the Service Plan</a></td>
   </tr>
   <tr><td>Errands</td><td><a href="#errands">Errands</a></td>
   </tr>
@@ -81,7 +87,7 @@ Configure the following tabs for the on-demand service:
          </td></tr>
      <tr><td><strong>Service Network</strong></td>
          <td> Select a separate network that the on-demand service instances run on.<br><br>
-              A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.  
+              A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.
               For information about the Service Network, see <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
               This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
    </table>
@@ -105,7 +111,7 @@ Pivotal recommends that you configure logging to monitor the health of RabbitMQ 
 
 Follow the steps below to configure global settings.
 
-1. Click **Dedicated Instance: Global Settings** and configure the following:<br><br>
+1. Click **On-Demand Instance: Global Settings** and configure the following:<br><br>
   * **Service instance quota**  min: 0, max: 50  set the total number of on-demand service instances which can be deployed.
 For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).<br><br>
   * **VM options**:<br><br>
@@ -114,18 +120,20 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to avail of on-demand service plan(s), you can configure one or both of the available plans: **On Demand Instance: Plan 1**, **On Demand Instance: Plan 2**. Either plan can be configured to have 1,3,5 or 7 RabbitMQ nodes.
+To enable the on-demand service, you must configure at least one on-demand plan. 
 
-<p class="note"><strong>Note</strong>:
-On Demand Instance: Plan 1 must be fully configured even if you disable access to this plan (see **CF Service Access** in the table below).
-If the on-demand service is not enabled, the on-demand broker is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
+* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance: Plan 5**. 
+* All on-demand plans can be configured to have 1, 3, 5, or 7 RabbitMQ nodes.
+* If the on-demand service is not enabled, the on-demand broker is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.
+
+<p class="note"><strong>Note</strong>: You must fully configure <strong>On Demand Instance: Plan 1</strong> even if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).</p>
 
 
 1. Choose the on-demand service instance you want to configure:<br><br>**On Demand Instance: Plan 1** (complete required fields even if you disable this plan):
 
     ![service-plan-tab-v1.10.0](images/plan-1-configuration.png)
 
-    **On Demand Instance: Plan 2**:
+    **On Demand Instance: Plan 2, 3, 4, and 5**:
 
     ![service-plan-tab-v1.10.0](images/plan-2-configuration.png)
 
@@ -133,12 +141,12 @@ If the on-demand service is not enabled, the on-demand broker is deployed alongs
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
-        <td>(Except Plan 1) To enable, select **Plan Enable**.</td></tr>
+        <td>(Plans 2 - 5 only) To enable, select **Plan Enable**.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
     <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
-        If you enable the cluster plan, the default setting is **Enable Service Access**.
+        If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
         If you change this default setting, the smoke tests fail.
-        Therefore, set the **Dedicated Instance Smoke Tests** errand to **Off** if you enable the cluster plan and change this default.
+        Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
         For more information, see [Errands](#errands).<br>
       <br><ul>
         <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
@@ -160,7 +168,7 @@ If the on-demand service is not enabled, the on-demand broker is deployed alongs
         <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
             Previously deployed service instances are **not** updated.</td></tr>
     <tr><td><strong>Network partition behaviour</strong></strong></td>
-        <td>Select pause minority or autoheal. Pivotal recommends using pause minority.
+        <td>Select <code>pause_minority</code> or <code>autoheal</code>. Pivotal recommends using pause minority.
             For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type. The plan creates a service instance of this size. For more information, see <a href="#resources">Understanding RabbitMQ VM Types and Persistent Disk Size</a> below. </td></tr>
@@ -172,7 +180,7 @@ If the on-demand service is not enabled, the on-demand broker is deployed alongs
     <td>This field is available after you complete the [Assign AZs and Networks](#azs-networks) page.
         <ul><li>For a single-node plan, select one or more AZs.</li>
           <li>For a plan containing multiple nodes, select only one AZ.
-        Pivotal recommends deploying a plan containing multiple nodes to only one AZ to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
+        Pivotal recommends this for multi-node plans to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
         <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz).</li>
       </ul></td></tr>
   </table>
@@ -212,7 +220,7 @@ Pivotal recommends that the value of **Persistent disk type** be twice the amoun
 Incorrect disk sizes might cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
-* On-demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
+* On-Demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
 Use the following table as a guide when selecting the size of the persistent disk.
 
 The following table shows an example of possible RAM values, absolute minimal value below which
@@ -302,7 +310,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
     publish and subscribe to a RabbitMQ cluster.
-    See <a href="#on-demand_instance_smoke_test_process">On-demand Instance Smoke Test Process</a> below.</td>
+    See <a href="#on_demand_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -313,12 +321,12 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
     <td><strong>On-Demand Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
     publish and subscribe to a RabbitMQ cluster.
-    See <a href="#dedicated_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
+    See <a href="#on_demand_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
-    tile is upgraded. If this errand is set to "Off" or "When Changed", updates to <strong>Dedicated Instance</strong> settings will <strong>not</strong>
+    <td>On-Demand instances are updated and redeployed if there are changes to on-demand plan settings or the
+    tile is upgraded. If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to on-demand plan settings will <strong>not</strong>
     be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
   </tr>
 </table>
@@ -344,9 +352,9 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
 </table>
 
 
-### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
+### <a id="on_demand_instance_smoke_test_process"></a> On-Demand Instance Smoke Test Process
 
-Smoke tests only run against the cluster plan. The smoke tests perform the following steps:
+Smoke tests only run against Plan 1. The smoke tests perform the following steps:
 
 1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
 1. Deploy an instance of the [RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
