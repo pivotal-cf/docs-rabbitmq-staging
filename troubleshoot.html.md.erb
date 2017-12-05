@@ -72,12 +72,12 @@ Start here if you're responding to a specific errors or error messages.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-missing-logs' %>
 
-### <a id="address-change"></a>RabbitMQ Server IP Address Change
+### <a id="failed-deployment"></a>Failed Deployment on Upgrade or after Apply Changes
 
-If you change the IP addresses assigned to a `RabbitMQ Server` job, the deployment fails. 
+If the deployment fails after editing the **Assign AZs and Networks** pane of the RabbitMQ for PCF tile, it might be due to a change to the IP addresses assigned to the `RabbitMQ Server` job. RabbitMQ for PCF requires that these IP addresses do not change once assigned. If you change them, the deployment fails. 
 This includes changes made to your current installation or during an upgrade.
-RabbitMQ for PCF requires that these IP addresses do not change once assigned.
-For information about how to diagnose and solve this issue, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+To diagnose and solve this issue, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ## <a id="components"></a>Troubleshooting Components
 
