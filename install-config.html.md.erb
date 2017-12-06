@@ -116,6 +116,8 @@ Follow the steps below to configure global settings.
 For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).<br><br>
   * **VM options**:<br><br>
        **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
+         <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
+
 1. Click **Save**.
 
 ### <a id="service-plan"></a> Configure the Service Plan
