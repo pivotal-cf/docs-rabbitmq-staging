@@ -41,9 +41,28 @@ Start here if you're responding to a specific error or error messages.
 
 ### <a id="cannot-bind"></a>Cannot Bind to or Unbind from Service Instances
 
-#### <a id="instance-not-exist"></a>Instance Does Not Exist
+#### <a id="instance-not-exist"></a>Instance Does Not Exist 
 
-<%= partial '../../rabbitmq-cf/odb/tshoot-err-instance-not-exist' %>
+If developers report errors such as:
+
+<pre class="terminal">
+Server error, status code: 502, error code: 10001, message: Service broker error: instance does not exist`
+</pre>
+
+Follow these steps:
+
+1. Type `cf service MY-INSTANCE --guid`. This confirms that the <%=vars.service_name_article_full%> instance exists in BOSH and CF, and returns a GUID.
+
+1. Using the GUID obtained above, run one of the following BOSH CLI commands depending on your PCF version:
+
+    | PCF | Command |
+    |-----|---------|
+    | 1.10 or below | `bosh vms service-instance_GUID`|
+    | 1.11, 1.12 | `bosh2 -d service-instance_YOUR-GUID vms` |
+    | 2.0 | `bosh -d service-instance_YOUR-GUID vms` |
+
+If the BOSH deployment is not found, it has been deleted from BOSH. Contact Pivotal support for further assistance.
+
 
 #### <a id="other-errors"></a>Other Errors
 
