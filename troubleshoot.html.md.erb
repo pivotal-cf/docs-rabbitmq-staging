@@ -55,10 +55,10 @@ Follow these steps:
 
 1. Using the GUID obtained above, run one of the following BOSH CLI commands depending on your PCF version:
 
-    | PCF | Command |
+    | Ops Manager Version | BOSH Command |
     |-----|---------|
     | 1.10 or below | `bosh vms service-instance_GUID`|
-    | 1.11, 1.12 | `bosh2 -d service-instance_YOUR-GUID vms` |
+    | 1.11 and 1.12 | `bosh2 -d service-instance_YOUR-GUID vms` |
     | 2.0 | `bosh -d service-instance_YOUR-GUID vms` |
 
 If the BOSH deployment is not found, it has been deleted from BOSH. Contact Pivotal support for further assistance.
