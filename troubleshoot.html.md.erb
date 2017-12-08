@@ -14,9 +14,40 @@ owner: London Services Enablement
     }
 </style>
 
+In this topic:
+
+* [About the BOSH CLI](#about-cli)
+* [Troubleshooting Errors](#errors)
+    * [Failed Install](#install-fail)
+    * [Cannot Create or Delete Service Instances](#cannot-create-delete)
+    * [Broker Request Timeouts](#timeouts)
+    * [Cannot Bind to or Unbind from Service Instances](#cannot-bind)
+    * [Cannot Connect to a Service Instance](#cannot-connect)
+    * [Upgrade All Instances Fails](#upgrade-all-fails)
+    * [Missing Logs and Metrics](#missing-logs)
+    * [Failed Deployment on Upgrade or after Apply Changes](#failed-deployment)
+* [Troubleshooting Components](#components)
+    * [BOSH problems](#bosh)
+    * [Configuration](#bosh-config)
+    * [Authentication](#auth)
+    * [Networking](#network)
+    * [Quotas](#quotas)
+* [Techniques for Troubleshooting](#techniques)
+    * [Parse a Cloud Foundry (CF) Error Message](#parse-error)
+    * [Access Broker and Instance Logs and VMs](#bosh-cf-access)
+    * [Run Service Broker Errands to Manage Brokers and Instances](#broker-errands)
+    * [Select the BOSH Deployment for a Service Instance](#instance-deployment)
+    * [Get Admin Credentials for a Service Instance](#instance-creds)
+    * [Reinstall a Tile](#reinstall)
+    * [View Resource Saturation and Scaling](#view-resources)
+    * [Identify Service Instance Owner](#id-instance-owner)
+    * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
+* [Knowledge Base (Community)](#kb)
+* [File a Support Ticket](#support)
+
 This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for Pivotal Cloud Foundry (PCF).
 
-## <a id="about-cli"></a>About the BOSH CLI
+<a id="about-cli"></a><h2>About the BOSH CLI</h2>
 The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
 
 This topic provides examples of using each version of the BOSH CLI. While all versions of the BOSH CLI work with RabbitMQ for PCF v1.9.x, your PCF installation may affect which version of the BOSH CLI you can use. Consult the table below to determine which version of the CLI is supported for your installation.
@@ -38,175 +69,175 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
     </tr>
 </table>
 
-## <a id="errors"></a>Troubleshooting Errors
+<a id="errors"><h2></a>Troubleshooting Errors</h2>
 
-Start here if you're responding to a specific errors or error messages.
+Start here if you're responding to a specific error or error messages.
 
-### <a id="install-fail"></a>Failed Install
+<a id="install-fail"></a><h3>Failed Install</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-install-fail' %>
 
-### <a id="cannot-create-delete"></a>Cannot Create or Delete Service Instances
+<a id="cannot-create-delete"></a><h3>Cannot Create or Delete Service Instances</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-cannot-create-delete' %>
 
-### <a id="timeouts"></a>Broker Request Timeouts
+<a id="timeouts"></a><h3>Broker Request Timeouts</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-timeouts' %>
 
-### <a id="cannot-bind"></a>Cannot Bind to or Unbind from Service Instances
+<a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
 
-#### <a id="instance-not-exist"></a>Instance Does Not Exist
+<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4> 
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-instance-not-exist' %>
 
-#### <a id="other-errors"></a>Other Errors
+<a id="other-errors"></a><h4>Other Errors</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-other-errors' %>
 
-### <a id="cannot-connect"></a>Cannot Connect to a Service Instance
+<a id="cannot-connect"><h3></a>Cannot Connect to a Service Instance</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-cannot-connect' %>
 
-### <a id="upgrade-all-fails"></a>Upgrade All Instances Fails
+<a id="upgrade-all-fails"><h3></a>Upgrade All Instances Fails</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-upgrade-all-fails' %>
 
-### <a id="missing-logs"></a>Missing Logs and Metrics
+<a id="missing-logs"><h3></a>Missing Logs and Metrics</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-missing-logs' %>
 
-### <a id="failed-deployment"></a>Failed Deployment on Upgrade or after Apply Changes
+<a id="failed-deployment"><h3></a>Failed Deployment on Upgrade or after Apply Changes</h3>
 
 If the deployment fails after editing the **Assign AZs and Networks** pane of the RabbitMQ for PCF tile, it might be due to a change to the IP addresses assigned to the `RabbitMQ Server` job. RabbitMQ for PCF requires that these IP addresses do not change once assigned. If you change them, the deployment fails. 
 This includes changes made to your current installation or during an upgrade.
 
 To diagnose and solve this issue, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-## <a id="components"></a>Troubleshooting Components
+<a id="components"></a><h2>Troubleshooting Components</h2>
 
 Guidance on checking for and fixing issues in on-demand service components.
 
-### <a id="bosh"></a>BOSH problems
+<a id="bosh"></a><h3>BOSH problems</h3>
 
-#### <a id="no-bosh-uuid"></a>Missing BOSH Director UUID
+<a id="no-bosh-uuid"></a><h4>Missing BOSH Director UUID</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-no-bosh-uuid' %>
 
-#### <a id="large-queue"></a>Large BOSH Queue
+<a id="large-queue"></a><h4>Large BOSH Queue</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-large-queue' %>
 
-### <a id="bosh-config"></a>Configuration
+<a id="bosh-config"></a><h3>Configuration</h3>
 
-#### <a id="bosh-instance-fail"></a>Service instances in failing state
+<a id="bosh-instance-fail"></a><h4>Service instances in failing state</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-bosh-instance-fail' %>
 
-### <a id="auth"></a>Authentication
+<a id="auth"></a><h3>Authentication</h3>
 
-#### <a id="uaa-change"></a>UAA Changes
+<a id="uaa-change"></a><h4>UAA Changes</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-uaa-change' %>
 
-### <a id="network"></a>Networking
+<a id="network"></a><h3>Networking</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-network' %>
 
-#### <a id="broker-to-instances"></a>Validate Service Broker Connectivity to Service Instances
+<a id="broker-to-instances"></a><h4>Validate Service Broker Connectivity to Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-broker-to-instances' %>
 
-#### <a id="app-to-instances"></a>Validate App Access to Service Instance
+<a id="app-to-instances"></a><h4>Validate App Access to Service Instance</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-app-to-instances' %>
 
-### <a id="quotas"></a>Quotas
+<a id="quotas"></a><h3>Quotas</h3>
 
-#### <a id="plan-quotas"></a>Plan Quota issues
+<a id="plan-quotas"></a><h4>Plan Quota issues</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-plan-quotas' %>
 
-#### <a id="global-quotas"></a>Global Quota Issues
+<a id="global-quotas"></a><h4>Global Quota Issues</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-global-quotas' %>
 
-#### <a id="failing-jobs"></a>Failing jobs and unhealthy instances
+<a id="failing-jobs"></a><h4>Failing jobs and unhealthy instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-failing-jobs' %>
 
-## <a id="techniques"></a>Techniques for Troubleshooting
+<a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
 
-This section contains instructions on interacting with the On-Demand Service Broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks.
+Instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks
 
-### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
+<a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-parse-error' %>
 
-### <a id="bosh-cf-access"></a>Access Broker and Instance Logs and VMs
+<a id="bosh-cf-access"></a><h3>Access Broker and Instance Logs and VMs</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-bosh-cf-access' %>
 
-#### <a id="access-broker"></a>Access Broker Logs and VM(s)
+<a id="access-broker"></a><h4>Access Broker Logs and VM(s)</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-broker' %>
 
-#### <a id="access-instance"></a>Access Service Instance Logs and VMs
+<a id="access-instance"></a><h4>Access Service Instance Logs and VMs</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-instance' %>
 
-### <a id="broker-errands"></a>Run Service Broker Errands to Manage Brokers and Instances
+<a id="broker-errands"></a><h3>Run Service Broker Errands to Manage Brokers and Instances</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-broker-errands' %>
 
-#### <a id="register-broker"></a>Register Broker
+<a id="register-broker"></a><h4>Register Broker</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-register-broker' %>
 
-#### <a id="deregister-broker"></a>Deregister Broker
+<a id="deregister-broker"></a><h4>Deregister Broker</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-deregister-broker' %>
 
-#### <a id="upgrade-all"></a>Upgrade All Service Instances
+<a id="upgrade-all"></a><h4>Upgrade All Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-upgrade-all' %>
 
-#### <a id="delete-all"></a>Delete All Service Instances
+<a id="delete-all"></a><h4>Delete All Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-delete-all' %>
 
-#### <a id="detect-orphans"></a>Detect Orphaned Instances Service Instances
+<a id="detect-orphans"></a><h4>Detect Orphaned Instances Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-detect-orphans' %>
 
-### <a id="instance-deployment"></a>Select the BOSH Deployment for a Service Instance
+<a id="instance-deployment"></a><h3>Select the BOSH Deployment for a Service Instance</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-instance-deployment' %>
 
-### <a id="instance-creds"></a>Get Admin Credentials for a Service Instance
+<a id="instance-creds"></a><h3>Get Admin Credentials for a Service Instance</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-instance-creds' %>
 
-### <a id="reinstall"></a>Reinstall a Tile
+<a id="reinstall"></a><h3>Reinstall a Tile</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-reinstall' %>
 
-### <a id="view-resources"></a>View Resource Saturation and Scaling
+<a id="view-resources"></a><h3>View Resource Saturation and Scaling</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-view-resources' %>
 
-### <a id="id-instance-owner"></a>Identify Service Instance Owner
+<a id="id-instance-owner"></a><h3>Identify Service Instance Owner</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-id-instance-owner' %>
 
-### <a id="monitor-quota"></a>Monitor Quota Saturation and Service Instance Count
+<a id="monitor-quota"></a><h3>Monitor Quota Saturation and Service Instance Count</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
 
-## <a id="kb"></a>Knowledge Base (Community)
+<a id="kb"></a><h2>Knowledge Base (Community)</h2>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-kb' %>
 
-## <a id="support"></a>File a Support Ticket
+<a id="support"></a><h2>File a Support Ticket</h2>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-support' %>
