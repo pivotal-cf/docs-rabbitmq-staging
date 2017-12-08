@@ -150,28 +150,7 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <a id="failing-jobs"></a><h4>Failing jobs and unhealthy instances</h4>
 
-<!-- Partial that referenced the below was removed, and the text was added manually, due to it breaking the header formatting (‘../../rabbitmq-cf/odb/tshoot-comp-failing-jobs’) -->
-
-To determine whether there is an issue with the RabbitMQ for PCF service deployment, inspect the VMs. To do so, run one of the following commands:
-
-| Ops Manager Version | BOSH Command |
-|-----|---------|
-| 1.10 or earlier | `bosh vms --vitals service-instance_GUID`|
-| 1.11 and 1.12 | `bosh2 -d service-instance_GUID vms --vitals` |
-| 2.0 | `bosh -d service-instance_GUID vms --vitals` |
-
-
-For additional information, run one of the following commands:
-
-| Ops Manager Version | BOSH Command |
-|-----|---------|
-| 1.10 or earlier | `bosh instances --ps --vitals`|
-| 1.11 and 1.12 | `bosh2 instances --ps --vitals` |
-| 2.0 | `bosh instances --ps --vitals` |
-
-
-If the VM is failing, follow the service-specific information.
-Any unadvised corrective actions (such as running BOSH `restart` on a VM) can cause issues in the service instance.
+<%= partial '../../rabbitmq-cf/odb/tshoot-comp-failing-jobs' %>
 
 <a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
 
