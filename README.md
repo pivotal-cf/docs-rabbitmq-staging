@@ -33,8 +33,6 @@ Any changes on the master branch will not be displayed publicly until a **-live*
 When a commit is made into any of the above branches, the documentation is deployed by [this concourse build][docs-staging-deploy]. All the supported
 versions will be accessible on the [staging website][docs-staging].
 
-The **master** docs are deployed to [the 1.10 staging branch](http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-10/).
-
 [docs-staging-deploy]: https://wings.concourse.ci/teams/cf-docs/pipelines/cf-services?groups=rabbitmq
 [docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
 
