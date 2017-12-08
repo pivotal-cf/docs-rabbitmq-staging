@@ -51,22 +51,18 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-support-dev' %>
 
-## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instance
+## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instances
 
-On-Demand Broker provides a BOSH to delete all the On-Demand Broker deployed instances. 
+On-Demand Broker provides a BOSH command to delete all the On-Demand Broker deployed instances. To delete the instances, do the following procedure:
 
-#### BOSH CLI v2: Deleting broker instances
+1. If you are using BOSH CLI v1, set the deployment to the On-Demand Broker in BOSH.
 
-This procedure is for v2 of the BOSH CLI.
+1. Run one of the following commands to delete all instances of the On-Demand Broker, depending on your version of Ops Manager:
 
-Run `bosh2 run-errand delete-sub-deployments` to delete all instances of the On-Demand Broker.
+| Ops Manager Version | BOSH Command |
+|---------------------|--------------|
+| 1.10 or earlier | `bosh run errand delete-sub-deployments` |
+| 1.11 and 1.12 | `bosh2 run-errand delete-sub-deployments` |
+| 2.0 | `bosh run-errand delete-sub-deployments` |
 
-This command deletes deployment instances serially. It is very destructive and cannot be undone.
-
-#### BOSH CLI v1: Deleting broker instances
-
-After setting the deployment to the On-Demand Broker in BOSH, the command to delete all the instances is `bosh run errand delete-sub-deployments`. 
-
-This command deletes deployment instances serially. It is very destructive and cannot be undone.
-
-
+<p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>

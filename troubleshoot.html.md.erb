@@ -120,27 +120,26 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <!-- Partial that referenced the below was removed, and the text was added manually, due to it breaking the header formatting (‘../../rabbitmq-cf/odb/tshoot-comp-failing-jobs’) -->
 
-#### BOSH CLI v2: Troubleshooting the deployment
+To determine whether there is an issue with the RabbitMQ for PCF service deployment, inspect the VMs. To do so, run one of the following commands:
 
-This procedure is for v2 of the BOSH CLI.
+| Ops Manager Version | BOSH Command |
+|-----|---------|
+| 1.10 or below | `bosh vms --vitals service-instance_GUID`|
+| 1.11 and 1.12 | `bosh2 -d service-instance_GUID vms --vitals` |
+| 2.0 | `bosh -d service-instance_GUID vms --vitals` |
 
-To determine whether there is an issue with the RabbitMQ for PCF service deployment, inspect the VMs.
 
-<pre class='terminal'> $ bosh2 -d service-instance_SERVICE-INSTANCE-GUID vms --vitals </pre>
-For additional information, run `bosh2` instances:
+For additional information, run one of the following commands:
 
-<pre class='terminal'> $ bosh2 instances --ps --vitals </pre>
-If the VM is failing, follow the service-specific information. Any unadvised corrective actions (such as running `bosh2 restart` on a VM) can cause issues in the service instance.
+| Ops Manager Version | BOSH Command |
+|-----|---------|
+| 1.10 or below | `bosh instances --ps --vitals`|
+| 1.11 and 1.12 | `bosh2 instances --ps --vitals` |
+| 2.0 | `bosh instances --ps --vitals` |
 
-#### BOSH CLI v1: Troubleshooting the deployment
 
-To determine whether there is an issue with the RabbitMQ for PCF service deployment, run `bosh vms`:
-
-<pre class='terminal'> $ bosh vms --vitals service-instance_SERVICE-INSTANCE-GUID </pre>
-For additional information, run `bosh instances`:
-
-<pre class='terminal'> $ bosh instances --ps --vitals </pre>
-If the VM is failing, follow the service-specific information. Any unadvised corrective actions (such as running `bosh restart` on a VM) can cause issues in the service instance.
+If the VM is failing, follow the service-specific information.
+Any unadvised corrective actions (such as running BOSH `restart` on a VM) can cause issues in the service instance.
 
 ## <a id="techniques"></a>Techniques for Troubleshooting
 
