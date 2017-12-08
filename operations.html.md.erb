@@ -8,7 +8,7 @@ owner: London Services
 
 Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  
 You cannot rely solely
-on the `bosh instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
+on the BOSH `instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
 the RabbitMQ application.
 
 
@@ -27,7 +27,7 @@ Only BOSH commands should be used by the operator to interact with the RabbitMQ 
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
 stopped through BOSH.  You can also stop individual instances by running the stop command and specifying `JOB [index]`
 
-*Note* Do not use `monit stop rabbitmq-server` as this does not call the drain scripts
+<p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code> as this does not call the drain scripts</p>
 
 ## <a id="boshstop"></a> What happens when I run bosh stop rabbitmq-server?
 
@@ -48,7 +48,7 @@ stopped one by one.
 
 ## <a id="serverfailprocess"></a> What happens when bosh stop rabbitmq-server fails?
 
-If the `bosh stop` fails, you will likely get an error saying that the drain
+If the BOSH `stop` fails, you will likely get an error saying that the drain
 script failed with:
 
 <pre class="terminal">result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
@@ -60,9 +60,9 @@ The drain script logs to `/var/vcap/sys/log/rabbitmq-server/drain.log`. If you
 have a remote syslog configured, this will appear as the `rmq_server_drain`
 program.
 
-First, `bosh ssh` into the failing rabbitmq-server instance and start the
-rabbitmq-server job by running `monit start rabbitmq-server`). You will not be
-able to start the job via `bosh start` as this always runs the drain script first
+First, BOSH `ssh` into the failing rabbitmq-server instance and start the
+rabbitmq-server job by running `monit start rabbitmq-server`. You will not be
+able to start the job via BOSH `start` as this always runs the drain script first
 and will fail since the drain script is failing.
 
 Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`

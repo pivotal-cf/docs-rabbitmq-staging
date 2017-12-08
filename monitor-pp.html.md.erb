@@ -107,7 +107,21 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
    <tr>
       <th>Recommended response</th>
       <td>
-      Check the RabbitMQ Service Broker logs for errors. You can find this VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code>. 
+      Check the RabbitMQ Service Broker logs for errors. You can find this VM by targeting your RabbitMQ deployment with BOSH and running one of the following commands:
+         <ul>
+            <li>
+               <strong>For Ops Manager v1.11 and v1.12: </strong><br>
+               <code>bosh vms service-instance_GUID</code>
+            </li>
+            <li>
+               <strong>For Ops Manager v1.11 and v1.12: </strong><br>
+               <code>bosh2 -d service-instance_GUID vms</code>
+            </li>
+            <li>
+               <strong>For Ops Manager v2.0: </strong><br>
+               <code>bosh -d service-instance_GUID vms</code>
+            </li>
+         </ul>
       </td>
    </tr>
 </table>
