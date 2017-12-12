@@ -11,6 +11,32 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.22
+
+**Release Date:  December 12, 2017**
+
+#### Features
+
+* Required stemcell updated to [3421.34](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.34)
+* Adds queue depth, memory alarm, and disk alarm metrics
+* Go update (security fixes)
+
+#### Known Issues
+
+* Smoke tests fail if SSL/TLS is configured for your RabbitMQ cluster.
+* Metrics `name` is namespaced with `/p-rabbitmq` instead of `/p.rabbitmq`.
+* Scaling the RabbitMQ cluster or changing the Erlang Cookie value requires cluster downtime
+  and can result in failed deployments.
+  If it does, redeploying fixes the issue.
+  For more information, see [Erlang Cookie](./install-config-pp.html#erlang).
+* As of Ops Manager v10.0.0, errands set to the **When Changed** rule do not always run when the tile has relevant changes.
+  For more information, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).<br>
+  When using Ops Manager v1.10.7 or earlier, set one-time rules to run **Update All Service Instances**.
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Metrics are not emitted if RabbitMQ for PCF v1.8.x is installed on Ops Manager v1.11.0 or later.
+* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues logging into the Management UI as an administrator.
+
 ### v1.8.21
 
 **Release Date:  December 6, 2017**
