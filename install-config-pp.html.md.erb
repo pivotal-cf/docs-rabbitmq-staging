@@ -13,10 +13,10 @@ Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 ## <a id="about-cli"></a>About the BOSH CLI
 The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
 
-This topic provides examples of using each version of the BOSH CLI. While all versions of the BOSH CLI work with RabbitMQ for PCF v1.9.x, your PCF installation may affect which version of the BOSH CLI you can use. Consult the table below to determine which version of the CLI is supported for your installation.
+This topic provides examples of using each version of the BOSH CLI. While all versions of the BOSH CLI work with RabbitMQ for PCF v1.9.x, your Ops Manager version may affect which version of the BOSH CLI you can use. Consult the table below to determine which version of the CLI is supported for your installation.
 
 <table class="nice">
-    <th>PCF Version</th>
+    <th>Ops Manager Version</th>
     <th>BOSH CLI Version</th>
     <tr>
         <td>1.10</td>
@@ -27,7 +27,7 @@ This topic provides examples of using each version of the BOSH CLI. While all ve
         <td>CLI v1 or CLI v2 (Pivotal recommends CLI v2)</td>
     </tr>
     <tr>
-        <td>1.12</td>
+        <td>1.12 and later</td>
         <td>CLI v2</td>
     </tr>
 </table>
@@ -260,33 +260,22 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 If you have not set the Erlang cookie and you want to scale out your cluster
 size without downtime, follow these steps:
 
-#### BOSH CLI v2: Scaling your cluster
+1. Follow the steps in one of the links below, up to and including the section _Log in to the BOSH Director_:
+  * **For Ops Manager v1.10 or earlier:** [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather)
+  * **For Ops Manager v1.11 or later:** [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
 
-1. Follow the steps in [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather), up to and including [Log in to the BOSH Director](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#log-in).
-1. Run the following commands: 
-  <pre class="terminal">
-  bosh2 ssh rabbitmq-server/0
+1. Run one of the following commands depending on your Ops Manager version: <br>
+    * **For Ops Manager v1.10 or earlier:** `bosh ssh rabbitmq-server/0`
+    * **For Ops Manager v1.11 or earlier:** `bosh2 ssh rabbitmq-server/0` 
+  
+1. Run the following commands:
+<pre class="terminal">
   sudo -i
   echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
 </pre>
 1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
 
 1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
-
-1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
-
-#### BOSH CLI v1: Scaling your cluster
-
-1. Follow the steps in [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare), up to and including [Log in to the BOSH Director](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#log-in).
-1. Run the following commands: 
-  <pre class="terminal">
-  bosh ssh rabbitmq-server/0
-  sudo -i
-  echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
-</pre>
-1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
-
-1. To increase the size of your cluster, navigate to the **Resource Config** tab, and in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
 
 1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
 
