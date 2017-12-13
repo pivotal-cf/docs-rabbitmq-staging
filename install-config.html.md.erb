@@ -193,7 +193,7 @@ In order to enable the on-demand service plan(s), you must enable one or both of
 <br>To determine which AZs a service instance is placed in, do one of the following:
 
 <ul><li>Retrieve the service GUID using the <code>cf service SERVICE_INSTANCE --guid</code> command
-       and then run the <code>bosh instances</code> command for the <code>service-instance_GUID</code> deployment.</li>
+       and then run the BOSH <code>instances</code> command for the <code>service-instance_GUID</code> deployment.</li>
 
   <li>With syslog forwarding enabled, inspect the service broker logs
           when running the <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the log message includes the service instance GUID and the AZs the service instance is running in.</li>
