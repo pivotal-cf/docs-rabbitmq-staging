@@ -162,17 +162,13 @@ There are two known issues associated with the Erlang cookie when you do the fol
 If you have not set the Erlang cookie and you want to scale out your cluster
 size without downtime, follow these steps:
 
-1. Follow the steps in one of the links below, up to and including the section _Log in to the BOSH Director_, depending on your BOSH CLI version:
-  * **BOSH CLI v2:** [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather)
-  * **BOSH CLI v1:** [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
+1. Follow the steps in one of the links below, up to and including the section _Log in to the BOSH Director_:
+  * **For Ops Manager v1.10 or earlier:** [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather)
+  * **For Ops Manager v1.11 or later:** [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
 
-1. Run the following commands depending on your Ops Manager version: 
-  
-    | Ops Manager Version | BOSH Command |
-    |---------------------|--------------|
-    | 1.10 or earlier | `bosh ssh rabbitmq-server/0`|
-    | 1.11 and 1.12 | `bosh2 ssh rabbitmq-server/0` |
-    | 2.0 | `bosh ssh rabbitmq-server/0` |
+1. Run one of the following commands depending on your Ops Manager version: <br>
+    * **For Ops Manager v1.10 or earlier:** `bosh ssh rabbitmq-server/0`
+    * **For Ops Manager v1.11 or earlier:** `bosh2 ssh rabbitmq-server/0` 
   
 1. Run the following commands:
 <pre class="terminal">

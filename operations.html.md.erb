@@ -16,11 +16,10 @@ the RabbitMQ application.
 
 Only BOSH commands should be used by the operator to interact with the RabbitMQ application. For example:
 
-| For Ops Manager Version | BOSH Command |
-|-------------------------|--------------|
-| 1.10 or earlier | `bosh stop rabbitmq-server` `bosh start rabbitmq-server` |
-| 1.11 and 1.12 | `bosh2 stop rabbitmq-server` `bosh2 start rabbitmq-server` |
-| 2.0 | `bosh stop rabbitmq-server` `bosh start rabbitmq-server` |
+ * **For Ops Manager v1.10 or earlier:** <br>
+ `bosh stop rabbitmq-server` `bosh start rabbitmq-server` 
+ * **For Ops Manager v1.11 or later:** <br>
+ `bosh2 stop rabbitmq-server` `bosh2 start rabbitmq-server` 
 
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
 stopped through BOSH.  You can also stop individual instances by running the stop command and specifying `JOB [index]`

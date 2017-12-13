@@ -110,16 +110,12 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
          Check the RabbitMQ Service Broker logs for errors. You can find this VM by targeting your RabbitMQ deployment with BOSH and running one of the following commands depending on your Ops Manager Version:
          <ul>
             <li>
-               <strong>For Ops Manager v1.10 and earlier: </strong><br>
+               <strong>For Ops Manager v1.10 or earlier: </strong><br>
                <code>bosh vms service-instance_GUID</code>
             </li>
             <li>
-               <strong>For Ops Manager v1.11 and v1.12: </strong><br>
+               <strong>For Ops Manager v1.11 or later: </strong><br>
                <code>bosh2 -d service-instance_GUID vms</code>
-            </li>
-            <li>
-               <strong>For Ops Manager v2.0: </strong><br>
-               <code>bosh -d service-instance_GUID vms</code>
             </li>
          </ul>
       </td>
@@ -156,16 +152,12 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
          Check the RabbitMQ HAProxy logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running one of the following commands, which lists <code>HAProxy_GUID</code>:
          <ul>
             <li>
-               <strong>For Ops Manager v1.10 and earlier: </strong><br>
+               <strong>For Ops Manager v1.10 or earlier: </strong><br>
                <code>bosh vms service-instance_GUID</code>
             </li>
             <li>
-               <strong>For Ops Manager v1.11 and v1.12: </strong><br>
+               <strong>For Ops Manager v1.11 or later: </strong><br>
                <code>bosh2 -d service-instance_GUID vms</code>
-            </li>
-            <li>
-               <strong>For Ops Manager v2.0: </strong><br>
-               <code>bosh -d service-instance_GUID vms</code>
             </li>
          </ul>
       </td>
@@ -202,16 +194,12 @@ Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitM
          Check the RabbitMQ Server logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running one of the following commands, which lists <code>rabbitmq</code>:
          <ul>
             <li>
-               <strong>For Ops Manager v1.10 and earlier: </strong><br>
+               <strong>For Ops Manager v1.10 or earlier: </strong><br>
                <code>bosh vms service-instance_GUID</code>
             </li>
             <li>
-               <strong>For Ops Manager v1.11 and v1.12: </strong><br>
+               <strong>For Ops Manager v1.11 or later: </strong><br>
                <code>bosh2 -d service-instance_GUID vms</code>
-            </li>
-            <li>
-               <strong>For Ops Manager v2.0: </strong><br>
-               <code>bosh -d service-instance_GUID vms</code>
             </li>
          </ul>
       </td>
