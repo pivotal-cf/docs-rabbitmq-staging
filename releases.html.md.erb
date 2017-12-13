@@ -15,6 +15,34 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
+## <a id="1911"></a>v1.9.11
+
+**Release Date:  December 13, 2017**
+
+Features:
+
+* Requires stemcell [3421.34](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.34)
+
+Known issues:
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
+  and can result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+Packages:
+
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
+
 ## <a id="1910"></a>v1.9.10
 
 **Release Date:  December 6, 2017**
