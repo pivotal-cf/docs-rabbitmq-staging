@@ -15,43 +15,28 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
-## <a id="110x"></a>v1.10.x
+## <a id="111x"></a>v1.11.x
 
-### <a id="1103"></a> v1.10.3
+### <a id="1112"></a> v1.11.2
 
-**Release Date**: October 12, 2017
+**Release Date**: December x, 2017
 
 #### Features
 
 **On-Demand**
 
-* On-demand RabbitMQ clusters
-* Metrics for all instances automatically sent to the Firehose
-* Single configuration for syslog forwarding for all instances
-* Administrator permissions available through a service-key
-* Update to RabbitMQ 3.6.12
-* Requires stemcell 3445.11
-* Update to RabbitMQ 3.6.12 for all instances involves [major changes]
-(./rmq-3611-upgrade.html) to the memory calculations
-* On-demand metrics prefixed with `p.rabbitmq` to match the service name
-* Smoke tests run for on-demand plans
-
+* Register / Deregister On Demand Service Broker, On Demand Instance Smoke Tests, Upgrade All Service Instances and Delete All Service Instances errands are now [colocated](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) with their respective broker to decrease errand run time and VM footprint.
 
 **Pre-Provisioned**
 
-* Update to RabbitMQ 3.6.12
-* Requires stemcell 3445.11
-* This version of the tile can only be installed in Ops Manager v1.11 and v1.12 environments
-* Update to RabbitMQ 3.6.12 — this involves [major changes]
-(./rmq-3611-upgrade.html) to the memory calculations
-* HAProxy instance count can be set to zero if an external load balancer is used
+* Broker Registrar / Deregistrar, Smoke Tests errands are now [colocated](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) with their respective broker to decrease errand run time and VM footprint.
 
 
 #### Known Issues
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and 
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
 [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
@@ -61,11 +46,11 @@ To view the release notes for another product version, select the version from t
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues 
+* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues
 logging into the Management UI as that user.
 
 #### Packages
 
-* OSS RabbitMQ v3.6.12
-* Erlang v19.3.6
-* HAProxy v1.6.11
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
