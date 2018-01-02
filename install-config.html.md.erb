@@ -299,7 +299,9 @@ However, if necessary, you can change these defaults by clicking **Errands** in 
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/1-12/customizing/managing_errands.html#rules).
 
-RabbitMQ for PCF errands are [colocated](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) with their respective brokers to decrease errand run time and VM footprint.
+RabbitMQ for PCF errands are colocated with their brokers to decrease errand run time and VM footprint.
+In earlier releases, a new VM was deployed for each errand. 
+For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
 ### <a id='post-deploy-errands'></a>Post-Deploy Errands
 

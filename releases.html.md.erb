@@ -7,7 +7,7 @@ owner: London Services
 
 Pivotal recommends that you upgrade to the latest version of your current minor line,
 then upgrade to the latest available version of the new minor line.
-For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
+For example, if you use an older v1.10.x version, upgrade to the latest v1.10.x version before upgrading to the latest v1.11.x version.
 
 See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
 
@@ -19,18 +19,24 @@ To view the release notes for another product version, select the version from t
 
 ### <a id="1112"></a> v1.11.2
 
-**Release Date**: December x, 2017
+**Release Date**: January XX, 2018
 
 #### Features
 
 **On-Demand**
 
-* Register / Deregister On Demand Service Broker, On Demand Instance Smoke Tests, Upgrade All Service Instances and Delete All Service Instances errands are now [colocated](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) with their respective broker to decrease errand run time and VM footprint.
+* Register / Deregister On Demand Service Broker, On Demand Instance Smoke Tests,
+  Upgrade All Service Instances and Delete All Service Instances errands are now 
+  colocated with their respective broker to decrease errand run time and VM footprint.
+
+    For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
 **Pre-Provisioned**
 
-* Broker Registrar / Deregistrar, Smoke Tests errands are now [colocated](http://docs.pivotal.io/tiledev/1-12/tile-errands.html) with their respective broker to decrease errand run time and VM footprint.
+* Broker Registrar / Deregistrar, Smoke Tests errands are now colocated with their respective broker
+  to decrease errand run time and VM footprint.
 
+    For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
 #### Known Issues
 
