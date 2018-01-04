@@ -54,18 +54,3 @@ Alternatively, install RabbitMQ and Erlang on a machine of your choice. Be sure 
 Then set your <code>~/.erlang.cookie</code> to match the cookie used in the cluster (you may have supplied this as part of the installation; see above).
 
 You'll need to set up your <code>/etc/hosts</code> file to match the RabbitMQ nodes.
-
-##<a id="haproxy-stats"></a> HAProxy Statistics Dashboard
-
-Each HAProxy node has a statistics dashboard that you can view from within your PCF network, at the IP address for the HAProxy node. You can only access the dashboard from an internal IP address. If you have multiple HAProxy nodes, each has its own dashboard. To access the HAProxy statistics dashboard:
-
-1. Open the **RabbitMQ for PCF** tile in Ops Manager and select the **Status** tab.
-<%= image_tag("images/opsman_status.jpeg") %>
-
-1. Record the IP address listed for **HAProxy for RabbitMQ**, `10.0.0.55` in the image above.
-
-1. Select the **Credentials** tab and record the username and password for **HAProxy for RabbitMQ** job > **Stats Dashboard**, `admin` and `8b4...` in the image below.
-<%= image_tag("images/opsman_credentials.jpeg") %>
-
-1. Browse to the HAProxy IP address and enter the username and password.
-
