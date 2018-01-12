@@ -12,7 +12,34 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="17x"></a>v1.7.x
 
-Pivotal released v1.7.0 in September 2016, and the latest patch version is v1.7.31.
+Pivotal released v1.7.0 in September 2016, and the latest patch version is v1.7.36.
+
+### <a id="1736"></a> v1.7.36
+**Release Date: January 11, 2018**
+
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a 
+  <strong>small window of downtime</strong> 
+during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19. 
+  Pivotal
+recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
+
+* Requires stemcell 3363.46
+* This version of the tile can only be installed in Ops Manager v1.8, v1.9 and v1.10.
+
+Packages:
+
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6
+* HAProxy v1.6.13
+
+Features included in this release:
+
+* Security release addressed by a new stemcell (fixes [Meltdown](https://pivotal.io/security/meltdown-and-spectre-attacks))
+
+Known Issues:
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### <a id="1734"></a> v1.7.34
 **Release Date: December 15, 2017**
