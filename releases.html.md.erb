@@ -5,9 +5,9 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-Pivotal recommends that you upgrade to the latest version of your current minor line, then upgrade to the latest available
-version of the new minor line. For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before
-upgrading to the latest v1.8.x version.
+Pivotal recommends that you upgrade to the latest version of your current minor line,
+then upgrade to the latest available version of the new minor line.
+For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
 
 See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
 
@@ -15,51 +15,26 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
-## <a id="1913"></a>v1.9.13
+## <a id="110x"></a>v1.10.x
 
-**Release Date:  January 11, 2018**
+## <a id="1109"></a>v1.10.9
 
-Features:
+**Release Date:  January 12, 2018**
 
-* [**Security Fix**] Requires stemcell [3421.36](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.36) 
+#### Features
+
+* [**Security Fix**] Requires stemcell [3445.22](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.22) 
 to address the Meltdown security issue. For more information about Meltdown, see 
 [Pivotal Vulnerability Report: Meltdown and Spectre Attacks](https://pivotal.io/security/meltdown-and-spectre-attacks)
+* Service metrics now uses a drain script to prevent monit timeout issues
 
 **On-Demand**
 
 * `smoke-tests` errand is renamed to `on-demand-broker-smoke-tests`
-*  Some CF timeouts for smoke tests have increased
+* Some CF timeouts for smoke tests have increased
 
 
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
-  and can result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
-  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-Packages:
-
-* OSS RabbitMQ v3.6.14
-* Erlang v19.3.6.4
-* HAProxy v1.6.13
-
-## <a id="1911"></a>v1.9.11
-
-**Release Date:  December 14, 2017**
-
-Features:
-
-* Requires stemcell [3421.34](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.34)
-
-Known issues:
+#### Known issues
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
   and can result in failed deployments.
@@ -73,19 +48,48 @@ Known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-Packages:
+#### Packages
 
 * OSS RabbitMQ v3.6.14
 * Erlang v19.3.6.4
 * HAProxy v1.6.13
 
-## <a id="1910"></a>v1.9.10
+### <a id="1108"></a> v1.10.8
 
-**Release Date:  December 6, 2017**
+**Release Date**: December 12, 2017
 
-Features:
+#### Features
 
-* Requires stemcell 3421.32
+* Requires stemcell [3445.19](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.19)
+
+#### Known Issues
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+#### Packages
+
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
+
+
+### <a id="1107"></a> v1.10.7
+
+**Release Date**: December 8, 2017
+
+#### Features
+
+* Requires stemcell 3445.17
 * Update to RabbitMQ v3.6.14 (release notes available [here](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_14))
 * Update to Erlang 19.3.6.4
 * Go update (security fixes)
@@ -93,320 +97,115 @@ Features:
   * Fix misspelling in log message
   * Improve service offering description
 
-Known issues:
+#### Known Issues
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
-  and can result in failed deployments.
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-Packages:
+#### Packages
 
 * OSS RabbitMQ v3.6.14
 * Erlang v19.3.6.4
 * HAProxy v1.6.13
 
-## <a id="199"></a>v1.9.9
+### <a id="1105"></a> v1.10.5
 
-**Release Date:  November 2, 2017**
+**Release Date**: November 3, 2017
 
-Features:
+#### Features
 
-* Requires stemcell 3421.31
-* Enables `shovel` and `federation` plugins by default on on-demand instances
-* Enables the creation of administrator users for on-demand instances
-* Increases max HAProxy connections to 64000 for pre-provisioned plan
-* Removes the stats UI on HAProxy instances for pre-provisioned plan
-* Allows for more granular TLS protocol version selection for pre-provisioned plan
-* Fixes known issue where some invalid characters in the administrator password
-* Fixes a known issue where on-demand metrics were named `/p-rabbitmq` instead of `/p.rabbitmq`
+**On-Demand**
+
+* Requires stemcell 3445.16
 * Adds queue depth, memory alarm, and disk alarm metrics
 
+**Pre-Provisioned**
 
-Known issues:
+* Requires stemcell 3445.16
+* Increases max HAProxy connections to 64000
+* Removes the stats UI on HAProxy instances
+* Allows for more granular TLS protocol version selection
+* Adds queue depth, memory alarm, and disk alarm metrics
+* Fixes known issue where some special characters in the administrator password caused logon problems
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
-  and can result in failed deployments.
+#### Known Issues
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-Packages:
+#### Packages
 
 * OSS RabbitMQ v3.6.12
 * Erlang v19.3.6.2
 * HAProxy v1.6.13
 
-## <a id="198"></a>v1.9.8
+### <a id="1103"></a> v1.10.3
 
-**Release Date:  September 20, 2017**
+**Release Date**: October 16, 2017
 
-Features:
+#### Features
 
-* Requires stemcell 3421.26
+**On-Demand**
 
-Known issues:
+* On-demand RabbitMQ clusters
+* Metrics for all instances automatically sent to the Firehose
+* Single configuration for syslog forwarding for all instances
+* Administrator permissions available through a service-key
+* Update to RabbitMQ 3.6.12
+* Requires stemcell 3445.11
+* Update to RabbitMQ 3.6.12 for all instances involves [major changes]
+(./rmq-3611-upgrade.html) to the memory calculations
+* On-demand metrics prefixed with `p.rabbitmq` to match the service name
+* Smoke tests run for on-demand plans
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
-  and can result in failed deployments.
+
+**Pre-Provisioned**
+
+* Update to RabbitMQ 3.6.12
+* Requires stemcell 3445.11
+* This version of the tile can only be installed in Ops Manager v1.11 and v1.12 environments
+* Update to RabbitMQ 3.6.12 — this involves [major changes]
+(./rmq-3611-upgrade.html) to the memory calculations
+* HAProxy instance count can be set to zero if an external load balancer is used
+
+
+#### Known Issues
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
-  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-* Certain special characters cannot be used with the RabbitMQ administrator password and using them can lead to issues
-logging into the Management UI as the administrator.
-
-Packages:
-
-* OSS RabbitMQ v3.6.12
-* Erlang v19.3.6
-* HAProxy v1.6.13
-
-## <a id="197"></a>v1.9.7
-
-**Release Date:  September 14, 2017**
-
-Features:
-
-* Update to RabbitMQ 3.6.12 — this involves [major changes](./rmq-3611-upgrade.html) to the memory calculations.
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
-  and can result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-* When errand-run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-Packages:
+* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues
+logging into the Management UI as that user.
+
+#### Packages
 
 * OSS RabbitMQ v3.6.12
-* Erlang v19.3.6
+* Erlang v19.3.6.2
 * HAProxy v1.6.13
-
-## <a id="196"></a>v1.9.6
-
-**Release Date:  September 8, 2017**
-
-Features:
-
-* Adds the [Partition Indicator](http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-9/monitor-pp.html#partition-indicator) metric.
-* Smoke tests are more resilient to `cf domain` re-ordering.
-* Updates `cf-cli` to v6.30 for `cf` commmand execution.
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
-  and can result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
-  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand-run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-Packages:
-
-* OSS RabbitMQ v3.6.10
-* Erlang v19.3.6
-* HAProxy v1.6.13
-
-## <a id="195"></a>v1.9.5
-
-**Release Date:  August 21, 2017**
-
-* Update to RabbitMQ 3.6.10
-* Requires stemcell 3421.20
-* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
-
-Features:
-
-* Stemcell upgrade from the 3363 line to the 3421 line. Primary reason for the
-upgrade is to include the changes in 3421.18 which contains a fix for an
-rsyslog hanging issue that occurrs when the IPsec add-on is installed.
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
-and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
-see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-## <a id="194"></a>v1.9.4
-
-**Release Date:  August 15, 2017**
-
-* Update to RabbitMQ 3.6.10
-* Requires stemcell 3363.30
-* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
-
-Features:
-
-* This is a security release addressed by a new stemcell
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
-and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
-see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-Packages:
-
-* OSS RabbitMQ v3.6.10
-* Erlang v19.3.6
-* HAProxy v1.6.11
-
-## <a id="193"></a> v1.9.3
-
-**Release Date:  August 8, 2017**
-
-* Update to RabbitMQ 3.6.10
-* Requires stemcell 3363.29
-* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
-
-Features:
-
-* This is a security release addressed by a new stemcell
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
-and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
-see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-Packages:
-
-* OSS RabbitMQ v3.6.10
-* Erlang v19.3.6
-* HAProxy v1.6.11
-
-
-## <a id="192"></a> v1.9.2
-
-**Release Date:  August 7, 2017**
-
-* Update to RabbitMQ 3.6.10
-* Requires stemcell 3363.26
-* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
-
-Features:
-
-* This version of the tile will use RabbitMQ Native Cluster formation rather than the rabbitmq-clusterer plugin.
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
-and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
-see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-Packages:
-
-* OSS RabbitMQ v3.6.10
-* Erlang v19.3.6
-* HAProxy v1.6.11
-
-## <a id="191"></a> v1.9.1
-
-**Release Date:  July 7, 2017**
-
-* Update to RabbitMQ 3.6.10
-* Requires stemcell 3363.26
-* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
-and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
-see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-* RabbitMQ for PCF v1.9.1 and earlier has a bug that does not delete management users, `mu-*`, when a service is deleted.
-  To automate deletion of these users, contact [Pivotal Support](https://support.pivotal.io/).
-
-Packages:
-
-* OSS RabbitMQ v3.6.10
-* Erlang v19.3.6
-* HAProxy v1.6.11
-
-## <a id="190"></a> v1.9.0
-
-**Release Date:  June 30, 2017**
-
-* Requires stemcell 3363.26
-* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
-
-Known issues:
-
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
-and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
-see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-* RabbitMQ for PCF v1.9.1 and earlier has a bug that does not delete management users, `mu-*`, when a service is deleted.
-  To automate deletion of these users, contact [Pivotal Support](https://support.pivotal.io/).
-
-Packages:
-
-* OSS RabbitMQ v3.6.9
-* Erlang v19.3.6
-* HAProxy v1.6.11
