@@ -17,6 +17,39 @@ To view the release notes for another product version, select the version from t
 
 ## <a id="110x"></a>v1.10.x
 
+## <a id="11010"></a>v1.10.10
+
+**Release Date:  January 12, 2018**
+
+Features:
+
+* Requires stemcell [3445.22](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.22) which addresses [Meltdown](https://pivotal.io/security/meltdown-and-spectre-attacks).
+* Service metrics now uses a drain script to prevent monit timeout issues
+* On-Demand:
+  * `smoke-tests` errand was renamed to `on-demand-broker-smoke-tests`
+  * Also regarding smoke tests, some CF timeouts were increased
+
+
+Known issues:
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
+  and can result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+Packages:
+
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
+
 ### <a id="1108"></a> v1.10.8
 
 **Release Date**: December 12, 2017
