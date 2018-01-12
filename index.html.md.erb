@@ -96,8 +96,8 @@ The following table provides version and version-support information about Rabbi
     </tr>
 </table>
 
-* As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS). 
-[//]: # (For more information, see [Pivotal Application Service (PAS) Highlights](http://docs.pivotal.io/pivotalcf/2-0/installing/highlights.html#ert). ) 
+* As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS).
+[//]: # (For more information, see [Pivotal Application Service (PAS) Highlights](http://docs.pivotal.io/pivotalcf/2-0/installing/highlights.html#ert). )
 
 
 
@@ -105,15 +105,18 @@ The following table provides version and version-support information about Rabbi
 
 ###<a id='on-demand'></a> On-Demand
 
-* Provision on-demand single node dedicated instances of RabbitMQ with a unique RabbitMQ Vhost (virtual host)
-* Provision on-demand clustered dedicated instances of RabbitMQ
+* Create up to 5 different on-demand RabbitMQ plans which can be provisioned through the marketplace
+* Choose whether a plan has 1, 3, 5 or 7 nodes
+* Default resource sizes in plans to guide selection
+* More control over which Orgs and Spaces have visibilty of each configured plan
 * Bind apps to an instance of the plan, providing unique credentials for each binding
 * Management dashboard access to app developers
 * Deployment into an availability zone specified by the plan
 * Automated upgrades of RabbitMQ for major, minor, and patch releases (see release notes for downtime requirements)
 * RabbitMQ Syslog forwarding configuration inherited from the pre-provisioned configuration
 * RabbitMQ metrics are exposed on the firehose
-* Run smoke tests for on-demand plans
+* Run smoke tests for on-demand plans on plan 1
+* Errands are run on co-located vms to decrease deployment times
 
 For more information, see [Unlocking the Power of On-Demand RabbitMQ for PCF](./ondemand.html).
 
@@ -131,11 +134,13 @@ For more information, see [Unlocking the Power of On-Demand RabbitMQ for PCF](./
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
 * Syslog forwarding on by default
+* Errands are run on co-located vms to decrease deployment times
+
 
 
 ## <a id='known-issues'></a>Release Notes and Known Issues
 
-Check the [release notes](releases.html) for your release version for important information and known issues. To see release notes for another version, select the version from the dropdown list at the top of the page. 
+Check the [release notes](releases.html) for your release version for important information and known issues. To see release notes for another version, select the version from the dropdown list at the top of the page.
 
 ##<a id="other-services"></a> RabbitMQ for PCF and Other PCF Services
 
