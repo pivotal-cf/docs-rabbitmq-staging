@@ -21,11 +21,14 @@ To view the release notes for another product version, select the version from t
 
 Features:
 
-* Security release addressed by a new stemcell (fixes [Meltdown](https://pivotal.io/security/meltdown-and-spectre-attacks))
-* On-Demand:
-  * `smoke-tests` errand was renamed to `on-demand-broker-smoke-tests`
-  * Also regarding smoke tests, some CF timeouts were increased
+* [**Security Fix**] Requires stemcell [3421.36](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.36) 
+to address the Meltdown security issue. For more information about Meltdown, see 
+[Pivotal Vulnerability Report: Meltdown and Spectre Attacks](https://pivotal.io/security/meltdown-and-spectre-attacks)
 
+**On-Demand**
+
+* `smoke-tests` errand is renamed to `on-demand-broker-smoke-tests`
+*  Some CF timeouts for smoke tests have increased
 
 Known issues:
 
