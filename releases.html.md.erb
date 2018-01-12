@@ -23,14 +23,16 @@ To view the release notes for another product version, select the version from t
 
 #### Features
 
-* Requires stemcell 3445.22 (addresses [Meltdown](https://pivotal.io/security/meltdown-and-spectre-attacks))
+* [**Security Fix**] Requires stemcell 3445.22 to address the Meltdown security issue. 
+For more information about Meltdown, see 
+[Pivotal Vulnerability Report: Meltdown and Spectre Attacks](https://pivotal.io/security/meltdown-and-spectre-attacks)
 * Errands now run co-located within existing instances
 * Service metrics now uses a drain script to prevent monit timeout issues
 
-**On-Demand**
+**On-Demand:**
 
-* `smoke-tests` errand was renamed to `on-demand-broker-smoke-tests`
-* Also regarding the smoke tests, the CF timeouts were increased
+* `smoke-tests` errand is renamed to `on-demand-broker-smoke-tests`
+* The CF timeouts for smoke tests have increased
 
 
 #### Known Issues
@@ -62,7 +64,7 @@ logging into the Management UI as that user.
 
 #### Features
 
-**On-Demand**
+**On-Demand:**
 
 * Register / Deregister On Demand Service Broker, On Demand Instance Smoke Tests,
   Upgrade All Service Instances and Delete All Service Instances errands are now
@@ -70,7 +72,7 @@ logging into the Management UI as that user.
 
     For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
-**Pre-Provisioned**
+**Pre-Provisioned:**
 
 * Broker Registrar / Deregistrar, Smoke Tests errands are now colocated with their respective broker
   to decrease errand run time and VM footprint.
