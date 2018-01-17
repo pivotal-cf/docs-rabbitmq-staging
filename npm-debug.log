@@ -1,0 +1,108 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--global',
+1 verbose cli   'windows-build-tools' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData windows-build-tools
+8 silly fetchNamedPackageData windows-build-tools
+9 silly mapToRegistry name windows-build-tools
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'windows-build-tools',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'windows-build-tools',
+12 silly mapToRegistry   name: 'windows-build-tools',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/windows-build-tools
+14 verbose request uri https://registry.npmjs.org/windows-build-tools
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 10:42:30 PM
+17 verbose request id 0a3b31a37e82a692
+18 http request GET https://registry.npmjs.org/windows-build-tools
+19 http 200 https://registry.npmjs.org/windows-build-tools
+20 verbose headers { 'content-type': 'application/json; charset=UTF-8',
+20 verbose headers   server: 'UploadServer',
+20 verbose headers   'cache-control': 'max-age=300',
+20 verbose headers   'last-modified': 'Sat, 6 Jan 2018 22:05:59 GMT',
+20 verbose headers   etag: '"5a514847-10204"',
+20 verbose headers   'content-encoding': 'gzip',
+20 verbose headers   'content-length': '8224',
+20 verbose headers   'accept-ranges': 'bytes',
+20 verbose headers   date: 'Mon, 15 Jan 2018 22:42:30 GMT',
+20 verbose headers   via: '1.1 varnish',
+20 verbose headers   age: '1122',
+20 verbose headers   connection: 'keep-alive',
+20 verbose headers   'x-served-by': 'cache-ams4129-AMS',
+20 verbose headers   'x-cache': 'HIT',
+20 verbose headers   'x-cache-hits': '1',
+20 verbose headers   'x-timer': 'S1516056150.180148,VS0,VE1',
+20 verbose headers   vary: 'Accept-Encoding, Accept' }
+21 silly get cb [ 200,
+21 silly get   { 'content-type': 'application/json; charset=UTF-8',
+21 silly get     server: 'UploadServer',
+21 silly get     'cache-control': 'max-age=300',
+21 silly get     'last-modified': 'Sat, 6 Jan 2018 22:05:59 GMT',
+21 silly get     etag: '"5a514847-10204"',
+21 silly get     'content-encoding': 'gzip',
+21 silly get     'content-length': '8224',
+21 silly get     'accept-ranges': 'bytes',
+21 silly get     date: 'Mon, 15 Jan 2018 22:42:30 GMT',
+21 silly get     via: '1.1 varnish',
+21 silly get     age: '1122',
+21 silly get     connection: 'keep-alive',
+21 silly get     'x-served-by': 'cache-ams4129-AMS',
+21 silly get     'x-cache': 'HIT',
+21 silly get     'x-cache-hits': '1',
+21 silly get     'x-timer': 'S1516056150.180148,VS0,VE1',
+21 silly get     vary: 'Accept-Encoding, Accept' } ]
+22 verbose get saving windows-build-tools to /Users/davidhiston/.npm/registry.npmjs.org/windows-build-tools/.cache.json
+23 verbose correctMkdir /Users/davidhiston/.npm correctMkdir not in flight; initializing
+24 silly install normalizeTree
+25 silly loadCurrentTree Finishing
+26 silly loadIdealTree Starting
+27 silly install loadIdealTree
+28 silly cloneCurrentTree Starting
+29 silly install cloneCurrentTreeToIdealTree
+30 silly cloneCurrentTree Finishing
+31 silly loadShrinkwrap Starting
+32 silly install loadShrinkwrap
+33 silly loadShrinkwrap Finishing
+34 silly loadAllDepsIntoIdealTree Starting
+35 silly install loadAllDepsIntoIdealTree
+36 silly rollbackFailedOptional Starting
+37 silly rollbackFailedOptional Finishing
+38 silly runTopLevelLifecycles Finishing
+39 silly install printInstalled
+40 verbose stack Error: Unsupported platform for windows-build-tools@1.3.2: wanted {"name":"windows-build-tools","version":"1.3.2","description":"Install C++ Build Tools for Windows using npm","main":"lib/index.js","scripts":{"test":"standard \"src/*.js\" && npm run build && mocha","postinstall":"node ./lib/index.js","build":"babel src -d lib","prepublish":"npm run build","start":"npm run build && npm run postinstall"},"repository":{"type":"git","url":"git+https://github.com/felixrieseberg/windows-build-tools.git"},"os":["win32"],"keywords":["Windows","Build Tools","node-gyp","native","c++"],"engines":{"node":">=4.0.0"},"author":{"name":"Felix Rieseberg","email":"felix@felixrieseberg.com"},"license":"MIT","bugs":{"url":"https://github.com/felixrieseberg/windows-build-tools/issues"},"homepage":"https://github.com/felixrieseberg/windows-build-tools#readme","devDependencies":{"babel-cli":"^6.24.1","babel-preset-es2015":"^6.24.1","chai":"^3.5.0","chai-as-promised":"^6.0.0","mocha":"^3.2.0","mockery":"^2.0.0","rewire":"^2.5.1","standard":"^10.0.2"},"dependencies":{"chalk":"^1.1.3","cli-spinner":"^0.2.6","debug":"^2.6.0","fs-extra":"^3.0.0","nugget":"^2.0.1"},"gitHead":"d052cb3b571337ad7a184de42f83a860e2770ae2","_id":"windows-build-tools@1.3.2","_shasum":"e49ed948c23d0b011578b73d46eb3312b46a99b3","_from":"windows-build-tools","_npmVersion":"4.6.1","_nodeVersion":"7.4.0","_npmUser":{"name":"felixrieseberg","email":"felix@felixrieseberg.com"},"dist":{"shasum":"e49ed948c23d0b011578b73d46eb3312b46a99b3","tarball":"https://registry.npmjs.org/windows-build-tools/-/windows-build-tools-1.3.2.tgz"},"maintainers":[{"name":"felixrieseberg","email":"felix@felixrieseberg.com"}],"_npmOperationalInternal":{"host":"s3://npm-registry-packages","tmp":"tmp/windows-build-tools-1.3.2.tgz_1496805225432_0.5579509097151458"},"directories":{},"_resolved":"https://registry.npmjs.org/windows-build-tools/-/windows-build-tools-1.3.2.tgz","_requested":{"raw":"windows-build-tools","scope":null,"escapedName":"windows-build-tools","name":"windows-build-tools","rawSpec":"","spec":"latest","type":"tag"},"_spec":"windows-build-tools","_where":"/Users/davidhiston/workspace/docs/Rabbit-Docs/docs-rabbitmq-pcf","_args":[[{"raw":"windows-build-tools","scope":null,"escapedName":"windows-build-tools","name":"windows-build-tools","rawSpec":"","spec":"latest","type":"tag"},"/Users/davidhiston/workspace/docs/Rabbit-Docs/docs-rabbitmq-pcf"]],"readme":"ERROR: No README data found!"} (current: {"os":"darwin","cpu":"x64"})
+40 verbose stack     at checkPlatform (/usr/local/lib/node_modules/npm/node_modules/npm-install-checks/index.js:45:14)
+40 verbose stack     at thenWarnEngineIssues (/usr/local/lib/node_modules/npm/lib/install/validate-args.js:41:5)
+40 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+40 verbose stack     at checkEngine (/usr/local/lib/node_modules/npm/node_modules/npm-install-checks/index.js:24:10)
+40 verbose stack     at module.exports.isInstallable (/usr/local/lib/node_modules/npm/lib/install/validate-args.js:38:3)
+40 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+40 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
+40 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:18:7
+40 verbose stack     at checkSelf (/usr/local/lib/node_modules/npm/lib/install/validate-args.js:46:72)
+40 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+41 verbose pkgid windows-build-tools@1.3.2
+42 verbose cwd /Users/davidhiston/workspace/docs/Rabbit-Docs/docs-rabbitmq-pcf
+43 error Darwin 16.7.0
+44 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--global" "windows-build-tools"
+45 error node v6.9.5
+46 error npm  v3.10.10
+47 error code EBADPLATFORM
+48 error notsup Unsupported platform for windows-build-tools@1.3.2: wanted {"os":"win32","arch":"any"} (current: {"os":"darwin","arch":"x64"})
+49 error notsup Valid OS:    win32
+49 error notsup Valid Arch:  any
+49 error notsup Actual OS:   darwin
+49 error notsup Actual Arch: x64
+50 verbose exit [ 1, true ]
