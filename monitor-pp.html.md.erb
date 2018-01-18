@@ -19,7 +19,10 @@ To enable monitoring for RabbitMQ for PCF, operators forward the syslog by desig
 
 ## <a id="format"></a>Logging Formats
 
-With pre-provisioned RabbitMQ for PCF logging configured, three types of component generate logs: the RabbitMQ message server nodes, the service broker, and HAProxy. If you have multiple server or HAProxy nodes, you can identify logs from individual nodes by their index, which corresponds to the index of the
+With pre-provisioned RabbitMQ for PCF logging configured, three types of 
+component generate logs: the RabbitMQ message server nodes, the service broker, 
+and HAProxy. If you have multiple server or HAProxy nodes, you can identify logs 
+from individual nodes by their index, which corresponds to the index of the 
 RabbitMQ VM instances displayed in Ops Manager:
 
 * The logs for RabbitMQ server nodes follow the format <code>[job=rabbitmq-server-partition-GUID index=X]</code>
