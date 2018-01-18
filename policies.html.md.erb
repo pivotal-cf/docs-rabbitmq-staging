@@ -6,12 +6,13 @@ owner: London Services
 
 ## <a id="policy"></a> Understanding a RabbitMQ Policy
 
-You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster. 
+You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster.
+A policy configured in the Ops Manager form will only be applied when a service instance (vhost) is created (using `cf create service`) and will not effect service instances (vhosts) which have been already been deployed.
 After you deploy the tile, Pivotal recommends that you use the RabbitMQ Management Interface to make configuration changes.
 
 For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
 
-Here is an example policy that ensures messages are mirrored on two nodes: 
+Here is an example policy that ensures messages are mirrored on two nodes:
 
 ```
 {
@@ -23,9 +24,10 @@ Here is an example policy that ensures messages are mirrored on two nodes:
 
 The following rules apply to polices set through the RabbitMQ for PCF tile:
 
-* A new policy, or an update to a policy, only applies to new instances. Existing instances are not affected by the policy.
+* A new policy, or an update to a policy, only applies to new instances (vhosts). Existing instances are not affected by the policy.
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management Interface.
+* It is not possible to use pattern matching with policies and it will be applied to all.  For granular policy settings it is advised that you do this through the RabbitMQ Management UI and ensure that you choose a priority number lower than `50` (which is the default priority number when applied through the ops manager configuration box)
 
 Operators should consider some of the performance implications of making queues and exchanges highly available.
 For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
@@ -38,13 +40,13 @@ To set the RabbitMQ policy, do the following:
 
 	<%= image_tag("images/policy_opsman.png") %>
 
-1. Select **Enable custom policy on new instances**. 
+1. Select **Enable custom policy on new instances**.
 1. In the **Policy for new instances** field, paste the policy.
 
 	The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
 
 1. In the **Select the network partition behavior of the RabbitMQ cluster**,
-   choose the desired behavior: **pause_minority** or **autoheal**. 
+   choose the desired behavior: **pause_minority** or **autoheal**.
 
 	<br>For more information on these options and on RabbitMQ clusters and network partitions,
             see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
@@ -70,5 +72,3 @@ In the **Queues** section shown below, you can see that any new queues created h
 <%= image_tag("images/policy_queue.jpeg") %>
 
 <p class="note"><strong>Note</strong>: Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code> for app developers.</p>
-
-
