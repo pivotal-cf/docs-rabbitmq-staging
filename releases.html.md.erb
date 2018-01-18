@@ -38,14 +38,14 @@ to address the Meltdown security issue. For more information about Meltdown, see
 #### Known Issues
 
 * Customers installing the 1.11.3 tile in PCF 1.12 environments may experience an issue with errands failing with an error similar to the following:
-```
+<pre class="terminal">
 Task 888513 | 23:16:53 | Preparing deployment: Preparing deployment (00:00:02)
 L Error: Instance 'p-rabbitmq-06f95350e62d0375148d/smoke-tests/0' doesn't exist
 Task 888513 | 23:16:55 | Error: Instance 'p-rabbitmq-06f95350e62d0375148d/smoke-tests/0' doesn't exist
-```
-It is suggested that customers effected by this issue disable smoke tests until a fix is supplied in the next version
+</pre>
+Pivotal recommends that customers affected by this issue disable smoke tests until a fix is supplied in the next version.
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
   and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
 [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
