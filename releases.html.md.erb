@@ -37,13 +37,13 @@ to address the Meltdown security issue. For more information about Meltdown, see
 
 #### Known Issues
 
-* Customers installing the 1.11.3 tile in PCF 1.12 environments may experience an issue with errands failing with an error similar to the following:
+* When installing RabbitMQ for PCF v1.11.3 on Ops Manager v1.12, errands might fail with an error like the following:
 <pre class="terminal">
 Task 888513 | 23:16:53 | Preparing deployment: Preparing deployment (00:00:02)
 L Error: Instance 'p-rabbitmq-06f95350e62d0375148d/smoke-tests/0' doesn't exist
 Task 888513 | 23:16:55 | Error: Instance 'p-rabbitmq-06f95350e62d0375148d/smoke-tests/0' doesn't exist
 </pre>
-Pivotal recommends that customers affected by this issue disable smoke tests until a fix is supplied in the next version.
+If you experience this issue, disable smoke tests.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
   and might result in failed deployments.
