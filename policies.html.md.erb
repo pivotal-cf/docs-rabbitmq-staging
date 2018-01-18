@@ -8,8 +8,8 @@ owner: London Services
 
 You can set a default queue and an exchange policy in the RabbitMQ for Pivotal 
 Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster. A policy configured 
-in Ops Manager will only be applied when a service instance (vhost) is created 
-(using `cf create service`) and will not affect service instances (vhosts) that 
+in Ops Manager is only applied when a service instance (vhost) is created 
+(using `cf create service`) and does not affect service instances (vhosts) that 
 have already been deployed. After you deploy the tile, Pivotal recommends that 
 you use the RabbitMQ Management Interface to make configuration changes.
 
@@ -31,9 +31,10 @@ The following rules apply to polices set through the RabbitMQ for PCF tile:
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management Interface.
 * It is not possible to use pattern matching with policies, it will be applied to all.
-For granular policy settings, Pivotal recommends that you do this through the 
-RabbitMQ Management UI and ensure that you choose a priority number lower than 
-`50` (which is the default priority number when applied through the Ops Manager configuration).
+
+    For granular policy settings, Pivotal recommends using the
+    RabbitMQ Management UI. Set a priority number lower than 
+    `50` (which is the default priority number when applied through the Ops Manager configuration).
 
 Operators should consider some of the performance implications of making queues and exchanges highly available.
 For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
