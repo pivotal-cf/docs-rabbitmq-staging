@@ -23,8 +23,8 @@ To view the release notes for another product version, select the version from t
 
 #### Features
 
-* [**Security Fix**] Requires stemcell [3445.22](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.22) 
-to address the Meltdown security issue. For more information about Meltdown, see 
+* [**Security Fix**] Requires stemcell [3445.22](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.22)
+to address the Meltdown security issue. For more information about Meltdown, see
 [Pivotal Vulnerability Report: Meltdown and Spectre Attacks](https://pivotal.io/security/meltdown-and-spectre-attacks)
 * Errands now run colocated within existing instances
 * Service metrics now uses a drain script to prevent monit timeout issues
@@ -36,6 +36,14 @@ to address the Meltdown security issue. For more information about Meltdown, see
 
 
 #### Known Issues
+
+* Customers installing the 1.11.3 tile in PCF 1.12 environments may experience an issue with errands failing with an error similar to the following:
+```
+Task 888513 | 23:16:53 | Preparing deployment: Preparing deployment (00:00:02)
+L Error: Instance 'p-rabbitmq-06f95350e62d0375148d/smoke-tests/0' doesn't exist
+Task 888513 | 23:16:55 | Error: Instance 'p-rabbitmq-06f95350e62d0375148d/smoke-tests/0' doesn't exist
+```
+It is suggested that customers effected by this issue disable smoke tests until a fix is supplied in the next version
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
