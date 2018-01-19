@@ -62,11 +62,11 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.8.27</td>
+        <td>v1.8.28</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>January 12, 2018</td>
+        <td>January 19, 2018</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -118,9 +118,9 @@ The following table provides version and version-support information about Rabbi
 * Smoke tests fail if SSL/TLS is configured for your RabbitMQ cluster.
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`).
 * Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) require downtime in deployments.
-* IPsec does not work with this version of the tile, and it must be installed into a non-IPsec subnet 
+* IPsec does not work with this version of the tile, and it must be installed into a non-IPsec subnet
 or by excluding the deployment IPs following the steps in the documentation.
-* As of Ops Manager v10.0.0, errands set to the **When Changed** rule do not always run when the tile has relevant changes. For more information, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html). 
+* As of Ops Manager v10.0.0, errands set to the **When Changed** rule do not always run when the tile has relevant changes. For more information, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
 * Changing networks an/or IP addresses for the `RabbitMQ Server` job results in a failed upgrade deployment.
   For details, see [this page](./changing-ips.html).
