@@ -23,9 +23,16 @@ Here is an example policy that ensures messages are mirrored on two nodes:
 
 The following rules apply to polices set through the RabbitMQ for PCF tile:
 
-* A new policy, or an update to a policy, only applies to new instances. Existing instances are not affected by the policy.
+* A new policy, or an update to a policy, only applies to new instances (vhosts). 
+Existing instances are not affected by the policy.
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management Interface.
+* It is not possible to use pattern matching with policies. Policies will be 
+applied to all queues and exchanges.
+
+    For granular policy settings, Pivotal recommends using the
+    RabbitMQ Management UI. Set a `priority number` lower than 
+    `50` (which is the default `priority number` when applied through the Ops Manager configuration).
 
 Operators should consider some of the performance implications of making queues and exchanges highly available.
 For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
