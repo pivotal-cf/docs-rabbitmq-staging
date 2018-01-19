@@ -14,12 +14,39 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 Pivotal released v1.7.0 in September 2016, and the latest patch version is v1.7.36.
 
+### <a id="1737"></a> v1.7.37
+**Release Date: January 19, 2018**
+
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a
+  <strong>small window of downtime</strong>
+during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19.
+  Pivotal
+recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
+
+* Requires stemcell 3363.47
+* This version of the tile can only be installed in Ops Manager v1.8, v1.9 and v1.10.
+
+Packages:
+
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6
+* HAProxy v1.6.13
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell that fixes vulnerabilities in the GNU C Library.
+
+Known Issues:
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
 ### <a id="1736"></a> v1.7.36
 **Release Date: January 11, 2018**
 
-<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a 
-  <strong>small window of downtime</strong> 
-during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19. 
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a
+  <strong>small window of downtime</strong>
+during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19.
   Pivotal
 recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
 
@@ -34,7 +61,7 @@ Packages:
 
 Features included in this release:
 
-* This is a security release addressed by a new stemcell that fixes the Meltdown security issue. 
+* This is a security release addressed by a new stemcell that fixes the Meltdown security issue.
 For more information about Meltdown, see [Pivotal Vulnerability Report: Meltdown and Spectre Attacks](https://pivotal.io/security/meltdown-and-spectre-attacks)
 
 Known Issues:
@@ -45,9 +72,9 @@ Known Issues:
 ### <a id="1734"></a> v1.7.34
 **Release Date: December 15, 2017**
 
-<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a 
-  <strong>small window of downtime</strong> 
-during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19. 
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a
+  <strong>small window of downtime</strong>
+during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19.
   Pivotal
 recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
 
@@ -74,9 +101,9 @@ Known Issues:
 ### <a id="1731"></a> v1.7.31
 **Release Date: December 6, 2017**
 
-<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a 
-  <strong>small window of downtime</strong> 
-during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19. 
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a
+  <strong>small window of downtime</strong>
+during this deployment when the RabbitMQ cluster is taken offline, and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19.
   Pivotal
 recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
 
@@ -102,9 +129,9 @@ Known Issues:
 
 **Release Date: November 2, 2017**
 
-<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a 
-  <strong>small window of downtime</strong> 
-during this deployment when the RabbitMQ cluster is taken offline and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19. 
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will experience a
+  <strong>small window of downtime</strong>
+during this deployment when the RabbitMQ cluster is taken offline and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19.
   Pivotal
 recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
 
@@ -129,8 +156,8 @@ Known Issues:
 ### <a id="1728"></a> v1.7.28
 **Release Date: September 20, 2017**
 
-<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will 
-  experience a <strong>small window of downtime</strong> 
+<p class="note warning"> <strong>IMPORTANT</strong>: If you are upgrading from v1.7.14 or earlier, you will
+  experience a <strong>small window of downtime</strong>
 during this deployment when the RabbitMQ cluster is taken offline and each node is upgraded to RabbitMQ v3.6.10 and Erlang 19. Pivotal
 recommends that you communicate with your app owners in advance to minimize the impact of this downtime.</p>
 
@@ -209,7 +236,7 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 
@@ -238,7 +265,7 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### <a id="1724"></a> v1.7.24
@@ -266,7 +293,7 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 
@@ -295,7 +322,7 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### <a id="1722"></a> v1.7.22
@@ -324,9 +351,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* RabbitMQ for PCF v1.7.22 and earlier has a bug that does not delete management users, `mu-*`, when a service is deleted. 
+* RabbitMQ for PCF v1.7.22 and earlier has a bug that does not delete management users, `mu-*`, when a service is deleted.
   To automate deletion of these users, contact [Pivotal Support](https://support.pivotal.io/).
 
 
@@ -355,9 +382,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -386,9 +413,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -417,9 +444,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -449,9 +476,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -481,9 +508,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -513,9 +540,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -545,9 +572,9 @@ Features included in this release:
 
 Known Issues:
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -582,7 +609,7 @@ communication for metrics` checkbox for Ops Manager 1.10 compatibility.
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -615,7 +642,7 @@ server nodes via Ops Manager
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -646,7 +673,7 @@ Features included in this release:
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -676,7 +703,7 @@ Features included in this release:
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -709,7 +736,7 @@ plugin.  For more information, see
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -733,7 +760,7 @@ application and increase logging.
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -756,7 +783,7 @@ Features included in this release:
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -769,7 +796,7 @@ Known Issues:
 * This will be a rolling deployment.
 * This version of the tile can only be installed in an Ops Manager v1.8 (or
 later) environment.
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -786,7 +813,7 @@ properly
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -813,7 +840,7 @@ properly.
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -843,7 +870,7 @@ later.
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
@@ -873,7 +900,7 @@ later.
 Known Issues:
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 
