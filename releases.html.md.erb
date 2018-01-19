@@ -15,14 +15,43 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
+## <a id="1914"></a>v1.9.14
+
+**Release Date:  January 19, 2018**
+
+Features:
+
+* [**Security Fix**] Requires stemcell [3421.37](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.37)
+to address GNU C Library vulnerabilities.
+
+Known issues:
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime
+  and can result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+  [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+Packages:
+
+* OSS RabbitMQ v3.6.14
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
+
 ## <a id="1913"></a>v1.9.13
 
 **Release Date:  January 11, 2018**
 
 Features:
 
-* [**Security Fix**] Requires stemcell [3421.36](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.36) 
-to address the Meltdown security issue. For more information about Meltdown, see 
+* [**Security Fix**] Requires stemcell [3421.36](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.36)
+to address the Meltdown security issue. For more information about Meltdown, see
 [Pivotal Vulnerability Report: Meltdown and Spectre Attacks](https://pivotal.io/security/meltdown-and-spectre-attacks)
 
 **On-Demand**
@@ -254,10 +283,10 @@ rsyslog hanging issue that occurrs when the IPsec add-on is installed.
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
 and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details,
 see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
@@ -278,10 +307,10 @@ Features:
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
 and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details,
 see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
@@ -308,10 +337,10 @@ Features:
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
 and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details,
 see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
@@ -339,10 +368,10 @@ Features:
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
 and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details,
 see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
@@ -365,10 +394,10 @@ Packages:
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
 and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details,
 see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
@@ -392,10 +421,10 @@ Packages:
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, 
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
 and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details,
 see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
