@@ -31,6 +31,14 @@ In this topic:
     * [View Resource Saturation and Scaling](#view-resources)
     * [Identify Service Instance Owner](#id-instance-owner)
     * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
+* [Frequently Asked Questions](#faq)
+    * [What should I check before deploying a new version of the tile?](#newversion)
+    * [What is the correct way to stop and start RabbitMQ in PCF?](#stopstart)
+    * [What happens when I stop the RabbitMQ server?](#boshstopprocess)
+    * [What happens when the RabbitMQ server fails to stop?](#boshstopresult)
+    * [What do I do when the RabbitMQ server fails to stop?](#boshstopaction)
+    * [How can I manually back up the state of the RabbitMQ cluster?](#backup)  
+    * [What pre-upgrade checks should I do?](#preupgrade)
 * [Knowledge Base (Community)](#kb)
 * [File a Support Ticket](#support)
 <br>
@@ -226,6 +234,108 @@ This section contains instructions on interacting with the on-demand service bro
 <a id="monitor-quota"></a><h3>Monitor Quota Saturation and Service Instance Count</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
+
+<a id="faq"></a><h2>Frequently Asked Questions</h2>
+
+<a id="newversion"></a><h3>What should I check before deploying a new version of the tile?</h3>
+
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose. 
+
+Do not rely on BOSH `instances`, to execute this task correctly. That output reflects the state of the Erlang VM used by RabbitMQ, not the RabbitMQ application.
+
+<a id="stopstart"></a><h3>What is the correct way to stop and start RabbitMQ in PCF?</h3>
+
+Only BOSH commands should be used by the operator to interact with the RabbitMQ application. Examples for both versions of the CLI are given below.
+
+ * **For Ops Manager v1.10 or earlier:** <br>
+ `bosh stop rabbitmq-server` `bosh start rabbitmq-server` 
+ * **For Ops Manager v1.11 or later:** <br>
+ `bosh2 stop rabbitmq-server` `bosh2 start rabbitmq-server` 
+
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is stopped through BOSH.  You can also stop individual instances by running one of the following commands:
+
+ * **For Ops Manager v1.10 or earlier:** `bosh stop JOB [index]` 
+ * **For Ops Manager v1.11 or later:** `bosh2 stop JOB [index]`
+
+<p class="note"><strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code>. This command does not call the drain scripts.</p>
+
+<a id="boshstopprocess"></a><h3>What happens when I stop the RabbitMQ server?</h3>
+
+You can stop the RabbitMQ server with BOSH `stop`.
+
+BOSH starts the shutdown sequence from the bootstrap instance.
+
+This command tells the RabbitMQ application to shut down and then shut down the Erlang VM in which it is running. If this succeeds, run the following
+checks to ensure that the RabbitMQ application and Erlang VM have stopped:
+
+1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside this file does not point to a running Erlang VM process. This process checks the Erlang PID and not the RabbitMQ PID.
+1. Check that `rabbitmqctl` does not return an Erlang VM PID.
+
+Once this completes on the bootstrap instance, BOSH will continue the same sequence on the next instance. All remaining RabbitMQ servers stop sequentially after that.
+
+<a id="boshstopresult"></a><h3>What happens when the RabbitMQ server fails to stop?</h3>
+
+If BOSH `stop` fails, you will likely get an error saying that the drain
+script failed with:
+
+<pre class="terminal">
+result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
+</pre>
+
+<a id="boshstopaction"></a><h3>What do I do when the RabbitMQ server fails to stop?</h3>
+
+The drain script logs to `/var/vcap/sys/log/rabbitmq-server/drain.log`. If you
+have a remote syslog configured, this will appear as the `rmq_server_drain`
+program.
+
+1. BOSH `ssh` into the failing rabbitmq-server instance and start the
+rabbitmq-server job by running `monit start rabbitmq-server`).
+1. When the rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
+`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
+failing.
+
+<p class="note"><strong>Note:</strong> You will not be
+able to start the job with BOSH <code>start</code> as this command always runs the drain script first. It will fail since the drain script is failing.</p>
+
+<a id="backup"></a><h3>How can I manually back up the state of the RabbitMQ cluster?</h3>
+
+You can back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the RabbitMQ Management API. Backups include vhosts, exchanges, queues and users. 
+
+<h4>Back up Manually</h4>
+
+1. Log in to the RabbitMQ Management UI as the admin user you created.  
+
+1. Select **export definitions** from the main page.  
+
+<h4>Back up and Restore with a Script</h4>
+
+Use the API to run scripts with code similar to the following:  
+
+1. For the backup:
+
+    ```
+    curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
+    -o "$BACKUP_FOLDER/rabbit-backup.json"
+    ```
+
+2. For the restore:
+
+    ```
+    curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
+    -X POST -H "Content-Type: application/json" -d
+    "@$BACKUP_FOLDER/rabbit-backup.json"
+    ```
+    
+<a id="preupgrade"></a><h3>What pre-upgrade checks should I do?</h3>
+
+Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
+
+1. In Operations Manager check that the status of all of the instances is healthy.
+2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy, that is, 
+they should display as green.
+3. Check that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been 
+consumed by each node in the RabbitMQ Managment UI.
+
 
 <a id="kb"></a><h2>Knowledge Base (Community)</h2>
 
