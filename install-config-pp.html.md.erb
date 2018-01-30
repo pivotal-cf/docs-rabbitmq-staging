@@ -16,7 +16,7 @@ Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. 
+3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF.
 This adds the tile to your staging area.
 
 4. Click the newly added **RabbitMQ for PCF** tile.
@@ -93,14 +93,14 @@ To configure the following sections in the **RabbitMQ** tab, in the [Settings](#
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
-Enter an admin username and password for RabbitMQ.
+Enter an admin username and password for RabbitMQ. We support a combination of uppercase/lowercase alphanumerics and special characters.
 This grants you full admin access to the RabbitMQ Management UI.
 
 Enter the desired credentials in this section of the RabbitMQ tab:
 
 <%= image_tag("images/config-credentials.png") %>
 
-<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, 
+<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password,
   save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
 
@@ -145,14 +145,14 @@ For more information about SSL support, see the [RabbitMQ documentation](https:/
 ### <a id="erlang"></a>Erlang Cookie
 
 (Optional) Provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
-This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`, 
+This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`,
 or to connect other VMs running Erlang.
 
 <%= image_tag("images/config-erlang.png") %>
 
 #### Known Issues with Erlang Cookie
 
-There are two known issues associated with the Erlang cookie when you do the following: 
+There are two known issues associated with the Erlang cookie when you do the following:
 
 * [Cluster Scaling](#scaling-issue)
 * [Changing the Erlang Cookie Value](#changing-issue)
@@ -168,8 +168,8 @@ size without downtime, follow these steps:
 
 1. Run one of the following commands depending on your Ops Manager version: <br>
     * **For Ops Manager v1.10 or earlier:** `bosh ssh rabbitmq-server/0`
-    * **For Ops Manager v1.11 or later:** `bosh2 ssh rabbitmq-server/0` 
-  
+    * **For Ops Manager v1.11 or later:** `bosh2 ssh rabbitmq-server/0`
+
 1. Run the following commands:
 <pre class="terminal">
   sudo -i
@@ -178,14 +178,14 @@ size without downtime, follow these steps:
 
 1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
 
-1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
 
 <p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
 default value in the manifest is empty, which results in an auto-generated
 cookie. However, the value of the cookie on the server remains the same, so the known issue
-below does <strong>not</strong> apply.</p> 
+below does <strong>not</strong> apply.</p>
 
 #### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
@@ -199,9 +199,9 @@ The deployment may fail after this process. If so, redeploying fixes the issue.
 
 (Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
-  
+
 <%= image_tag("images/config_rabbitmq.png") %>
-  
+
 
 The input in this field must be Base64 encoded.
 
@@ -216,7 +216,7 @@ For example, suppose you want to configure the
 ].
 ```
 
-1. Encode the file into Base64: 
+1. Encode the file into Base64:
 
     ```
     WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
@@ -232,7 +232,7 @@ For more information about the RabbitMQ configuration, see the [RabbitMQ documen
 
 ### <a id="tls"></a>TLS Support
 
-Configure TLS in this section of the **RabbitMQ** tab: 
+Configure TLS in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config_tls.png") %>
 
@@ -243,14 +243,14 @@ Configure TLS in this section of the **RabbitMQ** tab:
 
 ### External Load Balancer
 
-(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
+(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
 to application developers.
 Enter this in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config-elb.png") %>
 
 
-If you configure an external load balancer, to avoid an unnecessary VM deployment, in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**. 
+If you configure an external load balancer, to avoid an unnecessary VM deployment, in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
 
 
 ### <a id="polling"></a>Metrics Polling Interval
@@ -260,7 +260,7 @@ The metrics polling interval is set in this section of the **RabbitMQ** tab:
 <%= image_tag("images/metrics_polling.png") %>
 
 The default setting is 30 seconds for all deployed components.
-Pivotal recommends that you do not change this interval. 
+Pivotal recommends that you do not change this interval.
   In order to avoid overwhelming components, do not set this below 10 seconds.
 
 Changing this setting affects all deployed instances.
@@ -269,9 +269,9 @@ Changing this setting affects all deployed instances.
 ### Disk Free Alarm Limit <a id="disk_free_alarm_selector"></a>
 
 Choose how much disk space RabbitMQ attempts to keep free at any
-given time in this section of the **RabbitMQ** tab: 
+given time in this section of the **RabbitMQ** tab:
 
-<%= image_tag("images/disk_alarm_threshold.png") %> 
+<%= image_tag("images/disk_alarm_threshold.png") %>
 
 RabbitMQ periodically checks if there is sufficient free space on disk. If there is not,
 RabbitMQ temporarily stops accepting new messages. This gives your apps time
@@ -290,12 +290,12 @@ tile provides four options for this value:
   - Write persistent messages to disk (using up some disk space).
   - Accept more memory-based messages into various queues.
   - Page all memory-based messages to disk.
-  
+
     In the above situations, RabbitMQ might require more free disk than it has memory.
 * **200% Memory** is a conservative value used when the operator wants higher
   confidence that RabbitMQ never runs out of disk space.
 
-  
+
 
 For more information about disk alarms, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html).
@@ -382,7 +382,7 @@ For information on configuring the on-demand service, see [Installing and Config
 
 ## <a id='errands'></a>Errands
 
-(Optional) In the **Errands** tab, choose the defaults for when errands run. 
+(Optional) In the **Errands** tab, choose the defaults for when errands run.
 
 Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
@@ -525,7 +525,7 @@ For example, with two HAProxy jobs deployed, the following properties will be pr
 ### <a id='sec-groups'></a>Security Groups
 
 To enable access to the RabbitMQ tile service, you must ensure your security
-group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. 
+group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
 You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
 Ensure the following ports are enabled for those VMs:
 
@@ -571,11 +571,11 @@ Application containers that use instances of the RabbitMQ service require the fo
 
 Create an ASG named `rabbitmq-app-containers` with the above configuration and bind it to either:
 
-* The appropriate space 
+* The appropriate space
 * The `default-running` ASG set if you want to provide access to all started apps.
-  Then restart your apps. 
+  Then restart your apps.
 
-  If you are using an external 
+  If you are using an external
   load balancer, or have more than one IP address for HAProxy, you must also create egress rules for these.
   For example:
 
@@ -599,7 +599,7 @@ For more information, see [Changing Network or IP Addresses Results in a Failed 
 ### <a id="switching"></a>Preserving Dynamically Assigned IPs
 
 You cannot switch from dynamically assigned IP addresses to a different set of static IP addresses.
-However, you can configure Ops Manager so the 
+However, you can configure Ops Manager so the
 current set of dynamically assigned IP addresses always continue to be used.
 This may be useful when upgrading.
 
@@ -633,4 +633,3 @@ When SSL is enabled:
 * `rabbitmq_management listener [{port,15672},{ssl,false}]`
 * `rabbitmq_mqtt ssl_listeners [8883]`
 * `rabbitmq_stomp ssl_listeners [61614]`
-
