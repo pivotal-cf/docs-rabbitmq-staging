@@ -11,6 +11,30 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.30
+
+**Release Date:  January 30, 2018**
+
+#### Features
+
+* Update RabbitMQ to 3.6.15 (for more details check the [Release Notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_15))
+
+#### Known Issues
+
+* Smoke tests fail if SSL/TLS is configured for your RabbitMQ cluster.
+* Metrics `name` is namespaced with `/p-rabbitmq` instead of `/p.rabbitmq`.
+* Scaling the RabbitMQ cluster or changing the Erlang Cookie value requires cluster downtime
+  and can result in failed deployments.
+  If it does, redeploying fixes the issue.
+  For more information, see [Erlang Cookie](./install-config-pp.html#erlang).
+* As of Ops Manager v1.10.0, errands set to the **When Changed** rule do not always run when the tile has relevant changes.
+  For more information, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).<br>
+  When using Ops Manager v1.10.7 or earlier, set one-time rules to run **Update All Service Instances**.
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Metrics are not emitted if RabbitMQ for PCF v1.8.x is installed on Ops Manager v1.11.0 or later.
+* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues logging into the Management UI as an administrator.
+
 ### v1.8.29
 
 **Release Date:  January 24, 2018**
