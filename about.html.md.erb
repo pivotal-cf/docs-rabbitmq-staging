@@ -26,3 +26,98 @@ The diagram below shows worker VMs in an on-demand service instance, such as Rab
 ## <a id="network-rules"></a> Required Networking Rules for On-Demand Services
 
 <%= partial '../../rabbitmq-cf/odb/service_networks_table' %>
+
+<br>
+Regardless of the specific network layout, the operator must ensure network 
+rules are set up so that connections are open as described in the table below. 
+
+<table class="nice">
+	<th>This component...</th>
+	<th>Must communicate with...</th>
+	<th>Default TCP Port</th>
+	<th>Communication direction(s)</th>
+	<th>Notes</th>
+	<tr>
+		<td><strong>ODB</strong></td>
+		<td>
+		    <ul>
+		        <li><strong>BOSH Director</strong></li>
+		    	<li><strong>BOSH UAA</strong></li>
+		    </ul>
+		</td>
+		<td>
+			<ul>
+				<li>25555</li>
+				<li>8443</li>
+			</ul>
+		</td>
+		<td>One-way</td>
+		<td>The default ports are not configurable.</td>
+	</tr>
+	<tr>
+		<td><strong>ODB</strong></td>
+		<td><strong>Deployed service instances</strong>
+		</td>
+		<td>Specific to the service (such as RabbitMQ for PCF). 
+			May be one or more ports.</td>
+		<td>One-way</td>
+		<td>This connection is for administrative tasks. 
+			Avoid opening general use, app-specific ports for this connection.</td>
+	</tr>
+	<tr>
+		<td><strong>ODB</strong></td>
+		<td><strong>PAS (or Elastic Runtime) </strong>
+		</td>
+		<td>8443</td>
+		<td>One-way</td>
+		<td>The default port is not configurable.</td>
+	</tr>
+	<tr>
+		<td><strong>Errand VMs</strong></td>
+		<td>
+			<ul>
+				<li><strong>PAS (or Elastic Runtime) </strong></li>
+				<li><strong>ODB</strong></li>
+				<li><strong>Deployed Service Instances</strong></li>
+			</ul>
+		</td>
+		<td>
+			<ul>
+				<li>8443</li>
+				<li>8080</li>
+				<li>Specific to the service. May be one or more ports.</li>
+			</ul>
+		</td>
+		<td>One-way</td>
+		<td>The default port is not configurable.</td>
+	</tr>
+	<tr>
+		<td><strong>BOSH Agent</strong></td>
+		<td><strong>BOSH Director</strong>
+		</td>
+		<td>4222</td>
+		<td>Two-way</td>
+		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM. 
+			The BOSH Agent initiates the connection with the BOSH Director.<br>
+			The default port is not configurable.  </td>
+	</tr>
+	<tr>
+		<td><strong>Deployed apps on PAS (or Elastic Runtime) </strong></td>
+		<td><strong>Deployed service instances</strong>
+		</td>
+		<td>Specific to the service. May be one or more ports.</td>
+		<td>One-way</td>
+		<td>This connection is for general use, app-specific tasks. 
+			Avoid opening administrative ports for this connection.</td>
+	</tr>
+	<tr>
+		<td><strong>PAS (or Elastic Runtime) </strong></td>
+		<td><strong>ODB</strong>
+		</td>
+		<td>8080</td>
+		<td>One-way</td>
+		<td>This port may be different for individual services. 
+			This port may also be configurable by the operator if allowed by the 
+			tile developer.</td>
+	</tr>
+</table>
