@@ -47,7 +47,7 @@ Configure the following tabs for the on-demand service:
   </tr>
   <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
   </tr>
-  <tr><td>On Demand Instance: Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
+  <tr><td>Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
   </tr>
   <tr><td>On Demand Instance: Plan 1</td><td><a href="#service-plan">Configure the Service Plan</a></td>
   </tr>
@@ -111,20 +111,23 @@ Pivotal recommends that you configure logging to monitor the health of RabbitMQ 
 
 Follow the steps below to configure global settings.
 
-1. Click **On-Demand Instance: Global Settings** and configure the following:<br><br>
+1. Click **Global Settings** and configure the following:<br><br>
   * **Service instance quota**  min: 0, max: 50  set the total number of on-demand service instances which can be deployed.
 For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).<br><br>
   * **VM options**:<br><br>
        **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
          <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
+  * **Shareable Instances**: This checkbox must be ticked to enable [sharing service instances](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+
+    ![Sharing Service Instances](images/sharing-instances.png)
 
 1. Click **Save**.
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-To enable the on-demand service, you must configure at least one on-demand plan. 
+To enable the on-demand service, you must configure at least one on-demand plan.
 
-* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance: Plan 5**. 
+* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance: Plan 5**.
 * All on-demand plans can be configured to have 1, 3, 5, or 7 RabbitMQ nodes.
 * If the on-demand service is not enabled, the on-demand broker is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.
 
@@ -300,7 +303,7 @@ However, if necessary, you can change these defaults by clicking **Errands** in 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/1-12/customizing/managing_errands.html#rules).
 
 RabbitMQ for PCF errands are colocated with their brokers to decrease errand run time and VM footprint.
-In earlier releases, a new VM was deployed for each errand. 
+In earlier releases, a new VM was deployed for each errand.
 For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
 ### <a id='post-deploy-errands'></a>Post-Deploy Errands

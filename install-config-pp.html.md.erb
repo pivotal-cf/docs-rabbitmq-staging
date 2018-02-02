@@ -43,6 +43,8 @@ Configure the following tabs for the pre-provisioned service:
   </tr>
   <tr><td>Syslog</td><td><a href="./#syslog">Syslog</a></td>
   </tr>
+  <tr><td>Global Settings</td><td><a href="./#global-settings">Global Settings</a></td>
+  </tr>
   <tr><td>Dedicated Instance: Single Node Plan</td><td><a href="#singlenode">Dedicated Instance: Single Node Plan</a></td>
   </tr>
   <tr><td>Errands</td><td><a href="#errands">Errands</a></td>
@@ -374,6 +376,20 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 1. Click **Save**.
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
+
+
+## <a id="global-settings"></a>Global Settings
+
+Follow the steps below to configure global settings.
+
+1. Click **Global Settings** and configure the following:<br>
+
+  * **Shareable Instances**: This checkbox must be ticked to enable [sharing service instances](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+
+    ![Sharing Service Instances](images/sharing-instances.png)
+
+1. Click **Save**.
+
 ## <a id="singlenode"></a> Dedicated Instance: Single Node Plan
 
 This tab only applies to the on-demand service. However, you must complete the fields on this tab even if you are not using the on-demand service. Therefore, if you are not using the on-demand service:
