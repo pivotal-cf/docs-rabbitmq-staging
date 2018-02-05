@@ -40,8 +40,8 @@ To view the release notes for another product version, select the version from t
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues
-logging into the Management UI as that user.
+* The RabbitMQ administrator password must be a combination of uppercase and lowercase alphanumerics. Special characters such as
+  ``[]^_!"#$%&()*+,-./\:;<=>`'`` can lead to issues logging into the Management UI as that user.
 
 #### Packages
 
@@ -52,6 +52,10 @@ logging into the Management UI as that user.
 ### <a id="1116"></a> v1.11.6
 
 **Release Date**: January 24, 2018
+**Withdrawal Date**: February 5, 2018
+
+**This release was withdawn due to an issue upgrading when there are special characters in the RabbitMQ administrator credentials.
+Skip this version and upgrade to v1.11.7 or later.**
 
 #### Features
 
