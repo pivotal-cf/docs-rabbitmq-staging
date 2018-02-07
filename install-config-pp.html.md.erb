@@ -95,16 +95,15 @@ To configure the following sections in the **RabbitMQ** tab, in the [Settings](#
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
-Enter an admin username and password for RabbitMQ. 
+In the **RabbitMQ admin user credentials** field of the RabbitMQ pane, enter an admin username and password:
+
+<%= image_tag("images/config-credentials.png") %>
+
 You can use a combination of upper or lowercase alphanumerics and supported special characters: `[]^_!"#$%&()*+,-./\:;<=>?`.
 
 <p class="note"><strong>Note</strong>: You cannot use back quote <code>`</code> or single quote <code>'</code>.</p>
 
 This grants you full admin access to the RabbitMQ Management UI.
-
-Enter the desired credentials in this section of the RabbitMQ tab:
-
-<%= image_tag("images/config-credentials.png") %>
 
 <p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password,
   save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
