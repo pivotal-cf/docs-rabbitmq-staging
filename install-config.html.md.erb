@@ -45,6 +45,8 @@ Configure the following tabs for the on-demand service:
   </tr>
   <tr><td>RabbitMQ</td><td>Set the Metrics polling interval only. See <a href="./monitor.html#metrics">What Are Metrics</a>.</td>
   </tr>
+  <tr><td>Networking</td><td><a href="#networking">Networking</a></td>
+  </tr>
   <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
   </tr>
   <tr><td>Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
@@ -106,6 +108,18 @@ On the **RabbitMQ** tab, set a metrics polling interval. For more information, s
 
 Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [Set Up Syslog Forwarding](./monitor.html#config) to configure logging.
 
+### <a id="networking"></a> Networking
+
+Follow the steps below to configure static IPs Networking.
+
+1. Click **Networking** and configure the following:<br><br>
+
+### On Demand Service Broker Static IP
+
+Enter an IP address. It will be the IP address assigned to your On Demand Service Broker node.
+If the field is left blank, then an IP address will be allocated by Bosh.
+
+![Networking](images/config-networking.png)
 
 ### <a id="global"></a>Configure Global Settings
 
