@@ -336,25 +336,24 @@ development environment you may want to use a small disk to keep down costs, tho
 To specify static IP addresses, do the following:
 
 1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
-1. In the **Settings** tab, click **Networking**.
-1. Configure the fields as follows:
+1. In the **Settings** tab, select **Networking**.
+1. Configure the fields as follows:<br><br>
+  * **Pre-Provisioned HAProxy Static IPs**:
+    Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
+    These IP addresses are assigned to your Pre-Provisioned HAproxy nodes.<br><br>
+  * **Pre-Provisioned RabbitMQ Server Static IPs**:
+    Enter a comma-delimited list of IP addresses grouped in the order of AZs configured. 
+    These IP addresses are assigned to your Pre-Provisioned RabbitMQ Server nodes.<br><br>
+  * **Pre-Provisioned Service Broker Static IP**:
+    Enter an IP address. 
+    This IP address is assigned to your Pre-Provisioned Service Broker node.
 
-### Pre-Provisioned HAProxy Static IPs
+    <p class="note"><strong>Note</strong>: If any of the above fields are left blank, 
+      BOSH allocates an IP address.</p>
 
-Enter a comma-delimited list of IP addresses grouped in the order of AZs configured. These will be the IP addresses assigned to your Pre-Provisioned HAproxy nodes.
-If the field is left blank, then an IP address will be allocated by Bosh.
+    ![Networking](images/config-networking-pp.png)
 
-### Pre-Provisioned RabbitMQ Server Static IPs
-
-Enter a comma-delimited list of IP addresses grouped in the order of AZs configured. These will be the IP addresses assigned to your Pre-Provisioned RabbitMQ Server nodes.
-If the field is left blank, then an IP address will be allocated by Bosh.
-
-### Pre-Provisioned Service Broker Static IP
-
-Enter an IP address. It will be the IP address assigned to your Pre-Provisioned Service Broker node.
-If the field is left blank, then an IP address will be allocated by Bosh.
-
-![Networking](images/config-networking-pp.png)
+1. Click **Save**.
 
 ## <a id="syslog"></a>Syslog
 
