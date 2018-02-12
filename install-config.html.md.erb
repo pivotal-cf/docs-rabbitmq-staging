@@ -132,13 +132,20 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   * **VM options**:<br><br>
        **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
          <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
-  * **Shareable Instances**: Select this checkbox to enable enable the beta feature for sharing instances.<br>
+  * **(Beta) Shareable Instances**: Select this checkbox to enable enable the beta feature for sharing instances.<br>
 
+        <p class='note warning'><strong>Warning</strong>: This is a beta feature based on an experimental feature in Cloud Foundry. 
+        Use the feature at your own risk in non-production environments.</p>
+        
         ![Sharing Service Instances](images/sharing-instances.png)
 
-        For more information, see [Sharing Service Instances (Experimental)](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+        Sharing a service instance between spaces, allows applications in different spaces to share databases, 
+messaging queues and many other types of services. For more information, 
+see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html).
 
 1. Click **Save**.
+
+ 
 
 ### <a id="service-plan"></a> Configure the Service Plan
 

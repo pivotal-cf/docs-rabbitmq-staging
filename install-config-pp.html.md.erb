@@ -407,15 +407,20 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 ## <a id="global-settings"></a>Global Settings
 
-Follow the steps below to configure the Shareable Instances beta feature.
+Follow the steps below to enable the shareable instances beta feature. Sharing a service instance between spaces, allows applications in different spaces to share databases, 
+messaging queues and many other types of services. For more information, 
+see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html). 
 
-For information about this feature, see [Sharing Service Instances (Experimental)](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+<p class='note warning'><strong>Warning</strong>: This is a beta feature based on an experimental feature in Cloud Foundry. 
+Use the feature at your own risk in non-production environments.</p>
+
 
 1. Click **Global Settings**.
 
-2. Select **Shareable Instances** to enable the beta feature for sharing instances.<br>
+2. Select **(Beta) Shareable Instances** to enable the beta feature for sharing instances.<br>
 
     ![Sharing Service Instances](images/sharing-instances.png)
+        
 
 3. Click **Save**.
 
