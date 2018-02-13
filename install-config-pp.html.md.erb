@@ -251,7 +251,7 @@ Configure TLS in this section of the **RabbitMQ** tab:
 ### External Load Balancer
 
 (Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
-to application developers.
+to app developers.
 Enter this in this section of the **RabbitMQ** tab:
 
 <%= image_tag("images/config-elb.png") %>
@@ -407,11 +407,12 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 ## <a id="global-settings"></a>Global Settings
 
-Follow the steps below to enable the shareable instances beta feature. Sharing a service instance between spaces, allows applications in different spaces to share databases, 
-messaging queues and many other types of services. For more information, 
+Follow the steps below to enable the shareable instances beta feature. 
+Sharing a service instance between spaces, allows apps in different spaces to share databases, 
+messaging queues, and many other types of services. For more information, 
 see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html). 
 
-<p class='note warning'><strong>Warning</strong>: This is a beta feature based on an experimental feature in Cloud Foundry. 
+<p class='note warning'><strong>WARNING</strong>: This is a beta feature based on an experimental feature in Cloud Foundry. 
 Use the feature at your own risk in non-production environments.</p>
 
 
