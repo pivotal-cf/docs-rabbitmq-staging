@@ -122,9 +122,9 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-To enable the on-demand service, you must configure at least one on-demand plan. 
+To enable the on-demand service, you must configure at least one on-demand plan.
 
-* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance: Plan 5**. 
+* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance: Plan 5**.
 * All on-demand plans can be configured to have 1, 3, 5, or 7 RabbitMQ nodes.
 * If the on-demand service is not enabled, the on-demand broker is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.
 
@@ -284,9 +284,12 @@ Your installation is not complete until you apply your configuration changes. Fo
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [Post-Deploy Errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+When deploying or updating RabbitMQ for PCF, Ops Manager can optionally 
+run a series of [Post-Deploy Errands](#post-deploy-errands). 
+An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
-You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
+You can decide whether to run errands by toggling them on or off before an update. 
+This is a one-time setting on the installation dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
@@ -297,11 +300,10 @@ You can decide whether to run errands by toggling them on or off before an updat
 
 However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
 
-For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/1-12/customizing/managing_errands.html#rules).
+For more information on errand run rules, 
+see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/1-12/customizing/managing_errands.html#rules).
 
-RabbitMQ for PCF errands are colocated with their brokers to decrease errand run time and VM footprint.
-In earlier releases, a new VM was deployed for each errand. 
-For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
+For more information on errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
 ### <a id='post-deploy-errands'></a>Post-Deploy Errands
 
