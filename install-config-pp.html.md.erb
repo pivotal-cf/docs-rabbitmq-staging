@@ -342,13 +342,14 @@ To specify static IP addresses, do the following:
     Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
     These IP addresses are assigned to your Pre-Provisioned HAproxy nodes.<br><br>
   * **Pre-Provisioned RabbitMQ Server Static IPs**:
-    Enter a comma-delimited list of IP addresses grouped in the order of AZs configured. 
+    Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
     These IP addresses are assigned to your Pre-Provisioned RabbitMQ Server nodes.<br><br>
   * **Pre-Provisioned Service Broker Static IP**:
-    Enter an IP address. 
+    Enter an IP address. This address must be in the network range of the network name 
+    specified in the **Network** drop-down list, and must not be in the **Service Network**. 
     This IP address is assigned to your Pre-Provisioned Service Broker node.
 
-    <p class="note"><strong>Note</strong>: If any of the above fields are left blank, 
+    <p class="note"><strong>Note</strong>: If any of the above fields are left blank,
       BOSH allocates an IP address.</p>
 
     ![Networking](images/config-networking-pp.png)
@@ -407,12 +408,12 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 ## <a id="global-settings"></a>Global Settings
 
-Follow the steps below to enable the shareable instances beta feature. 
-Sharing a service instance between spaces, allows apps in different spaces to share databases, 
-messaging queues, and many other types of services. For more information, 
-see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html). 
+Follow the steps below to enable the shareable instances beta feature.
+Sharing a service instance between spaces, allows apps in different spaces to share databases,
+messaging queues, and many other types of services. For more information,
+see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html).
 
-<p class='note warning'><strong>WARNING</strong>: This is a beta feature based on an experimental feature in Cloud Foundry. 
+<p class='note warning'><strong>WARNING</strong>: This is a beta feature based on an experimental feature in Cloud Foundry.
 Use the feature at your own risk in non-production environments.</p>
 
 
@@ -421,7 +422,7 @@ Use the feature at your own risk in non-production environments.</p>
 2. Select **(Beta) Shareable Instances** to enable the beta feature for sharing instances.<br>
 
     ![Sharing Service Instances](images/sharing-instances.png)
-        
+
 
 3. Click **Save**.
 
