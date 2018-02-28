@@ -5,6 +5,21 @@ owner: London Services
 
 This topic provides basic instructions for app developers troubleshooting On-Demand RabbitMQ&reg; for PCF.
 
+## <a id="management-ui-credentials"></a> Retrieving RabbitMQ Management UI crendentials
+
+In order to get access to the Management UI Credentials of the RMQ instance you create a new service-key:
+
+    <pre class="terminal">
+        cf create-service-key my-rmq-instance my-key
+        cf service-key my-rmq-instance my-key
+    </pre>
+
+The second command displays more than we need so we can extract the bits we actually care about:
+
+    <pre class="terminal">
+    cf service-key my-rmq dashboard | tail -n +2 | jq 'dashboard_url, username, password'
+    </pre>
+
 ## <a id="errors"></a> Errors
 
 You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI) to perform basic operations on a RabbitMQ for PCF service instance:
