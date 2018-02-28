@@ -17,13 +17,45 @@ To view the release notes for another product version, select the version from t
 
 ## <a id="111x"></a>v1.11.x
 
+### <a id="1118"></a> v1.11.8
+
+**Release Date**: February 26, 2018
+
+#### Features
+
+- [**Security Fix**] Requires stemcell [3445.28](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.28)
+- [Bug Fix] Upgrades do no fail anymore when SYSLOG is not configured
+- [Bug Fix] It is now possible to use special characters (with the exception of ``` ` ``` and `'`) in RabbitMQ usernames and passwords
+- [Bug Fix] Fixed metrics not being emitted when using special characters in passwords
+- [Bug Fix] Fixed bug when the admin username is changed the new user does not have admin creds over the old vhosts
+
+#### Known Issues
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+#### Packages
+
+* OSS RabbitMQ v3.6.15
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
+
 ### <a id="1117"></a> v1.11.7
 
 **Release Date**: January 29, 2018
 
 #### Features
 
-* Update to RabbitMQ v3.6.15. For more information, see 
+* Update to RabbitMQ v3.6.15. For more information, see
 [RabbitMQ 3.6.15 Release Notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_15).
 
 #### Known Issues
