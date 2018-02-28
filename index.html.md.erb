@@ -18,11 +18,11 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.7.39</td>
+        <td>v1.7.40</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>January 31, 2018</td>
+        <td>February 26, 2018</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -56,8 +56,8 @@ Upgrades are normally a rolling deployment unless otherwise noted in the release
 
 Consider the following compatibility information before upgrading RabbitMQ for PCF:
 
-* Any tile upgrading to RabbitMQ v3.6.9 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.9. 
-* Any tile upgrading to RabbitMQ v3.6.6 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.6. 
+* Any tile upgrading to RabbitMQ v3.6.9 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.9.
+* Any tile upgrading to RabbitMQ v3.6.6 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.6.
 
 * Pivotal recommends that customers always upgrade to the latest patch version of their minor line, and then only upgrade to the latest available new minor patch.  This is to ensure that RabbitMQ or Erlang versions are not downgraded during the process.
 
@@ -150,7 +150,7 @@ Creating a binding gives the user permissions to access this Vhost and associate
 Limitations with the current RabbitMQ for PCF product include:
 
 * Availability Zone configuration **cannot** be changed once deployed.
-* IPsec does not work with this version of the tile and it must be installed into a non-IPsec subnet or by excluding the deployment IPs following the steps in the documentation. 
+* IPsec does not work with this version of the tile and it must be installed into a non-IPsec subnet or by excluding the deployment IPs following the steps in the documentation.
 
 ## <a id="issues"></a> Known Issues
 
@@ -158,12 +158,12 @@ Limitations with the current RabbitMQ for PCF product include:
 * In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install or upgrade to version `1.5.4` or later of the tile.
 * In the `1.5.x` and `1.6.x` tiles it is not possible to install the RabbitMQ tile in multiAZ with multi-subnet networks.
 * It is not currently possible to set the HAProxy instance count to 0.
-* IPsec is not required for the RabbitMQ tile since it can be secured via TLS, which will encrypt traffic from clients to the RabbitMQ cluster. RabbitMQ should be deployed in its own subnet outside the IPsec mesh. Refer to the documentation to set up TLS. 
+* IPsec is not required for the RabbitMQ tile since it can be secured via TLS, which will encrypt traffic from clients to the RabbitMQ cluster. RabbitMQ should be deployed in its own subnet outside the IPsec mesh. Refer to the documentation to set up TLS.
 * In rare circumstances when manually stopping all RabbitMQ nodes in a cluster, it is possible for all queue masters to reside on the last node to be stopped.  This is a known limitation in RabbitMQ and should you encounter it please contact support.
 * Cannot scale-out if [Erlang Cookie](./configuring.html#erlang) is not specified
 * Changing [Erlang Cookie](./configuring.html#erlang) value results in failed deployment
 * Changing networks an/or IP addresses for the `RabbitMQ Server` job results in a failed upgrade deployment. For details, see [this page](./changing-ips.html).
-* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted. 
+* Versions 1.7.22 or earlier have a bug that does not delete management users (`mu-*`) when a service is deleted.
     To automate deletion of these users, contact Pivotal Support.
 
 ## <a id="feedback"></a> Feedback
