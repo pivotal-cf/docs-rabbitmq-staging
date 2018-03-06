@@ -24,15 +24,16 @@ To view the release notes for another product version, select the version from t
 #### Features
 
 - [**Security Fix**] Requires stemcell [3445.28](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.28).
-- Upgrades do not fail when SYSLOG is not configured.
-- You can now use special characters, with the exception of ``` ` ``` and `'`, 
-in RabbitMQ usernames and passwords.
-- Fixes a bug where metrics are not emitted when using special characters in passwords.
-- Fixes bug when the admin username is changed the new user does not have admin 
-creds over the old vhosts.
+- Fixes the following bugs:
+  - Upgrades fail when SYSLOG is not configured.
+  - Certain special characters cannot be used with the RabbitMQ administrator password.
+  You can now use special characters, with the exception of ``` ` ``` and `'`, in
+  RabbitMQ usernames and passwords.  
+  - Metrics are not emitted when using special characters in passwords.
+  - If you change the RabbitMQ admin username, the user loses access to 
+preexisting vhosts.
 
 #### Known Issues
-
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
   and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
