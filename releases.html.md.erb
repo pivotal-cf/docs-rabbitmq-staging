@@ -126,7 +126,9 @@ logging into the Management UI as that user.
 #### Features
 
 * [**Security Fix**] Requires stemcell [3445.23](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.23) to address GNU C Library vulnerabilities.
-* Errands do not run colocated within existing instances anymore.
+* This release reverts implementation of the colocated errands feature for the RabbitMQ for PCF v1.11 line,
+  due to incompatibility with some PCF v1.12 installations.
+  Errands are no longer run colocated on exisiting VMs.
 
 #### Known Issues
 
