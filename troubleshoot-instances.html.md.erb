@@ -5,15 +5,31 @@ owner: London Services
 
 This topic provides basic instructions for app developers troubleshooting On-Demand RabbitMQ&reg; for PCF.
 
-## <a id="management-ui-credentials"></a> Retrieving RabbitMQ Instance credentials
+## <a id="management-ui-credentials"></a> Retrieve RabbitMQ Instance Credentials
 
-For one-off operations to access the Management Dashboard or test RabbitMQ
-Server directly, you can create a new service-key and use that for test
-purposes:
-    <pre class="terminal">
-    $ cf create-service-key my-rmq-instance my-key
-    $ cf service-key my-rmq-instance my-key
-    </pre>
+For one-off operations to access the Management Dashboard or test RabbitMQ 
+Server directly, you can create a new service-key and use that for test purposes. 
+To retrieve the credentials do the following:
+
+1. Create a service-key for your RabbitMQ instance using the command 
+`cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`.
+
+1. Retrieve the credentials using the command 
+`cf service-key INSTANCE-NAME SERVICE-KEY-NAME`.
+
+For example:
+<pre class="terminal">
+$ cf create-service-key my-rmq-instance my-key
+Creating service key my-key for service instance my-rmq-instance as admin...
+OK
+$ cf service-key my-rmq-instance my-key
+Getting key my-key for service instance my-instance as admin...
+{
+ "host": "10.0.8.4",
+ "password": "",
+ "port": 6379
+}
+</pre>
 
 ## <a id="errors"></a> Errors
 
