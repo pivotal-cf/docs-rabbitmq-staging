@@ -23,12 +23,11 @@ Features:
 
 - [**Security Fix**] Requires stemcell [3421.42](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3421.42)
 Fixes the following bugs:
-  - Upgrades fail when SYSLOG is not configured.
-  - Certain special characters cannot be used with the RabbitMQ administrator password.
+  - Upgrades failed when SYSLOG was not configured.
+  - Certain special characters could not be used with the RabbitMQ administrator password.
   You can now use special characters, with the exception of ``` ` ``` and `'`, in
   RabbitMQ usernames and passwords.  
-  - If you change the RabbitMQ admin username, the user loses access to 
-preexisting vhosts.
+  - If you changed the RabbitMQ admin username, the user lost access to preexisting vhosts.
 
 Known issues:
 
