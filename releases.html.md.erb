@@ -19,7 +19,7 @@ To view the release notes for another product version, select the version from t
 
 ### <a id="1112"></a> v1.12.0
 
-**Release Date**: XX, 2018
+**Release Date**: March 8, 2018
 
 #### Features
 
@@ -38,6 +38,12 @@ To view the release notes for another product version, select the version from t
 
     For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
+#### Bug fixes
+
+* We have fixed an issue where the administrator user configured in the RabbitMQ page was not automatically given admin permissions to newly created VHosts. See the GitHub fix [here](https://github.com/pivotal-cf/cf-rabbitmq-multitenant-broker-release/commit/2f45028cc1ceccd752d4d0b12f4905ae622f6e13)
+
+* We have fixed an issue where empty syslog properties could cause an upgrade failure.
+
 #### Known Issues
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
@@ -54,6 +60,6 @@ To view the release notes for another product version, select the version from t
 
 #### Packages
 
-* OSS RabbitMQ v3.6.14
+* OSS RabbitMQ v3.6.15
 * Erlang v19.3.6.4
 * HAProxy v1.6.13
