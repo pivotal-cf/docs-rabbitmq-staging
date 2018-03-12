@@ -7,9 +7,11 @@ This topic provides basic instructions for app developers troubleshooting On-Dem
 
 ## <a id="management-ui-credentials"></a> Retrieve RabbitMQ Instance Credentials
 
-For one-off operations to access the Management Dashboard or test RabbitMQ 
-Server directly, you can create a new service-key and use that for test purposes. 
-To retrieve the credentials do the following:
+If you want to access the Management Dashboard or the RabbitMQ server for troubleshooting, 
+you can create a new service-key to retrieve RabbitMQ instance credentials. 
+Pivotal recommends that you use this key for troubleshooting only, and that you 
+delete the key after troubleshooting.
+To retrieve the credentials, do the following:
 
 1. Create a service-key for your RabbitMQ instance using the command 
 `cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`.
@@ -23,7 +25,7 @@ $ cf create-service-key my-rmq-instance my-key
 Creating service key my-key for service instance my-rmq-instance as admin...
 OK
 $ cf service-key my-rmq-instance my-key
-Getting key my-key for service instance my-instance as admin...
+Getting key my-key for service instance my-rmq-instance as admin...
 {
  "host": "10.0.8.4",
  "password": "",
