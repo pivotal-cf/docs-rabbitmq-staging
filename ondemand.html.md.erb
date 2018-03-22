@@ -5,7 +5,7 @@ owner: London Services
 
 ## <a id="intro"></a> Introduction
 
-RabbitMQ for Pivotal Cloud Foundry (PCF) v1.10 responds to the demands of PCF operators to offer a RabbitMQ on-demand cluster
+RabbitMQ for Pivotal Cloud Foundry (PCF) responds to the demands of PCF operators to offer a RabbitMQ on-demand cluster
 for their application teams, in addition to the existing single-node on-demand plan.
 The on-demand cluster plan is aimed at workloads that require the same resilience requirements as the Pre-Provisioned offering,
 but also require their workloads be isolated.
@@ -13,8 +13,8 @@ but also require their workloads be isolated.
 The platform operations team can now configure a RabbitMQ for PCF cluster to meet their business requirements
 and empower app development teams to self-serve their own RabbitMQ cluster.
 
-RabbitMQ for PCF v1.10 also provides smoke tests for the on-demand plans so that operations teams can validate the app developer workflow for on-demand services.
-See [Dedicated Instance Smoke Test Process](http://docs.pivotal.io/rabbitmq-cf/1-10/install-config.html#dedicated_instance_smoke_test_process).
+RabbitMQ for PCF also provides smoke tests for the on-demand plans so that operations teams can validate the app developer workflow for on-demand services.
+See [Dedicated Instance Smoke Test Process](http://docs.pivotal.io/rabbitmq-cf/1-12/install-config.html#dedicated_instance_smoke_test_process).
 
 Platform operators can now offer their app developers three types of RabbitMQ for PCF service plans:
 
@@ -33,7 +33,7 @@ For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-
 For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
 
-## <a id="singlenode"></a> On-Demand Single Node Plan
+## <a id="singlenode"></a> On-Demand Single Node Plan (RMQ 3.7)
 
 This plan is designed to be simple to configure, deploy, and use.
 It gives application teams fast access to the power of the leading open source message broker backed by BOSH
@@ -49,8 +49,17 @@ This plan offers:
 * Updates and upgrades initiated and controlled by the operator to keep the instance up-to-date with the latest security patches and bug fixes
 * Message resilience provided through RabbitMQ exchange, queue Federation, and Shovel plugins.
 
+## <a id="singlenode"></a> On-Demand Single Node Plan (RMQ 3.6) - TO BE DEPRECATED
 
-## <a id="cluster"></a> On-Demand Cluster Plan
+This plan provides the same benefits as mentioned above but uses RabbitMQ 3.6 for backwards compatibility.
+Please note that RabbitMQ 3.6 will reach end of support soon ([read the announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ)). Consider moving to RabbitMQ 3.7 as soon as possible.
+
+If you are already using RabbitMQ for PCF you may choose to provide service plans with RabbitMQ 3.6 for backwards compatibility.
+However, you should also enable 3.7 plans to allow developers to migrate to the new version.
+
+For new deployments, please disable all 3.6 plans to take advantage of RabbitMQ 3.7 and avoid the need to upgrade in the near future.
+
+## <a id="cluster"></a> On-Demand Cluster Plan (RMQ 3.7)
 
 Like the single node plan, this plan is designed to be simple to configure, deploy and use.
 It gives application teams fast access to the power of the leading Open Source message broker backed by BOSH
@@ -66,6 +75,16 @@ This plan offers:
 * Administrator access to the RabbitMQ Management UI to give application teams full control over the cluster
 * Updates and upgrades initiated and controlled by the operator to keep the instance up-to-date with the latest security patches and bug fixes.
 * Message resilience provided by mirroring queues across RabbitMQ nodes, and the option to use the Federation and Shovel plugins.
+
+## <a id="singlenode"></a> On-Demand Cluster Plan (RMQ 3.6) - TO BE DEPRECATED
+
+This plan provides the same benefits as mentioned above but uses RabbitMQ 3.6 for backwards compatibility.
+Please note that RabbitMQ 3.6 will reach end of support soon ([read the announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ)). Consider moving to RabbitMQ 3.7 as soon as possible.
+
+If you are already using RabbitMQ for PCF you may choose to provide service plans with RabbitMQ 3.6 for backwards compatibility.
+However, you should also enable 3.7 plans to allow developers to migrate to the new version.
+
+For new deployments, please disable all 3.6 plans to take advantage of RabbitMQ 3.7 and avoid the need to upgrade in the near future.
 
 ### <a id="principles"></a> General Principles of the Cluster Plan
 
