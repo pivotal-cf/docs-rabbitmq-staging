@@ -33,7 +33,7 @@ For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-
 For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
 
-## <a id="singlenode"></a> On-Demand Single Node Plan (RMQ 3.7)
+## <a id="singlenode-RMQ37"></a> On-Demand Single Node Plan Using RabbitMQ 3.7
 
 This plan is designed to be simple to configure, deploy, and use.
 It gives application teams fast access to the power of the leading open source message broker backed by BOSH
@@ -49,17 +49,23 @@ This plan offers:
 * Updates and upgrades initiated and controlled by the operator to keep the instance up-to-date with the latest security patches and bug fixes
 * Message resilience provided through RabbitMQ exchange, queue Federation, and Shovel plugins.
 
-## <a id="singlenode"></a> On-Demand Single Node Plan (RMQ 3.6) - TO BE DEPRECATED
+### <a id="singlenode-RMQ36"></a> To Be Deprecated: On-Demand Single Node Plan Using RabbitMQ 3.6
 
-This plan provides the same benefits as mentioned above but uses RabbitMQ 3.6 for backwards compatibility.
-Please note that RabbitMQ 3.6 will reach end of support soon ([read the announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ)). Consider moving to RabbitMQ 3.7 as soon as possible.
+This plan provides the same benefits as described above, but uses RabbitMQ 3.6 for backwards compatibility.
 
-If you are already using RabbitMQ for PCF you may choose to provide service plans with RabbitMQ 3.6 for backwards compatibility.
-However, you should also enable 3.7 plans to allow developers to migrate to the new version.
+RabbitMQ 3.6 is reaching end of support soon. 
+Consider moving to RabbitMQ 3.7 as soon as possible. 
+For more information about the plan for RabbitMQ 3.6, 
+see the [RabbitMQ 3.6.x support timeline announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). 
 
-For new deployments, please disable all 3.6 plans to take advantage of RabbitMQ 3.7 and avoid the need to upgrade in the near future.
+If you are already using RabbitMQ for PCF you can choose to provide service plans 
+with RabbitMQ 3.6 for backwards compatibility.
+However, you should also enable RabbitMQ 3.7 plans to allow developers to migrate to the new version.
 
-## <a id="cluster"></a> On-Demand Cluster Plan (RMQ 3.7)
+For new deployments, Pivotal recommends to disable all 3.6 plans and using RabbitMQ 3.7.
+This avoids the need to upgrade in the near future.
+
+## <a id="cluster-RMQ37"></a> On-Demand Cluster Plan Using RabbitMQ 3.7
 
 Like the single node plan, this plan is designed to be simple to configure, deploy and use.
 It gives application teams fast access to the power of the leading Open Source message broker backed by BOSH
@@ -76,15 +82,23 @@ This plan offers:
 * Updates and upgrades initiated and controlled by the operator to keep the instance up-to-date with the latest security patches and bug fixes.
 * Message resilience provided by mirroring queues across RabbitMQ nodes, and the option to use the Federation and Shovel plugins.
 
-## <a id="singlenode"></a> On-Demand Cluster Plan (RMQ 3.6) - TO BE DEPRECATED
 
-This plan provides the same benefits as mentioned above but uses RabbitMQ 3.6 for backwards compatibility.
-Please note that RabbitMQ 3.6 will reach end of support soon ([read the announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ)). Consider moving to RabbitMQ 3.7 as soon as possible.
 
-If you are already using RabbitMQ for PCF you may choose to provide service plans with RabbitMQ 3.6 for backwards compatibility.
-However, you should also enable 3.7 plans to allow developers to migrate to the new version.
+### <a id="cluster-RMQ36"></a> To Be Deprecated: On-Demand Cluster Plan Using RabbbitMQ 3.6
 
-For new deployments, please disable all 3.6 plans to take advantage of RabbitMQ 3.7 and avoid the need to upgrade in the near future.
+This plan provides the same benefits as described above, but uses RabbitMQ 3.6 for backwards compatibility.
+
+RabbitMQ 3.6 is reaching end of support soon. 
+Consider moving to RabbitMQ 3.7 as soon as possible. 
+For more information about the plan for RabbitMQ 3.6, 
+see the [RabbitMQ 3.6.x support timeline announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). 
+
+If you are already using RabbitMQ for PCF, you can choose to provide service plans 
+with RabbitMQ 3.6 for backwards compatibility.
+However, you should also enable RabbitMQ 3.7 plans to allow developers to migrate to the new version.
+
+For new deployments, Pivotal recommends to disable all 3.6 plans to take advantage 
+of RabbitMQ 3.7 and avoid the need to upgrade in the near future.
 
 ### <a id="principles"></a> General Principles of the Cluster Plan
 
