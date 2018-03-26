@@ -39,7 +39,7 @@ using SCS, and apps using RabbitMQ for PCF in the Marketplace.
 
 To reserve the unreplicated tile for SCS, turn off the **Broker Registrar** errand to prevent the
 broker from being exposed in the Marketplace.
-For more information, see [Errands](http://docs.pivotal.io/rabbitmq-cf/install-config.html#errands). 
+For more information, see [Errands](./install-config.html#errands). 
 
 To offer RabbitMQ as a cloud messaging service in the Marketplace, create one or several replicas,
 install them in Ops Manager, and either allow the broker registrar errand to run, or
@@ -47,9 +47,11 @@ install them in Ops Manager, and either allow the broker registrar errand to run
 
 ### <a id="dedicated"></a> Providing a Pre-Provisioned Dedicated Cluster
 
-To reserve a RabbitMQ cluster for use by a specific team, all you need to do is
-[disable the broker registrar errand in Ops Manager](http://docs.pivotal.io/rabbitmq-cf/install-config.html#errands).
+To reserve a RabbitMQ cluster for use by a specific team,
+disable the **Broker Registrar** errand in Ops Manager. 
 This prevents service registration in the Marketplace.
+For more information, see [Errands](./install-config.html#errands).
+
 After you deploy the tile, manually expose the service broker to your desired orgs and spaces.
 For instructions, see [Register a Broker](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker). 
 
@@ -122,7 +124,7 @@ For the purposes of this example, assume that when you generate a replica tile a
 
 After you have generated a replica tile, you can upload it to Ops Manager as you would any other tile.
 After you have uploaded it, follow the instructions for [Installing and Configuring RabbitMQ for PCF as a
-Pre-Provisioned Service](https://docs.pivotal.io/rabbitmq-cf/install-config-pp.html).
+Pre-Provisioned Service](./install-config-pp.html).
 The On-Demand service is not offered on replica tiles.
 
 ## <a id="org-access"></a> Limiting Access to Replica Tiles to Specific Orgs

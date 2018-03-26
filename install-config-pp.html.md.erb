@@ -170,8 +170,8 @@ If you have not set the Erlang cookie and you want to scale out your cluster
 size without downtime, follow these steps:
 
 1. Follow the steps in one of the links below, up to and including the section _Log in to the BOSH Director_:
-  * **For Ops Manager v1.10 or earlier:** [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather)
-  * **For Ops Manager v1.11 or later:** [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
+  * **For Ops Manager v1.10 or earlier:** [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
+  * **For Ops Manager v1.11 or later:** [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather)
 
 1. Run one of the following commands depending on your Ops Manager version: <br>
     * **For Ops Manager v1.10 or earlier:** `bosh ssh rabbitmq-server/0`
@@ -412,7 +412,7 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 Follow the steps below to enable the shareable instances beta feature.
 Sharing a service instance between spaces, allows apps in different spaces to share databases,
 messaging queues, and many other types of services. For more information,
-see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/sharing-instances.html).
+see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).
 
 <p class='note warning'><strong>WARNING</strong>: This is a beta feature based on an experimental feature in Cloud Foundry.
 Use the feature at your own risk in non-production environments.</p>
@@ -535,7 +535,7 @@ Pre-delete errands run after an operator chooses to delete a product in the Ops 
 
 2. If prompted, import a new stemcell version.
     For more information, see the information about importing the stemcell for your IaaS:
-    [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
+    [AWS](https://docs.pivotal.io/pivotalcf/customizing/pcf-aws-manual-er-config.html#stemcell),
     [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
     [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
     [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
