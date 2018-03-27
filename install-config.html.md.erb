@@ -126,23 +126,25 @@ BOSH allocates an IP address if the field is left blank.
 
 Follow the steps below to configure global settings.
 
-1. Click **Global Settings** and configure the following:<br><br>
+1. Click **Global Settings**. 
+  ![Global Settings Tab](images/global-settings.png)
+1. Configure the following:<br><br>
   * **Service instance quota**  min: 0, max: 50  set the total number of on-demand service instances which can be deployed.
 For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).<br><br>
   * **VM options**:<br><br>
        **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
          <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
-  * **(Beta) Shareable Instances**: Select this checkbox to enable enable the beta feature for sharing instances.<br>
+  * **(Beta) Shareable Instances**: Click **Yes** to enable the beta feature for sharing instances.<br>
 
         <p class='note warning'><strong>WARNING</strong>: This is a beta feature based on an experimental feature in Cloud Foundry.
         Use the feature at your own risk in non-production environments.</p>
 
-        ![Sharing Service Instances](images/sharing-instances.png)
-
         Sharing a service instance between spaces, allows apps in different spaces to share databases,
 messaging queues, and many other types of services. For more information,
-see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).
-
+see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).<br><br>
+  * **(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub**: 
+For on-demand services instances, click **Yes** to secure credentials with CredHub.
+For this feature to work you must also enable it in PAS. For instructions, see [Enabling CredHub Integration in PAS](./pas-credhub.html).
 1. Click **Save**.
 
 
