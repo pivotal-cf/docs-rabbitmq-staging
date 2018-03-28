@@ -136,16 +136,19 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
          <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
   * **(Beta) Shareable Instances**: Click **Yes** to enable the beta feature for sharing instances.<br>
 
-        <p class='note warning'><strong>WARNING</strong>: This is a beta feature based on an experimental feature in Cloud Foundry.
-        Use the feature at your own risk in non-production environments.</p>
+        <p class='note'><strong>Note</strong>: This is a beta feature based on an experimental feature in Cloud Foundry.
+        Use the feature at your own risk in non-production environments. 
+        If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 
         Sharing a service instance between spaces, allows apps in different spaces to share databases,
 messaging queues, and many other types of services. For more information,
-see [Sharing Service Instances (Experimental)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).<br><br>
+see [Sharing Service Instances (Beta)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).<br><br>
   * **(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub**: 
 For on-demand services instances, click **Yes** to secure credentials with CredHub.
-  <p class="note"><strong>Note</strong>: For this feature to work you must also enable it in PAS. 
-    For instructions, see <a href="./pas-credhub.html">Enabling CredHub Integration in PAS</a>.</p>
+  <p class="note"><strong>Note 1</strong>: For this feature to work you must also enable it in PAS. 
+    For instructions, see <a href="./pas-credhub.html">Enabling CredHub Integration in PAS</a> <br><br>
+    <strong>Note 2</strong>: This is a beta feature. Use it at your own risk in non-production environments. 
+    If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 1. Click **Save**.
 
 
