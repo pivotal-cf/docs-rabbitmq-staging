@@ -15,26 +15,41 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
-## <a id="111x"></a>v1.12
+## <a id="112x"></a>v1.12
 
-### <a id="1112"></a> v1.12.1
+### <a id="1122"></a> v1.12.2
 
-**Release Date**: March 31, 2018
+**Release Date**: April 03, 2018
 
 #### Features
 
 **On-Demand**
 
-* Register / Deregister On Demand Service Broker, On Demand Instance Smoke Tests,
-  Upgrade All Service Instances and Delete All Service Instances errands are now
-  colocated with their respective broker to decrease errand run time and VM footprint.
+  * The following errands are colocated with their respective broker to decrease errand run time and VM footprint:
+    - Register / Deregister On Demand Service Broker
+    - On Demand Instance Smoke Tests
+    - Upgrade All Service Instances
+    - Delete All Service Instances
 
     For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
+* RabbitMQ 3.7 plans are available, and recommended for new deployments.
+
+  [RabbitMQ 3.6 reaches end of maintenance on 2018-05-01](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). Read the [RabbitMQ for PCF 1.12 migration guide](https://docs.pivotal.io/rabbitmq-cf/1-12/upgrade.html) for more details.
+
+* [Beta] Service Sharing allows RabbitMQ deployments to be shared across Cloud Foundry spaces and orgs.
+
+  For more information about sharing service intances, see [Cloud Foundry Documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+
+* [Beta] Support for secure credentials (CredHub).  Credentials are stored in a central repository and are restricted to components that actually need them.
+
+  For more information about CredHub, see [Cloud Foundry Documentation](https://docs.cloudfoundry.org/credhub/index.html).
+
 **Pre-Provisioned**
 
-* Broker Registrar / Deregistrar, Smoke Tests errands are now colocated with their respective broker
-  to decrease errand run time and VM footprint.
+  * The following errands are colocated with their respective broker to decrease errand run time and VM footprint:
+    - Broker Registrar / Deregistrar
+    - Smoke Tests errands
 
     For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
@@ -55,5 +70,6 @@ To view the release notes for another product version, select the version from t
 #### Packages
 
 * OSS RabbitMQ v3.6.15
+* OSS RabbitMQ v3.7.4
 * Erlang v19.3.6.4
 * HAProxy v1.6.13
