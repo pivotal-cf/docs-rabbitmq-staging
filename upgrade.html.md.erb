@@ -103,6 +103,12 @@ To upgrade the product, follow these steps:
    The rest of the process is automated.
 
 
+## <a id="upgrade-ondemand"></a> Upgrade On-Demand instances from RMQ 3.6 to RMQ 3.7
+
+Until RabbitMQ for PCF 1.12, on-demand service instances were deployed using RabbitMQ 3.6.
+RabbitMQ for PCF 1.12 provides service plans with RabbitMQ 3.6 as well as 3.7. Existing on-demand service instances
+can be upgraded to the new version with no downtime using [blue-green deployment process](http://www.rabbitmq.com/blue-green-upgrade.html).
+
 ## <a id="policy"></a> Release Policy
 
 When a new version of RabbitMQ is released, a new version of RabbitMQ for PCF is released soon after.
