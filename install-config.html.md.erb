@@ -43,7 +43,7 @@ Configure the following tabs for the on-demand service:
   </tr>
   <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Configure AZs and Networks</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td>Set the Metrics polling interval only. See <a href="./monitor.html#metrics">What Are Metrics</a>.</td>
+  <tr><td>RabbitMQ</td><td><a href="#polling">Configure Admin Credentials and Metrics Polling Interval</a></td>
   </tr>
   <tr><td>Networking</td><td><a href="#networking">Networking</a></td>
   </tr>
@@ -100,9 +100,43 @@ Configure the following tabs for the on-demand service:
 
  3. Click **Save**.
 
-### <a id="polling"></a> Set the Metrics Polling Interval
+### <a id="polling"></a> Configure Admin Credentials and Metrics Polling Interval
 
-On the **RabbitMQ** tab, set a metrics polling interval. For more information, see [What are Metrics](./monitor.html#metrics).
+On the **RabbitMQ** tab, you must configure two items only for the on demand service:
+<ul>
+  <li> Specify admin credentials for using the RabbitMQ Management Dashboard.</li>
+  <li>Enter a metrics polling interval.</li>
+</ul>
+
+#### <a id='dash'></a>Specify Admin User Credentials
+
+In the **RabbitMQ admin user credentials** field of the RabbitMQ tab, enter an admin username and password:
+
+<%= image_tag("images/config-credentials.png") %>
+
+You can use a combination of upper or lowercase alphanumerics and supported special characters: `[]^_!"#$%&()*+,-./\:;<=>?`.
+
+<p class="note"><strong>Note</strong>: You cannot use back quote <code>`</code> or single quote <code>'</code>.</p>
+
+This grants you full admin access to the RabbitMQ Management UI.
+
+<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password,
+  save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
+
+
+#### Enter a Metrics Polling Interval
+
+In the **Metrics polling interval field**, set a metrics polling interval: 
+
+<%= image_tag("images/metrics_polling.png") %>
+
+The default setting is 30 seconds for all deployed components.
+Pivotal recommends that you do not change this interval.
+  In order to avoid overwhelming components, do not set this below 10 seconds.
+
+Changing this setting affects all deployed instances.
+
+For more information, see [What are Metrics](./monitor.html#metrics).
 
 ### <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
 
