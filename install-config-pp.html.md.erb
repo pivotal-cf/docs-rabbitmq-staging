@@ -14,7 +14,7 @@ Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
 Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which 
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager. 
-Therefore, your role permissions may not allow you to perform every procedure in this operator guide.
+Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
 For more information about roles in Ops Manager, see 
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
@@ -207,7 +207,7 @@ Changing the Erlang cookie value requires cluster downtime.
 Pivotal *strongly* recommends that you do not change anything else during this time, because it is
 possible for the configuration to be inconsistently applied during this process.
 
-The deployment may fail after this process. If so, redeploying fixes the issue.
+The deployment might fail after this process. If so, redeploying fixes the issue.
 
 ### <a id="configfile"></a> RabbitMQ Configuration
 
@@ -336,7 +336,8 @@ space free to satisfy the **Disk free alarm limit** that you choose.
 #### <a name='50mb'></a> When to Use the 50MB Value
 
 Pivotal does not recommend using this value in production. However, if you are experimenting with a
-development environment you may want to use a small disk to keep down costs, though this increases the possibility that RabbitMQ may crash and lose data.
+development environment you might want to use a small disk to keep down costs,
+though this increases the possibility that RabbitMQ crashes and loses data.
 
 ## <a id="syslog"></a>Syslog
 
@@ -411,7 +412,7 @@ This is a one-time action before an update. You can change the above defaults in
 
 <p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
-    and on-demand instances of RabbitMQ for PCF may fall behind
+    and on-demand instances of RabbitMQ for PCF might fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 
@@ -615,7 +616,7 @@ For more information, see [Changing Network or IP Addresses Results in a Failed 
 You cannot switch from dynamically assigned IP addresses to a different set of static IP addresses.
 However, you can configure Ops Manager so the 
 current set of dynamically assigned IP addresses always continue to be used.
-This may be useful when upgrading.
+This might be useful when upgrading.
 
 To do this, follow these steps:
 
