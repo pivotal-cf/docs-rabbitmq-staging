@@ -154,9 +154,9 @@ then you must update the list of load-balanced ports.
 
 * SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). No other plugins are automatically configured for use with SSL.
 
-* If you provide SSL keys and certificates non-SSL support is disabled. 
+* If you provide SSL keys and certificates, non-SSL support is disabled. 
 If you previously deployed this service without SSL support and 
-have applications connected to the service, these applications lose 
+have apps connected to the service, these apps lose 
 their connections and must reconnect using SSL.
 
 * SSL settings are applied equally across all VMs in the cluster.
