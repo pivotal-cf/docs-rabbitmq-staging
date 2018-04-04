@@ -13,7 +13,7 @@ as a pre-provisioned service, see
 
 Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which 
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager. 
-Therefore, your role permissions may not allow you to perform every procedure in this operator guide.
+Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
 For more information about roles in Ops Manager, see 
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
@@ -41,7 +41,9 @@ This lets you begin configuring the tile. The installation is complete when you 
 
 ## <a id="tile_configurations"></a> Configure On-Demand RabbitMQ for PCF
 
-The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager. An orange circle beside a tab indicates that you must complete a configuration in the tab. A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
+The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager.
+An orange circle beside a tab indicates that you must complete a configuration in the tab.
+A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 
 ![Rabbit Tile Configuration](images/rmq_tile_config.png)
 
@@ -261,7 +263,10 @@ If you are installing on PCF v2.0 or later, these properties are pre-configured 
 
 Pivotal recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
-* You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the RabbitMQ instances. For example, if you are running out of disk space you may want to increase the persistent disk size by changing the **Persistent disk type** field. If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the RabbitMQ VM type.
+* You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the RabbitMQ instances.
+  For example, if you are running out of disk space you might want to increase the persistent disk size
+  by changing the **Persistent disk type** field.
+  If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the RabbitMQ VM type.
 
 * RabbitMQ raises alarms when disk space drops below the configured limit.
 Incorrect disk sizes might cause the deployed instance not to start.
@@ -340,7 +345,7 @@ This is a one-time setting on the installation dashboard:
 
 <p class='note warning'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
-    and on-demand instances of RabbitMQ for PCF may fall behind
+    and on-demand instances of RabbitMQ for PCF might fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
