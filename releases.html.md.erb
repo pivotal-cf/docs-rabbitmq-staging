@@ -7,15 +7,22 @@ owner: London Services
 
 Pivotal recommends that you upgrade to the latest version of your current minor line,
 then upgrade to the latest available version of the new minor line.
-For example, if you use an older v1.10.x version, upgrade to the latest v1.10.x version before upgrading to the latest v1.11.x version.
+For example, if you use an older v1.11.x version,
+upgrade to the latest v1.11.x version before upgrading to the latest v1.12.x version.
 
-See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
+For product versions and upgrade paths,
+see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
 ## <a id="use-new-plans"></a> Use RabbitMQ v3.7 On-Demand Plans
 
-RabbitMQ v3.7 plans are available. Ensure that all applications use the RabbitMQ 3.7 on-demand plans rather than the RabbitMQ v3.6 on-demand plans.
+RabbitMQ v3.7 plans are available.
+Ensure that all apps use the RabbitMQ v3.7 on-demand plans instead of the RabbitMQ v3.6 on-demand plans.
 
-[RabbitMQ v3.6 reaches end of maintenance on 2018-05-01](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). Read the [RabbitMQ for PCF v1.12 migration guide](https://docs.pivotal.io/rabbitmq-cf/1-12/upgrade.html) for more details.
+For more information, see the following:
+
++ [About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](https://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-12/upgrade.html#upgrade-ondemand)
++ The [ANN RabbitMQ 3.6.x support timeline](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ)
+  post on the RabbitMQ users forum
 
 ## <a id="view"></a> View Release Notes for Another Version
 
@@ -25,7 +32,7 @@ To view the release notes for another product version, select the version from t
 
 ### <a id="1122"></a> v1.12.2
 
-**Release Date**: April 03, 2018
+**Release Date**: April XX, 2018
 
 #### Features
 
@@ -39,11 +46,13 @@ To view the release notes for another product version, select the version from t
 
     For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
-* [Beta] Service Sharing allows RabbitMQ deployments to be shared across Cloud Foundry spaces and orgs.
+  * [Beta] Service Sharing allows RabbitMQ deployments to be shared across Cloud Foundry spaces and orgs.
 
-  For more information about sharing service intances, see [Cloud Foundry Documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
+     For more information about sharing service intances,
+     see [Cloud Foundry Documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html).
 
-* [Beta] Support for secure credentials (CredHub).  Credentials are stored in a central repository and are restricted to components that actually need them.
+  * [Beta] Support for secure credentials (CredHub).
+     Credentials are stored in a central repository and are restricted to components that actually need them.
 
   For more information about CredHub, see [Cloud Foundry Documentation](https://docs.cloudfoundry.org/credhub/index.html).
 
