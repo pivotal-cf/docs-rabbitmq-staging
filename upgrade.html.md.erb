@@ -108,10 +108,22 @@ To upgrade the product, follow these steps:
 Before RabbitMQ for PCF v1.12, on-demand service instances were deployed using RabbitMQ v3.6.
 RabbitMQ for PCF v1.12 provides service plans with RabbitMQ v3.6 and v3.7. 
 
-Using blue-green app deployment, you can upgrade existing on-demand service instances 
-from RabbitMQ v3.6 to v3.7 with no downtime. 
-For more information,
-see [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq).
+Using blue-green deployment pattern, you can upgrade existing on-demand service instances 
+from RabbitMQ v3.6 to v3.7 with no downtime. Assuming you have two applications `Producer` and `Consumer` connected to a single
+RabbitMQ 3.6 instance `rmq36`, the main steps would be:
+1. Provision a new service instance `rmq37` using one of the 3.7 service plans
+1. Configure federation between `rmq37` and `rmq36`
+  - In `rmq37` add federation upstream and provide `rmq36` URI (you can find it by looking at `cf env` for any of your applications and
+  it'll look like `amqp://[username]:[password]@[hostname]/[vhost]`)
+  - Add a policy to federate all or selected exchanges from `rmq36`
+1. Unbind `rmq36` and bind `rmq37` to `Consumer` 
+1. Restart `Consumer` (you can use [`autopilot` plugin](https://github.com/contraband/autopilot) for zero-downtime restart)
+1. Make sure that `Consumer` continues receiving messages
+1. Unbind `rmq36` and bind `rmq37` to `Producer`
+1. Restart the `Producer`
+
+For more information, see [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq).
+For additional information on configuring RabbitMQ federation, see [rabbitmq.com/federation.html](rabbitmq.com/federation.html).
 
 ## <a id="policy"></a> Release Policy
 
