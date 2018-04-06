@@ -9,7 +9,8 @@ When this is necessary, it is clearly noted in the release notes for that versio
 
 The upgrade paths for each version are detailed at [Pivotal Network - RabbitMQ for PCF page](https://network.pivotal.io/products/p-rabbitmq).
 
-To upgrade on-demand instances from RabbitMQ v3.6 to v3.7, see [Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
+To upgrade on-demand instances from RabbitMQ v3.6 to v3.7,
+see [About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
 
 ## <a id="downtime"></a> Downtime When Upgrading
 
@@ -104,20 +105,21 @@ To upgrade the product, follow these steps:
 1. Click **Apply changes** in the Ops Manager Installation Dashboard.
    The rest of the process is automated.
 
-## <a id="upgrade-ondemand"></a> Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7
+## <a id="upgrade-ondemand"></a> About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7
 
 Before RabbitMQ for PCF v1.12, on-demand service instances were deployed using RabbitMQ v3.6.
 RabbitMQ for PCF v1.12 provides on-demand service plans with RabbitMQ v3.6 and v3.7.
 
-Application developers can either start fresh with a v3.7 on-demand instance or they can migrate
+App developers can either start fresh with a v3.7 on-demand instance or they can migrate
 their RabbitMQ v3.6 instances to RabbitMQ v3.7 using blue-green app deployments without downtime.
 
 To enable the migration from on-demand v3.6 instances to v3.7 instances, the on-demand v3.7 plans should be configured to mirror the existing v3.6 plans. 
-For more information, see [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)
-and a demonstration [video](https://www.youtube.com/watch?v=S2oO-t-E38c).
+For more information,
+see the blog [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)
+and the video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c).
 
 RabbitMQ v3.6 on-demand plans will be removed in an upcoming RabbitMQ for PCF tile release.
-Encourage all developers to move their applications away from these plans.
+Encourage all developers to move their apps away from these plans.
 
 ## <a id="policy"></a> Release Policy
 
