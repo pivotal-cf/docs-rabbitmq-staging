@@ -3,10 +3,12 @@ title: Installing and Configuring the <br>Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide
+This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, 
+configure, and deploy the RabbitMQ for PCF tile to provide
 a pre-provisioned service.
 
-<p class="note"><strong>Note</strong>: For instructions about how to install, configure, and deploy the RabbitMQ for PCF tile
+<p class="note"><strong>Note</strong>: For instructions about how to install, 
+  configure, and deploy the RabbitMQ for PCF tile
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
@@ -67,7 +69,8 @@ Configure the following tabs for the pre-provisioned service:
  Follow the steps below to configure the AZs and networks.
 
  1. In the [Settings](#tile_configurations) screen, click **Assign AZs and Networks**.
-     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after 
+     you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows.
     **All fields are required**, though some do not apply to the pre-provisioned service.
@@ -145,7 +148,8 @@ then you must update the list of load-balanced ports.
 
 <%= image_tag("images/config_ssl.png") %>
 
-* SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). No other plugins are automatically configured for use with SSL.
+* SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). 
+No other plugins are automatically configured for use with SSL.
 
 * If you provide SSL keys and certificates, non-SSL support is disabled. 
 If you previously deployed this service without SSL support and 
@@ -176,23 +180,24 @@ There are two known issues associated with the Erlang cookie when you do the fol
 If you have not set the Erlang cookie and you want to scale out your cluster
 size without downtime, follow these steps:
 
-1. Follow the steps in one of the links below, up to and including the section _Log in to the BOSH Director_:
-  * **For Ops Manager v1.10 or earlier:** [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-12/customizing/trouble-advanced.html#gather)
-  * **For Ops Manager v1.11 or later:** [Prepare to Use the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
+1. Follow the steps in the link below, up to and including the section _Log in to the BOSH Director_:
+  [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather)
 
-1. Run one of the following commands depending on your Ops Manager version: <br>
-    * **For Ops Manager v1.10 or earlier:** `bosh ssh rabbitmq-server/0`
-    * **For Ops Manager v1.11 or later:** `bosh2 ssh rabbitmq-server/0` 
-  
+1. Run the following command: <br>
+    `bosh ssh rabbitmq-server/0`
+
 1. Run the following commands:
-<pre class="terminal">
-  sudo -i
-  echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
-</pre>
 
-1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. This field is shown [above](#erlang).
+    ```
+    sudo -i
+    echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
+    ```
 
-1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, raise the value for the number of **Instances** of the **RabbitMQ node**.  
+1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. 
+This field is shown [above](#erlang).
+
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, 
+raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
 
@@ -211,7 +216,8 @@ The deployment might fail after this process. If so, redeploying fixes the issue
 
 ### <a id="configfile"></a> RabbitMQ Configuration
 
-(Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.
+(Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in 
+the **RabbitMQ configuration** field in the **RabbitMQ** tab.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
   
 <%= image_tag("images/config_rabbitmq.png") %>
@@ -264,7 +270,8 @@ Enter this in this section of the **RabbitMQ** tab:
 <%= image_tag("images/config-elb.png") %>
 
 
-If you configure an external load balancer, to avoid an unnecessary VM deployment, in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**. 
+If you configure an external load balancer, to avoid an unnecessary VM deployment, 
+in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
 
 
 ### <a id="polling"></a>Metrics Polling Interval
@@ -294,7 +301,8 @@ tile provides four options for this value:
 
 * **50MB** is the minimum value. (Not Recommended)
 
-    Selecting **50MB** is not recommended and can cause data loss. For more information, see [Dangers of Setting This Value Too Low](#too-low) and [When to Use the 50MB Value](#50mb) below.
+    Selecting **50MB** is not recommended and can cause data loss. For more information, 
+    see [Dangers of Setting This Value Too Low](#too-low) and [When to Use the 50MB Value](#50mb) below.
 
 * **100% Memory** ensures that at the time when RabbitMQ checks the available disk,
   there must be enough space for RabbitMQ to page all memory-based messages out
@@ -341,7 +349,8 @@ though this increases the possibility that RabbitMQ crashes and loses data.
 
 ## <a id="syslog"></a>Syslog
 
-To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating an external syslog endpoint for RabbitMQ component log messages.
+To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating 
+an external syslog endpoint for RabbitMQ component log messages.
 This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
@@ -389,7 +398,9 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
 ## <a id="singlenode"></a> Dedicated Instance: Single Node Plan
 
-This tab only applies to the on-demand service. However, you must complete the fields on this tab even if you are not using the on-demand service. Therefore, if you are not using the on-demand service:
+This tab only applies to the on-demand service. However, you must complete the fields on 
+this tab even if you are not using the on-demand service. 
+Therefore, if you are not using the on-demand service:
 
 * Select or enter any values in the required fields, select the **Acknowledge** checkbox, and click **Save**.
 
@@ -399,16 +410,19 @@ For information on configuring the on-demand service, see [Installing and Config
 
 (Optional) In the **Errands** tab, choose the defaults for when errands run. 
 
-Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
+Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF, 
+Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
 
 
-You can decide whether to run post-deploy errands by toggling them on or off before you click **Apply Changes** to update a configuration in the Ops Manager Installation Dashboard:
+You can decide whether to run post-deploy errands by toggling them on or off before 
+you click **Apply Changes** to update a configuration in the Ops Manager Installation Dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-This is a one-time action before an update. You can change the above defaults in the **Errands** tab, as well as the defaults for [pre-delete](#pre-delete-errands) errands.
+This is a one-time action before an update. You can change the above defaults in the **Errands** tab, 
+as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 <p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
@@ -469,7 +483,8 @@ For more information, see [Errands](./install-config.html#errands).
 
 ### <a id="pre-delete-errands"></a>Pre-Delete Errands
 
-Pre-delete errands run after an operator chooses to delete a product in the Ops Manager Installation Dashboard, but before Ops Manager finishes deleting the product.
+Pre-delete errands run after an operator chooses to delete a product in the Ops Manager Installation Dashboard, 
+but before Ops Manager finishes deleting the product.
 
 <table class="nice">
   <th>Errand</th>
