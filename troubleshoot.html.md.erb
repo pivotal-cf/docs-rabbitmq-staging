@@ -252,13 +252,11 @@ the RabbitMQ application.
 
 <a id="stopstart"></a><h3>What is the correct way to stop and start RabbitMQ in PCF?</h3>
 
-Only BOSH commands should be used by the operator to interact with the RabbitMQ application. For example:
+Only BOSH commands should be used by the operator to interact with the RabbitMQ app.
 
-| Ops Manager Version | BOSH Command |
-|-----|---------|
-| 1.10 and earlier | `bosh stop rabbitmq-server`, `bosh start rabbitmq-server`|
-| 1.11 | `bosh2 stop rabbitmq-server`, `bosh2 start rabbitmq-server` |
-| 1.12 and later | `bosh stop rabbitmq-server`, `bosh start rabbitmq-server` |
+For example:
+
+`bosh stop rabbitmq-server` and  `bosh start rabbitmq-server`.
 
 
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
