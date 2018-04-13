@@ -67,10 +67,6 @@ Getting key my-key for service instance my-rmq-instance as admin...
 }
 </pre>
 
-### <a id="instance-deployment"></a>Select the BOSH Deployment for a Service Instance
-
-<%= partial '../../rabbitmq-cf/odb/tshoot-tech-instance-deployment' %>
-
 ## <a id="kb"></a>Knowledge Base (Community)
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-kb' %>
@@ -83,16 +79,9 @@ Getting key my-key for service instance my-rmq-instance as admin...
 
 On-Demand Broker provides a BOSH command to delete all the On-Demand Broker deployed instances. To delete the instances, do the following procedure:
 
-1. **For BOSH CLI v1 only:** Set the deployment to the On-Demand Broker in BOSH.
-
-1. Run one of the following commands to delete all instances of the On-Demand Broker, depending on your Ops Manager version:
+1. Run the following command to delete all instances of the On-Demand Broker:
 
     <p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
 
-
-    | Ops Manager Version | BOSH Command |
-    |-----|---------|
-    | 1.10 and earlier | `bosh run errand delete-sub-deployments`|
-    | 1.11 | `bosh2 run-errand delete-sub-deployments` |
-    | 1.12 | `bosh run-errand delete-sub-deployments` |
+    `bosh run-errand delete-sub-deployments`
 
