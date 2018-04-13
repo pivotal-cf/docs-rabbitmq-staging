@@ -86,7 +86,13 @@ On-Demand Broker provides a BOSH command to delete all the On-Demand Broker depl
 1. **For BOSH CLI v1 only:** Set the deployment to the On-Demand Broker in BOSH.
 
 1. Run one of the following commands to delete all instances of the On-Demand Broker, depending on your Ops Manager version:
-    * **For v1.10 or earlier:** `bosh run errand delete-sub-deployments`
-    * **For v1.11 or later:** `bosh2 run-errand delete-sub-deployments`
 
-<p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
+    <p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
+
+
+    | Ops Manager Version | BOSH Command |
+    |-----|---------|
+    | 1.10 and earlier | `bosh run errand delete-sub-deployments`|
+    | 1.11 | `bosh2 run-errand delete-sub-deployments` |
+    | 1.12 | `bosh run-errand delete-sub-deployments` |
+
