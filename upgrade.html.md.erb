@@ -105,6 +105,115 @@ To upgrade the product, follow these steps:
 1. Click **Apply changes** in the Ops Manager Installation Dashboard.
    The rest of the process is automated.
 
+## <a id="upgrade-preprovisioned"></a> About Upgrading Pre-Provisioned Service from RabbitMQ v3.6 to v3.7
+
+RabbitMQ for PCF v1.13 deploys RabbitMQ version 3.7 to run the pre-provisioned
+service. If you deployed any previous version of the tile (v1.12 or older) you
+are currently running RabbitMQ 3.6.  Due to incompatibilities between these
+versions as well as a major Erlang update provided by v.13 there are manual
+steps required to upgrade an existing pre-provisioned service to this version.
+In short, a rolling upgrade of the cluster cannot be performed. Therefore you
+need to stop all but one node, perform an upgrade and then start additional
+nodes.
+
+* This chapter is not applicable if you are installing the tile for the first time.
+
+## Prerequisites
+
+Before attempting the upgrade you need to make sure you have enough RAM and
+disk available. If you have any mirrored queues, as you shut down nodes one by
+one, mirrored queues will be synchronised to the remaining nodes. This means
+the remaining nodes will need additional RAM and disk space to accommodate
+additional data. You can speed up the upgrade process and minimize the amount
+of RAM and disk required, by draining the queues before attempting the upgrade.
+
+
+### Disable Automatic Synchronisation
+
+To avoid data replication during upgrade (when shutting down nodes),
+change any automatic synchronisation policy you may have to be manual (`ha-sync-mode: manual`).
+This way remaining nodes will not create new replicas and therefore memory and disk
+requirements will be significantly lower.
+
+### RAM Requirements
+
+If you do not have any automatic synchronisation policy, there are no special RAM
+requirements. Just make sure there are no alarms before attempting the upgrade.
+
+### Persistent Disk Requirements
+
+During upgrade, RabbitMQ will create a backup of the persistent database and
+then perform database migration. Therefore disk usage can double during the
+upgrade. Make sure you have enough disk space before attempting the upgrade.
+Ideally, disk usage should not exceed 40% of the disk size. For example:
+
+* you have RabbitMQ server nodes with 30GB persistent disk
+* pre-upgrade disk usage is 15GB
+* disk usage will jump to 30GB during upgrade
+* file system reserves 5% for the root user
+* therefore you should increase the disk size to at least 32GB, preferably 40GB
+
+If RabbitMQ runs out of disk space during upgrade it will abort the process and
+the node won't start. In this case go to Resource Config, change the disk size
+and apply changes. RabbitMQ will attempt the backup and database migration
+process automatically one next startup.
+
+## Upgrade Process
+
+1. If you can, drain your queues as much as possible by stopping the producers
+   and allowing consumers to empty the queues. Ideally, when performing the
+   upgrade, all queues in RabbitMQ should be empty or almost empty. Attempting
+   the upgrade with anything more than a few GBs of data stored in RabbitMQ
+   significantly increases memory and disk requirements as well as extends the
+   overall upgrade duration.
+
+You can use RabbitMQ management GUI or `rabbitmqadmin list queues name
+message_bytes` command to find out which queues currently store the most messages.
+
+1. Make sure there are no disk space or memory alarm
+* Go to https://pivotal-rabbitmq.system_domain and log in with the credentials from RabbitMQ tile configuration
+* Check the Nodes section of the Overview tab for alarm status
+
+**Do not attempt the upgrade if there are active alarms and make sure the cluster is in a healthy state.**
+Go back to the Prerequisites section and make sure you have enough memory and disk before attempting the upgrade.
+
+1. Use BOSH CLI to stop HAProxy node. The command should look like this `bosh -d p-rabbitmq-... stop rabbitmq-haproxy`.
+* if you have multiple HA Proxy nodes, stop all of them
+* if you are using an external load balancer, stop forwarding connections to
+  RabbitMQ server nodes (unless your are not concerned with losing some
+  messages)
+
+1. Use BOSH CLI to stop one of the rabbitmq-server nodes: `bosh -d p-rabbitmq-... stop rabbitmq-server/0`
+
+1. Repeat the above step until you have only one node running
+
+1. Upload the new RabbitMQ tile to OpsManager
+
+1. Adjust the settings if necessary
+
+1. Turn off the errands - since RabbitMQ HAProxy has been stopped, the errands will fail if you leave them on
+
+1. Apply Changes
+
+Once the operation has been completed you should have a single RabbitMQ node running with RabbitMQ version 3.7
+
+1. Start all nodes you stopped previously:
+`bosh -d p-rabbitmq-... start rabbitmq-server/0`
+
+1. Make sure all nodes are running. Their status should be visible in RabbitMQ Management GUI.
+
+1. Start HAProxy
+
+1. Run the following errands directly with bosh-cli:
+ * Broker Registrar: `bosh -d p-rabbitmq-... run-errand broker-registrar`
+ * Register Broker: `bosh -d p-rabbitmq-... run-errand register-broker``
+ * Smoke Tests: `bosh -d p-rabbitmq-... run-errand smoke-tests`
+ * On Demand Smoke Tests: `bosh -d p-rabbitmq-... run-errand on-demand-broker-smoke-tests`
+ * Upgrade all Service Instances: `bosh -d p-rabbitmq-... run-errand upgrade-all-service-instances`
+
+
+** Warning: Make sure that your Apps reconnect to RabbitMQ. Some RabbitMQ client libraries do not support automatic reconnection and the application must be restarted.
+
 ## <a id="upgrade-ondemand"></a> About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7
 
 Before RabbitMQ for PCF v1.12, on-demand service instances were deployed using RabbitMQ v3.6.
