@@ -27,6 +27,23 @@ The following rules apply to polices set through the RabbitMQ for PCF tile:
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management Interface.
 
+We would like to remind RabbitMQ for PCF Operators that when a queue syncs all
+its messages they need to be loaded into memory. So when queues are syncing
+they can use as much memory as there are messages, taking into account the size
+of the messages.  This applies to both nodes: the node where the queue master
+runs (from node), as well as the node where the queue slave runs (to node).
+This is only for newly created queue slaves. This behavior is especially
+relevant when any change affects the deployment, e.g.: stemcell updates,
+deployment configuration changes, network changes. Make sure you have enough
+memory and disk available to support that.
+
+For example:
+
+- If there are 5GB of messages in a mirrored queue that is set to automatic
+sync, when this queue needs to sync the node where the queue master runs can
+use up to 5GB of memory extra, the same applies to the node where the new queue
+slave will be created.
+
 Operators should consider some of the performance implications of making queues and exchanges highly available. For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
 
 ## <a id="viewing"></a> Setting or Changing the Policy
