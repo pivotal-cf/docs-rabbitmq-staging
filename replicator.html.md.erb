@@ -170,24 +170,52 @@ Here is the sample replicator command you used for the initial installation:
 ./rabbitmq-replicator-darwin\
 --name trading-team\
 --path /download/p-rabbitmq-v1.pivotal\
+--plan-uuid 12345 \
+--service-uuid 678910 \
 --output /output/p-rabbitmq-v1-trading-team.pivotal
 ```
 
-To upgrade to v2, follow these steps: 
+To upgrade to v2, follow these steps:
 
-1. Download the new RabbitMQ for PCF v2. 
+1. Download the new RabbitMQ for PCF v2.
 
 2. Run the replicator command, using the path to the new RabbitMQ for PCF v2 tile, and supply the same `name`, **trading-team**, as shown below.
 
     ```mac
-    ./rabbitmq-replicator-darwin\
-    --name trading-team\
-    --path /download/p-rabbitmq-v2.pivotal\
-    --output /output/p-rabbitmq-v2-trading-team.pivotal
+      ./rabbitmq-replicator-darwin\
+      --name trading-team\
+      --path /download/p-rabbitmq-v2.pivotal\
+      --plan-uuid 12345 \
+      --service-uuid 678910 \
+      --output /output/p-rabbitmq-v2-trading-team.pivotal
     ```
 
 3. After you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to Ops Manager.
-This upgrades the v1 replica tile in place. 
+This upgrades the v1 replica tile in place.
+
+To ensure the new replica will update existing service offering and plans you must specify the following paramenters: `--plan-uuid` and `--service-uuid`.
+
+In order to figure out the `plan-uuid` and `service-uuid` you can use CF API and search for the service plan you'd like to keep the same reference:
+```
+cf curl /v2/service_plans
+```
+
+The result would look like the following, with some extra properties:
+
+```
+      {
+         "metadata": {
+            "guid": "a0a2fae9-e5de-47f5-b2b3-23cf07ff6142",
+         },
+         "entity": {
+            "name": "single-node",
+            "service_guid": "3e3a9413-50bd-4c76-a226-8721b0d2b3d7",
+         }
+      }
+```
+
+The `plan-uuid` is represented by `.metadata.guid` and the `service-uuid` by `.entity.service_guid`.
+
 
 You can then proceed with upgrading the cluster.
 
