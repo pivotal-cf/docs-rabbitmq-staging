@@ -6,12 +6,12 @@ owner: London Services
 
 ## <a id="policy"></a> Understanding a RabbitMQ Policy
 
-You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster. 
+You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster.
 After you deploy the tile, Pivotal recommends that you use the RabbitMQ Management Interface to make configuration changes.
 
 For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
 
-Here is an example policy that ensures messages are mirrored on two nodes: 
+Here is an example policy that ensures messages are mirrored on two nodes:
 
 ```
 {
@@ -23,16 +23,33 @@ Here is an example policy that ensures messages are mirrored on two nodes:
 
 The following rules apply to polices set through the RabbitMQ for PCF tile:
 
-* A new policy, or an update to a policy, only applies to new instances (vhosts). 
+* A new policy, or an update to a policy, only applies to new instances (vhosts).
 Existing instances are not affected by the policy.
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management Interface.
-* It is not possible to use pattern matching with policies. Policies will be 
+* It is not possible to use pattern matching with policies. Policies will be
 applied to all queues and exchanges.
 
     For granular policy settings, Pivotal recommends using the
-    RabbitMQ Management UI. Set a `priority number` lower than 
+    RabbitMQ Management UI. Set a `priority number` lower than
     `50` (which is the default `priority number` when applied through the Ops Manager configuration).
+
+We would like to remind RabbitMQ for PCF Operators that when a queue syncs all
+its messages they need to be loaded into memory. So when queues are syncing
+they can use as much memory as there are messages, taking into account the size
+of the messages.  This applies to both nodes: the node where the queue master
+runs (from node), as well as the node where the queue slave runs (to node).
+This is only for newly created queue slaves. This behavior is especially
+relevant when any change affects the deployment, e.g.: stemcell updates,
+deployment configuration changes, network changes. Make sure you have enough
+memory and disk available to support that.
+
+For example:
+
+- If there are 5GB of messages in a mirrored queue that is set to automatic
+sync, when this queue needs to sync the node where the queue master runs can
+use up to 5GB of memory extra, the same applies to the node where the new queue
+slave will be created.
 
 Operators should consider some of the performance implications of making queues and exchanges highly available.
 For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
@@ -45,13 +62,13 @@ To set the RabbitMQ policy, do the following:
 
 	<%= image_tag("images/policy_opsman.png") %>
 
-1. Select **Enable custom policy on new instances**. 
+1. Select **Enable custom policy on new instances**.
 1. In the **Policy for new instances** field, paste the policy.
 
 	The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
 
 1. In the **Select the network partition behavior of the RabbitMQ cluster**,
-   choose the desired behavior: **pause_minority** or **autoheal**. 
+   choose the desired behavior: **pause_minority** or **autoheal**.
 
 	<br>For more information on these options and on RabbitMQ clusters and network partitions,
             see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
