@@ -179,30 +179,18 @@ To upgrade to v2, follow these steps:
 
 1. Download the new RabbitMQ for PCF v2.
 
-2. Run the replicator command, using the path to the new RabbitMQ for PCF v2 tile, and supply the same `name`, **trading-team**, as shown below.
-
-    ```mac
-      ./rabbitmq-replicator-darwin\
-      --name trading-team\
-      --path /download/p-rabbitmq-v2.pivotal\
-      --plan-uuid 12345 \
-      --service-uuid 678910 \
-      --output /output/p-rabbitmq-v2-trading-team.pivotal
+1. Find the `plan-uuid` and `service-uuid` for the service plan you want to keep the same reference.
+<br><br>
+You can use the CF API and search for the service plan. 
+To do this run the following:
+  
     ```
+    cf curl /v2/service_plans
+    ```
+<br>
+    The result is similar to the following, with some extra properties:
 
-3. After you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to Ops Manager.
-This upgrades the v1 replica tile in place.
-
-To ensure the new replica will update existing service offering and plans you must specify the following paramenters: `--plan-uuid` and `--service-uuid`.
-
-In order to figure out the `plan-uuid` and `service-uuid` you can use CF API and search for the service plan you'd like to keep the same reference:
-```
-cf curl /v2/service_plans
-```
-
-The result would look like the following, with some extra properties:
-
-```
+    <pre class="terminal">
       {
          "metadata": {
             "guid": "a0a2fae9-e5de-47f5-b2b3-23cf07ff6142",
@@ -212,9 +200,34 @@ The result would look like the following, with some extra properties:
             "service_guid": "3e3a9413-50bd-4c76-a226-8721b0d2b3d7",
          }
       }
-```
+    </pre>
+    - The `plan-uuid` is found under `.metadata.guid` 
+    - The `service-uuid` is found under `.entity.service_guid`.
 
-The `plan-uuid` is represented by `.metadata.guid` and the `service-uuid` by `.entity.service_guid`.
+1. Run the replicator command below: 
+
+    ```mac
+      ./rabbitmq-replicator-darwin\
+      --name trading-team\
+      --path PATH-TO-NEW-TILE \
+      --plan-uuid PLAN-UUID \
+      --service-uuid SERVICE-UUID \
+      --output /output/p-rabbitmq-v2-trading-team.pivotal
+    ```
+    Where:<br>
+      - The parameter `name` is **trading-team** as shown above
+      - `PATH-TO-NEW-TILE` is the path to the new RabbitMQ for PCF v2 tile, 
+      which is usually `/download/p-rabbitmq-v2.pivotal`  
+      - `PLAN-UUID` is the `--plan-uuid` found in Step 2
+      - `SERVICE-UUID` is the `--service-uuid` found in Step 2
+    
+    Specifying the parameters `--plan-uuid` and `--service-uuid` ensures the new 
+    replica updates the existing service offering and plans.
+
+1. After you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to Ops Manager.
+This upgrades the v1 replica tile in place.
+
+
 
 
 You can then proceed with upgrading the cluster.
