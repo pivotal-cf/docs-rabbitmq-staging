@@ -17,8 +17,9 @@ See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.htm
 
 Operators can enable log forwarding by configuring an external syslog endpoint for RabbitMQ component log messages. 
 For instructions on setting up syslog forwarding, see [Syslog](./install-config-pp.html#syslog).
-If syslog forwarding is enabled, you can also find log entries with timestamps locally in `/var/log/messages`. 
-In any case, logs are available under `/var/vcap/sys/log/`.
+
+If syslog forwarding is enabled, log entries with timestamps are available locally in `/var/log/messages`. 
+Logs are available under `/var/vcap/sys/log/` whether syslog forwarding is enabled or not.
 
 ## <a id="format"></a>Logging Formats
 
