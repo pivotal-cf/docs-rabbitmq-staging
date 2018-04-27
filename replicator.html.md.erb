@@ -179,10 +179,8 @@ To upgrade to v2, follow these steps:
 
 1. Download the new RabbitMQ for PCF v2.
 
-1. Find the `plan-uuid` and `service-uuid` for the service plan you want to keep the same reference.
-<br><br>
-You can use the CF API and search for the service plan. 
-To do this run the following:
+1. Find the `plan-uuid` and `service-uuid` for the service plan you want to update.<br>
+To do this, you can use the CF API. Run the following command, then search the result for the service plan you want:
   
     ```
     cf curl /v2/service_plans
@@ -201,8 +199,8 @@ To do this run the following:
          }
       }
     </pre>
-    - The `plan-uuid` is found under `.metadata.guid` 
-    - The `service-uuid` is found under `.entity.service_guid`.
+    - The `plan-uuid` is found at `.metadata.guid` 
+    - The `service-uuid` is found at `.entity.service_guid`
 
 1. Run the replicator command below: 
 
