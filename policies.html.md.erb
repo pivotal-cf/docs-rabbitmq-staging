@@ -34,6 +34,7 @@ applied to all queues and exchanges.
     RabbitMQ Management UI. Set a `priority number` lower than
     `50` (which is the default `priority number` when applied through the Ops Manager configuration).
 
+### <a id="syncing_queues">Best Practice for Syncing Queues</a>
 We would like to remind RabbitMQ for PCF Operators that when a queue syncs all
 its messages they need to be loaded into memory. So when queues are syncing
 they can use as much memory as there are messages, taking into account the size
