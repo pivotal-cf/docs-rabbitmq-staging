@@ -88,9 +88,9 @@ The following is the syntax for generating a replica tile:
 
 ```mac
 ./rabbitmq-replicator-darwin\
---name YOUR_DESIRED_TILE_NAME\
---path PATH_TO_TILE\
---output DESIRED_FILE_NAME.pivotal
+--name YOUR-DESIRED-TILE-NAME\
+--path PATH-TO-TILE\
+--output DESIRED-FILE-NAME.pivotal
 ```
 
 The following are the parameters expected in the above syntax: 
@@ -170,17 +170,20 @@ Here is the sample replicator command you used for the initial installation:
 ./rabbitmq-replicator-darwin\
 --name trading-team\
 --path /download/p-rabbitmq-v1.pivotal\
---plan-uuid 12345 \
---service-uuid 678910 \
+--plan-uuid "a0a2fae9-e5de-47f5-b2b3-23cf07ff6142" \
+--service-uuid "3e3a9413-50bd-4c76-a226-8721b0d2b3d7" \
 --output /output/p-rabbitmq-v1-trading-team.pivotal
 ```
 
 To upgrade to v2, follow these steps:
 
-1. Download the new RabbitMQ for PCF v2.
+1. Download and unzip the new RabbitMQ for PCF Tile Replicator from [Pivotal Network](https://network.pivotal.io/products/p-rabbitmq/).
+You must download the version of Tile Replicator that corresponds with the
+version of the RabbitMQ for PCF Tile you want to replicate.
 
 1. Find the `plan-uuid` and `service-uuid` for the service plan you want to update.<br>
-To do this, you can use the CF API. Run the following command, then search the result for the service plan you want:
+To do this, you can use the CF API. Run the following command, then search the 
+result for the section about the service plan you want:
   
     ```
     cf curl /v2/service_plans
@@ -199,25 +202,25 @@ To do this, you can use the CF API. Run the following command, then search the r
          }
       }
     </pre>
-    - The `plan-uuid` is found at `.metadata.guid` 
-    - The `service-uuid` is found at `.entity.service_guid`
+    - The `plan-uuid` is found under `metadata`, `guid`. 
+    - The `service-uuid` is found under `entity`, `service_guid`.
 
-1. Run the replicator command below: 
+1. Run the replicator command below to create the replica: 
 
     ```mac
       ./rabbitmq-replicator-darwin\
-      --name trading-team\
+      --name NAME-OF-EXISTING-REPLICA \
       --path PATH-TO-NEW-TILE \
       --plan-uuid PLAN-UUID \
       --service-uuid SERVICE-UUID \
       --output /output/p-rabbitmq-v2-trading-team.pivotal
     ```
     Where:<br>
-      - The parameter `name` is **trading-team** as shown above
-      - `PATH-TO-NEW-TILE` is the path to the new RabbitMQ for PCF v2 tile, 
-      which is usually `/download/p-rabbitmq-v2.pivotal`  
-      - `PLAN-UUID` is the `--plan-uuid` found in Step 2
-      - `SERVICE-UUID` is the `--service-uuid` found in Step 2
+      - `NAME-OF-EXISTING-REPLICA` must be the same as the name used for the existing replica. 
+      This is **trading-team** in this example.
+      - `PATH-TO-NEW-TILE` is the path to the new RabbitMQ for PCF v2 tile. 
+      - `PLAN-UUID` is the `--plan-uuid` found in Step 2.
+      - `SERVICE-UUID` is the `--service-uuid` found in Step 2.
     
     Specifying the parameters `--plan-uuid` and `--service-uuid` ensures the new 
     replica updates the existing service offering and plans.
