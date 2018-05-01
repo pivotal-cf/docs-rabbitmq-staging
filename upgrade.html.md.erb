@@ -222,13 +222,51 @@ RabbitMQ for PCF v1.12 provides on-demand service plans with RabbitMQ v3.6 and v
 App developers can either start fresh with a v3.7 on-demand instance or they can migrate
 their RabbitMQ v3.6 instances to RabbitMQ v3.7 using blue-green app deployments without downtime.
 
-To enable the migration from on-demand v3.6 instances to v3.7 instances, the on-demand v3.7 plans should be configured to mirror the existing v3.6 plans. 
+To enable the migration from on-demand v3.6 instances to v3.7 instances, the on-demand v3.7 plans should be configured to mirror the existing v3.6 plans.
 For more information,
 see the blog [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)
 and the video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c).
 
 RabbitMQ v3.6 on-demand plans will be removed in an upcoming RabbitMQ for PCF tile release.
 Encourage all developers to move their apps away from these plans.
+
+## <a id="existing-ondemand-instances"></a> Check remaining On-Demand Service Instances
+
+Before proceeding with the upgrade from RabbitMQ For PCF 1.12.x to 1.13.x
+ensure that there is no On-Demand service instance running with RabbitMQ Server
+3.6. RabbitMQ 3.6 has been removed from the tile 1.13.x, which means that
+deployment will fail if any On-Demand service instance is running with RabbitMQ
+3.6.
+
+In order to search for existing On-Demand 3.6 Service instances run the
+following commands (it's assumed that you have target the CF deployment used in
+the environment you want to upgrade):
+
+1. Search for service offering called `p.rabbitmq` - That's the On-Demand offering:
+
+```
+   cf curl /v2/services?q=label:p.rabbitmq
+```
+
+1. The output will contain the `service_plans_url` containing the url for all
+service plans, then run `cf curl` against that url:
+
+```
+  cf curl /v2/services/<SERVICE-GUID>/service_plans
+```
+
+1. That will return a list with all RabbitMQ On-Demand service plans, which
+might include plans using RabbitMQ 3.6 and RabbitMQ 3.7. You need to select
+only plans using RabbitMQ 3.6.For each plan using RabbitMQ 3.6 there'll be a
+property `service_instances_url`, then run `cf curl` against the url for each
+service plan found:
+
+```
+  cf curl /v2/service_plans/<SERVICE-PLAN-GUID>/service_instances
+```
+
+1. The result should be 0 instances for all service plans using RabbitMQ 3.6.
+
 
 ## <a id="policy"></a> Release Policy
 
