@@ -122,22 +122,23 @@ nodes.
 
 Before attempting the upgrade you need to make sure you have enough RAM and
 disk available. If you have any mirrored queues, as you shut down nodes one by
-one, [mirrored queues will be synchronised](./policies.html#syncing_queues) to the remaining nodes. This means
-the remaining nodes will need additional RAM and disk space to accommodate
+one, mirrored queues are synced to the remaining nodes.
+For more information about syncing mirrored queues, see [Best Practice for Syncing Queues](./policies.html#syncing_queues). 
+This means the remaining nodes will need additional RAM and disk space to accommodate
 additional data. You can speed up the upgrade process and minimize the amount
 of RAM and disk required, by draining the queues before attempting the upgrade.
 
 
-### Disable Automatic Synchronisation
+### Disable Automatic Synchronization
 
 To avoid data replication during upgrade (when shutting down nodes),
-change any automatic synchronisation policy you may have to be manual (`ha-sync-mode: manual`).
+change any automatic synchronization policy you may have to be manual (`ha-sync-mode: manual`).
 This way remaining nodes will not create new replicas and therefore memory and disk
 requirements will be significantly lower.
 
 ### RAM Requirements
 
-If you do not have any automatic synchronisation policy, there are no special RAM
+If you do not have any automatic synchronization policy, there are no special RAM
 requirements. Just make sure there are no alarms before attempting the upgrade.
 
 ### Persistent Disk Requirements
