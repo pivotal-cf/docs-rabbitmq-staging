@@ -132,7 +132,7 @@ of RAM and disk required, by draining the queues before attempting the upgrade.
 ### Disable Automatic Synchronization
 
 To avoid data replication during upgrade (when shutting down nodes),
-change any automatic synchronization policy you may have to be manual (`ha-sync-mode: manual`).
+change any automatic synchronization policy you might have to be manual (`ha-sync-mode: manual`).
 This way remaining nodes will not create new replicas and therefore memory and disk
 requirements will be significantly lower.
 

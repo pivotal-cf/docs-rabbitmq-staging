@@ -179,7 +179,7 @@ To upgrade to v2, follow these steps:
 You must download the version of Tile Replicator that corresponds with the
 version of the RabbitMQ for PCF Tile you want to replicate.
 
-1. Find the `plan-uuid` and `service-uuid` for the service plan you want to update.<br>
+1. Find the plan UUID and Service UUID for the service plan you want to update.<br>
 To do this, you can use the CF API. Run the following command, then search the 
 result for the section about the service plan you want:
   
@@ -200,8 +200,8 @@ result for the section about the service plan you want:
          }
       }
     </pre>
-    - The `plan-uuid` is found under `metadata`, `guid`. 
-    - The `service-uuid` is found under `entity`, `service_guid`.
+    - The plan UUID is found under `metadata`, `guid`. 
+    - The service UUID is found under `entity`, `service_guid`.
 
 1. Run the replicator command below to create the replica: 
 
@@ -217,8 +217,8 @@ result for the section about the service plan you want:
       - `NAME-OF-EXISTING-REPLICA` must be the same as the name used for the existing replica. 
       This is **trading-team** in this example.
       - `PATH-TO-NEW-TILE` is the path to the new RabbitMQ for PCF v2 tile. 
-      - `PLAN-UUID` is the `--plan-uuid` found in Step 2.
-      - `SERVICE-UUID` is the `--service-uuid` found in Step 2.
+      - `PLAN-UUID` is the plan UUID found in Step 2.
+      - `SERVICE-UUID` is the service UUID found in Step 2.
     
     Specifying the parameters `--plan-uuid` and `--service-uuid` ensures the new 
     replica updates the existing service offering and plans.
