@@ -24,7 +24,7 @@ applied to all queues and exchanges.
 
     For granular policy settings, Pivotal recommends using the
     RabbitMQ Management UI. Set a `priority number` lower than
-    `50` (which is the default `priority number` when applied through the Ops Manager configuration).
+    `50`, the default `priority number` applied through the Ops Manager configuration.
 
 ## <a id="example"></a> An Example Policy: Mirror on Two Nodes
 
@@ -39,14 +39,14 @@ Here is an example policy that ensures messages are mirrored on two nodes:
 ```
 
 Operators should consider some of the performance implications of making queues and exchanges highly available.
-For more information on highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
+For more information about highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
 
 ### <a id="syncing_queues"></a>Best Practice for Syncing Queues
 
 When a queue syncs all its messages, they are loaded into memory. 
-When queues are syncing they can use as much memory as the total size of all messages. 
-This applies to both nodes -- the node where the queue leader runs (from node), 
-as well as the node where the queue follower runs (to node), but only applies to newly created queue followers.
+When queues are syncing, they can use as much memory as the total size of all messages. 
+This applies to both nodes---the node where the queue leader runs (from node)
+and the node where the queue follower runs (to node), but only applies to newly created queue followers.
 
 This behavior is especially relevant when any change affects the deployment, 
 for example: stemcell updates, deployment configuration changes, and network changes. 
@@ -54,9 +54,9 @@ Verify that you have enough memory and disk available to support all messages.
 
 For example:
 
-There are 5GB of messages in a mirrored queue that is set to automatic
+There are 5&nbsp;GB of messages in a mirrored queue that is set to automatic
 sync. When this queue needs to sync, the node where the queue leader runs can
-use up to 5GB of extra memory. The same applies to the node where the new queue
+use up to 5&nbsp;GB of extra memory. The same applies to the node where the new queue
 follower is created.
 
 
@@ -77,7 +77,7 @@ To set the RabbitMQ policy, do the following:
 1. In the **Select the network partition behavior of the RabbitMQ cluster**,
    choose the desired behavior: **pause_minority** or **autoheal**.
 
-	<br>For more information on these options and on RabbitMQ clusters and network partitions,
+	<br>For more information about these options and on RabbitMQ clusters and network partitions,
             see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
 
 	<br>For production purposes, Pivotal recommends that customers have at least three RabbitMQ server nodes
