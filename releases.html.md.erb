@@ -13,17 +13,17 @@ upgrade to the latest v1.11.x version before upgrading to the latest v1.12.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-## <a id="use-rmq-3-7"></a> Delete existing On-Demand service instances running RabbitMQ v3.6
+### <a id="use-rmq-3-7"></a> Delete On-Demand Service Instances Running RabbitMQ v3.6
 
-Only RabbitMQ v3.7 plans are available. Plans using RabbitMQ 3.6 have been removed.
-Ensure that all instances running RabbitMQ 3.6 have been deleted before
-upgrading to RabbitMQ For PCF 1.13. Deployment is expected to fail in case
-there is any remaining on demand service instance running with RabbitMQ 3.6.
+With RabbitMQ for PCF v1.13, all plans using RabbitMQ v3.6 have been removed.
+Only plans with RabbitMQ v3.7 are available. 
+Delete all service instances running RabbitMQ v3.6 before upgrading to RabbitMQ For PCF v1.13. 
+Upgrading fails if any on-demand service instances are running RabbitMQ v3.6.
 
 For more information, see the following:
 
 + [About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](./upgrade.html#upgrade-ondemand)
-+ [Check remaining On-Demand Instances](./upgrade.html#existing-ondemand-instances)
++ [Check for On-Demand Service Instances Running RabbitMQ v3.6](./upgrade.html#existing-ondemand-instances)
 
 ## <a id="113x"></a>v1.13
 
