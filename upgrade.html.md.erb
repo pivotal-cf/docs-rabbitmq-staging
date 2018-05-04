@@ -232,7 +232,7 @@ following commands:
        cf curl /v2/services?q=label:p.rabbitmq
     ```
 
-1. In the output from step two, find `service_plans_url`. 
+1. In the output from step 2, find `service_plans_url`. 
 This contains the URL for all service plans.
 Run `cf curl` against that URL:
 
@@ -246,7 +246,7 @@ which might include plans using RabbitMQ v3.6 as well as plans using RabbitMQ v3
 note the URL for each service plan. 
 
 
-1. Run `cf curl` against each URL found in step four:
+1. Run `cf curl` against each URL found in step 4:
 
     ```
       cf curl /v2/service_plans/SERVICE-PLAN-GUID/service_instances
