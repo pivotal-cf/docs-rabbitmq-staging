@@ -3,21 +3,54 @@ title: Upgrading RabbitMQ for PCF
 owner: London Services
 ---
 
-This product enables automated upgrades between versions of the product and is deployed through Ops Manager.
-In some cases, you might be required to take the cluster offline. 
-When this is necessary, it is clearly noted in the release notes for that version.
+RabbitMQ for PCF enables automated upgrades between versions of the product.
+In some versions, you might be required to take the RabbitMQ cluster offline. 
+Whenever this is necessary, it is noted in the release notes for those versions.
 
-The upgrade paths for each version are detailed at [Pivotal Network - RabbitMQ for PCF page](https://network.pivotal.io/products/p-rabbitmq).
+The upgrade paths for each version are detailed in the [Product Compatibility Matrix](https://docs.pivotal.io/resources/product-compatibility-matrix.pdf).
 
 To upgrade on-demand instances from RabbitMQ v3.6 to v3.7,
-see [About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
+see [Upgrade On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
+
+## <a id="notes"></a> About the Upgrade
+
+Note the following about the upgrade process:
+
+* Upgrading to a newer version of the product does not cause any loss of data or
+configuration.
+
+* It may take busy RabbitMQ nodes a long time to shut down during
+the upgrade and you must not interrupt this process.
+
+* The benefit you get from stemcell rolling
+  upgrades depends on how you have configured network partition handling and the
+  **Resource Config** tab.
+  An HAProxy instance count of 2 and a RabbitMQ node count of 3 are required for rolling stemcell upgrades.
+  As of v1.7.7, these counts are the default. 
+  For more information, see [Clustering and Network Partitions](./partitions.html).
+
+* Ops Manager ensures the instances are updated with the new packages and any
+configuration changes are applied automatically.
+
+* For issues with upgrading RabbitMQ for PCF,
+  see [Troubleshooting On-Demand RabbitMQ for PCF](./troubleshoot.html).
 
 ## <a id="downtime"></a> Downtime When Upgrading
 
 A guide for downtime during upgrade deployments is shown in the table below.
-In some cases, the cluster remains available during a tile upgrade, but individual queues on cluster nodes may be taken offline.
+In some cases, the RabbitMQ cluster remains available during a tile upgrade,
+but individual queues on cluster nodes may be taken offline.
 
-This is only a guide, so before upgrading, check the release notes for the version you are upgrading to.
+The length of the downtime depends on whether there is a stemcell update to
+replace the operating system image or whether the existing VM can just have
+the RabbitMQ software updated. Stemcell updates incur additional downtime while
+the IaaS creates the new VM.
+
+The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
+This is stated in the release notes for those versions.
+
+<p class="note warning"><strong>IMPORTANT</strong>: The following table is only a guide.
+Always check the release notes for the version you are upgrading to.</p>
 
 
 <table border="1" class="nice">
@@ -49,59 +82,26 @@ This is only a guide, so before upgrading, check the release notes for the versi
 </tr>
 </table>
 
-## <a id="notes"></a> Notes on the Upgrade Process
-
-Review the following before starting an upgrade of RabbitMQ for PCF: 
-
-* Upgrading to a newer version of the product does not cause any loss of data or
-configuration.
-
-* It may take busy RabbitMQ nodes a long time to shut down during
-the upgrade and you must not interrupt this process.
-
-* The benefit you get from stemcell rolling
-  upgrades depends on how you have configured network partition handling and the
-  **Resource Config** tab.
-  An HAProxy instance count of 2 and a RabbitMQ node count of 3 are required for rolling stemcell upgrades.
-  As of v1.7.7, these counts are the default. 
-  For more information, see [Clustering and Network Partitions](./partitions.html).
-
-* The length of the downtime depends on whether there is a stemcell update to
-replace the operating system image or if the existing VM can just have
-the RabbitMQ software updated. Stemcell updates incur additional downtime while
-the IaaS creates the new VM.
-
-* The cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
-  This is clearly stated in the release notes for those versions.
-
-* Ops Manager ensures the instances are updated with the new packages and any
-configuration changes are applied automatically.
-
-* For issues with upgrading RabbitMQ for PCF,
-  see [Troubleshooting On-Demand RabbitMQ for PCF](./troubleshoot.html).
-
-
 ## <a id="upgrade"></a> Upgrade RabbitMQ for PCF to v1.13
 
-RabbitMQ for PCF v1.13 deploys RabbitMQ version 3.7 to run the pre-provisioned
-service. If you deployed any previous version of the tile (v1.12 or older) you
-are currently running RabbitMQ 3.6.  Due to incompatibilities between these
-versions as well as a major Erlang update provided by v.13 there are manual
-steps required to upgrade both the RabbitMQ for PCF pre-provisioned service and the on-demand service, as a rolling upgrade of the cluster cannot be performed. 
-
-These steps are not necessary if you are installing the tile for the first time.
+Manual steps are required to upgrade both the RabbitMQ for PCF pre-provisioned service and the on-demand service.
+This is due to incompatibilities between RabbitMQ versions v3.6 and v3.7,
+as well as a major Erlang update provided by RabbitMQ for PCF v1.13.
+Therefore, a rolling upgrade of the cluster cannot be performed. 
 
 ### <a id="upgrade-preprovisioned"></a> Upgrade Pre-Provisioned Service for RabbitMQ for PCF v1.13
 
+<p class="note"><strong>Note</strong>: The following steps are not necessary if you are installing the RabbitMQ for PCF v1.13 tile for the first time.</p>
+
+RabbitMQ for PCF v1.13 deploys RabbitMQ v3.7 to run the pre-provisioned
+service. All previous versions deploy RabbitMQ v3.6. 
+
 To upgrade the pre-provisioned service, also known as the multitenant service or p-rabbitmq, you
-need to stop all but one node, perform an upgrade and then start the additional
-nodes. This process will have downtime for the duration of the upgrade steps.
+must stop all but one node in the RabbitMQ cluster, perform an upgrade, and then start the additional
+nodes.
+This process has downtime for the duration of the upgrade steps.
 
-#### Upgrade Process
-
-1. Ensure that your cluster has sufficent RAM and disk. 
-
-For users of mirrored queues:
+#### Recommendations for Users of Mirrored Queues
 
 As you shut down each node, the mirrored queues will sync to the remaining nodes. 
 The remaining nodes will require additional RAM and disk space to accommodate this additional data.
@@ -111,35 +111,38 @@ and minimize the amount of RAM and disk required.
 
 For more information about syncing mirrored queues, see [Best Practice for Syncing Queues](./policies.html#syncing_queues).
 
-1. Disable Automatic Synchronization
+#### Upgrade RabbitMQ for PCF Pre-Provisioned Service
 
-To avoid data replication during upgrade (when shutting down nodes),
-change any automatic synchronization policy you might have to be manual (`ha-sync-mode: manual`).
-This way remaining nodes will not create new replicas and therefore memory and disk
-requirements will be significantly lower.
+To upgrade the pre-provisioned service, do the following:
 
-If you do not have any automatic synchronization policy, there are no special RAM
-requirements.
+1. Ensure that your cluster has sufficent RAM and disk. 
+
+1. Disable automatic synchronization.<br><br>
+
+    Change any automatic synchronization policy you may have to be manual using `ha-sync-mode: manual`.
+    This prevents data replication when shutting down nodes during upgrade.
+    The remaining nodes will not create new replicas, therefore, memory and disk
+    requirements will be significantly lower.
 
 1. Ensure that your cluster has sufficient persistent disk
 
-Disk usage may double during this upgrade as RabbitMQ will create a backup of the persistent database and
-then perform the database migration.
+      Disk usage may double during this upgrade as RabbitMQ will create a backup of the persistent database and
+      then perform the database migration.
 
-Make sure you have enough disk space before attempting the upgrade.
+      Make sure you have enough disk space before attempting the upgrade.
 
-Ideally, disk usage should not exceed 40% of the disk size. For example:
+      Ideally, disk usage should not exceed 40% of the disk size. For example:
 
-* you have RabbitMQ server nodes with 30GB persistent disk
-* pre-upgrade disk usage is 15GB
-* disk usage will jump to 30GB during upgrade
-* file system reserves 5% for the root user
-* therefore you should increase the disk size to at least 32GB, preferably 40GB
+      * you have RabbitMQ server nodes with 30GB persistent disk
+      * pre-upgrade disk usage is 15GB
+      * disk usage will jump to 30GB during upgrade
+      * file system reserves 5% for the root user
+      * therefore you should increase the disk size to at least 32GB, preferably 40GB
 
-If RabbitMQ runs out of disk space during upgrade it will abort the process and
-the node won't start. In this case go to Resource Config, change the disk size
-and apply changes. RabbitMQ will attempt the backup and database migration
-process automatically on next startup.
+      If RabbitMQ runs out of disk space during upgrade it will abort the process and
+      the node won't start. In this case go to Resource Config, change the disk size
+      and apply changes. RabbitMQ will attempt the backup and database migration
+      process automatically on next startup.
 
 1. If you can, drain your queues as much as possible by stopping the producers
    and allowing the consumers to empty the queues. Ideally, when performing the
@@ -148,8 +151,8 @@ process automatically on next startup.
    significantly increases memory and disk requirements as well as extends the
    overall upgrade duration.
 
-You can use RabbitMQ management GUI or `rabbitmqadmin list queues name
-message_bytes` command to find out which queues currently store the most messages.
+    You can use RabbitMQ management GUI or `rabbitmqadmin list queues name
+    message_bytes` command to find out which queues currently store the most messages.
 
 1. Make sure there are no disk space or memory alarms
 * Go to https://pivotal-rabbitmq.system_domain and log in with the credentials from RabbitMQ tile configuration
@@ -159,8 +162,8 @@ message_bytes` command to find out which queues currently store the most message
 on the BOSH `instances` output, that reflects the state of Erlang VM, not
 RabbitMQ.
 
-**Do not attempt the upgrade if there are active alarms and make sure the cluster is in a healthy state.**
-Go back to prior steps and make sure you have enough memory and disk before attempting the upgrade.
+    **Do not attempt the upgrade if there are active alarms and make sure the cluster is in a healthy state.**
+    Go back to prior steps and make sure you have enough memory and disk before attempting the upgrade.
 
 1. Use BOSH CLI to stop HAProxy node. At this point, applications will no longer be able to communicate with the RabbitMQ service. The command should look like this `bosh -d p-rabbitmq-... stop rabbitmq-haproxy`.
 * if you have multiple HA Proxy nodes, stop all of them
@@ -180,10 +183,10 @@ Go back to prior steps and make sure you have enough memory and disk before atte
 
 1. Apply Changes
 
-Once the operation has been completed you should have a single RabbitMQ node running with RabbitMQ version 3.7
+    Once the operation has been completed you should have a single RabbitMQ node running with RabbitMQ version 3.7
 
-1. Start all nodes you stopped previously:
-`bosh -d p-rabbitmq-... start rabbitmq-server/{node_index}`
+    1. Start all nodes you stopped previously:
+    `bosh -d p-rabbitmq-... start rabbitmq-server/{node_index}`
 
 1. Make sure all nodes are running. Their status should be visible in RabbitMQ Management GUI.
 
@@ -196,9 +199,9 @@ Once the operation has been completed you should have a single RabbitMQ node run
  * On Demand Smoke Tests: `bosh -d p-rabbitmq-... run-errand on-demand-broker-smoke-tests`
  * Upgrade all Service Instances: `bosh -d p-rabbitmq-... run-errand upgrade-all-service-instances`
 
-** Warning: Make sure that your Apps reconnect to RabbitMQ. Some RabbitMQ client libraries do not support automatic reconnection and the application must be restarted.
+<p class="note warning"><strong>Warning</strong> : Make sure that your Apps reconnect to RabbitMQ. Some RabbitMQ client libraries do not support automatic reconnection and the application must be restarted.</p>
 
-## <a id="upgrade-ondemand"></a> About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7
+### <a id="upgrade-ondemand"></a> Upgrade On-Demand Instances from RabbitMQ v3.6 to v3.7
 
 Before RabbitMQ for PCF v1.12, on-demand service instances were deployed using RabbitMQ v3.6.
 RabbitMQ for PCF v1.12 provides on-demand service plans with RabbitMQ v3.6 and v3.7.
@@ -214,7 +217,7 @@ and the video [Blue-Green Deployment of Applications leveraging RabbitMQ](https:
 RabbitMQ v3.6 on-demand plans will be removed in an upcoming RabbitMQ for PCF tile release.
 Encourage all developers to move their apps away from these plans.
 
-## <a id="existing-ondemand-instances"></a> Check for On-Demand Service Instances Running RabbitMQ v3.6
+#### <a id="existing-ondemand-instances"></a> Check for On-Demand Service Instances Running RabbitMQ v3.6
 
 Before upgrading from RabbitMQ for PCF v1.12 to v1.13,
 ensure that there are no on-demand service instances running with RabbitMQ v3.6. 
