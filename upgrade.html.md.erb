@@ -115,7 +115,7 @@ For more information about syncing mirrored queues, see [Best Practice for Synci
 
 To upgrade the pre-provisioned service, do the following:
 
-1. Ensure that your cluster has sufficent RAM and disk. 
+1. Ensure that your RabbitMQ cluster has sufficent RAM and disk. 
 
 1. Disable automatic synchronization.<br><br>
 
@@ -124,25 +124,24 @@ To upgrade the pre-provisioned service, do the following:
     The remaining nodes will not create new replicas, therefore, memory and disk
     requirements will be significantly lower.
 
-1. Ensure that your cluster has sufficient persistent disk
+1. Ensure that your RabbitMQ cluster has sufficient persistent disk
 
-      Disk usage may double during this upgrade as RabbitMQ will create a backup of the persistent database and
-      then perform the database migration.
+    Disk usage may double during this upgrade as RabbitMQ will create a backup of the persistent database and
+    then perform the database migration.
 
-      Make sure you have enough disk space before attempting the upgrade.
+    Make sure you have enough disk space before attempting the upgrade.
 
-      Ideally, disk usage should not exceed 40% of the disk size. For example:
+    Ideally, disk usage should not exceed 40% of the disk size. For example:<br><br>
+      * You have RabbitMQ server nodes with 30GB persistent disk.
+      * Pre-upgrade disk usage is 15GB.
+      * Disk usage will jump to 30GB during upgrade.
+      * File system reserves 5% for the root user.
+      * Therefore you should increase the disk size to at least 32GB, preferably 40GB
 
-      * you have RabbitMQ server nodes with 30GB persistent disk
-      * pre-upgrade disk usage is 15GB
-      * disk usage will jump to 30GB during upgrade
-      * file system reserves 5% for the root user
-      * therefore you should increase the disk size to at least 32GB, preferably 40GB
-
-      If RabbitMQ runs out of disk space during upgrade it will abort the process and
-      the node won't start. In this case go to Resource Config, change the disk size
-      and apply changes. RabbitMQ will attempt the backup and database migration
-      process automatically on next startup.
+    If RabbitMQ runs out of disk space during upgrade it will abort the process and
+    the node won't start. In this case go to Resource Config, change the disk size
+    and apply changes. RabbitMQ will attempt the backup and database migration
+    process automatically on next startup.
 
 1. If you can, drain your queues as much as possible by stopping the producers
    and allowing the consumers to empty the queues. Ideally, when performing the
