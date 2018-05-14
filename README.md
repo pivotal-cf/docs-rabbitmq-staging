@@ -18,15 +18,15 @@ Any changes on the master branch will not be displayed publicly until a **-live*
 
 **1.10-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-10](http://docs.pivotal.io/rabbitmq-cf/1-10/).
 
-**1.9-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-9](http://docs.pivotal.io/rabbitmq-cf/1-9/).
+**1.9-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
-**1.8-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-8](http://docs.pivotal.io/rabbitmq-cf/1-8/).
+**1.8-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
-**1.7-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-7](http://docs.pivotal.io/rabbitmq-cf/1-7/).
+**1.7-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
-**1.6-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-6](http://docs.pivotal.io/rabbitmq-cf/1-6/).
+**1.6-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
-**1.5-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-5](http://docs.pivotal.io/rabbitmq-cf/1-5/).
+**1.5-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
 [docs-book-rabbitmq]: https://github.com/pivotal-cf/docs-book-rabbitmq/blob/master/config.yml
 
