@@ -89,7 +89,7 @@ This is due to incompatibilities between RabbitMQ versions v3.6 and v3.7,
 as well as a major Erlang update provided by RabbitMQ for PCF v1.13.
 Therefore, a rolling upgrade of the cluster cannot be performed. 
 
-### <a id="upgrade-preprovisioned"></a> Upgrade the Pre-Provisioned Service to RabbitMQ v3.7
+### <a id="upgrade-preprovisioned"></a> Upgrade the Pre-Provisioned Service
 
 RabbitMQ for PCF v1.13 deploys RabbitMQ v3.7 to run the pre-provisioned
 service. All previous versions deploy RabbitMQ v3.6. 
@@ -198,61 +198,77 @@ RabbitMQ.
 
 <p class="note warning"><strong>Warning</strong> : Make sure that your Apps reconnect to RabbitMQ. Some RabbitMQ client libraries do not support automatic reconnection and the application must be restarted.</p>
 
-### <a id="upgrade-ondemand"></a> Migrate On-Demand Instances from RabbitMQ v3.6 to v3.7
+### Upgrade the On-Demand Service
 
-As of v1.13, RabbitMQ for PCF no longer provides on-demand service plans with RabbitMQ v3.6.
-
-To upgrade to RabbitMQ for PCF v1.13, app developers must migrate
+As of v1.13, RabbitMQ for PCF no longer provides on-demand service plans with RabbitMQ v3.6. Therefore, to upgrade to RabbitMQ for PCF v1.13, app developers must migrate
 their RabbitMQ v3.6 instances to RabbitMQ v3.7. Using blue-green app deployments, you can do this without downtime.
 
-When migrating from on-demand v3.6 instances to v3.7 instances, be sure to configure the on-demand v3.7 plans to mirror the existing v3.6 plans.
+There are three main steps to upgrade the on-demand RabbitMQ for PCF v1.13:
 
-For more information, see:
+[Migrate On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand)
 
-* The blog [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)
-* The video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c).
+[Check for On-Demand Service Instances Running RabbitMQ v3.6](#existing-ondemand-instances)
+
+[Download and Install the RabbitMQ for PCF Tile](#tile-ondemand)
+
+#### <a id="upgrade-ondemand"></a> Migrate On-Demand Instances from RabbitMQ v3.6 to v3.7
+
+To migrate on-demand instances from RabbitMQ v3.6 to v3.7, do the following:
+
+1. In your existing deployment of RabbitMQ for PCF v1.12, create on-demand RabbitMQ v3.7 service plans. Be sure to configure
+the v3.7 on-demand plans to match the configurations of your existing v3.6 on-demand plans.
+
+2. Migrate your on-demand service instances from RabbitMQ v3.6 to v3.7, using blue-green deployments.
+  The process you use to do this depends on how much your apps can tolerate downtime.<br><br>
+  For guidance on how to do this migration, see the following resources:<br><br>
+  * The blog [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)<br><br>
+  * The video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c).
 
 
-#### <a id="existing-ondemand-instances"></a> Check for On-Demand Service Instances Running RabbitMQ v3.6
+#### <a id="existing-ondemand-instances"></a> Ensure there are no On-Demand Service Instances Running RabbitMQ v3.6
 
-Before upgrading from RabbitMQ for PCF v1.12 to v1.13,
-ensure that there are no on-demand service instances running with RabbitMQ v3.6. 
-RabbitMQ v3.6 has been removed from the RabbitMQ for PCF v1.13 tile.
-Upgrading fails if any on-demand service instances are running RabbitMQ v3.6.
+After migration there should be no on-demand service instances running RabbitMQ v3.6. 
+You must verify this before upgrading from RabbitMQ for PCF v1.12 to v1.13.
 
-To search for on-demand service instances running RabbitMQ v3.6, run the
-following commands:
+<p class="note"><strong>Note</strong>: The upgrade fails if any on-demand service instances are running RabbitMQ v3.6.</p>
+
+To search for on-demand service instances running RabbitMQ v3.6, do the following:
 
 1. Target the CF deployment used in the environment you want to upgrade.
 
-1. Search for `p.rabbitmq`, which is the on-demand service offering:
+1. Search for the on-demand service `p.rabbitmq`:
 
-    ```
-       cf curl /v2/services?q=label:p.rabbitmq
-    ```
+    <pre class="terminal">
+       $ cf curl /v2/services?q=label:p.rabbitmq
+    </pre>
 
 1. In the output from step 2, find `service_plans_url`. 
-This contains the URL for all service plans.
-Run `cf curl` against that URL:
+This shows the URL for all service plans.
+Run `cf curl` against that URL. For example:
 
-    ```
-      cf curl /v2/services/SERVICE-GUID/service_plans
-    ```
-This returns a list of all RabbitMQ for PCF on-demand service plans, 
-which might include plans using RabbitMQ v3.6 as well as plans using RabbitMQ v3.7.
+    <pre class="terminal">
+      $ cf curl /v2/services/SERVICE-GUID/service_plans
+    </pre>
 
-1. Locate the service plans using RabbitMQ v3.6, find the property `service_instances_url` for each of these, and
-note the URL for each service plan. 
+    This returns a list of all RabbitMQ for PCF on-demand service plans, 
+    which may include plans using RabbitMQ v3.6 and plans using RabbitMQ v3.7.
 
+1. In the list returned above:
+  1. Locate the service plans using RabbitMQ v3.6.<br><br>
+  1. For each of these service plans, find the property `service_instances_url`, and
+    note the URL for that plan. 
 
-1. Run `cf curl` against each URL found in step 4:
+1. Run `cf curl` against each URL found in step 4. For example:
 
-    ```
-      cf curl /v2/service_plans/SERVICE-PLAN-GUID/service_instances
-    ```
+    <pre class="terminal">
+      $ cf curl /v2/service_plans/SERVICE-PLAN-GUID/service_instances
+    </pre>
 
 1. Ensure that the result for each service plan shows zero instances using RabbitMQ v3.6.
 
+#### <a id="tile-ondemand"></a> Download and Install the RabbitMQ for PCF Tile
+
+Follow the steps in [Download and Install RabbitMQ for PCF](./install-config.html#install).
 
 ## <a id="policy"></a> Release Policy
 
