@@ -11,6 +11,36 @@ For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x ve
 
 See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
 
+### <a id="11018"></a>v1.10.18
+
+**Release Date: May 16, 2018**
+
+#### Features
+- Requires stemcell [3445.45](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.45)
+- Timestamps have been added to some log entries that did not have them
+- The On-Demand Services SDK has dropped the Golang to v1.9.5 due to [an issue parsing x509 certificates](https://github.com/golang/go/issues/24590)
+
+#### Known Issues
+* Some timeout values in the smoke tests may be too low for some environments, resulting in smoke test failure.
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+#### Packages
+
+* OSS RabbitMQ v3.6.15
+* Erlang v19.3.6.4
+* HAProxy v1.6.13
+
 ### <a id="11017"></a>v1.10.17
 
 **Release Date: March 28, 2018**
@@ -36,7 +66,7 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-  #### Packages
+#### Packages
 
 * OSS RabbitMQ v3.6.15
 * Erlang v19.3.6.4
