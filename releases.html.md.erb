@@ -15,17 +15,16 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ### <a id="11113"></a> v1.11.13
 
-**Release Date**: May 11, 2018
+**Release Date**: May 16, 2018
 
 #### Features
 - Requires stemcell [3445.45](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3445.45)
 - Timestamps have been added to some log entries that did not have them
 - The On-Demand Services SDK has dropped the Golang to v1.9.5 due to [an issue parsing x509 certificates](https://github.com/golang/go/issues/24590)
-- Updates the following:
-  - On-Demand Sevices SDK to [v0.21.2](https://docs.pivotal.io/svc-sdk/odb/0-21/release-notes.html)
-  - Routing release to [v0.176.0](https://github.com/cloudfoundry/routing-release/releases/tag/0.176.0)
 
 #### Known Issues
+* Some timeout values in the smoke tests may be too low for some environments, resulting in smoke test failure.
+
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
   and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
