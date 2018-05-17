@@ -84,10 +84,12 @@ Always check the release notes for the version you are upgrading to.</p>
 
 ## <a id="upgrade"></a> Upgrade to RabbitMQ for PCF v1.13
 
-Manual steps are required to upgrade both the RabbitMQ for PCF pre-provisioned service and the on-demand service.
+As of v1.13, RabbitMQ for PCF no longer supports RabbitMQ v3.6.
+Manual steps are required to upgrade both the pre-provisioned and the on-demand service to RabbitMQ for PCF v1.13.
 This is due to incompatibilities between RabbitMQ versions v3.6 and v3.7,
 as well as a major Erlang update provided by RabbitMQ for PCF v1.13.
-Therefore, a rolling upgrade of the cluster cannot be performed. 
+
+Due to these constraints, you cannot do a  rolling upgrade of the cluster for this tile release. 
 
 ### <a id="upgrade-preprovisioned"></a> Upgrade the Pre-Provisioned Service
 
@@ -104,16 +106,16 @@ This process has downtime for the duration of the upgrade steps.
 As you shut down each node, the mirrored queues will sync to the remaining nodes. 
 The remaining nodes will require additional RAM and disk space to accommodate this additional data.
 
-Pivotal recommends draining the queues before attempting the upgradem as this will speed up the upgrade process
-and minimize the amount of RAM and disk required.
+Pivotal recommends draining the queues before attempting the upgrade as this speeds up the upgrade process
+and minimizes the amount of RAM and disk required.
 
 For more information about syncing mirrored queues, see [Best Practice for Syncing Queues](./policies.html#syncing_queues).
 
 #### Upgrade RabbitMQ for PCF Pre-Provisioned Service
 
-To upgrade the pre-provisioned service, do the following:
+To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the following:
 
-1. Ensure that your RabbitMQ cluster has sufficent RAM and disk. 
+1. Ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
 
 1. Disable automatic synchronization.<br><br>
 
@@ -122,7 +124,7 @@ To upgrade the pre-provisioned service, do the following:
     The remaining nodes will not create new replicas, therefore, memory and disk
     requirements will be significantly lower.
 
-1. Ensure that your RabbitMQ cluster has sufficient persistent disk
+1. Ensure that your RabbitMQ cluster has sufficient persistent disk.
 
     Disk usage may double during this upgrade as RabbitMQ will create a backup of the persistent database and
     then perform the database migration.
@@ -198,7 +200,7 @@ RabbitMQ.
 
 <p class="note warning"><strong>Warning</strong> : Make sure that your Apps reconnect to RabbitMQ. Some RabbitMQ client libraries do not support automatic reconnection and the application must be restarted.</p>
 
-### Upgrade the On-Demand Service
+### <a id="Upgrade-ondemand"></a> Upgrade the On-Demand Service
 
 As of v1.13, RabbitMQ for PCF no longer provides on-demand service plans with RabbitMQ v3.6. Therefore, to upgrade to RabbitMQ for PCF v1.13, app developers must migrate
 their RabbitMQ v3.6 instances to RabbitMQ v3.7. Using blue-green app deployments, you can do this without downtime.
