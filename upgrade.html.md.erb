@@ -214,16 +214,20 @@ the node won't start. In this case, do the following:
     `bosh -d p-rabbitmq-... start rabbitmq-server/NODE_INDEX`<br><br>
     1. Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
 
-1. Start the HAProxy.
+1. Start the HAProxy node.
 
-1. Run the following errands directly with bosh-cli:
+    <br>The command looks similar to this: `bosh -d p-rabbitmq-... start rabbitmq-haproxy`
+
+1. Run the following errands with BOSH CLI:
  * Broker Registrar: `bosh -d p-rabbitmq-... run-errand broker-registrar`
- * Register Broker: `bosh -d p-rabbitmq-... run-errand register-broker``
+ * Register Broker: `bosh -d p-rabbitmq-... run-errand register-broker`
  * Smoke Tests: `bosh -d p-rabbitmq-... run-errand smoke-tests`
  * On Demand Smoke Tests: `bosh -d p-rabbitmq-... run-errand on-demand-broker-smoke-tests`
  * Upgrade all Service Instances: `bosh -d p-rabbitmq-... run-errand upgrade-all-service-instances`
 
-<p class="note warning"><strong>Warning</strong> : Make sure that your Apps reconnect to RabbitMQ. Some RabbitMQ client libraries do not support automatic reconnection and the application must be restarted.</p>
+1. Make sure that your apps reconnect to RabbitMQ. 
+    <p class="note warning"><strong>Warning</strong>: Some RabbitMQ client libraries do not support 
+    automatic reconnection so you may have to restart some apps.</p>
 
 ### <a id="Upgrade-ondemand"></a> Upgrade the On-Demand Service
 
