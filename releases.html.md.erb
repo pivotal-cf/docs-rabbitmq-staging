@@ -32,12 +32,16 @@ For more information, see the following:
 **Release Date**: May 16, 2018
 
 #### Features
-- Requires stemcell [3468.42](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3468.42)
-- Timestamps have been added to some log entries that did not have them
-- The On-Demand Services SDK has dropped the Golang to v1.9.5 due to [an issue parsing x509 certificates](https://github.com/golang/go/issues/24590)
+
+- Requires stemcell [3468.42](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3468.42).
+- Timestamps added to log entries that did not have them.
+- Golang version reduced to v1.9.5 from v1.10 because of an issue parsing x509 certificates.
+For more information, see the Golang issue 
+[crypto/x509: CANotAuthorizedForExtKeyUsage is premature](https://github.com/golang/go/issues/24590).
 
 #### Known Issues
-* Some timeout values in the smoke tests may be too low for some environments, resulting in smoke test failure.
+
+* Smoke tests might fail because time-out values in the smoke tests are too low.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
