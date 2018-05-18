@@ -412,7 +412,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
     publish and subscribe to a RabbitMQ cluster.
-    See <a href="#on_demand_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
+    See <a href="./install-config-pp.html#smoke_tests">Pre-Provisioned Instance Smoke Tests</a>.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -423,7 +423,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
     <td><strong>On-Demand Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
     publish and subscribe to a RabbitMQ cluster.
-    See <a href="#on_demand_instance_smoke_test_process">On-Demand Instance Smoke Test Process</a> below.</td>
+    See <a href="#on_demand_instance_smoke_tests">On-Demand Instance Smoke Tests</a> below.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
@@ -454,16 +454,10 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
 </table>
 
 
-### <a id="on_demand_instance_smoke_test_process"></a> On-Demand Instance Smoke Test Process
+### <a id="on_demand_instance_smoke_tests"></a> On-Demand Instance Smoke Tests
 
-Smoke tests only run against Plan 1. The smoke tests perform the following steps:
-
-1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
-1. Deploy an instance of the [RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
-1. Create the RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
-1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
-1. Clean up the deployed Example App and all its service bindings.
-1. Delete the cf org and space created for the tests.
+Smoke tests only run against Plan 1. 
+For more information about the smoke tests process, see [Smoke Tests](./smoke-tests.html).
 
 ## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
 

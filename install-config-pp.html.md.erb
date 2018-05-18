@@ -499,7 +499,8 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   <tr>
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster. See <a href="#smoke_test_process">Smoke Test Process</a> below.</td>
+    publish and subscribe to a RabbitMQ cluster. 
+    See <a href="#smoke_tests">Pre-Provisioned Instance Smoke Tests</a> below.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -508,9 +509,10 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
     you must run this errand in order for the changes to be reflected in the Marketplace.</td>
   </tr>
   <tr>
-    <td><strong>Dedicated Instance Smoke Tests</strong></td>
+    <td><strong>On-Demand Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster. See <a href="./install-config.html#dedicated_instance_smoke_test_process">Dedicated Instance Smoke Test Process</a>.</td>
+    publish and subscribe to a RabbitMQ cluster. 
+    See <a href="./install-config.html#on_demand_instance_smoke_tests">On-Demand Instance Smoke Tests</a>.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
@@ -522,19 +524,10 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
 </table>
 
 
-### <a id="smoke_test_process"></a> Smoke Test Process
+### <a id="smoke_tests"></a> Pre-Provisioned Instance Smoke Tests
 
 Smoke tests run as a post-deployment errand.
-The smoke tests perform the following for each available service plan:
-
-1. Target the org <code>system</code> and create a cf space to run the tests.
-1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
-1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
-1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
-1. Clean up the deployed Example App and all its service bindings.
-1. Delete the cf space created for the tests.
-
-For more information, see [Errands](./install-config.html#errands).
+For more information about the smoke tests process, see [Smoke Tests](./smoke-tests.html).
 
 ### <a id="pre-delete-errands"></a>Pre-Delete Errands
 
