@@ -58,8 +58,7 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>ODB</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>Specific to the service (such as RabbitMQ for PCF). 
-			May be one or more ports.</td>
+		<td>15672 (RabbitMQ Management UI)</td>
 		<td>One-way</td>
 		<td>This connection is for administrative tasks. 
 			Avoid opening general use, app-specific ports for this connection.</td>
@@ -85,7 +84,8 @@ rules are set up so that connections are open as described in the table below.
 			<ul>
 				<li>8443</li>
 				<li>8080</li>
-				<li>Specific to the service. May be one or more ports.</li>
+				<li>15672 (RabbitMQ Management UI)</li>
+				<li>5671-2 (AMQP/AMQPS)</li>
 			</ul>
 		</td>
 		<td>One-way</td>
@@ -105,7 +105,13 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>Deployed apps on ERT</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>Specific to the service. May be one or more ports.</td>
+		<td>
+			<ul>
+				<li>15672 (RabbitMQ Management UI)</li>
+				<li>5671-2 (AMQP/AMQPS)</li>
+				<li>61613-4 (STOMP/STOMPS)</li>
+				<li>1883-8883 (MQTT/MQTTS)</li>
+		</td>
 		<td>One-way</td>
 		<td>This connection is for general use, app-specific tasks. 
 			Avoid opening administrative ports for this connection.</td>
