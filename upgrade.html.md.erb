@@ -7,7 +7,8 @@ RabbitMQ for PCF enables automated upgrades between versions of the product.
 In some versions, you might be required to take the RabbitMQ cluster offline. 
 Whenever this is necessary, it is noted in the release notes for those versions.
 
-The upgrade paths for each version are detailed in the [Product Compatibility Matrix](https://docs.pivotal.io/resources/product-compatibility-matrix.pdf).
+The upgrade paths for each version are detailed in the 
+[Product Compatibility Matrix](https://docs.pivotal.io/resources/product-compatibility-matrix.pdf).
 
 To upgrade on-demand instances from RabbitMQ v3.6 to v3.7,
 see [Upgrade On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
@@ -137,7 +138,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
       * Pre-upgrade persistent disk usage is 15GB.
       * Persistent disk usage jumps to 30GB during upgrade.
       * The file system reserves 5% of persistent disk for the root user.
-      * Therefore, you should increase the persistent disk size to at least 32GB, and preferably 40GB.
+      
+      In this case, increase the persistent disk size to at least 32GB, and preferably 40GB.
 
 1. If RabbitMQ runs out of disk space during upgrade it will abort the process and
 the node won't start. In this case, do the following:
@@ -150,55 +152,69 @@ the node won't start. In this case, do the following:
     RabbitMQ attempts the backup and database migration
     process automatically on the next startup.
 
-1. If you can, drain your queues as much as possible by stopping the producers
-   and allowing the consumers to empty the queues. 
+1. Drain your message queues as much as possible by stopping the producers
+   and allowing the consumers to empty the queues. <br><br>
 
-    Ideally, when performing the
-    upgrade, all queues in RabbitMQ should be empty or almost empty. Attempting
-    the upgrade with anything more than a few GBs of data stored in RabbitMQ
-    significantly increases memory and disk requirements as well as extends the
-    overall upgrade duration.
+    To find out which queues currently store the most messages, use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
+    message_bytes` command .
 
-    You can use RabbitMQ management GUI or `rabbitmqadmin list queues name
-    message_bytes` command to find out which queues currently store the most messages.
+    <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty. 
+    Upgrading with more data stored in RabbitMQ
+    significantly increases memory and disk requirements, and extends the
+    upgrade duration.</p>
 
-1. Make sure there are no disk space or memory alarms
-* Go to https://pivotal-rabbitmq.system_domain and log in with the credentials from RabbitMQ tile configuration
-* Check the Nodes section of the Overview tab for alarm status
+1. Ensure there are no disk space or memory alarms:<br>
+    1. Go to https://pivotal-rabbitmq.system_domain, and log in with the credentials from the RabbitMQ tile configuration, shown below.
+    ![admin-credentials](rmq-admin-cred.png)
+    1. In the **Overview** tab, check the **Nodes** section for alarm status.
 
-1. Ensure the cluster is healthy via the RabbitMQ Management UI. You cannot rely
-on the BOSH `instances` output, that reflects the state of Erlang VM, not
-RabbitMQ.
+1. In the RabbitMQ Management UI, ensure the cluster is healthy. 
 
-    **Do not attempt the upgrade if there are active alarms and make sure the cluster is in a healthy state.**
-    Go back to prior steps and make sure you have enough memory and disk before attempting the upgrade.
+    <br>Do not rely on the BOSH `instances` output. That indicates the state of the Erlang VM, not RabbitMQ.
 
-1. Use BOSH CLI to stop HAProxy node. At this point, applications will no longer be able to communicate with the RabbitMQ service. The command should look like this `bosh -d p-rabbitmq-... stop rabbitmq-haproxy`.
-* if you have multiple HA Proxy nodes, stop all of them
-* if you are using an external load balancer, stop forwarding connections to
-  RabbitMQ server nodes (unless your are not concerned with losing some
-  messages)
+    <p class="note warning"><strong>WARNING</strong>: Do not attempt the upgrade 
+    if there are active alarms or if the cluster is not in a healthy state.</p>
 
-1. Use BOSH CLI to stop one of the rabbitmq-server nodes: `bosh -d p-rabbitmq-... stop rabbitmq-server/{node_index}`
+1. Use the BOSH CLI to stop the HAProxy node.  
 
-1. Repeat the above step until you have only one node running. Pivotal recommends that you stop all nodes except for the node with index 0, to easily keep track of your progress.
+    <br>The command looks similar to this: `bosh -d p-rabbitmq-... stop rabbitmq-haproxy`.<br><br>
+    * If you have multiple HA Proxy nodes, stop all of them
+    * If you are using an external load balancer, stop forwarding connections to
+      RabbitMQ server nodes (unless your are not concerned with losing some
+      messages)
 
-1. Upload the RabbitMQ for PCF v1.13 tile to OpsManager
+    At this point, applications will no longer be able to communicate with the RabbitMQ service.
 
-1. Adjust the settings if necessary. Pivotal recommends you do not make any adjustments unless they are too increase the disk or RAM.
+1. Use the BOSH CLI to stop one of the RabbitMQ server nodes. 
 
-1. Turn off the errands - since RabbitMQ HAProxy has been stopped, the errands will fail if you leave them on. Pivotal recommends turning these errands off in the tile GUI.
+    <br>The command looks similar to this: <br>`bosh -d p-rabbitmq-... stop rabbitmq-server/NODE_INDEX`
 
-1. Apply Changes
+1. Repeat the above step until you have only one node running. 
 
-    Once the operation has been completed you should have a single RabbitMQ node running with RabbitMQ version 3.7
+    <br>To easily keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
 
-    1. Start all nodes you stopped previously:
-    `bosh -d p-rabbitmq-... start rabbitmq-server/{node_index}`
+1. Download and install the RabbitMQ for PCF v1.13 tile.
 
-1. Make sure all nodes are running. Their status should be visible in RabbitMQ Management GUI.
+    <br>Follow the steps in Follow the steps in [Download and Install RabbitMQ for PCF](./install-config.html#install).
 
-1. Start HAProxy
+    <br>Adjust the configuration settings if necessary. Pivotal recommends you do not make any adjustments unless they are to increase the disk or RAM.
+
+1. Turn off the errands.
+
+    <br>Pivotal recommends turning these errands off in the tile GUI. 
+    The errands fail if you leave them on, since the RabbitMQ HAProxy was stopped.
+
+1. In the Ops Manager Dashboard, click **Apply Changes**.
+
+    <br>You should now have a single RabbitMQ node running with RabbitMQ version 3.7
+
+1. Start all the nodes you stopped previously.
+
+    1. Run a BOSH command similar to this:<br>
+    `bosh -d p-rabbitmq-... start rabbitmq-server/NODE_INDEX`<br><br>
+    1. Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
+
+1. Start the HAProxy.
 
 1. Run the following errands directly with bosh-cli:
  * Broker Registrar: `bosh -d p-rabbitmq-... run-errand broker-registrar`
