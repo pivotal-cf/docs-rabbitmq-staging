@@ -118,7 +118,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 
 1. Ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
 
-    To increase RAM and disk space, click the **Resource Config** tab, 
+    <br>To increase RAM and disk space, click the **Resource Config** tab, 
     and then for the **RabbitMQ node**, select an appropriate **VM Type**.
 
 1. Disable automatic synchronization.<br><br>
@@ -178,18 +178,16 @@ the node won't start. In this case, do the following:
 1. Use the BOSH CLI to stop the HAProxy node.  
 
     <br>The command looks similar to this: `bosh -d p-rabbitmq-... stop rabbitmq-haproxy`.<br><br>
-    * If you have multiple HA Proxy nodes, stop all of them
-    * If you are using an external load balancer, stop forwarding connections to
-      RabbitMQ server nodes (unless your are not concerned with losing some
-      messages)
+    * If you have multiple HA Proxy nodes, stop all of them.
+    * If you are using an external load balancer, and are concerned about losing some messages, stop forwarding connections to
+      RabbitMQ server nodes.
 
     At this point, applications will no longer be able to communicate with the RabbitMQ service.
 
-1. Use the BOSH CLI to stop one of the RabbitMQ server nodes. 
+1. Use the BOSH CLI to stop all but one RabbitMQ server node. 
 
-    <br>The command looks similar to this: <br>`bosh -d p-rabbitmq-... stop rabbitmq-server/NODE_INDEX`
-
-1. Repeat the above step until you have only one node running. 
+    <br>Run this command on RabbitMQ server nodes until you have only one node running: 
+    <br>`bosh -d p-rabbitmq-... stop rabbitmq-server/NODE_INDEX`
 
     <br>To easily keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
 
@@ -206,7 +204,7 @@ the node won't start. In this case, do the following:
 
 1. In the Ops Manager Dashboard, click **Apply Changes**.
 
-    <br>You should now have a single RabbitMQ node running with RabbitMQ version 3.7
+    <br>You should now have a single RabbitMQ node running with RabbitMQ version 3.7.
 
 1. Start all the nodes you stopped previously.
 
