@@ -10,8 +10,6 @@ Whenever this is necessary, it is noted in the release notes for those versions.
 The upgrade paths for each version are detailed in the 
 [Product Compatibility Matrix](https://docs.pivotal.io/resources/product-compatibility-matrix.pdf).
 
-To upgrade on-demand instances from RabbitMQ v3.6 to v3.7,
-see [Upgrade On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
 
 ## <a id="notes"></a> About the Upgrade
 
@@ -33,8 +31,6 @@ the upgrade and you must not interrupt this process.
 * Ops Manager ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
 
-* For issues with upgrading RabbitMQ for PCF,
-  see [Troubleshooting On-Demand RabbitMQ for PCF](./troubleshoot.html).
 
 ## <a id="downtime"></a> Downtime When Upgrading
 
@@ -98,11 +94,11 @@ RabbitMQ for PCF v1.13 deploys RabbitMQ v3.7 to run the pre-provisioned
 service. All previous versions deploy RabbitMQ v3.6. 
 
 To upgrade the pre-provisioned service, also known as the multitenant service or p-rabbitmq, you
-must stop all but one node in the RabbitMQ cluster, perform an upgrade, and then start the additional
+must stop all but one node in the RabbitMQ cluster, perform an upgrade, and then restart the stopped
 nodes.
 This process has downtime for the duration of the upgrade steps.
 
-#### Recommendations for Users of Mirrored Queues
+#### <a id="mirrored"></a> Recommendations for Users of Mirrored Queues
 
 As you shut down each node, the mirrored queues will sync to the remaining nodes. 
 The remaining nodes will require additional RAM and disk space to accommodate this additional data.
@@ -118,8 +114,14 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 
 1. Ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
 
-    <br>To increase RAM and disk space, click the **Resource Config** tab, 
-    and then for the **RabbitMQ node**, select an appropriate **VM Type**.
+    <br>The required amount of disk space and RAM depends on your environment. 
+    See also [Recommendations for Users of Mirrored Queues](#mirrored) above.
+
+    <br>To increase RAM and disk space, do the following:
+
+    1. Click the **Resource Config** tab.<br><br> 
+    1. For the **RabbitMQ node**, select an appropriate **VM Type** and click **Save**.<br><br>
+    1. Click **Apply Changes** in the Ops Manager Dashboard.
 
 1. Disable automatic synchronization.<br><br>
 
@@ -130,7 +132,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 
 1. Ensure that your RabbitMQ cluster has sufficient persistent disk.
 
-    <br>Disk usage may double during this upgrade as RabbitMQ creates a backup of the persistent database and
+    <br>Persistent disk usage may double during this upgrade as RabbitMQ creates a backup of the persistent database and
      performs the database migration.
 
     <br>Ideally, persistent disk usage should not exceed 40% of the disk size. For example:<br><br>
@@ -141,13 +143,13 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
       
       In this case, increase the persistent disk size to at least 32GB, and preferably 40GB.
 
-1. If RabbitMQ runs out of disk space during upgrade it will abort the process and
+1. If RabbitMQ runs out of persistent disk space during upgrade it will abort the process and
 the node won't start. In this case, do the following:
     1. Click the **Resource Config** tab.<br><br>
 
-    1. Increase the disk size by selecting a different **VM Type** for the **RabbitMQ Node**.<br><br>
+    1. For the **RabbitMQ Node**, increase the persistent disk size by selecting a different **Persistent Disk Type**.<br><br>
 
-    1. Click **Apply Changes**.
+    1. Click **Save**, and then click **Apply Changes** in the Ops Manager Dashboard.
 
     RabbitMQ attempts the backup and database migration
     process automatically on the next startup.
@@ -164,7 +166,8 @@ the node won't start. In this case, do the following:
     upgrade duration.</p>
 
 1. Ensure there are no disk space or memory alarms:<br>
-    1. Go to https://pivotal-rabbitmq.system_domain, and log in with the credentials from the RabbitMQ tile configuration, shown below.
+    1. Go to https://pivotal-rabbitmq.system_domain, and log in with the credentials from the RabbitMQ tile configuration. 
+    These credentials are shown below.
     ![admin-credentials](rmq-admin-cred.png)
     1. In the **Overview** tab, check the **Nodes** section for alarm status.
 
@@ -177,9 +180,11 @@ the node won't start. In this case, do the following:
 
 1. Use the BOSH CLI to stop the HAProxy node.  
 
-    <br>The command looks similar to this: `bosh -d p-rabbitmq-... stop rabbitmq-haproxy`.<br><br>
-    * If you have multiple HA Proxy nodes, stop all of them.
-    * If you are using an external load balancer, and are concerned about losing some messages, stop forwarding connections to
+    <br>Run this command:<br>`bosh -d p-rabbitmq-GUID stop rabbitmq-haproxy`.<br><br>
+    Where:<br>
+    * `GUID` is the RabbitMQ for PCF deployment GUID.
+        * If you have multiple HA Proxy nodes, stop all of them.<br><br>
+        * If you are using an external load balancer, and are concerned about losing some messages, stop forwarding connections to
       RabbitMQ server nodes.
 
     At this point, applications will no longer be able to communicate with the RabbitMQ service.
@@ -187,9 +192,13 @@ the node won't start. In this case, do the following:
 1. Use the BOSH CLI to stop all but one RabbitMQ server node. 
 
     <br>Run this command on RabbitMQ server nodes until you have only one node running: 
-    <br>`bosh -d p-rabbitmq-... stop rabbitmq-server/NODE_INDEX`
+    <br>`bosh -d p-rabbitmq-GUID stop rabbitmq-server/NODE-INDEX`<br><br>
 
-    <br>To easily keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
+    Where:<br>
+    * `GUID` is the RabbitMQ for PCF deployment GUID.
+    * `NODE-INDEX` is the index number of the node.
+
+    To easily keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
 
 1. Download and install the RabbitMQ for PCF v1.13 tile.
 
@@ -199,8 +208,12 @@ the node won't start. In this case, do the following:
 
 1. Turn off the errands.
 
-    <br>Pivotal recommends turning these errands off in the tile GUI. 
-    The errands fail if you leave them on, since the RabbitMQ HAProxy was stopped.
+    <br>Pivotal recommends turning these errands off in the tile GUI. Follow these steps: 
+    1. In the Ops Manager Dashboard, click the Rabbit for PCF tile, then click the **Errands** tab.<br><br>
+    1. Set all the errands to **Off**.<br><br>
+    1. Click **Save**.
+
+    <p class="note"><strong>Note</strong>: The errands fail if you leave them on, since the RabbitMQ HAProxy was stopped.</p>
 
 1. In the Ops Manager Dashboard, click **Apply Changes**.
 
@@ -208,20 +221,27 @@ the node won't start. In this case, do the following:
 
 1. Start all the nodes you stopped previously.
 
-    1. Run a BOSH command similar to this:<br>
-    `bosh -d p-rabbitmq-... start rabbitmq-server/NODE_INDEX`<br><br>
+    1. Run this command:<br>
+        `bosh -d p-rabbitmq-GUID start rabbitmq-server/NODE-INDEX`<br><br>
+
+        Where:<br>
+        * `GUID` is the RabbitMQ for PCF deployment GUID.
+        * `NODE-INDEX` is the index number of the node.
+
     1. Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
 
 1. Start the HAProxy node.
 
-    <br>The command looks similar to this: `bosh -d p-rabbitmq-... start rabbitmq-haproxy`
+    <br>Run this command:<br>`bosh -d p-rabbitmq-GUID start rabbitmq-haproxy`<br><br>
+    Where:<br>
+    * `GUID` is the RabbitMQ for PCF deployment GUID.
 
-1. Run the following errands with BOSH CLI:
- * Broker Registrar: `bosh -d p-rabbitmq-... run-errand broker-registrar`
- * Register Broker: `bosh -d p-rabbitmq-... run-errand register-broker`
- * Smoke Tests: `bosh -d p-rabbitmq-... run-errand smoke-tests`
- * On Demand Smoke Tests: `bosh -d p-rabbitmq-... run-errand on-demand-broker-smoke-tests`
- * Upgrade all Service Instances: `bosh -d p-rabbitmq-... run-errand upgrade-all-service-instances`
+
+1. Run the following errands with BOSH CLI commands.<br><br>
+    In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID:<br>
+ * Broker Registrar: `bosh -d p-rabbitmq-GUID run-errand broker-registrar`
+ * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
+ * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
 
 1. Make sure that your apps reconnect to RabbitMQ. 
     <p class="note warning"><strong>Warning</strong>: Some RabbitMQ client libraries do not support 
@@ -239,6 +259,13 @@ There are three main steps to upgrade the on-demand RabbitMQ for PCF v1.13:
 [Check for On-Demand Service Instances Running RabbitMQ v3.6](#existing-ondemand-instances)
 
 [Download and Install the RabbitMQ for PCF Tile](#tile-ondemand)
+
+For issues with upgrading the on-demand service,
+see:
+
+  * [Troubleshooting On-Demand RabbitMQ for PCF](./troubleshoot.html).
+  * [Troubleshooting On-Demand Instances](./troubleshoot-instances.html)
+
 
 #### <a id="upgrade-ondemand"></a> Migrate On-Demand Instances from RabbitMQ v3.6 to v3.7
 
