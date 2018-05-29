@@ -1,0 +1,56 @@
+---
+title: RabbitMQ for PCF and Data Protection
+owner: London Services
+---
+
+This topic explains how RabbitMQ for PCF operators can comply with the General Data Protection Regulation (GDPR).
+For more information about data protection in PCF, see [GDPR Compliance](https://docs-pcf-staging.cfapps.io/pivotalcf/security/gdpr.html).
+For more information about data protection in the RabbitMQ server, see [Link to RabbitMQ GDPR docs].
+
+## <a id="queues"></a> Personal Data in RabbitMQ for PCF
+
+Pivotal recommends that you strictly control personally identifiable information 
+used to interact with RabbitMQ for PCF. 
+This information might be stored in the following locations:
+
+* [Queues](#queues)
+* [Logs](#logs)
+
+## <a id="queues"></a> Queues
+
+RabbitMQ for PCF does not know if any message contains personally identifiable information. 
+If you use RabbitMQ for PCF to send personally identifiable information, 
+you should take appropriate safeguards to protect that information.
+
+### <a id="messages"></a> Stored Messages
+
+RabbitMQ stores messages (including message headers) in memory and on disk until they are consumed.
+To comply with GDPR, do the following:
+
+* Monitor your queues to ensure that messages are being consumed in a timely manner, 
+and the lifecycle of messages containing personally identifiable information is managed according to your data protection policies.
+* Consider using non-durable messages and setting a TTL (time to live) to limit the lifespan of messages.  
+
+### <a id="security"></a> Controlling Access
+
+You should also control access to your RabbitMQ servers, RabbitMQ management commands, and the management console.
+
+## <a id="logs"></a> Logs
+
+### <a id="haproxy-logs"></a> HAProxy Logs
+
+RabbitMQ for PCF uses haproxy as a load balancer for the pre-provisioned service.
+The log may contain IP addresses.
+These are contained in the file `/var/vcap/sys/log/rabbitmq-haproxy/haproxy.log` on an haproxy VM.
+
+To empty the contents of an haproxy log, run the command:
+
+```
+/var/vcap/sys/log/rabbitmq-haproxy/haproxy.log
+```
+
+### <a id="server-logs"></a> RabbitMQ Server Logs
+
+The RabbitMQ server logs may contain IP addresses.
+The log files are stored on rabbitmq-server VMs in the directory `/var/vcap/sys/log/rabbitmq-server`.
+For information about RabbitMQ server logs, see the RabbitMQ documentation topic [Logging](https://www.rabbitmq.com/logging.html). 
