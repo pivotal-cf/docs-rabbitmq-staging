@@ -16,6 +16,11 @@ This information might be stored in the following locations:
 * [Queues](#queues)
 * [Logs](#logs)
 
+<p class="note"><strong>Note</strong>: 
+	For a list of the locations that personal data might be stored throughout PCF, see 
+	<a href="https://gdpr-locations.cfapps.io/pivotalcf/2-2/security/gdpr-locations.html#pcf">
+		Understanding Personal Data in PCF</a></p>
+
 ## <a id="queues"></a> Queues
 
 RabbitMQ for PCF does not know if any message contains personally identifiable information. 
@@ -24,12 +29,12 @@ you should take appropriate safeguards to protect that information.
 
 ### <a id="messages"></a> Stored Messages
 
-RabbitMQ stores messages (including message headers) in memory and on disk until they are consumed.
-To comply with GDPR, do the following:
+RabbitMQ stores messages, including message headers, in memory and on disk until they are consumed.
+The following are actions you can take to comply with the GDPR:
 
 * Monitor your queues to ensure that messages are being consumed in a timely manner, 
 and the lifecycle of messages containing personally identifiable information is managed according to your data protection policies.
-* Consider using non-durable messages and setting a TTL (time to live) to limit the lifespan of messages.  
+* Consider using non-durable messages and setting a time to live (TTL) to limit the lifespan of messages.  
 
 ### <a id="security"></a> Controlling Access
 
@@ -39,7 +44,7 @@ You should also control access to your RabbitMQ servers, RabbitMQ management com
 
 ### <a id="haproxy-logs"></a> HAProxy Logs
 
-RabbitMQ for PCF uses haproxy as a load balancer for the pre-provisioned service.
+RabbitMQ for PCF uses HAProxy as a load balancer for the pre-provisioned service.
 The log may contain IP addresses.
 These are contained in the file `/var/vcap/sys/log/rabbitmq-haproxy/haproxy.log` on an haproxy VM.
 
@@ -53,4 +58,4 @@ To empty the contents of an haproxy log, run the command:
 
 The RabbitMQ server logs may contain IP addresses.
 The log files are stored on rabbitmq-server VMs in the directory `/var/vcap/sys/log/rabbitmq-server`.
-For information about RabbitMQ server logs, see the RabbitMQ documentation topic [Logging](https://www.rabbitmq.com/logging.html). 
+For information about RabbitMQ server logs, see [Logging](https://www.rabbitmq.com/logging.html) in the RabbitMQ documentation. 
