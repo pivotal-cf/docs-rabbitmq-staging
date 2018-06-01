@@ -201,10 +201,13 @@ and only go on to the next strategy if the previous one is not possible.
       For more information, see [Increasing Persistent Disk During Upgrade](#increase-disk).
 
 
-1. Ensure there are no disk space or memory alarms:<br>
-    1. Go to https://pivotal-rabbitmq.system_domain, and log in with the credentials from the RabbitMQ tile configuration. 
-    These credentials are shown below.
-    ![admin-credentials](rmq-admin-cred.png)
+1. Ensure there are no disk space or memory alarms:
+    1. Browse to `pivotal-rabbitmq.SYSTEM-DOMAIN`<br> 
+      Where:
+      * `SYSTEM-DOMAIN` is your system domain. You can find this by clicking the PAS tile in the Ops Manager Installation Dashboard,
+      and then clicking the **Domains** tab.  
+    1. Log in with the admin credentials you specified in the RabbitMQ tile configuration:
+      ![admin-credentials](rmq-admin-cred.png)<br><br>
     1. In the **Overview** tab, check the **Nodes** section for alarm status.
 
 1. In the RabbitMQ Management UI, ensure the cluster is healthy. 
