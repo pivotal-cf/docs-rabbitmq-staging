@@ -152,24 +152,39 @@ process automatically on the next startup.
 
 Before installing the RabbitMQ for PCF v1.13, do the following to prepare for the upgrade:
 
+1. Free up as much RAM and disk space as possible using one of the following strategies. 
+Pivotal recommends you try the strategies in the order shown below, 
+and only go on to the next strategy if the previous one is not possible.
 
-1. Ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
+    1. Drain your message queues as much as possible by stopping the producers
+       and allowing the consumers to empty the queues. <br><br>
 
-    <br>The required amount of disk space and RAM depends on your environment. 
-    See also [Recommendations for Users of Mirrored Queues](#mirrored) above.
+        To find out which queues currently store the most messages, use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
+        message_bytes` command.
 
-    <br>To increase RAM and disk space, do the following:
+        <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty. 
+        Upgrading with more data stored in RabbitMQ
+        significantly increases memory and disk requirements, and extends the
+        upgrade duration.</p>
 
-    1. Click the **Resource Config** tab.<br><br> 
-    1. For the **RabbitMQ node**, select an appropriate **VM Type** and click **Save**.<br><br>
-    1. Click **Apply Changes** in the Ops Manager Dashboard.
+    1. Disable automatic synchronization.<br><br>
 
-1. Disable automatic synchronization.<br><br>
+        Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
+        This prevents data replication when shutting down nodes during upgrade.
+        The remaining nodes do not create new replicas, therefore, memory and disk
+        requirements are significantly lower.<br><br>
 
-    Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
-    This prevents data replication when shutting down nodes during upgrade.
-    The remaining nodes do not create new replicas, therefore, memory and disk
-    requirements are significantly lower.
+    1. Ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
+
+        <br>The required amount of disk space and RAM depends on your environment. 
+        See also [Recommendations for Users of Mirrored Queues](#mirrored) above.
+
+        <br>To increase RAM and disk space, do the following:
+
+        1. Click the **Resource Config** tab.<br><br> 
+        1. For the **RabbitMQ node**, select an appropriate **VM Type** and click **Save**.<br><br>
+        1. Click **Apply Changes** in the Ops Manager Dashboard.
+
 
 1. Ensure that your RabbitMQ cluster has sufficient persistent disk.
 
@@ -185,16 +200,6 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
       In this case, increase the persistent disk size to at least 32GB, and preferably 40&nbsp;GB. 
       For more information, see [Increasing Persistent Disk During Upgrade](#increase-disk).
 
-1. Drain your message queues as much as possible by stopping the producers
-   and allowing the consumers to empty the queues. <br><br>
-
-    To find out which queues currently store the most messages, use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
-    message_bytes` command.
-
-    <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty. 
-    Upgrading with more data stored in RabbitMQ
-    significantly increases memory and disk requirements, and extends the
-    upgrade duration.</p>
 
 1. Ensure there are no disk space or memory alarms:<br>
     1. Go to https://pivotal-rabbitmq.system_domain, and log in with the credentials from the RabbitMQ tile configuration. 
