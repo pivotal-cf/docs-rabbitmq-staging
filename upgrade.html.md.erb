@@ -13,12 +13,32 @@ The upgrade paths for each version are detailed in the
 
 ## <a id="about"></a> About the Upgrade
 
+This section contains information about upgrading RabbitMQ for PCF.
+
+### <a id="upgrade"></a> About Upgrading to RabbitMQ for PCF v1.13
+
+As of v1.13, RabbitMQ for PCF no longer supports RabbitMQ v3.6.
+Manual steps are required to upgrade both the pre-provisioned and the on-demand service to RabbitMQ for PCF v1.13.
+This is due to incompatibilities between RabbitMQ versions v3.6 and v3.7,
+as well as a major Erlang update provided by RabbitMQ for PCF v1.13.
+
+Due to these constraints, you cannot do a  rolling upgrade of the cluster for this tile release. 
+
+There are two upgrade procedures for this release depending on the type of service you are upgrading:
+
+* [Upgrade the RabbitMQ for PCF Pre-Provisioned Service](#upgrade-preprovisioned)
+
+* [Upgrade the RabbitMQ for PCF On-Demand Service](#upgrade-ondemand)
+
+
 ### <a id="general"></a> General Notes About the Upgrade Process
+
+The following notes apply to upgrading to any version of RabbitMQ for PCF.
 
 * Upgrading to a newer version of the product does not cause any loss of data or
 configuration.
 
-* It may take busy RabbitMQ nodes a long time to shut down during
+* It might take busy RabbitMQ nodes a long time to shut down during
 the upgrade and you must not interrupt this process.
 
 * The benefit you get from stemcell rolling
@@ -30,21 +50,6 @@ the upgrade and you must not interrupt this process.
 
 * Ops Manager ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
-
-### <a id="upgrade"></a> Upgrading to RabbitMQ for PCF v1.13
-
-As of v1.13, RabbitMQ for PCF no longer supports RabbitMQ v3.6.
-Manual steps are required to upgrade both the pre-provisioned and the on-demand service to RabbitMQ for PCF v1.13.
-This is due to incompatibilities between RabbitMQ versions v3.6 and v3.7,
-as well as a major Erlang update provided by RabbitMQ for PCF v1.13.
-
-Due to these constraints, you cannot do a  rolling upgrade of the cluster for this tile release. 
-
-There are two upgrade procedures for this release depending on the type of service you are upgrading:
-
-[Upgrade the RabbitMQ for PCF Pre-Provisioned Service](#upgrade-preprovisioned)
-
-[Upgrade the RabbitMQ for PCF On-Demand Service](#upgrade-ondemand)
 
 
 ### <a id="policy"></a> Release Policy
@@ -60,7 +65,7 @@ is to release a new version of the product within 48 hours.
 
 A guide for downtime during upgrade deployments is shown in the table below.
 In some cases, the RabbitMQ cluster remains available during a tile upgrade,
-but individual queues on cluster nodes may be taken offline.
+but individual queues on cluster nodes might be taken offline.
 
 The length of the downtime depends on whether there is a stemcell update to
 replace the operating system image or whether the existing VM can just have
@@ -92,13 +97,13 @@ Always check the release notes for the version you are upgrading to.</p>
 <tr>
   <th>Patch Tile Version</th>
   <td>Normally these are rolling deployments with each node being updated in turn.
-      In these cases the cluster remains available, but individual queues may be taken offline as each node is restarted.
+      In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
       There are specific migration paths that require downtime, which are identified in the release notes for that version. 
   </td>
 <tr>
   <th>Stemcell-Only Patch Tile Version</th>
   <td>Where the patch update is only a new stemcell version these are rolling deployments with each node being updated in turn.
-      In these cases the cluster remains available, but individual queues may be taken offline as each node is restarted.
+      In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
   </td>
 </tr>
 </table>
@@ -120,18 +125,18 @@ This process has downtime for the duration of the upgrade steps, and includes th
 
 ### <a id="mirrored"></a> Recommendations for Users of Mirrored Queues
 
-While upgrading the pre-provisioned service, as you shut down each node, the mirrored queues will sync to the remaining nodes. 
-The remaining nodes will require additional RAM and disk space to accommodate this additional data.
+While upgrading the pre-provisioned service, as you shut down each node, the mirrored queues sync to the remaining nodes. 
+The remaining nodes require additional RAM and disk space to accommodate this additional data.
 
 Pivotal recommends draining the queues before attempting the upgrade as this speeds up the upgrade process
 and minimizes the amount of RAM and disk required.
 
-For more information about syncing mirrored queues, see [Best Practice for Syncing Queues](./policies.html#syncing_queues).
+For more information, about syncing mirrored queues, see [Best Practice for Syncing Queues](./policies.html#syncing_queues).
 
 ### <a id="increase-disk"></a> Increasing Persistent Disk During Upgrade
 
-If RabbitMQ runs out of persistent disk space during upgrade of a RabbitMQ server node, it will abort the process and
-the node will not start. In this case, do the following:
+If RabbitMQ runs out of persistent disk space during upgrade of a RabbitMQ server node, it aborts the process and
+the node does not start. In this case, do the following:
 
 1. Click the **Resource Config** tab.
 
@@ -161,14 +166,14 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
 
 1. Disable automatic synchronization.<br><br>
 
-    Change any automatic synchronization policy you may have to be manual using `ha-sync-mode: manual`.
+    Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
     This prevents data replication when shutting down nodes during upgrade.
-    The remaining nodes will not create new replicas, therefore, memory and disk
-    requirements will be significantly lower.
+    The remaining nodes do not create new replicas, therefore, memory and disk
+    requirements are significantly lower.
 
 1. Ensure that your RabbitMQ cluster has sufficient persistent disk.
 
-    <br>Persistent disk usage may double during this upgrade as RabbitMQ creates a backup of the persistent database and
+    <br>Persistent disk usage might double during this upgrade as RabbitMQ creates a backup of the persistent database and
      performs the database migration.
 
     <br>Ideally, persistent disk usage should not exceed 40% of the disk size. For example:<br><br>
@@ -177,14 +182,14 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
       * Persistent disk usage jumps to 30GB during upgrade.
       * The file system reserves 5% of persistent disk for the root user.
       
-      In this case, increase the persistent disk size to at least 32GB, and preferably 40GB. 
-      For more information see [Increasing Persistent Disk During Upgrade](#increase-disk).
+      In this case, increase the persistent disk size to at least 32GB, and preferably 40&nbsp;GB. 
+      For more information, see [Increasing Persistent Disk During Upgrade](#increase-disk).
 
 1. Drain your message queues as much as possible by stopping the producers
    and allowing the consumers to empty the queues. <br><br>
 
     To find out which queues currently store the most messages, use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
-    message_bytes` command .
+    message_bytes` command.
 
     <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty. 
     Upgrading with more data stored in RabbitMQ
@@ -226,7 +231,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
         * If you are using an external load balancer, and are concerned about losing some messages, stop forwarding connections to
       RabbitMQ server nodes.
 
-    At this point, applications will no longer be able to communicate with the RabbitMQ service.
+    At this point, apps can no longer communicate with the RabbitMQ service.
 
 1. Use the BOSH CLI to stop all but one of the RabbitMQ server nodes. 
 
@@ -237,12 +242,12 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
     * `GUID` is the RabbitMQ for PCF deployment GUID.
     * `NODE-INDEX` is the index number of the node.
 
-    To easily keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
+    To keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
 
 1. Turn off the errands.
 
     <br>Pivotal recommends turning these errands off in the tile GUI. Follow these steps: 
-    1. In the Ops Manager Dashboard, click the Rabbit for PCF tile, then click the **Errands** tab.<br><br>
+    1. In the Ops Manager Dashboard, click the Rabbit for PCF tile, and then click the **Errands** tab.<br><br>
     1. Set all the errands to **Off**.<br><br>
     1. Click **Save**.
 
@@ -250,7 +255,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 
 1. In the Ops Manager Dashboard, click **Apply Changes**.
 
-    <br>You should now have a single RabbitMQ node running with RabbitMQ version 3.7.
+    <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
 
 1. Start all the RabbitMQ server nodes you stopped previously.
 
@@ -279,8 +284,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 1. If you disabled automatic synchronization policies in a previous step, you can now enable them using `ha-sync-mode: automatic`.
 
 1. Make sure that your apps reconnect to RabbitMQ. 
-    <p class="note warning"><strong>Warning</strong>: Some RabbitMQ client libraries do not support 
-    automatic reconnection so you may have to restart some apps.</p>
+    <p class="note warning"><strong>WARNING</strong>: Some RabbitMQ client libraries do not support 
+    automatic reconnection so you might have to restart some apps.</p>
 
 ## <a id="Upgrade-ondemand"></a> Upgrade the RabbitMQ for PCF On-Demand Service
 
@@ -289,16 +294,16 @@ their RabbitMQ v3.6 instances to RabbitMQ v3.7. Using blue-green app deployments
 
 There are three main steps to upgrade the on-demand RabbitMQ for PCF v1.13:
 
-[Migrate On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand)
+1. [Migrate On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand)
 
-[Check for On-Demand Service Instances Running RabbitMQ v3.6](#existing-ondemand-instances)
+1. [Check for On-Demand Service Instances Running RabbitMQ v3.6](#existing-ondemand-instances)
 
-[Install the Tile](#tile-ondemand)
+1. [Install the Tile](#tile-ondemand)
 
 For issues with upgrading the on-demand service,
 see:
 
-  * [Troubleshooting On-Demand RabbitMQ for PCF](./troubleshoot.html).
+  * [Troubleshooting On-Demand RabbitMQ for PCF](./troubleshoot.html)
   * [Troubleshooting On-Demand Instances](./troubleshoot-instances.html)
 
 
@@ -313,10 +318,10 @@ the v3.7 on-demand plans to match the configurations of your existing v3.6 on-de
   The process you use to do this depends on how much your apps can tolerate downtime.<br><br>
   For guidance on how to do this migration, see the following resources:<br><br>
   * The blog [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)<br><br>
-  * The video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c).
+  * The video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c)
 
 
-### <a id="existing-ondemand-instances"></a> Ensure there are no On-Demand Service Instances Running RabbitMQ v3.6
+### <a id="existing-ondemand-instances"></a> Ensure There Are No On-Demand Service Instances Running RabbitMQ v3.6
 
 After migration there should be no on-demand service instances running RabbitMQ v3.6. 
 You must verify this before upgrading from RabbitMQ for PCF v1.12 to v1.13.
@@ -342,11 +347,11 @@ Run `cf curl` against that URL. For example:
     </pre>
 
     This returns a list of all RabbitMQ for PCF on-demand service plans, 
-    which may include plans using RabbitMQ v3.6 and plans using RabbitMQ v3.7.
+    which might include plans using RabbitMQ v3.6 and plans using RabbitMQ v3.7.
 
 1. In the list returned above:
   1. Locate the service plans using RabbitMQ v3.6.<br><br>
-  1. For each of these service plans, find the property `service_instances_url`, and
+  1. For each of these service plans, find the property `service_instances_url` and
     note the URL for that plan. 
 
 1. Run `cf curl` against each URL found in step 4. For example:
