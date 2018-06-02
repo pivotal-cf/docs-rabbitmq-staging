@@ -115,7 +115,7 @@ RabbitMQ for PCF v1.13 deploys RabbitMQ v3.7 to run the pre-provisioned
 service. All previous versions deploy RabbitMQ v3.6. 
 
 To upgrade the pre-provisioned service, also known as the multitenant service or p-rabbitmq, you
-must stop all but one node in the RabbitMQ cluster, perform an upgrade, and then restart the stopped
+must stop all but one node in the RabbitMQ cluster, perform an upgrade and then restart the stopped
 nodes.
 This process has downtime for the duration of the upgrade steps, and includes these two procedures:
 
@@ -153,13 +153,14 @@ process automatically on the next startup.
 Before installing the RabbitMQ for PCF v1.13, do the following to prepare for the upgrade:
 
 1. Free up as much RAM and disk space as possible using one of the following strategies. 
-Pivotal recommends you try the strategies in the order shown below, 
+Pivotal recommends you try the strategies in the order shown below 
 and only go on to the next strategy if the previous one is not possible.
 
     1. Drain your message queues as much as possible by stopping the producers
        and allowing the consumers to empty the queues. <br><br>
 
-        To find out which queues currently store the most messages, use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
+        To find out which queues currently store the most messages
+        use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
         message_bytes` command.
 
         <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty. 
@@ -204,7 +205,8 @@ and only go on to the next strategy if the previous one is not possible.
 1. Ensure there are no disk space or memory alarms:
     1. Browse to `pivotal-rabbitmq.SYSTEM-DOMAIN`<br> 
       Where:
-      * `SYSTEM-DOMAIN` is your system domain. You can find this by clicking the PAS tile in the Ops Manager Installation Dashboard,
+      * `SYSTEM-DOMAIN` is your system domain.
+        You can find this by clicking the PAS tile in the Ops Manager Installation Dashboard,
       and then clicking the **Domains** tab.  
     1. Log in with the admin credentials you specified in the RabbitMQ tile configuration:
       ![admin-credentials](rmq-admin-cred.png)<br><br>
@@ -236,8 +238,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
         * If you have multiple HA Proxy nodes, stop all of them.<br><br>
-        * If you are using an external load balancer, and are concerned about losing some messages, stop forwarding connections to
-      RabbitMQ server nodes.
+        * If you are using an external load balancer and are concerned about losing some messages,
+          stop forwarding connections to RabbitMQ server nodes.
 
     At this point, apps can no longer communicate with the RabbitMQ service.
 
@@ -259,7 +261,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
     1. Set all the errands to **Off**.<br><br>
     1. Click **Save**.
 
-    <p class="note"><strong>Note</strong>: The errands fail if you leave them on, since the RabbitMQ HAProxy was stopped.</p>
+    <p class="note"><strong>Note</strong>: The errands fail if you leave them on,
+       because the RabbitMQ HAProxy was stopped.</p>
 
 1. In the Ops Manager Dashboard, click **Apply Changes**.
 
@@ -289,7 +292,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
  * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
  * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
 
-1. If you disabled automatic synchronization policies in a previous step, you can now enable them using `ha-sync-mode: automatic`.
+1. If you disabled automatic synchronization policies in a previous step,
+   you can now enable them using `ha-sync-mode: automatic`.
 
 1. Make sure that your apps reconnect to RabbitMQ. 
     <p class="note warning"><strong>WARNING</strong>: Some RabbitMQ client libraries do not support 
@@ -297,8 +301,10 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 
 ## <a id="Upgrade-ondemand"></a> Upgrade the RabbitMQ for PCF On-Demand Service
 
-As of v1.13, RabbitMQ for PCF no longer provides on-demand service plans with RabbitMQ v3.6. Therefore, to upgrade to RabbitMQ for PCF v1.13, app developers must migrate
-their RabbitMQ v3.6 instances to RabbitMQ v3.7. Using blue-green app deployments, you can do this without downtime.
+As of v1.13, RabbitMQ for PCF no longer provides on-demand service plans with RabbitMQ v3.6.
+Therefore, to upgrade to RabbitMQ for PCF v1.13, app developers must migrate
+their RabbitMQ v3.6 instances to RabbitMQ v3.7.
+Using blue-green app deployments, you can do this without downtime.
 
 There are three main steps to upgrade the on-demand RabbitMQ for PCF v1.13:
 
@@ -319,8 +325,8 @@ see:
 
 To migrate on-demand instances from RabbitMQ v3.6 to v3.7, do the following:
 
-1. In your existing deployment of RabbitMQ for PCF v1.12, create on-demand RabbitMQ v3.7 service plans. Be sure to configure
-the v3.7 on-demand plans to match the configurations of your existing v3.6 on-demand plans.
+1. In your existing deployment of RabbitMQ for PCF v1.12, create on-demand RabbitMQ v3.7 service plans.
+   Be sure to configure the v3.7 on-demand plans to match the configurations of your existing v3.6 on-demand plans.
 
 2. Migrate your on-demand service instances from RabbitMQ v3.6 to v3.7, using blue-green deployments.
   The process you use to do this depends on how much your apps can tolerate downtime.<br><br>
