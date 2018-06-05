@@ -45,7 +45,7 @@ the upgrade and you must not interrupt this process.
   upgrades depends on how you have configured network partition handling and the
   **Resource Config** tab.
   An HAProxy instance count of 2 and a RabbitMQ node count of 3 are required for rolling stemcell upgrades.
-  As of v1.7.7, these counts are the default. 
+  These counts are the default. 
   For more information, see [Clustering and Network Partitions](./partitions.html).
 
 * Ops Manager ensures the instances are updated with the new packages and any
@@ -112,7 +112,7 @@ Always check the release notes for the version you are upgrading to.</p>
 ## <a id="upgrade-preprovisioned"></a> Upgrade the RabbitMQ for PCF Pre-Provisioned Service
 
 RabbitMQ for PCF v1.13 deploys RabbitMQ v3.7 to run the pre-provisioned
-service. All previous versions deploy RabbitMQ v3.6. 
+service. Previous versions deploy RabbitMQ v3.6. 
 
 To upgrade the pre-provisioned service, also known as the multitenant service or p-rabbitmq, you
 must stop all but one node in the RabbitMQ cluster, perform an upgrade and then restart the stopped
@@ -152,7 +152,7 @@ process automatically on the next startup.
 
 Before installing the RabbitMQ for PCF v1.13, do the following to prepare for the upgrade:
 
-1. Free up as much RAM and disk space as possible using one of the following strategies. 
+1. Decide on the upgrade strategy. 
 Pivotal recommends you try the strategies in the order shown below 
 and only go on to the next strategy if the previous one is not possible.
 
@@ -168,16 +168,20 @@ and only go on to the next strategy if the previous one is not possible.
         significantly increases memory and disk requirements, and extends the
         upgrade duration.</p>
 
-    1. Disable automatic synchronization.<br><br>
+    1. If it was not possible to drain the message queues, then disable automatic queue synchronization.<br><br>
 
         Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
         This prevents data replication when shutting down nodes during upgrade.
         The remaining nodes do not create new replicas, therefore, memory and disk
         requirements are significantly lower.<br><br>
 
-    1. Ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
+    1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
 
-        <br>The required amount of disk space and RAM depends on your environment. 
+        As RabbiitMQ nodes are shut down, messages will be migrated onto the remaining nodes until all messages end up on the last remaining node.
+        As a result, the node may need more RAM and disk space.
+
+        <br>The required amount of disk space and RAM depends on your environment. It is recommended to perform the upgrade on a relistic pre-production
+        environment in order to check that disk space and RAM estimates are sufficient.
         See also [Recommendations for Users of Mirrored Queues](#mirrored) above.
 
         <br>To increase RAM and disk space, do the following:
@@ -267,8 +271,15 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 1. In the Ops Manager Dashboard, click **Apply Changes**.
 
     <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
+    
+    <br>Note that the RabbitMQ node will perform migration of internal data structures as it starts up.
+    The length of time that this takes depends on the number of queues, messages and vhosts.
+    Wait until the migration has finished before proceeding with the next step.
 
-1. Start all the RabbitMQ server nodes you stopped previously.
+    <br>To check the progress of the migration, follow the logs:
+    <br>`bosh -d p-rabbitmq-GUID logs --follow rabbitmq-server/0`
+
+1. Start the RabbitMQ server nodes you stopped previously.
 
     1. Run this command:<br>
         `bosh -d p-rabbitmq-GUID start rabbitmq-server/NODE-INDEX`<br><br>
@@ -277,7 +288,12 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
         * `GUID` is the RabbitMQ for PCF deployment GUID.
         * `NODE-INDEX` is the index number of the node.
 
-    1. Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
+    1. As previously, wait for the migration of internal data structures to be complete.
+    
+    1. Repeat the previous two steps until all nodes are started.
+
+    1. Make sure all nodes are running by checking the BOSH vms:
+    <br>`bosh -d p-rabbitmq-GUID vms`
 
 1. Start the HAProxy node.
 
@@ -285,11 +301,12 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
 
+    Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
 
 1. Run the following errands with BOSH CLI commands.<br><br>
     In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID:<br>
- * Broker Registrar: `bosh -d p-rabbitmq-GUID run-errand broker-registrar`
- * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
+ * Broker Registrar (for the Pre-Provisioned Service): `bosh -d p-rabbitmq-GUID run-errand broker-registrar`
+ * Register Broker (for the On-Demand Service): `bosh -d p-rabbitmq-GUID run-errand register-broker`
  * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
 
 1. If you disabled automatic synchronization policies in a previous step,
