@@ -272,13 +272,6 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 
     <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
     
-    <br>Note that the RabbitMQ node will perform migration of internal data structures as it starts up.
-    The length of time that this takes depends on the number of queues, messages and vhosts.
-    Wait until the migration has finished before proceeding with the next step.
-
-    <br>To check the progress of the migration, follow the logs:
-    <br>`bosh -d p-rabbitmq-GUID logs --follow rabbitmq-server/0`
-
 1. Start the RabbitMQ server nodes you stopped previously.
 
     1. Run this command:<br>
@@ -287,10 +280,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
         Where:<br>
         * `GUID` is the RabbitMQ for PCF deployment GUID.
         * `NODE-INDEX` is the index number of the node.
-
-    1. As previously, wait for the migration of internal data structures to be complete.
     
-    1. Repeat the previous two steps until all nodes are started.
+    1. Repeat the previous step until all nodes are started.
 
     1. Make sure all nodes are running by checking the BOSH vms:
     <br>`bosh -d p-rabbitmq-GUID vms`
