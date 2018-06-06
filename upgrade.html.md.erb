@@ -175,14 +175,13 @@ and only go on to the next strategy if the previous one is not possible.
         The remaining nodes do not create new replicas, therefore, memory and disk
         requirements are significantly lower.<br><br>
 
-    1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space. 
+    1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space.<br><br>
 
-        As RabbiitMQ nodes are shut down, messages will be migrated onto the remaining nodes until all messages end up on the last remaining node.
-        As a result, the node may need more RAM and disk space.
+        As RabbiitMQ nodes are shut down, messages are migrated onto the remaining nodes until all messages end up on the last remaining node.
+        As a result, that node may need more RAM and disk space.<br><br>
 
-        <br>The required amount of disk space and RAM depends on your environment. It is recommended to perform the upgrade on a relistic pre-production
-        environment in order to check that disk space and RAM estimates are sufficient.
-        See also [Recommendations for Users of Mirrored Queues](#mirrored) above.
+        The required amount of disk space and RAM depends on your environment. Pivotal recommends that you do the upgrade on a pre-production
+        environment that is similar to your production environment to see if disk space and RAM estimates are sufficient.
 
         <br>To increase RAM and disk space, do the following:
 
@@ -272,26 +271,23 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 
     <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
     
-    <br>Note that the RabbitMQ node will perform migration of internal data structures as it starts up.
-    The length of time that this takes depends on the number of queues, messages and vhosts.
-    Wait until the migration has finished before proceeding with the next step.
-
-    <br>To check the progress of the migration, follow the logs:
-    <br>`bosh -d p-rabbitmq-GUID logs --follow rabbitmq-server/0`
 
 1. Start the RabbitMQ server nodes you stopped previously.
+    <p class="note"><strong>Note</strong>: The RabbitMQ node migrates internal data structures as it starts up.
+    Wait until the migration has finished before proceeding to the next step.
+    The length of time that this takes depends on the number of queues, messages and vhosts.
+    To check the progress of the migration, follow the logs:
+    <br><code>bosh -d p-rabbitmq-GUID logs --follow rabbitmq-server/0</code></p>
 
-    1. Run this command:<br>
+    1. For each node, run this command:<br>
         `bosh -d p-rabbitmq-GUID start rabbitmq-server/NODE-INDEX`<br><br>
 
         Where:<br>
         * `GUID` is the RabbitMQ for PCF deployment GUID.
         * `NODE-INDEX` is the index number of the node.
 
-    1. As previously, wait for the migration of internal data structures to be complete.
+        Wait for the migration of internal data structures to be complete before starting the next node.<br><br>
     
-    1. Repeat the previous two steps until all nodes are started.
-
     1. Make sure all nodes are running by checking the BOSH vms:
     <br>`bosh -d p-rabbitmq-GUID vms`
 
@@ -301,12 +297,11 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
 
-    Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
+1. Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
 
 1. Run the following errands with BOSH CLI commands.<br><br>
-    In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID:<br>
- * Broker Registrar (for the Pre-Provisioned Service): `bosh -d p-rabbitmq-GUID run-errand broker-registrar`
- * Register Broker (for the On-Demand Service): `bosh -d p-rabbitmq-GUID run-errand register-broker`
+    In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
+ * Broker Registrar: `bosh -d p-rabbitmq-GUID run-errand broker-registrar`
  * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
 
 1. If you disabled automatic synchronization policies in a previous step,
@@ -395,5 +390,13 @@ Run `cf curl` against that URL. For example:
 
 ### <a id="tile-ondemand"></a> Install the Tile
 
-Follow the steps in [Download and Install RabbitMQ for PCF](./install-config.html#install).
+Do the following:
+
+1. Follow the steps in [Download and Install RabbitMQ for PCF](./install-config.html#install).
+
+2. Run the following errands with BOSH CLI commands.<br><br>
+    In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
+ * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
+ * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
+
 
