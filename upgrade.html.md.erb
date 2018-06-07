@@ -177,7 +177,7 @@ and only go on to the next strategy if the previous one is not possible.
 
     1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space.<br><br>
 
-        As RabbiitMQ nodes are shut down, messages are migrated onto the remaining nodes until all messages end up on the last remaining node.
+        As RabbitMQ nodes are shut down, messages are migrated onto the remaining nodes until all messages end up on the last remaining node.
         As a result, that node may need more RAM and disk space.<br><br>
 
         The required amount of disk space and RAM depends on your environment. Pivotal recommends that you do the upgrade on a pre-production
