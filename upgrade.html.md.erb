@@ -123,37 +123,13 @@ This process has downtime for the duration of the upgrade steps, and includes th
 
 [Install the Tile to Upgrade the Pre-Provisioned Service](#install-tile)
 
-### <a id="mirrored"></a> Recommendations for Users of Mirrored Queues
-
-While upgrading the pre-provisioned service, as you shut down each node, the mirrored queues sync to the remaining nodes. 
-The remaining nodes require additional RAM and disk space to accommodate this additional data.
-
-Pivotal recommends draining the queues before attempting the upgrade as this speeds up the upgrade process
-and minimizes the amount of RAM and disk required.
-
-For more information, about syncing mirrored queues, see [Best Practice for Syncing Queues](./policies.html#syncing_queues).
-
-### <a id="increase-disk"></a> Increasing Persistent Disk During Upgrade
-
-If RabbitMQ runs out of persistent disk space during upgrade of a RabbitMQ server node, it aborts the process and
-the node does not start. In this case, do the following:
-
-1. Click the **Resource Config** tab.
-
-1. For the **RabbitMQ Node**, increase the persistent disk size by selecting a different **Persistent Disk Type**.
-
-1. Click **Save**, and then click **Apply Changes** in the Ops Manager Dashboard.
-
-RabbitMQ attempts the backup and database migration
-process automatically on the next startup.
-
-
 ### <a id="prepare"></a> Prepare to Upgrade the Pre-Provisioned Service
 
 Before installing the RabbitMQ for PCF v1.13, do the following to prepare for the upgrade:
 
-1. Decide on the upgrade strategy. 
-Pivotal recommends you try the strategies in the order shown below 
+1. Decide on the upgrade strategy.
+
+Pivotal recommends you try the strategies in the order shown below
 and only go on to the next strategy if the previous one is not possible.
 
     1. Drain your message queues as much as possible by stopping the producers
@@ -173,7 +149,7 @@ and only go on to the next strategy if the previous one is not possible.
         Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
         This prevents data replication when shutting down nodes during upgrade.
         The remaining nodes do not create new replicas, therefore, memory and disk
-        requirements are significantly lower.<br><br>
+        requirements are significantly lower. For more information about setting RabbitMQ policies, see [Parameters and Policies](https://www.rabbitmq.com/parameters.html#policies) in the RabbitMQ documentation.<br><br>
 
     1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space.<br><br>
 
@@ -193,14 +169,14 @@ and only go on to the next strategy if the previous one is not possible.
 1. Ensure that your RabbitMQ cluster has sufficient persistent disk.
 
     <br>Persistent disk usage might double during this upgrade as RabbitMQ creates a backup of the persistent database and
-     performs the database migration.
+     performs the database migration. This is on top of the aforementioned increased disk usage caused by non-empty queues and queue synchronization.
 
     <br>Ideally, persistent disk usage should not exceed 40% of the disk size. For example:<br><br>
       * You have RabbitMQ server nodes with 30GB persistent disk.
       * Pre-upgrade persistent disk usage is 15GB.
       * Persistent disk usage jumps to 30GB during upgrade.
       * The file system reserves 5% of persistent disk for the root user.
-      
+
       In this case, increase the persistent disk size to at least 32GB, and preferably 40&nbsp;GB. 
       For more information, see [Increasing Persistent Disk During Upgrade](#increase-disk).
 
@@ -210,12 +186,12 @@ and only go on to the next strategy if the previous one is not possible.
       Where:
       * `SYSTEM-DOMAIN` is your system domain.
         You can find this by clicking the PAS tile in the Ops Manager Installation Dashboard,
-      and then clicking the **Domains** tab.  
+      and then clicking the **Domains** tab.
     1. Log in with the admin credentials you specified in the RabbitMQ tile configuration:
       ![admin-credentials](rmq-admin-cred.png)<br><br>
-    1. In the **Overview** tab, check the **Nodes** section for alarm status.
+    2. In the **Overview** tab, check the **Nodes** section for alarm status. Make sure that all metrics are green.
 
-1. In the RabbitMQ Management UI, ensure the cluster is healthy. 
+1. In the RabbitMQ Management UI, ensure the cluster is healthy.
 
     <br>Do not rely on the BOSH `instances` output. That indicates the state of the Erlang VM, not RabbitMQ.
 
@@ -224,8 +200,8 @@ and only go on to the next strategy if the previous one is not possible.
 
 ### <a id="install-tile"></a> Install the Tile
 
-<p class="note"><strong>Note</strong>: If you run out of persistent disk space during the upgrade, 
-  follow the procedure in <a href="#increase-disk">Increasing Persistent Disk During Upgrade</a>.</p>
+<p class="note"><strong>Note</strong>: If you run out of persistent disk space during the upgrade,
+follow the procedure in <a href="#increase-disk">Increasing Persistent Disk During Upgrade</a>.</p>
 
 To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the tile and follow the additional steps below:
 
@@ -248,7 +224,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 
 1. Use the BOSH CLI to stop all but one of the RabbitMQ server nodes. 
 
-    <br>Run this command on RabbitMQ server nodes until you have only one node running: 
+    <br>Run this command on RabbitMQ server nodes until you have only one node running:
     <br>`bosh -d p-rabbitmq-GUID stop rabbitmq-server/NODE-INDEX`<br><br>
 
     Where:<br>
@@ -256,6 +232,9 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
     * `NODE-INDEX` is the index number of the node.
 
     To keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
+
+    <p class="note"><strong>Note</strong>: When shutting down the nodes you may see `post-deploy script failed` error. You can safely ignore it and carry on until there is only one node left. This error is caused by `pause-minority` cluster mode. When the majority of nodes is stopped, the remaining nodes will pause automatically. Therefore `post-deploy` script can't connect to the cluster.
+    </p>
 
 1. Turn off the errands.
 
@@ -270,18 +249,21 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 1. In the Ops Manager Dashboard, click **Apply Changes**.
 
     <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
-    
 
 1. Start the RabbitMQ server nodes you stopped previously.
-    1. For each node, run this command:<br>
+    1. For each node you shut down previously, run this command:<br>
         `bosh -d p-rabbitmq-GUID start rabbitmq-server/NODE-INDEX`<br><br>
 
         Where:<br>
         * `GUID` is the RabbitMQ for PCF deployment GUID.
         * `NODE-INDEX` is the index number of the node.
-    
+
+    <p class="note"><strong>Note</strong>: You can run `bost start` command for multiple nodes in parallel. Doing so will minimize the overall downtime. This is especially important if you have a lot of data in your queues during migration (not recommended) or a large number of vhosts (RabbitMQ requires about 1 second to migrate each vhost).</p>
+
     1. Make sure all nodes are running by checking the BOSH vms:
     <br>`bosh -d p-rabbitmq-GUID vms`
+
+1. At this point all nodes should be running. However, each node will be performing internal datastore migrations and the cluster won't be able to serve any traffic until this process completes. The duration of this migration depends on the number of messages, number of vhosts and your hardware performance but you can assume roughly 1 minute for GB of stored messages and 1 seconds for each vhost (even if all queues are empty). Therefore this process can take from just a few seconds to multiple minutes for deployments with hundreds of vhosts. You can monitor the progress by tailing the logs of your RabbitMQ nodes with the following command: `bosh -d p-rabbitmq-GUID logs -f rabbitmq-server`. If you see messages such as `Started message store of type persistent` or `Setting permissions for 'broker'` (repeated for different vhosts) you should wait until before proceeding to the next step.
 
 1. Start the HAProxy node.
 
