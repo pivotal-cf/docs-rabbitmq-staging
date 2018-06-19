@@ -19,6 +19,7 @@ In some cases, the cluster remains available during a tile upgrade, but individu
 
 This is only a guide, so before upgrading, check the release notes for the version you are upgrading to.
 
+The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ. This is stated in the release notes for those versions.
 
 <table border="1" class="nice">
 <tr>
@@ -84,15 +85,9 @@ configuration changes are applied automatically.
 
 ## <a id="preupgrade"></a> Before Upgrading to a Newer Version of RabbitMQ or Erlang
 
-Review the following before starting an upgrade that includes a new version of RabbitMQ or Erlang:
-
-* Ensure the cluster is healthy via the RabbitMQ Management UI. You cannot rely
+Ensure the cluster is healthy via the RabbitMQ Management UI. You cannot rely
 on the BOSH `instances` output, that reflects the state of Erlang VM, not
 RabbitMQ.
-
-* Stop RabbitMQ when upgrading the RabbitMQ or Erlang VM
-version.
-
 
 ## <a id="upgrade"></a> Upgrade RabbitMQ for PCF
 
