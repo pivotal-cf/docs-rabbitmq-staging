@@ -269,8 +269,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 1. At this point all nodes should be running, however, the cluster will not be able to 
     serve any traffic until each node completes internal datastore migrations. <br><br>
     * The duration of this process depends on the number of messages, 
-    number of vhosts, and your hardware. You can assume about 1 minute for 1&nbsp;GB of stored messages, and 
-    1 seconds for each vhost (even if all queues are empty). <br><br>
+    number of vhosts, and your hardware. You can assume about 1 minute for 1&nbsp;GB of stored messages and 
+    1 second for each vhost (even if all queues are empty). <br><br>
     * You can monitor the progress by tailing the logs of 
     your RabbitMQ nodes with the following command: <br>
       `bosh -d p-rabbitmq-GUID logs -f rabbitmq-server`<br><br>
