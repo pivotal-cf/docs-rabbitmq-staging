@@ -72,9 +72,6 @@ replace the operating system image or if the existing VM can just have
 the RabbitMQ software updated. Stemcell updates incur additional downtime while
 the IaaS creates the new VM.
 
-* The cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
-  This is clearly stated in the release notes for those versions.
-
 * Ops Manager ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
 
@@ -85,8 +82,8 @@ configuration changes are applied automatically.
 
 ## <a id="preupgrade"></a> Before Upgrading to a Newer Version of RabbitMQ or Erlang
 
-Ensure the cluster is healthy via the RabbitMQ Management UI. You cannot rely
-on the BOSH `instances` output, that reflects the state of Erlang VM, not
+Ensure the cluster is healthy using the RabbitMQ Management UI. You cannot rely
+on the BOSH `instances` output because that reflects the state of Erlang VM, not
 RabbitMQ.
 
 ## <a id="upgrade"></a> Upgrade RabbitMQ for PCF
