@@ -127,10 +127,9 @@ This process has downtime for the duration of the upgrade steps, and includes th
 
 Before installing the RabbitMQ for PCF v1.13, do the following to prepare for the upgrade:
 
-1. Decide on the upgrade strategy.
-
-Pivotal recommends you try the strategies in the order shown below
-and only go on to the next strategy if the previous one is not possible.
+1. Decide on the upgrade strategy. <br><br>
+  Pivotal recommends you try the strategies in the order shown below
+  and only go on to the next strategy if the previous one is not possible.
 
     1. Drain your message queues as much as possible by stopping the producers
        and allowing the consumers to empty the queues. <br><br>
@@ -149,7 +148,8 @@ and only go on to the next strategy if the previous one is not possible.
         Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
         This prevents data replication when shutting down nodes during upgrade.
         The remaining nodes do not create new replicas, therefore, memory and disk
-        requirements are significantly lower. For more information about setting RabbitMQ policies, see [Parameters and Policies](https://www.rabbitmq.com/parameters.html#policies) in the RabbitMQ documentation.<br><br>
+        requirements are significantly lower. 
+        For more information about setting RabbitMQ policies, see the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#policies).<br><br>
 
     1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space.<br><br>
 
@@ -169,7 +169,7 @@ and only go on to the next strategy if the previous one is not possible.
 1. Ensure that your RabbitMQ cluster has sufficient persistent disk.
 
     <br>Persistent disk usage might double during this upgrade as RabbitMQ creates a backup of the persistent database and
-     performs the database migration. This is on top of the aforementioned increased disk usage caused by non-empty queues and queue synchronization.
+     performs the database migration. This is on top of the increased disk usage caused by non-empty queues and queue synchronization.
 
     <br>Ideally, persistent disk usage should not exceed 40% of the disk size. For example:<br><br>
       * You have RabbitMQ server nodes with 30GB persistent disk.
@@ -233,7 +233,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 
     To keep track of your progress, Pivotal recommends that you stop all nodes except for the node with index 0.
 
-    <p class="note"><strong>Note</strong>: When shutting down the nodes you may see `post-deploy script failed` error. You can safely ignore it and carry on until there is only one node left. This error is caused by `pause-minority` cluster mode. When the majority of nodes is stopped, the remaining nodes will pause automatically. Therefore `post-deploy` script can't connect to the cluster.
+    <p class="note"><strong>Note</strong>: When shutting down the nodes you may see a
+      <code>post-deploy script failed</code> error. You can safely ignore it and continue until there is only one node left.
     </p>
 
 1. Turn off the errands.
@@ -258,12 +259,25 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
         * `GUID` is the RabbitMQ for PCF deployment GUID.
         * `NODE-INDEX` is the index number of the node.
 
-    <p class="note"><strong>Note</strong>: You can run `bost start` command for multiple nodes in parallel. Doing so will minimize the overall downtime. This is especially important if you have a lot of data in your queues during migration (not recommended) or a large number of vhosts (RabbitMQ requires about 1 second to migrate each vhost).</p>
+        <p class="note"><strong>Note</strong>: To minimize downtime, you can run the <code>bosh start</code> command for multiple nodes in parallel. 
+        This is important if you have a lot 
+        of data in your queues during migration (not recommended) or a large number of vhosts.</p>
 
     1. Make sure all nodes are running by checking the BOSH vms:
     <br>`bosh -d p-rabbitmq-GUID vms`
 
-1. At this point all nodes should be running. However, each node will be performing internal datastore migrations and the cluster won't be able to serve any traffic until this process completes. The duration of this migration depends on the number of messages, number of vhosts and your hardware performance but you can assume roughly 1 minute for GB of stored messages and 1 seconds for each vhost (even if all queues are empty). Therefore this process can take from just a few seconds to multiple minutes for deployments with hundreds of vhosts. You can monitor the progress by tailing the logs of your RabbitMQ nodes with the following command: `bosh -d p-rabbitmq-GUID logs -f rabbitmq-server`. If you see messages such as `Started message store of type persistent` or `Setting permissions for 'broker'` (repeated for different vhosts) you should wait until before proceeding to the next step.
+1. At this point all nodes should be running, however, the cluster will not be able to 
+    serve any traffic until each node completes internal datastore migrations. <br><br>
+    * The duration of this process depends on the number of messages, 
+    number of vhosts, and your hardware. You can assume about 1 minute for 1 GB of stored messages, and 
+    1 seconds for each vhost (even if all queues are empty). <br><br>
+    * You can monitor the progress by tailing the logs of 
+    your RabbitMQ nodes with the following command: <br>
+      `bosh -d p-rabbitmq-GUID logs -f rabbitmq-server`<br><br>
+      Where:
+      * `GUID` is the RabbitMQ for PCF deployment GUID.<br>
+    * If you see messages such as `Started message store of type persistent` or `Setting permissions for 'broker'` (repeated for different vhosts),
+      wait until these processes finish before going to the next step.
 
 1. Start the HAProxy node.
 

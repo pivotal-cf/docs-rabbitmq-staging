@@ -126,7 +126,7 @@ To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-
 
     If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
 
-### <a id='tls'></a>Configure TLS for your service instance
+### <a id='tls'></a>Configure TLS for Your Service Instance
 
 If you want to secure the communication between your application and service instance using TLS, you need to update the service instance after creating it. This is a limitation of the current version that will be removed in the future - at the time a service instance is deployed, the address of that instance is not yet known and therefore a valid TLS certificate cannot be generated. To enable TLS, you need to generate the certificate by following these steps:
 
