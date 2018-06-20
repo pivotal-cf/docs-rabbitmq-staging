@@ -172,12 +172,12 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
      performs the database migration. This is on top of the increased disk usage caused by non-empty queues and queue synchronization.
 
     <br>Ideally, persistent disk usage should not exceed 40% of the disk size. For example:<br><br>
-      * You have RabbitMQ server nodes with 30GB persistent disk.
-      * Pre-upgrade persistent disk usage is 15GB.
-      * Persistent disk usage jumps to 30GB during upgrade.
+      * You have RabbitMQ server nodes with 30&nbsp;GB persistent disk.
+      * Pre-upgrade persistent disk usage is 15&nbsp;GB.
+      * Persistent disk usage jumps to 30&nbsp;GB during upgrade.
       * The file system reserves 5% of persistent disk for the root user.
 
-      In this case, increase the persistent disk size to at least 32GB, and preferably 40&nbsp;GB. 
+      In this case, increase the persistent disk size to at least 32&nbsp;GB, and preferably 40&nbsp;GB. 
       For more information, see [Increasing Persistent Disk During Upgrade](#increase-disk).
 
 
@@ -269,7 +269,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, install the ti
 1. At this point all nodes should be running, however, the cluster will not be able to 
     serve any traffic until each node completes internal datastore migrations. <br><br>
     * The duration of this process depends on the number of messages, 
-    number of vhosts, and your hardware. You can assume about 1 minute for 1 GB of stored messages, and 
+    number of vhosts, and your hardware. You can assume about 1 minute for 1&nbsp;GB of stored messages, and 
     1 seconds for each vhost (even if all queues are empty). <br><br>
     * You can monitor the progress by tailing the logs of 
     your RabbitMQ nodes with the following command: <br>
