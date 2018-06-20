@@ -126,21 +126,44 @@ To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-
 
     If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
 
-### <a id='tls'></a>Configure TLS for Your Service Instance
+### <a id='tls'></a>Configure Transport Layer Security (TLS) for Your Service Instance
 
-If you want to secure the communication between your application and service instance using TLS, you need to update the service instance after creating it. This is a limitation of the current version that will be removed in the future - at the time a service instance is deployed, the address of that instance is not yet known and therefore a valid TLS certificate cannot be generated. To enable TLS, you need to generate the certificate by following these steps:
+If you want to secure the communication between your application and service instance using TLS, 
+after creating your service instance, you must update it with a valid TLS certificate. 
 
-1. Enter `cf create-service-key my-instance my-key` to create a service key which among other things, contains the addresses of the RabbitMQ nodes.
+The operator must enable TLS by before you can use this feature. 
 
-1. Enter `cf service-key my-instance my-key` to display that key. Find the IP addresses in the `hostnames` field.
+<p class="note"><strong>Note</strong>: If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
 
-1. Enter `cf delete-service-key my-instance my-key` to delete the key as it is no longer needed.
 
-1. Enter `cf update-service my-instance -c '{"tls": [HOSTNAMES]}'` where `HOSTNAMES` is a list of addresses from the service key. For example, if your IP addresses are 10.1.1.5, 10.1.1.6 and 10.1.1.7 then run the following command: `cf update-service my-instance -c '{"tls": ["10.1.1.5", "10.1.1.6", "10.1.1.7"]}'`. This will update your service instance with a valid TLS certificate. Run `cf service my-instance` to check that the process completed
+To use TLS for a service instance, follow the steps below.
 
-Keep in mind that if you enable TLS for a service instance you can no longer connect to it without using TLS.
+1. Follow these steps to find the IP addresses of the RabbitMQ nodes:
 
-TLS has to be configured by the operator before you can use this feature. If it hasn't been configured you'll see the following error: `TLS support has not been enabled by the operator`.
+  1. Run the command `cf create-service-key MY-INSTANCE MY-KEY` to create a service key. 
+    Where:
+      * MY-INSTANCE is the name you chose when you created your service instance.
+      * MY-KEY is a name you choose for the service key.
+
+  1. Run the command `cf service-key MY-INSTANCE MY-KEY` to display the service key. <br><br>
+
+  1. In the output of the previous command, find the IP addresses in the `hostnames` field. <br><br>
+
+  1. Run the command `cf delete-service-key MY-INSTANCE MY-KEY` to delete the key as it is no longer needed.
+
+1. Run the following command to update your service instance with a valid TLS certificate: 
+  `cf update-service MY-INSTANCE -c '{"tls": [HOSTNAMES]}'` <br>
+  Where: <br>
+  * `HOSTNAMES` is a comma-separated list of the IP addresses you found above. 
+  
+    For example: 
+
+    <pre class="terminal">
+    $ cf update-service my-instance -c '{"tls": ["10.1.1.5", "10.1.1.6", "10.1.1.7"]}'
+    </pre> 
+
+1. Run the command `cf service MY-INSTANCE` to check that the process completed.
+
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
