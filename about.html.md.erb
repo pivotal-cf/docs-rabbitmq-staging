@@ -13,10 +13,6 @@ For information about architecture of the older, pre-provisioned service, see [D
 
 ## <a id='on-demand'></a>Default Network and Service Network
 
-Like other on-demand PCF services, on-demand RabbitMQ for PCF relies on the BOSH 2.0 ability to 
-dynamically deploy VMs in a dedicated network. 
-The on-demand service broker uses this capability to create single-tenant service instances in a dedicated service network.
-
 <%= partial '../../rabbitmq-cf/odb/on_demand_architecture' %>
 
 The diagram below shows worker VMs in an on-demand service instance, such as RabbitMQ for PCF, running on a separate services network, while other components run on the default network.
