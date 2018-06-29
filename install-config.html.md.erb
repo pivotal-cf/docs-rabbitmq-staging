@@ -204,25 +204,24 @@ For on-demand services instances, click **Yes** to secure credentials with CredH
 
 ###<a id="security"></a> Configure Security
 
-Follow the steps below to configure the security settings for the RabbitMQ service. Do one or both of the following:
+RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure the service. 
 
-* To enable TLS for the RabbitMQ service, perform the procedure in [Configure TLS](#security-tls) below. By default, TLS is optional.
-
-![security](security.png)
-
-####<a id="security-tls"></a> Configure TLS
-
-To enable TLS for the RabbitMQ service, perform the following steps:
+To configure the TLS settings, do the following: 
 
 1. Ensure that you have performed the procedures in [Preparing for TLS](prepare-tls.html).
-1. Click **Security**.
-1. Under **TLS Options**, select one of the following:
-    1. **Optional**: This enables developers to configure their RabbitMQ service VMs to use TLS.
-    1. **Enforced**: This forces developers to configure their RabbitMQ service VMs to use TLS, because it configures the RabbitMQ service instances to refuse non-TLS connections.
+1. Click the **Security** tab.
+
+    ![security](images/security.png)
+1. Under **TLS Options**, select one of the following:<br><br>
+    * **Optional**: This enables developers to configure their RabbitMQ service VMs to use TLS.<br><br>
+    * **Enforced**: This setting configures the RabbitMQ service instances to refuse non-TLS connections. 
+    Therefore, this requires app developers to configure their RabbitMQ service VMs to use TLS. 
     <p class="note warning"><strong>WARNING</strong>: Selecting <strong>Enforced</strong> breaks any apps that are not currently connecting over TLS.</p>
 1. Click **Save**.
-1. Make sure the `Upgrade All Service Instances` errand is on and Apply Changes.
-1. After deploying the tile, notify your developers that they must enable TLS for their service instances and activate TLS for their apps. 
+1. In the Installation Dashboard, make sure the **Upgrade All Service Instances** errand is set to **On**, and then click **Apply Changes**.  
+1. After deploying the tile, depending on the option you chose above, 
+notify your developers that they may, or must, enable TLS for their service 
+instances and activate TLS for their apps. 
 For instructions to developers, see [Configure Transport Layer Security (TLS) for Your Service Instance](use.html#tls). 
 [//]: # (and [Modifying Apps for TLS](modify-apps-tls.html).)
 
