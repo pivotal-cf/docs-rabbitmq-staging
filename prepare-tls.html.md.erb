@@ -11,7 +11,7 @@ certificate with BOSH CredHub.
 
 <p class="note"><strong>Note</strong>: To enable TLS for RabbitMQ for PCF,
 	you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a> 
-    <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles. 
+    below <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles. 
     If you have already performed this procedure you do not need to repeat it. 
     If you want to change this certificate, see <a href="rotating-ca.html">Rotating CA Certificates</a>.</p>
 
@@ -25,10 +25,10 @@ a component designed for centralized credential management in PCF,
 colocated on the BOSH Director.
 
 CredHub generates the server certificate with a **Certificate Authority (CA)**.
-The operator can provide a certificate to CredHub, or have CredHub generate a new certificate.
+The operator can provide a certificate to CredHub or have CredHub generate a new certificate.
 
 Apps and clients that communicate with the RabbitMQ server must have access to the public component of the CA certificate
-in order to use the certificate, and to validate that the server certificate can be trusted.
+in order to use the certificate and to validate that the server certificate can be trusted.
 
 PCF distributes the public component of the CA certificate to apps in two ways:
 
@@ -40,7 +40,7 @@ PCF distributes the public component of the CA certificate to apps in two ways:
 
 ##<a id='workflow'></a> Workflow for Enabling and Using TLS
 
-The following workflow is required to enable TLS, and to allow developers to use it with their apps:
+The following workflow is required to enable TLS and to allow developers to use it with their apps:
 
 <ol>
 <li>An operator provides a CA certificate to CredHub by completing the procedures
@@ -81,7 +81,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
 1. SSH into the Ops Manager VM by completing the steps in [SSH into Ops Manager VM](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh). 
 
 1. From the Ops Manager VM, use the UAA Command Line Interface (UAAC) to target the UAA server on the BOSH Director VM.
-    In the UAAC command, specify the IP address for the BOSH Director VM, and port 8443.
+    In the UAAC command, specify the IP address for the BOSH Director VM and port 8443.
     <br><br>
     Run the following command:
 
@@ -237,12 +237,12 @@ Click **Security**.
     * **For an Existing Installation**: Complete the steps in 
     [Configure Security](install-config.html#security) to enable TLS in the tile, 
     and then click **Apply Changes** in the Installation Dashboard. 
-    This restarts all the VMs in your PCF deployment, and applies your CA certificate.<br><br>
+    This restarts all the VMs in your PCF deployment and applies your CA certificate.<br><br>
     * **For a New Installation**: Complete the procedures in 
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
     including enabling TLS in the **Security** tab, and then click **Apply Changes**
     in the Installation Dashboard. 
-    This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
+    This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment and applies your CA certificate.
 
 
 
