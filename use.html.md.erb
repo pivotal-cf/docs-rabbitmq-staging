@@ -129,7 +129,7 @@ To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-
 
 ## <a id="using-tls"></a> Using Transport Layer Security (TLS)
 
-To use TLS to secure communication between your apps and RabbitMQ, you must complete these procedures:
+To use TLS to secure communication between your apps and RabbitMQ service instances, you must complete these procedures:
 
 1. [Configure TLS for Your Service Instance](#tls)
 1. Update your apps to use encrypted communication using one of these procedures:<br><br>
@@ -139,7 +139,7 @@ To use TLS to secure communication between your apps and RabbitMQ, you must comp
 
 ### <a id='tls'></a>Configure TLS for Your Service Instance
 
-If you want to secure the communication between your app and service instance using TLS, 
+If you want to secure the communication between your app and a RabbitMQ service instance using TLS, 
 after creating your service instance, you must update it with a valid TLS certificate. 
 
 The operator must enable TLS in the **Security** tab before you can use this feature. 
@@ -181,7 +181,7 @@ To use TLS for a service instance, follow the steps below.
 <p class="note"><strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.</p>
 
 
-In order for your apps to use TLS, you must update them to request encrypted communications when connecting to RabbitMQ for PCF. 
+In order for an app to use TLS, you must update it to request encrypted communications when connecting to a RabbitMQ service instance. 
 The procedure for updating your app depends on the app's language and framework. Java and Spring apps automatically detect TLS. 
 
 To activate TLS for Java and Spring apps, do one of the following:

@@ -28,7 +28,7 @@ Before deploying RabbitMQ for PCF as an on-demand service, ensure the following:
 See [Required Networking Rules for On-Demand Services](about.html#network-rules) 
 for details on the network connections that must be open to enable the on-demand service.
 
-* <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ for PCF, 
+* <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ service instances, 
 you must complete the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile. 
 
 ## <a id="install"></a> Download and Install RabbitMQ for PCF
@@ -207,7 +207,7 @@ For on-demand services instances, click **Yes** to secure credentials with CredH
 
 ###<a id="security"></a> Configure Security
 
-RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure the service. 
+RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances. 
 
 To configure the TLS settings, do the following: 
 

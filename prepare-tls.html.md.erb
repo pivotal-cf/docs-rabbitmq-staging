@@ -3,7 +3,8 @@ title: Preparing for TLS
 owner: RabbitMQ
 ---
 
-This topic provides an overview of how to prepare for using Transport Layer Security (TLS) with the RabbitMQ on-demand service. 
+This topic provides an overview of how to prepare for using Transport Layer Security (TLS) with the RabbitMQ on-demand service to secure
+communication between apps and service instances. 
 The topic also includes the procedure
 for providing an existing CA certificate to BOSH CredHub, or generating a new CA
 certificate with BOSH CredHub.
@@ -70,11 +71,11 @@ This operation can take a long time to complete.</p>
 
 Follow these steps to create a UAA client for CredHub on your UAA server:
 
-1. Retrieve the IP address of the BOSH Director VM and the Director credentials by performing the steps
-   in [Gather Credential and IP Address Information](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather).
+1. Retrieve the IP address of the BOSH Director VM and the Director credentials by completing the steps
+   in [Gather Credential and IP Address Information](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather).<br><br>
    Both the UAA and CredHub servers are colocated on the BOSH Director VM.
 
-1. SSH into the Ops Manager VM by performing the steps in [SSH into Ops Manager of Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh). 
+1. SSH into the Ops Manager VM by completing the steps in [SSH into Ops Manager VM](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh). 
 
 1. From the Ops Manager VM, use the UAA Command Line Interface (UAAC) to target the UAA server on the BOSH Director VM.
     In the UAAC command, specify the IP address for the BOSH Director VM, and port 8443.
@@ -86,7 +87,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
     ```
     <br>
     Where `BOSH-DIRECTOR` is the IP address of the BOSH Director VM.
-    You retrieved this address from the **Status** tab of the Ops Manager Director tile in step 1.
+    You retrieved this address as part of the procedures in Step 1.
     <br><br>
     For example:
     <pre class="terminal">
@@ -96,8 +97,6 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
 1. In the **Credentials** tab of the Ops Manager Director tile, retrieve the **Uaa Login Client Credentials** and record the `identity` and `password` values. 
     <p class="note"><strong>Note</strong>: These are the credentials for the UAA server colocated on the BOSH Director, not the UAA server colocated on Pivotal Application Service.</p> 
 
-1. Retrieve the **Uaa Admin User Credentials** and record the `identity` and `password` values.
-
 1. From the Ops Manager VM, use the UAAC to get a token.
     <br><br>
     Run the following command:
@@ -106,7 +105,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
     uaac token owner get login --secret=UAA-LOGIN-CLIENT-CRED
     ```
     <br>
-    Where `UAA-LOGIN-CLIENT-CRED` is the `password` value of the **Uaa Login Client Credentials** that you retrieved in step 4.
+    Where `UAA-LOGIN-CLIENT-CRED` is the `password` value of the **Uaa Login Client Credentials** that you retrieved in Step 4 above.
     <br><br>
     For example:
     <pre class="terminal">
@@ -114,7 +113,8 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
         login --secret=abcdefghijklm123456789
     </pre>
 
-1. When prompted for a user name and password, enter the values for `identity` and `password` of the **Uaa Admin User Credentials** you retrieved in step 5. 
+1. When prompted for a user name and password, enter the values for `identity` and `password` of the 
+**Uaa Admin User Credentials** you retrieved in step 4 above. <br><br>
     For example:
     <pre class="terminal">
     User name:  admin
@@ -125,11 +125,11 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
     <br><br>
     Enter the following command:
 
-    ```
-    uaac client add \
-    	--authorized\_grant\_types client\_credentials \
+    <pre class="terminal">
+    $ uaac client add \
+    	--authorized_grant_types client_credentials \
     	--authorities credhub.read,credhub.write
-    ```
+    </pre>
 
 1. When prompted for Client ID, enter `credhub`.
    When prompted for `New client secret`, enter a secure password of your choice.
@@ -178,7 +178,7 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
     credhub login --client-name=credhub --client-secret=CLIENT-SECRET
     ```
     <br>
-    Where `client-secret` is the client secret you set in step 9 above.
+    Where `CLIENT-SECRET` is the `New client secret` you set in step 8 in the procedure above.
     <br><br>
     For example:
     <pre class="terminal">
@@ -200,7 +200,7 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
             --common-name="rootCA"
 		</pre>
     * If you have an existing CA certificate that you want to use, create a new file called `root.pem` with the contents of the certificate.
-      Then enter the following command, specifying the path to `root.pem` and the private key for the certificate:
+      Then enter the following command, specifying the path to `root.pem` and the private key for the certificate. For example:
         <pre class="terminal">
         $ credhub set \
             --name="/services/tls_ca" \
@@ -212,18 +212,26 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
 1. Use the BOSH CLI v2 to extract the `certificate` portion from the CA certificate and print it.
     Run the following command:
 
-    ```
-    bosh2 int <(credhub get \
+    <pre class="terminal">
+    $ bosh2 int <(credhub get \
     --name=/services/tls_ca) \
     --path /value/certificate
-    ```
+    </pre>
 1. Copy the output.
 1. Navigate to the Ops Manager **Installation Dashboard** and select the Ops Manager Director tile.
 Click **Security**.
-1. Paste the contents of the CA certificate into **Trusted Certificates** and click **Save**.
-1. After preparing your environment for TLS, you must enable TLS in the tile configuration while installing RabbitMQ for PCF:
-    * **Existing Installation**: If you have already installed the RabbitMQ for PCF tile, perform the procedures in [Configure TLS](install-config.html#tls) to enable TLS in the **Security** section of the tile. Then return to the Ops Manager Installation Dashboard and click **Apply Changes**. This restarts all the VMs in your PCF deployment and applies your CA certificate.
-    * **New Installation**: If you have not yet installed the RabbitMQ for PCF tile, perform all of the procedures in [Installing and Configuring RabbitMQ for PCF](install-config.html). When you click **Apply Changes**, this deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
-    <p class="note warning"><strong>WARNING</strong>: Restarting all of the VMs in your PCF deployment in order to apply a CA certificate takes a long time to complete.</p>
+1. Paste the contents of the CA certificate into **Trusted Certificates**, and then click **Save**.
+1. After preparing your environment for TLS, you must enable TLS in the tile configuration, following the appropriate step below.
+    <p class="note warning"><strong>WARNING</strong>: Restarting all of the VMs in your PCF deployment in order to apply a 
+    CA certificate takes a long time to complete.</p>
+    * **For an Existing Installation**: Complete the steps in 
+    [Configure Security](install-config.html#security) to enable TLS in the tile, 
+    and then click **Apply Changes** in the Installation Dashboard. 
+    This restarts all the VMs in your PCF deployment, and applies your CA certificate.<br><br>
+    * **For a New Installation**: Complete the procedures in 
+    [Installing and Configuring RabbitMQ for PCF](install-config.html), including enabling TLS in the **Security** tab, and then click **Apply Changes**
+    in the Installation Dashboard. 
+    This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
+
 
 
