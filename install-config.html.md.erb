@@ -22,11 +22,14 @@ For more information about roles in Ops Manager, see
 
 ## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
 
-Before deploying RabbitMQ for PCF as an on-demand service, you must ensure that the required network rules are in place to allow various components to communicate.
+Before deploying RabbitMQ for PCF as an on-demand service, ensure the following:
 
-See [Required Networking Rules for On-Demand Services](about.html#network-rules) for details on the network connections that must be open to enable the on-demand service.
+*  <strong>Networking:</strong> You must ensure that the required network rules are in place to allow various components to communicate. 
+See [Required Networking Rules for On-Demand Services](about.html#network-rules) 
+for details on the network connections that must be open to enable the on-demand service.
 
-For information about the on-demand service architecture, see [On-Demand Service Architecture](about.html).
+* <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ for PCF, 
+you must complete the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile. 
 
 ## <a id="install"></a> Download and Install RabbitMQ for PCF
 
@@ -208,7 +211,8 @@ RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure the servi
 
 To configure the TLS settings, do the following: 
 
-1. Ensure that you have performed the procedures in [Preparing for TLS](prepare-tls.html).
+1. Ensure that you have performed the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) 
+before configuring the tile and applying changes.
 1. Click the **Security** tab.
 
     ![security](images/security.png)

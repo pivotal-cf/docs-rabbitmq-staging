@@ -1,0 +1,96 @@
+---
+title: Modifying Apps for TLS
+owner: RabbitMQ for PCF
+---
+
+<p class="note"><strong>Note:</strong> If your app is written in Java or Spring, see <a href="./use.html#tls-java-spring"> Activate TLS for Java and Spring Apps</a>.
+For other types of apps, use the procedures in this topic.</p> 
+
+
+This topic provides instructions to developers to modify apps not written in Java or Spring 
+to use TLS to secure their connection with RabbitMQ for PCF.
+
+
+##<a id='prereqs'></a> Prerequisites
+
+The following are prerequisites to procedures in this topic:
+
+* The operator must complete these procedures, in this order:
+    1. [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) 
+    2. [Configure Security](./install-config.html#security)
+* The developer must complete the procedures in [Configure TLS for Your Service Instance](use.html#tls).
+
+##<a id='modify'></a> Modify Your App for TLS
+
+In order to activate TLS for apps not written in Java or Spring,
+you must modify them to discover the CA certificate in `VCAP_SERVICES`
+and specify that CA component when initiating the connection to the data service.
+
+`VCAP_SERVICES` is an environment variable that exists within every container.
+It contains runtime-specific information about the app, including metadata supplied by each of the services that have been bound to that app.
+The metadata includes the information necessary to connect to the service, such as hostnames, usernames, and passwords.
+
+Your app must perform the following tasks:
+
+1. Retrieve the hostname, username, password, database name, and CA certificate
+   for the bound RabbitMQ for PCF service instance from the `VCAP_SERVICES` environment variable.
+1. Use the hostname, username, password, and CA certificate to establish a secure connection with the bound RabbitMQ for PCF service instance.
+
+For example, the following Node.js code initializes a variable named `rabbitmq_creds`, and then populates it with the necessary information from `VCAP_SERVICES`:
+
+```js
+var rabbitmq_creds = {} ;
+var vcap_services = undefined ;
+
+if (process.env.VCAP_SERVICES) {
+    vcap_services = JSON.parse(process.env.VCAP_SERVICES) ;
+    rabbitmq_creds["host"] = vcap_services["p.rabbitmq"][0]["credentials"]["hostname"] ;
+    rabbitmq_creds["user"] = vcap_services["p.rabbitmq"][0]["credentials"]["username"] ;
+    rabbitmq_creds["password"] = vcap_services["p.rabbitmq"][0]["credentials"]["password"] ;
+    rabbitmq_creds["port"] = vcap_services["p.rabbitmq"][0]["credentials"]["port"] ;
+    rabbitmq_creds["database"] = vcap_services["p.rabbitmq"][0]["credentials"]["name"] ;
+    if (vcap_services["p.rabbitmq"][0]["credentials"]["tls"]) {
+        rabbitmq_creds["ca_certificate"] = vcap_services["p.rabbitmq"][0]["credentials"]["tls"]["cert"]["ca"];
+    } else {
+        rabbitmq_creds["ca_certificate"] = undefined ;
+    }
+}
+```
+
+The following Node.js function establishes a TLS connection with the RabbitMQ service, using the information loaded into `rabbitmq_creds`:
+
+```js
+function RabbitMQConnect() {
+    clientConfig = {
+        host : rabbitmq_creds["host"],
+        user : rabbitmq_creds["user"],
+        password : rabbitmq_creds["password"],
+        port : rabbitmq_creds["port"],
+        database : rabbitmq_creds["database"]
+    } ;
+    if (rabbitmq_creds["ca_certificate"]) {
+        clientConfig["ssl"] = { ca : rabbitmq_creds["ca_certificate"] } ;
+    }
+    dbClient = rabbitmq.createConnection( clientConfig ) ;
+    dbClient.connect(CALLBACK-FUNCTION) ;
+}
+```
+
+##<a id='repush-rebind'></a> Repush or Rebind Your App
+
+After modifying your app, repush it with `cf push`. 
+
+<p class="note warning"><strong>WARNING</strong>: Any apps using an existing service instance must be rebound after enabling TLS for the instance.</p>
+
+Follow these steps to rebind an app using an existing service intance:
+
+1. Stop the app. For example:
+    <pre class="terminal">$ cf stop my-app</pre>
+1. Unbind the app from the service instance. For example:
+    <pre class="terminal">$ cf unbind-service my-app my-service-instance</pre>
+1. Re-bind the app to the service instance. For example:
+    <pre class="terminal">$ cf bind-service my-app my-service-instance</pre>
+1. Restage the app. For example:
+    <pre class="terminal">$ cf restage my-app</pre>
+
+Your app should now communicate securely with the RabbitMQ service instance.

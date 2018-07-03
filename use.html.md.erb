@@ -127,7 +127,17 @@ To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-
 
     If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
 
-### <a id='tls'></a>Configure Transport Layer Security (TLS) for Your Service Instance
+## <a id="using-tls"></a> Using Transport Layer Security (TLS)
+
+To use TLS to secure communication between your apps and RabbitMQ, you must complete these procedures:
+
+1. [Configure TLS for Your Service Instance](#tls)
+1. Update your apps to use encrypted communication using one of these procedures:<br><br>
+  * For Java or Spring apps: [Activate TLS for Java and Spring Apps](./use.html#tls-java-spring)<br><br>
+  * For other apps: [Modify Apps for TLS](./modify-apps-tls.html)
+
+
+### <a id='tls'></a>Configure TLS for Your Service Instance
 
 If you want to secure the communication between your app and service instance using TLS, 
 after creating your service instance, you must update it with a valid TLS certificate. 
@@ -165,6 +175,28 @@ To use TLS for a service instance, follow the steps below.
     </pre> 
 
 1. Run the command `cf service MY-INSTANCE` to check that the process completed.
+
+### <a id="tls-java-spring"></a> Activate TLS for Java and Spring Apps
+
+<p class="note"><strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.</p>
+
+
+In order for your apps to use TLS, you must update them to request encrypted communications when connecting to RabbitMQ for PCF. 
+The procedure for updating your app depends on the app's language and framework. Java and Spring apps automatically detect TLS. 
+
+To activate TLS for Java and Spring apps, do one of the following:
+
+* For apps that are not bound to an existing service instance, repush the apps with `cf push`.
+
+* For apps bound to an existing service instance, follow these steps:<br><br>
+  1. Stop the app. For example:
+    <pre class="terminal">$ cf stop my-app</pre>
+  1. Unbind the app from the service instance. For example:
+    <pre class="terminal">$ cf unbind-service my-app my-service-instance</pre>
+  1. Re-bind the app to the service instance. For example:
+    <pre class="terminal">$ cf bind-service my-app my-service-instance</pre>
+  1. Restage the app. For example:
+    <pre class="terminal">$ cf restage my-app</pre>
 
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
