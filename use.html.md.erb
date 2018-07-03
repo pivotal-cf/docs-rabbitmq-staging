@@ -108,9 +108,9 @@ The `watch` command shows you when your service instance is ready to bind and us
 
 To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-service`:
 
-1. Enter `cf create-service ondemand-rabbitmq Solo SERVICE_INSTANCE`
+1. Enter `cf create-service ondemand-rabbitmq Solo SERVICE-INSTANCE`
 
-    Where `SERVICE_INSTANCE` is a name you choose to identify the service instance. This name will appear under `service` \[sic\] in output from `cf services`.
+    Where `SERVICE-INSTANCE` is a name you choose to identify the service instance. This name will appear under `service` \[sic\] in output from `cf services`.
 
 1. Enter `watch cf services` and wait for the `last operation` for your instance to show as `create succeeded`.
 
@@ -154,14 +154,14 @@ To use TLS for a service instance, follow the steps below.
 
   1. Run the command `cf create-service-key MY-INSTANCE MY-KEY` to create a service key. 
     Where:
-      * MY-INSTANCE is the name you chose when you created your service instance.
-      * MY-KEY is a name you choose for the service key.
+      * `MY-INSTANCE` is the name you chose when you created your service instance.
+      * `MY-KEY` is a name you choose for the service key.
 
   1. Run the command `cf service-key MY-INSTANCE MY-KEY` to display the service key. <br><br>
 
   1. In the output of the previous command, find the IP addresses in the `hostnames` field. <br><br>
 
-  1. Run the command `cf delete-service-key MY-INSTANCE MY-KEY` to delete the key as it is no longer needed.
+  1. Run the command `cf delete-service-key MY-INSTANCE MY-KEY` to delete the key because it is no longer needed.
 
 1. Run the following command to update your service instance with a valid TLS certificate: 
   `cf update-service MY-INSTANCE -c '{"tls": [HOSTNAMES]}'` <br>
@@ -181,7 +181,7 @@ To use TLS for a service instance, follow the steps below.
 <p class="note"><strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.</p>
 
 
-In order for an app to use TLS, you must update it to request encrypted communications when connecting to a RabbitMQ service instance. 
+For an app to use TLS, you must update it to request encrypted communications when connecting to a RabbitMQ service instance. 
 The procedure for updating your app depends on the app's language and framework. Java and Spring apps automatically detect TLS. 
 
 To activate TLS for Java and Spring apps, do one of the following:
@@ -205,9 +205,9 @@ For an app to use a service, you must bind it to a service instance. Do this aft
 
 To bind an app to a RabbitMQ instance run `$ cf bind-service`.
 
-1. Enter `cf bind-service APP SERVICE_INSTANCE`
+1. Enter `cf bind-service APP SERVICE-INSTANCE`
 
-    Where `APP` is the app you want to use the RabbitMQ service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
+    Where `APP` is the app you want to use the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
 
     <pre class="terminal">
    $ cf bind-service my-app my-instance<br>
@@ -220,7 +220,7 @@ To bind an app to a RabbitMQ instance run `$ cf bind-service`.
 
 To access the RabbitMQ service from your app:
 
-1. Run `cf env APP_NAME` with the name of the app bound to the RabbitMQ for PCF instance.
+1. Run `cf env APP-NAME` with the name of the app bound to the RabbitMQ for PCF instance.
 
 1. In the output, note the connection strings listed in the `VCAP_SERVICES` > `credentials` object for the app.
 
@@ -248,9 +248,9 @@ Pushing new version of an app automatically restages the app on any service inst
 
 To stop an app from using a service it no longer needs, unbind it from the service instance using `cf unbind-service`.
 
-1. Enter `cf unbind-service APP SERVICE_INSTANCE`
+1. Enter `cf unbind-service APP SERVICE-INSTANCE`
 
-    Where `APP` is the app you want to stop using the RabbitMQ service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
+    Where `APP` is the app you want to stop using the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
 
     <pre class="terminal">
    $ cf unbind-service my-app my-instance<br>
@@ -262,9 +262,9 @@ To stop an app from using a service it no longer needs, unbind it from the servi
 
 To delete a service instance, run `cf delete-service`.
 
-1. Enter `cf delete-service SERVICE_INSTANCE`
+1. Enter `cf delete-service SERVICE-INSTANCE`
 
-    Where `SERVICE_INSTANCE` is the name of the service to delete.
+    Where `SERVICE-INSTANCE` is the name of the service to delete.
 
     <pre class="terminal">
    $ cf delete-service my-instance<br>
@@ -273,7 +273,7 @@ To delete a service instance, run `cf delete-service`.
     OK
 </pre>
 
-1. Enter `watch cf service SERVICE_INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
+1. Enter `watch cf service SERVICE-INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
 
 You cannot delete a service instance that an app is bound to.
 
