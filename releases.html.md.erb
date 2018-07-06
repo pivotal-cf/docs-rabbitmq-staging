@@ -7,23 +7,15 @@ owner: London Services
 
 Pivotal recommends that you upgrade to the latest version of your current minor line,
 then upgrade to the latest available version of the new minor line.
-For example, if you use an older v1.11.x version,
-upgrade to the latest v1.11.x version before upgrading to the latest v1.12.x version.
+For example, if you use an older v1.12.x version,
+upgrade to the latest v1.12.x version before upgrading to the latest v1.13.x version.
 
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-### <a id="use-rmq-3-7"></a> Delete On-Demand Service Instances Running RabbitMQ v3.6
-
-With RabbitMQ for PCF v1.13, all plans using RabbitMQ v3.6 have been removed.
-Only plans with RabbitMQ v3.7 are available. 
-Delete all service instances running RabbitMQ v3.6 before upgrading to RabbitMQ For PCF v1.13. 
-Upgrading fails if any on-demand service instances are running RabbitMQ v3.6.
-
-For more information, see the following:
-
-+ [About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](./upgrade.html#upgrade-ondemand)
-+ [Check for On-Demand Service Instances Running RabbitMQ v3.6](./upgrade.html#existing-ondemand-instances)
+Spring Cloud Services (SCS) users should be aware that SCS will soon be dropping the
+dependency on RabbitMQ. The SCS team recommends that SCS users do not upgrade to
+RabbitMQ for PCF v1.13.0.
 
 ## <a id="113x"></a>v1.13
 
@@ -33,8 +25,12 @@ For more information, see the following:
 
 #### Features
 
-* Ability to secure communication between apps and service instances using Transport Layer Security (TLS). 
-For more information, see [Preparing for TLS](./prepare-tls.html).
+* Ability to secure communication between apps and on-demand service instances using Transport Layer Security (TLS).
+For more information, see [Preparing for TLS](./prepare-tls.html). For ease of
+upgrade from previous versions, this functionality is turned off by default.
+
+#### Notes
+* Smoke tests for the on-demand broker now use the system org, as is already the case for multitenant.
 
 #### Known Issues
 
@@ -47,13 +43,13 @@ For more information, see [Preparing for TLS](./prepare-tls.html).
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
 #### Packages
 
-* OSS RabbitMQ v3.7.4
-* Erlang v19.3.6.4
+* OSS RabbitMQ v3.7.6
+* Erlang v20.3.8.1
 * HAProxy v1.6.13
 
 ## <a id="view"></a> View Release Notes for Another Version
