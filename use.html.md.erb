@@ -198,6 +198,7 @@ To activate TLS for Java and Spring apps, do one of the following:
   1. Restage the app. For example:
     <pre class="terminal">$ cf restage my-app</pre>
 
+Note that, if the operator used a self-signed ceritificate, you must configure your application to use the same ca_certificate, and valid certificate and key.
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 

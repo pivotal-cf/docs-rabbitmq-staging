@@ -23,58 +23,30 @@ The following are prerequisites to procedures in this topic:
 
 ##<a id='modify'></a> Modify Your App for TLS
 
-To activate TLS for apps not written in Java or Spring,
-you must modify them to discover the CA certificate in `VCAP_SERVICES`
-and specify that CA component when initiating the connection to the data service.
+To start using TLS for apps not written in Java or Spring, you must modify your app to use the correct protocol.
+In the case the operator enabled TLS using a certificate from a trusted authority, you can use the code below:
 
-`VCAP_SERVICES` is an environment variable that exists within every container.
-It contains runtime-specific information about the app, including metadata supplied by each of the services that have been bound to that app.
-The metadata includes the information necessary to connect to the service, such as hostnames, usernames, and passwords.
+```ruby
+require 'json'
+require 'bunny'
 
-Your app must perform the following tasks:
-
-1. Retrieve the hostname, username, password, database name, and CA certificate
-   for the bound RabbitMQ for PCF service instance from the `VCAP_SERVICES` environment variable.
-1. Use the hostname, username, password, and CA certificate to establish a secure connection with the bound RabbitMQ for PCF service instance.
-
-For example, the following Node.js code initializes a variable named `rabbitmq_creds`, and then populates it with the necessary information from `VCAP_SERVICES`:
-
-```js
-var rabbitmq_creds = {} ;
-var vcap_services = undefined ;
-
-if (process.env.VCAP_SERVICES) {
-    vcap_services = JSON.parse(process.env.VCAP_SERVICES) ;
-    rabbitmq_creds["host"] = vcap_services["p.rabbitmq"][0]["credentials"]["hostname"] ;
-    rabbitmq_creds["user"] = vcap_services["p.rabbitmq"][0]["credentials"]["username"] ;
-    rabbitmq_creds["password"] = vcap_services["p.rabbitmq"][0]["credentials"]["password"] ;
-    rabbitmq_creds["port"] = vcap_services["p.rabbitmq"][0]["credentials"]["port"] ;
-    rabbitmq_creds["database"] = vcap_services["p.rabbitmq"][0]["credentials"]["name"] ;
-    if (vcap_services["p.rabbitmq"][0]["credentials"]["tls"]) {
-        rabbitmq_creds["ca_certificate"] = vcap_services["p.rabbitmq"][0]["credentials"]["tls"]["cert"]["ca"];
-    } else {
-        rabbitmq_creds["ca_certificate"] = undefined ;
-    }
-}
+vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uris'].sample
+conn = Bunny.new(uri)
+conn.start
 ```
 
-The following Node.js function establishes a TLS connection with the RabbitMQ service, using the information loaded into `rabbitmq_creds`:
+If the operator used a self-signed ceritificate, you must configure the RabbitMQ client to use the same ca_certificate, and valid certificate and key.
+In order to do so, you can use the example code below:
 
-```js
-function RabbitMQConnect() {
-    clientConfig = {
-        host : rabbitmq_creds["host"],
-        user : rabbitmq_creds["user"],
-        password : rabbitmq_creds["password"],
-        port : rabbitmq_creds["port"],
-        database : rabbitmq_creds["database"]
-    } ;
-    if (rabbitmq_creds["ca_certificate"]) {
-        clientConfig["ssl"] = { ca : rabbitmq_creds["ca_certificate"] } ;
-    }
-    dbClient = rabbitmq.createConnection( clientConfig ) ;
-    dbClient.connect(CALLBACK-FUNCTION) ;
-}
+```ruby
+require 'json'
+require 'bunny'
+
+vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uris'].sample
+conn = Bunny.new(uri, tls_cert: PATH_TO_CERTIFICATE, tls_key: PATH_TO_KEY, tls_ca_certificates: [PATH_TO_CA_CERTIFICATE])
+conn.start
 ```
 
 ##<a id='repush-rebind'></a> Repush or Rebind Your App
