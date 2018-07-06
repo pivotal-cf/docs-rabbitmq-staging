@@ -174,6 +174,9 @@ To use TLS for a service instance, follow the steps below.
     $ cf update-service my-instance -c '{"tls": ["10.1.1.5", "10.1.1.6", "10.1.1.7"]}'
     </pre> 
 
+Note: You can only do this once. Once the service has been updated to enable
+TLS, you cannot disable TLS or change the listed IP addresses for that service.
+
 1. Run the command `cf service MY-INSTANCE` to check that the process completed.
 
 ### <a id="tls-java-spring"></a> Activate TLS for Java and Spring Apps

@@ -238,11 +238,11 @@ Click **Security**.
     [Configure Security](install-config.html#security) to enable TLS in the tile, 
     and then click **Apply Changes** in the Installation Dashboard. 
     This restarts all the VMs in your PCF deployment and applies your CA certificate.<br><br>
+    Do not uncheck the `upgrade-all-service-instances` errand, as until all
+    existing service instances have been upgraded with this change, they cannot
+    be otherwise updated. 
     * **For a New Installation**: Complete the procedures in 
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
     including enabling TLS in the **Security** tab, and then click **Apply Changes**
     in the Installation Dashboard. 
     This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment and applies your CA certificate.
-
-
-
