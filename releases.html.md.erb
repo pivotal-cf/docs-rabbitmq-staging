@@ -13,9 +13,8 @@ upgrade to the latest v1.12.x version before upgrading to the latest v1.13.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-Spring Cloud Services (SCS) users should be aware that SCS will soon be dropping the
-dependency on RabbitMQ. The SCS team recommends that SCS users do not upgrade to
-RabbitMQ for PCF v1.13.0.
+Spring Cloud Services (SCS) will soon be dropping the dependency on RabbitMQ. 
+Pivotal recommends that SCS users do not upgrade to RabbitMQ for PCF v1.13.0.
 
 ## <a id="113x"></a>v1.13
 
@@ -25,16 +24,20 @@ RabbitMQ for PCF v1.13.0.
 
 #### Features
 
-* RabbitMQ for PCF now support securing communication between apps and on-demand service instances using Transport Layer Security (TLS).
-For more information, see [Preparing for TLS](./prepare-tls.html). For ease of
-upgrade from previous versions, this functionality is turned off by default.
+New features and changes in this release:
+
+* RabbitMQ for PCF now supports securing communication between apps and on-demand 
+service instances using Transport Layer Security (TLS).
+For more information, see [Preparing for TLS](./prepare-tls.html). 
+For ease of upgrade from previous versions, this functionality is turned off by default.
 
 * Includes Open Source RabbitMQ 3.7 which includes [many improvements](http://www.rabbitmq.com/blog/2018/02/05/whats-new-in-rabbitmq-3-7/).
 
-#### Notes
 * Smoke tests for the on-demand broker now use the system org, as is already the case for multitenant.
 
 #### Known Issues
+
+This release has the following known issues:
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
@@ -45,7 +48,7 @@ upgrade from previous versions, this functionality is turned off by default.
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/managing_errands.html).
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
 #### Packages

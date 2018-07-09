@@ -152,19 +152,32 @@ To use TLS for a service instance, follow the steps below.
 
 1. Follow these steps to find the IP addresses of the RabbitMQ nodes:
 
-  1. Run the command `cf create-service-key MY-INSTANCE MY-KEY` to create a service key. 
-    Where:
+  1. Create a service key by running the following command:
+
+        ```
+        cf create-service-key MY-INSTANCE MY-KEY
+        ``` 
+    Where:<br>
       * `MY-INSTANCE` is the name you chose when you created your service instance.
       * `MY-KEY` is a name you choose for the service key.
 
-  1. Run the command `cf service-key MY-INSTANCE MY-KEY` to display the service key. <br><br>
+  1. Display the service key by running: 
 
+        ```
+        cf service-key MY-INSTANCE MY-KEY
+        ```
   1. In the output of the previous command, find the IP addresses in the `hostnames` field. <br><br>
 
-  1. Run the command `cf delete-service-key MY-INSTANCE MY-KEY` to delete the key because it is no longer needed.
+  1. Delete the service key because it is no longer needed:
 
-1. Run the following command to update your service instance with a valid TLS certificate: 
-  `cf update-service MY-INSTANCE -c '{"tls": [HOSTNAMES]}'` <br>
+        ```
+        cf delete-service-key MY-INSTANCE MY-KEY
+        ```
+1. Update your service instance with a valid TLS certificate by running: 
+  
+    ```
+    cf update-service MY-INSTANCE -c '{"tls": [HOSTNAMES]}'
+    ```
   Where: <br>
   * `HOSTNAMES` is a comma-separated list of the IP addresses you found above. 
   
@@ -174,10 +187,15 @@ To use TLS for a service instance, follow the steps below.
     $ cf update-service my-instance -c '{"tls": ["10.1.1.5", "10.1.1.6", "10.1.1.7"]}'
     </pre> 
 
-Note: You can only do this once. Once the service has been updated to enable
-TLS, you cannot disable TLS or change the listed IP addresses for that service.
+    <p class="note"><strong>Note:</strong>
+      After the service instance has been updated to enable TLS, you cannot disable TLS or 
+      change the listed IP addresses for that service.</p>
 
-1. Run the command `cf service MY-INSTANCE` to check that the process completed.
+1.  Check that the process completed by running:
+
+    ```
+    cf service MY-INSTANCE
+    ```
 
 ### <a id="tls-java-spring"></a> Activate TLS for Java and Spring Apps
 
