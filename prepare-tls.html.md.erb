@@ -231,7 +231,7 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
 Click **Security**.
 1. Paste the contents of the CA certificate into **Trusted Certificates**, and then click **Save**.
 1. After preparing your environment for TLS, you must enable TLS in the tile configuration,
-   following the appropriate step below.
+   following the appropriate step below. 
     <p class="note warning"><strong>WARNING</strong>: Restarting all of the VMs in your PCF deployment in order to apply a 
     CA certificate takes a long time to complete.</p>
     * **For an Existing Installation**: Complete the steps in 
@@ -239,10 +239,8 @@ Click **Security**.
     and then click **Apply Changes** in the Installation Dashboard. 
     This restarts all the VMs in your PCF deployment and applies your CA certificate.
     <p class="note"><strong>Note:</strong>
-    Do not set the `upgrade-all-service-instances` errand to **Off**. 
-    This errand must be run to ensure all service instances have the needed changes. 
-    Without this step, service instances will not be upgradeable
-    existing service instances have been upgraded with this change.</p>
+    Make sure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>. 
+    This errand must be run to ensure all service instances have the needed changes. </p>
     * **For a New Installation**: Complete the procedures in 
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
     including enabling TLS in the **Security** tab, and then click **Apply Changes**
