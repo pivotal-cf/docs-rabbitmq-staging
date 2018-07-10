@@ -209,7 +209,7 @@ To activate TLS for Java and Spring apps, do one of the following:
 
 * For apps that are not bound to an existing service instance, repush the apps with `cf push`.
 
-* For apps bound to an existing service instance, follow these steps:<br><br>
+* For apps bound to an existing service instance, follow these steps:
   1. Stop the app. For example:
     <pre class="terminal">$ cf stop my-app</pre>
   1. Unbind the app from the service instance. For example:
@@ -219,7 +219,8 @@ To activate TLS for Java and Spring apps, do one of the following:
   1. Restage the app. For example:
     <pre class="terminal">$ cf restage my-app</pre>
 
-Note that, if the operator used a self-signed ceritificate, you must configure your application to use the same ca_certificate, and valid certificate and key.
+<p class="note"><strong>Note:</strong> If the operator used a self-signed ceritificate, 
+configure your application to use the same CA certificate, and valid certificate and key.</p>
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
