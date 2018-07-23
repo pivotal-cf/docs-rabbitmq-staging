@@ -65,6 +65,10 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
+* When on-demand service instances are enabled for TLS, the `port` property in
+  `VCAP_SERVICES` for `amqp+ssl` incorrectly reports that the port is `5672`.
+  The actual port used for `amqp+ssl` is `5671`.
+
 ### Packages
 
 * OSS RabbitMQ v3.7.7
