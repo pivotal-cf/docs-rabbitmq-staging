@@ -42,6 +42,14 @@ versions will be accessible on the [staging website][docs-staging].
 [docs-staging-deploy]: https://wings.concourse.ci/teams/cf-docs/pipelines/cf-services?groups=rabbitmq
 [docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
 
+### Style Sheet
+
+Use this section to specify spelling of special words for RabbitMQ for PCF:
+
++ on-demand plan
++ shared-VM plan
++ dedicated-VM plan
+
 ### Making Your Documentation Changes Live
 
 Click the deploy button in the pipeline! Living the dream :-D
