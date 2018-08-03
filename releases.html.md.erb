@@ -30,7 +30,6 @@ For instructions on how to install,
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
-
 ## <a id="1132"></a> v1.13.2
 
 **Release Date**: August 03, 2018
@@ -40,24 +39,24 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 New features and changes in this release:
 
 * VCAP_SERVICES now contains the correct port when TLS is enabled for an on-demand instance
-* On-demand smoke tests will now time out after 1 hour
+* On-demand smoke tests will now time out after one hour
 * Stemcell updated to 3586.26
 
 ### Known Issues
 
 This release has the following known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
-  and might result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+* Cluster scaling or changing the Erlang cookie value require cluster downtime 
+  and might result in failed deployments. For more information, see [Erlang Cookie](./install-config-pp.html#erlang), [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+ [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes. 
   Pivotal recommends leaving the default run rule set to **On**.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  
 
 ### Packages
 
