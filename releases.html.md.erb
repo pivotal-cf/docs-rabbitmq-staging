@@ -13,6 +13,12 @@ upgrade to the latest v1.11.x version before upgrading to the latest v1.12.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
+<p class="note warning"><strong> WARNING</strong>:
+  Pivotal does not recommend upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2
+  at this time.
+  There is an issue with this upgrade path.
+</p>
+
 ## <a id="use-new-plans"></a> Use RabbitMQ v3.7 On-Demand Plans
 
 RabbitMQ v3.7 plans are available.
@@ -37,7 +43,7 @@ New features and changes in this release:
 
 ### Known Issues
 
-* We are investigating an issue with upgrades from 1.12.x to 1.13.x on PAS 2.2. We do not recommed this upgrade path at this time. We will update our recommendation when the issue has been solved.
+<%= partial 'do-not-upgrade' %>
 
 * Smoke tests might fail because time-out values in the smoke tests are too low.
 For more information about troubleshooting smoke tests, see [Smoke Tests](./smoke-tests.html).
@@ -74,6 +80,8 @@ New features and changes in this release:
 - Updates OSS RabbitMQ Server and Erlang packages
 
 ### Known Issues
+
+<%= partial 'do-not-upgrade' %>
 
 * Smoke tests might fail because time-out values in the smoke tests are too low.
 For more information about troubleshooting smoke tests, see [Smoke Tests](./smoke-tests.html).
@@ -113,6 +121,8 @@ For more information, see the Golang issue
 
 ### Known Issues
 
+<%= partial 'do-not-upgrade' %>
+
 * Smoke tests might fail because time-out values in the smoke tests are too low.
 For more information about troubleshooting smoke tests, see [Smoke Tests](./smoke-tests.html).
 
@@ -151,6 +161,8 @@ For more information, see the Golang issue
 [crypto/x509: CANotAuthorizedForExtKeyUsage is premature](https://github.com/golang/go/issues/24590).
 
 ### Known Issues
+
+<%= partial 'do-not-upgrade' %>
 
 * Smoke tests might fail because time-out values in the smoke tests are too low.
 For more information about troubleshooting smoke tests, see [Smoke Tests](./smoke-tests.html).
@@ -211,6 +223,8 @@ New features and changes in this release:
     For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
 ### Known Issues
+
+<%= partial 'do-not-upgrade' %>
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
