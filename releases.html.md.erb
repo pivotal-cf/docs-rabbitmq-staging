@@ -49,6 +49,12 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 For more information, see the Golang issue 
 [crypto/x509: CANotAuthorizedForExtKeyUsage is premature](https://github.com/golang/go/issues/24590).
 
+### Fixed Issues
+
+This release fixes the following issue:
+
+* Smoke tests sometimes failed because of low time-out values.
+
 #### Known Issues
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime,
   and might result in failed deployments.
