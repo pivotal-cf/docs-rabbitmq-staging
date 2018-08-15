@@ -32,6 +32,44 @@ This topic explains how to benefit from the two on-demand plans above.
 For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html).
 For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
+## <a id="plan-selection"></a> Deciding Which Service Plan to Use
+
+The RabbitMQ for PCF tile will only provide the on-demand service in the future. 
+This is because the on-demand service is designed for an independent isolated RabbitMQ. 
+The previous pre-provisioned offering had many Rabbits on a single VM, in a multi-tenancy model. 
+A single misbehaving app could then take down the entire cluster down for everyone.
+
+We are making different design decisions in on-demand than we made in pre-provisioned. 
+This is from our learnings of what caused customer problems in pre-provisioned.
+
+Here is a table that describes the current feature discrepancy between pre-provisioned and on-demand. 
+It also provides a status update as to what the team is planning to develop and what we aren’t and why. 
+We hope that this provides customers visibility into deciding what service to use and in feeding back 
+to us what else our team needs to do to meet your use case with on-demand.
+
+| Feature | Pre-Provisioned | On-Demand |
+|--------|--------|--------|
+| Configuration | Enabled via base-64 encoded text box | Plan to address |
+| Plug-ins | Enabled via checkboxes in UI | Plan to address |
+| RabbitMQ admin creds to access mgmt dashboard | Can set password via tile UI | Evaluating based on customer needs and feedback |
+| Erlang cookie | Operator can change this which has caused problems for customers | Plan to address |
+| RabbitMQ TLS versions | Available due to security concerns in TLS packaged in pre-provisioned | No plan to address |
+| External load balancer DNS name | Available | Plan to address. |
+| Disk free alarm limit | Configurable | No plans to address. The default persistent disk size is controlled at the plan level and is set relative to memory. This removes ability to mis-configure the alarm limit. |
+| HAproxy | Exists | No plans to address |
+| RabbitMQ servers static IP | Exists | Evaluating based on customer needs and feedback |
+| Policy for new instances | Configurable | Plan to address |
+| Almost-instant provisioning | Instantly provisioned | No plans to address. Instant provisioning for on-demand is limited by the IAAS that will potentially be addressed by containers. If customers request this, we may offer multi-tenancy on an on-demand service instance.|
+| Almost-guaranteed provisioning | Guaranteed provisioning | No plans to address due to infrequent failures |
+| VM-visibility from Ops Manager | Available | Plan to address |
+| Download logs from Ops Manager | Available | Plan to address |
+| Individual instance upgrade | Possible when using tile replicator | Plan to address |
+| Network partition behavior | Defaults to `pause_minority`, configurable | Plan to address |
+| TLS | TLS enabled between client and broker | TLS between client and broker has been implemented. Client authentication via certificates will be implemented. Inter-node TLS will be implemented. |
+
+
+
+
 
 ## <a id="singlenode"></a> On-Demand Single Node Plan Using RabbitMQ 3.7
 
