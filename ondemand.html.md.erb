@@ -3,6 +3,9 @@ title: Unlocking the Power of On-Demand RabbitMQ for PCF
 owner: London Services
 ---
 
+This topic explains how to benefit from the two on-demand service plans.
+
+
 ## <a id="intro"></a> Introduction
 
 RabbitMQ for Pivotal Cloud Foundry (PCF) responds to the demands of PCF operators to offer a RabbitMQ on-demand cluster
@@ -18,6 +21,7 @@ See [Dedicated Instance Smoke Test Process](./install-config.html#dedicated_inst
 
 Platform operators can now offer their app developers three types of RabbitMQ for PCF service plans:
 
+
 * **Pre-provisioned**---For light to moderate messaging needs, this service is fully operated and managed by platform operators as a service.
 
 * **On-demand single node**---For application teams requiring greater isolation than provided by the pre-provisioned approach.
@@ -27,17 +31,18 @@ Platform operators can now offer their app developers three types of RabbitMQ fo
 * **On-demand cluster**---For an increased level of message resilience and cluster availability,
   as well as the benefits of workload isolation mentioned above.
 
-This topic explains how to benefit from the two on-demand plans above.
+<p class="note"><strong>Note:</strong>The RabbitMQ for PCF tile will only provide the on-demand service in the future. 
+For more information, see <a href="#plan-selection">Deciding Which Service Plan to Use</a> below. </p>
+
 
 For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html).
 For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
 ## <a id="plan-selection"></a> Deciding Which Service Plan to Use
 
-The RabbitMQ for PCF tile will only provide the on-demand service in the future. 
-This is because the on-demand service is designed for an independent isolated RabbitMQ. 
-The previous pre-provisioned offering had many Rabbits on a single VM, in a multi-tenancy model. 
-A single misbehaving app could then take down the entire cluster down for everyone.
+In the future, Rabbit for PCF will only provide on-demand service. This is because the on-demand service is designed for an independent isolated RabbitMQ. 
+The existing pre-provisioned offering has many RabbitMQ instances on a single VM, in a multi-tenancy model. 
+Therefore, a single misbehaving app could take down the entire cluster for everyone.
 
 We are making different design decisions in on-demand than we made in pre-provisioned. 
 This is from our learnings of what caused customer problems in pre-provisioned.
