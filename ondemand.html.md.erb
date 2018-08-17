@@ -45,10 +45,10 @@ In this model, a single misbehaving app could take down the entire cluster for e
 From research and feedback on the issues customers had when using the pre-provisioned service,
 Pivotal is making different design decisions for the on-demand service. 
 
-In order to provide customers enough visibility to decide which service to use, 
-the table below describes the current feature discrepancies between the pre-provisioned and on-demand services, 
-and Pivotal's plans for addressing these discrepancies. We encourage customers to give us feedback 
-on how our team can meet your use case requirements with the on-demand service.
+To provide customers enough visibility to decide which service to use, 
+the table below describes the current feature-discrepancies between the pre-provisioned and on-demand services, 
+and Pivotal's plans for addressing these discrepancies. Pivotal encourages customers to give feedback 
+on to meet your use-case requirements with the on-demand service.
  
 
 
@@ -57,14 +57,14 @@ on how our team can meet your use case requirements with the on-demand service.
 | Configuration | Enabled via base-64 encoded text box | Plan to address |
 | Plug-ins | Enabled via checkboxes in UI | Plan to address |
 | RabbitMQ admin creds to access mgmt dashboard | Can set password via tile UI | Evaluating based on customer needs and feedback |
-| Erlang cookie | Operator can change this which has caused problems for customers | Plan to address |
+| Erlang cookie | Operator can change this. This has caused problems for customers | Plan to address |
 | RabbitMQ TLS versions | Available due to security concerns in TLS packaged in pre-provisioned | No plan to address |
-| External load balancer DNS name | Available | Plan to address. |
+| External load balancer DNS name | Available | Plan to address |
 | Disk free alarm limit | Configurable | No plans to address. The default persistent disk size is controlled at the plan level and is set relative to memory. This removes ability to mis-configure the alarm limit. |
 | HAproxy | Exists | No plans to address |
 | RabbitMQ servers static IP | Exists | Evaluating based on customer needs and feedback |
 | Policy for new instances | Configurable | Plan to address |
-| Almost-instant provisioning | Instantly provisioned | No plans to address. Instant provisioning for on-demand is limited by the IAAS that will potentially be addressed by containers. If customers request this, we may offer multi-tenancy on an on-demand service instance.|
+| Almost-instant provisioning | Instantly provisioned | No plans to address. Instant provisioning for on-demand is limited by the IaaS that will potentially be addressed by containers. If customers request this, Pivotal might offer multi-tenancy on an on-demand service instance.|
 | Almost-guaranteed provisioning | Guaranteed provisioning | No plans to address due to infrequent failures |
 | VM-visibility from Ops Manager | Available | Plan to address |
 | Download logs from Ops Manager | Available | Plan to address |
