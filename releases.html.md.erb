@@ -29,6 +29,36 @@ For instructions on how to install,
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1132"></a> v1.13.3
+
+**Release Date**: August 21, 2018
+
+### Features
+
+Requires stemcell [3586.36](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3586.36)
+
+### Known Issues
+
+This release has the following known issues:
+
+* Cluster scaling or changing the Erlang cookie value require cluster downtime
+  and might result in failed deployments. For more information, see [Erlang Cookie](./install-config-pp.html#erlang), [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue), and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  Pivotal recommends leaving the default run rule set to **On**.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+
+
+### Packages
+
+* OSS RabbitMQ v3.7.7
+* Erlang v20.3.8.1
+* HAProxy v1.6.13
+
+
 ## <a id="1132"></a> v1.13.2
 
 **Release Date**: August 3, 2018
