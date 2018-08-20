@@ -9,7 +9,7 @@ This topic explains how to benefit from the two on-demand service plans.
 ## <a id="intro"></a> Introduction
 
 RabbitMQ for Pivotal Cloud Foundry (PCF) responds to the demands of PCF operators by offering a RabbitMQ on-demand cluster
-for their application teams, in addition to the single-node on-demand plan.
+for their app developer teams, in addition to the single-node on-demand plan.
 
 The on-demand cluster plan is aimed at workloads that require the same resilience requirements as the pre-provisioned offering,
 but also require their workloads be isolated. The platform operations team can configure a 
@@ -21,7 +21,7 @@ See [Dedicated Instance Smoke Test Process](./install-config.html#dedicated_inst
 
 With the on-demand cluster plan, platform operators can now offer their app developers three types of RabbitMQ for PCF service plans:
 
-* **On-demand single node**---For application teams requiring greater isolation than provided by the pre-provisioned approach.
+* **On-demand single node**---For app developer teams requiring greater isolation than provided by the pre-provisioned approach.
   App development teams can have full access to their own message broker to adapt the runtime parameters to their requirements.
   For more information on these parameters, see [Parameters and Policies](https://www.rabbitmq.com/parameters.html) in the RabbitMQ documentation.
 
@@ -45,10 +45,10 @@ In this model, a single misbehaving app could take down the entire cluster for e
 From research and feedback on the issues customers had when using the pre-provisioned service,
 Pivotal is making different design decisions for the on-demand service. 
 
-To provide customers enough visibility to decide which service to use, 
+To provide you enough visibility to decide which service to use, 
 the table below describes the current feature-discrepancies between the pre-provisioned and on-demand services, 
-and Pivotal's plans for addressing these discrepancies. Pivotal encourages customers to give feedback 
-on to meet your use-case requirements with the on-demand service.
+and Pivotal's plans for addressing these discrepancies. Pivotal encourages you to give feedback 
+on how to meet your use-case requirements with the on-demand service.
  
 
 
@@ -79,7 +79,7 @@ on to meet your use-case requirements with the on-demand service.
 ## <a id="singlenode"></a> On-Demand Single Node Plan Using RabbitMQ 3.7
 
 This plan is designed to be simple to configure, deploy, and use.
-It gives application teams fast access to the power of the leading open source message broker backed by BOSH
+It gives app developer teams fast access to the power of the leading open source message broker backed by BOSH
 to meet all but the most demanding high availability app messaging requirements.
 
 This plan can suit high-performance workloads requiring messaging resilience and asynchronous messaging replication.
@@ -87,8 +87,8 @@ RabbitMQ copies messages to disk for resilience and allows asynchronous messagin
 
 This plan offers:
 
-* Fast access to an isolated instance of RabbitMQ scoped for the application teams
-* Org and Space Administrator access to the RabbitMQ Management UI so application teams can have full control over the node
+* Fast access to an isolated instance of RabbitMQ scoped for the app developer teams
+* Org and Space Administrator access to the RabbitMQ Management UI so app developer teams can have full control over the node
 * Updates and upgrades initiated and controlled by the operator to keep the instance up-to-date with the latest security patches and bug fixes
 * Message resilience provided through RabbitMQ exchange, queue Federation, and Shovel plugins.
 
@@ -111,7 +111,7 @@ RabbitMQ 3.7 to avoid the need to upgrade in the near future.
 ## <a id="cluster"></a> On-Demand Cluster Plan Using RabbitMQ 3.7
 
 Like the single node plan, this plan is designed to be simple to configure, deploy and use.
-It gives application teams fast access to the power of the leading Open Source message broker backed by BOSH
+It gives app developer teams fast access to the power of the leading Open Source message broker backed by BOSH
 to meet all but the most demanding high availability app messaging requirements.
 
 This plan can suit high performance workloads requiring messaging resilience (copied to disk)
@@ -120,8 +120,8 @@ With this plan, however, you also scale out RabbitMQ for PCF to multiple nodes.
 
 This plan offers:
 
-* Fast access to an isolated, clustered instance of RabbitMQ scoped to the application team Orgs and Spaces
-* Administrator access to the RabbitMQ Management UI to give application teams full control over the cluster
+* Fast access to an isolated, clustered instance of RabbitMQ scoped to the app developer team Orgs and Spaces
+* Administrator access to the RabbitMQ Management UI to give app developer teams full control over the cluster
 * Updates and upgrades initiated and controlled by the operator to keep the instance up-to-date with the latest security patches and bug fixes.
 * Message resilience provided by mirroring queues across RabbitMQ nodes, and the option to use the Federation and Shovel plugins.
 
@@ -224,7 +224,7 @@ and reconnection logic that iterates over the range of hosts provided.
 Most common RabbitMQ clients have this logic built into them.
 For more information, see the [Spring AMQP documentation](https://docs.spring.io/spring-amqp/reference/htmlsingle/#auto-recovery).
 
-Because the cluster plan is designed to enable application teams to self-serve, not having a load balancer in front of the RabbitMQ cluster has these benefits:
+Because the cluster plan is designed to enable app developer teams to self-serve, not having a load balancer in front of the RabbitMQ cluster has these benefits:
 
 * Manage resources better, as fewer VMs are needed.
 * Help with troubleshooting.
@@ -233,7 +233,7 @@ Because the cluster plan is designed to enable application teams to self-serve, 
   This helps with latency.
 * Determine queue placement.
   This makes sense for larger scale deployments.
-* Empower application teams to manage their cluster in the best way for their app.
+* Empower app developer teams to manage their cluster in the best way for their app.
 * Require re-try logic in an app if it needs HA access to a queue.
   Thus, all nodes can route to a queue if it is available.
 
@@ -243,8 +243,8 @@ In configuring each plan, there are a number of operational controls that platfo
 
 * **Control Access**---Operators can choose the app development orgs and spaces for which the plans are available and visible.
   Each plan can be enabled or disabled, and service access and visibility can either be global, or enabled per org and space through the command line.<br><br>
-	For example, you may decide to enable the single node on-demand plan across all application teams to meet their demand to isolate their workload.
-        You may then choose to offer the on-demand cluster plan only to a subset of application teams who require the extra resources.
+	For example, you may decide to enable the single node on-demand plan across all app developer teams to meet their demand to isolate their workload.
+        You may then choose to offer the on-demand cluster plan only to a subset of app developer teams who require the extra resources.
 
 * **Set Quotas**---You can set a global quota for all on-demand instances that takes precedence over each plan quota.
   This lets you guard against the risk of over-committing resources, but allows the flexibility of over-committing each plan, so you can meet the fluctuating demands of your app developers.
