@@ -30,6 +30,36 @@ For more information, see the following:
 + The [ANN RabbitMQ 3.6.x support timeline](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ)
   post on the RabbitMQ users forum
 
+## <a id="1128"></a> v1.12.8
+
+**Release Date**: August 21, 2018
+
+### Features
+
+Requires stemcell [3468.64](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3468.64)
+
+### Known Issues
+
+<%= partial 'do-not-upgrade' %>
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+### Packages
+
+* OSS RabbitMQ v3.6.16
+* OSS RabbitMQ v3.7.6
+* Erlang v20.3.8.1
+* HAProxy v1.6.13
 
 ## <a id="1127"></a> v1.12.7
 
