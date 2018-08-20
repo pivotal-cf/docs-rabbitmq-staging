@@ -45,7 +45,8 @@ New features and changes in this release:
 
 This release has the following known issues:
 
-* There is a known issue with Spring Cloud Services during the RabbitMQ for PCF 1.12 to 1.13 upgrade. Please disable all errands in the Spring Cloud Services tile during the upgrade, to ensure that the upgrade succeeds.
+* If you are upgrading RabbitMQ for PCF v1.12 to v1.13, and you use Spring Cloud Services,
+  you must disable all errands in the Spring Cloud Services tile during the upgrade to ensure that the upgrade succeeds. 
 
 * Cluster scaling or changing the Erlang cookie value require cluster downtime 
   and might result in failed deployments. For more information, see [Erlang Cookie](./install-config-pp.html#erlang), [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue), and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
