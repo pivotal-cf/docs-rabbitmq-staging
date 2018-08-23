@@ -158,7 +158,7 @@ then you must update the list of load-balanced ports.
 
 <%= image_tag("images/config_ssl.png") %>
 
-* SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). 
+* SSL is simultaneously provided for AMQPS, STOMP and MQTT.
 No other plugins are automatically configured for use with SSL.
 
 * If you provide SSL keys and certificates, non-SSL support is disabled. 
@@ -167,6 +167,8 @@ have apps connected to the service, these apps lose
 their connections and must reconnect using SSL.
 
 * SSL settings are applied equally across all VMs in the cluster.
+
+* You can provide more then one CA certificate.
 
 For more information about SSL support, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
 
