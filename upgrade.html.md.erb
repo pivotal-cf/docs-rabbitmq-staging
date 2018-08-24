@@ -213,7 +213,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 
 1. Use the BOSH CLI to stop the HAProxy node.  
 
-    <br>Run this command:<br>`bosh -d p-rabbitmq-GUID stop rabbitmq-haproxy`.<br><br>
+    <br>Run this command:<br>`bosh -d p-rabbitmq-GUID stop --hard rabbitmq-haproxy`.<br><br>
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
         * If you have multiple HA Proxy nodes, stop all of them.<br><br>
@@ -225,7 +225,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 1. Use the BOSH CLI to stop all but one of the RabbitMQ server nodes. 
 
     <br>Run this command on RabbitMQ server nodes until you have only one node running:
-    <br>`bosh -d p-rabbitmq-GUID stop rabbitmq-server/NODE-INDEX`<br><br>
+    <br>`bosh -d p-rabbitmq-GUID stop --hard rabbitmq-server/NODE-INDEX`<br><br>
 
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
