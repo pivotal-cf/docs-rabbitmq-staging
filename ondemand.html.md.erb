@@ -11,7 +11,7 @@ This topic explains how to benefit from the two on-demand service plans.
 RabbitMQ for Pivotal Cloud Foundry (PCF) responds to the demands of PCF operators by offering a RabbitMQ on-demand cluster
 for their app developer teams, in addition to the single-node on-demand plan.
 
-The on-demand cluster plan is aimed at workloads that require the same resilience requirements as the pre-provisioned offering,
+The on-demand cluster plan is designed for workloads that require the same resilience requirements as the pre-provisioned offering,
 but also require their workloads be isolated. The platform operations team can configure a 
 RabbitMQ for PCF cluster to meet their business requirements
 and empower app development teams to self-serve their own RabbitMQ cluster.
@@ -46,34 +46,70 @@ From research and feedback on the issues customers had when using the pre-provis
 Pivotal is making different design decisions for the on-demand service. 
 
 To provide you enough visibility to decide which service to use, 
-the table below describes the current feature-discrepancies between the pre-provisioned and on-demand services, 
+the table below describes the current feature discrepancies between the pre-provisioned and on-demand services, 
 and Pivotal's plans for addressing these discrepancies. Pivotal encourages you to give feedback 
-on how to meet your use-case requirements with the on-demand service.
+on how to meet your use case requirements with the on-demand service.
  
 
-
-| Feature | Pre-Provisioned Service | On-Demand Service |
-|--------|--------|--------|
-| Configuration | Enabled via base-64 encoded text box | Plan to address |
-| Plug-ins | Enabled via checkboxes in UI | Plan to address |
-| RabbitMQ admin creds to access mgmt dashboard | Can set password via tile UI | Evaluating based on customer needs and feedback |
-| Erlang cookie | Operator can change this. This has caused problems for customers | Plan to address |
-| RabbitMQ TLS versions | Available due to security concerns in TLS packaged in pre-provisioned | No plan to address |
-| External load balancer DNS name | Available | Plan to address |
-| Disk free alarm limit | Configurable | No plans to address. The default persistent disk size is controlled at the plan level and is set relative to memory. This removes ability to mis-configure the alarm limit. |
-| HAproxy | Exists | No plans to address |
-| RabbitMQ servers static IP | Exists | Evaluating based on customer needs and feedback |
-| Policy for new instances | Configurable | Plan to address |
-| Almost-instant provisioning | Instantly provisioned | No plans to address. Instant provisioning for on-demand is limited by the IaaS that will potentially be addressed by containers. If customers request this, Pivotal might offer multi-tenancy on an on-demand service instance.|
-| Almost-guaranteed provisioning | Guaranteed provisioning | No plans to address due to infrequent failures |
-| VM-visibility from Ops Manager | Available | Plan to address |
-| Download logs from Ops Manager | Available | Plan to address |
-| Individual instance upgrade | Possible when using tile replicator | Plan to address |
-| Network partition behavior | Defaults to `pause_minority`, configurable | Plan to address |
-| TLS | TLS enabled between client and broker | TLS between client and broker has been implemented. Client authentication via certificates will be implemented. Inter-node TLS will be implemented. |
-
-
-
+<table>
+  <th>Feature</th><th>Pre-Provisioned Service</th><th>On-Demand Service</th>
+  <tr>
+    <td>Configuration</td><td>Enabled via base-64 encoded text box</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Plug-ins</td><td>Enabled via checkboxes in UI</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td><td>Evaluating based on customer needs and feedback</td>
+  </tr>
+  <tr>
+    <td>Erlang cookie</td><td>Operator can change, which has caused problems historically</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td><td>No plan to address. The security concerns are resolved by improved TLS in the on-demand service.</td>
+  </tr>
+  <tr>
+    <td>External load balancer DNS name</td><td>Available</td><td>Plan to address. IaaS-specific load balancers can still be used.</td>
+  </tr>
+  <tr>
+    <td>Disk free alarm limit</td><td>Configurable</td><td>No plans to address. The default persistent disk size is controlled at the plan level and is set relative to memory. This removes the ability to mis-configure the alarm limit.</td>
+  </tr>
+  <tr>
+    <td>HAproxy</td><td>Exists</td><td>No plans to address due to the following:
+      <br><br>
+      <ul><li>Large RabbitMQ customers have their own hardware load balancers. Small customers appreciate fewer VMs.</li>
+      <li>Network-heavy workloads require scaling the load balancer VMs together with RabbitMQ nodes.</li> 
+      <li>Operations teams incur more overhead to support PROXY protocol, causing further overhead at various other layers.</li>
+    </ul></td>
+  </tr>
+  <tr>
+    <td>RabbitMQ servers static IP</td><td>Exists</td><td>Evaluating based on customer needs and feedback</td>
+  </tr>
+  <tr>
+    <td>Policy for new instances</td><td>Configurable</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Almost-instant provisioning</td><td>Instantly provisioned</td><td>No plans to address. Instant provisioning for on-demand is limited by the IaaS. This limitation will potentially be addressed by containers.</td>
+  </tr>
+  <tr>
+    <td>Almost-guaranteed provisioning</td><td>Guaranteed provisioning</td><td>No plans to address due to infrequent failures</td>
+  </tr>
+  <tr>
+    <td>VM-visibility from Ops Manager</td><td>Available</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Download logs from Ops Manager</td><td>Available</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Individual instance upgrade</td><td>Possible when using tile replicator</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>TLS</td><td>TLS enabled between client and broker</td><td>TLS between client and broker has been implemented. Client authentication via certificates will be implemented. Inter-node TLS will be implemented.</td>
+  </tr>
+</table>
 
 
 ## <a id="singlenode"></a> On-Demand Single Node Plan Using RabbitMQ 3.7
