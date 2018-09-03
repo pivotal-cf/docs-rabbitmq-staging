@@ -56,10 +56,12 @@ configuration changes are applied automatically.
 
 When a new version of RabbitMQ is released, a new version of RabbitMQ for PCF is released soon after.
 
-Where there is a new version of RabbitMQ or another dependent software
-component, such as the stemcell released due to a critical CVE, Pivotal's goal
+Where there is a new version of RabbitMQ or another dependent software component.  Pivotal's goal
 is to release a new version of the product within 48 hours.
 
+Starting with RabbitMQ for PCF v1.14.0, the RabbitMQ tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
+This means that the tile can be updated to use the latest minor version of a stemcell,
+without the need to download a new RabbitMQ for PCF patch release from Pivnet.
 
 ## <a id="downtime"></a> Downtime When Upgrading
 
