@@ -43,6 +43,10 @@ New features and changes in this release:
 
 * RabbitMQ for PCF uses compiled BOSH releases, resulting in improved deployment times.
 
+* RabbitMQ for PCF now uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-2/customizing/understanding-stemcells.html).
+  That means that RabbitMQ instances will be recreated based on the new stemcell whenever a newer patch release of the stemcell becomes available.
+  You can opt out of using a given stemcell version for any specific tile/deployment using OpsManager [Stemcell Library](https://docs.pivotal.io/pivotalcf/2-2/opsguide/managing-stemcells.html)
+
 ### Known Issues
 
 This release has the following known issues:
