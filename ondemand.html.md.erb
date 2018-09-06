@@ -40,7 +40,7 @@ For information on using pre-provisioned plans to isolate workloads, see [Creati
 
 In the future, Rabbit for PCF will only provide the on-demand service because it is designed for independent, isolated RabbitMQ instances. 
 The existing pre-provisioned offering has many RabbitMQ instances on a single VM, in a multi-tenancy model. 
-In this model, a single misbehaving app could take down the entire cluster for everyone.
+In this model, a single misbehaving app can take down the entire cluster for everyone.
 
 From research and feedback on the issues customers had when using the pre-provisioned service,
 Pivotal is making different design decisions for the on-demand service. 
@@ -60,22 +60,26 @@ on how to meet your use case requirements with the on-demand service.
     <td>Plug-ins</td><td>Enabled via checkboxes in UI</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td><td>Evaluating based on customer needs and feedback</td>
+    <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
+    <td>Evaluating based on customer needs and feedback</td>
   </tr>
   <tr>
-    <td>Erlang cookie</td><td>Operator can change, which has caused problems historically</td><td>Plan to address</td>
+    <td>Erlang cookie</td><td>Operator can change, which has caused problems </td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td><td>No plan to address. The security concerns are resolved by improved TLS in the on-demand service.</td>
+    <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
+    <td>No plan to address. The security concerns are resolved by improved TLS in the on-demand service.</td>
   </tr>
   <tr>
     <td>External load balancer DNS name</td><td>Available</td><td>Plan to address. IaaS-specific load balancers can still be used.</td>
   </tr>
   <tr>
-    <td>Disk free alarm limit</td><td>Configurable</td><td>No plans to address. The default persistent disk size is controlled at the plan level and is set relative to memory. This removes the ability to mis-configure the alarm limit.</td>
+    <td>Disk free alarm limit</td><td>Configurable</td><td>No plans to address.
+        The default persistent disk size is controlled at the plan level and is set relative to memory.
+        This removes the ability to mis-configure the alarm limit.</td>
   </tr>
   <tr>
-    <td>HAproxy</td><td>Exists</td><td>No plans to address due to the following:
+    <td>HAProxy</td><td>Exists</td><td>No plans to address due to the following:
       <br><br>
       <ul><li>Large RabbitMQ customers have their own hardware load balancers. Small customers appreciate fewer VMs.</li>
       <li>Network-heavy workloads require scaling the load balancer VMs together with RabbitMQ nodes.</li> 
@@ -89,7 +93,9 @@ on how to meet your use case requirements with the on-demand service.
     <td>Policy for new instances</td><td>Configurable</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>Almost-instant provisioning</td><td>Instantly provisioned</td><td>No plans to address. Instant provisioning for on-demand is limited by the IaaS. This limitation will potentially be addressed by containers.</td>
+    <td>Almost-instant provisioning</td><td>Instantly provisioned</td><td>No plans to address.
+        Instant provisioning for on-demand is limited by the IaaS.
+        This limitation will potentially be addressed by containers.</td>
   </tr>
   <tr>
     <td>Almost-guaranteed provisioning</td><td>Guaranteed provisioning</td><td>No plans to address due to infrequent failures</td>
@@ -107,7 +113,9 @@ on how to meet your use case requirements with the on-demand service.
     <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>TLS</td><td>TLS enabled between client and broker</td><td>TLS between client and broker has been implemented. Client authentication via certificates will be implemented. Inter-node TLS will be implemented.</td>
+    <td>TLS</td><td>TLS enabled between client and broker</td><td>TLS between client and broker has been implemented.
+        Client authentication via certificates will be implemented.
+        Inter-node TLS will be implemented.</td>
   </tr>
 </table>
 
