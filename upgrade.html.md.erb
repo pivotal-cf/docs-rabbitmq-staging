@@ -4,10 +4,10 @@ owner: London Services
 ---
 
 RabbitMQ for PCF enables automated upgrades between versions of the product.
-In some versions, you might be required to take the RabbitMQ cluster offline. 
+In some versions, you might be required to take the RabbitMQ cluster offline.
 Whenever this is necessary, it is noted in the release notes for those versions.
 
-The upgrade paths for each version are detailed in the 
+The upgrade paths for each version are detailed in the
 [Product Compatibility Matrix](https://docs.pivotal.io/resources/product-compatibility-matrix.pdf).
 
 
@@ -22,13 +22,30 @@ Manual steps are required to upgrade both the pre-provisioned and the on-demand 
 This is due to incompatibilities between RabbitMQ versions v3.6 and v3.7,
 as well as a major Erlang update provided by RabbitMQ for PCF v1.13.
 
-Due to these constraints, you cannot do a  rolling upgrade of the cluster for this tile release. 
+Due to these constraints, you cannot do a  rolling upgrade of the cluster for this tile release.
 
 There are two upgrade procedures for this release depending on the type of service you are upgrading:
 
 * [Upgrade the RabbitMQ for PCF Pre-Provisioned Service](#upgrade-preprovisioned)
 
 * [Upgrade the RabbitMQ for PCF On-Demand Service](#upgrade-ondemand)
+
+
+### <a id="update-addons"></a>Update Add-ons to Run with Xenial Stemcell
+
+RabbitMQ for PCF v1.14 and later requires a Xenial stemcell.
+If you are using any of the following BOSH add-ons with your PCF deployment,
+you must update the add-on definition to include the Xenial stemcell before you deploy RabbitMQ for PCF v1.14:
+
+- File Integrity Monitoring for PCF Add-on.
+  For update instructions,
+  see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-fim/updating-for-xenial.html).
+- ClamAV for PCF Add-on.
+  For update instructions,
+  see [Updating ClamAV Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-antivirus/updating-for-xenial.html).
+- IPsec for PCF Add-on.
+  For update instructions,
+  see [Updating IPsec Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-ipsec/updating-for-xenial.html).
 
 
 ### <a id="general"></a> General Notes About the Upgrade Process
@@ -45,7 +62,7 @@ the upgrade and you must not interrupt this process.
   upgrades depends on how you have configured network partition handling and the
   **Resource Config** tab.
   An HAProxy instance count of 2 and a RabbitMQ node count of 3 are required for rolling stemcell upgrades.
-  These counts are the default. 
+  These counts are the default.
   For more information, see [Clustering and Network Partitions](./partitions.html).
 
 * Ops Manager ensures the instances are updated with the new packages and any
@@ -100,7 +117,7 @@ Always check the release notes for the version you are upgrading to.</p>
   <th>Patch Tile Version</th>
   <td>Normally these are rolling deployments with each node being updated in turn.
       In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
-      There are specific migration paths that require downtime, which are identified in the release notes for that version. 
+      There are specific migration paths that require downtime, which are identified in the release notes for that version.
   </td>
 <tr>
   <th>Stemcell-Only Patch Tile Version</th>
@@ -110,20 +127,19 @@ Always check the release notes for the version you are upgrading to.</p>
 </tr>
 </table>
 
-
 ## <a id="upgrade-preprovisioned"></a> Upgrade the RabbitMQ for PCF Pre-Provisioned Service
 
 RabbitMQ for PCF v1.13 deploys RabbitMQ v3.7 to run the pre-provisioned
-service. Previous versions deploy RabbitMQ v3.6. 
+service. Previous versions deploy RabbitMQ v3.6.
 
 To upgrade the pre-provisioned service, also known as the multi-tenant service or p-rabbitmq, you
 must stop all but one node in the RabbitMQ cluster, perform an upgrade and then restart the stopped
 nodes.
 This process has downtime for the duration of the upgrade steps, and includes these two procedures:
 
-[Prepare to Upgrade the Pre-Provisioned Service](#prepare)
+- [Prepare to Upgrade the Pre-Provisioned Service](#prepare)
 
-[Install the Tile to Upgrade the Pre-Provisioned Service](#install-tile)
+- [Install the Tile to Upgrade the Pre-Provisioned Service](#install-tile)
 
 ### <a id="prepare"></a> Prepare to Upgrade the Pre-Provisioned Service
 
@@ -140,7 +156,7 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
         use the RabbitMQ Management Dashboard or the `rabbitmqadmin list queues name
         message_bytes` command.
 
-        <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty. 
+        <p class="note"><strong>Note</strong>: Ideally, all queues in RabbitMQ should be empty or almost empty.
         Upgrading with more data stored in RabbitMQ
         significantly increases memory and disk requirements, and extends the
         upgrade duration.</p>
@@ -150,7 +166,7 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
         Change any automatic synchronization policy you might have to be manual using `ha-sync-mode: manual`.
         This prevents data replication when shutting down nodes during upgrade.
         The remaining nodes do not create new replicas, therefore, memory and disk
-        requirements are significantly lower. 
+        requirements are significantly lower.
         For more information about setting RabbitMQ policies, see the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#policies).<br><br>
 
     1. If it was not possible to disable automatic queue synchronization, then ensure that your RabbitMQ cluster has sufficent RAM and disk space.<br><br>
@@ -163,7 +179,7 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
 
         <br>To increase RAM and disk space, do the following:
 
-        1. Click the **Resource Config** tab.<br><br> 
+        1. Click the **Resource Config** tab.<br><br>
         1. For the **RabbitMQ node**, select an appropriate **VM Type** and click **Save**.<br><br>
         1. Click **Apply Changes** in the Ops Manager Dashboard.
 
@@ -179,12 +195,12 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
       * Persistent disk usage jumps to 30&nbsp;GB during upgrade.
       * The file system reserves 5% of persistent disk for the root user.
 
-      In this case, increase the persistent disk size to at least 32&nbsp;GB, and preferably 40&nbsp;GB. 
+      In this case, increase the persistent disk size to at least 32&nbsp;GB, and preferably 40&nbsp;GB.
       For more information, see [Increasing Persistent Disk During Upgrade](#increase-disk).
 
 
 1. Ensure there are no disk space or memory alarms:
-    1. Browse to `pivotal-rabbitmq.SYSTEM-DOMAIN`<br> 
+    1. Browse to `pivotal-rabbitmq.SYSTEM-DOMAIN`<br>
       Where:
       * `SYSTEM-DOMAIN` is your system domain.
         You can find this by clicking the PAS tile in the Ops Manager Installation Dashboard,
@@ -197,21 +213,26 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
 
     <br>Do not rely on the BOSH `instances` output. That indicates the state of the Erlang VM, not RabbitMQ.
 
-    <p class="note warning"><strong>WARNING</strong>: Do not attempt the upgrade 
+    <p class="note warning"><strong>WARNING</strong>: Do not attempt the upgrade
     if there are active alarms or if the cluster is not in a healthy state.</p>
+
 
 ### <a id="install-tile"></a> Install the Tile
 
 <p class="note"><strong>Note</strong>: If you run out of persistent disk space during the upgrade,
 follow the procedure in <a href="#increase-disk">Increasing Persistent Disk During Upgrade</a>.</p>
 
-To upgrade the pre-provisioned service to RabbitMQ for PCF v1.14, do the following: 
+To upgrade the pre-provisioned service to RabbitMQ for PCF v1.14, do the following:
+
+1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial),
+and import it into the Ops Manager Stemcell Library.
+For instructions, see [Importing and Managing Stemcells](https://docs-pcf-staging.cfapps.io/pivotalcf/opsguide/managing-stemcells.html).
 
 1. Install the tile. For instructions, see [Download and Install RabbitMQ for PCF](./install-config.html#install).
 
     <br>Adjust the configuration settings if necessary. Pivotal recommends you do not make any adjustments unless they are to increase the disk or RAM.
 
-1. Use the BOSH CLI to stop the HAProxy node.  
+1. Use the BOSH CLI to stop the HAProxy node.
 
     <br>Run this command:<br>`bosh -d p-rabbitmq-GUID stop --hard rabbitmq-haproxy`.<br><br>
     Where:<br>
@@ -222,7 +243,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.14, do the followi
 
     At this point, apps can no longer communicate with the RabbitMQ service.
 
-1. Use the BOSH CLI to stop all but one of the RabbitMQ server nodes. 
+1. Use the BOSH CLI to stop all but one of the RabbitMQ server nodes.
 
     <br>Run this command on RabbitMQ server nodes until you have only one node running:
     <br>`bosh -d p-rabbitmq-GUID stop --hard rabbitmq-server/NODE-INDEX`<br><br>
@@ -239,7 +260,7 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.14, do the followi
 
 1. Turn off the errands.
 
-    <br>Pivotal recommends turning these errands off in the tile GUI. Follow these steps: 
+    <br>Pivotal recommends turning these errands off in the tile GUI. Follow these steps:
     1. In the Ops Manager Dashboard, click the Rabbit for PCF tile, and then click the **Errands** tab.<br><br>
     1. Set all the errands to **Off**.<br><br>
     1. Click **Save**.
@@ -259,19 +280,19 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.14, do the followi
         * `GUID` is the RabbitMQ for PCF deployment GUID.
         * `NODE-INDEX` is the index number of the node.
 
-        <p class="note"><strong>Note</strong>: To minimize downtime, you can run the <code>bosh start</code> command for multiple nodes in parallel. 
-        This is important if you have a lot 
+        <p class="note"><strong>Note</strong>: To minimize downtime, you can run the <code>bosh start</code> command for multiple nodes in parallel.
+        This is important if you have a lot
         of data in your queues during migration (not recommended) or a large number of vhosts.</p>
 
     1. Make sure all nodes are running by checking the BOSH vms:
     <br>`bosh -d p-rabbitmq-GUID vms`
 
-1. At this point all nodes should be running, however, the cluster will not be able to 
+1. At this point all nodes should be running, however, the cluster will not be able to
     serve any traffic until each node completes internal datastore migrations. <br><br>
-    * The duration of this process depends on the number of messages, 
-    number of vhosts, and your hardware. You can assume about 1 minute for 1&nbsp;GB of stored messages and 
+    * The duration of this process depends on the number of messages,
+    number of vhosts, and your hardware. You can assume about 1 minute for 1&nbsp;GB of stored messages and
     1 second for each vhost (even if all queues are empty). <br><br>
-    * You can monitor the progress by tailing the logs of 
+    * You can monitor the progress by tailing the logs of
     your RabbitMQ nodes with the following command: <br>
       `bosh -d p-rabbitmq-GUID logs -f rabbitmq-server`<br><br>
       Where:
@@ -295,8 +316,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.14, do the followi
 1. If you disabled automatic synchronization policies in a previous step,
    you can now enable them using `ha-sync-mode: automatic`.
 
-1. Make sure that your apps reconnect to RabbitMQ. 
-    <p class="note warning"><strong>WARNING</strong>: Some RabbitMQ client libraries do not support 
+1. Make sure that your apps reconnect to RabbitMQ.
+    <p class="note warning"><strong>WARNING</strong>: Some RabbitMQ client libraries do not support
     automatic reconnection so you might have to restart some apps.</p>
 
 ## <a id="Upgrade-ondemand"></a> Upgrade the RabbitMQ for PCF On-Demand Service
@@ -337,7 +358,7 @@ To migrate on-demand instances from RabbitMQ v3.6 to v3.7, do the following:
 
 ### <a id="existing-ondemand-instances"></a> Ensure There Are No On-Demand Service Instances Running RabbitMQ v3.6
 
-After migration there should be no on-demand service instances running RabbitMQ v3.6. 
+After migration there should be no on-demand service instances running RabbitMQ v3.6.
 You must verify this before upgrading from RabbitMQ for PCF v1.12 to v1.13.
 
 <p class="note"><strong>Note</strong>: The upgrade fails if any on-demand service instances are running RabbitMQ v3.6.</p>
@@ -352,7 +373,7 @@ To search for on-demand service instances running RabbitMQ v3.6, do the followin
        $ cf curl /v2/services?q=label:p.rabbitmq
     </pre>
 
-1. In the output from step 2, find `service_plans_url`. 
+1. In the output from step 2, find `service_plans_url`.
 This shows the URL for all service plans.
 Run `cf curl` against that URL. For example:
 
@@ -360,13 +381,13 @@ Run `cf curl` against that URL. For example:
       $ cf curl /v2/services/SERVICE-GUID/service_plans
     </pre>
 
-    This returns a list of all RabbitMQ for PCF on-demand service plans, 
+    This returns a list of all RabbitMQ for PCF on-demand service plans,
     which might include plans using RabbitMQ v3.6 and plans using RabbitMQ v3.7.
 
 1. In the list returned above:
   1. Locate the service plans using RabbitMQ v3.6.<br><br>
   1. For each of these service plans, find the property `service_instances_url` and
-    note the URL for that plan. 
+    note the URL for that plan.
 
 1. Run `cf curl` against each URL found in step 4. For example:
 
@@ -380,9 +401,13 @@ Run `cf curl` against that URL. For example:
 
 Do the following:
 
+1. Download the Ubuntu Xenial stemcell from [Pivotal Network](https://network.pivotal.io/products/stemcells-ubuntu-xenial),
+and import it into the Ops Manager Stemcell Library.
+For instructions, see [Importing and Managing Stemcells](https://docs-pcf-staging.cfapps.io/pivotalcf/opsguide/managing-stemcells.html).
+
 1. Follow the steps in [Download and Install RabbitMQ for PCF](./install-config.html#install).
 
-2. Run the following errands with BOSH CLI commands.<br><br>
+1. Run the following errands with BOSH CLI commands.<br><br>
     In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
  * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
  * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`

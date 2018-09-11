@@ -13,19 +13,19 @@ upgrade to the latest v1.13.x version before upgrading to the latest v1.14.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-<p class="note"><strong>Note:</strong> Spring Cloud Services (SCS) will soon be dropping the dependency on RabbitMQ. 
+<p class="note"><strong>Note:</strong> Spring Cloud Services (SCS) will soon be dropping the dependency on RabbitMQ.
 Pivotal recommends that SCS users do not upgrade to RabbitMQ for PCF v1.13.0.</p>
 
 ## <a id="deprecation"></a> Pre-Provisioned Service to be Deprecated
 
 The pre-provisioned service will be deprecated in a future release. The details
 will be announced over the next few months.  Pivotal recommends using the
-on-demand service for new deployments. 
+on-demand service for new deployments.
 
 Teams who currently use procedures in [Isolating Clusters with the RabbitMQ for PCF Replicator](./replicator.html) will be affected
 by the deprecation of the pre-preprovisioned service and should start planning for this now.
 
-For instructions on how to install, 
+For instructions on how to install,
   configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
@@ -34,6 +34,17 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 ## <a id="1140"></a> v1.14.0
 
 **Release Date**: MMM XX, 2018
+
+<p class="note breaking"><strong>Breaking Change:</strong>
+  RabbitMQ for PCF v1.14 and later requires a Xenial stemcell.
+  You must manually download and import a new stemcell into the Ops Manager Stemcell
+  Library before deploying RabbitMQ for PCF v1.14.
+  This might break automation you have set up to update RabbitMQ for PCF deployments
+  that used Trusty stemcells.
+  To download the Xenial stemcell from Pivotal Network, go to
+  <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial">Stemcells for PCF (Ubuntu Xenial)</a>.
+  For instructions on importing the stemcell, see
+  <a href="https://docs-pcf-staging.cfapps.io/pivotalcf/opsguide/managing-stemcells.html">Importing and Managing Stemcells</a>.</p>
 
 ### Features
 
