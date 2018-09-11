@@ -239,10 +239,10 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 
 1. Turn off the errands.
 
-    <br>Pivotal recommends turning these errands off in the tile GUI. Follow these steps: 
-    1. In the Ops Manager Dashboard, click the Rabbit for PCF tile, and then click the **Errands** tab.<br><br>
+    <br>Pivotal recommends turning errands off during this installation process. Follow these steps: 
+    1. In the Ops Manager Dashboard, under **Pending Changes**, expand the **INSTALL RabbitMQ** section.<br><br>
     1. Set all the errands to **Off**.<br><br>
-    1. Click **Save**.
+    1. If there is a **INSTALL Spring Cloud Services** section, expand it, and set all the errands to **Off**.<br><br>
 
     <p class="note"><strong>Note</strong>: The errands fail if you leave them on,
        because the RabbitMQ HAProxy was stopped.</p>
