@@ -10,7 +10,9 @@ for their application teams, in addition to the existing single-node on-demand p
 The on-demand cluster plan is aimed at workloads that require the same resilience requirements as the Pre-Provisioned offering,
 but also require their workloads be isolated.
 
-The platform operations team can now configure a RabbitMQ for PCF cluster to meet their business requirements
+The on-demand cluster plan is designed for workloads that require the same resilience requirements as the pre-provisioned offering,
+but also require their workloads be isolated. The platform operations team can configure a
+RabbitMQ for PCF cluster to meet their business requirements
 and empower app development teams to self-serve their own RabbitMQ cluster.
 
 RabbitMQ for PCF also provides smoke tests for the on-demand plans so that operations teams can validate the app developer workflow for on-demand services.
@@ -29,8 +31,94 @@ Platform operators can now offer their app developers three types of RabbitMQ fo
 
 This topic explains how to benefit from the two on-demand plans above.
 
+<p class="note"><strong>Note:</strong> The RabbitMQ for PCF tile will only provide the on-demand service in the future.
+For more information, see <a href="#plan-selection">Deciding Which Service Plan to Use</a> below. </p>
+
 For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html).
 For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
+
+## <a id="plan-selection"></a> Deciding Which Service Plan to Use
+
+In the future, Rabbit for PCF will only provide the on-demand service because it is designed for independent, isolated RabbitMQ instances.
+The existing pre-provisioned offering has many RabbitMQ instances on a single VM, in a multi-tenancy model.
+In this model, a single misbehaving app can take down the entire cluster for everyone.
+
+From research and feedback on the issues customers had when using the pre-provisioned service,
+Pivotal is making different design decisions for the on-demand service.
+
+To provide you enough visibility to decide which service to use,
+the table below describes the current feature discrepancies between the pre-provisioned and on-demand services,
+and Pivotal's plans for addressing these discrepancies. Pivotal encourages you to give feedback
+on how to meet your use case requirements with the on-demand service.
+
+
+<table>
+  <th>Feature</th><th>Pre-Provisioned Service</th><th>On-Demand Service</th>
+  <tr>
+    <td>Configuration</td><td>Enabled via base-64 encoded text box</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Plug-ins</td><td>Enabled via checkboxes in UI</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
+    <td>Evaluating based on customer needs and feedback</td>
+  </tr>
+  <tr>
+    <td>Erlang cookie</td><td>Operator can change, which has caused problems </td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
+    <td>No plan to address. The security concerns are resolved by improved TLS in the on-demand service.</td>
+  </tr>
+  <tr>
+    <td>External load balancer DNS name</td><td>Available</td><td>Plan to address. IaaS-specific load balancers can still be used.</td>
+  </tr>
+  <tr>
+    <td>Disk free alarm limit</td><td>Configurable</td><td>No plans to address.
+        The default persistent disk size is controlled at the plan level and is set relative to memory.
+        This removes the ability to mis-configure the alarm limit.</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td><td>Exists</td><td>No plans to address due to the following:
+      <br><br>
+      <ul><li>Large RabbitMQ customers have their own hardware load balancers. Small customers appreciate fewer VMs.</li>
+      <li>Network-heavy workloads require scaling the load balancer VMs together with RabbitMQ nodes.</li>
+      <li>Operations teams incur more overhead to support PROXY protocol, causing further overhead at various other layers.</li>
+    </ul></td>
+  </tr>
+  <tr>
+    <td>RabbitMQ servers static IP</td><td>Exists</td><td>Evaluating based on customer needs and feedback</td>
+  </tr>
+  <tr>
+    <td>Policy for new instances</td><td>Configurable</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Almost-instant provisioning</td><td>Instantly provisioned</td><td>No plans to address.
+        Instant provisioning for on-demand is limited by the IaaS.
+        This limitation will potentially be addressed by containers.</td>
+  </tr>
+  <tr>
+    <td>Almost-guaranteed provisioning</td><td>Guaranteed provisioning</td><td>No plans to address due to infrequent failures</td>
+  </tr>
+  <tr>
+    <td>VM-visibility from Ops Manager</td><td>Available</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Download logs from Ops Manager</td><td>Available</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Individual instance upgrade</td><td>Possible when using tile replicator</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Plan to address</td>
+  </tr>
+  <tr>
+    <td>TLS</td><td>TLS enabled between client and broker</td><td>TLS between client and broker has been implemented.
+        Client authentication via certificates will be implemented.
+        Inter-node TLS will be implemented.</td>
+  </tr>
+</table>
 
 
 ## <a id="singlenode"></a> On-Demand Single Node Plan Using RabbitMQ 3.7
@@ -53,16 +141,16 @@ This plan offers:
 
 This plan provides the same benefits as described above, but uses RabbitMQ 3.6 for backwards compatibility.
 
-RabbitMQ 3.6 is reaching end of support. 
-Consider moving to RabbitMQ 3.7 as soon as possible. 
-For more information about support for RabbitMQ 3.6, 
-see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). 
+RabbitMQ 3.6 is reaching end of support.
+Consider moving to RabbitMQ 3.7 as soon as possible.
+For more information about support for RabbitMQ 3.6,
+see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ).
 
-If you are already using RabbitMQ for PCF, you can choose to provide service plans 
+If you are already using RabbitMQ for PCF, you can choose to provide service plans
 with RabbitMQ 3.6 for backwards compatibility.
 However, you should also enable RabbitMQ 3.7 plans to allow developers to migrate to the new version.
 
-For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using 
+For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using
 RabbitMQ 3.7 to avoid the need to upgrade in the near future.
 
 ## <a id="cluster"></a> On-Demand Cluster Plan Using RabbitMQ 3.7
@@ -88,16 +176,16 @@ This plan offers:
 
 This plan provides the same benefits as described above, but uses RabbitMQ 3.6 for backwards compatibility.
 
-RabbitMQ 3.6 is reaching end of support. 
-Consider moving to RabbitMQ 3.7 as soon as possible. 
-For more information about support for RabbitMQ 3.6, 
-see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). 
+RabbitMQ 3.6 is reaching end of support.
+Consider moving to RabbitMQ 3.7 as soon as possible.
+For more information about support for RabbitMQ 3.6,
+see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ).
 
-If you are already using RabbitMQ for PCF, you can choose to provide service plans 
+If you are already using RabbitMQ for PCF, you can choose to provide service plans
 with RabbitMQ 3.6 for backwards compatibility.
 However, you should also enable RabbitMQ 3.7 plans to allow developers to migrate to the new version.
 
-For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using 
+For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using
 RabbitMQ 3.7 to avoid the need to upgrade in the near future.
 
 ### <a id="principles"></a> General Principles of the Cluster Plan
@@ -255,13 +343,13 @@ The following are preconfigured for both the single node and the cluster plans:
     Changing these settings affects all nodes.
 
 * **Persistent Disk Type**---When installing on PCF v2.0 or later,
-    each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space. 
+    each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space.
 
     <br>You can change this setting in the [Service Plan Configuration](./install-config.html#service-plan) page.
         Pivotal recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
-  The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.
+  The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the RabbitMQ for PCF tile.
   Due to the impact of some of the cluster settings detailed below,
   Pivotal strongly recommends that you monitor the exposed metrics
   and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).

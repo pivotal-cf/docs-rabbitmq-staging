@@ -3,7 +3,7 @@ title: Installing and Configuring the <br>On-Demand Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about 
+This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about
 how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service.
 
 The RabbitMQ open source product provides additional documentation.
@@ -16,11 +16,11 @@ as a pre-provisioned service, see
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
-Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which 
-operators can make deployment changes, view credentials, and manage user roles in Ops Manager. 
+Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
+operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see 
+For more information about roles in Ops Manager, see
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
         Understand Roles in Ops Manager</a>.</p>
 
@@ -29,12 +29,12 @@ For more information about roles in Ops Manager, see
 
 Before deploying RabbitMQ for PCF as an on-demand service, ensure the following:
 
-*  <strong>Networking:</strong> You must ensure that the required network rules are in place to allow various components to communicate. 
-See [Required Networking Rules for On-Demand Services](about.html#network-rules) 
+*  <strong>Networking:</strong> You must ensure that the required network rules are in place to allow various components to communicate.
+See [Required Networking Rules for On-Demand Services](about.html#network-rules)
 for details on the network connections that must be open to enable the on-demand service.
 
-* <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ service instances, 
-you must complete the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile. 
+* <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ service instances,
+you must complete the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile.
 
 ## <a id="install"></a> Download and Install RabbitMQ for PCF
 
@@ -65,15 +65,15 @@ Configure the following tabs for the on-demand service:
   </tr>
   <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Configure AZs and Networks</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td><a href="#polling">Configure Admin Credentials and Metrics Polling Interval</a></td>
+  <tr><td>Pre-Provisioned RabbitMQ</td><td><a href="#polling">Configure required fields</a></td>
   </tr>
   <tr><td>Networking</td><td><a href="#networking">Networking</a></td>
   </tr>
   <tr><td>Syslog</td><td><a href="./monitor.html#config">Set up Syslog Forwarding</a></td>
   </tr>
-  <tr><td>Global Settings</td><td><a href="#global">Configure Global Settings</a></td>
+  <tr><td>Global Settings for On-Demand Plans</td><td><a href="#global">Configure Global Settings</a></td>
   </tr>
-  <tr><td>Security</td><td><a href="#security">Configure Security</a></td>
+  <tr><td>Security for On-Demand Plans</td><td><a href="#security">Configure Security</a></td>
   </tr>
   <tr><td>On Demand Instance: Plan 1</td><td><a href="#service-plan">Configure the Service Plan</a></td>
   </tr>
@@ -126,7 +126,7 @@ Configure the following tabs for the on-demand service:
 
 ### <a id="polling"></a> Configure Admin Credentials and Metrics Polling Interval
 
-On the **RabbitMQ** tab, you must configure two items only for the on demand service:
+On the **Pre-Provisioned RabbitMQ** tab, you must configure two items only for the on demand service:
 <ul>
   <li> Specify admin credentials for using the RabbitMQ Management Dashboard.</li>
   <li>Enter a metrics polling interval.</li>
@@ -134,7 +134,7 @@ On the **RabbitMQ** tab, you must configure two items only for the on demand ser
 
 #### <a id='dash'></a>Specify Admin User Credentials
 
-In the **RabbitMQ admin user credentials** field of the RabbitMQ tab, enter an admin username and password:
+In the **RabbitMQ admin user credentials** field of the Pre-Provisioned RabbitMQ tab, enter an admin username and password:
 
 <%= image_tag("images/config-credentials.png") %>
 
@@ -150,7 +150,7 @@ This grants you full admin access to the RabbitMQ Management UI.
 
 #### Enter a Metrics Polling Interval
 
-In the **Metrics polling interval field**, set a metrics polling interval: 
+In the **Metrics polling interval field**, set a metrics polling interval:
 
 <%= image_tag("images/metrics_polling.png") %>
 
@@ -184,7 +184,7 @@ BOSH allocates an IP address if the field is left blank.
 
 Follow the steps below to configure global settings.
 
-1. Click **Global Settings**. 
+1. Click the **Global Settings for On-Demand Plans** tab.
   ![Global Settings Tab](images/global-settings.png)
 1. Configure the following:<br><br>
   * **Service instance quota**  min: 0, max: 50  set the total number of on-demand service instances which can be deployed.
@@ -195,32 +195,32 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   * **(Beta) Shareable Instances**: Click **Yes** to enable the beta feature for sharing instances.<br>
 
         <p class='note'><strong>Note</strong>: This is a beta feature based on an experimental feature in Cloud Foundry.
-        Use the feature at your own risk in non-production environments. 
+        Use the feature at your own risk in non-production environments.
         If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 
         Sharing a service instance between spaces, allows apps in different spaces to share databases,
 messaging queues, and many other types of services. For more information,
 see [Sharing Service Instances (Beta)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).<br><br>
-  <a id="credhub"></a>* **(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub**: 
+  <a id="credhub"></a>* **(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub**:
 For on-demand services instances, click **Yes** to secure credentials with CredHub.
-  <p class="note"><strong>Note 1</strong>: For this feature to work you must also enable it in PAS. 
-    For instructions, see <a href="https://docs.pivotal.io/pivotalcf/2-0/opsguide/secure-si-creds.html#pas-config">Step 1: Configure the PAS Tile</a>. 
-    After deploying the tile, notify developers that they must unbind and rebind existing service instances 
+  <p class="note"><strong>Note 1</strong>: For this feature to work you must also enable it in PAS.
+    For instructions, see <a href="https://docs.pivotal.io/pivotalcf/2-0/opsguide/secure-si-creds.html#pas-config">Step 1: Configure the PAS Tile</a>.
+    After deploying the tile, notify developers that they must unbind and rebind existing service instances
     to secure their credentials with CredHub.  <br><br>
-    <strong>Note 2</strong>: This is a beta feature. Use it at your own risk in non-production environments. 
+    <strong>Note 2</strong>: This is a beta feature. Use it at your own risk in non-production environments.
     If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
 1. Click **Save**.
 
 ###<a id="security"></a> Configure Security
 
-RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances. 
+RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances.
 
-To configure the TLS settings, do the following: 
+To configure the TLS settings, do the following:
 
-1. Ensure that you have performed the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) 
+1. Ensure that you have performed the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf)
 before configuring the tile and applying changes.
 
-1. Click the **Security** tab.
+1. Click the **Security for On-Demand Plans** tab.
 
     ![security](images/security.png)
 
@@ -229,12 +229,12 @@ This enables developers to configure their RabbitMQ service instances to use TLS
 
 1. Click **Save**.
 
-1. In the Installation Dashboard, make sure the **Upgrade All Service Instances** 
-errand is set to **On**, and then click **Apply Changes**.  
+1. In the Installation Dashboard, make sure the **Upgrade All Service Instances**
+errand is set to **On**, and then click **Apply Changes**.
 
 1. After deploying the tile, app developers can configure their service instances to use TLS.
-For instructions to developers, see [Configure Transport Layer Security (TLS) for 
-Your Service Instance](use.html#tls). 
+For instructions to developers, see [Configure Transport Layer Security (TLS) for
+Your Service Instance](use.html#tls).
 [//]: # (and [Modifying Apps for TLS](modify-apps-tls.html).)
 
 ### <a id="service-plan"></a> Configure the Service Plan
@@ -400,7 +400,7 @@ For information on all preconfigured settings, see [Things that are Preconfigure
 
 **For Ops Manager v2.1:**
 
-1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs-pcf-staging.cfapps.io/pivotalcf/2-1/opsguide/managing-stemcells.html).    
+1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs-pcf-staging.cfapps.io/pivotalcf/2-1/opsguide/managing-stemcells.html).
 
 
 ### <a id="apply-changes"></a> Apply Changes from Your Configuration
@@ -491,7 +491,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
 
 ### <a id="on_demand_instance_smoke_tests"></a> On-Demand Instance Smoke Tests
 
-Smoke tests only run against Plan 1. 
+Smoke tests only run against Plan 1.
 For more information about the smoke tests process, see [Smoke Tests](./smoke-tests.html).
 
 ## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
