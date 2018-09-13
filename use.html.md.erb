@@ -103,7 +103,7 @@ You can confirm both of these using the cf CLI as follows.
 
 ## <a id='create'></a>Create a Service Instance
 
-Unlike pre-provisioned services, on-demand services are created asynchronously, not immediately. 
+Unlike pre-provisioned services, on-demand services are created asynchronously, not immediately.
 The `watch` command shows you when your service instance is ready to bind and use.
 
 To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-service`:
@@ -139,10 +139,10 @@ To use TLS to secure communication between your apps and RabbitMQ service instan
 
 ### <a id='tls'></a>Configure TLS for Your Service Instance
 
-If you want to secure the communication between your app and a RabbitMQ service instance using TLS, 
-after creating your service instance, you must update it with a valid TLS certificate. 
+If you want to secure the communication between your app and a RabbitMQ service instance using TLS,
+after creating your service instance, you must update it with a valid TLS certificate.
 
-The operator must enable TLS in the **Security** tab before you can use this feature. 
+The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
 For more information, see [Configure Security](./install-config.html#security).
 
 <p class="note"><strong>Note</strong>: If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
@@ -156,12 +156,12 @@ To use TLS for a service instance, follow the steps below.
 
         ```
         cf create-service-key MY-INSTANCE MY-KEY
-        ``` 
+        ```
     Where:<br>
       * `MY-INSTANCE` is the name you chose when you created your service instance.
       * `MY-KEY` is a name you choose for the service key.
 
-  1. Display the service key by running: 
+  1. Display the service key by running:
 
         ```
         cf service-key MY-INSTANCE MY-KEY
@@ -173,22 +173,22 @@ To use TLS for a service instance, follow the steps below.
         ```
         cf delete-service-key MY-INSTANCE MY-KEY
         ```
-1. Update your service instance with a valid TLS certificate by running: 
-  
+1. Update your service instance with a valid TLS certificate by running:
+
     ```
     cf update-service MY-INSTANCE -c '{"tls": [HOSTNAMES]}'
     ```
   Where: <br>
-  * `HOSTNAMES` is a comma-separated list of the IP addresses you found above. 
-  
-    For example: 
+  * `HOSTNAMES` is a comma-separated list of the IP addresses you found above.
+
+    For example:
 
     <pre class="terminal">
     $ cf update-service my-instance -c '{"tls": ["10.1.1.5", "10.1.1.6", "10.1.1.7"]}'
-    </pre> 
+    </pre>
 
     <p class="note"><strong>Note:</strong>
-      After the service instance has been updated to enable TLS, you cannot disable TLS or 
+      After the service instance has been updated to enable TLS, you cannot disable TLS or
       change the listed IP addresses for that service.</p>
 
 1.  Check that the process completed by running:
@@ -202,8 +202,8 @@ To use TLS for a service instance, follow the steps below.
 <p class="note"><strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.</p>
 
 
-For an app to use TLS, you must update it to request encrypted communications when connecting to a RabbitMQ service instance. 
-The procedure for updating your app depends on the app's language and framework. Java and Spring apps automatically detect TLS. 
+For an app to use TLS, you must update it to request encrypted communications when connecting to a RabbitMQ service instance.
+The procedure for updating your app depends on the app's language and framework. Java and Spring apps automatically detect TLS.
 
 To activate TLS for Java and Spring apps, do one of the following:
 
@@ -219,7 +219,7 @@ To activate TLS for Java and Spring apps, do one of the following:
   1. Restage the app. For example:
     <pre class="terminal">$ cf restage my-app</pre>
 
-<p class="note"><strong>Note:</strong> If the operator used a self-signed ceritificate, 
+<p class="note"><strong>Note:</strong> If the operator used a self-signed ceritificate,
 configure your app to use the same CA certificate, and valid certificate and key.</p>
 
 ## <a id="bind"></a>Bind a Service Instance to Your App

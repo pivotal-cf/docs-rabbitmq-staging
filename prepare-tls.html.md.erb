@@ -4,15 +4,15 @@ owner: RabbitMQ
 ---
 
 This topic provides an overview of how to prepare for using Transport Layer Security (TLS) with the RabbitMQ on-demand service to secure
-communication between apps and service instances. 
+communication between apps and service instances.
 The topic also includes the procedure
 for providing an existing CA certificate to BOSH CredHub, or generating a new CA
 certificate with BOSH CredHub.
 
 <p class="note"><strong>Note</strong>: To enable TLS for RabbitMQ for PCF,
-	you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a> 
-    below <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles. 
-    If you have already performed this procedure you do not need to repeat it. 
+	you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a>
+    below <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles.
+    If you have already performed this procedure you do not need to repeat it.
     If you want to change this certificate, see <a href="rotating-ca.html">Rotating CA Certificates</a>.</p>
 
 
@@ -49,7 +49,7 @@ The following workflow is required to enable TLS and to allow developers to use 
     See <a href="install-config.html#security">Configure Security</a>.</li>
 <li>A developer enables TLS for an existing service instance.
     See <a href="use.html#tls">Configure TLS for Your Service Instance</a>.</li>
-<li>A developer modifies their app to communicate securely with the RabbitMQ server. 
+<li>A developer modifies their app to communicate securely with the RabbitMQ server.
     See one of the following links, depending on the type of app:<br><br>
     <ul>
         <li>For Java or Spring apps: <a href="./use.html#tls-java-spring"> Activate TLS for Java and Spring Apps</a></li><br>
@@ -65,8 +65,8 @@ For information on how to rotate your CA certificate, see <a href="rotating-ca.h
 
 To enable and use TLS, you must complete the procedures below before installing and configuring the tile.
 
-<p class="note warning"><strong>WARNING</strong>: This procedure requires restarting 
-all of the VMs in your PCF deployment in order to apply a CA certificate. 
+<p class="note warning"><strong>WARNING</strong>: This procedure requires restarting
+all of the VMs in your PCF deployment in order to apply a CA certificate.
 This operation can take a long time to complete.</p>
 
 
@@ -78,7 +78,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
    in [Gather Credential and IP Address Information](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather).<br><br>
    Both the UAA and CredHub servers are colocated on the BOSH Director VM.
 
-1. SSH into the Ops Manager VM by completing the steps in [SSH into Ops Manager VM](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh). 
+1. SSH into the Ops Manager VM by completing the steps in [SSH into Ops Manager VM](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
 
 1. From the Ops Manager VM, use the UAA Command Line Interface (UAAC) to target the UAA server on the BOSH Director VM.
     In the UAAC command, specify the IP address for the BOSH Director VM and port 8443.
@@ -98,9 +98,9 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
     </pre>
 
 1. In the **Credentials** tab of the Ops Manager Director tile,
-   retrieve the **Uaa Login Client Credentials** and record the `identity` and `password` values. 
+   retrieve the **Uaa Login Client Credentials** and record the `identity` and `password` values.
     <p class="note"><strong>Note</strong>: These are the credentials for the UAA server colocated on the BOSH Director,
-     not the UAA server colocated on Pivotal Application Service.</p> 
+     not the UAA server colocated on Pivotal Application Service.</p>
 
 1. From the Ops Manager VM, use the UAAC to get a token.
     <br><br>
@@ -119,7 +119,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
         login --secret=abcdefghijklm123456789
     </pre>
 
-1. When prompted for a user name and password, enter the values for `identity` and `password` of the 
+1. When prompted for a user name and password, enter the values for `identity` and `password` of the
 **Uaa Admin User Credentials** you retrieved in step 4 above. <br><br>
     For example:
     <pre class="terminal">
@@ -231,18 +231,18 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
 Click **Security**.
 1. Paste the contents of the CA certificate into **Trusted Certificates**, and then click **Save**.
 1. After preparing your environment for TLS, you must enable TLS in the tile configuration,
-   following the appropriate step below. 
-    <p class="note warning"><strong>WARNING</strong>: Restarting all of the VMs in your PCF deployment in order to apply a 
+   following the appropriate step below.
+    <p class="note warning"><strong>WARNING</strong>: Restarting all of the VMs in your PCF deployment in order to apply a
     CA certificate takes a long time to complete.</p>
-    * **For an Existing Installation**: Complete the steps in 
-    [Configure Security](install-config.html#security) to enable TLS in the tile, 
-    and then click **Apply Changes** in the Installation Dashboard. 
+    * **For an Existing Installation**: Complete the steps in
+    [Configure Security](install-config.html#security) to enable TLS in the tile,
+    and then click **Apply Changes** in the Installation Dashboard.
     This restarts all the VMs in your PCF deployment and applies your CA certificate.
     <p class="note"><strong>Note:</strong>
-    Make sure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>. 
+    Make sure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>.
     This errand must be run to ensure all service instances have the needed changes. </p>
-    * **For a New Installation**: Complete the procedures in 
+    * **For a New Installation**: Complete the procedures in
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
-    including enabling TLS in the **Security** tab, and then click **Apply Changes**
-    in the Installation Dashboard. 
+    including enabling TLS in the **Security for On-Demand Plans** tab, and then click **Apply Changes**
+    in the Installation Dashboard.
     This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.

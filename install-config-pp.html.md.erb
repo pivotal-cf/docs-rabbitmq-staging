@@ -61,13 +61,13 @@ Configure the following tabs for the pre-provisioned service:
   </tr>
   <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Assign AZs and Networks</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td><a href="#rabbitmq-cluster">RabbitMQ</a></td>
+  <tr><td>Pre-Provisioned RabbitMQ</td><td><a href="#rabbitmq-cluster">RabbitMQ</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td><a href="#networking">Networking</a></td>
+  <tr><td>Networking</td><td><a href="#networking">Networking</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td><a href="#syslog">Syslog</a></td>
+  <tr><td>Syslog</td><td><a href="#syslog">Syslog</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td><a href="#global-settings">Global Settings</a></td>
+  <tr><td>RabbitMQ</td><td><a href="#global-settings">Global Settings for On-Demand Plans</a></td>
   </tr>
   <tr><td>Dedicated Instance: Single Node Plan</td><td><a href="#singlenode">Dedicated Instance: Single Node Plan</a></td>
   </tr>
@@ -116,7 +116,7 @@ Configure the following tabs for the pre-provisioned service:
 
 ## <a id="rabbitmq-cluster"></a> RabbitMQ
 
-To configure the following sections in the **RabbitMQ** tab, in the [Settings](#tile_configurations) screen, click **RabbitMQ**.
+To configure the following sections in the **Pre-Provisioned RabbitMQ** tab, in the [Settings](#tile_configurations) screen, click **Pre-Provisioned RabbitMQ**.
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
@@ -136,7 +136,7 @@ This grants you full admin access to the RabbitMQ Management UI.
 
 ### <a id='ha-cluster'></a>Plugins
 
-Choose which plugins you want to enable in this section of the **RabbitMQ** tab.
+Choose which plugins you want to enable in this section of the **Pre-Provisioned RabbitMQ** tab.
 
 You must leave the **rabbitmq_management** plugin enabled for this product to work.
 
@@ -146,7 +146,7 @@ For more information about RabbitMQ plugins, see the [RabbitMQ documentation](ht
 
 ### <a id="haproxy"></a>HAProxy Ports
 
-Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **RabbitMQ** tab:
+Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config-haproxy.png") %>
 
@@ -160,7 +160,7 @@ then you must update the list of load-balanced ports.
 
 ### <a id="ssl"></a> SSL
 
-(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **RabbitMQ** tab:
+(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config_ssl.png") %>
 
@@ -180,7 +180,7 @@ For more information about SSL support, see the [RabbitMQ documentation](https:/
 
 ### <a id="erlang"></a>Erlang Cookie
 
-(Optional) Provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
+(Optional) Provide an Erlang cookie to be used by the cluster in this section of the **Pre-Provisioned RabbitMQ** tab.
 This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`,
 or to connect other VMs running Erlang.
 
@@ -211,7 +211,7 @@ size without downtime, follow these steps:
     echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
     ```
 
-1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab.
+1. Paste the value returned from the last command into the Erlang cookie field in the **Pre-Provisioned RabbitMQ** tab.
 This field is shown [above](#erlang).
 
 1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row,
@@ -235,7 +235,7 @@ The deployment might fail after this process. If so, redeploying fixes the issue
 ### <a id="configfile"></a> RabbitMQ Configuration
 
 (Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in
-the **RabbitMQ configuration** field in the **RabbitMQ** tab.
+the **RabbitMQ configuration** field in the **Pre-Provisioned RabbitMQ** tab.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 
 <%= image_tag("images/config_rabbitmq.png") %>
@@ -270,7 +270,7 @@ For more information about the RabbitMQ configuration, see the [RabbitMQ documen
 
 ### <a id="tls"></a>TLS Support
 
-Configure TLS in this section of the **RabbitMQ** tab:
+Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config_tls.png") %>
 
@@ -283,7 +283,7 @@ Configure TLS in this section of the **RabbitMQ** tab:
 
 (Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
 to app developers.
-Enter this in this section of the **RabbitMQ** tab:
+Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config-elb.png") %>
 
@@ -294,7 +294,7 @@ in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count t
 
 ### <a id="polling"></a>Metrics Polling Interval
 
-The metrics polling interval is set in this section of the **RabbitMQ** tab:
+The metrics polling interval is set in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/metrics_polling.png") %>
 
@@ -308,7 +308,7 @@ Changing this setting affects all deployed instances.
 ### Disk Free Alarm Limit <a id="disk_free_alarm_selector"></a>
 
 Choose how much disk space RabbitMQ attempts to keep free at any
-given time in this section of the **RabbitMQ** tab:
+given time in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/disk_alarm_threshold.png") %>
 
