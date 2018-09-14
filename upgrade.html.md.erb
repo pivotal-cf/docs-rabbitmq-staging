@@ -298,6 +298,8 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
     <p class="note warning"><strong>WARNING</strong>: Some RabbitMQ client libraries do not support
     automatic reconnection so you might have to restart some apps.</p>
 
+1. Enable the SCS and RabbitMQ errands which were disabled during the upgrade.
+
 ## <a id="Upgrade-ondemand"></a> Upgrade the RabbitMQ for PCF On-Demand Service
 
 As of v1.13, RabbitMQ for PCF no longer provides on-demand service plans with RabbitMQ v3.6.
