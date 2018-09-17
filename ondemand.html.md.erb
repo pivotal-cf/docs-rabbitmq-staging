@@ -53,16 +53,16 @@ This plan offers:
 
 This plan provides the same benefits as described above, but uses RabbitMQ 3.6 for backwards compatibility.
 
-RabbitMQ 3.6 is reaching end of support. 
-Consider moving to RabbitMQ 3.7 as soon as possible. 
-For more information about support for RabbitMQ 3.6, 
-see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). 
+RabbitMQ 3.6 is reaching end of support.
+Consider moving to RabbitMQ 3.7 as soon as possible.
+For more information about support for RabbitMQ 3.6,
+see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ).
 
-If you are already using RabbitMQ for PCF, you can choose to provide service plans 
+If you are already using RabbitMQ for PCF, you can choose to provide service plans
 with RabbitMQ 3.6 for backwards compatibility.
 However, you should also enable RabbitMQ 3.7 plans to allow developers to migrate to the new version.
 
-For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using 
+For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using
 RabbitMQ 3.7 to avoid the need to upgrade in the near future.
 
 ## <a id="cluster"></a> On-Demand Cluster Plan Using RabbitMQ 3.7
@@ -88,16 +88,16 @@ This plan offers:
 
 This plan provides the same benefits as described above, but uses RabbitMQ 3.6 for backwards compatibility.
 
-RabbitMQ 3.6 is reaching end of support. 
-Consider moving to RabbitMQ 3.7 as soon as possible. 
-For more information about support for RabbitMQ 3.6, 
-see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ). 
+RabbitMQ 3.6 is reaching end of support.
+Consider moving to RabbitMQ 3.7 as soon as possible.
+For more information about support for RabbitMQ 3.6,
+see the [RabbitMQ 3.6.x support time line announcement](https://groups.google.com/forum/#!msg/rabbitmq-users/kXkI-f3pgEw/UFowJIK4BQAJ).
 
-If you are already using RabbitMQ for PCF, you can choose to provide service plans 
+If you are already using RabbitMQ for PCF, you can choose to provide service plans
 with RabbitMQ 3.6 for backwards compatibility.
 However, you should also enable RabbitMQ 3.7 plans to allow developers to migrate to the new version.
 
-For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using 
+For new deployments, Pivotal recommends disabling all RabbitMQ 3.6 plans and using
 RabbitMQ 3.7 to avoid the need to upgrade in the near future.
 
 ### <a id="principles"></a> General Principles of the Cluster Plan
@@ -255,13 +255,13 @@ The following are preconfigured for both the single node and the cluster plans:
     Changing these settings affects all nodes.
 
 * **Persistent Disk Type**---When installing on PCF v2.0 or later,
-    each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space. 
+    each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space.
 
     <br>You can change this setting in the [Service Plan Configuration](./install-config.html#service-plan) page.
         Pivotal recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
-  The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.
+  The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the RabbitMQ for PCF tile.
   Due to the impact of some of the cluster settings detailed below,
   Pivotal strongly recommends that you monitor the exposed metrics
   and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).
