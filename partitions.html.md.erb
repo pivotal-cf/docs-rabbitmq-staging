@@ -19,7 +19,7 @@ Replicating message queues across nodes is an expensive operation and should onl
 
 The RabbitMQ&reg; tile uses the `pause_minority` option for handling cluster partitions by default. This ensures data integrity by pausing the partition of the cluster in the minority, and resumes it with the data from the majority partition. You must maintain more than two nodes. If there is a partition when you only have two nodes, both nodes immediately pause.
 
-You can also choose the `autoheal` option in the **RabbitMQ Policy** tab. In this mode, if a partition occurs, RabbitMQ automatically decides on a winning partition, and restarts all nodes that are not in the winning partition. This option allows you to continue to receive connections to both parts of partitions.
+You can also choose the `autoheal` option in the **Pre-Provisioned RabbitMQ Policy** tab. In this mode, if a partition occurs, RabbitMQ automatically decides on a winning partition, and restarts all nodes that are not in the winning partition. This option allows you to continue to receive connections to both parts of partitions.
 
 ##<a id="detect-partition"></a> Detecting a Network Partition
 

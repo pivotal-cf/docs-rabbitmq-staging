@@ -3,25 +3,25 @@ title: Installing and Configuring the <br>Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, 
+This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install,
 configure, and deploy the RabbitMQ for PCF tile to providea pre-provisioned service.
 
 The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
 see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
 
-<p class="note"><strong>Note</strong>: For instructions about how to install, 
+<p class="note"><strong>Note</strong>: For instructions about how to install,
   configure, and deploy the RabbitMQ for PCF tile
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
-Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which 
-operators can make deployment changes, view credentials, and manage user roles in Ops Manager. 
+Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
+operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see 
+For more information about roles in Ops Manager, see
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
         Understand Roles in Ops Manager</a>.</p>
 
@@ -32,7 +32,7 @@ For more information about roles in Ops Manager, see
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. 
+3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF.
 This adds the tile to your staging area.
 
 4. Click the newly added **RabbitMQ for PCF** tile.
@@ -55,11 +55,9 @@ Configure the following tabs for the pre-provisioned service:
   </tr>
   <tr><td>Assign AZs and Networks</td><td><a href="#azs-networks">Assign AZs and Networks</a></td>
   </tr>
-  <tr><td>RabbitMQ</td><td><a href="#rabbitmq-cluster">RabbitMQ</a></td>
+  <tr><td>Pre-Provisioned RabbitMQ</td><td><a href="#rabbitmq-cluster">RabbitMQ</a></td>
   </tr>
   <tr><td>Syslog</td><td><a href="./#syslog">Syslog</a></td>
-  </tr>
-  <tr><td>Dedicated Instance: Single Node Plan</td><td><a href="#singlenode">Dedicated Instance: Single Node Plan</a></td>
   </tr>
   <tr><td>Errands</td><td><a href="#errands">Errands</a></td>
   </tr>
@@ -72,7 +70,7 @@ Configure the following tabs for the pre-provisioned service:
  Follow the steps below to configure the AZs and networks.
 
  1. In the [Settings](#tile_configurations) screen, click **Assign AZs and Networks**.
-     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after 
+     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after
      you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows.
@@ -106,24 +104,24 @@ Configure the following tabs for the pre-provisioned service:
 
 ## <a id="rabbitmq-cluster"></a> RabbitMQ
 
-To configure the following sections in the **RabbitMQ** tab, in the [Settings](#tile_configurations) screen, click **RabbitMQ**.
+To configure the following sections in the **Pre-Provisioned RabbitMQ** tab, in the [Settings](#tile_configurations) screen, click **Pre-Provisioned RabbitMQ**.
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
 Enter an admin username and password for RabbitMQ.
 This grants you full admin access to the RabbitMQ Management UI.
 
-Enter the desired credentials in this section of the RabbitMQ tab:
+Enter the desired credentials in this section of the Pre-Provisioned RabbitMQ tab:
 
 <%= image_tag("images/config-credentials.png") %>
 
-<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, 
+<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password,
   save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
 
 ### <a id='ha-cluster'></a>Plugins
 
-Choose which plugins you want to enable in this section of the **RabbitMQ** tab.
+Choose which plugins you want to enable in this section of the **Pre-Provisioned RabbitMQ** tab.
 
 You must leave the **rabbitmq_management** plugin enabled for this product to work.
 
@@ -133,7 +131,7 @@ For more information about RabbitMQ plugins, see the [RabbitMQ documentation](ht
 
 ### <a id="haproxy"></a>HAProxy Ports
 
-Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **RabbitMQ** tab:
+Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config-haproxy.png") %>
 
@@ -147,16 +145,16 @@ then you must update the list of load-balanced ports.
 
 ### <a id="ssl"></a> SSL
 
-(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **RabbitMQ** tab:
+(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config_ssl.png") %>
 
 * SSL is simultaneously provided for AMQPS, STOMP and MQTT.
 No other plugins are automatically configured for use with SSL.
 
-* If you provide SSL keys and certificates, non-SSL support is disabled. 
-If you previously deployed this service without SSL support and 
-have apps connected to the service, these apps lose 
+* If you provide SSL keys and certificates, non-SSL support is disabled.
+If you previously deployed this service without SSL support and
+have apps connected to the service, these apps lose
 their connections and must reconnect using SSL.
 
 * SSL settings are applied equally across all VMs in the cluster.
@@ -167,15 +165,15 @@ For more information about SSL support, see the [RabbitMQ documentation](https:/
 
 ### <a id="erlang"></a>Erlang Cookie
 
-(Optional) Provide an Erlang cookie to be used by the cluster in this section of the **RabbitMQ** tab.
-This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`, 
+(Optional) Provide an Erlang cookie to be used by the cluster in this section of the **Pre-Provisioned RabbitMQ** tab.
+This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`,
 or to connect other VMs running Erlang.
 
 <%= image_tag("images/config-erlang.png") %>
 
 #### Known Issues with Erlang Cookie
 
-There are two known issues associated with the Erlang cookie when you do the following: 
+There are two known issues associated with the Erlang cookie when you do the following:
 
 * [Cluster Scaling](#scaling-issue)
 * [Changing the Erlang Cookie Value](#changing-issue)
@@ -198,10 +196,10 @@ size without downtime, follow these steps:
     echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
     ```
 
-1. Paste the value returned from the last command into the Erlang cookie field in the **RabbitMQ** tab. 
+1. Paste the value returned from the last command into the Erlang cookie field in the **Pre-Provisioned RabbitMQ** tab.
 This field is shown [above](#erlang).
 
-1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row, 
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row,
 raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
@@ -209,7 +207,7 @@ raise the value for the number of **Instances** of the **RabbitMQ node**.
 <p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
 default value in the manifest is empty, which results in an auto-generated
 cookie. However, the value of the cookie on the server remains the same, so the known issue
-below does <strong>not</strong> apply.</p> 
+below does <strong>not</strong> apply.</p>
 
 #### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
@@ -221,12 +219,12 @@ The deployment might fail after this process. If so, redeploying fixes the issue
 
 ### <a id="configfile"></a> RabbitMQ Configuration
 
-(Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in 
-the **RabbitMQ configuration** field in the **RabbitMQ** tab.
+(Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in
+the **RabbitMQ configuration** field in the **Pre-Provisioned RabbitMQ** tab.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
-  
+
 <%= image_tag("images/config_rabbitmq.png") %>
-  
+
 
 The input in this field must be Base64 encoded.
 
@@ -241,7 +239,7 @@ For example, suppose you want to configure the
 ].
 ```
 
-1. Encode the file into Base64: 
+1. Encode the file into Base64:
 
     ```
     WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
@@ -257,7 +255,7 @@ For more information about the RabbitMQ configuration, see the [RabbitMQ documen
 
 ### <a id="tls"></a>TLS Support
 
-Configure TLS in this section of the **RabbitMQ** tab: 
+Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config_tls.png") %>
 
@@ -268,25 +266,25 @@ Configure TLS in this section of the **RabbitMQ** tab:
 
 ### External Load Balancer
 
-(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
+(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
 to application developers.
-Enter this in this section of the **RabbitMQ** tab:
+Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/config-elb.png") %>
 
 
-If you configure an external load balancer, to avoid an unnecessary VM deployment, 
+If you configure an external load balancer, to avoid an unnecessary VM deployment,
 in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
 
 
 ### <a id="polling"></a>Metrics Polling Interval
 
-The metrics polling interval is set in this section of the **RabbitMQ** tab:
+The metrics polling interval is set in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 <%= image_tag("images/metrics_polling.png") %>
 
 The default setting is 30 seconds for all deployed components.
-Pivotal recommends that you do not change this interval. 
+Pivotal recommends that you do not change this interval.
   In order to avoid overwhelming components, do not set this below 10 seconds.
 
 Changing this setting affects all deployed instances.
@@ -295,9 +293,9 @@ Changing this setting affects all deployed instances.
 ### Disk Free Alarm Limit <a id="disk_free_alarm_selector"></a>
 
 Choose how much disk space RabbitMQ attempts to keep free at any
-given time in this section of the **RabbitMQ** tab: 
+given time in this section of the **Pre-Provisioned RabbitMQ** tab:
 
-<%= image_tag("images/disk_alarm_threshold.png") %> 
+<%= image_tag("images/disk_alarm_threshold.png") %>
 
 RabbitMQ periodically checks if there is sufficient free space on disk. If there is not,
 RabbitMQ temporarily stops accepting new messages. This gives your apps time
@@ -306,7 +304,7 @@ tile provides four options for this value:
 
 * **50MB** is the minimum value. (Not Recommended)
 
-    Selecting **50MB** is not recommended and can cause data loss. For more information, 
+    Selecting **50MB** is not recommended and can cause data loss. For more information,
     see [Dangers of Setting This Value Too Low](#too-low) and [When to Use the 50MB Value](#50mb) below.
 
 * **100% Memory** ensures that at the time when RabbitMQ checks the available disk,
@@ -317,12 +315,12 @@ tile provides four options for this value:
   - Write persistent messages to disk (using up some disk space).
   - Accept more memory-based messages into various queues.
   - Page all memory-based messages to disk.
-  
+
     In the above situations, RabbitMQ might require more free disk than it has memory.
 * **200% Memory** is a conservative value used when the operator wants higher
   confidence that RabbitMQ never runs out of disk space.
 
-  
+
 
 For more information about disk alarms, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html).
@@ -354,7 +352,7 @@ though this increases the possibility that RabbitMQ crashes and loses data.
 
 ## <a id="syslog"></a>Syslog
 
-To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating 
+To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating
 an external syslog endpoint for RabbitMQ component log messages.
 This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
@@ -401,32 +399,24 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 1. Click **Save**.
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
-## <a id="singlenode"></a> Dedicated Instance: Single Node Plan
 
-This tab only applies to the on-demand service. However, you must complete the fields on 
-this tab even if you are not using the on-demand service. 
-Therefore, if you are not using the on-demand service:
-
-* Select or enter any values in the required fields, select the **Acknowledge** checkbox, and click **Save**.
-
-For information on configuring the on-demand service, see [Installing and Configuring the On-Demand Service](./install-config.html).
 
 ## <a id='errands'></a>Errands
 
-(Optional) In the **Errands** tab, choose the defaults for when errands run. 
+(Optional) In the **Errands** tab, choose the defaults for when errands run.
 
-Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF, 
+Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF,
 Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
 
 
-You can decide whether to run post-deploy errands by toggling them on or off before 
+You can decide whether to run post-deploy errands by toggling them on or off before
 you click **Apply Changes** to update a configuration in the Ops Manager Installation Dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-This is a one-time action before an update. You can change the above defaults in the **Errands** tab, 
+This is a one-time action before an update. You can change the above defaults in the **Errands** tab,
 as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 <p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, all post-deploy errands are on by default.
@@ -449,7 +439,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   <tr>
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster. 
+    publish and subscribe to a RabbitMQ cluster.
     See <a href="#smoke_tests">Pre-Provisioned Instance Smoke Tests</a> below.</td>
   </tr>
   <tr>
@@ -461,7 +451,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   <tr>
     <td><strong>On-Demand Instance Smoke Tests</strong></td>
     <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster. 
+    publish and subscribe to a RabbitMQ cluster.
     See <a href="./install-config.html#on_demand_instance_smoke_tests">On-Demand Instance Smoke Tests</a>.</td>
   </tr>
   <tr>
@@ -481,7 +471,7 @@ For more information about the smoke tests process, see [Smoke Tests](./smoke-te
 
 ### <a id="pre-delete-errands"></a>Pre-Delete Errands
 
-Pre-delete errands run after an operator chooses to delete a product in the Ops Manager Installation Dashboard, 
+Pre-delete errands run after an operator chooses to delete a product in the Ops Manager Installation Dashboard,
 but before Ops Manager finishes deleting the product.
 
 <table class="nice">
@@ -553,7 +543,7 @@ For example, with two HAProxy jobs deployed, the following properties will be pr
 ### <a id='sec-groups'></a>Security Groups
 
 To enable access to the RabbitMQ tile service, you must ensure your security
-group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. 
+group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
 You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
 Ensure the following ports are enabled for those VMs:
 
@@ -599,11 +589,11 @@ Application containers that use instances of the RabbitMQ service require the fo
 
 Create an ASG named `rabbitmq-app-containers` with the above configuration and bind it to either:
 
-* The appropriate space 
+* The appropriate space
 * The `default-running` ASG set if you want to provide access to all started apps.
-  Then restart your apps. 
+  Then restart your apps.
 
-  If you are using an external 
+  If you are using an external
   load balancer, or have more than one IP address for HAProxy, you must also create egress rules for these.
   For example:
 
@@ -627,7 +617,7 @@ For more information, see [Changing Network or IP Addresses Results in a Failed 
 ### <a id="switching"></a>Preserving Dynamically Assigned IPs
 
 You cannot switch from dynamically assigned IP addresses to a different set of static IP addresses.
-However, you can configure Ops Manager so the 
+However, you can configure Ops Manager so the
 current set of dynamically assigned IP addresses always continue to be used.
 This might be useful when upgrading.
 
