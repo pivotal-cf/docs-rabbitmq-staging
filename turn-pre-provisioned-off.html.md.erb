@@ -1,20 +1,47 @@
 ---
 breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
-title: Turning Pre-Provisioned off
+title: Turning Pre-Provisioned Off
 owner: London Services
 ---
+
+This topic provides instructions on how to turn off the pre-provisioned service. 
 
 <p class="note warning"><strong>WARNING:</strong> The pre-provisioned service
 will be deprecated in a future release. Pivotal recommends using the on-demand
 service for new deployments. For instructions, see <a href="./install-config.html">
-Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.  </p>
+Installing and Configuring the On-Demand Service</a>.</p>
 
-It is now possible to turn the Pre-Provisioned Service off if you are only planning to use the On-Demand Service.
+If you are not planning to use the pre-provisioned service, disable it.
 
-In order to turn Pre-Provisioned off follow the steps below:
+To turn off the pre-provisioned service, do the following:
 
-1. De-register the Pre-Provisioned service broker which will remove the `p-rabbitmq` service offering from the marketplace: `bosh -d p-rabbitmq-GUID run-errand broker-deregistrar`
-1. Go to the RabbitMQ tile in OpsManager, in the Settings tab, select the Pre-Provisioned RabbitMQ in the side bar and turn the Pre-Provisioned service offering off.
-1. Go back to the Installation Dashboard and apply changes.
+1. De-register the pre-provisioned service broker by running the following command:
+
+    ```
+    bosh -d p-rabbitmq-GUID run-errand broker-deregistrar
+    ```
+
+    Where is `GUID` is the is the RabbitMQ for PCF deployment GUID.
+
+    For example:
+
+    <pre class="terminal">$ bosh -d p-rabbitmq-aeaea3ac-aba5-a6a4-afa7-aba8a0a7a0a9 run-errand broker-deregistrar</pre> 
+
+    The broker-deregistrar  errand removes the `p-rabbitmq` service offering from the Marketplace. 
+
+2. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
+
+3. In the RabbitMQ tile, click the **Settings** tab. 
+
+4. Click **Pre-Provisioned RabbitMQ** and turn the Pre-Provisioned service offering off.
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+   For more information about this Ops Manager page,
+   see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+
+1. Click **Apply Changes** to redeploy and disable the pre-provisioned service.
+
 
 
