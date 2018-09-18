@@ -1,0 +1,20 @@
+---
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
+title: Turning Pre-Provisioned off
+owner: London Services
+---
+
+<p class="note warning"><strong>WARNING:</strong> The pre-provisioned service
+will be deprecated in a future release. Pivotal recommends using the on-demand
+service for new deployments. For instructions, see <a href="./install-config.html">
+Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.  </p>
+
+It is now possible to turn the Pre-Provisioned Service off if you are only planning to use the On-Demand Service.
+
+In order to turn Pre-Provisioned off follow the steps below:
+
+1. De-register the Pre-Provisioned service broker which will remove the `p-rabbitmq` service offering from the marketplace: `bosh -d p-rabbitmq-GUID run-errand broker-deregistrar`
+1. Go to the RabbitMQ tile in OpsManager, in the Settings tab, select the Pre-Provisioned RabbitMQ in the side bar and turn the Pre-Provisioned service offering off.
+1. Go back to the Installation Dashboard and apply changes.
+
+
