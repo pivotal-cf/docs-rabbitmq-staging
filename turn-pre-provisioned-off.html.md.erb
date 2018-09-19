@@ -12,6 +12,8 @@ service for new deployments. For instructions, see <a href="./install-config.htm
 Installing and Configuring the On-Demand Service</a>.</p>
 
 If you are not planning to use the pre-provisioned service, disable it.
+Disabling the pre-provisioned service broker means that no instances for the
+pre-provisioned service will be deployed.  This, in turn, saves money. 
 
 To turn off the pre-provisioned service, do the following:
 
@@ -21,7 +23,7 @@ To turn off the pre-provisioned service, do the following:
     bosh -d p-rabbitmq-GUID run-errand broker-deregistrar
     ```
 
-    Where is `GUID` is the is the RabbitMQ for PCF deployment GUID.
+    Where is `GUID` is the RabbitMQ for PCF deployment GUID.
 
     For example:
 
@@ -31,9 +33,11 @@ To turn off the pre-provisioned service, do the following:
 
 2. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
 
-3. In the RabbitMQ tile, click the **Settings** tab. 
+3. In the RabbitMQ tile, click **Settings**. 
 
-4. Click **Pre-Provisioned RabbitMQ** and turn the Pre-Provisioned service offering off.
+4. Click **Pre-Provisioned RabbitMQ**, and click **No** under the **Deploy Pre-Provisioned service offering**.
+
+    ![pre-provisioned rabbitmq pane shows deploy pre-provisioned service yes no radio button](pre-provision-turn-off-service.png)
 
 1. Return to the Ops Manager Installation Dashboard.
 
