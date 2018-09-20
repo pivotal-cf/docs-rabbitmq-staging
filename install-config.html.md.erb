@@ -221,7 +221,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 2. Configure the fields as follows:
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
-    <tr><td><strong>Enable this plan</strong></strong></td>
+    <tr><td><strong>Enable This Plan</strong></strong></td>
         <td>(Plans 2 - 5 only) To enable, select **Plan Enable**.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
     <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
@@ -237,27 +237,27 @@ To enable the on-demand service, you must configure at least one on-demand plan.
         <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can change the access settings later using the cf CLI. For instructions, see [Controlling Access to Service Plans by Org](./control-access.html).
         </li>
       </ul></td></tr>
-    <tr><td><strong>Plan name</strong></td>
+    <tr><td><strong>Plan Name</strong></td>
         <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
-    <tr><td><strong>Plan description</strong></td>
+    <tr><td><strong>Plan Description</strong></td>
         <td>Accept the default or enter a description.  This description appears in CF marketplace.</td></tr>
-    <tr><td><strong>Plan features</strong></td>
+    <tr><td><strong>Plan Features</strong></td>
         <td>Accept the default or enter a description.  This description appears in Apps Manager.</td></tr>
-    <tr><td><strong>Service instance quota</strong></td>
+    <tr><td><strong>Service Instance Quota</strong></td>
         <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td></tr>
-    <tr><td><strong>Number of nodes</strong></strong></td>
+    <tr><td><strong>Number of Nodes</strong></strong></td>
         <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
             Previously deployed service instances are **not** updated.</td></tr>
-    <tr><td><strong>Network partition behaviour</strong></strong></td>
+    <tr><td><strong>Network Partition Behaviour</strong></strong></td>
         <td>Select <code>pause_minority</code> or <code>autoheal</code>. Pivotal recommends using pause minority.
             For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type. The plan creates a service instance of this size. For more information, see <a href="#resources">Understanding RabbitMQ VM Types and Persistent Disk Size</a> below. </td></tr>
-    <tr><td><strong>Persistent disk type</strong></td>
+    <tr><td><strong>Persistent Disk Type</strong></td>
     <td>This is where RabbitMQ pages messages to disk.
     Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
     For more information, see <a href="#resources">Understanding RabbitMQ VM Types and Persistent Disk Size</a> below.</td></tr>
-    <tr><td><strong>AZ placement</strong></td>
+    <tr><td><strong>AZ Placement</strong></td>
     <td>This field is available after you complete the [Assign AZs and Networks](#azs-networks) page.
         <ul><li>For a single-node plan, select one or more AZs.</li>
           <li>For a plan containing multiple nodes, select only one AZ.
