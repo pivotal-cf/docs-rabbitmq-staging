@@ -217,7 +217,13 @@ This field is shown [above](#erlang).
 1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row,
 raise the value for the number of **Instances** of the **RabbitMQ node**.
 
-1. Return to the Ops Manager Installation Dashboard, and click **Apply Changes**.
+1. Return to the Ops Manager Installation Dashboard.
+
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+For more information about this Ops Manager page, 
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+
+1. Click **Apply Changes**.
 
 <p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
 default value in the manifest is empty, which results in an auto-generated
@@ -439,7 +445,14 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 </table>
 
 1. Click **Save**.
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to redeploy with the changes.
+
+1. Return to the Ops Manager Installation Dashboard.
+
+2. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+For more information about this Ops Manager page, 
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html). 
+
+1. Click **Apply Changes** to redeploy with the changes.
 
 
 ## <a id="global-settings"></a>Global Settings
@@ -480,12 +493,14 @@ Errands can be thought of as tasks. For example, when deploying or updating Rabb
 Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
-
-
 You can decide whether to run post-deploy errands by toggling them on or off before
 you click **Apply Changes** to update a configuration in the Ops Manager Installation Dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
+
+If you are using Ops Manager v2.3 or later, you can toggle errands on and off on the **Review Pending Changes** page. 
+
+![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
 This is a one-time action before an update. You can change the above defaults in the **Errands** tab,
 as well as the defaults for [pre-delete](#pre-delete-errands) errands.
