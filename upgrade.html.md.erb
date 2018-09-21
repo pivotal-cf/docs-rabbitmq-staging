@@ -165,6 +165,9 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
 
         1. Click the **Resource Config** tab.<br><br>
         1. For the **RabbitMQ node**, select an appropriate **VM Type** and click **Save**.<br><br>
+        1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+        For more information about this Ops Manager page, 
+        see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).<br><br>
         1. Click **Apply Changes** in the Ops Manager Dashboard.
 
 
@@ -246,7 +249,11 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
     <p class="note"><strong>Note</strong>: The errands fail if you leave them on
        because the RabbitMQ HAProxy was stopped.</p>
 
-1. In the Ops Manager Dashboard, click **Apply Changes**.
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+For more information about this Ops Manager page, 
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html). 
+
+1. Click **Apply Changes**.
 
     <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
 

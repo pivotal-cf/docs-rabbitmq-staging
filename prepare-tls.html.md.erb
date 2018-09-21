@@ -236,13 +236,14 @@ Click **Security**.
     CA certificate takes a long time to complete.</p>
     * **For an Existing Installation**: Complete the steps in
     [Configure Security](install-config.html#security) to enable TLS in the tile,
-    and then click **Apply Changes** in the Installation Dashboard.
+    click **Review Pending Changes**, and then click **Apply Changes** in the Installation Dashboard.
     This restarts all the VMs in your PCF deployment and applies your CA certificate.
     <p class="note"><strong>Note:</strong>
     Make sure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>.
     This errand must be run to ensure all service instances have the needed changes. </p>
     * **For a New Installation**: Complete the procedures in
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
-    including enabling TLS in the **Security for On-Demand Plans** tab, and then click **Apply Changes**
+    including enabling TLS in the **Security for On-Demand Plans** tab, 
+    click **Review Pending Changes**, and then click **Apply Changes**
     in the Installation Dashboard.
     This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.

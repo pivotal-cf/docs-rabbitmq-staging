@@ -1,6 +1,6 @@
 ---
 breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
-title: Configuring RabbitMQ in an IPsec environment
+title: Configuring RabbitMQ in an IPsec Environment
 owner: London Services
 ---
 
@@ -14,17 +14,21 @@ RabbitMQ for PCF to use TLS](install-config-pp.html#ssl).
 appropriate number of IP addresses available.
 * You cannot assign static IPs to nodes which have already been deployed using dynamic IPs.
 
-# Installing the tile
+# Installing the Tile
 
 1. Import and configure the RabbitMQ tile as usual, ensuring that you select only a single AZ.
 1. On the Networking page enter the correct number of static IPs required for the number of HAProxy
 and RabbitMQ Server nodes you have configured on the resources page. These must be in a subnet on
 the AZ that you've configured the product to use.
-1. Do not click Apply Changes until completing the following step.
+1. Do not click **Apply Changes** until completing the following step.
 1. Following the [IPsec Add-On documentation](https://docs.pivotal.io/addon-ipsec/installing.html#create-mfest)
 add the static IPs you have configured to the `no_ipsec_subnets` list and update your runtime-config as the
 guide recommends.
-1. Go back to the Installation Dashboard and click Apply Changes to deploy the changes. This will cause an update
+1. Go back to the Ops Manager Installation Dashboard.
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+For more information about this Ops Manager page, 
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Click **Apply Changes** to deploy the changes. This will cause an update
 of all products, as the runtime-config has to be applied to all products.
 1. Optionally, you can verify that traffic to the RabbitMQ Server and HAProxy nodes is unencrypted:
 	1. SSH into a node which should not be encrypted

@@ -201,7 +201,7 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
         Sharing a service instance between spaces, allows apps in different spaces to share databases,
 messaging queues, and many other types of services. For more information,
 see [Sharing Service Instances (Beta)](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).<br><br>
-  <a id="credhub"></a>* **(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub**:
+  * <a id="credhub"></a>**(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub**:
 For on-demand services instances, click **Yes** to secure credentials with CredHub.
   <p class="note"><strong>Note 1</strong>: For this feature to work you must also enable it in PAS.
     For instructions, see <a href="https://docs.pivotal.io/pivotalcf/2-0/opsguide/secure-si-creds.html#pas-config">Step 1: Configure the PAS Tile</a>.
@@ -228,6 +228,10 @@ before configuring the tile and applying changes.
 This enables developers to configure their RabbitMQ service instances to use TLS.
 
 1. Click **Save**.
+
+2. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+For more information about this Ops Manager page, 
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. In the Installation Dashboard, make sure the **Upgrade All Service Instances**
 errand is set to **On**, and then click **Apply Changes**.
@@ -409,9 +413,11 @@ Your installation is not complete until you apply your configuration changes. Fo
 
 1. Return to the Ops Manager Installation Dashboard.
 
-2. Click **Apply Changes**.
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
+For more information about this Ops Manager page, 
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
-
+1. Click **Apply Changes**.
 
 ## <a id='errands'></a>Errands
 
@@ -420,6 +426,10 @@ When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a se
 You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
+
+If you are using Ops Manager v2.3 or later, you can toggle errands on and off on the **Review Pending Changes** page. 
+
+![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
 <p class='note warning'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
