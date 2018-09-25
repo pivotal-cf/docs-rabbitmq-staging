@@ -1,5 +1,5 @@
 ---
-title: Troubleshooting On-Demand RabbitMQ for PCF
+title: Troubleshooting and FAQs for <br>On-Demand RabbitMQ for PCF
 owner: London Services Enablement
 ---
 
@@ -38,13 +38,13 @@ In this topic:
     * [What happens when I run bosh stop rabbitmq-server?](#boshstop)
     * [What happens when bosh stop rabbitmq-server fails?](#serverfailprocess)
     * [What do I do when bosh stop rabbitmq-server fails?](#serverfailactions)
-    * [How can I manually back up the state of the RabbitMQ cluster?](#backup)  
+    * [How can I manually back up the state of the RabbitMQ cluster?](#backup)
     * [What pre-upgrade checks should I do?](#preupgrade)
 * [Knowledge Base (Community)](#kb)
 * [File a Support Ticket](#support)
 <br>
 
-This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for Pivotal Cloud Foundry (PCF).
+This topic provides operators with basic troubleshooting techniques and FAQs for on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 <a id="about-cli"></a><h2>About the BOSH CLI</h2>
 The BOSH CLI is available in two major versions, v1 and v2. Pivotal recommends that you use the BOSH CLI v2 when possible.
@@ -90,7 +90,7 @@ Start here if you're responding to a specific error or error messages.
 
 <a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
 
-<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4> 
+<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-instance-not-exist' %>
 
@@ -114,8 +114,8 @@ Start here if you're responding to a specific error or error messages.
 
 If the deployment fails after editing the <strong>Assign AZs and Networks</strong> pane of the RabbitMQ for PCF tile,
 it might be due to a change to the IP addresses assigned to the <code>RabbitMQ Server</code> job.
-RabbitMQ for PCF requires that these IP addresses do not change once assigned. 
-If you change them, the deployment fails. 
+RabbitMQ for PCF requires that these IP addresses do not change once assigned.
+If you change them, the deployment fails.
 This includes changes made to your current installation or during an upgrade.
 
 To diagnose and solve this issue, see <a href='changing-ips.html'>Changing Network or IP Addresses Results in a Failed Deployment</a>.
@@ -244,7 +244,7 @@ This section contains instructions on interacting with the on-demand service bro
 
 <a id="check-deploy"></a><h3>What should I check before deploying a new version of the tile?</h3>
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.
 You cannot rely solely
 on the BOSH `instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
 the RabbitMQ application.
@@ -306,18 +306,18 @@ failing.
 
 <a id="backup"></a><h3>How can I manually back up the state of the RabbitMQ cluster?</h3>
 
-It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the 
-RabbitMQ Management API. Backups include vhosts, exchanges, queues and users. 
+It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the
+RabbitMQ Management API. Backups include vhosts, exchanges, queues and users.
 
 <h4>Back up Manually</h4>
 
-1. Log in to the RabbitMQ Management UI as the admin user you created.  
+1. Log in to the RabbitMQ Management UI as the admin user you created.
 
-1. Select **export definitions** from the main page.  
+1. Select **export definitions** from the main page.
 
 <h4>Back up and Restore with a Script</h4>
 
-Use the API to run scripts with code similar to the following:  
+Use the API to run scripts with code similar to the following:
 
 1. For the backup:
 
@@ -339,9 +339,9 @@ Use the API to run scripts with code similar to the following:
 Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 
 1. In Operations Manager check that the status of all of the instances is healthy.
-2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy, that is, 
+2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy, that is,
 they should display as green.
-3. Check that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been 
+3. Check that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been
 consumed by each node in the RabbitMQ Managment UI.
 
 <a id="kb"></a><h2>Knowledge Base (Community)</h2>
