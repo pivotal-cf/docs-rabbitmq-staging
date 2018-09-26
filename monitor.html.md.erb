@@ -49,10 +49,6 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
         <td>Transport protocol of the syslog server. One of `udp`, `tcp`, `relp`.</td>
     </tr>
     <tr>
-        <td>Format for logs</td>
-        <td>Format for logs. Pivotal recommends `RFC 5424`, but `Legacy Format` can be used for compatibility reasons.</td>
-    </tr>
-    <tr>
         <td>Enable TLS</td>
         <td>Enable TLS to the syslog server.</td>
     </tr>
@@ -71,7 +67,7 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 1. Click **Save**.
 1. Return to the Ops Manager Installation Dashboard.
 1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-For more information about this Ops Manager page, 
+For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 1. Click **Apply Changes** to redeploy with the changes.
 
@@ -252,9 +248,9 @@ The following KPIs from the RabbitMQ server component:
 
 <%= partial '../../rabbitmq-cf/odb/bosh_health_metrics_pcf2' %>
 
-All BOSH-deployed components generate the system health metrics below. 
-These component metrics are from RabbitMQ for PCF components, and serve as KPIs for 
-the RabbitMQ for PCF service. 
+All BOSH-deployed components generate the system health metrics below.
+These component metrics are from RabbitMQ for PCF components, and serve as KPIs for
+the RabbitMQ for PCF service.
 
 #### <a id="ram"></a> RAM
 
