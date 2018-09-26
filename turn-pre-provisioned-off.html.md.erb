@@ -4,7 +4,7 @@ title: Turning Pre-Provisioned Off
 owner: London Services
 ---
 
-This topic provides instructions on how to turn off the pre-provisioned service. 
+This topic provides instructions on how to turn off the pre-provisioned service.
 
 <p class="note warning"><strong>WARNING:</strong> The pre-provisioned service
 will be deprecated in a future release. Pivotal recommends using the on-demand
@@ -13,11 +13,12 @@ Installing and Configuring the On-Demand Service</a>.</p>
 
 If you are not planning to use the pre-provisioned service, disable it.
 Disabling the pre-provisioned service broker means that no instances for the
-pre-provisioned service will be deployed.  This, in turn, saves money. 
+pre-provisioned service will be deployed.  This, in turn, saves money.
 
 To turn off the pre-provisioned service, do the following:
 
-1. De-register the pre-provisioned service broker by running the following command:
+1. If you are upgrading to RabbitMQ for PCF v1.14, or have previously configured the pre-provisioned service,
+de-register the pre-provisioned service broker by running the following command:
 
     ```
     bosh -d p-rabbitmq-GUID run-errand broker-deregistrar
@@ -27,13 +28,13 @@ To turn off the pre-provisioned service, do the following:
 
     For example:
 
-    <pre class="terminal">$ bosh -d p-rabbitmq-aeaea3ac-aba5-a6a4-afa7-aba8a0a7a0a9 run-errand broker-deregistrar</pre> 
+    <pre class="terminal">$ bosh -d p-rabbitmq-aeaea3ac-aba5-a6a4-afa7-aba8a0a7a0a9 run-errand broker-deregistrar</pre>
 
-    The broker-deregistrar  errand removes the `p-rabbitmq` service offering from the Marketplace. 
+    The broker-deregistrar  errand removes the `p-rabbitmq` service offering from the Marketplace.
 
 2. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
 
-3. In the RabbitMQ tile, click **Settings**. 
+3. In the RabbitMQ tile, click **Settings**.
 
 4. Click **Pre-Provisioned RabbitMQ**, and click **No** under the **Deploy Pre-Provisioned service offering**.
 
