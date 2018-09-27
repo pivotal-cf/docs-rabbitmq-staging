@@ -9,7 +9,7 @@ owner: London Services
 * You can only deploy RabbitMQ to a single AZ.
 * You can only update the IP addresses of the HAProxy nodes, not the RabbitMQ Server nodes.
 * All communication will *not* be encrypted by IPsec. As a result, we recommend you [configure
-RabbitMQ for PCF to use TLS](install-config-pp.html#ssl).
+RabbitMQ for PCF to use TLS](install-config-pp.html#tls).
 * Each node with a static IP will now require 2 IP addresses, you should ensure you have the
 appropriate number of IP addresses available.
 * You cannot assign static IPs to nodes which have already been deployed using dynamic IPs.
@@ -17,16 +17,16 @@ appropriate number of IP addresses available.
 # Installing the Tile
 
 1. Import and configure the RabbitMQ tile as usual, ensuring that you select only a single AZ.
-1. On the Networking page enter the correct number of static IPs required for the number of HAProxy
+1. On the **Pre-Provisioned RabbitMQ** tab, enter the correct number of static IPs required for the number of HAProxy
 and RabbitMQ Server nodes you have configured on the resources page. These must be in a subnet on
-the AZ that you've configured the product to use.
+the AZ that you have configured the product to use. <br><br>For more information, see [Specify Static IP Addresses](install-config-pp.html#networking).
 1. Do not click **Apply Changes** until completing the following step.
 1. Following the [IPsec Add-On documentation](https://docs.pivotal.io/addon-ipsec/installing.html#create-mfest)
 add the static IPs you have configured to the `no_ipsec_subnets` list and update your runtime-config as the
 guide recommends.
 1. Go back to the Ops Manager Installation Dashboard.
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
-For more information about this Ops Manager page, 
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 1. Click **Apply Changes** to deploy the changes. This will cause an update
 of all products, as the runtime-config has to be applied to all products.

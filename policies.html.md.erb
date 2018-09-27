@@ -70,7 +70,7 @@ follower is created.
 
 To set the RabbitMQ policy, do the following:
 
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ for PCF tile and then click the **Pre-Provisioned RabbitMQ Policy** tab.
+1. From the Ops Manager Installation Dashboard, click the RabbitMQ for PCF tile and then click the **Pre-Provisioned RabbitMQ** tab.
 
 	<%= image_tag("images/policy_opsman.png") %>
 
@@ -78,15 +78,6 @@ To set the RabbitMQ policy, do the following:
 1. In the **Policy for new instances** field, paste the policy.
 
 	The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
-
-1. In the **Select the network partition behavior of the RabbitMQ cluster**,
-   choose the desired behavior: **pause_minority** or **autoheal**.
-
-	<br>For more information about these options and on RabbitMQ clusters and network partitions,
-            see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
-
-	<br>For production purposes, Pivotal recommends that customers have at least three RabbitMQ server nodes
-            and two HAProxies spread across low latency availability zones.
 
 
 <p class="note"><strong>Note</strong>: No policy validation occurs during the deployment,

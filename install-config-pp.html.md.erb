@@ -13,7 +13,8 @@ see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitm
 <p class="note warning"><strong>WARNING:</strong> The pre-provisioned service
 will be deprecated in a future release. Pivotal recommends using the on-demand
 service for new deployments. For instructions, see <a href="./install-config.html">
-Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.  </p>
+Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>. For instructions on how to turn off the pre-provisioned service,
+    see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>. </p>
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
@@ -90,9 +91,10 @@ An orange circle indicates that you are required to configure fields on the tab 
  3. Click **Save**.
 
 
-## <a id="rabbitmq-cluster"></a> RabbitMQ
+## <a id="rabbitmq-cluster"></a> Pre-Provisioned RabbitMQ
 
-To configure the following sections in the **Pre-Provisioned RabbitMQ** tab, in the [Settings](#tile_configurations) screen, click **Pre-Provisioned RabbitMQ**.
+To configure the following sections in the **Pre-Provisioned RabbitMQ** tab, in the [Settings](#tile_configurations) screen,
+click **Pre-Provisioned RabbitMQ**.
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
@@ -119,40 +121,6 @@ You must leave the **rabbitmq_management** plugin enabled for this product to wo
 <%= image_tag("images/config-plugins.png") %>
 
 For more information about RabbitMQ plugins, see the [RabbitMQ documentation](https://www.rabbitmq.com/plugins.html).
-
-### <a id="haproxy"></a>HAProxy Ports
-
-Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config-haproxy.png") %>
-
-* All the default ports of all the available plugins are load-balanced by default.
-However, if you install extra protocol plugins, or provide a custom configuration that changes the ports RabbitMQ listens on,
-then you must update the list of load-balanced ports.
-
-* You must leave the management plugin listening on port `15672` and load balance that port.
-
-* If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
-
-### <a id="ssl"></a> SSL
-
-(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config_ssl.png") %>
-
-* SSL is simultaneously provided for AMQPS, STOMP and MQTT.
-No other plugins are automatically configured for use with SSL.
-
-* If you provide SSL keys and certificates, non-SSL support is disabled.
-If you previously deployed this service without SSL support and
-have apps connected to the service, these apps lose
-their connections and must reconnect using SSL.
-
-* SSL settings are applied equally across all VMs in the cluster.
-
-* You can provide more then one CA certificate.
-
-For more information about SSL support, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
 
 ### <a id="erlang"></a>Erlang Cookie
 
@@ -214,6 +182,69 @@ possible for the configuration to be inconsistently applied during this process.
 
 The deployment might fail after this process. If so, redeploying fixes the issue.
 
+### <a id="custom-policy"></a> Enable Custom Policy on New Instances
+
+You can specify a custom RabbitMQ policy in this part of the **Pre-Provisioned RabbitMQ** tab. For information and instructions, see
+[Setting Default Policies for the RabbitMQ Service](./policies.html).
+
+### <a id="load-balance"></a> External Load Balancer
+
+(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
+to app developers.
+Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
+
+<%= image_tag("images/config-elb.png") %>
+
+
+If you configure an external load balancer, to avoid an unnecessary VM deployment,
+in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
+
+### <a id="haproxy"></a>HAProxy Ports
+
+Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **Pre-Provisioned RabbitMQ** tab:
+
+<%= image_tag("images/config-haproxy.png") %>
+
+* All the default ports of all the available plugins are load-balanced by default.
+However, if you install extra protocol plugins, or provide a custom configuration that changes the ports RabbitMQ listens on,
+then you must update the list of load-balanced ports.
+
+* You must leave the management plugin listening on port `15672` and load balance that port.
+
+* If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
+
+### <a id="ssl"></a> SSL
+
+(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
+
+<%= image_tag("images/config_ssl.png") %>
+
+* SSL is simultaneously provided for AMQPS, STOMP and MQTT.
+No other plugins are automatically configured for use with SSL.
+
+* If you provide SSL keys and certificates, non-SSL support is disabled.
+If you previously deployed this service without SSL support and
+have apps connected to the service, these apps lose
+their connections and must reconnect using SSL.
+
+* SSL settings are applied equally across all VMs in the cluster.
+
+* You can provide more then one CA certificate.
+
+For more information about SSL support, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
+
+
+### <a id="tls"></a>TLS Support
+
+Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
+
+<%= image_tag("images/config_tls.png") %>
+
+* TLS v1.0 is disabled by default, due to security issues.
+
+* TLS v1.1 and v1.2 are enabled by default and can be turned on and off.
+
+
 ### <a id="configfile"></a> RabbitMQ Configuration
 
 (Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in
@@ -250,41 +281,20 @@ For example, suppose you want to configure the
 You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
 For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
 
-### <a id="tls"></a>TLS Support
 
-Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
+### <a id="partition"></a> Select the Network Partition Behavior of the RabbitMQ Cluster
 
-<%= image_tag("images/config_tls.png") %>
+In this part of the **Pre-Provisioned RabbitMQ** tab, you can select one of two behaviors to occur in the
+event of a network partition.
 
-* TLS v1.0 is disabled by default, due to security issues.
+1. In the **Select the network partition behavior of the RabbitMQ cluster** field,
+   choose the desired behavior: **pause_minority** or **autoheal**.
 
-* TLS v1.1 and v1.2 are enabled by default and can be turned on and off.
+  <br>For more information about these options and on RabbitMQ clusters and network partitions,
+            see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
 
-
-### External Load Balancer
-
-(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
-to app developers.
-Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config-elb.png") %>
-
-
-If you configure an external load balancer, to avoid an unnecessary VM deployment,
-in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
-
-
-### <a id="polling"></a>Metrics Polling Interval
-
-The metrics polling interval is set in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/metrics_polling.png") %>
-
-The default setting is 30 seconds for all deployed components.
-Pivotal recommends that you do not change this interval.
-  In order to avoid overwhelming components, do not set this below 10 seconds.
-
-Changing this setting affects all deployed instances.
+  <br>For production purposes, Pivotal recommends that customers have at least three RabbitMQ server nodes
+            and two HAProxies spread across low latency availability zones.
 
 
 ### Disk Free Alarm Limit <a id="disk_free_alarm_selector"></a>
@@ -347,13 +357,11 @@ Pivotal does not recommend using this value in production. However, if you are e
 development environment you might want to use a small disk to keep down costs,
 though this increases the possibility that RabbitMQ crashes and loses data.
 
-## <a id="networking"></a>Networking
+### <a id="networking"></a>Specify Static IP Addresses
 
 To specify static IP addresses, do the following:
 
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
-1. In the **Settings** tab, select **Networking**.
-1. Configure the fields as follows:<br><br>
+1. In the **Pre-Provisioned RabbitMQ** tab, configure the following fields:<br>
   * **Pre-Provisioned HAProxy Static IPs**:
     Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
     These IP addresses are assigned to your Pre-Provisioned HAproxy nodes.<br><br>
@@ -373,11 +381,13 @@ To specify static IP addresses, do the following:
 
 1. Click **Save**.
 
-## <a id="syslog"></a>Syslog
+## <a id="syslog"></a>Configure Syslog Forwarding and Metrics Polling Interval
 
 To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating
 an external syslog endpoint for RabbitMQ component log messages.
 This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
+
+The metrics polling interval determines how often metrics are collected.
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
 
@@ -543,7 +553,9 @@ but before Ops Manager finishes deleting the product.
   <th>Description</th>
   <tr>
     <td><strong>Broker Deregistrar</strong></td>
-    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings</td>
+    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings.
+    For more information,
+    see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</td>
   </tr>
   <tr>
     <td><strong>Delete All Service Instances</strong></td>
@@ -687,7 +699,7 @@ To do this, follow these steps:
 
 1. Go to the **Status** page in the RabbitMQ tile.
 2. Take note of the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
-3. Go to the **Settings** page, and click **Networking**.
+3. Go to the **Settings** page, and click the **Pre-Provisioned RabbitMQ** tab.
 4. Enter the IP addresses you got from the **Status** page as a comma-separated list.
 
     <br><%= image_tag("images/config_static_ip.png") %>
