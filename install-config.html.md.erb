@@ -10,9 +10,12 @@ The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
 see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
-as a pre-provisioned service, see
-<a href="./install-config-pp.html">Installing and Configuring the Pre-Provisioned Service</a>.</p>
+<div class="note"><strong>Notes:</strong> <br><br><ul><li>For instructions on how to install and
+  configure the RabbitMQ for PCF pre-provisioned service,
+  see <a href="./install-config-pp.html">Installing and Configuring the Pre-Provisioned Service.</a></li>
+  <li>For instructions on how to turn off the pre-provisioned service,
+    see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</li></ul>
+  </div>
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
@@ -95,61 +98,12 @@ An orange circle indicates that you are required to configure fields on the tab 
 
  3. Click **Save**.
 
-### <a id="polling"></a> Configure Admin Credentials and Metrics Polling Interval
 
-On the **Pre-Provisioned RabbitMQ** tab, you must configure two items only for the on demand service:
-<ul>
-  <li> Specify admin credentials for using the RabbitMQ Management Dashboard.</li>
-  <li>Enter a metrics polling interval.</li>
-</ul>
+### <a id='logging'></a>Configure Logging and Monitoring
 
-#### <a id='dash'></a>Specify Admin User Credentials
+Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF.
+Follow the instructions in [Set Up Syslog Forwarding and Metrics Polling Interval](./monitor.html#config).
 
-In the **RabbitMQ admin user credentials** field of the Pre-Provisioned RabbitMQ tab, enter an admin username and password:
-
-<%= image_tag("images/config-credentials.png") %>
-
-You can use a combination of upper or lowercase alphanumerics and supported special characters: `[]^_!"#$%&()*+,-./\:;<=>?`.
-
-<p class="note"><strong>Note</strong>: You cannot use back quote <code>`</code> or single quote <code>'</code>.</p>
-
-This grants you full admin access to the RabbitMQ Management UI.
-
-<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password,
-  save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
-
-
-#### Enter a Metrics Polling Interval
-
-In the **Metrics polling interval field**, set a metrics polling interval:
-
-<%= image_tag("images/metrics_polling.png") %>
-
-The default setting is 30 seconds for all deployed components.
-Pivotal recommends that you do not change this interval.
-  In order to avoid overwhelming components, do not set this below 10 seconds.
-
-Changing this setting affects all deployed instances.
-
-For more information, see [What are Metrics](./monitor.html#metrics).
-
-### <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
-
-Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [Set Up Syslog Forwarding](./monitor.html#config) to configure logging.
-
-### <a id="networking"></a> Networking
-
-To specify a static IP address for the On Demand Service Broker, do the following:
-
-1. Select **Networking**.
-
-1. Enter an IP address in the **On Demand Service Broker Static IP** field.
-This IP address is assigned to your On Demand Service Broker node.
-BOSH allocates an IP address if the field is left blank.
-
-    ![Networking](images/config-networking.png)
-
-1. Click **Save**.
 
 ### <a id="global"></a>Configure Global Settings
 
@@ -180,6 +134,8 @@ For on-demand services instances, click **Yes** to secure credentials with CredH
     to secure their credentials with CredHub.  <br><br>
     <strong>Note 2</strong>: This is a beta feature. Use it at your own risk in non-production environments.
     If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+  * **On Demand Service Broker Static IP**: Enter an IP address to assign to your on-demand service broker node.
+  BOSH allocates an IP address if the field is left blank.
 1. Click **Save**.
 
 ###<a id="security"></a> Configure Security
@@ -444,7 +400,9 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   <th>Description</th>
   <tr>
     <td><strong>Broker Deregistrar</strong></td>
-    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings</td>
+    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings.
+      For more information,
+    see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</td>
   </tr>
   <tr>
     <td><strong>Delete All Service Instances</strong></td>

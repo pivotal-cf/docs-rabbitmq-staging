@@ -18,7 +18,7 @@ see [Monitoring and KPIs for Pre‑Provisioned RabbitMQ for PCF](./monitor-pp.ht
 
 See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.html) for general information about logging and metrics in PCF.
 
-## <a id="config"></a>Set up Syslog Forwarding
+## <a id="config"></a>Set up Syslog Forwarding and Metrics Polling Interval
 
 As of RabbitMQ for PCF v1.9.0, syslog forwarding is preconfigured and set to on by default.
 Pivotal recommends that you keep the default setting because it is good operational practice.
@@ -31,34 +31,40 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
 1. In the RabbitMQ tile, click the **Settings** tab. ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
-1. Click **Syslog**.
+1. Click **Syslog and Metrics**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
-    <th>Option</th>
+    <th>Field</th>
     <th>Description</th>
     <tr>
-        <td>Syslog address</td>
+        <td><strong>Metrics polling interval</strong></td>
+        <td>The default setting is 30 seconds for all deployed components. Pivotal recommends that you do not change this interval.
+        In order to avoid overwhelming components, do not set this below 10 seconds.
+        Changing this setting affects all deployed instances.</td>
+    </tr>
+    <tr>
+        <td><strong>Syslog address</strong></td>
         <td>IP or DNS address of the syslog server</td>
     </tr>
     <tr>
-        <td>Syslog port</td>
+        <td><strong>Syslog port</strong></td>
         <td>Port of the syslog server</td>
     </tr>
     <tr>
-        <td>Transport protocol</td>
+        <td><strong>Transport protocol</strong></td>
         <td>Transport protocol of the syslog server. One of `udp`, `tcp`, `relp`.</td>
     </tr>
     <tr>
-        <td>Enable TLS</td>
+        <td><strong>Enable TLS</strong></td>
         <td>Enable TLS to the syslog server.</td>
     </tr>
     <tr>
-        <td>Permitted Peer</td>
+        <td><strong>Permitted Peer</strong></td>
         <td>If there are several peer servers that can respond to remote syslog connections,
             then you may provide a wildcard in the domain, such as `*.example.com`.</td>
     </tr>
     <tr>
-        <td>Custom CA Certificate</td>
+        <td><strong>Custom CA Certificate</strong></td>
         <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
             provide the CA certificate of the log management service endpoint.</td>
     </tr>
