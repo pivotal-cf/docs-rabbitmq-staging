@@ -33,7 +33,7 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 ## <a id="1140"></a> v1.14.0
 
-**Release Date**: MMM XX, 2018
+**Release Date**: September 28, 2018
 
 <p class="note breaking"><strong>Breaking Change:</strong>
   RabbitMQ for PCF v1.14 and later requires a Xenial stemcell.
@@ -50,6 +50,11 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 New features and changes in this release:
 
+* The Pre-Provisioned RabbitMQ cluster is now optional.  It will be enabled by default for users who are upgrading from previous versions.
+  It is disabled by default for users who are not upgrading from previous versions, but can be enabled in the configuration.
+
+* The configuration panels have been simplified to make it clearer which properties relate to Pre-Provisioned, and which relate to On-Demand.
+
 * On-Demand instances with TLS enabled use HTTPS instead of HTTP inside the PCF network.
 
 * RabbitMQ for PCF uses compiled BOSH releases, resulting in improved deployment times.
@@ -57,6 +62,9 @@ New features and changes in this release:
 * RabbitMQ for PCF now uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-2/customizing/understanding-stemcells.html).
   That means that RabbitMQ instances will be recreated based on the new stemcell whenever a newer patch release of the stemcell becomes available.
   You can opt out of using a given stemcell version for any specific tile/deployment using OpsManager [Stemcell Library](https://docs.pivotal.io/pivotalcf/2-2/opsguide/managing-stemcells.html)
+
+* Syslog forwarding uses RFC5424 format, and the Legacy Format is no longer available.
+  Users who are upgrading and have Legacy Format selected will be automatically reconfigured to the RFC5424 format.
 
 ### Known Issues
 
