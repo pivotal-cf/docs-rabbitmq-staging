@@ -54,7 +54,7 @@ New features and changes in this release:
   disabled by default for all other users, but can be enabled in the configuration.
   For more information, see [Turning Off the Pre-Provisioned Service](./turn-pre-provisioned-off.html).
 
-* The configuration tabs have been simplified to make it clearer which properties relate to the pre-provisioned service,
+* The configuration tabs have been simplified to make it clearer which properties relate to the pre-provisioned service
   and which relate to the on-demand service.
 
 * On-Demand instances with TLS enabled use HTTPS instead of HTTP inside the PCF network.
@@ -63,10 +63,12 @@ New features and changes in this release:
 
 * RabbitMQ for PCF now uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-2/customizing/understanding-stemcells.html).
   That means that RabbitMQ instances are recreated based on the new stemcell whenever a newer patch release of the stemcell becomes available.
-  You can opt out of using a given stemcell version for any specific tile or deployment using OpsManager [Stemcell Library](https://docs.pivotal.io/pivotalcf/2-2/opsguide/managing-stemcells.html)
+  You can opt out of using a given stemcell version for any specific tile or 
+  deployment using OpsManager [Stemcell Library](https://docs.pivotal.io/pivotalcf/2-2/opsguide/managing-stemcells.html).
 
 * Syslog forwarding uses RFC5424 format, and the Legacy Format is no longer available.
-  If you are upgrading and have Legacy Format selected in your existing syslog configuration, that setting is automatically reconfigured to use the RFC5424 format.
+  If you are upgrading and have Legacy Format selected in your existing syslog configuration,
+  that setting is automatically reconfigured to use the RFC5424 format.
 
 ### Known Issues
 
