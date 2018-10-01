@@ -14,7 +14,7 @@ For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
 <p class="note warning"><strong>WARNING</strong>:
-  It is only possible to upgrade from RabbitMQ for PCF v1.12.7+ to v1.13.x on PCF v2.2.6 or later.
+  Pivotal recommends upgrading from RabbitMQ for PCF v1.12.x to v1.13.x only on PCF v2.1, or on PCF v2.2.6 or later.
 </p>
 
 ## <a id="use-new-plans"></a> Use RabbitMQ v3.7 On-Demand Plans
@@ -39,10 +39,8 @@ For more information, see the following:
 
 ### Known Issues
 
-<%= partial 'do-not-upgrade' %>
-
-* You cannot upgrade from RabbitMQ for PCF v.12 to RabbitMQ for PCF v1.13 on PCF v2.2.0-2.2.5.
-  You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
+* There is an issue with upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2.5 and earlier. 
+  Pivotal recommends upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.1, or on PCF v2.2.6 or later.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
