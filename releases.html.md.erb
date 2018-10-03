@@ -64,7 +64,9 @@ New features and changes in this release:
 
 * On-Demand instances with TLS enabled use HTTPS instead of HTTP inside the PCF network.
 
-* RabbitMQ for PCF uses compiled BOSH releases, resulting in improved deployment times.
+* RabbitMQ for PCF uses compiled BOSH releases, resulting in improved deployment times. However, you may still see some compilation when upgrading to 1.14.
+  This is because if both a compiled and source versions of the same BOSH release are available, and stemcell version used for deployment doesn't
+  match the stemcell used for compilation exactly, BOSH will prefer to compile the source releases rather than using the compiled release.
 
 * RabbitMQ for PCF now uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-2/customizing/understanding-stemcells.html).
   That means that RabbitMQ instances are recreated based on the new stemcell whenever a newer patch release of the stemcell becomes available.
