@@ -2,7 +2,7 @@
 
 ## Branches in this Content Repo
 
-**MASTER** branch - Use for the next unreleased version: **1.15** 
+**MASTER** branch - Use for the next unreleased version: **1.15**, staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html
 
 The master branch is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
 
