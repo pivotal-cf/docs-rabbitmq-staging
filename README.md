@@ -1,18 +1,16 @@
 # RabbitMQ for Pivotal CF docs
 
-### Branch Management
+## Branches in this Content Repo
 
-**MASTER** - Use for the **1.15** release. 
+**MASTER** branch - Use for the next unreleased version: **1.15** 
 
-All documentation for the next unreleased version of **RabbitMQ** is in master. This is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
+The master branch is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
 
 * Unreleased features
 * Doc bug fixes
 * Doc reorganization or enhancement
 
-Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate "-live" branch below.
-
-Any changes on the master branch will not be displayed publicly until a **-live** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
+Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate "-live" branch below:
 
 **1.14-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-14](http://docs.pivotal.io/rabbitmq-cf/1-14/).
 
@@ -35,6 +33,17 @@ Any changes on the master branch will not be displayed publicly until a **-live*
 **1.5-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
 [docs-book-rabbitmq]: https://github.com/pivotal-cf/docs-book-rabbitmq/blob/master/config.yml
+
+
+## Book Repo
+
+**docs-book-rabbitmq** is the book repo:
+
+* **Edge** branch is for the next unreleased version, available on staging at this link:<br>
+http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html
+
+* **Master** branch is for the published/live releases listed above.
+
 
 ### Staging Environment
 
