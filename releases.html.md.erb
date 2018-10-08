@@ -13,7 +13,7 @@ upgrade to the latest v1.13.x version before upgrading to the latest v1.14.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-<p class="note"><strong>Note:</strong> Spring Cloud Services (SCS) will soon be dropping the dependency on RabbitMQ. Pivotal recommends that SCS users do not upgrade to RabbitMQ for PCF v1.13+.</p>
+<p class="note"><strong>Note:</strong> Spring Cloud Services (SCS) currently depends on pre-provisioned RabbitMQ for PCF, but will soon be dropping this dependency. Users who use RabbitMQ for PCF solely for SCS may wish to wait for SCS to drop the RabbitMQ dependency, rather than upgrade to RabbitMQ for PCF v1.13+.</p>
 
 ## <a id="deprecation"></a> Pre-Provisioned Service to be Deprecated
 
@@ -72,7 +72,7 @@ New features and changes in this release:
 
 * RabbitMQ for PCF now uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-2/customizing/understanding-stemcells.html).
   That means that RabbitMQ instances are recreated based on the new stemcell whenever a newer patch release of the stemcell becomes available.
-  You can opt out of using a given stemcell version for any specific tile or 
+  You can opt out of using a given stemcell version for any specific tile or
   deployment using OpsManager [Stemcell Library](https://docs.pivotal.io/pivotalcf/2-2/opsguide/managing-stemcells.html).
 
 ### Known Issues
