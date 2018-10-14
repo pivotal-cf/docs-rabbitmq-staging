@@ -102,6 +102,11 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
     <p class="note"><strong>Note</strong>: These are the credentials for the UAA server colocated on the BOSH Director,
      not the UAA server colocated on Pivotal Application Service.</p>
 
+1. In the **Credentials** tab of the Ops Manager Director tile,
+   retrieve the **Uaa Admin User Credentials** and record the `identity` and `password` values.
+    <p class="note"><strong>Note</strong>: These are the credentials for the UAA server colocated on the BOSH Director,
+     not the UAA server colocated on Pivotal Application Service.</p>
+
 1. From the Ops Manager VM, use the UAAC to get a token.
     <br><br>
     Run the following command:
@@ -120,7 +125,7 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
     </pre>
 
 1. When prompted for a user name and password, enter the values for `identity` and `password` of the
-**Uaa Admin User Credentials** you retrieved in step 4 above. <br><br>
+**Uaa Admin User Credentials** you retrieved in step 5 above. <br><br>
     For example:
     <pre class="terminal">
     User name:  admin
