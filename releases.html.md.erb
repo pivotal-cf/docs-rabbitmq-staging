@@ -13,9 +13,6 @@ upgrade to the latest v1.13.x version before upgrading to the latest v1.14.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-<p class="note"><strong>Note:</strong> Spring Cloud Services (SCS) will soon be dropping the dependency on RabbitMQ.
-Pivotal recommends that SCS users do not upgrade to RabbitMQ for PCF v1.13+.</p>
-
 ## <a id="deprecation"></a> Pre-Provisioned Service to be Deprecated
 
 The pre-provisioned service will be deprecated in a future release. The details
@@ -25,8 +22,7 @@ on-demand service for new deployments.
 Teams who currently use procedures in [Isolating Clusters with the RabbitMQ for PCF Replicator](./replicator.html) will be affected
 by the deprecation of the pre-preprovisioned service and should start planning for this now.
 
-For instructions on how to install,
-  configure, and deploy RabbitMQ for PCF
+For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
@@ -35,68 +31,27 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 **Release Date**: Month XX, 2018
 
-<p class="note breaking"><strong>Breaking Change:</strong>
-  RabbitMQ for PCF v1.14 and later requires a Xenial stemcell.
-  You must manually download and import a new stemcell into the Ops Manager Stemcell
-  Library before deploying RabbitMQ for PCF v1.14.
-  This might break automation you have set up to update RabbitMQ for PCF deployments
-  that used Trusty stemcells.
-  To download the Xenial stemcell from Pivotal Network, go to
-  <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial">Stemcells for PCF (Ubuntu Xenial)</a>.
-  For instructions on importing the stemcell, see
-  <a href="https://docs-pcf-staging.cfapps.io/pivotalcf/opsguide/managing-stemcells.html">Importing and Managing Stemcells</a>.</p>
-
-<p class="note breaking"><strong>Breaking Change:</strong>
-  Syslog forwarding uses RFC5424 format, and the Legacy Format is no longer available.
-  If you are upgrading and have Legacy Format selected in your existing syslog configuration,
-  that setting is automatically reconfigured to use the RFC5424 format.
-</p>
-
 ### Features
 
 New features and changes in this release:
 
-* The Pre-Provisioned RabbitMQ service is now optional.  It is enabled by default for users who are upgrading from previous versions. It is
-  disabled by default for all other users, but can be enabled in the configuration.
-  For more information, see [Turning Off the Pre-Provisioned Service](./turn-pre-provisioned-off.html).
+* 
 
-* The configuration tabs have been simplified to make it clearer which properties relate to the pre-provisioned service
-  and which relate to the on-demand service.
-
-* On-Demand instances with TLS enabled use HTTPS instead of HTTP inside the PCF network.
-
-* RabbitMQ for PCF uses compiled BOSH releases, resulting in improved deployment times.
-
-* RabbitMQ for PCF now uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-2/customizing/understanding-stemcells.html).
-  That means that RabbitMQ instances are recreated based on the new stemcell whenever a newer patch release of the stemcell becomes available.
-  You can opt out of using a given stemcell version for any specific tile or 
-  deployment using OpsManager [Stemcell Library](https://docs.pivotal.io/pivotalcf/2-2/opsguide/managing-stemcells.html).
+* 
 
 ### Known Issues
 
 This release has the following known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
-  and might result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
-[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+* 
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
-  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
-
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
-
-* When on-demand service instances are enabled for TLS, the `port` property in
-  `VCAP_SERVICES` for `amqp+ssl` incorrectly reports that the port is `5672`.
-  The actual port used for `amqp+ssl` is `5671`.
+* 
 
 ### Packages
 
-* OSS RabbitMQ v3.7.7
-* Erlang v20.3.8.1
-* HAProxy v1.6.13
+* OSS RabbitMQ v3.7.7?
+* Erlang v20.3.8.1?
+* HAProxy v1.6.13?
 
 ## <a id="view"></a> View Release Notes for Another Version
 
