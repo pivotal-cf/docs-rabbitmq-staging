@@ -18,7 +18,7 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 **1.12-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-12](http://docs.pivotal.io/rabbitmq-cf/1-12/).
 
-**1.11-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-11](http://docs.pivotal.io/rabbitmq-cf/1-11/).
+**1.11-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.11.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.11.pdf).
 
 **1.10-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.10.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.10.pdf).
 
