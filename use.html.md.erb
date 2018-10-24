@@ -313,10 +313,15 @@ In order to [share service instances](https://docs.cloudfoundry.org/devguide/ser
 
 The following plugins are enabled explicitly in an On-Demand RabbitMQ for PCF instance:
 
-* [rabbitmq_management](https://www.rabbitmq.com/management.html)
-* [rabbitmq_federation](#federation)
-* [rabbitmq_shovel](#shovel)
-* [rabbitmq_sharding](https://github.com/rabbitmq/rabbitmq-sharding)
+* `rabbitmq_management`---For more information see
+[Management Plugin](https://www.rabbitmq.com/management.html) in the RabbitMQ documentation.
+
+* `rabbitmq_federation`---For more information, see [Federate Exchanges and Queues](#federation) below.
+
+* `rabbitmq_shovel`---For more information, see [Shovel Exchanges and Queues](#shovel) below.
+
+* `rabbitmq_sharding`---For more information, see the
+[rabbitmq sharding](https://github.com/rabbitmq/rabbitmq-sharding) GitHub repository.
 
 The list of enabled plugins is not configurable.
 
