@@ -309,6 +309,17 @@ Both operators and app developers can use this procedure. For instructions, see 
 ## <a id="share-instances"></a> Sharing Service Instances
 In order to [share service instances](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) the feature-flag `service_instance_sharing` must be enabled by your Operator. You can then follow the [documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) to share your service instances across Cloud Foundry Organizations and Spaces.
 
+## <a id="plugins"></a> RabbitMQ Plugins
+
+The following plugins are enabled explicitly in an On-Demand RabbitMQ for PCF instance:
+
+* [rabbitmq_management](https://www.rabbitmq.com/management.html)
+* [rabbitmq_federation](#federation)
+* [rabbitmq_shovel](#shovel)
+* [rabbitmq_sharding](https://github.com/rabbitmq/rabbitmq-sharding)
+
+The list of enabled plugins is not configurable.
+
 ## <a id="federation"></a> Federate Exchanges and Queues
 
 You can federate exchanges and queues in RabbitMQ for PCF, as you would in any RabbitMQ deployment.
