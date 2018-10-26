@@ -134,11 +134,21 @@ For on-demand services instances, click **Yes** to secure credentials with CredH
     to secure their credentials with CredHub.  <br><br>
     <strong>Note 2</strong>: This is a beta feature. Use it at your own risk in non-production environments.
     If you try this feature, please send your comments and feedback to <a href="mailto:pivotal-cf-feedback@pivotal.io">PCF Feedback List</a>.</p>
+
   * **On Demand Service Broker Static IP**: Enter an IP address to assign to your on-demand service broker node.
   BOSH allocates an IP address if the field is left blank.
+
+  * **Number of upgrade canary instances**: Sets the number of canary instances to upgrade first in the
+  Upgrade All Service Instances errand. If all canary instances successfully upgrade, the remaining instances are upgraded.
+
+  * **Maximum number of instances upgraded in parallel**: Sets the limit for the number of upgrades
+  occurring concurrently in the Upgrade All Service Instances errand. The number of simultaneous upgrades is limited by
+  the number of available BOSH workers. See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
+  in the Cloud Foundry BOSH documentation. Set the value to lower than this limit to avoid over-saturating BOSH.
+
 1. Click **Save**.
 
-###<a id="security"></a> Configure Security
+### <a id="security"></a> Configure Security
 
 RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances.
 
