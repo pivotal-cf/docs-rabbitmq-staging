@@ -13,7 +13,11 @@ upgrade to the latest v1.12.x version before upgrading to the latest v1.13.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
-<p class="note"><strong>Note:</strong> Pivotal no longer recommends waiting for SCS 3.0 (when the dependency on pre-provisioned RabbitMQ for PCF will be removed) before doing this upgrade due to the risk of going out of support on your RabbitMQ for PCF tile and your PCF Foundation. </p>
+<p class="note"><strong>Note:</strong> Pivotal no longer recommends waiting for
+  Spring Cloud Services (SCS) v3.0, where the dependency on pre-provisioned RabbitMQ
+  for PCF will be removed, before upgrading from RabbitMQ for PCF v1.12 to v1.13.
+  This is due to the risk of going out of support on your RabbitMQ for PCF tile
+  and your PCF Foundation. </p>
 
 <p class="note warning"><strong>WARNING</strong>:
   It is only possible to upgrade from RabbitMQ for PCF v1.12.7+ to v1.13.x on PCF v2.2.6 or later.
@@ -174,18 +178,18 @@ This release has the following known issues:
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
 
 * If you are upgrading RabbitMQ for PCF v1.12 to v1.13 and you use Spring Cloud Services,
-  you must disable all errands in the Spring Cloud Services tile during the upgrade to ensure that the upgrade succeeds. 
+  you must disable all errands in the Spring Cloud Services tile during the upgrade to ensure that the upgrade succeeds.
 
-* Cluster scaling or changing the Erlang cookie value require cluster downtime 
+* Cluster scaling or changing the Erlang cookie value require cluster downtime
   and might result in failed deployments. For more information, see [Erlang Cookie](./install-config-pp.html#erlang), [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue), and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes. 
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
-  
+
 
 ### Packages
 
