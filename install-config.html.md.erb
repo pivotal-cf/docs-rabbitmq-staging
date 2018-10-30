@@ -111,33 +111,40 @@ Follow the steps below to configure global settings.
 
 1. Click the **Global Settings for On-Demand Plans** tab.
   ![Global Settings Tab](images/global-settings.png)
-1. Configure the following:<br><br>
+1. Configure the following:
+<br><br>
   * **Service instance quota**  min: 0, max: 200  set the total number of on-demand service instances which can be deployed.
-For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).<br><br>
-  * **VM options**:<br><br>
+For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
+<br><br>
+  * **VM options**:
+  <br><br>
        **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
          <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
   * **Shareable Instances**: Click **Yes** to enable the feature for sharing instances.<br>
   Sharing a service instance between spaces, allows apps in different spaces to share databases,
   messaging queues, and many other types of services. For more information,
-  see [Sharing Service Instances](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).<br><br>
+  see [Sharing Service Instances](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).
+  <br><br>
   * <a id="credhub"></a>**On Demand - Secure Service Instance Credentials with Runtime CredHub**:
   For on-demand services instances, click **Yes** to secure credentials with CredHub.
   <p class="note"><strong>Note</strong>: For this feature to work you must also enable it in PAS.
     For instructions, see <a href="https://docs.pivotal.io/pivotalcf/2-0/opsguide/secure-si-creds.html#pas-config">Step 1: Configure the PAS Tile</a>.
     After deploying the tile, notify developers that they must unbind and rebind existing service instances
-    to secure their credentials with CredHub.  <br><br>
-
+    to secure their credentials with CredHub.
+  <br><br>
   * **On Demand Service Broker Static IP**: Enter an IP address to assign to your on-demand service broker node.
   BOSH allocates an IP address if the field is left blank.
-
-  * **Number of upgrade canary instances**: Sets the number of canary instances to upgrade first in the
-  Upgrade All Service Instances errand. If all canary instances successfully upgrade, the remaining instances are upgraded.
-
-  * **Maximum number of instances upgraded in parallel**: Sets the limit for the number of upgrades
-  occurring concurrently in the Upgrade All Service Instances errand. The number of simultaneous upgrades is limited by
-  the number of available BOSH workers. See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
-  in the Cloud Foundry BOSH documentation. Set the value to lower than this limit to avoid over-saturating BOSH.
+  <br><br>
+  * **Number of upgrade canary instances**: Sets the number of canary instances
+  to upgrade first in the "upgrade all service instances" errand.
+  If all canary instances successfully upgrade, the remaining instances are upgraded.
+  <br><br>
+  * **Maximum number of instances upgraded in parallel**: Sets the limit for the
+  number of upgrades that occur simultaneously in the "upgrade all service instances" errand.
+  The number of simultaneous upgrades is limited by the number of available BOSH workers.
+  See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
+  in the Cloud Foundry BOSH documentation.
+  Set the value lower than this limit to avoid over-saturating BOSH.
 
 1. Click **Save**.
 
