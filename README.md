@@ -64,6 +64,12 @@ If there's some documentation to add for an unreleased patch version of RabbitMQ
 
 If the documentation is meant to be target several released versions, then you'll need to create a Pull Request for each individual minor version.
 
+### Partials
+
+Cross-product partials for **RabbitMQ for Pivotal CF ** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-services-partials) repo to allow for versioning.
+
+Previously, these partials were sourced from the v018.x branch of the On Demand Service Broker SDK and did not support versions.
+
 ### Releasing a New Minor Version
 
 Since **master** is the latest and greatest documentation, the process would be to cut a **x.x-live** branch for the version that **master** was targeting during that time. A corresponding section in **config.yml** in the [docs-book-pcfservices][docs-book-pcfservices] repository would also need to be made.
