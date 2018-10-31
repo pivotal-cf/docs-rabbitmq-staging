@@ -135,11 +135,11 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   * **On Demand Service Broker Static IP**: Enter an IP address to assign to your on-demand service broker node.
   BOSH allocates an IP address if the field is left blank.
   <br><br>
-  * **Number of upgrade canary instances**: Sets the number of canary instances
+  * **Number of upgrade canary instances**: Set the number of canary instances
   to upgrade first in the "upgrade all service instances" errand.
   If all canary instances successfully upgrade, the remaining instances are upgraded.
   <br><br>
-  * **Maximum number of instances upgraded in parallel**: Sets the limit for the
+  * **Maximum number of instances upgraded in parallel**: Set the limit for the
   number of upgrades that occur simultaneously in the "upgrade all service instances" errand.
   The number of simultaneous upgrades is limited by the number of available BOSH workers.
   See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
