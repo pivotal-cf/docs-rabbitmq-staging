@@ -10,7 +10,7 @@ for providing an existing CA certificate to BOSH CredHub, or generating a new CA
 certificate with BOSH CredHub.
 
 <p class="note"><strong>Note</strong>: To enable TLS for RabbitMQ for PCF,
-	you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a>
+    you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a>
     below <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles.
     If you have already performed this procedure you do not need to repeat it.
     If you want to change this certificate, see <a href="rotating-ca.html">Rotating CA Certificates</a>.</p>
@@ -136,8 +136,8 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
 
     <pre class="terminal">
     $ uaac client add \
-    	--authorized_grant_types client_credentials \
-    	--authorities credhub.read,credhub.write
+        --authorized_grant_types client_credentials \
+        --authorities credhub.read,credhub.write
     </pre>
 
 1. When prompted for Client ID, enter `credhub`.
@@ -192,16 +192,15 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
     For example:
     <pre class="terminal">
     $ credhub login \
-    	--client-name=credhub \
-    	--client-secret=abcdefghijklm123456789
+        --client-name=credhub \
+        --client-secret=abcdefghijklm123456789
     </pre>
 1. Use the CredHub CLI to check whether a services CA certificate already is present.
-    <br><br>
-	* Enter the following command:
-  	<pre class="terminal">
-  	$ credhub get \
-  		  --name="/services/tls_ca"
-  	</pre>
+    * Enter the following command:
+      <pre class="terminal">
+      $ credhub get \
+                --name="/services/tls_ca"
+      </pre>
   * If you already have a certificate at the `services/tls_ca` path, skip to step 5.
 
 1. Use the CredHub CLI to generate a CA certificate or provide an existing one.
