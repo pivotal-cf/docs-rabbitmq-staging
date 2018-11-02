@@ -13,6 +13,12 @@ upgrade to the latest v1.11.x version before upgrading to the latest v1.12.x ver
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
+<p class="note"><strong>Note:</strong> Pivotal no longer recommends waiting for
+  Spring Cloud Services (SCS) v3.0, where the dependency on pre-provisioned RabbitMQ
+  for PCF will be removed, before upgrading from RabbitMQ for PCF v1.12 to v1.13.
+  This is due to the risk of going out of support on your RabbitMQ for PCF tile,
+  Pivotal Application Service (PAS), and other components. </p>
+
 <p class="note warning"><strong>WARNING</strong>:
   Pivotal recommends upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.1 or on PCF v2.2.6 or later.
 </p>
@@ -73,7 +79,7 @@ For more information, see the following:
 
 ### Known Issues
 
-* There is an issue with upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2.5 and earlier. 
+* There is an issue with upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2.5 and earlier.
   Pivotal recommends upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.1, or on PCF v2.2.6 or later.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
@@ -106,7 +112,7 @@ For more information, see the following:
 
 ### Known Issues
 
-* There is an issue with upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2.5 and earlier. 
+* There is an issue with upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2.5 and earlier.
   Pivotal recommends upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.1, or on PCF v2.2.6 or later.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
@@ -242,7 +248,7 @@ New features and changes in this release:
 
 - Requires stemcell [3468.46](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3468.46).
 - cf-cli golang version reduced to v1.9.5 from v1.10 because of an issue parsing x509 certificates.
-For more information, see the Golang issue 
+For more information, see the Golang issue
 [crypto/x509: CANotAuthorizedForExtKeyUsage is premature](https://github.com/golang/go/issues/24590).
 
 ### Fixed Issues
@@ -284,7 +290,7 @@ New features and changes in this release:
 - Requires stemcell [3468.42](https://github.com/cloudfoundry/bosh-linux-stemcell-builder/releases/tag/stable-3468.42).
 - Timestamps added to log entries that did not have them.
 - Golang version reduced to v1.9.5 from v1.10 because of an issue parsing x509 certificates.
-For more information, see the Golang issue 
+For more information, see the Golang issue
 [crypto/x509: CANotAuthorizedForExtKeyUsage is premature](https://github.com/golang/go/issues/24590).
 
 ### Known Issues
