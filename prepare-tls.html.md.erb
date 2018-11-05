@@ -197,12 +197,13 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
     </pre>
 1. Use the CredHub CLI to check whether a services CA certificate already is present.
     <br><br>
-	* Enter the following command:
-  	<pre class="terminal">
-  	$ credhub get \
-  		  --name="/services/tls_ca"
-  	</pre>
-  * If you already have a certificate at the `services/tls_ca` path, skip to step 5.
+    Enter the following command:
+
+    ```
+    credhub get --name="/services/tls_ca"
+    ```
+    <br>
+    If you already have a certificate at the `services/tls_ca` path, skip step 4.
 
 1. Use the CredHub CLI to generate a CA certificate or provide an existing one.
     <p class="note"><strong>Note</strong>: Your PCF deployment may have multiple CA certificates.
@@ -255,7 +256,7 @@ Click **Security**.
     This errand must be run to ensure all service instances have the needed changes. </p>
     * **For a New Installation**: Complete the procedures in
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
-    including enabling TLS in the **Security for On-Demand Plans** tab, 
+    including enabling TLS in the **Security for On-Demand Plans** tab,
     click **Review Pending Changes**, and then click **Apply Changes**
     in the Installation Dashboard.
     This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
