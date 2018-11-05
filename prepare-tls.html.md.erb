@@ -235,8 +235,9 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
         </pre>
 
 1. Use the BOSH CLI v2 to extract the `certificate` portion from the CA certificate and print it.
-    Run the following command:
     <br><br>
+    Run the following command:
+
     ```
     bosh int <(credhub get \
       --name=/services/tls_ca) \
