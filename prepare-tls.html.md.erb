@@ -132,16 +132,17 @@ Follow these steps to create a UAA client for CredHub on your UAA server:
 
 1. Add a UAA client for CredHub with the correct grants.
     <br><br>
-    Enter the following command:
+    Run the following command:
 
-    <pre class="terminal">
-    $ uaac client add \
-    	--authorized_grant_types client_credentials \
-    	--authorities credhub.read,credhub.write
-    </pre>
+    ```
+    uaac client add \
+      --authorized_grant_types client_credentials \
+      --authorities credhub.read,credhub.write
+    ```
 
 1. When prompted for Client ID, enter `credhub`.
    When prompted for `New client secret`, enter a secure password of your choice.
+    <br><br>
     For example:
     <pre class="terminal">
     Client ID:  credhub
@@ -198,7 +199,7 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
 
 1. Use the CredHub CLI to check whether a services CA certificate already is present.
     <br><br>
-    Enter the following command:
+    Run the following command:
 
     ```
     credhub get --name="/services/tls_ca"
@@ -210,18 +211,21 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
     <p class="note"><strong>Note</strong>: Your PCF deployment may have multiple CA certificates.
        Pivotal recommends a dedicated CA certificate for services.</p>
 	* If you do not have a CA certificate, use the CredHub CLI to generate one.
-          Enter the following command:
-		<pre class="terminal">
-		$ credhub generate \
-			--name="/services/tls_ca" \
-			--type="certificate" \
-			--is-ca \
-            --common-name="rootCA"
-		</pre>
+    <br><br>
+    Run the following command:
+
+        ```
+        credhub generate \
+          --name="/services/tls_ca" \
+          --type="certificate" \
+          --no-overwrite \
+          --is-ca \
+          --common-name="rootCA"
+        ```
     * If you have an existing CA certificate that you want to use,
       create a new file called `root.pem` with the contents of the certificate.
       Then enter the following command, specifying the path to `root.pem`
-      and the private key for the certificate.
+      and the private key for the certificate.<br><br>
       For example:
         <pre class="terminal">
         $ credhub set \
@@ -233,12 +237,12 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
 
 1. Use the BOSH CLI v2 to extract the `certificate` portion from the CA certificate and print it.
     Run the following command:
-
-    <pre class="terminal">
-    $ bosh int <(credhub get \
-    --name=/services/tls_ca) \
-    --path /value/certificate
-    </pre>
+    <br><br>
+    ```
+    bosh int <(credhub get \
+      --name=/services/tls_ca) \
+      --path /value/certificate
+    ```
 1. Copy the output.
 1. Navigate to the Ops Manager **Installation Dashboard** and select the BOSH Director tile.
 Click **Security**.
