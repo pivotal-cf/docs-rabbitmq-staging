@@ -216,8 +216,8 @@ To activate TLS for Java and Spring apps, do one of the following:
     <pre class="terminal">$ cf unbind-service my-app my-service-instance</pre>
   1. Re-bind the app to the service instance. For example:
     <pre class="terminal">$ cf bind-service my-app my-service-instance</pre>
-  1. Restage the app. For example:
-    <pre class="terminal">$ cf restage my-app</pre>
+  1. Restart the app. For example:
+    <pre class="terminal">$ cf restart my-app</pre>
 
 <p class="note"><strong>Note:</strong> If the operator used a self-signed ceritificate,
 configure your app to use the same CA certificate, and valid certificate and key.</p>
@@ -251,21 +251,19 @@ To access the RabbitMQ service from your app:
 
 For how to code your app to use RabbitMQ messaging, see **About Using Pivotal RabbitMQ** > **Client Documentation** in the [RabbitMQ documentation](https://rabbitmq.docs.pivotal.io).
 
-## <a id="restage"></a>Restage an App with a New Service Instance
+## <a id="restart"></a>Updating a Service Instance
 
-If a service instance has been updated based on a new version of the service, you need to run `cf restage` to restage your app to use the new instance.
+If you bind a new service or change the service bindings, you need to run `cf restart` to update the `VCAP_SERVICES` environment variable in the application container.
 
-1. Enter `cf restage-app APP`
+1. Enter `cf restart-app APP`
 
     Where `APP` is the app you want to use the updated service instance.
 
     <pre class="terminal">
-   $ cf restage-app my-app
+   $ cf restart my-app
 </pre>
 
-When a new version of a service obsoletes an older version, the platform operator may ask you to update your instances of the service and restage any apps bound to the service instances.
-
-Pushing new version of an app automatically restages the app on any service instances it is bound to.
+Pushing new version of an app automatically restages and restarts the app on any service instances it is bound to.
 
 ## <a id="unbind"></a>Unbind a Service Instance to Your App
 
