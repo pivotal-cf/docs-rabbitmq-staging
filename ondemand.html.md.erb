@@ -269,7 +269,7 @@ Therefore, developers must configure their app to use the array of hosts provide
 If developers enable queue mirroring, they must also ensure their apps have re-try logic
 and reconnection logic that iterates over the range of hosts provided.
 Most common RabbitMQ clients have this logic built into them.
-For more information, see the [Spring AMQP documentation](https://docs.spring.io/spring-amqp/reference/htmlsingle/#auto-recovery).
+For more information, see the [Spring Advanced Message Queuing Protocol (AMQP) documentation](https://docs.spring.io/spring-amqp/reference/htmlsingle/#auto-recovery).
 
 Because the cluster plan is designed to enable app developer teams to self-serve, not having a load balancer in front of the RabbitMQ cluster has these benefits:
 
@@ -388,30 +388,77 @@ The following are preconfigured for both the single node and the cluster plans:
   which has the service instance ID.
   It is important to monitor these metrics as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).
 
-## <a id="migrating-from-mt"></a> Migrating a Pre-Provision instance to an on-demand instance
+## <a id="migrating-from-mt"></a> About Migrating a Pre-Provisioned Instance to an On-Demand Instance
 
-While pre-provisioned service instances have very low resource consumption (a vhost within an existing cluster), every on-demand service consists of dedicated virtual machines.
-Therefore, it's important to select an appropriate on-demand service plan to avoid unnecessary resource consumption but also assure adequate resources where required.
-For example, you may select a single-node plan with a small VM for development purposes but a 3-node cluster of large VMs for a mission critial system.
+While pre-provisioned service instances have very low resource consumption (a vhost
+within an existing cluster), every on-demand service consists of dedicated VMs.
+Therefore, you must select an on-demand service plan that provides adequate resources,
+but avoids unnecessary resource consumption.
+For example, you might select a single-node plan with a small VM for development
+purposes, but select a three-node cluster of large VMs for a mission critical system.
 
-Should you wish to migrate from pre-provisioned to on-demand offering, please be aware of the following:
-* Your applicaion should define all the required structures (such as exchanges, queues, bindings) so that they get defined if you connect to a new instance. This is the recommended behaviour for AMQP clients.
-* If you are currently using policies, make sure to apply them to the new RabbitMQ instance. This can be done using the management GUI or via APIs.
-* If you have vhost specific parameters, such as `max_connections`, make sure to apply them to the new RabbitMQ instance. This can be done using the management GUI or via APIs.
-* Messages that have not been consumed will be lost when you delete your old service instance. If you can't accept that you can:
-  * Switch your producers to the new instance but keep the consumers bound to the old instance until the queues are empty
-  * Use shovel or federation plugins to consume messages from the old instance
-* The steps to migrate from one service instance to another:
-  * Create an on-demand instance
-  * Bind it to your application
-  * Unbind the pre-provisioned instance from your application
-  * Restart your application
-  * When ready, delete your pre-provisioned instance
-* If you have service-keys for the old instance, make sure to re-create them using the new instance and replace the old credentials
+If you want to migrate from a pre-provisioned to an on-demand offering, be aware
+of the following:
 
-There are some differences between pre-provisioned and on-demand services instances that you should be aware of:
-* On-demand instances are not fronted by a load balancer. Make sure that the RabbitMQ client in your application gets configured with all the available nodes (hosts), not just one. Also, make sure your re-connection logic can handle a node failure. This is the recommended behaviour for AMQP clients.
-* The RabbitMQ version of the instance you are migrating to might be different from your old instance. Please, check the RabbitMQ tile release notes and the [RabbitMQ changelog](https://www.rabbitmq.com/changelog.html) for more information.
-* Critical Tier-1 Plugins have been enabled on on-demand, however we have not yet enabled all the plugins on on-demand that were enabled on pre-provisioned. If you are missing a plugin, please reach out to our team.
-* Your operator might have configured your on-demand instance differently. Changes may including VM sizing (CPU, RAM, disk), RabbitMQ network partition behaviour (however both offerings default to `pause_minority`) and other RabbitMQ settings
-* If your RabbitMQ instance uses TLS, make sure to enable TLS for on-demand instances (see [docs](https://docs.pivotal.io/rabbitmq-cf/1-14/use.html#tls)).
+* Your app must define all required structures, such as exchanges, queues, and bindings,
+so that they get defined if you connect to a new instance.
+This is the recommended behavior for AMQP clients.
+
+* If you are currently using policies, make sure to apply them to the new RabbitMQ instance.
+You can do this using the management GUI or using APIs.
+
+* If you have vhost specific parameters, such as `max_connections`, ensure that you
+apply them to the new RabbitMQ instance.
+You can do this using the management GUI or using APIs.
+
+* Messages that have not been consumed are lost when you delete your old service instance.
+If you do not want to lose messages, do the following:
+  * Switch your producers to the new instance but keep the consumers bound to the
+  old instance until the queues are empty.
+  * Use shovel or federation plugins to consume messages from the old instance.
+
+
+### How to migrate from a Pre-Provisioned Instance to an On-Demand Instance
+
+To migrate from one service instance to another, do the following:
+
+1. Create an on-demand instance.
+
+1. Bind it to your application.
+
+1. Unbind the pre-provisioned instance from your application.
+
+1. Restart your application.
+
+1. When ready, delete your pre-provisioned instance.
+
+1. If you have service-keys for the old instance, make sure to re-create them using
+the new instance and replace the old credentials.
+
+
+### Differences between Pre-Provisioned and On-Demand Services Instances
+
+There are some differences between pre-provisioned and on-demand services instances
+that you should be aware of:
+
+* On-demand instances are not fronted by a load balancer.
+Make sure that the RabbitMQ client in your application gets configured with all
+the available nodes (hosts), not just one.
+Also, make sure your re-connection logic can handle a node failure.
+This is the recommended behavior for AMQP clients.
+
+* The instance you are migrating to might use a different version of RabbitMQ than
+your old instance.
+For more information, see the [RabbitMQ for PCF Release Notes](./releases.html) and the
+[RabbitMQ Changelog](https://www.rabbitmq.com/changelog.html).
+
+* Critical Tier-1 plugins are enabled for on-demand, however, on-demand does not
+yet have the same plugins enabled as pre-provisioned.
+If you are missing a plugin, please reach out to our team.
+
+* You might have configured your on-demand instance differently.
+Changes may including VM sizing (CPU, RAM, disk), RabbitMQ network partition
+behavior (however both offerings default to `pause_minority`) and other RabbitMQ settings.
+
+* If your RabbitMQ instance uses TLS, ensure that you enable TLS for on-demand instances.
+See [Configure TLS for Your Service Instance](./use.html#tls).
