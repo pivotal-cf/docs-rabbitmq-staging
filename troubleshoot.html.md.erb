@@ -235,46 +235,50 @@ This section contains instructions on interacting with the on-demand service bro
 
 <a id="check-deploy"></a><h3>What should I check before deploying a new version of the tile?</h3>
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.
-You cannot rely solely
-on the BOSH `instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
-the RabbitMQ application.
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI,
+or health metrics exposed via the firehose.
+You cannot rely solely on the BOSH <code>instances</code> output as that reflects the state
+of the Erlang VM used by RabbitMQ and not the RabbitMQ application.
 
 
 <a id="stopstart"></a><h3>What is the correct way to stop and start RabbitMQ in PCF?</h3>
 
 Only BOSH commands should be used by the operator to interact with the RabbitMQ app.
-
+<br><br>
 For example:
-
-`bosh stop rabbitmq-server` and  `bosh start rabbitmq-server`.
-
-
+<br><br>
+<code>bosh stop rabbitmq-server</code> and <code>bosh start rabbitmq-server</code>.
+<br><br>
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH.  You can also stop individual instances by running the stop command and specifying `JOB [index]`
+stopped through BOSH.
+You can also stop individual instances by running the stop command and specifying
+<code>JOB [index]</code>.
 
-<p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code> as this does not call the drain scripts</p>
+<p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code>
+    as this does not call the drain scripts</p>
 
 <a id="boshstop"></a><h3>What happens when I run bosh stop rabbitmq-server?</h3>
 
 BOSH starts the shutdown sequence from the bootstrap instance.
-
+<br><br>
 We start by telling the RabbitMQ application to shutdown and then shutdown the
 Erlang VM within which it is running. If this succeeds, we run the following
 checks to ensure that the RabbitMQ application and Erlang VM have stopped:
-
-1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside
-this file does not point to a running Erlang VM process. Notice that we are
-tracking the Erlang PID and not the RabbitMQ PID.
-1. Check that `rabbitmqctl` does not return an Erlang VM PID
-
+<ol>
+    <li>
+        If <code>/var/vcap/sys/run/rabbitmq-server/pid</code> exists, check that
+        the PID inside this file does not point to a running Erlang VM process.
+        Notice that we are tracking the Erlang PID and not the RabbitMQ PID.
+    </li>
+    <li>Check that <code>rabbitmqctl</code> does not return an Erlang VM PID.</li>
+</ol>
 Once this completes on the bootstrap instance, BOSH will continue the same
 sequence on the next instance. All remaining rabbitmq-server instances will be
 stopped one by one.
 
 <a id="serverfailprocess"></a><h3>What happens when bosh stop rabbitmq-server fails?</h3>
 
-If the BOSH `stop` fails, you will likely get an error saying that the drain
+If the BOSH <code>stop</code> fails, you will likely get an error saying that the drain
 script failed with:
 
 <pre class="terminal">result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
@@ -282,58 +286,68 @@ script failed with:
 
 <a id="serverfailactions"></a><h3>What do I do when bosh stop rabbitmq-server fails?</h3>
 
-The drain script logs to `/var/vcap/sys/log/rabbitmq-server/drain.log`. If you
-have a remote syslog configured, this will appear as the `rmq_server_drain`
+The drain script logs to <code>/var/vcap/sys/log/rabbitmq-server/drain.log</code>. If you
+have a remote syslog configured, this will appear as the <code>rmq_server_drain</code>
 program.
-
-First, BOSH `ssh` into the failing rabbitmq-server instance and start the
-rabbitmq-server job by running `monit start rabbitmq-server`. You will not be
-able to start the job via BOSH `start` as this always runs the drain script first
+<br><br>
+First, BOSH <code>ssh</code> into the failing rabbitmq-server instance and start the
+rabbitmq-server job by running <code>monit start rabbitmq-server</code>. You will not be
+able to start the job via BOSH <code>start</code> as this always runs the drain script first
 and will fail since the drain script is failing.
-
-Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
-`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
+<br><br>
+Once rabbitmq-server job is running (confirm this via <code>monit status</code>), run <code>DEBUG=1</code>
+<code>/var/vcap/jobs/rabbitmq-server/bin/drain</code>. This will tell you exactly why it’s
 failing.
 
 <a id="backup"></a><h3>How can I manually back up the state of the RabbitMQ cluster?</h3>
 
-It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the
-RabbitMQ Management API. Backups include vhosts, exchanges, queues and users.
+It is possible to back up the state of a RabbitMQ cluster for both the on-demand
+and pre-provisioned services using the RabbitMQ Management API.
+Backups include vhosts, exchanges, queues and users.
 
 <h4>Back up Manually</h4>
 
-1. Log in to the RabbitMQ Management UI as the admin user you created.
-
-1. Select **export definitions** from the main page.
+<ol>
+    <li>Log in to the RabbitMQ Management UI as the admin user you created.</li>
+    <li>Select <strong>export definitions</strong> from the main page.</li>
+</ol>
 
 <h4>Back up and Restore with a Script</h4>
 
 Use the API to run scripts with code similar to the following:
 
-1. For the backup:
-
-    ```
-    curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
-    -o "$BACKUP_FOLDER/rabbit-backup.json"
-    ```
-
-2. For the restore:
-
-    ```
-    curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
-    -X POST -H "Content-Type: application/json" -d
-    "@$BACKUP_FOLDER/rabbit-backup.json"
-    ```
+<ul>
+    <li>
+        <strong>For the backup:</strong>
+        <pre>
+            curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
+            -o "$BACKUP_FOLDER/rabbit-backup.json"
+        </pre>
+    </li>
+    <li>
+        <strong>For the restore:</strong>
+        <pre>
+            curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
+            -X POST -H "Content-Type: application/json" -d
+            "@$BACKUP_FOLDER/rabbit-backup.json"
+        </pre>
+    </li>
+</ul>
 
 <a id="preupgrade"></a><h3>What pre-upgrade checks should I do?</h3>
 
 Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
-
-1. In Operations Manager check that the status of all of the instances is healthy.
-2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy, that is,
-they should display as green.
-3. Check that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been
-consumed by each node in the RabbitMQ Managment UI.
+<ol>
+    <li>In Operations Manager check that the status of all of the instances is healthy.</li>
+    <li>
+        Log into the RabbitMQ Management UI and check that no alarms have been triggered
+        and that all nodes are healthy, that is, they should display as green.
+    </li>
+    <li>
+        Check that the system is not close to hitting either the memory or disk alarm.
+        Do this by looking at what has been consumed by each node in the RabbitMQ Managment UI.
+    </li>
+</ol>
 
 <a id="kb"></a><h2>Knowledge Base (Community)</h2>
 
