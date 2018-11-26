@@ -320,16 +320,16 @@ Use the API to run scripts with code similar to the following:
     <li>
         <strong>For the backup:</strong>
         <pre>
-            curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
-            -o "$BACKUP_FOLDER/rabbit-backup.json"
+curl -u "$USERNAME:$PASSWORD" "http://$RABBIT-ADDRESS:15672/api/definitions"
+-o "$BACKUP-FOLDER/rabbit-backup.json"
         </pre>
     </li>
     <li>
         <strong>For the restore:</strong>
         <pre>
-            curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
-            -X POST -H "Content-Type: application/json" -d
-            "@$BACKUP_FOLDER/rabbit-backup.json"
+curl -u "$USERNAME:$PASSWORD" "http://$RABBIT-ADDRESS:15672/api/definitions"
+-X POST -H "Content-Type: application/json" -d
+"@$BACKUP-FOLDER/rabbit-backup.json"
         </pre>
     </li>
 </ul>
