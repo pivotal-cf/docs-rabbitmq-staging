@@ -57,8 +57,8 @@ on how to meet your use case requirements with the on-demand service.
   </tr>
   <tr>
     <td>Plugins</td>
-    <td>Tier 1 plugins enabled using checkboxes in UI.</td>
-    <td>Plan to address for tier 1 plugins and selected community plugins</td>
+    <td>Tier-1 plugins enabled using checkboxes in UI.</td>
+    <td>Plan to address for tier-1 plugins and selected community plugins</td>
   </tr>
   <tr>
     <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
@@ -409,7 +409,7 @@ These structures include:
   + Queues
   + Bindings
 
-* If your pre-provisioned instance uses the any of the following, ensure that you
+* If your pre-provisioned instance uses any of the following, ensure that you
 apply them to the on-demand instance:
 <ul>
   <li>Policies</li>
@@ -430,11 +430,11 @@ To migrate from one service instance to another, do the following:
 
 1. Create an on-demand instance.
 
-1. Bind it to your application.
+1. Bind it to your app.
 
-1. Unbind the pre-provisioned instance from your application.
+1. Unbind the pre-provisioned instance from your app.
 
-1. Restart your application.
+1. Restart your app.
 
 1. When ready, delete your pre-provisioned instance.
 
@@ -448,7 +448,7 @@ There are some differences between pre-provisioned and on-demand services instan
 that you should be aware of:
 
 * On-demand instances are not fronted by a load balancer, therefore, ensure the following:
-  * That you configure the RabbitMQ client in your application with all available nodes,
+  * That you configure the RabbitMQ client in your app with all available nodes,
   not just one.
   * That your re-connection logic can handle a node failure. Pivotal recommends this
   behavior for Spring AMQP clients.
@@ -458,7 +458,7 @@ your old instance.
 For more information, see the [RabbitMQ for PCF Release Notes](./releases.html) and the
 [RabbitMQ Changelog](https://www.rabbitmq.com/changelog.html).
 
-* Critical Tier-1 plugins are enabled for on-demand, however, on-demand does not
+* Critical tier-1 plugins are enabled for on-demand. However, on-demand does not
 yet have the same plugins enabled as pre-provisioned.
 If you are missing a plugin, contact **our team**.
 
