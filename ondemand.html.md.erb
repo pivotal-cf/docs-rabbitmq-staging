@@ -417,7 +417,7 @@ apply them to the on-demand instance:
 </ul>
  You can apply them using the RabbitMQ Management Dashboard or using APIs.
 
-* Messages that have not been consumed are lost when you delete your old service instance.
+* You lose messages that have not been consumed when you delete your old service instance.
 If you do not want to lose messages, do one of the following:
   * Switch your producers to the new instance but keep the consumers bound to the
   old instance until the queues are empty.
