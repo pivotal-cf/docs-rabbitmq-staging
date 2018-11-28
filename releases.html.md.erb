@@ -42,7 +42,8 @@ New features and changes in this release:
 You can configure this using the **Maximum number of instances upgraded in parallel** field.
 For more information about this field, see [Configure Global Settings](./install-config.html#global).
 
-*
+* Service logs are now available using the [Log Cache CLI](https://github.com/cloudfoundry/log-cache-cli) plugin
+by running `cf tail` against the service guid, for example `cf tail $(cf service my-service --guid)`.
 
 ### Known Issues
 
