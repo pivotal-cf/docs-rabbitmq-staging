@@ -45,6 +45,10 @@ configuration.
 * It might take busy RabbitMQ nodes a long time to shut down during
 the upgrade and you must not interrupt this process.
 
+* To benefit from rolling upgrades, configure your apps to reconnect after a node restarts.
+  For more information, see [Handling Node Restarts in Applications](https://www.rabbitmq.com/upgrade.html#rabbitmq-restart-handling)
+  in the RabbitMQ documentation.
+
 * The benefit you get from stemcell rolling
   upgrades depends on how you have configured network partition handling and the
   **Resource Config** tab.
@@ -391,5 +395,3 @@ Do the following:
     In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
  * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
  * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
-
-
