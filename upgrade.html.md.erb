@@ -52,6 +52,9 @@ the upgrade and you must not interrupt this process.
   These counts are the default.
   For more information, see [Clustering and Network Partitions](./partitions.html).
 
+* To benefit from the rolling upgrades you need to configure your applications to reconnect after a node restarts.
+  See [Handling Node Restarts in Applications](https://www.rabbitmq.com/upgrade.html#rabbitmq-restart-handling) in the RabbitMQ docs for more details.
+
 * Ops Manager ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
 
