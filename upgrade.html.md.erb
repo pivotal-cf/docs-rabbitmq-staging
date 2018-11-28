@@ -13,7 +13,6 @@ The upgrade paths for each version are detailed in the
 This topic applies to both the on-demand and pre-provisioned services.
 
 
-
 ## <a id="update-addons"></a>Update Add-Ons to Run with Xenial Stemcell
 
 RabbitMQ for PCF v1.14 and later requires a Xenial stemcell.
@@ -45,15 +44,16 @@ configuration.
 * It might take busy RabbitMQ nodes a long time to shut down during
 the upgrade and you must not interrupt this process.
 
+* To benefit from rolling upgrades, configure your apps to reconnect after a node restarts.
+  For more information, see [Handling Node Restarts in Applications](https://www.rabbitmq.com/upgrade.html#rabbitmq-restart-handling)
+  in the RabbitMQ documentation.
+
 * The benefit you get from stemcell rolling
   upgrades depends on how you have configured network partition handling and the
   **Resource Config** tab.
   An HAProxy instance count of 2 and a RabbitMQ node count of 3 are required for rolling stemcell upgrades.
   These counts are the default.
   For more information, see [Clustering and Network Partitions](./partitions.html).
-
-* To benefit from the rolling upgrades you need to configure your applications to reconnect after a node restarts.
-  See [Handling Node Restarts in Applications](https://www.rabbitmq.com/upgrade.html#rabbitmq-restart-handling) in the RabbitMQ docs for more details.
 
 * Ops Manager ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
@@ -128,4 +128,3 @@ To upgrade the product, follow these steps:
 1. Update any new mandatory configuration parameters (*if required*).
 1. Click **Apply changes** in the Ops Manager Installation Dashboard.
    The rest of the process is automated.
-
