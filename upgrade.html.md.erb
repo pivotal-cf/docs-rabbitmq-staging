@@ -4,13 +4,14 @@ owner: London Services
 ---
 
 This product enables automated upgrades between versions of the product and is deployed through Ops Manager.
-In some cases, you might be required to take the cluster offline. 
+In some cases, you might be required to take the cluster offline.
 When this is necessary, it is clearly noted in the release notes for that version.
 
 The upgrade paths for each version are detailed at [Pivotal Network - RabbitMQ for PCF page](https://network.pivotal.io/products/p-rabbitmq).
 
 To upgrade on-demand instances from RabbitMQ v3.6 to v3.7,
 see [About Upgrading On-Demand Instances from RabbitMQ v3.6 to v3.7](#upgrade-ondemand).
+
 
 ## <a id="downtime"></a> Downtime When Upgrading
 
@@ -40,7 +41,7 @@ The RabbitMQ cluster becomes unavailable only when upgrading between specific ve
   <th>Patch Tile Version</th>
   <td>Normally these are rolling deployments with each node being updated in turn.
       In these cases the cluster remains available, but individual queues may be taken offline as each node is restarted.
-      There are specific migration paths that require downtime, which are identified in the release notes for that version. 
+      There are specific migration paths that require downtime, which are identified in the release notes for that version.
   </td>
 <tr>
   <th>Stemcell-Only Patch Tile Version</th>
@@ -52,7 +53,7 @@ The RabbitMQ cluster becomes unavailable only when upgrading between specific ve
 
 ## <a id="notes"></a> Notes on the Upgrade Process
 
-Review the following before starting an upgrade of RabbitMQ for PCF: 
+Review the following before starting an upgrade of RabbitMQ for PCF:
 
 * Upgrading to a newer version of the product does not cause any loss of data or
 configuration.
@@ -64,7 +65,7 @@ the upgrade and you must not interrupt this process.
   upgrades depends on how you have configured network partition handling and the
   **Resource Config** tab.
   An HAProxy instance count of 2 and a RabbitMQ node count of 3 are required for rolling stemcell upgrades.
-  As of v1.7.7, these counts are the default. 
+  As of v1.7.7, these counts are the default.
   For more information, see [Clustering and Network Partitions](./partitions.html).
 
 * The length of the downtime depends on whether there is a stemcell update to
@@ -105,7 +106,7 @@ RabbitMQ for PCF v1.12 provides on-demand service plans with RabbitMQ v3.6 and v
 App developers can either start fresh with a v3.7 on-demand instance or they can migrate
 their RabbitMQ v3.6 instances to RabbitMQ v3.7 using blue-green app deployments without downtime.
 
-To enable the migration from on-demand v3.6 instances to v3.7 instances, the on-demand v3.7 plans should be configured to mirror the existing v3.6 plans. 
+To enable the migration from on-demand v3.6 instances to v3.7 instances, the on-demand v3.7 plans should be configured to mirror the existing v3.6 plans.
 For more information,
 see the blog [Blue-Green Application Deployments with RabbitMQ](https://content.pivotal.io/blog/blue-green-application-deployments-with-rabbitmq)
 and the video [Blue-Green Deployment of Applications leveraging RabbitMQ](https://www.youtube.com/watch?v=S2oO-t-E38c).
