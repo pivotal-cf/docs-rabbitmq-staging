@@ -30,9 +30,9 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
-## <a id="1150"></a> v1.15.0
+## <a id="1151"></a> v1.15.1
 
-**Release Date**: Month XX, 2018
+**Release Date**: December 12, 2018
 
 ### Features
 
@@ -47,19 +47,38 @@ for an on-demand service instance using the command `cf tail`.
 For more information about this feature, see
 [Access RabbitMQ Metrics for On-Demand Service Instances](./use.html#log-cache).
 
+* For on-demand service instances, the Erlang cookie and the RabbitMQ admin password are stored in Credhub.
+
+* The RabbitMQ Consistent Hash Exchange and RabbitMQ Sharding Plugins are enabled.
+For more information, see [RabbitMQ Server Settings That Cannot Be Disabled](./install-config.html#no-overwrite).
+
+* Adds mutual TLS between service metrics and the loggregator system.
+
+* Removes credentials from the dashboard URL in the pre-provisioned service.
+
+* The maximum number of on-demand services instances that can be deployed has been increased to 200.
+
 ### Known Issues
 
 This release has the following known issues:
 
-*
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-*
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
 
 ### Packages
 
-* OSS RabbitMQ v3.7.7?
-* Erlang v20.3.8.1?
-* HAProxy v1.6.13?
+* OSS RabbitMQ v3.7.9
+* Erlang v20.3.8.14
+* HAProxy v1.6.13
 
 ## <a id="view"></a> View Release Notes for Another Version
 
