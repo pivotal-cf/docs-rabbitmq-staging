@@ -40,17 +40,17 @@ New features and changes in this release:
 
 * The "upgrade all service instances" errand defaults to upgrading in parallel.
 You can configure this using the **Maximum number of instances upgraded in parallel** field.
-For more information about this field, see [Configure Global Settings](./install-config.html#global).
+  * For more information about this field, see [Configure Global Settings](./install-config.html#global).
 
 * Supports the Log Cache cf CLI plugin that enables developers to access logs
 for an on-demand service instance using the command `cf tail`.
-For more information about this feature, see
+  * For more information about this feature, see
 [Access RabbitMQ Metrics for On-Demand Service Instances](./use.html#log-cache).
 
 * For on-demand service instances, the Erlang cookie and the RabbitMQ admin password are stored in Credhub.
 
-* The RabbitMQ Consistent Hash Exchange and RabbitMQ Sharding Plugins are enabled.
-For more information, see [RabbitMQ Server Settings That Cannot Be Disabled](./install-config.html#no-overwrite).
+* The `rabbitmq_consistent_hash_exchange` and `rabbitmq_sharding` plugins are enabled.
+  * For more information, see [RabbitMQ Server Settings That Cannot Be Disabled](./install-config.html#no-overwrite).
 
 * Adds mutual TLS between service metrics and the loggregator system.
 
@@ -62,17 +62,16 @@ For more information, see [RabbitMQ Server Settings That Cannot Be Disabled](./i
 
 This release has the following known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
-  and might result in failed deployments.
-  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, and can result in failed deployments.
+  * For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
 [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 * Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
-  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+  * For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
-  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
-  Pivotal recommends leaving the default run rule set to **On**.
+  * For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  * Pivotal recommends leaving the default run rule set to **On**.
 
 ### Packages
 
