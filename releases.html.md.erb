@@ -69,6 +69,9 @@ New features and changes in this release:
 
 This release has the following known issues:
 
+* If you upgrading to this version, you'll not see RabbitMQ metrics on the loggregator firehose anymore.
+  A new version fixing this issue will be released soon. The problem doesn't affect new installations - only upgrades.
+
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
   For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
