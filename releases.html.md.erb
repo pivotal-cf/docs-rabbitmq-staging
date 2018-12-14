@@ -69,8 +69,9 @@ New features and changes in this release:
 
 This release has the following known issues:
 
-* If you upgrading to this version, you'll not see RabbitMQ metrics on the loggregator firehose anymore.
-  A new version fixing this issue will be released soon. The problem doesn't affect new installations - only upgrades.
+* If you upgrade to RabbitMQ for PCF v1.14.x, you cannot see RabbitMQ metrics
+  on the loggregator firehose.
+  This problem does not affect new installations, only upgrades.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
