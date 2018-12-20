@@ -2,7 +2,7 @@
 
 ## Branches in this Content Repo
 
-**MASTER** branch - Use for the next unreleased version: **1.15**, staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html
+**MASTER** branch - Use for the next unreleased version: **1.16**, staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html
 
 The master branch is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
 
@@ -11,6 +11,8 @@ The master branch is the tree-trunk, so ALWAYS make changes you want carried for
 * Doc reorganization or enhancement
 
 Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate "-live" branch below:
+
+**1.15-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-15](http://docs.pivotal.io/rabbitmq-cf/1-15/).
 
 **1.14-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-14](http://docs.pivotal.io/rabbitmq-cf/1-14/).
 
