@@ -40,12 +40,21 @@ For more information, see the following:
 
 ### Features
 
-- Requires [stemcell](https://network.pivotal.io/products/stemcells) 3586.65
-- Add scripts to drop/restore AMQP(S) traffic.
-  For information, see [Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance](./troubleshoot.html#drop-restore-traffic).
-- Fix the known issue in RabbitMQ for PCF v1.12.14 and v1.12.13 that prevented metrics from being emitted to the Loggregator Firehose.
+New features and changes in this release:
+
+* Requires [stemcell](https://network.pivotal.io/products/stemcells) 3586.65
+* Add scripts to drop and restore AMQP(S) traffic.
+  For more information, see [Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance](./troubleshoot.html#drop-restore-traffic).
+
+### Fixed Issues
+
+This release fixes the following issue:
+
+* Fix the known issue in RabbitMQ for PCF v1.12.14 and v1.12.13 that prevented metrics from being emitted to the Loggregator Firehose.
 
 ### Known Issues
+
+This release has the following issues:
 
 * There is an issue with upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.2.5 and earlier.
   Pivotal recommends upgrading from RabbitMQ for PCF v1.12.x to v1.13.x on PCF v2.1, or on PCF v2.2.6 or later.
