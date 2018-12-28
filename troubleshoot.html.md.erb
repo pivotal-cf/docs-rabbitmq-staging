@@ -31,7 +31,7 @@ In this topic:
     * [View Resource Saturation and Scaling](#view-resources)
     * [Identify Service Instance Owner](#id-instance-owner)
     * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
-    * [Drop / Restore AMQP(S) traffic of a RabbitMQ instance](#drop-restore-traffic)
+    * [Drop and Restore AMQP(S) traffic of a RabbitMQ instance](#drop-restore-traffic)
 * [Frequently Asked Questions](#faq)
     * [What should I check before deploying a new version of the tile?](#check-deploy)
     * [What is the correct way to stop and start RabbitMQ in PCF?](#stopstart)
@@ -211,22 +211,30 @@ This section contains instructions on interacting with the on-demand service bro
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
 
-<a id="drop-restore-traffic"></a><h3>Drop / Restore AMQP(S) traffic of a RabbitMQ instance</h3>
+<a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) traffic of a RabbitMQ instance</h3>
 
-While debugging a RabbitMQ instance you might want to prevent applications from sending/receving messages,
-for example to decrease the server load. You can use `drop-amqp-traffic` and `restore-amqp-traffic` scripts,
-which run the necessary `iptables` commands to achieve that. Follow these steps to use them:
+While debugging a RabbitMQ instance you may want to prevent applications from
+sending and receiving messages, for example, to decrease the server load.
+You can use <code>drop-amqp-traffic</code> and <code>restore-amqp-traffic</code> scripts,
+which run the necessary <code>iptables</code> commands to achieve that.<br><br>
 
-To stop all AMQP/AMQPS traffic to a RabbitMQ instance:
-`bosh -d service-instance_GUID ssh rabbitmq-server "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"`
-
-After performing the troubleshooting steps, restore the traffic:
-`bosh -d service-instance_GUID ssh rabbitmq-server "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/restore-amqp-traffic"`
+To do this, do the following:<br>
+<ol>
+    <li> To stop all AMQP(S) traffic to a RabbitMQ instance:
+   <code>bosh -d service-instance_GUID ssh rabbitmq-server "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"</code>
+    </li>
+    <li> After performing the troubleshooting steps, restore the traffic:
+   <code>bosh -d service-instance_GUID ssh rabbitmq-server "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/restore-amqp-traffic"</code>
+    </li>
+</ol>
 
 You can also run these scripts on individual nodes if you prefer:
-1. `bosh ssh` to a rabbitmq-server instance
-1. `sudo -s` to gain root privileges
-1. Execute `drop-amqp-traffic` to drop all AMQP/AMQPS traffic to this instance or `restore-amqp-traffic` to start accepting traffic again
+
+<ol>
+    <li><code>bosh ssh</code> to a rabbitmq-server instance </li>
+    <li><code>sudo -s</code> to gain root privileges</li>
+    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this instance, or `restore-amqp-traffic` to start accepting traffic again</li>
+</ol>
 
 <a id="faq"></a><h2>Frequently Asked Questions</h2>
 
