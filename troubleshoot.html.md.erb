@@ -31,6 +31,7 @@ In this topic:
     * [View Resource Saturation and Scaling](#view-resources)
     * [Identify Service Instance Owner](#id-instance-owner)
     * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
+    * [Drop and Restore AMQP(S) traffic of a RabbitMQ instance](#drop-restore-traffic)
 * [Frequently Asked Questions](#faq)
     * [What should I check before deploying a new version of the tile?](#check-deploy)
     * [What is the correct way to stop and start RabbitMQ in PCF?](#stopstart)
@@ -209,6 +210,38 @@ This section contains instructions on interacting with the on-demand service bro
 <a id="monitor-quota"></a><h3>Monitor Quota Saturation and Service Instance Count</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
+
+<a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance</h3>
+
+While debugging a RabbitMQ instance you may want to prevent applications from
+sending and receiving messages, for example, to decrease the server load.
+You can use <code>drop-amqp-traffic</code> and <code>restore-amqp-traffic</code> scripts,
+which run the necessary <code>iptables</code> commands to achieve that.<br><br>
+
+To do this, do the following:<br>
+<ol>
+    <li> To stop all AMQP(S) traffic to a RabbitMQ instance.
+    <pre>
+    bosh -d service-instance_GUID ssh rabbitmq-server
+    "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"
+    </pre>
+    </li>
+    <li> After performing the troubleshooting steps, restore the traffic.
+    <pre>
+    bosh -d service-instance_GUID ssh rabbitmq-server
+    "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/restore-amqp-traffic"
+    </pre>
+    </li>
+</ol>
+
+Alternatively, you can run these scripts on individual nodes:
+
+<ol>
+    <li><code>bosh ssh</code> to a rabbitmq-server instance.</li>
+    <li><code>sudo -s</code> to gain root privileges.</li>
+    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this instance, or <code>restore-amqp-traffic</code> to start accepting traffic again.</li>
+</ol>
+
 
 <a id="faq"></a><h2>Frequently Asked Questions</h2>
 
