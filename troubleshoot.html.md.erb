@@ -213,12 +213,12 @@ This section contains instructions on interacting with the on-demand service bro
 
 <a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance</h3>
 
-While debugging a RabbitMQ instance you may want to prevent apps from
+While debugging a RabbitMQ instance, you can prevent apps from
 sending and receiving messages, for example, to decrease the server load.
 You can use <code>drop-amqp-traffic</code> and <code>restore-amqp-traffic</code> scripts,
 which run the necessary <code>iptables</code> commands to achieve that.<br><br>
 
-To do this, do the following:<br>
+To stop and then restore traffic to a RabbitMQ instance, do the following:<br>
 <ol>
     <li> To stop all AMQP(S) traffic to a RabbitMQ instance, run the following command:
     <pre>
