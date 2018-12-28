@@ -31,7 +31,7 @@ In this topic:
     * [View Resource Saturation and Scaling](#view-resources)
     * [Identify Service Instance Owner](#id-instance-owner)
     * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
-    * [Drop and Restore AMQP(S) traffic of a RabbitMQ instance](#drop-restore-traffic)
+    * [Drop and Restore AMQP(S) traffic to a RabbitMQ instance](#drop-restore-traffic)
 * [Frequently Asked Questions](#faq)
     * [What should I check before deploying a new version of the tile?](#check-deploy)
     * [What is the correct way to stop and start RabbitMQ in PCF?](#stopstart)
@@ -211,7 +211,7 @@ This section contains instructions on interacting with the on-demand service bro
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
 
-<a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) traffic of a RabbitMQ instance</h3>
+<a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) traffic to a RabbitMQ instance</h3>
 
 While debugging a RabbitMQ instance you may want to prevent applications from
 sending and receiving messages, for example, to decrease the server load.
@@ -233,7 +233,7 @@ You can also run these scripts on individual nodes if you prefer:
 <ol>
     <li><code>bosh ssh</code> to a rabbitmq-server instance </li>
     <li><code>sudo -s</code> to gain root privileges</li>
-    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this instance, or `restore-amqp-traffic` to start accepting traffic again</li>
+    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this instance, or <<code>restore-amqp-traffic</code> to start accepting traffic again</li>
 </ol>
 
 
