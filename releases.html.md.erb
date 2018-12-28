@@ -39,13 +39,14 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 New features and changes in this release:
 
 * Add scripts to drop and restore AMQP(S) traffic.
-  For more information, see [Drop and Restore AMQP(S) traffic to a RabbitMQ instance](./troubleshoot.html#drop-restore-traffic).
+  For more information, see [Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance](./troubleshoot.html#drop-restore-traffic).
 
 ### Fixed Issue
 
 This release fixes the following issue:
 
-* Fix the known issue in RabbitMQ for PCF v1.15.2 and earlier that limited the maximum number of file descriptors used by RabbitMQ
+* In RabbitMQ for PCF v1.15.2 and earlier, the maximum number of file descriptors was not set
+  and this limited the maximum number of file descriptors used by RabbitMQ.
 
 ### Known Issues
 
@@ -121,7 +122,7 @@ This release has the following known issues:
   * Pivotal recommends leaving the default run rule set to **On**.
 
 * The maximum number of file descriptors is not set.
-Therefore, RabbitMQ instances will use the default value from the Operating System.
+Therefore, RabbitMQ instances use the default value from the operating system.
 
 ### Packages
 
