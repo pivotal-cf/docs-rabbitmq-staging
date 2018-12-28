@@ -55,8 +55,9 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 New features and changes in this release:
 
-- Add scripts to drop/restore AMQP(S) traffic (see [here](./troubleshoot.html#drop-restore-traffic))
-- Fix the known issue of previous version of RabbitMQ for PCF that limited the maximum number of file descriptors used by RabbitMQ
+- Add scripts to drop and restore AMQP(S) traffic.
+  For more information, see [Drop and Restore AMQP(S) traffic to a RabbitMQ instance](./troubleshoot.html#drop-restore-traffic).
+- Fix the known issue in RabbitMQ for PCF v1.14.5 and earlier that limited the maximum number of file descriptors used by RabbitMQ
 
 ### Known Issues
 
@@ -131,6 +132,9 @@ This release has the following known issues:
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
+
+* The maximum number of file descriptors is not set.
+Therefore, RabbitMQ instances will use the default value from the Operating System.
 
 ### Packages
 
