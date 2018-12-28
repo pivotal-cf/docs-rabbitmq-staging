@@ -41,8 +41,9 @@ For more information, see the following:
 ### Features
 
 - Requires [stemcell](https://network.pivotal.io/products/stemcells) 3586.65
-- Add scripts to drop/restore AMQP(S) traffic (see [here](./troubleshoot.html#drop-restore-traffic))
-- Fix the known issue of previous version of RabbitMQ for PCF that prevented metrics from being emitted to the Loggregator Firehose.
+- Add scripts to drop/restore AMQP(S) traffic.
+  For information, see [Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance](./troubleshoot.html#drop-restore-traffic).
+- Fix the known issue in RabbitMQ for PCF v1.12.14 and v1.12.13 that prevented metrics from being emitted to the Loggregator Firehose.
 
 ### Known Issues
 
@@ -101,6 +102,7 @@ For more information, see the following:
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
+
 
 ### Packages
 
