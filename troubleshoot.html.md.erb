@@ -220,13 +220,17 @@ which run the necessary <code>iptables</code> commands to achieve that.<br><br>
 
 To do this, do the following:<br>
 <ol>
-    <li> To stop all AMQP(S) traffic to a RabbitMQ instance:
-    <pre>bosh -d service-instance_GUID ssh rabbitmq-server
-    "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"</code>
+    <li> To stop all AMQP(S) traffic to a RabbitMQ instance, run the following command:
+    <pre>
+    bosh -d service-instance_GUID ssh rabbitmq-server
+    "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"
     </pre>
-    <li> After performing the troubleshooting steps, restore the traffic:
-    <pre>bosh -d service-instance_GUID ssh rabbitmq-server
-    "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/restore-amqp-traffic"</code>
+    </li>
+    <li> After performing the troubleshooting steps, restore the traffic.
+         To do this, run the following command:
+    <pre>
+    bosh -d service-instance_GUID ssh rabbitmq-server
+    "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/restore-amqp-traffic"
     </pre>
 </ol>
 
