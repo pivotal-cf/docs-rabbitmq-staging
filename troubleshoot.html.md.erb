@@ -213,7 +213,7 @@ This section contains instructions on interacting with the on-demand service bro
 
 <a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance</h3>
 
-While debugging a RabbitMQ instance you may want to prevent applications from
+While debugging a RabbitMQ instance you may want to prevent apps from
 sending and receiving messages, for example, to decrease the server load.
 You can use <code>drop-amqp-traffic</code> and <code>restore-amqp-traffic</code> scripts,
 which run the necessary <code>iptables</code> commands to achieve that.<br><br>
@@ -251,7 +251,7 @@ Alternatively, you can run these scripts on individual nodes:
 Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI,
 or health metrics exposed via the firehose.
 You cannot rely solely on the BOSH <code>instances</code> output as that reflects the state
-of the Erlang VM used by RabbitMQ and not the RabbitMQ application.
+of the Erlang VM used by RabbitMQ and not the RabbitMQ app.
 
 
 <a id="stopstart"></a><h3>What is the correct way to stop and start RabbitMQ in PCF?</h3>
@@ -274,9 +274,9 @@ You can also stop individual instances by running the stop command and specifyin
 
 BOSH starts the shutdown sequence from the bootstrap instance.
 <br><br>
-We start by telling the RabbitMQ application to shutdown and then shutdown the
+We start by telling the RabbitMQ app to shutdown and then shutdown the
 Erlang VM within which it is running. If this succeeds, we run the following
-checks to ensure that the RabbitMQ application and Erlang VM have stopped:
+checks to ensure that the RabbitMQ app and Erlang VM have stopped:
 <ol>
     <li>
         If <code>/var/vcap/sys/run/rabbitmq-server/pid</code> exists, check that
