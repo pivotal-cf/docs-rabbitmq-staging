@@ -15,6 +15,8 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 * `cf unbind`
 * `cf delete`
 
+<!-- Paritals are in https://github.com/pivotal-cf/docs-services-partials -->
+
 ### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-parse-error' %>
@@ -84,4 +86,3 @@ On-Demand Broker provides a BOSH command to delete all the On-Demand Broker depl
     <p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
 
     `bosh run-errand delete-sub-deployments`
-
