@@ -52,19 +52,18 @@ de-register the pre-provisioned service broker by running the following command:
 
 ## <a id="automation"></a> Disable the Pre-Provisioned Service Using Automation
 
-If you are using automation, such as scripts or pipelines, to configure the
-RabbitMQ for PCF tile, perform the following steps to disable the pre-provisioned service:
+To turn off the pre-provisioned service if you are using automation, such as scripts
+or pipelines, to configure the RabbitMQ for PCF tile, do the following:
 
 1. Set the `.properties.multitenant_support` property to `disabled`.
-Ops Manager automatically sets the instance counts to <code>0</code> if
-<code>.properties.multitenant_support</code> is set to <code>disabled</code>.
 
-1. For instance groups related to the pre-provisioned service,
-such as `rabbitmq-server`, `rabbitmq-broker`, `rabbitmq-haproxy`,
-either set the instance count to `0` or do not set an instance count.
+Ops Manager automatically sets instance counts to <code>0</code> if
+<code>.properties.multitenant_support</code> is <code>disabled</code>.
 
 <p class="note warning"><strong>WARNING:</strong>
-  Although the fields are inactive in the user interface, this does not prevent you
+  For instance groups related to the pre-provisioned service, such as <code>rabbitmq-server</code>,
+  <code>rabbitmq-broker</code>, <code>rabbitmq-haproxy</code>, if you modify instance
+  counts to a non-zero value, BOSH fails to deploy the tile.
+  Although the fields are inactive in the UI, this does not prevent you
   from overwriting instance counts through the API.
-  If you modify instance counts to a non-zero value, BOSH fails to deploy the tile.
-  This is because BOSH tries to create the VMs but does not have the required properties.</p>
+  Only set instance counts to <code>0</code> or do not set them at all.</p>
