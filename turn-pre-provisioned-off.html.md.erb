@@ -15,7 +15,7 @@ If you are not planning to use the pre-provisioned service, disable it.
 Disabling the pre-provisioned service broker means that no instances for the
 pre-provisioned service will be deployed.  This, in turn, saves money.
 
-## Disabling Pre-Provisioned Service Manually
+## <a id="manual"></a> Disable the Pre-Provisioned Service Manually
 
 To turn off the pre-provisioned service manually, do the following:
 
@@ -50,14 +50,21 @@ de-register the pre-provisioned service broker by running the following command:
 
 1. Click **Apply Changes** to redeploy and disable the pre-provisioned service.
 
-## Disabling Pre-Provisioned Service Using Automation
+## <a id="automation"></a> Disable the Pre-Provisioned Service Using Automation
 
-If you are using automation such as scripts or pipelines to configure RabbitMQ for PCF tile,
-you need to perform the following steps to disable pre-provisioned service:
+If you are using automation, such as scripts or pipelines, to configure the
+RabbitMQ for PCF tile, perform the following steps to disable the pre-provisioned service:
 
-1. Set `.properties.multitenant_support` property to `disabled`.
+1. Set the `.properties.multitenant_support` property to `disabled`.
+Ops Manager automatically sets the instance counts to <code>0</code> if
+<code>.properties.multitenant_support</code> is set to <code>disabled</code>.
 
-1. For instance groups related to pre-provisioned service (rabbitmq-server, rabbitmq-broker, rabbitmq-haproxy),
-make sure you set the instance count to 0 or you don't set instance counts explicitely at all. This is because
-OpsManager will automatically set the instance counts to 0 if `.properties.multitenant_support` is set to `disabled` but will
-not prevent you from overwritting them through the API (event though the filds are inactive in the user interface).
+1. For instance groups related to the pre-provisioned service,
+such as `rabbitmq-server`, `rabbitmq-broker`, `rabbitmq-haproxy`,
+either set the instance count to `0` or do not set an instance count.
+
+<p class="note warning"><strong>WARNING:</strong>
+  Although the fields are inactive in the user interface, this does not prevent you
+  from overwriting instance counts through the API.
+  If you modify instance counts to a non-zero value, BOSH fails to deploy the tile.
+  This is because BOSH tries to create the VMs but does not have the required properties.</p>
