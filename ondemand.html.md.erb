@@ -430,6 +430,34 @@ To migrate from one service instance to another, do the following:
 
 1. Create an on-demand instance.
 
+1. Configure the on-demand instance
+
+  If you are currently using custom policies and parameters, you may want to recreate them in your new on-demand instance.
+  You can do it easily using RabbitMQ Management Dashboard (go to Admin -> Policies/Limits). If you'd like to automate
+  this process to migrate multiple instances, you can follow these steps to export these settings from the pre-provisioned
+  instance and import them into the on-demand instance.
+
+  1. Create a service key for the new instance with admin credentials
+  `cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
+  1. Retrieve the admin username and password with `cf service-key SERVICE_INSTANCE SERVICE_KEY`
+  1. Retrieve ODB URL with `cf service SERVICE_INSTANCE`
+
+  1. Retrieve vhost limit parameters
+    1. Export parameters JSON to a local file
+    `curl -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_MT/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}'` > PATH_TO_FILE
+    1. Upload parameters JSON to ODB instance
+    `curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_ODB/api/definitions/VHOST -d "$(cat PATH_TO_FILE)"`
+
+  1. Retrieve policies
+    1. Export policies JSON to a local file
+    `curl -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}'` > PATH_TO_FILE
+    1. Upload policies JSON to ODB instance
+    `curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_ODB/api/definitions/VHOST -d "$(cat PATH_TO_FILE)"`
+
+  1. Optionally, create queues, exchanges and binding
+  This step should not be neccessary since RabbitMQ clients should define the model programatically. However, you can also
+  import the model before connecting your clients.
+
 1. Bind it to your app.
 
 1. Unbind the pre-provisioned instance from your app.
@@ -440,7 +468,6 @@ To migrate from one service instance to another, do the following:
 
 1. If you have service-keys for the old instance, make sure to re-create them using
 the new instance and replace the old credentials.
-
 
 ### Differences between Pre-Provisioned and On-Demand Services Instances
 
