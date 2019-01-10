@@ -424,39 +424,49 @@ If you do not want to lose messages, do one of the following:
   * Use shovel or federation plugins to consume messages from the old instance.
 
 
-### How to migrate from a Pre-Provisioned Instance to an On-Demand Instance
+### How to Migrate From a Pre-Provisioned Instance to an On-Demand Instance
 
 To migrate from one service instance to another, do the following:
 
 1. Create an on-demand instance.
 
-1. Configure the on-demand instance
+1. Configure the on-demand instance.<br><br>
 
-  If you are currently using custom policies and parameters, you may want to recreate them in your new on-demand instance.
-  You can do it easily using RabbitMQ Management Dashboard (go to Admin -> Policies/Limits). If you'd like to automate
-  this process to migrate multiple instances, you can follow these steps to export these settings from the pre-provisioned
-  instance and import them into the on-demand instance.
+    If you are using custom policies and parameters, you may want to
+    recreate them in your new on-demand instance.
+    You can do so using RabbitMQ Management Dashboard, found in **Admin > Policies/Limits**.<br><br>
 
-  1. Create a service key for the new instance with admin credentials
-  `cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
-  1. Retrieve the admin username and password with `cf service-key SERVICE_INSTANCE SERVICE_KEY`
-  1. Retrieve ODB URL with `cf service SERVICE_INSTANCE`
+    To automate this process to migrate multiple instances, follow the steps below
+    to export these settings from the pre-provisioned instance and import them into
+    the on-demand instance.
 
-  1. Retrieve vhost limit parameters
-    1. Export parameters JSON to a local file
-    `curl -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_MT/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}'` > PATH_TO_FILE
-    1. Upload parameters JSON to ODB instance
-    `curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_ODB/api/definitions/VHOST -d "$(cat PATH_TO_FILE)"`
+  1. To create a service key for the new instance with the admin username and
+  password, run the following command:
+  `cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'`<br><br>
 
-  1. Retrieve policies
-    1. Export policies JSON to a local file
-    `curl -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}'` > PATH_TO_FILE
-    1. Upload policies JSON to ODB instance
-    `curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT_URL_FOR_ODB/api/definitions/VHOST -d "$(cat PATH_TO_FILE)"`
+  1. To retrieve the admin username and password, run the following command:
+  `cf service-key SERVICE-INSTANCE SERVICE-KEY`<br><br>
 
-  1. Optionally, create queues, exchanges and binding
-  This step should not be neccessary since RabbitMQ clients should define the model programatically. However, you can also
-  import the model before connecting your clients.
+  1. To retrieve the ODB URL, run the following command:<br>
+  `cf service SERVICE-INSTANCE`<br><br>
+
+  1. To export the virtual host limit parameters JSON to a local file, run the
+  following command:
+  `curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}' > PATH-TO-FILE`<br><br>
+
+  1. To upload the virtual host limit parameters JSON to the ODB instance, run the
+  following command:
+  `curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"`<br><br>
+
+  1. To export the policies JSON to a local file, run the following command:
+  `curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}' > PATH-TO-FILE`<br><br>
+
+  1. To upload the policies JSON to the ODB instance, run the following command:
+  `curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"`<br><br>
+
+  1. Optionally, create queues, exchanges and binding. This step should not be
+  necessary since RabbitMQ clients should define the model programatically.
+  However, you can also import the model before connecting your clients.
 
 1. Bind it to your app.
 
