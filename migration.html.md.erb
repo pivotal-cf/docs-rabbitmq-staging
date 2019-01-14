@@ -1,0 +1,138 @@
+---
+title: Migrating From a Pre-Provisioned Instance to an On-Demand Instance
+owner: London Services
+---
+
+The pre-provisioned service will be removed from future releases. Pivotal recommends
+using the on-demand service for new deployments.
+
+<div class="note warning"><strong>WARNING:</strong> Unconsumed messages are lost when you delete your old service instance.
+If you do not want to lose messages, do one of the following:<br><br>
+  <ul>
+    <li>Switch your producers to the new instance but keep the consumers bound to the
+        old instance until the queues are empty.</li>
+    <li>Use shovel or federation plugins to consume messages from the old instance.</li>
+  </ul>
+</div>
+
+## <a id="migrate-single"></a>Migrate a Single Pre-Provisioned Instance to an On-Demand Instance
+
+To migrate from one service instance to another, do the following:
+
+1. Create an on-demand instance. For instructions, see [Create a Service Instance](./use.html#create)
+
+1. Configure the on-demand instance.
+
+  1. If your pre-provisioned instance uses any of the following, ensure that you
+     apply them to the on-demand instance:
+     <ul>
+       <li>Policies</li>
+       <li>vhost specific parameters, such as <code>max_connections</code></li>
+     </ul>
+     You can apply them using the RabbitMQ Management Dashboard or using APIs.
+
+1. Bind it to your app. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
+
+1. Unbind the pre-provisioned instance from your app. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
+
+1. Restart your app. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
+
+1. When ready, delete your pre-provisioned instance. For instructions, see [Delete a Service Instance](./use.html#delete).
+
+1. If you have service-keys for the old instance, make sure to re-create them using
+the new instance and replace the old credentials.
+
+
+## <a id="migrate-multiple"></a>Migrate Multiple Pre-Provisioned Instances to On-Demand Instances
+
+To automate this process to migrate multiple instances, follow the steps below
+to export these settings from the pre-provisioned instance and import them into
+the on-demand instance.
+
+1. Create a service key for the new instance with the admin username and
+password by running the following command:
+
+    ```
+    cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'
+    ```
+
+    Where:
+    * `SERVICE-INSTANCE` is your service instance
+    * `SERVICE-KEY` is a name of your choice for your service key
+
+1. Retrieve the admin username and password with the following command:
+
+    ```
+    cf service-key SERVICE-INSTANCE SERVICE-KEY
+    ```
+
+    Where:
+    * `SERVICE-INSTANCE` is your service instance
+    * `SERVICE-KEY` is the service key name you chose in the step above
+
+1. Retrieve the ODB URL with the following command:
+
+    ```
+    cf service SERVICE-INSTANCE
+    ```
+
+    Where `SERVICE-INSTANCE` is your service instance
+
+1. Export the virtual host limit parameters JSON to a local file with the following command:
+
+    ```
+    curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}' > PATH-TO-FILE
+    ```
+
+    Where:
+    * `USERNAME` is
+    * `PASSWORD` is
+    * `MANAGEMENT-URL-FOR-MT` is
+
+    For example:
+    xxxxxxx
+
+
+1. Upload the virtual host limit parameters JSON to the ODB instance with the
+following command:
+
+    ```
+    curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
+    ```
+
+    Where:
+    * `USERNAME` is
+    * `PASSWORD` is
+    * `MANAGEMENT-URL-FOR-ODB` is
+
+    For example:
+    xxxxxxx
+
+1. Export the policies JSON to a local file with the following command:
+
+    ```
+    curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}' > PATH-TO-FILE
+    ```
+
+    For example:
+    xxxxxxx
+
+1. Upload the policies JSON to the ODB instance with the following command:
+
+    ```
+    curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
+    ```
+
+    For example:
+    xxxxxxx
+
+1. Create queues, exchanges and bindings if the RabbitMQ client has not defined
+the model for you.
+
+1. Bind the on-demand service instances to your apps. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
+
+1. Unbind the pre-provisioned instances from your apps. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
+
+1. Restart your apps. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
+
+1. When ready, delete your pre-provisioned instances. For instructions, see [Delete a Service Instance](./use.html#delete).
