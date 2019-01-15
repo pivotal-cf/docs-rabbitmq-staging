@@ -26,20 +26,19 @@ The default configuration is for testing purposes only and it is recommended tha
 
 ## <a id="recommended"></a>Recommended Deployment
 
-We recommend that RabbitMQ is deployed across at least two availability zones.
+Pivotal recommends that RabbitMQ for PCF is deployed across at least two AZs.
+Scale RabbitMQ server nodes to an odd number that is greater than or equal to three.
 
-RabbitMQ server nodes should be scaled to an odd number and should be greater than 3.
+Only use replication of queues where required as it can have a big impact on system performance.
 
-Replication of queues should only be used where required as it can have a big impact on system performance.
-
-The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
+The HAProxy job instance count should also be increased to match the number of AZs
+to ensure there is a HAProxy located in each AZ.
 This removes the HAProxy SPOF and provides further redundancy.
 
 <%= image_tag("images/deployment_recommended.jpeg") %>
 
-In the above diagram, you can see that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected.
-
-It is also recommend that customers chooses an odd number of RabbitMQ server nodes of three or more.
+In the above diagram, you can see that you can now suffer the failure of a single
+HAProxy and single RabbitMQ node and still keep your cluster online and applications connected.
 
 ### <a id="upgrade-from-single-az"></a>Upgrading to this deployment from a single AZ deployment
 
