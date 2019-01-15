@@ -52,13 +52,12 @@ de-register the pre-provisioned service broker by running the following command:
 
 ## <a id="automation"></a> Disable the Pre-Provisioned Service Using Automation
 
-To turn off the pre-provisioned service if you are using automation, such as scripts
-or pipelines, to configure the RabbitMQ for PCF tile, do the following:
 
-1. Set the `.properties.multitenant_support` property to `disabled`.
+You can turn off the pre-provisioned service if you are using automation such as scripts
+or pipelines to configure the RabbitMQ for PCF tile.
 
-Ops Manager automatically sets instance counts to <code>0</code> if
-<code>.properties.multitenant_support</code> is <code>disabled</code>.
+To do this, set the `.properties.multitenant_support` property to `disabled`.
+When you make this change, Ops Manager automatically sets instance counts to <code>0</code>.
 
 <p class="note warning"><strong>WARNING:</strong>
   For instance groups related to the pre-provisioned service, such as <code>rabbitmq-server</code>,
