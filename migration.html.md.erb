@@ -6,7 +6,8 @@ owner: London Services
 The pre-provisioned service will be removed from future releases. Pivotal recommends
 using the on-demand service for new deployments.
 
-<div class="note warning"><strong>WARNING:</strong> Unconsumed messages are lost when you delete your old service instance.
+<div class="note warning"><strong>WARNING:</strong> Unconsumed messages are lost
+when you delete your old service instance.
 If you do not want to lose messages, do one of the following:<br><br>
   <ul>
     <li>Switch your producers to the new instance but keep the consumers bound to the
@@ -15,51 +16,52 @@ If you do not want to lose messages, do one of the following:<br><br>
   </ul>
 </div>
 
-## <a id="migrate-single"></a>Migrate a Pre-Provisioned Instance to an On-Demand Instance
+## Migrate a Pre-Provisioned Instance to an On-Demand Instance
 
 To migrate from one service instance to another, do the following:
 
-1. Create an on-demand instance. For instructions, see [Create a Service Instance](./use.html#create)
+1. Create an on-demand instance. For instructions, see [Create a Service Instance](./use.html#create).
 
 1. If your pre-provisioned instance uses any of the following, ensure that you
      apply them to the on-demand instance:
      <ul>
        <li>Policies</li>
-       <li>vhost specific parameters, such as <code>max_connections</code></li>
+       <li>vhost-specific parameters, such as <code>max_connections</code></li>
      </ul>
-     You can apply them using the RabbitMQ Management Dashboard or using the API
-     with the steps below.
+     You can apply them using the API by following the steps below. Alternatively,
+     you can apply them in the RabbitMQ Management Dashboard and skip to step 11.
+     The API is the faster option if you have multiple instances to migrate.
 
-   1. Create a service key for the new instance with the admin username and
+1. Create a service key for the new instance with the admin username and
    password by running the following command:
 
-       ```
-       cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'
-       ```
+     ```
+     cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'
+     ```
 
-       Where:
-       * `SERVICE-INSTANCE` is your service instance
-       * `SERVICE-KEY` is a name of your choice for your service key
+     Where:
+     * `SERVICE-INSTANCE` is your service instance
+     * `SERVICE-KEY` is a name of your choice for your service key
 
-   1. Retrieve the admin username and password with the following command:
+1. Retrieve the admin username and password with the following command:
 
-       ```
-       cf service-key SERVICE-INSTANCE SERVICE-KEY
-       ```
+     ```
+     cf service-key SERVICE-INSTANCE SERVICE-KEY
+     ```
 
-       Where:
-       * `SERVICE-INSTANCE` is your service instance
-       * `SERVICE-KEY` is the service key name you chose in the step above
+     Where:
+     * `SERVICE-INSTANCE` is your service instance
+     * `SERVICE-KEY` is the service key name you chose in the step above
 
-   1. Retrieve the ODB URL with the following command:
+1. Retrieve the ODB URL with the following command:
 
        ```
        cf service SERVICE-INSTANCE
        ```
 
-       Where `SERVICE-INSTANCE` is your service instance
+       Where `SERVICE-INSTANCE` is your service instance.
 
-   1. Export the virtual host limit parameters JSON to a local file with the following command:
+1. Export the virtual host (vhost) limit parameters JSON to a local file with the following command:
 
        ```
        curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}' > PATH-TO-FILE
@@ -71,46 +73,33 @@ To migrate from one service instance to another, do the following:
        * `MANAGEMENT-URL-FOR-MT` is the management dashboard URL for your pre-provisioned instances
        * `VHOST` is your virtual host ID
 
-       For example:
-       xxxxxxx
-
-
-   1. Upload the virtual host limit parameters JSON to the ODB instance with the
+1. Upload the virtual host limit parameters JSON to the ODB instance with the
    following command:
 
-       ```
-       curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
-       ```
+     ```
+     curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
+     ```
 
-       Where:
-       * `USERNAME` is the admin username for the cluster
-       * `PASSWORD` is the admin password for the cluster
-       * `MANAGEMENT-URL-FOR-ODB` is the management dashboard URL for your on-demand instances
-       * `VHOST` is your virtual host ID
+     Where:
+     * `USERNAME` is the admin username for the cluster
+     * `PASSWORD` is the admin password for the cluster
+     * `MANAGEMENT-URL-FOR-ODB` is the management dashboard URL for your on-demand instances
+     * `VHOST` is your virtual host ID
 
-       For example:
-       xxxxxxx
+1. Export the policies JSON to a local file with the following command:
 
-   1. Export the policies JSON to a local file with the following command:
+     ```
+     curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}' > PATH-TO-FILE
+     ```
 
-       ```
-       curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}' > PATH-TO-FILE
-       ```
+1. Upload the policies JSON to the ODB instance with the following command:
 
-       For example:
-       xxxxxxx
+     ```
+     curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
+     ```
 
-   1. Upload the policies JSON to the ODB instance with the following command:
-
-       ```
-       curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
-       ```
-
-       For example:
-       xxxxxxx
-
-   1. Create queues, exchanges and bindings if the RabbitMQ client has not defined
-   the model for you.
+1. Create queues, exchanges and bindings if the RabbitMQ client has not defined
+ the model for you.
 
 1. Bind it to your app. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
 
