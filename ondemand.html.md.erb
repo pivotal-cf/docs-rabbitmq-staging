@@ -62,16 +62,21 @@ on how to meet your use case requirements with the on-demand service.
   </tr>
   <tr>
     <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
-    <td>Evaluating based on customer needs and feedback</td>
+    <td>Can access by creating a service key (see [here](./use.html#admin))</td>
   </tr>
   <tr>
     <td>Erlang cookie</td>
     <td>Operator can change, which has caused problems </td>
-    <td>No plan to address. You can manage the Erlang cookie correctly with the on-demand configuration. </td>
+    <td>This is managed by the service. No operator intervention needed.</td>
   </tr>
   <tr>
     <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
-    <td>No plan to address. The security concerns are resolved by improved TLS in the on-demand service.</td>
+    <td>The security concerns are resolved by improved TLS in the on-demand service.</td>
+  </tr>
+  <tr>
+    <td>Resource Sharing</td>
+    <td>Yes. Service instances share resources on the same VM and may affect one another.</td>
+    <td>No. On-demand ensures isolation between service instances by creating a separate VM per service instance.</td>
   </tr>
   <tr>
     <td>External load balancer DNS name</td><td>Available</td><td>Plan to address. IaaS-specific load balancers can still be used.</td>
@@ -82,12 +87,7 @@ on how to meet your use case requirements with the on-demand service.
         This removes the ability to mis-configure the alarm limit.</td>
   </tr>
   <tr>
-    <td>HAProxy</td><td>Exists</td><td>No plans to address due to the following:
-      <br><br>
-      <ul><li>Large RabbitMQ customers have their own hardware load balancers. Small customers appreciate fewer VMs.</li>
-      <li>Network-heavy workloads require scaling the load balancer VMs together with RabbitMQ nodes.</li>
-      <li>Operations teams incur more overhead to support PROXY protocol, causing further overhead at various other layers.</li>
-    </ul></td>
+  <td>Load-balancing</td><td>Available via HAProxy</td><td>Relies on client-side load-balancing. Plan to make this available via BOSH DNS.</td>
   </tr>
   <tr>
     <td>RabbitMQ servers static IP</td><td>Exists</td><td>Evaluating based on customer needs and feedback</td>
@@ -101,24 +101,13 @@ on how to meet your use case requirements with the on-demand service.
         This limitation will potentially be addressed by containers.</td>
   </tr>
   <tr>
-    <td>Almost-guaranteed provisioning</td><td>Guaranteed provisioning</td><td>No plans to address due to infrequent failures</td>
-  </tr>
-  <tr>
-    <td>VM-visibility from Ops Manager</td><td>Available</td><td>Plan to address</td>
-  </tr>
-  <tr>
-    <td>Download logs from Ops Manager</td><td>Available</td><td>Plan to address</td>
-  </tr>
-  <tr>
     <td>Individual instance upgrade</td><td>Possible when using tile replicator</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Plan to address</td>
+    <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Defaults to <code>pause_minority</code>, configurable for each plan</td>
   </tr>
   <tr>
-    <td>TLS</td><td>TLS enabled between client and broker</td><td>TLS between client and broker has been implemented.
-        Client authentication via certificates will be implemented.
-        Inter-node TLS will be implemented.</td>
+    <td>TLS</td><td>TLS enabled between client and RabbitMQ broker, possible to configure peer validation</td><td>TLS between client and the RabbitMQ broker has been implemented.</td>
   </tr>
 </table>
 
