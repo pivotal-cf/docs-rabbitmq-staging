@@ -46,12 +46,12 @@ Pivotal is making different design decisions for the on-demand service.
 
 To provide you enough visibility to decide which service to use,
 the table below describes the current feature discrepancies between the pre-provisioned and on-demand services,
-and Pivotal's plans for addressing these discrepancies. Pivotal encourages you to give feedback
+and plans for addressing these discrepancies. Pivotal encourages you to give feedback
 on how to meet your use case requirements with the on-demand service.
 
 
 <table>
-  <th>Feature</th><th>Pre-Provisioned Service</th><th>On-Demand Service</th>
+  <th width="150">Feature</th><th width="250">Pre-Provisioned Service</th><th width="250">On-Demand Service</th>
   <tr>
     <td>Configuration</td><td>Enabled via base-64 encoded text box</td><td>Plan to address</td>
   </tr>
@@ -61,16 +61,20 @@ on how to meet your use case requirements with the on-demand service.
     <td>Plan to address for tier-1 plugins and selected community plugins</td>
   </tr>
   <tr>
-    <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
-    <td>Can access by creating a service key (see [here](./use.html#admin))</td>
+    <td>RabbitMQ admin credentials to access management dashboard</td>
+    <td>Can set password using tile UI</td>
+    <td>Can access by creating a service key, see
+      <a href="install-config.html#admin-service-key">Create an Admin User for a Service Instance</a>.</td>
   </tr>
   <tr>
     <td>Erlang cookie</td>
-    <td>Operator can change, which has caused problems </td>
+    <td>Operator can change. This might cause problems.
+      For more information, see <a href="./install-config-pp.html#changing-cookie">Changing the Erlang Cookie Value Known Issue</a>.</td>
     <td>This is managed by the service. No operator intervention needed.</td>
   </tr>
   <tr>
-    <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
+    <td>RabbitMQ TLS versions</td>
+    <td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
     <td>The security concerns are resolved by improved TLS in the on-demand service.</td>
   </tr>
   <tr>
@@ -79,7 +83,8 @@ on how to meet your use case requirements with the on-demand service.
     <td>No. On-demand ensures isolation between service instances by creating a separate VM per service instance.</td>
   </tr>
   <tr>
-    <td>External load balancer DNS name</td><td>Available</td><td>Plan to address. IaaS-specific load balancers can still be used.</td>
+    <td>External load balancer DNS name</td><td>Available</td>
+    <td><ul><li>Plan to address</li><li>IaaS-specific load balancers can still be used.</li></ul></td>
   </tr>
   <tr>
     <td>Disk free alarm limit</td><td>Configurable</td><td>No plans to address.
@@ -87,7 +92,9 @@ on how to meet your use case requirements with the on-demand service.
         This removes the ability to mis-configure the alarm limit.</td>
   </tr>
   <tr>
-  <td>Load-balancing</td><td>Available via HAProxy</td><td>Relies on client-side load-balancing. Plan to make this available via BOSH DNS.</td>
+    <td>Load-balancing</td>
+    <td>Available using HAProxy</td>
+    <td>Relies on client-side load-balancing. Pivotal plans to make this available using BOSH DNS.</td>
   </tr>
   <tr>
     <td>RabbitMQ servers static IP</td><td>Exists</td><td>Evaluating based on customer needs and feedback</td>
@@ -96,15 +103,20 @@ on how to meet your use case requirements with the on-demand service.
     <td>Policy for new instances</td><td>Configurable</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>Almost-instant provisioning</td><td>Instantly provisioned</td><td>No plans to address.
-        Instant provisioning for on-demand is limited by the IaaS.
-        This limitation will potentially be addressed by containers.</td>
+    <td>Almost-instant provisioning</td>
+    <td>Instantly provisioned</td>
+    <td>
+      <ul><li>No plans to address.</li>
+          <li>Instant provisioning for on-demand is limited by the IaaS.
+              This limitation will potentially be addressed by containers.</li></td>
   </tr>
   <tr>
     <td>Individual instance upgrade</td><td>Possible when using tile replicator</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Defaults to <code>pause_minority</code>, configurable for each plan</td>
+    <td>Network partition behavior</td>
+    <td><ul><li>Defaults to <code>pause_minority</code></li><li> Configurable</li></ul></td>
+    <td><ul><li>Defaults to <code>pause_minority</code></li><li> Configurable for each plan</li></ul></td>
   </tr>
   <tr>
     <td>TLS</td><td>TLS enabled between client and RabbitMQ broker, possible to configure peer validation</td><td>TLS between client and the RabbitMQ broker has been implemented.</td>
