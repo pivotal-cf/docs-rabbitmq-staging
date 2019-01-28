@@ -212,14 +212,14 @@ The following KPIs from the RabbitMQ server component:
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; 50000 <br>
-      <strong>Red critical</strong>: &gt; 55000</td>
+      <td><strong>Yellow warning</strong>: &gt; 250000 <br>
+      <strong>Red critical</strong>: &gt; 280000</td>
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>The default <code>ulimit</code> for RabbitMQ for PCF v1.6 and later is 60000. If this metric is met or exceeded for an extended period of time, consider one of the following actions:
+      <td>The default <code>ulimit</code> for RabbitMQ for PCF is 300000. If this metric is met or exceeded for an extended period of time, consider one of the following actions:
       <ul><li>Scaling the rabbit nodes in the tile <b>Resource Config</b> pane.</li>
-      <li>Increasing the <code>ulimit</code></li>
+      <li>Reduce the load on the server</li>
       </td>
    </tr>
 </table>
@@ -227,7 +227,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="erlang-processes"></a> Erlang Processes
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.erlang_processes<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.erlang.erlang_processes<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td><a href="https://www.erlang.org/docs">Erlang</a> processes consumed by RabbitMQ, which runs on an Erlang VM.<br><br>
@@ -422,14 +422,19 @@ RabbitMQ for PCF message server components emit the following metrics.
         <td>The memory in MB used by the node</td>
     </tr>
     <tr>
-       <td><code>/p-rabbitmq/rabbitmq/system/disk_free_alarm</code></td>
-       <td>boolean</td>
-       <td>Indicates if the disk free alarm went off</td>
-  </tr>
-  <tr>
         <td><code>/p-rabbitmq/rabbitmq/system/mem_alarm</code></td>
         <td>boolean</td>
         <td>Indicates if the memory alarm went off</td>
+    </tr>
+    <tr>
+       <td><code>/p-rabbitmq/rabbitmq/system/disk_free_alarm</code></td>
+       <td>boolean</td>
+       <td>Indicates if the disk free alarm went off</td>
+    </tr>
+    <tr>
+       <td><code>/p-rabbitmq/rabbitmq/system/disk_free</code></td>
+       <td>MB</td>
+       <td>The disk space in MB available on the node</td>
     </tr>
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/connections/count</code></td>
@@ -453,7 +458,7 @@ RabbitMQ for PCF message server components emit the following metrics.
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/delivered_rate</code></td>
         <td>rate</td>
-        <td>The rate at which messages are being delivered to consumers or clients on the node</td>
+        <td>The rate per second at which messages are being delivered to consumers or clients on the node</td>
     </tr>
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/published</code></td>
@@ -463,7 +468,7 @@ RabbitMQ for PCF message server components emit the following metrics.
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/published_rate</code></td>
         <td>rate</td>
-        <td>The rate at which messages are being published by the node</td>
+        <td>The rate per second at which messages are being published by the node</td>
     </tr>
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/redelivered</code></td>
@@ -473,7 +478,7 @@ RabbitMQ for PCF message server components emit the following metrics.
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/redelivered_rate</code></td>
         <td>rate</td>
-        <td>The rate at which messages are getting the status <code>redeliver</code> on the node</td>
+        <td>The rate per second at which messages are getting the status <code>redeliver</code> on the node</td>
     </tr>
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/get_no_ack</code></td>
@@ -483,7 +488,7 @@ RabbitMQ for PCF message server components emit the following metrics.
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/get_no_ack_rate</code></td>
         <td>rate</td>
-        <td>The rate at which messages get the status <code>get_no_ack</code> on the node</td>
+        <td>The rate per second at which messages get the status <code>get_no_ack</code> on the node</td>
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/messages/pending</code></td>
         <td>count</td>
@@ -495,7 +500,7 @@ RabbitMQ for PCF message server components emit the following metrics.
         <td>The number of messages with the status <code>messages_unacknowledged</code> or <code>messages_ready</code> on the node</td>
     </tr>
     <tr>
-        <td><code>/p-rabbitmq/rabbitmq/system/file descriptors</code></td>
+        <td><code>/p-rabbitmq/rabbitmq/system/file_descriptors</code></td>
         <td>count</td>
         <td>The number of open file descriptors on the node</td>
     </tr>
@@ -518,6 +523,11 @@ RabbitMQ for PCF message server components emit the following metrics.
         <td><code>/p-rabbitmq/rabbitmq/channels/count</code></td>
         <td>count</td>
         <td>The number of channels on the node</td>
+    </tr>
+    <tr>
+        <td><code>/p-rabbitmq/rabbitmq/vhosts/count</code></td>
+        <td>count</td>
+        <td>The number of vhosts</td>
     </tr>
     <tr>
         <td><code>/p-rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/consumers</code></td>
