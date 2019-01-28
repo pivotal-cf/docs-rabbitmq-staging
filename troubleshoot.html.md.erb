@@ -3,48 +3,58 @@ title: Troubleshooting and FAQs for <br>On-Demand RabbitMQ for PCF
 owner: London Services Enablement
 ---
 
-In this topic:
+<div class="quick-links">
+    <ul>
+        <li><a href="#guid">How to Retrieve a Service Instance GUID</a></li>
+        <li><a href="#errors">Troubleshooting Errors</a></li>
+        <ul>
+            <li><a href="#install-fail">Failed Install</a></li>
+            <li><a href="#cannot-create-delete">Cannot Create or Delete Service Instances</a></li>
+            <li><a href="#timeouts">Broker Request Timeouts</a></li>
+            <li><a href="#cannot-bind">Cannot Bind to or Unbind from Service Instances</a></li>
+            <li><a href="#cannot-connect">Cannot Connect to a Service Instance</a></li>
+            <li><a href="#upgrade-all-fails">Upgrade All Service Instances Fails</a></li>
+            <li><a href="#missing-logs">Missing Logs and Metrics</a></li>
+            <li><a href="#failed-deployment">Failed Deployment on Upgrade or after Apply Changes</a></li>
+        </ul>
+        <li><a href="#components">Troubleshooting Components</a></li>
+        <ul>
+            <li><a href="#bosh">BOSH Problems</a></li>
+            <li><a href="#bosh-config">Configuration</a></li>
+            <li><a href="#auth">Authentication</a></li>
+            <li><a href="#network">Networking</a></li>
+            <li><a href="#quotas">Quotas</a></li>
+            <li><a href="#failing-jobs">Failing Jobs and Unhealthy Instances</a></li>
+        </ul>
+        <li><a href="#techniques">Techniques for Troubleshooting</a></li>
+        <ul>
+            <li><a href="#parse-error">Parse a Cloud Foundry (CF) Error Message</a></li>
+            <li><a href="#bosh-cf-access">Access Broker and Instance Logs and VMs</a></li>
+            <li><a href="#broker-errands">Run Service Broker Errands to Manage Brokers and Instances</a></li>
+            <li><a href="#instance-creds">Get Admin Credentials for a Service Instance</a></li>
+            <li><a href="#reinstall">Reinstall a Tile</a></li>
+            <li><a href="#view-resources">View Resource Saturation and Scaling</a></li>
+            <li><a href="#id-instance-owner">Identify Service Instance Owner</a></li>
+            <li><a href="#monitor-quota">Monitor Quota Saturation and Service Instance Count</a></li>
+            <li><a href="#drop-restore-traffic">Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance</a></li>
+        </ul>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+        <ul>
+            <li><a href="#check-deploy">What should I check before deploying a new version of the tile?</a></li>
+            <li><a href="#stopstart">What is the correct way to stop and start RabbitMQ in PCF?</a></li>
+            <li><a href="#boshstop">What happens when I run bosh stop rabbitmq-server?</a></li>
+            <li><a href="#serverfailprocess">What happens when bosh stop rabbitmq-server fails?</a></li>
+            <li><a href="#serverfailactions">What do I do when bosh stop rabbitmq-server fails?</a></li>
+            <li><a href="#backup">How can I manually back up the state of the RabbitMQ cluster?</a></li>
+            <li><a href="#preupgrade">What pre-upgrade checks should I do?</a></li>
+        </ul>
+        <li><a href="#kb">Knowledge Base (Community)</a></li>
+        <li><a href="#support">File a Support Ticket</a></li>
+    </ul>
+</div>
 
-
-* [How to Retrieve a Service Instance GUID](#guid)
-* [Troubleshooting Errors](#errors)
-    * [Failed Install](#install-fail)
-    * [Cannot Create or Delete Service Instances](#cannot-create-delete)
-    * [Broker Request Timeouts](#timeouts)
-    * [Cannot Bind to or Unbind from Service Instances](#cannot-bind)
-    * [Cannot Connect to a Service Instance](#cannot-connect)
-    * [Upgrade All Instances Fails](#upgrade-all-fails)
-    * [Missing Logs and Metrics](#missing-logs)
-    * [Failed Deployment on Upgrade or after Apply Changes](#failed-deployment)
-* [Troubleshooting Components](#components)
-    * [BOSH problems](#bosh)
-    * [Configuration](#bosh-config)
-    * [Authentication](#auth)
-    * [Networking](#network)
-    * [Quotas](#quotas)
-* [Techniques for Troubleshooting](#techniques)
-    * [Parse a Cloud Foundry (CF) Error Message](#parse-error)
-    * [Access Broker and Instance Logs and VMs](#bosh-cf-access)
-    * [Run Service Broker Errands to Manage Brokers and Instances](#broker-errands)
-    * [Get Admin Credentials for a Service Instance](#instance-creds)
-    * [Reinstall a Tile](#reinstall)
-    * [View Resource Saturation and Scaling](#view-resources)
-    * [Identify Service Instance Owner](#id-instance-owner)
-    * [Monitor Quota Saturation and Service Instance Count](#monitor-quota)
-    * [Drop and Restore AMQP(S) traffic to a RabbitMQ instance](#drop-restore-traffic)
-* [Frequently Asked Questions](#faq)
-    * [What should I check before deploying a new version of the tile?](#check-deploy)
-    * [What is the correct way to stop and start RabbitMQ in PCF?](#stopstart)
-    * [What happens when I run bosh stop rabbitmq-server?](#boshstop)
-    * [What happens when bosh stop rabbitmq-server fails?](#serverfailprocess)
-    * [What do I do when bosh stop rabbitmq-server fails?](#serverfailactions)
-    * [How can I manually back up the state of the RabbitMQ cluster?](#backup)
-    * [What pre-upgrade checks should I do?](#preupgrade)
-* [Knowledge Base (Community)](#kb)
-* [File a Support Ticket](#support)
-<br>
-
-This topic provides operators with basic troubleshooting techniques and FAQs for on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
+This topic provides operators with basic troubleshooting techniques and FAQs for
+on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 <!-- Partials are in https://github.com/pivotal-cf/docs-services-partials -->
 
@@ -82,7 +92,7 @@ Start here if you're responding to a specific error or error messages.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-cannot-connect' %>
 
-<a id="upgrade-all-fails"><h3></a>Upgrade All Instances Fails</h3>
+<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Fails</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-upgrade-all-fails' %>
 
@@ -92,13 +102,15 @@ Start here if you're responding to a specific error or error messages.
 
 <a id="failed-deployment"><h3></a>Failed Deployment on Upgrade or after Apply Changes</h3>
 
-If the deployment fails after editing the <strong>Assign AZs and Networks</strong> pane of the RabbitMQ for PCF tile,
+If the deployment fails after editing the <strong>Assign AZs and Networks</strong>
+pane of the RabbitMQ for PCF tile,
 it might be due to a change to the IP addresses assigned to the <code>RabbitMQ Server</code> job.
 RabbitMQ for PCF requires that these IP addresses do not change once assigned.
 If you change them, the deployment fails.
 This includes changes made to your current installation or during an upgrade.
 
-To diagnose and solve this issue, see <a href='changing-ips.html'>Changing Network or IP Addresses Results in a Failed Deployment</a>.
+To diagnose and solve this issue, see
+<a href='changing-ips.html'>Changing Network or IP Addresses Results in a Failed Deployment</a>.
 
 <a id="components"></a><h2>Troubleshooting Components</h2>
 
@@ -144,13 +156,15 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-global-quotas' %>
 
-<a id="failing-jobs"></a><h4>Failing jobs and unhealthy instances</h4>
+<a id="failing-jobs"></a><h3>Failing jobs and unhealthy instances</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-failing-jobs' %>
 
 <a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
 
-This section contains instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks.
+This section contains instructions on interacting with the on-demand service
+broker and on-demand service instance BOSH deployments, and on performing general
+maintenance and housekeeping tasks.
 
 <a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
 
@@ -241,7 +255,8 @@ Alternatively, you can run these scripts on individual nodes:
 <ol>
     <li><code>bosh ssh</code> to a rabbitmq-server instance.</li>
     <li><code>sudo -s</code> to gain root privileges.</li>
-    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this instance, or <code>restore-amqp-traffic</code> to start accepting traffic again.</li>
+    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this
+        instance, or <code>restore-amqp-traffic</code> to start accepting traffic again.</li>
 </ol>
 
 
