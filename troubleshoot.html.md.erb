@@ -8,12 +8,12 @@ owner: London Services Enablement
         <li><a href="#guid">How to Retrieve a Service Instance GUID</a></li>
         <li><a href="#errors">Troubleshooting Errors</a></li>
         <ul>
-            <li><a href="#install-fail">Failed Install</a></li>
+            <li><a href="#install-fail">Failed Installation</a></li>
             <li><a href="#cannot-create-delete">Cannot Create or Delete Service Instances</a></li>
             <li><a href="#timeouts">Broker Request Timeouts</a></li>
             <li><a href="#cannot-bind">Cannot Bind to or Unbind from Service Instances</a></li>
             <li><a href="#cannot-connect">Cannot Connect to a Service Instance</a></li>
-            <li><a href="#upgrade-all-fails">Upgrade All Service Instances Fails</a></li>
+            <li><a href="#upgrade-all-fails">Upgrade All Service Instances Failures</a></li>
             <li><a href="#missing-logs">Missing Logs and Metrics</a></li>
             <li><a href="#failed-deployment">Failed Deployment on Upgrade or after Apply Changes</a></li>
         </ul>
@@ -62,11 +62,11 @@ on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 <%= partial '../../rabbitmq-cf/odb/retrieve-guid' %>
 
-<a id="errors"><h2></a>Troubleshooting Errors</h2>
+<a id="errors"></a><h2>Troubleshooting Errors</h2>
 
-Start here if you're responding to a specific error or error messages.
+Start here if you are responding to a specific error or error messages.
 
-<a id="install-fail"></a><h3>Failed Install</h3>
+<a id="install-fail"></a><h3>Failed Installation</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-install-fail' %>
 
@@ -92,7 +92,7 @@ Start here if you're responding to a specific error or error messages.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-cannot-connect' %>
 
-<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Fails</h3>
+<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Failures</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-upgrade-all-fails' %>
 
@@ -100,7 +100,7 @@ Start here if you're responding to a specific error or error messages.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-missing-logs' %>
 
-<a id="failed-deployment"><h3></a>Failed Deployment on Upgrade or after Apply Changes</h3>
+<a id="failed-deployment"></a><h3>Failed Deployment on Upgrade or after Apply Changes</h3>
 
 If the deployment fails after editing the <strong>Assign AZs and Networks</strong>
 pane of the RabbitMQ for PCF tile,
@@ -174,7 +174,7 @@ maintenance and housekeeping tasks.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-bosh-cf-access' %>
 
-<a id="access-broker"></a><h4>Access Broker Logs and VM(s)</h4>
+<a id="access-broker"></a><h4>Access Broker Logs and VMs</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-broker' %>
 
@@ -202,7 +202,7 @@ maintenance and housekeeping tasks.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-delete-all' %>
 
-<a id="detect-orphans"></a><h4>Detect Orphaned Instances Service Instances</h4>
+<a id="detect-orphans"></a><h4>Detect Orphaned Service Instances</h4>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-detect-orphans' %>
 
@@ -218,11 +218,11 @@ maintenance and housekeeping tasks.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-view-resources' %>
 
-<a id="id-instance-owner"></a><h3>Identify Service Instance Owner</h3>
+<a id="id-instance-owner"></a><h3>Identify a Service Instance Owner</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-id-instance-owner' %>
 
-<a id="monitor-quota"></a><h3>Monitor Quota Saturation and Service Instance Count</h3>
+<a id="monitor-quota"></a><h3>Monitor the Quota Saturation and Service Instance Count</h3>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
 
@@ -235,14 +235,14 @@ which run the necessary <code>iptables</code> commands to achieve that.<br><br>
 
 To stop and then restore traffic to a RabbitMQ instance, do the following:<br>
 <ol>
-    <li> To stop all AMQP(S) traffic to a RabbitMQ instance, run the following command:
+    <li> To stop all AMQP(S) traffic to a RabbitMQ instance, enter the following command:
     <pre>
     bosh -d service-instance_GUID ssh rabbitmq-server
     "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"
     </pre>
     </li>
     <li> After performing the troubleshooting steps, restore the traffic.
-         To do this, run the following command:
+         To do this, enter the following command:
     <pre>
     bosh -d service-instance_GUID ssh rabbitmq-server
     "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/restore-amqp-traffic"
@@ -264,8 +264,8 @@ Alternatively, you can run these scripts on individual nodes:
 
 <a id="check-deploy"></a><h3>What should I check before deploying a new version of the tile?</h3>
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI,
-or health metrics exposed via the firehose.
+Ensure that all nodes in the cluster are healthy from the RabbitMQ Management UI,
+or health metrics exposed through Firehose.
 You cannot rely solely on the BOSH <code>instances</code> output as that reflects the state
 of the Erlang VM used by RabbitMQ and not the RabbitMQ app.
 
@@ -301,9 +301,9 @@ checks to ensure that the RabbitMQ app and Erlang VM have stopped:
     </li>
     <li>Check that <code>rabbitmqctl</code> does not return an Erlang VM PID.</li>
 </ol>
-Once this completes on the bootstrap instance, BOSH will continue the same
-sequence on the next instance. All remaining rabbitmq-server instances will be
-stopped one by one.
+Once this completes on the bootstrap instance, BOSH continues the same
+sequence on the next instance. All remaining rabbitmq-server instances
+stop one by one.
 
 <a id="serverfailprocess"></a><h3>What happens when bosh stop rabbitmq-server fails?</h3>
 
@@ -316,23 +316,23 @@ script failed with:
 <a id="serverfailactions"></a><h3>What do I do when bosh stop rabbitmq-server fails?</h3>
 
 The drain script logs to <code>/var/vcap/sys/log/rabbitmq-server/drain.log</code>. If you
-have a remote syslog configured, this will appear as the <code>rmq_server_drain</code>
+have a remote syslog configured, this appears as the <code>rmq_server_drain</code>
 program.
 <br><br>
 First, BOSH <code>ssh</code> into the failing rabbitmq-server instance and start the
 rabbitmq-server job by running <code>monit start rabbitmq-server</code>. You will not be
-able to start the job via BOSH <code>start</code> as this always runs the drain script first
-and will fail since the drain script is failing.
+able to start the job with BOSH <code>start</code> as this always runs the drain script first
+and will fail as the drain script is failing.
 <br><br>
-Once rabbitmq-server job is running (confirm this via <code>monit status</code>), run <code>DEBUG=1</code>
-<code>/var/vcap/jobs/rabbitmq-server/bin/drain</code>. This will tell you exactly why it’s
+Once rabbitmq-server job is running (confirm this with <code>monit status</code>), run <code>DEBUG=1</code>
+<code>/var/vcap/jobs/rabbitmq-server/bin/drain</code>. This tells you exactly why it is
 failing.
 
 <a id="backup"></a><h3>How can I manually back up the state of the RabbitMQ cluster?</h3>
 
 It is possible to back up the state of a RabbitMQ cluster for both the on-demand
 and pre-provisioned services using the RabbitMQ Management API.
-Backups include vhosts, exchanges, queues and users.
+Backups include virtual hosts, exchanges, queues, and users.
 
 <h4>Back up Manually</h4>
 
@@ -367,10 +367,10 @@ curl -u "$USERNAME:$PASSWORD" "http://$RABBIT-ADDRESS:15672/api/definitions"
 
 Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 <ol>
-    <li>In Operations Manager check that the status of all of the instances is healthy.</li>
+    <li>In Ops Manager check that the status of all of the instances is healthy.</li>
     <li>
         Log into the RabbitMQ Management UI and check that no alarms have been triggered
-        and that all nodes are healthy, that is, they should display as green.
+        and that all nodes display as green, showing they are healthy.
     </li>
     <li>
         Check that the system is not close to hitting either the memory or disk alarm.
