@@ -127,9 +127,9 @@ must stop all but one node in the RabbitMQ cluster, perform an upgrade and then 
 nodes.
 This process has downtime for the duration of the upgrade steps, and includes these two procedures:
 
-[Prepare to Upgrade the Pre-Provisioned Service](#prepare)
+1. [Prepare to Upgrade the Pre-Provisioned Service](#prepare)
 
-[Install the Tile to Upgrade the Pre-Provisioned Service](#install-tile)
+1. [Upgrade the Pre-Provisioned Service](#install-tile)
 
 ### <a id="prepare"></a> Prepare to Upgrade the Pre-Provisioned Service
 
@@ -209,11 +209,11 @@ Before installing the RabbitMQ for PCF v1.13, do the following to prepare for th
     <p class="note warning"><strong>WARNING</strong>: Do not attempt the upgrade
     if there are active alarms or if the cluster is not in a healthy state.</p>
 
-### <a id="install-tile"></a> Install the Tile
+### <a id="install-tile"></a> Upgrade the Pre-Provisioned Service
 
 To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the following:
 
-1. Install the tile. For instructions, see [Download and Install RabbitMQ for PCF](./install-config.html#install).
+1. Stage the tile. For instructions, see [Download and Install RabbitMQ for PCF](./install-config.html#install).
 
     <br>Adjust the configuration settings if necessary. Pivotal recommends you do not make any adjustments unless they are to increase the disk or RAM.
 
@@ -321,7 +321,7 @@ There are three main steps to upgrade the on-demand RabbitMQ for PCF v1.13:
 
 1. [Check for On-Demand Service Instances Running RabbitMQ v3.6](#existing-ondemand-instances)
 
-1. [Install the Tile](#tile-ondemand)
+1. [Stage the Tile](#tile-ondemand)
 
 For issues with upgrading the on-demand service,
 see:
@@ -385,7 +385,7 @@ Run `cf curl` against that URL. For example:
 
 1. Ensure that the result for each service plan shows zero instances using RabbitMQ v3.6.
 
-### <a id="tile-ondemand"></a> Install the Tile
+### <a id="tile-ondemand"></a> Stage the Tile
 
 Do the following:
 
