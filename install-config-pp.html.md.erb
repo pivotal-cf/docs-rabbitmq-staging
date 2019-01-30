@@ -175,18 +175,34 @@ For more information about SSL support, see the [RabbitMQ documentation](https:/
 
 ### <a id="erlang"></a>Erlang Cookie
 
-(Optional) Provide an Erlang cookie to be used by the cluster in this section of the **Pre-Provisioned RabbitMQ** tab.
-This is useful if you want to connect directly to the RabbitMQ cluster, for example with `rabbitmqctl`,
-or to connect other VMs running Erlang.
+(Optional) Provide an Erlang cookie to be used by the cluster in this section of
+the **Pre-Provisioned RabbitMQ** tab.
+This is useful if you want to connect directly to the RabbitMQ cluster, for
+example with `rabbitmqctl`, or to connect other VMs running Erlang.
+
+<p class="note"><strong>Note: </strong>Leaving this field blank is a security risk.
+  See <a href="#erlang-security-issue">Security Issue with the Tile Generated Erlang Cookie</a>
+  below.</p>
 
 <%= image_tag("images/config-erlang.png") %>
 
 #### Known Issues with Erlang Cookie
 
-There are two known issues associated with the Erlang cookie when you do the following:
+There are three known issues associated with the Erlang cookie:
 
-* [Cluster Scaling](#scaling-issue)
-* [Changing the Erlang Cookie Value](#changing-issue)
+* [Security Issue with the Tile Generated Erlang Cookie](#erlang-security-issue)
+* [Cluster Scaling Known Issue](#scaling-issue)
+* [Changing the Erlang Cookie Value Known Issue](#changing-issue)
+
+#### <a id="erlang-security-issue"></a> Security Issue with the Tile Generated Erlang Cookie
+
+If you leave the Erlang cookie field blank, the tile generates the cookie in a way
+that can be reverse-engineered. For more information about this security issue,
+see [CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie](https://pivotal.io/security/cve-2018-1279).
+
+To avoid this issue, set the Erlang cookie to a secure password value.
+This requires cluster downtime, see [Changing the Erlang Cookie Value Known Issue](#changing-issue)
+below.
 
 #### <a id="scaling-issue"></a> Cluster Scaling Known Issue
 
@@ -214,8 +230,8 @@ raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the Ops Manager Installation Dashboard.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
-For more information about this Ops Manager page, 
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
@@ -443,9 +459,9 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 1. Return to the Ops Manager Installation Dashboard.
 
-2. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
-For more information about this Ops Manager page, 
-see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html). 
+2. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+For more information about this Ops Manager page,
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes** to redeploy with the changes.
 
@@ -493,7 +509,7 @@ you click **Apply Changes** to update a configuration in the Ops Manager Install
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-If you are using Ops Manager v2.3 or later, you can toggle errands on and off on the **Review Pending Changes** page. 
+If you are using Ops Manager v2.3 or later, you can toggle errands on and off on the **Review Pending Changes** page.
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
@@ -595,8 +611,8 @@ but before Ops Manager finishes deleting the product.
 
 1. Return to the Ops Manager Installation Dashboard.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
-For more information about this Ops Manager page, 
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes** to complete the installation of RabbitMQ for PCF.
