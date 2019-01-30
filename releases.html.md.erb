@@ -69,6 +69,14 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
+* **[Security Issue]** The method for generating the Erlang Cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang Cookie explicitly in the tile configuration,
+  you are not affected by this issue.
+
 * The maximum number of file descriptors is not set.
 Therefore, RabbitMQ instances use the default value from the operating system.
 
@@ -127,6 +135,14 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues:
+
+* **[Security Issue]** The method for generating the Erlang Cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang Cookie explicitly in the tile configuration,
+  you are not affected by this issue.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
@@ -188,6 +204,14 @@ New features and changes in this release:
 
 This release has the following known issues:
 
+* **[Security Issue]** The method for generating the Erlang Cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang Cookie explicitly in the tile configuration,
+  you are not affected by this issue.
+
 * If you upgrade to RabbitMQ for PCF v1.14, you cannot see RabbitMQ metrics
   on the Loggregator Firehose.
   This issue does not affect new installations.
@@ -240,6 +264,14 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues:
+
+* **[Security Issue]** The method for generating the Erlang Cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang Cookie explicitly in the tile configuration,
+  you are not affected by this issue.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
@@ -309,6 +341,14 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues:
+
+* **[Security Issue]** The method for generating the Erlang Cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang Cookie explicitly in the tile configuration,
+  you are not affected by this issue.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
