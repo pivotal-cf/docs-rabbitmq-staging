@@ -393,5 +393,5 @@ Do the following:
 
 2. Run the following errands with BOSH CLI commands.<br><br>
     In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
- * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`
+ * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`. This will automatically delete the deprecated plans that use RabbitMQ v3.6 and keep only plans that use RabbitMQ v3.7.
  * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
