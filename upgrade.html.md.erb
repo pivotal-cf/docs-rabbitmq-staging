@@ -219,7 +219,11 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 
 1. Use the BOSH CLI to stop the HAProxy node.
 
-    <br>Run this command:<br>`bosh -d p-rabbitmq-GUID stop rabbitmq-haproxy`.<br><br>
+    <br>Run this command:
+
+    ```
+    bosh -d p-rabbitmq-GUID stop rabbitmq-haproxy
+    ```
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
         * If you have multiple HA Proxy nodes, stop all of them.<br><br>
@@ -231,7 +235,10 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
 1. Use the BOSH CLI to stop all but one of the RabbitMQ server nodes.
 
     <br>Run this command on RabbitMQ server nodes until you have only one node running:
-    <br>`bosh -d p-rabbitmq-GUID stop rabbitmq-server/NODE-INDEX`<br><br>
+
+    ```
+    bosh -d p-rabbitmq-GUID stop rabbitmq-server/NODE-INDEX
+    ```
 
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
@@ -261,8 +268,11 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
     <br>You should now have a single RabbitMQ node running with RabbitMQ v3.7.
 
 1. Start the RabbitMQ server nodes you stopped previously.
-    1. For each node you shut down previously, run this command:<br>
-        `bosh -d p-rabbitmq-GUID start rabbitmq-server/NODE-INDEX`<br><br>
+    1. For each node you shut down previously, run this command:
+
+        ```
+        bosh -d p-rabbitmq-GUID start rabbitmq-server/NODE-INDEX
+        ```
 
         Where:<br>
         * `GUID` is the RabbitMQ for PCF deployment GUID.
@@ -273,7 +283,10 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
         of data in your queues during migration (not recommended) or a large number of vhosts.</p>
 
     1. Make sure all nodes are running by checking the BOSH vms:
-    <br>`bosh -d p-rabbitmq-GUID vms`
+
+        ```
+        bosh -d p-rabbitmq-GUID vms
+        ```
 
 1. At this point all nodes should be running, however, the cluster will not be able to
     serve any traffic until each node completes internal datastore migrations. <br><br>
@@ -281,26 +294,40 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
     number of vhosts, and your hardware. You can assume about 1 minute for 1&nbsp;GB of stored messages and
     1 second for each vhost (even if all queues are empty). <br><br>
     * You can monitor the progress by tailing the logs of
-    your RabbitMQ nodes with the following command: <br>
-      `bosh -d p-rabbitmq-GUID logs -f rabbitmq-server`<br><br>
-      Where:
-      * `GUID` is the RabbitMQ for PCF deployment GUID.<br>
-    * If you see messages such as `Started message store of type persistent` or `Setting permissions for 'broker'` (repeated for different vhosts),
-      wait until these processes finish before going to the next step.
+    your RabbitMQ nodes with the following command:
+
+        ```
+        bosh -d p-rabbitmq-GUID logs -f rabbitmq-server
+        ```
+        Where:
+        * `GUID` is the RabbitMQ for PCF deployment GUID.<br>
+        * If you see messages such as `Started message store of type persistent` or `Setting permissions for 'broker'` (repeated for different vhosts),
+        wait until these processes finish before going to the next step.
 
 1. Start the HAProxy node.
 
-    <br>Run this command:<br>`bosh -d p-rabbitmq-GUID start rabbitmq-haproxy`<br><br>
+    <br>Run this command:
+
+    ```
+    bosh -d p-rabbitmq-GUID start rabbitmq-haproxy
+    ```
     Where:<br>
     * `GUID` is the RabbitMQ for PCF deployment GUID.
 
 1. Make sure all nodes are running by checking their status in the RabbitMQ Management Dashboard.
 
-1. Run the following errands with BOSH CLI commands.<br><br>
-    In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
- * Broker Registrar: `bosh -d p-rabbitmq-GUID run-errand broker-registrar`
- * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
+1. Run the following errands with BOSH CLI commands.
+In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.
+   * Broker Registrar:
 
+         ```
+         bosh -d p-rabbitmq-GUID run-errand broker-registrar
+         ```
+   * Smoke Tests:
+
+         ```
+         bosh -d p-rabbitmq-GUID run-errand smoke-tests
+         ```
 1. If you disabled automatic synchronization policies in a previous step,
    you can now enable them using `ha-sync-mode: automatic`.
 
@@ -357,17 +384,17 @@ To search for on-demand service instances running RabbitMQ v3.6, do the followin
 
 1. Search for the on-demand service `p.rabbitmq`:
 
-    <pre class="terminal">
-       $ cf curl /v2/services?q=label:p.rabbitmq
-    </pre>
+    ```
+    cf curl /v2/services?q=label:p.rabbitmq
+    ```
 
 1. In the output from step 2, find `service_plans_url`.
 This shows the URL for all service plans.
 Run `cf curl` against that URL. For example:
 
-    <pre class="terminal">
-      $ cf curl /v2/services/SERVICE-GUID/service_plans
-    </pre>
+    ```
+    cf curl /v2/services/SERVICE-GUID/service_plans
+    ```
 
     This returns a list of all RabbitMQ for PCF on-demand service plans,
     which might include plans using RabbitMQ v3.6 and plans using RabbitMQ v3.7.
@@ -379,9 +406,9 @@ Run `cf curl` against that URL. For example:
 
 1. Run `cf curl` against each URL found in step 4. For example:
 
-    <pre class="terminal">
-      $ cf curl /v2/service_plans/SERVICE-PLAN-GUID/service_instances
-    </pre>
+    ```
+    cf curl /v2/service_plans/SERVICE-PLAN-GUID/service_instances
+    ```
 
 1. Ensure that the result for each service plan shows zero instances using RabbitMQ v3.6.
 
@@ -391,7 +418,17 @@ Do the following:
 
 1. Follow the steps in [Download and Install RabbitMQ for PCF](./install-config.html#install).
 
-2. Run the following errands with BOSH CLI commands.<br><br>
+2. Run the following errands with BOSH CLI commands.
     In the following commands, `GUID` is the the RabbitMQ for PCF deployment GUID.<br>
- * Register Broker: `bosh -d p-rabbitmq-GUID run-errand register-broker`. This will automatically delete the deprecated plans that use RabbitMQ v3.6 and keep only plans that use RabbitMQ v3.7.
- * Smoke Tests: `bosh -d p-rabbitmq-GUID run-errand smoke-tests`
+ * Register Broker:
+
+        ```
+        bosh -d p-rabbitmq-GUID run-errand register-broker
+        ```
+   This automatically deletes the deprecated plans that use RabbitMQ v3.6, but
+   keeps plans that use RabbitMQ v3.7.<br><br>
+ * Smoke Tests:
+
+        ```
+        bosh -d p-rabbitmq-GUID run-errand smoke-tests
+        ```
