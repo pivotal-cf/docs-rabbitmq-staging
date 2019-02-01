@@ -221,7 +221,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
     <tr><td><strong>Plan Description</strong></td>
         <td>Accept the default or enter a description.  This description appears in the Marketplace.</td></tr>
     <tr><td><strong>Paid Plan</strong></td>
-        <td>Check this box to indicate that this service plan is paid. 
+        <td>Check this box to indicate that this service plan is paid.
             The plan is marked with an asterisk in the <code>cf marketplace</code> list and
             labeled <code>paid</code> in the <code><strong>free or paid</strong></code> column when individual plans are listed.</td></tr>
     <tr><td><strong>Plan Features</strong></td>
@@ -476,9 +476,14 @@ To create an admin user on a RabbitMQ instance do the following:
    }
 </pre>
 
-## <a id="plugins"></a>RabbitMQ Server Plugins
+## <a id="server-plugins"></a> RabbitMQ Server Plugins
 
-The following plugins are enabled by default and cannot be disabled:
+RabbitMQ for PCF supports the RabbitMQ plugins listed below, which are either
+enabled or disabled by default.
+
+### <a id="enabled-plugins"></a> Enabled RabbitMQ Server Plugins
+
+The following plugins are enabled by default, you cannot disable them:
 
 * `rabbitmq_management`---For more information see
 [Management Plugin](https://www.rabbitmq.com/management.html) in the RabbitMQ documentation.
@@ -497,12 +502,36 @@ The following plugins are enabled by default and cannot be disabled:
 * `rabbitmq_consistent_hash_exchange`---For more information, see the
 [rabbitmq consistent hash exchange](https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/blob/master/README.md) GitHub repository.
 
-The `rabbitmq_event_exchange` plugin is disabled by default. It can be enabled when a service is created, or by updating an existing service.---For more information about the plugin, see
+
+### <a id="disabled-plugins"></a> Disabled RabbitMQ Server Plugins
+
+The `rabbitmq_event_exchange` plugin is disabled by default.
+You can enable it when you create a service instance, or by updating an existing
+service instance.
+For more information about the plugin, see
 [Event Exchange](https://www.rabbitmq.com/event-exchange.html).
 
-To enable the plugin, specify a service-specific configuration parameter in JSON:
-<pre class="terminal">
-cf create-service p.rabbitmq single-node myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
+To enable the plugin, run the one of the following commands specifying the plugin
+as a configuration parameter in JSON:
 
-cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
-</pre>
+* When creating a service instance, run:
+
+    ```
+    cf create-service SERVICE PLAN SERVICE-INSTANCE -c PARAMETER-AS-JSON
+    ```
+    For example:
+
+    <pre class="terminal">
+    $ cf create-service p.rabbitmq single-node myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
+    </pre>
+
+* When updating an existing service instance, run:
+
+    ```
+    cf update-service SERVICE-INSTANCE -c PARAMETER-AS-JSON
+    ```
+    For example:
+
+    <pre class="terminal">
+    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
+    </pre>
