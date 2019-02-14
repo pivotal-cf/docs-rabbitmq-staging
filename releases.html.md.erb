@@ -30,6 +30,64 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1147"></a> v1.14.7
+
+**Release Date**: February 13, 2019
+
+<p class="note breaking"><strong>Breaking Change:</strong>
+  RabbitMQ for PCF v1.14 and later requires a Xenial stemcell.
+  You must manually download and import a new stemcell into the Ops Manager Stemcell
+  Library before deploying RabbitMQ for PCF v1.14.
+  This might break automation you have set up to update RabbitMQ for PCF deployments
+  that used Trusty stemcells.
+  To download the Xenial stemcell from Pivotal Network, go to
+  <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial">Stemcells for PCF (Ubuntu Xenial)</a>.
+  For instructions on importing the stemcell, see
+  <a href="https://docs-pcf-staging.cfapps.io/pivotalcf/opsguide/managing-stemcells.html">Importing and Managing Stemcells</a>.</p>
+
+<p class="note breaking"><strong>Breaking Change:</strong>
+  Syslog forwarding uses RFC5424 format, and the Legacy Format is no longer available.
+  If you are upgrading and have Legacy Format selected in your existing syslog configuration,
+  that setting is automatically reconfigured to use the RFC5424 format.
+</p>
+
+### Features
+
+New features and changes in this release:
+
+* Previously, when multiple Availability Zones(AZ) were selected for a single-node service plan, all instances of that plan would be deployed to the first AZ.
+  Now the AZ will be selected randomly from the configured list. This change does not affect existing instances and only applies to newly created instances.
+
+### Known Issues
+
+This release has the following known issues:
+
+* **[Security Issue]** The method for generating the Erlang Cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang Cookie explicitly in the tile configuration,
+  you are not affected by this issue.
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
+
+### Packages
+
+* OSS RabbitMQ v3.7.11
+* Erlang v20.3.8.18
+* HAProxy v1.8.17
+
 ## <a id="1146"></a> v1.14.6
 
 **Release Date**: December 28, 2018
@@ -76,9 +134,6 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
-
-* The maximum number of file descriptors is not set.
-Therefore, RabbitMQ instances use the default value from the operating system.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
   and might result in failed deployments.
