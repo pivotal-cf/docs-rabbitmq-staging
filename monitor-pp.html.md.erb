@@ -37,7 +37,7 @@ RabbitMQ and HAProxy servers log at the <code>info</code> level and capture erro
 ## <a id="metrics"></a>Metrics
 
 Metrics are regularly-generated log messages that report measured component states. The metrics polling interval defaults to 30 seconds.
-The **metrics polling interval** is a configuration option on the RabbitMQ tile (**Settings** > **RabbitMQ**).  The interval setting applies to all components deployed by the tile.
+The **metrics polling interval** is a configuration option on the RabbitMQ tile (**Settings** > **RabbitMQ**). Setting this interval to -1 disables metrics. The interval setting applies to all components deployed by the tile.
 
 Metrics are long, single lines of text that follow the format:
 
