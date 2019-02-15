@@ -37,6 +37,12 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 **Release Date**: February 14, 2019
 
+**This release has been removed** because of incompatibility between the following:
+
++ BOSH Process Manager (BPM) v1.0.3 and later
++ Trusty stemcells v3586.71 and later
++ Dynatrace Full-Stack Add-on for PCF, all versions
+
 ### Features
 
 New features and changes in this release:
@@ -58,6 +64,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
@@ -102,10 +110,17 @@ This release has the following known issues:
 * **[Security Issue]** The method for generating the Erlang Cookie is not secure.
   For more information about this security issue, see
     <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+
   * If you rely on the tile to generate the cookie by leaving the Erlang cookie
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
+
+* **[Security Issue]** There is a issue related to BOSH Process Manager (BPM) v1.0.2.
+  RabbitMQ for PCF v1.13 cannot be upgraded to use BPM v1.0.3.
+  To resolve this issue, upgrade to RabbitMQ for PCF v1.14.  
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
@@ -161,6 +176,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
@@ -221,6 +238,8 @@ This release has the following known issues:
   on the Loggregator Firehose.
   This issue does not affect new installations.
 
+<%= partial 'bpm-issue' %>
+
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
 
@@ -268,6 +287,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -318,6 +339,8 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
+<%= partial 'bpm-issue' %>
+
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
 
@@ -365,6 +388,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -414,6 +439,8 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
+<%= partial 'bpm-issue' %>
+
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
 
@@ -461,6 +488,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -519,6 +548,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+<%= partial 'bpm-issue' %>
 
 * You cannot upgrade from PCF v.12 to PCF v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
