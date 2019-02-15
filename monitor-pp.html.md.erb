@@ -60,14 +60,13 @@ origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployme
 
 Monitors can be created to emit alerts in case a cluster seems to be in a
 partition. A metrics is emitted for each node in the cluster. For example: in a
-three-node cluster a monitor can expect to have a total of 9 (nine) since each
+three-node cluster a monitor can expect to have a total of 9 (nine) because each
 node is expected to emit 3 (2 reachable nodes and itself). Otherwise, an alert
 can be sent to the team.
 
 
 ## Recovering from a network partition
-Please refer to the oficial RabbitMQ guide to understand how to recover from a network partition:
-https://www.rabbitmq.com/partitions.html
+See [Clustering and Network Partitions](https://www.rabbitmq.com/partitions.html) in the RabbitMQ documentation to learn how to recover from a network partition.
 
 
 ## <a id="kpi"></a>Key Performance Indicators
@@ -200,7 +199,7 @@ The following KPIs from the RabbitMQ server component:
       <th width="25%">Description</th>
       <td>File descriptors consumed.<br><br>
 
-      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the ability to perform disk IO, which can cause data loss.
+      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM might lose the ability to perform disk I/O, which can cause data loss.
       <p class="note"><strong>Note</strong>: This assumes non-persistent messages are handled by retries or some other logic by the producers.</p>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: count<br>
@@ -305,7 +304,7 @@ These component metrics are from RabbitMQ for PCF components, and serve as KPIs 
       <th width="25%">Description</th>
       <td>CPU being consumed by the <code>p-rabbitmq</code> VM.<br><br>
 
-      <strong>Use</strong>: A node that experiences context switching or high CPU usage will become unresponsive.
+      <strong>Use</strong>: A node that experiences context switching or high CPU usage becomes unresponsive.
       This also affects the ability of the node to report metrics.
       <br><br>
       Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.

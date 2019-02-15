@@ -4,7 +4,7 @@ owner: London Services
 ---
 
 This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install,
-configure, and deploy the RabbitMQ for PCF tile to providea pre-provisioned service.
+configure, and deploy the RabbitMQ for PCF tile to provide a pre-provisioned service.
 
 The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
@@ -48,7 +48,7 @@ This lets you begin configuring the tile. The installation is complete when you 
 
 The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager.
 An orange circle beside a tab indicates that you must complete a configuration in the tab.
-A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
+A green check mark indicates that the tab is preconfigured and you are able to change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
 
 ![Rabbit Tile Configuration](images/rmq_tile_config.png)
@@ -108,7 +108,7 @@ You can use a combination of upper or lowercase alphanumerics and supported spec
 
 This grants you full admin access to the RabbitMQ Management UI.
 
-<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password,
+<p class="note"><strong>Note</strong>: To rotate your admin credentials, enter a new username and password,
   save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
 
@@ -345,7 +345,7 @@ tile provides four options for this value:
   there must be enough space for RabbitMQ to page all memory-based messages out
   to disk.
 * **150% Memory** is recommended.
-  This is because it is possible that in between disk-space checks, RabbitMQ may:
+  This is because it is possible that in between disk-space checks, RabbitMQ might:
   - Write persistent messages to disk (using up some disk space).
   - Accept more memory-based messages into various queues.
   - Page all memory-based messages to disk.
@@ -391,13 +391,13 @@ To specify static IP addresses, do the following:
 1. In the **Pre-Provisioned RabbitMQ** tab, configure the following fields:<br>
   * **Pre-Provisioned HAProxy Static IPs**:
     Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
-    These IP addresses are assigned to your Pre-Provisioned HAproxy nodes.<br><br>
+    These IP addresses are assigned to your Pre-Provisioned HAProxy nodes.<br><br>
   * **Pre-Provisioned RabbitMQ Server Static IPs**:
     Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
     These IP addresses are assigned to your Pre-Provisioned RabbitMQ Server nodes.<br><br>
   * **Pre-Provisioned Service Broker Static IP**:
     Enter an IP address. This address must be in the network range of the network name
-    specified in the **Network** drop-down list in the **Assign AZs and Networks** tab
+    specified in the **Network** dropdown in the **Assign AZs and Networks** tab
     and must not be in the **Service Network**.
     This IP address is assigned to your Pre-Provisioned Service Broker node.
 
@@ -428,7 +428,7 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
     <tr>
         <td><strong>Metrics polling interval</strong></td>
         <td>The default setting is 30 seconds for all deployed components. Pivotal recommends that you do not change this interval.
-        In order to avoid overwhelming components, do not set this below 10 seconds. Metrics can be disabled by setting this to -1.
+        To avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
         Changing this setting affects all deployed instances.</td>
     </tr>
     <tr>
@@ -450,7 +450,7 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
     <tr>
         <td><strong>Permitted Peer</strong></td>
         <td>If there are several peer servers that can respond to remote syslog connections,
-            then you may provide a wildcard in the domain, such as `*.example.com`.</td>
+            then you can provide a wildcard in the domain, such as `*.example.com`.</td>
     </tr>
     <tr>
         <td><strong>Custom CA Certificate</strong></td>
@@ -498,7 +498,7 @@ Therefore, if you are not using the on-demand service:
 
 * Select or enter any values in the required fields, select the **Acknowledge** checkbox, and click **Save**.
 
-For information on configuring the on-demand service, see [Installing and Configuring the On-Demand Service](./install-config.html).
+For information about configuring the on-demand service, see [Installing and Configuring the On-Demand Service](./install-config.html).
 
 ## <a id='errands'></a>Errands
 
@@ -526,7 +526,7 @@ as well as the defaults for [pre-delete](#pre-delete-errands) errands.
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 
-For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+For more information about errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ### <a id='post-deploy-errands'></a>Post-Deploy Errands
 
@@ -557,10 +557,10 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
+    <td>On-Demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
     tile is upgraded.
     If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to <strong>Dedicated Instance</strong> settings will <i>not</i>
-    be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
+    be applied to existing service instances. <strong>Pivotal recommends that this errand is configured to always run</strong>.</td>
   </tr>
 </table>
 
@@ -614,14 +614,14 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 ### <a id='ha-cluster'></a>Connecting to a Highly Available RabbitMQ Cluster
 
-The RabbitMQ tile, allows for a highly available cluster through multiple
+The RabbitMQ tile allows for a highly available cluster through multiple
 HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added
 and should be used in preference over the equivalent singular properties. The
 singular properties are maintained for backwards compatibility and always
 contain the first value from the equivalent plural property. The singular
 properties will eventually be deprecated.
 
-For example, with two HAProxy jobs deployed, the following properties will be present:
+For example, with two HAProxy jobs deployed, the following properties are present:
 <pre><code>"hostname": "10.0.0.41",
 "hostnames": [
     "10.0.0.41",
