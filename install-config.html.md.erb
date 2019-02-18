@@ -136,12 +136,12 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   BOSH allocates an IP address if the field is left blank.
   <br><br>
   * **Number of upgrade canary instances**: Set the number of canary instances
-  to upgrade first in the "upgrade all service instances" errand.
-  If all canary instances successfully upgrade, the remaining instances are upgraded.
+  to perform the "upgrade all service instances" and "recreate all service instances" errands on first.
+  If the errand succeeds on all canary instances, it is run on the remaining instances.
   <br><br>
   * **Maximum number of instances upgraded in parallel**: Set the limit for the
-  number of upgrades that occur simultaneously in the "upgrade all service instances" errand.
-  The number of simultaneous upgrades is limited by the number of available BOSH workers.
+  number of instances that the "upgrade all service instances" and "recreate all service instances" errands are run on simultaneously.
+  The number of simultaneous runs is limited by the number of available BOSH workers.
   See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
   in the Cloud Foundry BOSH documentation.
   Set the value lower than this limit to avoid over-saturating BOSH.
@@ -251,7 +251,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 #### <a id="determineaz"></a> Determine which AZs a Service Instance Uses
 
 <p class='note warning'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
-       existing instances are <strong>not</strong> placed in the newly configured AZs when the <strong>Upgrade All Service Instances</strong> errand is run.
+       existing instances are <strong>not</strong> placed in the newly configured AZs when the <strong>Upgrade All Service Instances</strong> or the <strong>Recreate All Service Instances</strong> errand is run.
        This prevents re-creation of the VMs in different AZs, which can lead to data loss.
        <br>All new service instances, however, will be created in the newly configured AZs.</p>
 
@@ -356,7 +356,8 @@ If you are using Ops Manager v2.3 or later, you can toggle errands on and off on
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
-<p class='note warning'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
+<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except the
+recreate-all-service-instances errand in version v1.16.0 and later.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
     and on-demand instances of RabbitMQ for PCF might fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
@@ -400,6 +401,12 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
     <td>On-Demand instances are updated and redeployed if there are changes to on-demand plan settings or the
     tile is upgraded. If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to on-demand plan settings will <strong>not</strong>
     be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
+  </tr>
+  <tr>
+    <td><strong>Recreate All Service Instances</strong></td>
+    <td>Recreates all On-Demand instance VMs managed by the On-Demand broker. This errand is useful for tasks which require a full restart of the service instance VM
+    for example rotating the Ops Manager root certificate authority (CA) or a full restore of the platform during disaster recovery or migration.
+    <strong>This errand is off by default and should be enabled only when a VM restart is desired</strong>.</td>
   </tr>
 </table>
 
