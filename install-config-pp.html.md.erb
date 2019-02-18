@@ -520,7 +520,8 @@ If you are using Ops Manager v2.3 or later, you can toggle errands on and off on
 This is a one-time action before an update. You can change the above defaults in the **Errands** tab,
 as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
-<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, all post-deploy errands are on by default.
+<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except the
+recreate-all-service-instances errand in version v1.16.0 and later.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
     and on-demand instances of RabbitMQ for PCF might fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
@@ -561,6 +562,12 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
     tile is upgraded.
     If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to <strong>Dedicated Instance</strong> settings will <i>not</i>
     be applied to existing service instances. <strong>Pivotal recommends that this errand is configured to always run</strong>.</td>
+  </tr>
+  <tr>
+    <td><strong>Recreate All Service Instances</strong></td>
+    <td>Recreates all On-Demand instance VMs managed by the On-Demand broker. This errand is useful for tasks which require a full restart of the service instance VM
+    for example rotating the Ops Manager root certificate authority (CA) or a full restore of the platform during disaster recovery or migration.
+    <strong>This errand is off by default and should be enabled only when a VM restart is desired</strong>.</td>
   </tr>
 </table>
 
