@@ -136,11 +136,11 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   BOSH allocates an IP address if the field is left blank.
   <br><br>
   * **Number of upgrade canary instances**: Set the number of canary instances
-  to perform the "upgrade all service instances" and "recreate all service instances" errands on first.
+  on which to first run the "upgrade all service instances" or the "recreate all service instances" errands.
   If the errand succeeds on all canary instances, it is run on the remaining instances.
   <br><br>
   * **Maximum number of instances upgraded in parallel**: Set the limit for the
-  number of instances that the "upgrade all service instances" and "recreate all service instances" errands are run on simultaneously.
+  number of instances on which to simultaeously run the "upgrade all service instances" or the "recreate all service instances" errand.
   The number of simultaneous runs is limited by the number of available BOSH workers.
   See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
   in the Cloud Foundry BOSH documentation.
@@ -404,9 +404,9 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>
-    <td>Recreates all On-Demand instance VMs managed by the On-Demand broker. This errand is useful for tasks which require a full restart of the service instance VM
+    <td>Recreates all On-Demand instance VMs managed by the On-Demand broker. This errand is useful for tasks which require recreating service instance VM
     for example rotating the Ops Manager root certificate authority (CA) or a full restore of the platform during disaster recovery or migration.
-    <strong>This errand is off by default and should be enabled only when a VM restart is desired</strong>.</td>
+    <strong>This errand is off by default and should be enabled only when a VM recreate is desired</strong>.</td>
   </tr>
 </table>
 
