@@ -429,7 +429,7 @@ If you are using Ops Manager v2.3 or later, you can toggle errands on and off on
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
-<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except for the recreate-all-service-instances errand in version v1.16.0 and later.
+<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except for the Recreate All Service Instances errand in version v1.16.0 and later.
 Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind if the Upgrade All Service Instances errand is not on by default.</p>
 
 However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
@@ -470,7 +470,9 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>
-    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker. It is useful for tasks that require re-creating a service instance VM, such as rotating the Ops Manager root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
+    <td>This errand re-creates all on-demand instance VMs managed by the on-demand broker.
+      It is useful for tasks that require re-creating a service instance VM,
+      such as rotating the Ops Manager root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
     <br>
     <strong>This errand is off by default and should be enabled only when you want to recreate a VM.</strong></td>
   </tr>
