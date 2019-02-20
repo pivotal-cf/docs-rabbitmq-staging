@@ -10,7 +10,14 @@ The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
 see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
 
+<<<<<<< HEAD
 <div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
+=======
+<p class="note warning"><strong>WARNING:</strong> The pre-provisioned service
+will be deprecated in a future release. Pivotal recommends using the on-demand
+service for new deployments. For instructions, see <a href="./install-config.html">
+Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>. For instructions on how to turn off the pre-provisioned service, see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</p>
+>>>>>>> 03ef910... Style edits [#164073191]
 
 ## <a id="rbac"></a>Role-Based Access in Ops Manager
 
@@ -505,11 +512,8 @@ If you are using Ops Manager v2.3 or later, you can toggle errands on and off on
 This is a one-time action before an update. You can change the above defaults in the **Errands** tab,
 as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
-<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except the
-recreate-all-service-instances errand in version v1.16.0 and later.
-    Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
-    and on-demand instances of RabbitMQ for PCF might fall behind
-    if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
+<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except the recreate-all-service-instances errand in version v1.16.0 and later.
+Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
@@ -525,34 +529,35 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   </tr>
   <tr>
     <td><strong>Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster.
-    See <a href="#smoke_tests">Pre-Provisioned Instance Smoke Tests</a> below.</td>
+    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can publish and subscribe to a RabbitMQ cluster. See <a href="#smoke_tests">Pre-Provisioned Instance Smoke Tests</a> below.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
-    <td>Makes the on-demand RabbitMQ service plans available in the Marketplace.
-        If you change the Service Plan Configuration,
-    you must run this errand in order for the changes to be reflected in the Marketplace.</td>
+    <td>Makes the on-demand RabbitMQ service plans available in the Marketplace. If you change the Service Plan Configuration, you must run this errand in order for the changes to be reflected in the Marketplace.</td>
   </tr>
   <tr>
     <td><strong>On-Demand Instance Smoke Tests</strong></td>
-    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster.
-    See <a href="./install-config.html#on_demand_instance_smoke_tests">On-Demand Instance Smoke Tests</a>.</td>
+    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can publish and subscribe to a RabbitMQ cluster. See <a href="./install-config.html#on_demand_instance_smoke_tests">On-Demand Instance Smoke Tests</a>.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
+<<<<<<< HEAD
     <td>On-demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
     tile is upgraded.
     If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to <strong>Dedicated Instance</strong> settings will <i>not</i>
     be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
+=======
+    <td>On-Demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the tile is upgraded. If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to <strong>Dedicated Instance</strong> settings will not
+    be applied to existing service instances.
+    <br>
+    <strong>Pivotal recommends that this errand is configured to always run</strong>.</td>
+>>>>>>> 03ef910... Style edits [#164073191]
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>
-    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker. It is useful for tasks that require re-creating the service instance VM, such as
-      rotating the Ops Manager root certificate authority (CA) or performing a full restoration of the platform during disaster recovery or migration.
-    <strong>This errand is off by default and should be enabled only when a VM re-creation is desired</strong>.</td>
+    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker. It is useful for tasks that require re-creating the service instance VM, such as rotating the Ops Manager root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
+    <br>
+    <strong>This errand is off by default and should be enabled only when you want to re-create a VM.</strong></td>
   </tr>
 </table>
 
