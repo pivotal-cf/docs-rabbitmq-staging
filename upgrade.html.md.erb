@@ -245,7 +245,30 @@ To upgrade the pre-provisioned service to RabbitMQ for PCF v1.13, do the followi
     <p class="note"><strong>Note</strong>: When shutting down the nodes you may see a
       <code>post-deploy script failed</code> error. You can safely ignore it and continue until there is only one node left.
     </p>
+1. Use the BOSH CLI to SSH into the only running node and verify the contents of the file `nodes_running_at_shutdown`
 
+	Run the following command to SSH into the RabbitMQ server that is currently running:
+	
+	```
+	bosh -d p-rabbitmq-GUID ssh rabbitmq-server/NODE-INDEX
+	```
+	
+	Verify the contents of `node_running_at_shutdown` file:
+	
+	```
+	cat /var/vcap/store/rabbitmq/mnesia/db/nodes_running_at_shutdown
+	```
+	
+	There should be **only one** node listed. E.g:
+	
+	```
+	bash$ cat /var/vcap/store/rabbitmqmnesia/db/nodes_running_at_shutdown
+	[rabbit@2d6a7c96149d5cb12be2c06bf9b19042].
+	```
+	
+	If there is **more than one** node listed, follow [this Knowlege Base article](#https://community.pivotal.io/s/article/how-to-identify-the-correct-upgrading-node-during-rabbitmq-tile-upgrade-1-12-to-1-13) **before continuing** to the next step.
+	
+	
 1. Turn off the errands.
 
     1. In the Ops Manager Dashboard, set all the errands to **Off**.<br><br>
