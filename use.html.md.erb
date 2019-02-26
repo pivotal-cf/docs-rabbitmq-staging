@@ -150,7 +150,7 @@ For more information, see [Configure Security](./install-config.html#security).
 
 To use TLS for a service instance, follow the steps below.
 
-1. Follow these steps to find the IP addresses of the RabbitMQ nodes:
+1. Follow these steps to find the DNS entry of the RabbitMQ nodes:
 
   1. Create a service key by running the following command:
 
@@ -166,7 +166,7 @@ To use TLS for a service instance, follow the steps below.
         ```
         cf service-key MY-INSTANCE MY-KEY
         ```
-  1. In the output of the previous command, find the IP addresses in the `hostnames` field. <br><br>
+  1. In the output of the previous command, find the DNS entry in the `hostnames` field. <br><br>
 
   1. Delete the service key because it is no longer needed:
 
@@ -176,20 +176,20 @@ To use TLS for a service instance, follow the steps below.
 1. Update your service instance with a valid TLS certificate by running:
 
     ```
-    cf update-service MY-INSTANCE -c '{"tls": [HOSTNAMES]}'
+    cf update-service MY-INSTANCE -c '{"tls": ["DNS-ENTRY"]}'
     ```
   Where: <br>
-  * `HOSTNAMES` is a comma-separated list of the IP addresses you found above.
+  * `DNS-ENTRY` the DNS entry retrieved above.
 
     For example:
 
     <pre class="terminal">
-    $ cf update-service my-instance -c '{"tls": ["10.1.1.5", "10.1.1.6", "10.1.1.7"]}'
+    $ cf update-service my-instance -c '{"tls": ["q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh"]}'
     </pre>
 
     <p class="note"><strong>Note:</strong>
       After the service instance has been updated to enable TLS, you cannot disable TLS or
-      change the listed IP addresses for that service.</p>
+      change the listed DNS entry for that service.</p>
 
 1.  Check that the process completed by running:
 
