@@ -4,11 +4,15 @@ title: RabbitMQ Environment Variables
 owner: London Services
 ---
 
-This topic provides a reference for the environment variables that Cloud Foundry stores for RabbitMQ for PCF service instances. These variables include the credentials that apps use to access the service instances.
+This topic provides a reference for the environment variables that Pivotal Cloud Foundry (PCF) stores
+for RabbitMQ for PCF service instances.
+These variables include the credentials that apps use to access the service instances.
 
 ## <a id='vcap-services'></a>VCAP_SERVICES
 
-Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
+Apps running in PCF gain access to the bound service instances
+through an environment variable credentials hash called `VCAP_SERVICES`.
+An example hash is show below:
 
 <pre><code>
 {
@@ -66,23 +70,33 @@ Applications running in Cloud Foundry gain access to the bound service instances
                         "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.51:15672/api"]}}}}]}
 </code></pre>
 
-You can search for your service by its `name`, given when creating the service instance, or dynamically via the `tags` or `label` properties. The `credentials` property can be used as follows:
+You can search for your service by its `name`, given when creating the service instance,
+or dynamically through the `tags` or `label` properties.
+The `credentials` property can be used as follows:
 
-* The top level properties `uri`, `uris`, `vhost`, `username`, `password`, `hostname` and `hostnames` provide access to the AMQP 0.9.1 protocol.
+* The top level properties `uri`, `uris`, `vhost`, `username`, `password`, `hostname`,
+and `hostnames` provide access to the AMQP 0.9.1 protocol.
 
-* A more flexible approach is provided by the `credentials.protocols` property, which has a key per enabled protocol. The possible keys are `amqp`, `management`, `mqtt`, and `stomp`. If SSL is enabled, then the keys will be `amqp+ssl`, `management+ssl`, `mqtt+ssl`, and `stomp+ssl` respectively.
+* A more flexible approach is provided by the `credentials.protocols` property,
+which has a key per enabled protocol. The possible keys are `amqp`, `management`, `mqtt`, and `stomp`.
+If SSL is enabled, then the keys are `amqp+ssl`, `management+ssl`, `mqtt+ssl`, and `stomp+ssl` respectively.
 
-* The values associated with each of these keys gives access credentials specific to each protocol. In all cases, URIs are provided, along with the individual components.
+* The values associated with each of these keys gives access credentials specific to each protocol.
+In all cases, URIs are provided, along with the individual components.
 
 ## <a id='plugins-protocols'></a>Changing Enabled Plugins and Protocols
 
-<p class="note"><strong>Note</strong>: Removing or adding plugins/protocols may cause apps bound with RabbitMQ to break.</p>
+<p class="note"><strong>Note</strong>: Removing or adding plugins/protocols might cause apps bound with RabbitMQ to break.</p>
 
-If you adjust the plugins and protocols enabled for RabbitMQ, you may need to force all app's `VCAP_SERVICES` environment variable to be regenerated. Adding and removing the following plugins require bound applications to be restaged:
+If you adjust the plugins and protocols enabled for RabbitMQ,
+you might need to force all app's `VCAP_SERVICES` environment variable to be regenerated.
+Adding and removing the following plugins require bound apps to be restaged:
 
 * rabbitmq_management
 * rabbitmq_stomp
 * rabbitmq_mqtt
 * rabbitmq\_amqp1\_0
 
-In common with all services in [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF), the `VCAP_SERVICES` environment variable for an application is only modified when the application is bound to a service instance. Users will need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
+In common with all services in PCF,
+the `VCAP_SERVICES` environment variable for an app is only modified when the app is bound to a service instance.
+Users need to `cf unbind-service`, `cf bind-service`, and `cf restage` their app in this scenario.
