@@ -3,30 +3,27 @@ title: Isolating Clusters with the RabbitMQ for PCF Replicator
 owner: Services
 ---
 
-<p class="note warning"><strong>WARNING:</strong> The pre-provisioned service
-will be deprecated in a future release. RabbitMQ for PCF Replicator currently depends on the pre-provisioned service.
-Teams who currently use procedures in this topic should start planning for this deprecation now.  </p>
-
+<%= partial 'note-pre-provisioned' %>
 
 ## <a id="overview"></a> Overview
 
 RabbitMQ for PCF Replicator is a tool that allows you to install multiple RabbitMQ for Pivotal Cloud Foundry (PCF) tiles
 in a single Ops Manager environment.
-This lets you run multiple pre-provisioned RabbitMQ clusters that are isolated from each other. 
+This lets you run multiple pre-provisioned RabbitMQ clusters that are isolated from each other.
 
 For example, you may want to isolate the cluster serving Spring Cloud Services (SCS) from the cluster serving apps in the Marketplace.
 Or you may want to give a certain team their own dedicated, pre-provisioned cluster that you manage for them.
-For information on how to accomplish these scenarios, see [Common Use Cases](#usecases). 
+For information on how to accomplish these scenarios, see [Common Use Cases](#usecases).
 
 ### <a id="usecases"></a> Common Use Cases
 
 The image below illustrates how to isolate SCS on RabbitMQ for PCF from clustered and single node service instances dedicated to different teams.
-In this use case: 
+In this use case:
 
 * The unreplicated RabbitMQ for PCF tile deploys two types of services: <br>
 	* A pre-provisioned service is used as a backing service for SCS <br>
-	* An on-demand service is used to create three completely isolated single node service instances 
-* Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team. 
+	* An on-demand service is used to create three completely isolated single node service instances
+* Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team.
 <br><br>![flowchart](/images/flowchart.png)
 
 These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Pre-Provisioned Dedicated Cluster](#dedicated).
@@ -40,31 +37,31 @@ you can reserve the unreplicated RabbitMQ for PCF tile for SCS, as shown in the 
 You can then add replica RabbitMQ clusters for use by apps in the Marketplace.
 
 Pivotal recommends that you use the unreplicated RabbitMQ for PCF tile solely for SCS to avoid contention between apps
-using SCS, and apps using RabbitMQ for PCF in the Marketplace.  
+using SCS, and apps using RabbitMQ for PCF in the Marketplace.
 
 To reserve the unreplicated tile for SCS, turn off the **Broker Registrar** errand to prevent the
 broker from being exposed in the Marketplace.
-For more information, see [Errands](./install-config.html#errands). 
+For more information, see [Errands](./install-config.html#errands).
 
 To offer RabbitMQ as a cloud messaging service in the Marketplace, create one or several replicas,
 install them in Ops Manager, and either allow the broker registrar errand to run, or
-[register the service manually using CF](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker).  
+[register the service manually using CF](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker).
 
 ### <a id="dedicated"></a> Providing a Pre-Provisioned Dedicated Cluster
 
 To reserve a RabbitMQ cluster for use by a specific team,
-disable the **Broker Registrar** errand in Ops Manager. 
+disable the **Broker Registrar** errand in Ops Manager.
 This prevents service registration in the Marketplace.
 For more information, see [Errands](./install-config.html#errands).
 
 After you deploy the tile, manually expose the service broker to your desired orgs and spaces.
-For instructions, see [Register a Broker](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker). 
+For instructions, see [Register a Broker](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker).
 
 ### <a id="on-demand"></a> Using Replicas While Offering the On-Demand RabbitMQ Service
 
 The On-Demand service is not offered in replica tiles, since the purpose of the replicator is
 to create additional pre-provisioned clusters. If you wish to offer on-demand service plans,
-use the unreplicated RabbitMQ for PCF tile as shown in the diagram above. 
+use the unreplicated RabbitMQ for PCF tile as shown in the diagram above.
 
 ### <a id="blue-green"></a> Blue-Green Upgrades (Advanced)
 
@@ -85,7 +82,7 @@ This topic describes how to install the replicator and generate replica tiles of
 
 ### <a id="download"></a> Download the Replicator
 
-The RabbitMQ for PCF Replicator is currently available from [Pivotal Network](https://network.pivotal.io). Search for and download this archive, and then run the enclosed binary. 
+The RabbitMQ for PCF Replicator is currently available from [Pivotal Network](https://network.pivotal.io). Search for and download this archive, and then run the enclosed binary.
 
 ### <a id="replica"></a> Generate Replica Tiles
 
@@ -98,7 +95,7 @@ The following is the syntax for generating a replica tile:
 --output DESIRED-FILE-NAME.pivotal
 ```
 
-The following are the parameters expected in the above syntax: 
+The following are the parameters expected in the above syntax:
 
 | **Parameter** | **Description**                                                                                                                                   |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -109,7 +106,7 @@ The following are the parameters expected in the above syntax:
 
 ### <a id="naming"></a> Naming Conventions in Original and Replica Tiles
 
-The table below shows the naming conventions for various components related to the original RabbitMQ for PCF tile and to the replica tile. 
+The table below shows the naming conventions for various components related to the original RabbitMQ for PCF tile and to the replica tile.
 
 For the purposes of this example, assume that when you generate a replica tile as shown above, in the `name` field you provide the string `finance\`. Then the attributes for the original and replica tiles are as follows:
 
@@ -139,11 +136,11 @@ This field appears in the **Errands** tab in the tile:
 <br><br>![registrar_errand](/images/broker_registrar_errand.png)
 
 With any tile, if the **Broker Registrar** errand is set to **On**, it runs automatically when you finish installing the tile
-and causes the tile to be available to all CF orgs. 
+and causes the tile to be available to all CF orgs.
 
 If you want to limit access to the tile to a specific org, follow these steps:
 
-1. Set the broker registrar errand to **Off**, and apply your changes. 
+1. Set the broker registrar errand to **Off**, and apply your changes.
 
 1. Manually register the tile with a specific CF org using the following command.
    See the above table for `BROKER_NAME`, `BROKER_URL`, and `SERVICE_NAME`:
@@ -185,9 +182,9 @@ You must download the version of Tile Replicator that corresponds with the
 version of the RabbitMQ for PCF Tile you want to replicate.
 
 1. Find the plan UUID and Service UUID for the service plan you want to update.<br>
-To do this, you can use the CF API. Run the following command, then search the 
+To do this, you can use the CF API. Run the following command, then search the
 result for the section about the service plan you want:
-  
+
     ```
     cf curl /v2/service_plans
     ```
@@ -205,10 +202,10 @@ result for the section about the service plan you want:
          }
       }
     </pre>
-    - The plan UUID is found under `metadata`, `guid`. 
+    - The plan UUID is found under `metadata`, `guid`.
     - The service UUID is found under `entity`, `service_guid`.
 
-1. Run the replicator command below to create the replica: 
+1. Run the replicator command below to create the replica:
 
     ```mac
       ./rabbitmq-replicator-darwin\
@@ -219,13 +216,13 @@ result for the section about the service plan you want:
       --output /output/p-rabbitmq-v2-trading-team.pivotal
     ```
     Where:<br>
-      - `NAME-OF-EXISTING-REPLICA` must be the same as the name used for the existing replica. 
+      - `NAME-OF-EXISTING-REPLICA` must be the same as the name used for the existing replica.
       This is **trading-team** in this example.
-      - `PATH-TO-NEW-TILE` is the path to the new RabbitMQ for PCF v2 tile. 
+      - `PATH-TO-NEW-TILE` is the path to the new RabbitMQ for PCF v2 tile.
       - `PLAN-UUID` is the plan UUID found in Step 2.
       - `SERVICE-UUID` is the service UUID found in Step 2.
-    
-    Specifying the parameters `--plan-uuid` and `--service-uuid` ensures the new 
+
+    Specifying the parameters `--plan-uuid` and `--service-uuid` ensures the new
     replica updates the existing service offering and plans.
 
 1. After you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to Ops Manager.
