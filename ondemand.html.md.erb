@@ -390,13 +390,22 @@ The following are preconfigured for both the single node and the cluster plans:
 
 ## <a id="migrating-from-mt"></a> About Migrating a Pre-Provisioned Instance to an On-Demand Instance
 
-Pre-provisioned service instances have very low resource consumption, that is, a
-vhost within an existing cluster.
+Pivotal recommends the on-demand service for production workloads due to its workload isolation.
+
+For instructions for developers about migrating, see
+[Migrating From a Pre-Provisioned Instance to an On-Demand Instance](./migration.html).
+For how operators can turn off the pre-provisioned service, see
+[Turning Off the Pre-Provisioned Service](/turn-pre-provisioned-off.html).
+
+When migrating from a pre-provisioned to an on-demand offering, be aware of the following:
+
+* Pre-provisioned service instances have very low resource consumption, that is, a
+virtual host within an existing cluster.
 However, every on-demand service consists of dedicated VMs.
 Therefore, you must select an on-demand service plan that provides adequate resources,
 but avoids unnecessary resource consumption.
 
-For example, you might select a single-node plan with a small VM for development
+  * For example: you might select a single-node plan with a small VM for development
 purposes, but select a three-node cluster of large VMs for a mission critical system.
 
 * Pivotal recommends that you define all required structures in your app to ensure
@@ -410,7 +419,7 @@ These structures include:
 apply them to the on-demand instance:
 <ul>
   <li>Policies</li>
-  <li>vhost specific parameters, such as <code>max_connections</code></li>
+  <li>virtual host-specific parameters, such as <code>max_connections</code></li>
 </ul>
  You can apply them using the RabbitMQ Management Dashboard or using APIs.
 
@@ -419,24 +428,6 @@ If you do not want to lose messages, do one of the following:
   * Switch your producers to the new instance but keep the consumers bound to the
   old instance until the queues are empty.
   * Use shovel or federation plugins to consume messages from the old instance.
-
-
-### How to migrate from a Pre-Provisioned Instance to an On-Demand Instance
-
-To migrate from one service instance to another, do the following:
-
-1. Create an on-demand instance.
-
-1. Bind it to your application.
-
-1. Unbind the pre-provisioned instance from your application.
-
-1. Restart your application.
-
-1. When ready, delete your pre-provisioned instance.
-
-1. If you have service-keys for the old instance, make sure to re-create them using
-the new instance and replace the old credentials.
 
 
 ### Differences between Pre-Provisioned and On-Demand Services Instances
