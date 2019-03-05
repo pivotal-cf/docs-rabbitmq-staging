@@ -501,11 +501,13 @@ The following plugins are enabled by default, you cannot disable them:
 
 ### <a id="disabled-plugins"></a> Disabled RabbitMQ Server Plugins
 
-The `rabbitmq_event_exchange` plugin is disabled by default.
-You can enable it when you create a service instance or by updating an existing
+The following plugins are disabled by default:
+
+* `rabbitmq_event_exchange`---For more information see [Event Exchange](https://www.rabbitmq.com/event-exchange.html).
+* `rabbitmq_mqtt`---For more information see [MQTT](https://www.rabbitmq.com/mqtt.html).
+
+You can enable them when you create a service instance or by updating an existing
 service instance.
-For more information about the plugin, see
-[Event Exchange](https://www.rabbitmq.com/event-exchange.html).
 
 To enable the plugin, run the one of the following commands, specifying the plugin
 as a configuration parameter in JSON:
@@ -530,4 +532,16 @@ as a configuration parameter in JSON:
 
     <pre class="terminal">
     $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
+    </pre>
+
+* When enabling more than one plugin, specify all the plugin names in the same command. For example:
+
+    <pre class="terminal">
+    $ cf create-service p.rabbitmq single-node myservice -c '{ "plugins": { "rabbitmq_event_exchange": true, "rabbitmq_mqtt": true } }'
+    </pre>
+
+    Or:
+
+    <pre class="terminal">
+    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true, "rabbitmq_mqtt": true } }'
     </pre>
