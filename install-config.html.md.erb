@@ -474,7 +474,8 @@ To create an admin user on a RabbitMQ instance do the following:
 
 ## <a id="server-plugins"></a> RabbitMQ Server Plugins
 
-RabbitMQ for PCF supports the RabbitMQ plugins listed below, which are either
+RabbitMQ for PCF supports a subset of available RabbitMQ plugins.
+See the sections below for which plugins are supported, and whether they are
 enabled or disabled by default.
 
 ### <a id="enabled-plugins"></a> Enabled RabbitMQ Server Plugins
@@ -503,8 +504,8 @@ The following plugins are enabled by default, you cannot disable them:
 
 The following plugins are disabled by default:
 
-* `rabbitmq_event_exchange`---For more information see [Event Exchange](https://www.rabbitmq.com/event-exchange.html).
-* `rabbitmq_mqtt`---For more information see [MQTT](https://www.rabbitmq.com/mqtt.html).
+* `rabbitmq_event_exchange`---For more information see [Event Exchange Plugin](https://www.rabbitmq.com/event-exchange.html).
+* `rabbitmq_mqtt`---For more information see [MQTT Plugin](https://www.rabbitmq.com/mqtt.html).
 
 You can enable them when you create a service instance or by updating an existing
 service instance.
