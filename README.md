@@ -2,35 +2,29 @@
 
 ### Branch Management
 
-**MASTER** - Use for the **1.14** release. 
-
-All documentation for the next unreleased version of **RabbitMQ** is in master. This is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
+The master branch is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes:
 
 * Unreleased features
 * Doc bug fixes
 * Doc reorganization or enhancement
 
-Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate "-live" branch below.
+Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate branches listed below:
 
-Any changes on the master branch will not be displayed publicly until a **-live** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
+| Branch Name| Use for… |
+|------------| ---------|
+| master     | 1.16 (staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html) |
+| 1.15-live  | 1.15 (http://docs.pivotal.io/rabbitmq-cf/1-15/) |
+| 1.14-live  | v1.14 (http://docs.pivotal.io/rabbitmq-cf/1-14/)|
+| 1.13-live  | v1.13 (http://docs.pivotal.io/rabbitmq-cf/1-13/)|
+| 1.12-live  | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.12.pdf)|
+| 1.11-live  | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.11.pdf)|
+| 1.10-live  | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.10.pdf)|
+| 1.9-live   | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf)|
+| 1.8-live   | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.8.pdf)|
+| 1.7-live   | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.7.pdf)|
+| 1.6-live   | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.6.pdf)|
+| 1.5-live   | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.5.pdf)|
 
-**1.13-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-13](http://docs.pivotal.io/rabbitmq-cf/1-13/).
-
-**1.12-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-12](http://docs.pivotal.io/rabbitmq-cf/1-12/).
-
-**1.11-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-11](http://docs.pivotal.io/rabbitmq-cf/1-11/).
-
-**1.10-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-10](http://docs.pivotal.io/rabbitmq-cf/1-10/).
-
-**1.9-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
-
-**1.8-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
-
-**1.7-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
-
-**1.6-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
-
-**1.5-live** - not in use because the docs are no longer live. PDF available at [https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf](https://docs.pivotal.io/archives/rabbitmq-pcf-1.9.pdf).
 
 [docs-book-rabbitmq]: https://github.com/pivotal-cf/docs-book-rabbitmq/blob/master/config.yml
 
@@ -75,4 +69,3 @@ Previously, these partials were sourced from the v018.x branch of the On Demand 
 Since **master** is the latest and greatest documentation, the process would be to cut a **x.x-live** branch for the version that **master** was targeting during that time. A corresponding section in **config.yml** in the [docs-book-pcfservices][docs-book-pcfservices] repository would also need to be made.
 
 After this point, **master** will then be the target for the next version of the RabbitMQ product tile.
-
