@@ -29,24 +29,21 @@ With the on-demand cluster plan, platform operators can offer their app develope
 
 * **Pre-provisioned**---For light to moderate messaging needs, this service is fully operated and managed by platform operators as a service.
 
-<p class="note"><strong>Note:</strong> The RabbitMQ for PCF tile will only provide the on-demand service in the future.
-For more information, see <a href="#plan-selection">Deciding Which Service Plan to Use</a> below. </p>
-
 For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html).
 For information about using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
 ## <a id="plan-selection"></a> Deciding Which Service Plan to Use
 
-In the future, Rabbit for PCF will only provide the on-demand service because it is designed for independent, isolated RabbitMQ instances.
+Pivotal recommends the on-demand service, which is designed for independent isolated RabbitMQ instances.
 The existing pre-provisioned offering has many RabbitMQ instances on a single VM, in a multi-tenancy model.
-In this model, a single misbehaving app can take down the entire cluster for everyone.
+In this multi-tenancy model, a single misbehaving app can take down the entire cluster for everyone.
 
 From research and feedback on the issues customers had when using the pre-provisioned service,
 Pivotal is making different design decisions for the on-demand service.
 
 To provide you enough visibility to decide which service to use,
 the table below describes the current feature discrepancies between the pre-provisioned and on-demand services,
-and plans for addressing these discrepancies. Pivotal encourages you to give feedback
+and plans for addressing these discrepancies. Please give feedback
 on how to meet your use case requirements with the on-demand service.
 
 
