@@ -175,7 +175,7 @@ raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the Ops Manager Installation Dashboard.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+1. Click **Review Pending Changes**.
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
@@ -448,7 +448,7 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 
 1. Return to the Ops Manager Installation Dashboard.
 
-2. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+2. Click **Review Pending Changes**.
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
@@ -497,11 +497,16 @@ You can toggle errands on and off on the Ops Manager **Review Pending Changes** 
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
-This is a one-time action before an update. You can change the above defaults in the **Errands** tab,
-as well as the defaults for [pre-delete](#pre-delete-errands) errands.
+This is a one-time action before an update.
+You can change these defaults by clicking **Errands** in the RabbitMQ for PCF
+**Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
-<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except the  Recreate All Service Instances errand in version v1.16.0 and later.
-Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
+<p class='note warning'><strong>Important</strong>:
+  In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default
+  except the Recreate All Service Instances errand.
+  Pivotal recommends keeping these defaults, because the smoke tests can encounter
+  unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind
+  if the Upgrade All Service Instances errand is not on by default.</p>
 
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
@@ -529,7 +534,7 @@ For more information on errand run rules, see [Errand Run Rules](https://docs.pi
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-Demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the 
+    <td>On-Demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
     tile is upgraded.
     If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to <strong>Dedicated Instance</strong> settings will not
     be applied to existing service instances.
@@ -584,7 +589,7 @@ To verify that you have the correct stemcell, follow the procedure in
 
 1. Return to the Ops Manager Installation Dashboard.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+1. Click **Review Pending Changes**.
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
