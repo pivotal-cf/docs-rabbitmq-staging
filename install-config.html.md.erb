@@ -165,7 +165,7 @@ This enables developers to configure their RabbitMQ service instances to use TLS
 
 1. Click **Save**.
 
-2. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+2. Click **Review Pending Changes**.
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
@@ -339,7 +339,7 @@ Your installation is not complete until you apply your configuration changes. Fo
 
 1. Return to the Ops Manager Installation Dashboard.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+1. Click **Review Pending Changes**.
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
@@ -347,20 +347,23 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [Post-Deploy Errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a
+series of [Post-Deploy Errands](#post-deploy-errands).
+An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ
+cluster after a deploy or upgrade.
 
-You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
-
-![Configuring One-time Errands](images/errands-installation.png)
-
-If you are using Ops Manager v2.3 or later, you can toggle errands on and off on the **Review Pending Changes** page.
+You can toggle errands on and off on the **Review Pending Changes** page.
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
-<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default except for the Recreate All Service Instances errand in version v1.16.0 and later.
-Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind if the Upgrade All Service Instances errand is not on by default.</p>
+<p class='note warning'><strong>Important</strong>: In RabbitMQ for PCF v1.9.0 and later,
+  post-deploy errands are on by default except for the Recreate All Service Instances errand.
+  Pivotal recommends keeping these defaults, because the smoke tests can encounter
+  unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind
+  if the Upgrade All Service Instances errand is not on by default.</p>
 
-However, if necessary, you can change these defaults by clicking **Errands** in the RabbitMQ for PCF **Settings** tab.
+You can change these defaults by clicking **Errands** in the RabbitMQ for PCF
+**Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
 
