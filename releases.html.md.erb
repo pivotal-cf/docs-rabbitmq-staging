@@ -24,6 +24,47 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1157"></a> v1.15.7
+
+**Release Date**: March 28, 2019
+
+### Features
+
+New features and changes in this release:
+
+* Fixes issues with the configuration of Pre-Provisioned RabbitMQ with external load balancers
+
+### Known Issues
+
+This release has the following known issues:
+
+* **[Security Issue]** The method for generating the Erlang cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang cookie explicitly in the tile configuration,
+  you are not affected by this issue.
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
+
+    For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+
+    For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+  * For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  * Pivotal recommends leaving the default run rule set to **On**.
+
+### Packages
+
+* OSS RabbitMQ v3.7.13
+* Erlang v20.3.8.20
+* HAProxy v1.8.19
+
 ## <a id="1156"></a> v1.15.6
 
 **Release Date**: March 14, 2019
@@ -58,6 +99,8 @@ This release has the following known issues:
 * When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
   * For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   * Pivotal recommends leaving the default run rule set to **On**.
+
+* There are issues with the configuration of Pre-Provisioned RabbitMQ with external load balancers
 
 ### Packages
 
@@ -100,6 +143,8 @@ This release has the following known issues:
 * When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
   * For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   * Pivotal recommends leaving the default run rule set to **On**.
+
+* There are issues with the configuration of Pre-Provisioned RabbitMQ with external load balancers
 
 ### Packages
 
