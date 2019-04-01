@@ -112,6 +112,13 @@ Always check the release notes for the version you are upgrading to.</p>
 </tr>
 </table>
 
+## <a id="pre-upgrade"></a> Before Upgrading RabbitMQ for PCF
+
+Before upgrading, please check for the presence of a directory: `/var/vcap/store/rabbitmq/Mnesia.rabbit@…`. If such a directory exists, please move it to somewhere outside `/var/vcap/store/rabbitmq`
+
+If you do not carry out these steps then you may not be able to restart RabbitMQ successfully after the upgrade.
+
+If you have already upgraded, then carrying out the step above will prevent the issue.
 
 ## <a id="upgrade-preprovisioned"></a> Upgrade the RabbitMQ for PCF Pre-Provisioned Service
 
