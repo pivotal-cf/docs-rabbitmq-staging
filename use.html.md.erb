@@ -335,9 +335,9 @@ To federate exchanges and queues, do the following:
 <pre class="terminal">
 {
   ...
-  "uri": "amqp://USERNAME:PASSWORD@IP\_ADDRESS/VHOST",
+  "uri": "amqp://USERNAME:PASSWORD@DNS\_ENTRY/VHOST",
   "uris": [
-    "amqp://USERNAME:PASSWORD@IP\_ADDRESS/VHOST"
+    "amqp://USERNAME:PASSWORD@DNS\_ENTRY/VHOST"
   ],
   ...
 }
@@ -347,10 +347,9 @@ For example:<br><br>
 <pre class="terminal">
 {
 ...
-"uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+"uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
 "uris": [
-"amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-"amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>10.0.0.51:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7"]},
+"amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
 ...
 }
 </pre>
@@ -372,9 +371,9 @@ To shovel exchanges and queues, do the following:
 <pre class="terminal">
 {
   ...
-  "uri": "amqp://USERNAME:PASSWORD@IP\_ADDRESS/VHOST",
+  "uri": "amqp://USERNAME:PASSWORD@DNS\_ENTRY/VHOST",
   "uris": [
-    "amqp://USERNAME:PASSWORD@IP\_ADDRESS/VHOST"
+    "amqp://USERNAME:PASSWORD@DNS\_ENTRY/VHOST"
   ],
   ...
 }
@@ -384,10 +383,9 @@ For example:<br><br>
 <pre class="terminal">
 {
 ...
-"uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+"uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
 "uris": [
-"amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-"amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>10.0.0.51:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7"]},
+"amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789<span>@</span>q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
 ...
 }
 </pre>
