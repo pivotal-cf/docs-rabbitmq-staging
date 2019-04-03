@@ -21,13 +21,12 @@ To use on-demand RabbitMQ for PCF with your PCF apps, you need:
    - a shell
    - the [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
    - the Linux [watch](http://www.linfo.org/watch.html) command
-* To [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) the org and space containing your app
 
 ## <a id='developer_guide'></a>Developer Guide
 
 ### Entries in the VCAP_SERVICES Environment Variable
 
-Apps running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is shown below:
+Apps running in Cloud Foundry gain access to the bound service instances through an environment variable credentials hash called `VCAP_SERVICES`. An example hash is shown below:
 
 <pre>
 {
@@ -54,29 +53,51 @@ Apps running in Cloud Foundry gain access to the bound service instances via an 
 
 For more information about the environment variable `VCAP_SERVICES`, see [RabbitMQ Environment Variables](./reference.html).
 
-## <a id="process"></a> The Create-Bind Process
+## <a id="process"></a> Check If Your App and the Service Instance Share a Space
 
 Because every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces), an app can only use a service if an instance of the service exists in the same space.
 
-To use RabbitMQ in a PCF app:
-
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log into the org and space that contains the app.
 
-1. Make sure an instance of the RabbitMQ for PCF service exists in the same space as the app.
-   - If the space does not already have a RabbitMQ for PCF instance, [create](#create) one.
-   - If the space already has a Rabbit for PCF instance, you can [bind](#bind) your app to the existing instance or create a new instance to bind to your app.
+1. Check if an instance of the RabbitMQ for PCF service exists in the same space as the app. If the space already has a RabbitMQ for PCF instance, skip to the [Confirm Service Availability](#marketplace) section below. If the space does not already have a RabbitMQ for PCF instance, follow the steps in the [Create a Service Instance](#create) section below.
 
-2. [Bind](#bind) the app to the RabbitMQ for PCF service instance, to enable the app to use RabbitMQ.
+## <a id='create'></a>Create a Service Instance
+
+Unlike pre-provisioned services, on-demand services are created asynchronously, not immediately.
+The `watch` command shows you when your service instance is ready to bind and use.
+
+To create an instance of the on-demand RabbitMQ for PCF service, follow the steps below.
+
+1. Run `cf create-service ondemand-rabbitmq Solo SERVICE-INSTANCE`<br><br>
+
+    Where `SERVICE-INSTANCE` is a name you choose to identify the service instance. This name appears under `service` in the output from `cf services`.
+
+2. Run `watch cf services` and wait for the `last operation` for your instance to show as `create succeeded`.
+
+   <pre class="terminal">
+  $ cf create-service ondemand-rabbitmq Solo my-instance<br>
+   Creating service my-instance in org my-org / space my-space as user<span>@</span>example.com...
+   OK<br>
+  $ watch cf services<br>
+   Getting services in org my-org / space my-space as user<span>@</span>example.com...
+   OK
+   name          service            plan    bound apps    last operation
+   my-instance   ondemand-rabbitmq  Solo                  create succeeded
+</pre>
+
+   If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html) for more information.
 
 ## <a id='marketplace'></a>Confirm Service Availability
 
-For an app to use a service, 1) the service must be available in the Marketplace for its space and 2) an instance of the service must exist in its space.
+For an app to use a service
 
-You can confirm both of these using the cf CLI as follows.
+* the service must be available in the Marketplace for its space
+* an instance of the service must exist in its space
 
-1. To find out if On-Demand RabbitMQ for PCF service is available in the Marketplace:
-   1. Enter `cf marketplace`
-   1. If the output lists `ondemand-rabbitmq` in the `service` column, on-demand RabbitMQ for PCF is available. If it is not available, ask your operator to install it.
+Confirm both of these by following the steps below.
+
+1. Run `cf marketplace`
+1. Check that `ondemand-rabbitmq` is in the `service` column. If it is, on-demand RabbitMQ for PCF is available. If it is not, ask your operator to install it.
 
     <pre class="terminal">
     $ cf marketplace
@@ -88,9 +109,8 @@ You can confirm both of these using the cf CLI as follows.
     [...]
     </pre>
 
-1. To confirm that an On-Demand RabbitMQ for PCF instance is running in the space
-    1. Enter `cf services`
-    1. Any `ondemand-rabbitmq` listings in the `service` column are service instances of on-demand RabbitMQ in the space.
+1. Run `cf services`
+1. Check that `ondemand-rabbitmq` is in the `service` column next to your instance. If it is not, follow the steps in the [Create a Service Instance](#create) section above.
 
     <pre class="terminal">
     $ cf services
@@ -99,42 +119,13 @@ You can confirm both of these using the cf CLI as follows.
     name          service            plan    bound apps    last operation
     my-instance   ondemand-rabbitmq  Solo                  create succeeded
     </pre>
-    You can [bind](#bind) your app to an existing instance or [create](#create) a new instance to bind to your app.
 
-## <a id='create'></a>Create a Service Instance
+## <a id="using-tls"></a> Use Transport Layer Security (TLS)
 
-Unlike pre-provisioned services, on-demand services are created asynchronously, not immediately.
-The `watch` command shows you when your service instance is ready to bind and use.
-
-To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-service`:
-
-1. Enter `cf create-service ondemand-rabbitmq Solo SERVICE-INSTANCE`
-
-    Where `SERVICE-INSTANCE` is a name you choose to identify the service instance. This name will appear under `service` \[sic\] in output from `cf services`.
-
-1. Enter `watch cf services` and wait for the `last operation` for your instance to show as `create succeeded`.
-
-    <pre class="terminal">
-   $ cf create-service ondemand-rabbitmq Solo my-instance<br>
-    Creating service my-instance in org my-org / space my-space as user<span>@</span>example.com...
-    OK<br>
-   $ watch cf services<br>
-    Getting services in org my-org / space my-space as user<span>@</span>example.com...
-    OK
-    name          service            plan    bound apps    last operation
-    my-instance   ondemand-rabbitmq  Solo                  create succeeded
-</pre>
-
-    If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
-
-## <a id="using-tls"></a> Using Transport Layer Security (TLS)
-
-To use TLS to secure communication between your apps and RabbitMQ service instances, you must complete these procedures:
+Use TLS to secure communication between your app and a RabbitMQ service instance by following these procedures:
 
 1. [Configure TLS for Your Service Instance](#tls)
-1. Update your apps to use encrypted communication using one of these procedures:<br><br>
-  * For Java or Spring apps: [Activate TLS for Java and Spring Apps](./use.html#tls-java-spring)<br><br>
-  * For other apps: [Modify Apps for TLS](./modify-apps-tls.html)
+1. If your app is written in Java or Spring, follow the steps in the [Activate TLS for Java and Spring Apps](#tls-java-spring) section below. If it is not, follow the steps in [Modify Apps for TLS](./modify-apps-tls.html).
 
 
 ### <a id='tls'></a>Configure TLS for Your Service Instance
@@ -145,38 +136,27 @@ service instance.
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
 For more information, see [Configure Security](./install-config.html#security).
 
-<p class="note"><strong>Note</strong>: If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
+<p class="note"><strong>Note:</strong> If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
 
+1. If you have already created a RabbitMQ service instance, update the service instance to use TLS by running
 
-To use TLS for a service instance, perform one of the following:
+    ```
+    cf update-service MY_INSTANCE -c '{"tls": true}'
+    ```
 
-* If you have not yet created a RabbitMQ service instance:
+    Where `MY-INSTANCE` is the name you chose when you created your service instance.
 
-  1. Create the service instance with TLS enabled:
+1. If you have not yet created a RabbitMQ service instance, create one with TLS enabled by running
 
-        ```
-        cf create-service p.rabbitmq PLAN MY_INSTANCE -c '{"tls": true}'
-        ```
+    ```
+    cf create-service p.rabbitmq PLAN MY_INSTANCE -c '{"tls": true}'
+    ```
+
     Where:<br>
       * `PLAN` is the name of the deployment plan to use for this service instance
       * `MY-INSTANCE` is the name to give to the new service instance
 
-  1.  Check that the process completed by running:
-
-      ```
-      cf service MY-INSTANCE
-      ```
-* If you have already created a RabbitMQ service instance:
-
-  1. Update the service instance to use TLS:
-
-        ```
-        cf update-service MY_INSTANCE -c '{"tls": true}'
-        ```
-    Where:<br>
-    * `MY-INSTANCE` is the name you chose when you created your service instance.
-
-  1.  Check that the process completed by running:
+1. Check that the process you ran was successful by running:
 
       ```
       cf service MY-INSTANCE
@@ -192,7 +172,7 @@ The procedure for updating your app depends on the app's language and framework.
 
 To activate TLS for Java and Spring apps, do one of the following:
 
-* For apps that are not bound to an existing service instance, repush the apps with `cf push`.
+* For apps that are not bound to an existing service instance, re-push the apps by running `cf push`.
 
 * For apps bound to an existing service instance, follow these steps:
   1. Stop the app. For example:
@@ -204,29 +184,31 @@ To activate TLS for Java and Spring apps, do one of the following:
   1. Restart the app. For example:
     <pre class="terminal">$ cf restart my-app</pre>
 
-<p class="note"><strong>Note:</strong> If the operator used a self-signed ceritificate,
-configure your app to use the same CA certificate, and valid certificate and key.</p>
+<p class="note"><strong>Note:</strong> If the operator used a self-signed certificate,
+configure your app to use the same CA certificate and valid certificate and key.</p>
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
 For an app to use a service, you must bind it to a service instance. Do this after you push or re-push the app using `cf push`.
 
-To bind an app to a RabbitMQ instance run `$ cf bind-service`.
+To bind an app to a RabbitMQ instance, run
 
-1. Enter `cf bind-service APP SERVICE-INSTANCE`
+`cf bind-service APP SERVICE-INSTANCE`
 
-    Where `APP` is the app you want to use the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
+Where `APP` is the app you want to use the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
 
-    <pre class="terminal">
-   $ cf bind-service my-app my-instance<br>
-    Binding service mydb to my-app in org my-org / space test as user<span>@</span>example.com...
-    OK
-    TIP: Use 'cf push' to ensure your env variable changes take effect
+See an example below.
+
+<pre class="terminal">
+$ cf bind-service my-app my-instance<br>
+Binding service mydb to my-app in org my-org / space test as user<span>@</span>example.com...
+OK
+TIP: Use 'cf push' to ensure your env variable changes take effect
 </pre>
 
 ## <a id="call"></a>Use the RabbitMQ Service in Your App
 
-To access the RabbitMQ service from your app:
+To access the RabbitMQ service from your app, follow the steps below.
 
 1. Run `cf env APP-NAME` with the name of the app bound to the RabbitMQ for PCF instance.
 
@@ -234,43 +216,43 @@ To access the RabbitMQ service from your app:
 
 1. In your app code, call the RabbitMQ service using the connection strings.
 
-For how to code your app to use RabbitMQ messaging, see **About Using Pivotal RabbitMQ** > **Client Documentation** in the [RabbitMQ documentation](https://rabbitmq.docs.pivotal.io).
+For how to code your app to use RabbitMQ messaging, see the [RabbitMQ documentation](https://rabbitmq.docs.pivotal.io/37/rabbit-web-docs/clients.html).
 
-## <a id="restart"></a>Updating a Service Instance
+## <a id="restart"></a>Update a Service Instance
 
 If you bind a new service or change the service bindings, you need to run `cf restart` to update the `VCAP_SERVICES` environment variable in the application container.
 
-1. Enter `cf restart-app APP`
+Run `cf restart-app APP`, where `APP` is the app you want to use the updated service instance.
 
-    Where `APP` is the app you want to use the updated service instance.
+See an example below.
 
-    <pre class="terminal">
-   $ cf restart my-app
+<pre class="terminal">
+$ cf restart my-app
 </pre>
 
-Pushing new version of an app automatically restages and restarts the app on any service instances it is bound to.
+Pushing the new version of an app automatically re-stages and restarts the app on any service instances it is bound to.
 
 ## <a id="unbind"></a>Unbind a Service Instance From Your App
 
-To stop an app from using a service it no longer needs, unbind it from the service instance using `cf unbind-service`.
+To stop an app from using a service it no longer needs, unbind it from the service instance by running
 
-1. Enter `cf unbind-service APP SERVICE-INSTANCE`
+`cf unbind-service APP SERVICE-INSTANCE`
 
-    Where `APP` is the app you want to stop using the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
+Where `APP` is the app you want to stop using the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
 
-    <pre class="terminal">
-   $ cf unbind-service my-app my-instance<br>
-    Unbinding app my-app from service my-instance in org my-org / space my-space as user<span>@</span>example.com...
-    OK
+See an example below.
+
+<pre class="terminal">
+$ cf unbind-service my-app my-instance<br>
+Unbinding app my-app from service my-instance in org my-org / space my-space as user<span>@</span>example.com...
+OK
 </pre>
 
 ## <a id="delete"></a>Delete a Service Instance
 
-To delete a service instance, run `cf delete-service`.
+To delete a service instance, use `cf delete-service`.
 
-1. Enter `cf delete-service SERVICE-INSTANCE`
-
-    Where `SERVICE-INSTANCE` is the name of the service to delete.
+1. Run `cf delete-service SERVICE-INSTANCE`, where `SERVICE-INSTANCE` is the name of the service to delete. See an example below.
 
     <pre class="terminal">
    $ cf delete-service my-instance<br>
@@ -279,21 +261,21 @@ To delete a service instance, run `cf delete-service`.
     OK
 </pre>
 
-1. Enter `watch cf service SERVICE-INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
+1. Run `watch cf service SERVICE-INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
 
 You cannot delete a service instance that an app is bound to.
 
 ## <a id="admin"></a> Create an Admin User for a Service Instance
 
-If you want to get admin privileges to the RabbitMQ Management UI, you can create
-an admin user for a service instance, and obtain user credentials that you can
+If you want admin privileges for the RabbitMQ Management UI, you can create
+an admin user for a service instance and obtain user credentials that you can
 share with other app developers.
 
 Both operators and app developers can use this procedure.
 For instructions, see [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
 
 ## <a id="share-instances"></a> Sharing Service Instances
-In order to [share service instances](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) the feature-flag `service_instance_sharing` must be enabled by your Operator. You can then follow the [documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) to share your service instances across Cloud Foundry Organizations and Spaces.
+To share service instances, the feature-flag `service_instance_sharing` must be enabled by your operator. You can then follow the [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) to share your service instances across Cloud Foundry Organizations and Spaces.
 
 <!-- Partials are in https://github.com/pivotal-cf/docs-services-partials -->
 
@@ -313,10 +295,9 @@ You can federate exchanges and queues in RabbitMQ for PCF, as you would in any R
 
 To federate exchanges and queues, do the following:
 
-1. Create a service key by following the instructions in [Create an Admin User for a Service Instance](./install-config.html#admin-service-key). <br><br>
-    The output of the above procedure returns admin user credentials, along with other data.
+1. Create a service key by following the instructions in [Create an Admin User for a Service Instance](./install-config.html#admin-service-key). The output of the above procedure returns admin user credentials, along with other data.
 
-1. In the output from the above step, look for the `uris` array. It will have this pattern:<br>
+1. In the output from the above step, look for the `uris` array. It has the following pattern<br>
 <pre class="terminal">
 {
   ...
@@ -327,8 +308,7 @@ To federate exchanges and queues, do the following:
   ...
 }
 </pre>
-<br>
-For example:<br><br>
+as seen in the below example.<br>
 <pre class="terminal">
 {
 ...
@@ -349,10 +329,9 @@ You can shovel exchanges and queues in RabbitMQ for PCF, as you would in any Rab
 
 To shovel exchanges and queues, do the following:
 
-1. Create a service key by following the instructions in [Create an Admin User for a Service Instance](./install-config.html#admin-service-key). <br><br>
-    The output of the above procedure returns admin user credentials, along with other data.
+1. Create a service key by following the instructions in [Create an Admin User for a Service Instance](./install-config.html#admin-service-key). The output of the above procedure returns admin user credentials, along with other data.
 
-1. In the output from the above step, look for the `uris` array. It will have this pattern:<br>
+1. In the output from the above step, look for the `uris` array. It has the following pattern<br>
 <pre class="terminal">
 {
   ...
@@ -363,8 +342,7 @@ To shovel exchanges and queues, do the following:
   ...
 }
 </pre>
-<br>
-For example:<br><br>
+as seen in the example below.<br>
 <pre class="terminal">
 {
 ...
@@ -374,7 +352,8 @@ For example:<br><br>
 ...
 }
 </pre>
+
 1. Set up shovel as you normally would, using the RabbitMQ Management UI or API,
 with the URIs found in the `uris` array you got from the step above.<br><br>
-    For shovel instructions, see the [RabbitMQ documentation](https://www.rabbitmq.com/shovel.html).
-    At the moment, RabbitMQ for PCF only supports Dynamic Shovels.
+For shovel instructions, see the [RabbitMQ documentation](https://www.rabbitmq.com/shovel.html).
+At the moment, RabbitMQ for PCF only supports Dynamic Shovels.
