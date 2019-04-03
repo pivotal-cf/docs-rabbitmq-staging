@@ -79,7 +79,7 @@ the IaaS creates the new VM.
 The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
 This is stated in the release notes for those versions.
 
-<p class="note warning"><strong>IMPORTANT</strong>: The following table is only a guide.
+<p class="note warning"><strong>Important:</strong> The following table is only a guide.
 Always check the release notes for the version you are upgrading to.</p>
 
 
@@ -112,13 +112,16 @@ Always check the release notes for the version you are upgrading to.</p>
 </tr>
 </table>
 
-## <a id="pre-upgrade"></a> Before Upgrading RabbitMQ for PCF
+## <a id="pre-upgrade"></a>Prerequisite
 
-Before upgrading, please check for the presence of a directory: `/var/vcap/store/rabbitmq/Mnesia.rabbit@…`. If such a directory exists, please move it to somewhere outside `/var/vcap/store/rabbitmq`
+Before you upgrade, you must ensure that the following directory does not exist: 
 
-If you do not carry out these steps then you may not be able to restart RabbitMQ successfully after the upgrade.
+```
+/var/vcap/store/rabbitmq/Mnesia.rabbit@…` 
+```
+If this directory exists, you must move `Mnesia.rabbit@…` from `/var/vcap/store/rabbitmq`. If you do not move this directory, you might not be able to restart RabbitMQ  successfully after the upgrade.
 
-If you have already upgraded, then carrying out the step above will prevent the issue.
+If you have already upgraded, moving this directory from `/var/vcap/store/rabbitmq` resolves the issue.
 
 ## <a id="upgrade-preprovisioned"></a> Upgrade the RabbitMQ for PCF Pre-Provisioned Service
 
