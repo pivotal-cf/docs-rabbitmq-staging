@@ -117,7 +117,7 @@ Always check the release notes for the version you are upgrading to.</p>
 Before you upgrade, you must ensure that the following directory does not exist: 
 
 ```
-/var/vcap/store/rabbitmq/Mnesia.rabbit@…` 
+/var/vcap/store/rabbitmq/Mnesia.rabbit@… 
 ```
 If this directory exists, you must move `Mnesia.rabbit@…` from `/var/vcap/store/rabbitmq`. If you do not move this directory, you might not be able to restart RabbitMQ  successfully after the upgrade.
 
