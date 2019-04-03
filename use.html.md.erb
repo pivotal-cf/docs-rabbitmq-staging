@@ -139,8 +139,8 @@ To use TLS to secure communication between your apps and RabbitMQ service instan
 
 ### <a id='tls'></a>Configure TLS for Your Service Instance
 
-If you want to secure the communication between your app and a RabbitMQ service instance using TLS,
-after creating your service instance, you must update it with a valid TLS certificate.
+To secure the communication between your app and a RabbitMQ service instance, you must enable TLS on the
+service instance.
 
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
 For more information, see [Configure Security](./install-config.html#security).
@@ -148,54 +148,39 @@ For more information, see [Configure Security](./install-config.html#security).
 <p class="note"><strong>Note</strong>: If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
 
 
-To use TLS for a service instance, follow the steps below.
+To use TLS for a service instance, perform one of the following:
 
-1. Follow these steps to find the DNS entry of the RabbitMQ nodes:
+* If you have not yet created a RabbitMQ service instance:
 
-  1. Create a service key by running the following command:
+  1. Create the service instance with TLS enabled:
 
         ```
-        cf create-service-key MY-INSTANCE MY-KEY
+        cf create-service p.rabbitmq PLAN MY_INSTANCE -c '{"tls": true}'
         ```
     Where:<br>
-      * `MY-INSTANCE` is the name you chose when you created your service instance.
-      * `MY-KEY` is a name you choose for the service key.
+      * `PLAN` is the name of the deployment plan to use for this service instance
+      * `MY-INSTANCE` is the name to give to the new service instance
 
-  1. Display the service key by running:
+  1.  Check that the process completed by running:
+
+      ```
+      cf service MY-INSTANCE
+      ```
+* If you have already created a RabbitMQ service instance:
+
+  1. Update the service instance to use TLS:
 
         ```
-        cf service-key MY-INSTANCE MY-KEY
+        cf update-service MY_INSTANCE -c '{"tls": true}'
         ```
-  1. In the output of the previous command, find the DNS entry in the `hostnames` field. <br><br>
+    Where:<br>
+    * `MY-INSTANCE` is the name you chose when you created your service instance.
 
-  1. Delete the service key because it is no longer needed:
+  1.  Check that the process completed by running:
 
-        ```
-        cf delete-service-key MY-INSTANCE MY-KEY
-        ```
-1. Update your service instance with a valid TLS certificate by running:
-
-    ```
-    cf update-service MY-INSTANCE -c '{"tls": ["DNS-ENTRY"]}'
-    ```
-  Where: <br>
-  * `DNS-ENTRY` the DNS entry retrieved above.
-
-    For example:
-
-    <pre class="terminal">
-    $ cf update-service my-instance -c '{"tls": ["q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh"]}'
-    </pre>
-
-    <p class="note"><strong>Note:</strong>
-      After the service instance has been updated to enable TLS, you cannot disable TLS or
-      change the listed DNS entry for that service.</p>
-
-1.  Check that the process completed by running:
-
-    ```
-    cf service MY-INSTANCE
-    ```
+      ```
+      cf service MY-INSTANCE
+      ```
 
 ### <a id="tls-java-spring"></a> Activate TLS for Java and Spring Apps
 
