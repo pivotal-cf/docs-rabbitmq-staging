@@ -160,8 +160,12 @@ before configuring the tile and applying changes.
 
     ![security](images/security.png)
 
-1. Under **TLS Options**, select **Optional**.
-This enables developers to configure their RabbitMQ service instances to use TLS.
+1. Under **TLS Options**, select either **Optional** or **Enforced**.
+**Optional**  enables developers to configure their RabbitMQ service instances to use TLS. **Enfored** requires TLS to be enabled.
+
+<p class='note warning'><strong>Important</strong>: If TLS is set to **Enforced**, then all existing service instances will use TLS once they are upgraded. Any apps not using TLS will no longer be able to communicate with their service instances. Such apps will require a new binding and must be configured to communicate with their RabbitMQ service instance via TLS.</p>
+
+<div class="note"><strong>Note:</strong> A service instance cannot disable TLS once it has been enabled. If `TLS Options` is subsequently set to **Disabled**, existing service instances will continue to use TLS. However, new instances will not be configured with TLS.</div>
 
 1. Click **Save**.
 
