@@ -21,7 +21,7 @@ see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitm
 
 Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
 operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
-Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
+Therefore, your role permissions might not permit you to perform every procedure in this operator guide.
 
 For more information about roles in Ops Manager, see
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
@@ -65,7 +65,7 @@ An orange circle indicates that you are required to configure fields on the tab 
 ![Rabbit Tile Configuration](images/rmq_tile_config.png)
 
 
-### <a id="azs-networks"></a>  Configure AZs and Networks
+### <a id="azs-networks"></a> Configure AZs and Networks
 
  Follow the steps below to configure the AZs and networks.
 
@@ -118,8 +118,8 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
 <br><br>
   * **VM options**:
   <br><br>
-       **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
-         <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
+       **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to enable external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blobstore.
+         <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS admin to ensure that your IaaS permits outbound traffic to the external networks you need.</p>
   * **Shareable Instances**: Click **Yes** to enable the feature for sharing instances.<br>
   Sharing a service instance between spaces, allows apps in different spaces to share databases,
   messaging queues, and many other types of services. For more information,
@@ -130,8 +130,7 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   <p class="note"><strong>Note</strong>: For this feature to work you must also enable it in PAS.
     For instructions, see <a href="https://docs.pivotal.io/pivotalcf/2-0/opsguide/secure-si-creds.html#pas-config">Step 1: Configure the PAS Tile</a>.
     After deploying the tile, notify developers that they must unbind and rebind existing service instances
-    to secure their credentials with CredHub.
-  <br><br>
+    to secure their credentials with CredHub.</p>
   * **On Demand Service Broker Static IP**: Enter an IP address to assign to your on-demand service broker node.
   BOSH allocates an IP address if the field is left blank.
   <br><br>
@@ -153,33 +152,26 @@ RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure communica
 
 To configure the TLS settings, do the following:
 
-1. Ensure that you have performed the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf)
-before configuring the tile and applying changes.
+<ol>
+  <li>Ensure that you have performed the procedures in <a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a> before configuring the tile and applying changes.</li>
+  <li>Click the <strong>Security for On-Demand Plans</strong> tab.</li>
 
-1. Click the **Security for On-Demand Plans** tab.
+  <img src="images/security.png" alt="Security for On-Demand Plans tab">
 
-    ![security](images/security.png)
+  <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their RabbitMQ service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
 
-1. Under **TLS Options**, select either **Optional** or **Enforced**.
-**Optional**  enables developers to configure their RabbitMQ service instances to use TLS. **Enfored** requires TLS to be enabled.
+<p class='note breaking'><strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after they are upgraded. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their RabbitMQ service instance through TLS.</p>
 
-<p class='note warning'><strong>Important</strong>: If TLS is set to **Enforced**, then all existing service instances will use TLS once they are upgraded. Any apps not using TLS will no longer be able to communicate with their service instances. Such apps will require a new binding and must be configured to communicate with their RabbitMQ service instance via TLS.</p>
+<p class="note"><strong>Note:</strong> A service instance cannot disable TLS after it has been enabled. When <strong>TLS Options</strong> is subsequently set to <strong>Not Configured</strong>, existing service instances continue to use TLS. However, new instances are not configured with TLS.</p>
 
-<div class="note"><strong>Note:</strong> A service instance cannot disable TLS once it has been enabled. If `TLS Options` is subsequently set to **Disabled**, existing service instances will continue to use TLS. However, new instances will not be configured with TLS.</div>
+  <li>Click <strong>Save</strong>.</li>
 
-1. Click **Save**.
+  <li>Click <strong>Review Pending Changes</strong>. For more information about this Ops Manager page, see <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">Reviewing Pending Product Changes</a>.</li>
 
-2. Click **Review Pending Changes**.
-For more information about this Ops Manager page,
-see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+  <li>In the Installation Dashboard, make sure the <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>, and then click <strong>Apply Changes</strong>.</li>
 
-1. In the Installation Dashboard, make sure the **Upgrade All Service Instances**
-errand is set to **On**, and then click **Apply Changes**.
-
-1. After deploying the tile, app developers can configure their service instances to use TLS.
-For instructions to developers, see [Configure Transport Layer Security (TLS) for
-Your Service Instance](use.html#tls).
-[//]: # (and [Modifying Apps for TLS](modify-apps-tls.html).)
+  <li>After deploying the tile, app developers can configure their service instances to use TLS. For developer instructions, see <a href="use.html#tls">Configure Transport Layer Security (TLS) for Your Service Instance</a>. <%# (and <a href="modify-apps-tls.html">Modifying Apps for TLS</a>.) %></li>
+</ol>
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
@@ -210,7 +202,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
         If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
         If you change this default setting, the smoke tests fail.
         Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
-        For more information, see [Errands](#errands).<br>
+        For more information, see the [Errands](#errands) section below.<br>
       <br><ul>
         <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
         </li>
@@ -244,11 +236,11 @@ To enable the on-demand service, you must configure at least one on-demand plan.
     Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
     For more information, see <a href="#resources">Understanding RabbitMQ VM Types and Persistent Disk Size</a> below.</td></tr>
     <tr><td><strong>AZ Placement</strong></td>
-    <td>This field is available after you complete the [Assign AZs and Networks](#azs-networks) page.
+    <td>This field is available after you complete the Assign AZs and Networks page. See the [Assign AZs and Networks](#azs-networks) section above for more information.
         <ul><li>For a single-node plan, select one or more AZs.</li>
           <li>For a plan containing multiple nodes, select only one AZ.
         Pivotal recommends this for multi-node plans to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
-        <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz).</li>
+        <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz) below for more information.</li>
       </ul></td></tr>
   </table>
 
@@ -270,7 +262,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 </ul>
 
 
-#### <a id="resources"></a> Understanding RabbitMQ VM Types and Persistent Disk Size
+#### <a id="resources"></a> RabbitMQ VM Types and Persistent Disk Size
 
 The **RabbitMQ VM Type** and **Persistent disk type** are required fields on the service plan configuration pages.
 If you are installing on PCF v2.0 or later, these properties are pre-configured by default.
@@ -288,7 +280,7 @@ Pivotal recommends that the value of **Persistent disk type** be twice the amoun
 Incorrect disk sizes might cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
-* On-Demand instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
+* On-Demand instances are configured with a threshold set to the 150% of the RAM of the VM.
 Use the following table as a guide when selecting the size of the persistent disk.
 
 The following table shows an example of possible RAM values, absolute minimal value below which
@@ -297,32 +289,32 @@ RabbitMQ declines to start, and the disk size suggested for an average use case.
 <table border="1" class="nice">
   <tr>
     <th>RAM</th>
-    <th>Free disk alarm threshold (1.5xRAM)</td>
-    <th>Suggested disk size (2xRAM)</th>
+    <th>Free disk alarm threshold (1.5 x RAM)</td>
+    <th>Suggested disk size (2 x RAM)</th>
   <tr>
   <tr>
-    <td>10 GB</td>
-    <td>15 GB</td>
-    <td>20 GB</td>
+    <td>10&nbsp;GB</td>
+    <td>15&nbsp;GB</td>
+    <td>20&nbsp;GB</td>
   <tr>
   <tr>
-    <td>16 GB</td>
-    <td>24 GB</td>
-    <td>32 GB</td>
+    <td>16&nbsp;GB</td>
+    <td>24&nbsp;GB</td>
+    <td>32&nbsp;GB</td>
   <tr>
   <tr>
-    <td>32 GB</td>
-    <td>48 GB</td>
-    <td>64 GB</td>
+    <td>32&nbsp;GB</td>
+    <td>48&nbsp;GB</td>
+    <td>64&nbsp;GB</td>
   <tr>
 </table>
 
 Minimum resources required for each RabbitMQ VM:
 
 - CPU: 2
-- RAM: 1 GB
-- Ephemeral disk: 2 GB
-- Persistent disk: 4 GB
+- RAM: 1&nbsp;GB
+- Ephemeral disk: 2&nbsp;GB
+- Persistent disk: 4&nbsp;GB
 
 For more information, see the following:
 
@@ -352,7 +344,7 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 ## <a id='errands'></a>Errands
 
 When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a
-series of [Post-Deploy Errands](#post-deploy-errands).
+series of [Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
 An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ
 cluster after a deploy or upgrade.
 
@@ -371,7 +363,7 @@ You can change these defaults by clicking **Errands** in the RabbitMQ for PCF
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
 
-RabbitMQ for PCF errands are colocated with their brokers to decrease errand run time and VM footprint.
+RabbitMQ for PCF errands are co-located with their brokers to decrease errand run time and VM footprint.
 In earlier releases, a new VM was deployed for each errand.
 For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
@@ -402,7 +394,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
     <td>On-Demand instances are updated and redeployed if there are changes to on-demand plan settings or the
-    tile is upgraded. If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to on-demand plan settings will <strong>not</strong> be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
+    tile is upgraded. If this errand is set to <strong>Off</strong> or <strong>When Changed</strong>, updates to on-demand plan settings are <strong>not</strong> applied to existing service instances. <strong>Pivotal recommends that this errand is configured to always run</strong>.</td>
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>
@@ -410,7 +402,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
       It is useful for tasks that require re-creating a service instance VM,
       such as rotating the Ops Manager root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
     <br>
-    <strong>This errand is off by default and should be enabled only when you want to recreate a VM.</strong></td>
+    <strong>This errand is off by default and should be enabled only when you want to re-create a VM.</strong></td>
   </tr>
 </table>
 
