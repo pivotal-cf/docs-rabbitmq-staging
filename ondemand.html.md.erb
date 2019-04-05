@@ -339,8 +339,7 @@ The following are preconfigured for both the single node and the cluster plans:
   For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation.
 
 * **Memory paging threshold**---This is the level at which RabbitMQ tries to free up memory by instructing queues to page their contents out to disk. This is done to try to avoid reaching the high watermark and blocking publishers.
-  This threshold is set to 50% of the configured high watermark, which is 20% of configured memory.
-  For more information on memory calculation, see [Changes to Memory Allocation when Upgrading](./rmq-3611-upgrade.html).<br><br>
+  This threshold is set to 50% of the configured high watermark, which is 20% of configured memory.<br><br>
   For example, if you select an instance type with 10&nbsp;GB of RAM, when more than 2&nbsp;GB of memory is used,
   all queues start writing all queue contents to disk.
   For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/memory.html).
