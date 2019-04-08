@@ -501,42 +501,5 @@ The following plugins are disabled by default:
 * `rabbitmq_event_exchange`---For more information, see [Event Exchange Plugin](https://www.rabbitmq.com/event-exchange.html).
 * `rabbitmq_mqtt`---For more information, see [MQTT Plugin](https://www.rabbitmq.com/mqtt.html).
 
-You can enable these plugins when you create a service instance or by updating an existing
-service instance.
-
-To enable the plugin, run the one of the following commands, specifying the plugin
-as a configuration parameter in JSON:
-
-* When creating a service instance, run:
-
-    ```
-    cf create-service SERVICE PLAN SERVICE-INSTANCE -c PARAMETER-AS-JSON
-    ```
-    For example:
-
-    <pre class="terminal">
-    $ cf create-service p.rabbitmq single-node myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
-    </pre>
-
-* When updating an existing service instance, run:
-
-    ```
-    cf update-service SERVICE-INSTANCE -c PARAMETER-AS-JSON
-    ```
-    For example:
-
-    <pre class="terminal">
-    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true } }'
-    </pre>
-
-* When enabling more than one plugin, specify all the plugin names in the same command. For example:
-
-    <pre class="terminal">
-    $ cf create-service p.rabbitmq single-node myservice -c '{ "plugins": { "rabbitmq_event_exchange": true, "rabbitmq_mqtt": true } }'
-    </pre>
-
-    Or:
-
-    <pre class="terminal">
-    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true, "rabbitmq_mqtt": true } }'
-    </pre>
+An app developer can enable these plugins for each service instance.
+See [Enable Optional Plugins](./use.html#optional-plugins) for details.
