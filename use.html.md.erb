@@ -68,12 +68,19 @@ The `watch` command shows you when your service instance is ready to bind and us
 
 To create an instance of the on-demand RabbitMQ for PCF service, follow the steps below.
 
-1. Run `cf create-service p.rabbitmq single-node SERVICE-INSTANCE`<br><br>
+<ol>
+  <li>Run the following command:</li>
 
-    - Where `SERVICE-INSTANCE` is a name you choose to identify the service instance. This name appears under `name` in the output from `cf services`.
-    - Where `single-node` is the plan, and can be replaced by any of the other plans listed in the Marketplace for the `p.rabbitmq` service.
+  <code>cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE</code><br><br>
 
-2. Run `watch cf services` and wait for the `last operation` for your instance to show as `create succeeded`.
+  Where:
+  <ul>
+    <li><code>SERVICE-INSTANCE</code> is a name you choose to identify the service instance. This name appears under <code>name</code> in the output from <code>cf services</code>.</li>
+    <li><code>SINGLE-NODE</code> is the plan. You can replace it with any of the other plans listed in the Marketplace for the <code>p.rabbitmq</code> service.</li>
+  </ul>
+
+  <li>Run <code>watch cf services</code> and wait for the <code>last operation</code> for your instance to show as <code>create succeeded</code>.</li>
+</ol>
 
 <pre class="terminal">
   $ cf create-service p.rabbitmq single-node my-instance<br>
@@ -105,25 +112,26 @@ service instance. You cannot disable TLS after it is enabled.
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
 For more information, see [Configure Security](./install-config.html#security).
 
+To configure TLS for your service instance, do the following:
+
 <p class="note"><strong>Note:</strong> If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
 
-1. If you have already created a RabbitMQ service instance, update the service instance to use TLS by running
+1. Enable TLS by doing one of the following steps:
+  * If you have already created a RabbitMQ service instance, update the service instance to use TLS by running:
 
-    ```
-    cf update-service MY_INSTANCE -c '{"tls": true}'
-    ```
+        ```
+        cf update-service MY-INSTANCE -c '{"tls": true}'
+        ```
+        Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
+  * If you have not yet created a RabbitMQ service instance, create one with TLS enabled by running:
 
-    Where `MY-INSTANCE` is the name you chose when you created your service instance.
+        ```
+        cf create-service p.rabbitmq PLAN MY-INSTANCE -c '{"tls": true}'
+        ```
 
-1. If you have not yet created a RabbitMQ service instance, create one with TLS enabled by running
-
-    ```
-    cf create-service p.rabbitmq PLAN MY_INSTANCE -c '{"tls": true}'
-    ```
-
-    Where:<br>
-      * `PLAN` is the name of the deployment plan to use for this service instance
-      * `MY-INSTANCE` is the name to give to the new service instance
+        Where:<br>
+          * `PLAN` is the name of the deployment plan to use for this service instance
+          * `MY-INSTANCE` is the name to give to the new service instance
 
 1. Check that the process you ran was successful by running `watch cf services` and wait for the `last operation` for your
 instance to show as `create succeeded` or `update succeeded`.
