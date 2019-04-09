@@ -23,7 +23,7 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 
 ### <a id="instance"></a> Retrieve Service Instance Information
 
-1. Log into the space containing the instance or failed instance. 
+1. Log into the space containing the instance or failed instance.
     <pre class="terminal">
     $ cf login
     </pre>
@@ -43,16 +43,16 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 
 ### <a id="management-ui-credentials"></a> Retrieve RabbitMQ Instance Credentials
 
-If you want to access the Management Dashboard for troubleshooting, 
-you can create a new service-key to retrieve RabbitMQ instance credentials. 
-Pivotal recommends that you use this key for troubleshooting only, and that you 
+To access the Management Dashboard for troubleshooting,
+create a new service-key to retrieve RabbitMQ instance credentials.
+Pivotal recommends that you use this key for troubleshooting only, and that you
 delete the key after troubleshooting.
 To retrieve the credentials, do the following:
 
-1. Create a service-key for your RabbitMQ instance using the command 
+1. Create a service-key for your RabbitMQ instance using the command
 `cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`.
 
-1. Retrieve the credentials using the command 
+1. Retrieve the credentials using the command
 `cf service-key INSTANCE-NAME SERVICE-KEY-NAME`.
 
 1. Navigate to the Management Dashboard using the URL from the service key.
@@ -70,9 +70,9 @@ Getting key my-key for service instance my-rmq-instance as admin...
 }
 </pre>
 
-If you want admin privileges for the RabbitMQ Management UI, you can create an admin user for a service instance and obtain user credentials that you can share with other app developers.
+To gain admin privileges for the RabbitMQ Management UI, create an admin user for a service instance and obtain user credentials that you can share with other app developers.
 
-Both operators and app developers can use this procedure. For instructions, see [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
+Both operators and app developers can use this procedure. See [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) for more information.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
@@ -88,6 +88,6 @@ On-Demand Broker provides a BOSH command to delete all the On-Demand Broker depl
 
 1. Run the following command to delete all instances of the On-Demand Broker:
 
-    <p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
+    <p class="note warning"><strong>Warning:</strong> This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
 
     `bosh run-errand delete-sub-deployments`

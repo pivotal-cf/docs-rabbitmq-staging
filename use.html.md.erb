@@ -49,7 +49,7 @@ For an app to use a service an instance of the service must exist in its space
 Check to see if there is an existing service by following the steps below.
 
 1. Run `cf services`
-1. Look for instances that have `p.rabbitmq` is in the `service` column.
+1. Look for instances that have `p.rabbitmq` in the `service` column.
 If there is an existing instance that you want to use, skip to the [Bind a Service Instance to Your App](#bind) section below.
 
     <pre class="terminal">
@@ -61,7 +61,7 @@ If there is an existing instance that you want to use, skip to the [Bind a Servi
     </pre>
 
 It is possible to enable TLS and additional plugins in the command to create a service.
-See the [Configure TLS for Your Service Instance](#tls) or [Enable Optional Plugins](#optional-plugins) section below to see how to modify the create service command.
+See [Configure TLS for Your Service Instance](#tls) or [Enable Optional Plugins](#optional-plugins) below to see how to modify the create service command.
 
 On-Demand services are created asynchronously, not immediately.
 The `watch` command shows you when your service instance is ready to bind and use.
@@ -71,7 +71,7 @@ To create an instance of the on-demand RabbitMQ for PCF service, follow the step
 1. Run `cf create-service p.rabbitmq single-node SERVICE-INSTANCE`<br><br>
 
     - Where `SERVICE-INSTANCE` is a name you choose to identify the service instance. This name appears under `name` in the output from `cf services`.
-    - Where `single-node` is the plan, and can be replaced by any of the other plans listed in the marketplace for the `p.rabbitmq` service.
+    - Where `single-node` is the plan, and can be replaced by any of the other plans listed in the Marketplace for the `p.rabbitmq` service.
 
 2. Run `watch cf services` and wait for the `last operation` for your instance to show as `create succeeded`.
 
@@ -125,7 +125,7 @@ For more information, see [Configure Security](./install-config.html#security).
       * `PLAN` is the name of the deployment plan to use for this service instance
       * `MY-INSTANCE` is the name to give to the new service instance
 
-1. Check that the process you ran was successful by running `watch cf services` and wait for the `last operation` for your 
+1. Check that the process you ran was successful by running `watch cf services` and wait for the `last operation` for your
 instance to show as `create succeeded` or `update succeeded`.
 
 <pre class="terminal">
@@ -291,12 +291,12 @@ To see the `VCAP_SERVICES` for an app, run `cf env APP-NAME` with the name of an
 For more information about the environment variable `VCAP_SERVICES`, see [RabbitMQ Environment Variables](./reference.html).
 
 ## <a id="bosh-dns"></a>RabbitMQ Node Address Resolution
-Note that the `hostnames` field in `VCAP_SERVICES` contains a single hostname, even if there is more than one RabbitMQ node.
-BOSH DNS will resolve the hostname to a list of the IP addresses of all the available RabbitMQ nodes.
-The order of the IP addresses will be rotated so that there is load balancing.
-Therefore it is acceptable for a RabbitMQ client to use the first IP address returned.
-If a node becomes unavailble, BOSH DNS will remove it from the list of resolved IP addresses.
-Because of this, apps should not cache the IP addresses of the nodes, as the cache may become outdated.
+The `hostnames` field in `VCAP_SERVICES` contains a single hostname, even if there is more than one RabbitMQ node.
+BOSH DNS resolves the hostname to a list of the IP addresses of all the available RabbitMQ nodes.
+The order of the IP addresses rotates so that there is load balancing.
+A RabbitMQ client can use the first IP address returned.
+If a node becomes unavailable, BOSH DNS removes it from the list of resolved IP addresses.
+Because of this, apps should not cache the IP addresses of the nodes, as the cache might become outdated.
 
 ## <a id="restart"></a>Update a Service Instance
 
