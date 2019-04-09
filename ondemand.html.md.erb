@@ -57,8 +57,9 @@ on how to meet your use case requirements with the on-demand service.
   </tr>
   <tr>
     <td>Plugins</td>
-    <td>Tier 1 plugins enabled using checkboxes in UI.</td>
-    <td>Plan to address for tier 1 plugins and selected community plugins</td>
+    <td>Tier-1 plugins enabled using checkboxes in UI.</td>
+    <td>A selection of Tier-1 plugins are enabled in all instances.
+    See [RabbitMQ Server Plugins](./install-config.html#no-overwrite) for details.</td>
   </tr>
   <tr>
     <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
@@ -70,8 +71,9 @@ on how to meet your use case requirements with the on-demand service.
     <td>This is managed by the service. No operator intervention needed.</td>
   </tr>
   <tr>
-    <td>RabbitMQ TLS versions</td><td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
-    <td>The security concerns are resolved by improved TLS in the on-demand service.</td>
+    <td>RabbitMQ TLS versions</td>
+    <td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
+    <td>All instances have only TLS v1.1 and TLS v1.2 available.</td>
   </tr>
   <tr>
     <td>Resource Sharing</td>
@@ -87,7 +89,9 @@ on how to meet your use case requirements with the on-demand service.
         This removes the ability to mis-configure the alarm limit.</td>
   </tr>
   <tr>
-  <td>Load-balancing</td><td>Available via HAProxy</td><td>Relies on client-side load-balancing. Plan to make this available via BOSH DNS.</td>
+    <td>Load-balancing</td>
+    <td>Available using HAProxy</td>
+    <td>Relies on client-side load-balancing. Pivotal plans to make this available using BOSH DNS.</td>
   </tr>
   <tr>
     <td>RabbitMQ servers static IP</td><td>Exists</td><td>Evaluating based on customer needs and feedback</td>
