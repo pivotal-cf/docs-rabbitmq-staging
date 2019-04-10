@@ -79,9 +79,13 @@ To create an instance of the on-demand RabbitMQ for PCF service, follow the step
     <li><code>SINGLE-NODE</code> is the plan. You can replace it with any of the other plans listed in the Marketplace for the <code>p.rabbitmq</code> service.</li>
   </ul>
 
-  <li>Run <code>watch cf services</code> and wait for the <code>last operation</code>
-    for your instance to show as <code>create succeeded</code>.
+  <li>Run the following command:</li>
 
+  <pre>watch cf services</pre>
+
+  <li>Check that the last operation for your instance is reported as <code>create succeeded</code>.<br>
+    For example:</li>
+</ol>
 
 <pre class="terminal">
   $ cf create-service p.rabbitmq single-node my-instance<br>
@@ -93,8 +97,6 @@ To create an instance of the on-demand RabbitMQ for PCF service, follow the step
    name          service        plan           bound apps    last operation
    my-instance   p.rabbitmq     single-node                  create succeeded
 </pre>
-</li>
-</ol>
 
    If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html) for more information.
 
