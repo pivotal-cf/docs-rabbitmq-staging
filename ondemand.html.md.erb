@@ -58,12 +58,15 @@ on how to meet your use case requirements with the on-demand service.
   <tr>
     <td>Plugins</td>
     <td>Tier-1 plugins enabled using checkboxes in UI.</td>
-    <td>A selection of Tier-1 plugins are enabled in all instances.
-    See [RabbitMQ Server Plugins](./install-config.html#no-overwrite) for details.</td>
+    <td>A selection of tier-1 plugins are enabled by default on all instances.
+      See
+      <a href="./install-config.html#no-overwrite">RabbitMQ Server Settings That Cannot Be Disabled</a>.</td>
   </tr>
   <tr>
-    <td>RabbitMQ admin credentials to access management dashboard</td><td>Can set password via tile UI</td>
-    <td>Can access by creating a service key (see [here](./use.html#admin))</td>
+    <td>RabbitMQ admin credentials to access management dashboard</td>
+    <td>Can set password using the tile UI</td>
+    <td>Can access by creating an admin user.
+      See <a href="./install-config.html#admin-service-key">Create an Admin User for a Service Instance</a>.</td>
   </tr>
   <tr>
     <td>Erlang cookie</td>
@@ -73,12 +76,13 @@ on how to meet your use case requirements with the on-demand service.
   <tr>
     <td>RabbitMQ TLS versions</td>
     <td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
-    <td>All instances have only TLS v1.1 and TLS v1.2 available.</td>
+    <td>All instances only have TLS v1.1 and TLS v1.2 available.</td>
   </tr>
   <tr>
     <td>Resource Sharing</td>
-    <td>Yes. Service instances share resources on the same VM and may affect one another.</td>
-    <td>No. On-demand ensures isolation between service instances by creating a separate VM per service instance.</td>
+    <td>Yes. Service instances share resources on the same VM and can affect one another.</td>
+    <td>No. On-demand ensures isolation between service instances by
+      creating a separate VM per service instance.</td>
   </tr>
   <tr>
     <td>External load balancer DNS name</td><td>Available</td><td>Plan to address. IaaS-specific load balancers can still be used.</td>
@@ -91,7 +95,7 @@ on how to meet your use case requirements with the on-demand service.
   <tr>
     <td>Load-balancing</td>
     <td>Available using HAProxy</td>
-    <td>Relies on client-side load-balancing. Pivotal plans to make this available using BOSH DNS.</td>
+    <td>Uses client-side load-balancing.</td>
   </tr>
   <tr>
     <td>RabbitMQ servers static IP</td><td>Exists</td><td>Evaluating based on customer needs and feedback</td>
@@ -108,7 +112,9 @@ on how to meet your use case requirements with the on-demand service.
     <td>Individual instance upgrade</td><td>Possible when using tile replicator</td><td>Plan to address</td>
   </tr>
   <tr>
-    <td>Network partition behavior</td><td>Defaults to <code>pause_minority</code>, configurable</td><td>Defaults to <code>pause_minority</code>, configurable for each plan</td>
+    <td>Network partition behavior</td>
+    <td>Defaults to <code>pause_minority</code>. Configurable.</td>
+    <td>Defaults to <code>pause_minority</code>. Configurable for each plan.</td>
   </tr>
   <tr>
     <td>TLS</td><td>TLS enabled between client and RabbitMQ broker, possible to configure peer validation</td><td>TLS between client and the RabbitMQ broker has been implemented.</td>
