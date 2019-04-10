@@ -302,6 +302,7 @@ For more information about the environment variable `VCAP_SERVICES`, see [Rabbit
 The `hostnames` field in `VCAP_SERVICES` contains a single hostname, even if there is more than one RabbitMQ node.
 BOSH DNS resolves the hostname to a list of the IP addresses of all the available RabbitMQ nodes.
 The order of the IP addresses rotates so that there is load balancing.
+
 A RabbitMQ client can use the first IP address returned.
 If a node becomes unavailable, BOSH DNS removes it from the list of resolved IP addresses.
 Because of this, apps should not cache the IP addresses of the nodes, as the cache might become outdated.
