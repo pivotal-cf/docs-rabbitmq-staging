@@ -23,20 +23,20 @@ For information about architecture of the older, pre-provisioned service, see [D
 <%= partial '../../rabbitmq-cf/odb/service_networks_table' %>
 
 <br>
-Regardless of the specific network layout, the operator must ensure network 
-rules are set up so that connections are open as described in the table below. 
+Regardless of the specific network layout, the operator must ensure network
+rules are set up so that connections are open as described in the table below.
 
 <table class="nice">
 	<th>This component...</th>
 	<th>Must communicate with...</th>
 	<th>Default TCP Port</th>
-	<th>Communication direction(s)</th>
+	<th>Communication directions</th>
 	<th>Notes</th>
 	<tr>
 		<td><strong>ODB</strong></td>
 		<td>
 		    <ul>
-		        <li><strong>BOSH Director</strong></li>
+		      <li><strong>BOSH Director</strong></li>
 		    	<li><strong>BOSH UAA</strong></li>
 		    </ul>
 		</td>
@@ -53,14 +53,14 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>ODB</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>15672 (RabbitMQ Management UI)</td>
+		<td>15672 (RabbitMQ Management API)</td>
 		<td>One-way</td>
-		<td>This connection is for administrative tasks. 
+		<td>This connection is for administrative tasks.
 			Avoid opening general use, app-specific ports for this connection.</td>
 	</tr>
 	<tr>
 		<td><strong>ODB</strong></td>
-		<td><strong>PAS (or Elastic Runtime) </strong>
+		<td><strong>PAS</strong>
 		</td>
 		<td>8443</td>
 		<td>One-way</td>
@@ -70,7 +70,7 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>Errand VMs</strong></td>
 		<td>
 			<ul>
-				<li><strong>PAS (or Elastic Runtime) </strong></li>
+				<li><strong>PAS</strong></li>
 				<li><strong>ODB</strong></li>
 				<li><strong>Deployed Service Instances</strong></li>
 			</ul>
@@ -79,7 +79,7 @@ rules are set up so that connections are open as described in the table below.
 			<ul>
 				<li>8443</li>
 				<li>8080</li>
-				<li>15672 (RabbitMQ Management UI)</li>
+				<li>15672 (RabbitMQ Management API)</li>
 				<li>5671-2 (AMQP/AMQPS)</li>
 			</ul>
 		</td>
@@ -92,12 +92,12 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>4222</td>
 		<td>Two-way</td>
-		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM. 
+		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.
 			The BOSH Agent initiates the connection with the BOSH Director.<br>
 			The default port is not configurable.  </td>
 	</tr>
 	<tr>
-		<td><strong>Deployed apps on PAS (or Elastic Runtime) </strong></td>
+		<td><strong>Deployed apps on PAS</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
 		<td>
@@ -108,17 +108,17 @@ rules are set up so that connections are open as described in the table below.
 				<li>1883, 8883 (MQTT/MQTTS)</li>
 		</td>
 		<td>One-way</td>
-		<td>This connection is for general use, app-specific tasks. 
+		<td>This connection is for general use, app-specific tasks.
 			Avoid opening administrative ports for this connection.</td>
 	</tr>
 	<tr>
-		<td><strong>PAS (or Elastic Runtime) </strong></td>
+		<td><strong>PAS</strong></td>
 		<td><strong>ODB</strong>
 		</td>
 		<td>8080</td>
 		<td>One-way</td>
-		<td>This port may be different for individual services. 
-			This port may also be configurable by the operator if allowed by the 
+		<td>This port can be different for individual services.
+			The operator can configure this port if allowed by the
 			tile developer.</td>
 	</tr>
 		<tr>
@@ -127,7 +127,7 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>8844</td>
 		<td>One-way</td>
-		<td>This port is needed if secure service instance credentials are enabled.
+		<td>This port is needed if secure binding credentials are enabled.
                     For information, see <a href="install-config.html#credhub">(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub</a>.</td>
 	</tr>
 </table>
