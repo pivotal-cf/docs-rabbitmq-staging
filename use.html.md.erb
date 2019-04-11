@@ -44,20 +44,25 @@ Confirm this by following the steps below:
 
 ## <a id='create'></a>Create a Service Instance
 
-It is possible to enable TLS and additional plugins in the command to create a service.
-See [Configure TLS for Your Service Instance](#tls) or [Enable Optional Plugins](#optional-plugins) below to see how to modify the create service command.
-
+For an app to use a service, an instance of the service must exist in its space.
 On-Demand services are created asynchronously, not immediately.
 The `watch` command shows you when your service instance is ready to bind and use.
 
-For an app to use a service, an instance of the service must exist in its space.
+You can enable TLS and additional plugins using the `cf create-service` command.
+For instructions on how to modify the `cf create-service` command,
+see [Configure TLS for Your Service Instance](#tls) or [Enable Optional Plugins](#optional-plugins) below.
 
-Check to see if there is an existing service by following the steps below.
+To create an instance of the on-demand RabbitMQ for PCF service, do the following:
 
-1. Run `cf services`.
-1. Look for instances that have `p.rabbitmq` in the `service` column.
-If there is an existing instance that you want to use, skip to the [Bind a Service Instance to Your App](#bind) section below.
+1. Check to see if there is an existing service by running:
 
+    ```
+    cf services
+    ```
+    Look for instances that have `p.rabbitmq` in the `service` column.
+    If there is an existing instance that you want to use, skip to the [Bind a Service Instance to Your App](#bind) section below.
+    <br><br>
+    For example:
     <pre class="terminal">
     $ cf services
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
@@ -66,37 +71,37 @@ If there is an existing instance that you want to use, skip to the [Bind a Servi
     my-instance   p.rabbitmq   single-node, plan-2                  create succeeded
     </pre>
 
-To create an instance of the on-demand RabbitMQ for PCF service, follow the steps below.
+1. Create the service instance by running:
 
-<ol>
-  <li>Run the following command:</li>
+    ```
+    cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE
+    ```
 
-  <pre>cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE</pre>
+    Where:
+    + `SERVICE-INSTANCE` is a name you choose to identify the service instance.
+    This name appears under `name` in the output from `cf services`.
+    + `SINGLE-NODE` is the plan.
+    You can replace it with any of the other plans listed in the Marketplace for the
+    `p.rabbitmq` service.
 
-  Where:
-  <ul>
-    <li><code>SERVICE-INSTANCE</code> is a name you choose to identify the service instance. This name appears under <code>name</code> in the output from <code>cf services</code>.</li>
-    <li><code>SINGLE-NODE</code> is the plan. You can replace it with any of the other plans listed in the Marketplace for the <code>p.rabbitmq</code> service.</li>
-  </ul>
+1. Check that the process was successful by running:
 
-  <li>Run the following command:</li>
+    ```
+    watch cf services
+    ```
 
-  <pre>watch cf services</pre>
-
-  <li>Check that the last operation for your instance is reported as <code>create succeeded</code>.<br>
-    For example:</li>
-</ol>
-
-<pre class="terminal">
-  $ cf create-service p.rabbitmq single-node my-instance<br>
-   Creating service my-instance in org my-org / space my-space as user<span>@</span>example.com...
-   OK<br>
-  $ watch cf services<br>
-   Getting services in org my-org / space my-space as user<span>@</span>example.com...
-   OK
-   name          service        plan           bound apps    last operation
-   my-instance   p.rabbitmq     single-node                  create succeeded
-</pre>
+    If successful, `last operation` for your instance is reported as `create succeeded`.<br><br>
+    For example:
+    <pre class="terminal">
+      $ cf create-service p.rabbitmq single-node my-instance<br>
+       Creating service my-instance in org my-org / space my-space as user<span>@</span>example.com...
+       OK<br>
+      $ watch cf services<br>
+       Getting services in org my-org / space my-space as user<span>@</span>example.com...
+       OK
+       name          service        plan           bound apps    last operation
+       my-instance   p.rabbitmq     single-node                  create succeeded
+    </pre>
 
    If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html) for more information.
 
