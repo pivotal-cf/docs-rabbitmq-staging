@@ -314,6 +314,7 @@ The order of the IP addresses rotates so that there is load balancing.
 A RabbitMQ client can use the first IP address returned.
 If a node becomes unavailable, BOSH DNS removes it from the list of resolved IP addresses.
 Because of this, apps should not cache the IP addresses of the nodes, as the cache might become outdated.
+The java buildpack automatically disables DNS caching.
 
 ## <a id="restart"></a>Update a Service Instance
 
