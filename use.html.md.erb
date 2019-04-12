@@ -120,8 +120,8 @@ If it is not, follow the steps in [Modify Apps for TLS](./modify-apps-tls.html).
 
 ### <a id='tls'></a>Enable TLS for Your Service Instance
 
-If the operator has configured TLS to be Optional, then follow the steps below to enable TLS on a service instance.
-If the operator has configured TLS to be Enforced, then all service instances will have TLS enabled, and it is not necessary to follow the steps below.
+If the operator has configured TLS to be optional, then follow the steps below to enable TLS on a service instance.
+If the operator has configured TLS to be enforced, then all service instances have TLS enabled and it is not necessary to follow the steps below.
 For more information, see [Configure Security](./install-config.html#security).
 
 To configure TLS for your service instance, do the following:
@@ -164,8 +164,8 @@ To configure TLS for your service instance, do the following:
 
 ### <a id="tls-turn-off"></a> Disable TLS for Your Service Instance
 
-If the operator has configured TLS to be Optional or Not Configured, then follow the steps below to disable TLS on a service instance.
-If the operator has configured TLS to be Enforced, then all service instances will have TLS enabled, and it is not possible to disable TLS.
+If the operator has configured TLS to be optional or not configured, then follow the steps below to disable TLS on a service instance.
+If the operator has configured TLS to be enforced, then all service instances will have TLS enabled and it is not possible to disable TLS.
 For more information, see [Configure Security](./install-config.html#security).
 
 1. Disable TLS by doing one of the following steps:
@@ -177,8 +177,8 @@ For more information, see [Configure Security](./install-config.html#security).
         Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
   * If you have not yet created a RabbitMQ service instance,
   note that newly created service instances will not have TLS enabled,
-  unless the operator has configured TLS to be Enforced.
-  To request a service instances with TLS disabled, run:
+  unless the operator has configured TLS to be enforced.<br><br>
+  To request a service instance with TLS disabled, run:
 
         ```
         cf create-service p.rabbitmq PLAN MY-INSTANCE -c '{"tls": false}'
@@ -188,15 +188,15 @@ For more information, see [Configure Security](./install-config.html#security).
           * `PLAN` is the name of the deployment plan to use for this service instance
           * `MY-INSTANCE` is the name to give to the new service instance
 
-  Note that this operation will fail if the operator has configured TLS to be Enforced.
-  For more information, see [Configure Security](./install-config.html#security).
+    Note that this operation will fail if the operator has configured TLS to be enforced.
+    For more information, see [Configure Security](./install-config.html#security).
 
 1. Check that the process was successful by running:
 
     ```
     watch cf services
     ```
-    If successful, the <code>last operation</code> for your instance is reported as
+    If successful, the last operation for your instance is reported as
     `update succeeded`.<br><br>
     For example:
 
