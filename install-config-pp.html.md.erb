@@ -217,9 +217,9 @@ Enter the ports HAProxy should load balance to the RabbitMQ nodes in this sectio
 
 <%= image_tag("images/config-haproxy.png") %>
 
-* All the default ports of all the available plugins are load-balanced by default.
-However, if you install extra protocol plugins, or provide a custom configuration that changes the ports RabbitMQ listens on,
-then you must update the list of load-balanced ports.
+* Comma separated list of ports that will be proxied to RabbitMQ nodes. Defaults to 15672 (Management), 5672 (AMQP), 5671 (AMQP+SSL),
+1883 (MQTT), 8883 (MQTT+SSL), 61613 (STOMP), 61614 (STOMP+SSL), 15674 (WebSTOMP). Extend this list if you enable other protocol
+plugins or have a custom configuration that changes the ports RabbitMQ listens on.
 
 * You must leave the management plugin listening on port `15672` and load balance that port.
 
