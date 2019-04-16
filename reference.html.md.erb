@@ -16,11 +16,11 @@ An example hash is show below:
 
 <pre><code>
 {
-    "p-rabbitmq": [{
-        "label": "p-rabbitmq",
+    "p.rabbitmq": [{
+        "label": "p.rabbitmq",
         "name": "my-rabbit-service-instance",
-        "plan": "standard",
-        "tags": ["rabbitmq", "messaging", "message-queue", "amqp", "pivotal"],
+        "plan": "single-node",
+        "tags": ["rabbitmq"],
         "credentials": {
             "dashboard_url": "http://pivotal-rabbitmq.your.pcf.example.com/#/login/b5d0ad14-4352-48e8-8982-d5b1d257029f/tavk86pnnns1ddiqpsdtbchurn",
             "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
@@ -55,20 +55,10 @@ An example hash is show below:
                         "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
                     ],
                 }
-                "management": {
-                    "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
-                    "password": "passwordexample123456789",
-                    "path": "/api",
-                    "port": 15672,
-                    "ssl": false,
-                    "host": "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
-                    "hosts": [
-                        "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
-                    ],
-                    "uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
-                    "uris": [
-                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
-                    ]}}}}]}
+            }
+        }
+    }]
+}
 </code></pre>
 
 You can search for your service by its `name`, given when creating the service instance,
