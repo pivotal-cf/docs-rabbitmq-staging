@@ -262,7 +262,7 @@ for an on-demand service instance using the command `cf tail`.
     For more information about this feature, see
     [Access RabbitMQ Metrics for On-Demand Service Instances](./use.html#log-cache).
 
-* For on-demand service instances, the Erlang cookie and the RabbitMQ admin password are stored in the BOSH Credhub.
+* For on-demand service instances, the Erlang cookie and the RabbitMQ admin password are stored in the BOSH Credhub. This requires port 8844 on the BOSH Director to be accessible from the On-Demand Broker.
 
 * The `rabbitmq_consistent_hash_exchange` and `rabbitmq_sharding` plugins are enabled.
 
