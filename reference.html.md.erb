@@ -14,52 +14,52 @@ Apps running in PCF gain access to the bound service instances
 through an environment variable credentials hash called `VCAP_SERVICES`.
 An example hash is show below:
 
-<pre><code>
+```json
 {
-    "p.rabbitmq": [{
-        "label": "p.rabbitmq",
-        "name": "my-rabbit-service-instance",
-        "plan": "single-node",
-        "tags": ["rabbitmq"],
-        "credentials": {
-            "dashboard_url": "http://pivotal-rabbitmq.your.pcf.example.com/#/login/b5d0ad14-4352-48e8-8982-d5b1d257029f/tavk86pnnns1ddiqpsdtbchurn",
-            "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
-            "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-            "password": "#passwordexample123456789",
-            "ssl": false,
-            "hostname": "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
-            "hostnames": [
-                "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
-            ],
-            "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-            "uris": [
-                "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-            ],
-            "http_api_uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
-            "http_api_uris": [
-                "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
-            ],
-            "protocols": {
-                "amqp": {
-                    "password": "passwordexample123456789",
-                    "port": 5672,
-                    "ssl": false,
-                    "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
-                    "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-                    "host": "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
-                    "hosts": [
-                        "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
-                    ],
-                    "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-                    "uris": [
-                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-                    ],
-                }
-            }
+  "p.rabbitmq": [{
+    "label": "p.rabbitmq",
+    "name": "my-rabbit-service-instance",
+    "plan": "single-node",
+    "tags": ["rabbitmq"],
+    "credentials": {
+      "dashboard_url": "http://pivotal-rabbitmq.your.pcf.example.com/#/login/b5d0ad14-4352-48e8-8982-d5b1d257029f/tavk86pnnns1ddiqpsdtbchurn",
+      "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+      "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+      "password": "#passwordexample123456789",
+      "ssl": false,
+      "hostname": "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
+      "hostnames": [
+        "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
+      ],
+      "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+      "uris": [
+        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+      ],
+      "http_api_uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
+      "http_api_uris": [
+        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
+      ],
+      "protocols": {
+        "amqp": {
+          "password": "passwordexample123456789",
+          "port": 5672,
+          "ssl": false,
+          "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+          "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+          "host": "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
+          "hosts": [
+            "q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh",
+          ],
+          "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+          "uris": [
+            "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+          ]
         }
-    }]
+      }
+    }
+  }]
 }
-</code></pre>
+```
 
 You can search for your service by its `name`, given when creating the service instance,
 or dynamically through the `tags` or `label` properties.
