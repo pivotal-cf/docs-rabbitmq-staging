@@ -160,7 +160,7 @@ To configure the TLS settings, do the following:
 
   <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their RabbitMQ service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
 
-<p class='note breaking'><strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after they are upgraded. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their RabbitMQ service instance through TLS.</p>
+<p class='note breaking'><strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong> errand are applied. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their RabbitMQ service instance through TLS.</p>
 
 <p class="note"><strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing service instances continue to use TLS. However, new instances are not configured with TLS.</p>
 
