@@ -34,7 +34,7 @@ For more information about this security issue, see
 <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
 <br><br>
 If you rely on the tile to generate the cookie by leaving the Erlang cookie field
-blank, you will experience a few minutes of downtime when you upgrade.
+blank, you willexperience a few minutes of downtime when you upgrade.
 For more information, see <a href="./install-config-pp.html#security-fix">Erlang Cookie Security Fix</a>.
 <br><br>
 If you have set the cookie explicitly in the tile configuration, you are not
@@ -53,23 +53,28 @@ New features and changes in this release:
 * You can enable the `rabbitmq_event_exchange` and the `rabbitmq_mqtt` plugins
   for on-demand service instances.
   These plugins are disabled by default.
-  For how to do this, see [Disabled RabbitMQ Server Plugins](./install-config.html#disabled-plugins).
+  For how enable them, see [Enable Optional Plugins](./use.html#optional-plugins).
 
-* You can now configure your RabbitMQ tile to share metrics with the [PCF Healthwatch service](https://docs.pivotal.io/pcf-healthwatch/index.html).
+* You can configure your RabbitMQ tile to share metrics with the PCF Healthwatch service.
+For more information about this service, see [Pivotal Cloud Foundry Healthwatch](https://docs.pivotal.io/pcf-healthwatch/index.html).
 
-* You can now disable service metrics for RabbitMQ instances in order to reduce operational costs.
+* You can disable service metrics for RabbitMQ for PCF service instances to reduce
+operational costs.
 
 * A checkbox on the plan configuration page lets you specify that the plan is a paid-type plan.
   In previous versions, all RabbitMQ for PCF plans were marked as free in the Marketplace.
   For information about how to mark that a plan is a paid plan,
   see [Configure the Service Plan](install-config.html#service-plan).
 
-* Configuring TLS on RabbitMQ services has been made simpler, and is now possible at service create time, in addition to updating an existing service.
-  For more information, see [Enable TLS for Your Service Instance](./use.html#tls).
+* Configuring TLS on RabbitMQ for PCF service instances has been simplified.
+You can configure TLS when you create a service instance as well as when you update an existing service.
+For more information, see [Enable TLS for Your Service Instance](./use.html#tls).
 
-* Service bindings now return DNS names instead of IP addresses. To see how this affects the RabbitMQ clients used by apps, see [RabbitMQ Node Address Resolution](./use.html#bosh-dns).
+* Service bindings return DNS names instead of IP addresses.
+To see how this affects the RabbitMQ clients used by apps, see [RabbitMQ Node Address Resolution](./use.html#bosh-dns).
 
-* Operators may now enforce TLS connections for all connections to on-demand RabbitMQ nodes on a deployment. For more information, see [Installing the On-Demand Service](install-config.html#security).
+* Operators can enforce TLS connections for all connections to on-demand RabbitMQ nodes on a deployment.
+For more information, see [Configure Security](install-config.html#security).
 
 ### Resolved Issues
 
