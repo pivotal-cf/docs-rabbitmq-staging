@@ -24,9 +24,9 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
-## <a id="1160"></a> v1.16.0
+## <a id="1161"></a> v1.16.1
 
-**Release Date**: Month DD, YYYY
+**Release Date**: April 26, 2019
 
 <p class="note breaking"><strong>Breaking Change:</strong>
 To fix CVE-2018-1279, the method used to generate the Erlang cookie has changed in RabbitMQ for PCF v1.16.
@@ -50,15 +50,26 @@ This release includes the following security fix:
 
 New features and changes in this release:
 
+* You can enable the `rabbitmq_event_exchange` and the `rabbitmq_mqtt` plugins
+  for on-demand service instances.
+  These plugins are disabled by default.
+  For how to do this, see [Disabled RabbitMQ Server Plugins](./install-config.html#disabled-plugins).
+
+* You can now configure your RabbitMQ tile to share metrics with the [PCF Healthwatch service](https://docs.pivotal.io/pcf-healthwatch/index.html).
+
+* You can now disable service metrics for RabbitMQ instances in order to reduce operational costs.
+
 * A checkbox on the plan configuration page lets you specify that the plan is a paid-type plan.
   In previous versions, all RabbitMQ for PCF plans were marked as free in the Marketplace.
   For information about how to mark that a plan is a paid plan,
   see [Configure the Service Plan](install-config.html#service-plan).
 
-* You can enable the `rabbitmq_event_exchange` and the `rabbitmq_mqtt` plugins
-  for on-demand service instances.
-  These plugins are disabled by default.
-  For how to do this, see [Disabled RabbitMQ Server Plugins](./install-config.html#disabled-plugins).
+* Configuring TLS on RabbitMQ services has been made simpler, and is now possible at service create time, in addition to updating an existing service.
+  For more information, see [Enable TLS for Your Service Instance](./use.html#tls).
+
+* Service bindings now return DNS names instead of IP addresses. To see how this affects the RabbitMQ clients used by apps, see [RabbitMQ Node Address Resolution](./use.html#bosh-dns).
+
+* Operators may now enforce TLS connections for all connections to on-demand RabbitMQ nodes on a deployment. For more information, see [Installing the On-Demand Service](install-config.html#security).
 
 ### Resolved Issues
 
@@ -77,7 +88,9 @@ For more information about this issue, see [Changing the Erlang Cookie Value Kno
 
 ### Packages
 
-*
+* OSS RabbitMQ v3.7.14
+* Erlang v20.3.8.20
+* HAProxy v1.8.19
 
 ## <a id="view"></a> View Release Notes for Another Version
 
