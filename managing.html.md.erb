@@ -1,58 +1,29 @@
 ---
 breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
-title: Using the RabbitMQ Management Dashboard
+title: Using the RabbitMQ Management UI
 owner: London Services
 ---
 
-This topic describes how to use the RabbitMQ Management Dashboard, and applies to both the on-demand and pre-provisioned services.
+This topic describes how to use the RabbitMQ Management UI, and applies to both the on-demand and pre-provisioned services.
 
-## <a id="manage-dash"></a>RabbitMQ Management Dashboard
+## <a id="manage-dash"></a>RabbitMQ Management UI
 
-### <a id="admin"></a>Admin User
+### <a id="admin"></a>Pre-Provisioned
 
 To gain access to the management dashboard as the `admin` user, visit `http://pivotal-rabbitmq.SYS-DOMAIN`.
-To retrieve your system domain, navigate to your Pivotal Application Service (PAS) tile and locate the **System Domain** field of the **Domains** section.
+To retrieve your system domain, navigate to your Pivotal Application Service (PAS) tile and locate the
+**System Domain** field of the **Domains** section.
 
-The username and password is the username and password you provided in the RabbitMQ configuration in OpsManager, which is also shown in the Credentials tab.
+The username and password is the username and password you provided in the RabbitMQ configuration in OpsManager.
 
 <%= image_tag("images/dashboard.jpeg") %>
 
-### <a id="dev"></a>Application Developer
+### <a id="admin"></a>On-demand instances
 
-Users of Cloud Foundry who create instances via the Apps Manager or the cf CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>.
+Users of Cloud Foundry who create instances via the Apps Manager or the cf CLI also get access to the Management UI.
+This is done using credentials that provide access only to their particular <strong>vhost</strong>.
 
-The appropriate URL is accessible via the Manage button within the Apps Manager.
+The appropriate URL is accessible via the Manage button within the Apps Manager. Alteratively, users can create credentials using the Cloud Foundry CLI
+as shown in [the Operator documentation](./install-config.html#admin-service-key).
 
 <%= image_tag("images/console_manage.jpeg") %>
-
-Or it is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry.
-This can also be found via the CLI using `cf env <your app name>`.
-
-<%= image_tag("images/cli_manage.jpeg") %>
-
-## <a id="logging"></a>Logging
-
-A TCP Syslog endpoint can be configured in OpsManager. Logs are currently only forwarded for the RabbitMQ cluster.
-
-## <a id="cli"></a>RabbitMQ CLI
-
-If you wish to run commands such as <code>rabbitmqctl</code> then you have two options:
-
-SSH into one of the machines running the rabbitmq-server. IPs can be found from the Status tab and access credentials from the Credentials tab within the RabbitMQ component of the installer. From there you need to bring RabbitMQ and Erlang into your environment and from there you can use <code>rabbitmqctl</code>:
-
-<pre><code>
-bash-4.1# export PATH=$PATH:/var/vcap/packages/rabbitmq-server/bin
-bash-4.1# export PATH=$PATH:/var/vcap/packages/erlang/bin
-bash-4.1# rabbitmqctl cluster_status
-Cluster status of node rabbit@node0 ...
-[{nodes,[{disc,[rabbit@node0,rabbit@node1,rabbit@node2,rabbit@node3]}]},
- {running_nodes,[rabbit@node3,rabbit@node2,rabbit@node1,rabbit@node0]},
- {partitions,[]}]
-...done.
-</code></pre>
-
-Alternatively, install RabbitMQ and Erlang on a machine of your choice. Be sure to match versions of both to the cluster: the Management UI shows both the version of RabbitMQ and Erlang.
-
-Then set your <code>~/.erlang.cookie</code> to match the cookie used in the cluster (you may have supplied this as part of the installation; see above).
-
-You will need to set up your <code>/etc/hosts</code> file to match the RabbitMQ nodes.
