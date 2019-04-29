@@ -53,7 +53,7 @@ New features and changes in this release:
 * You can enable the `rabbitmq_event_exchange` and the `rabbitmq_mqtt` plugins
   for on-demand service instances.
   These plugins are disabled by default.
-  For how enable them, see [Enable Optional Plugins](./use.html#optional-plugins).
+  For how to enable them, see [Enable Optional Plugins](./use.html#optional-plugins).
 
 * You can configure your RabbitMQ tile to share metrics with the PCF Healthwatch service.
 For more information about this service, see [Pivotal Cloud Foundry Healthwatch](https://docs.pivotal.io/pcf-healthwatch/index.html).
@@ -61,19 +61,21 @@ For more information about this service, see [Pivotal Cloud Foundry Healthwatch]
 * You can disable service metrics for RabbitMQ for PCF service instances to reduce
 operational costs.
 
-* A checkbox on the plan configuration page lets you specify that the plan is a paid-type plan.
-  In previous versions, all RabbitMQ for PCF plans were marked as free in the Marketplace.
-  For information about how to mark that a plan is a paid plan,
-  see [Configure the Service Plan](install-config.html#service-plan).
+* You can specify that a plan is a paid-type plan by selecting the **Paid Plan** checkbox
+on the plan configuration pane.
+In previous versions, all RabbitMQ for PCF plans were marked as free in the Marketplace.
+For how to mark that a plan is a paid plan, see [Configure the Service Plan](install-config.html#service-plan).
 
-* Configuring TLS on RabbitMQ for PCF service instances has been simplified.
-You can configure TLS when you create a service instance as well as when you update an existing service.
+* Configuring TLS on RabbitMQ for PCF service instances is simpler.
+You can now configure TLS when you create a service instance as well as when you update
+an existing service instance.
 For more information, see [Enable TLS for Your Service Instance](./use.html#tls).
 
 * Service bindings return DNS names instead of IP addresses.
-To see how this affects the RabbitMQ clients used by apps, see [RabbitMQ Node Address Resolution](./use.html#bosh-dns).
+For how this affects the RabbitMQ clients used by apps, see
+[RabbitMQ Node Address Resolution](./use.html#bosh-dns).
 
-* Operators can enforce TLS connections for all connections to on-demand RabbitMQ nodes on a deployment.
+* Operators can enforce TLS for all connections to on-demand RabbitMQ nodes on a deployment.
 For more information, see [Configure Security](install-config.html#security).
 
 ### Resolved Issues
