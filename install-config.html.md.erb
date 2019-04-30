@@ -435,23 +435,28 @@ To create an admin user on a RabbitMQ instance do the following:
 
 1. Run this command to create a service key:
 
-    <br>`cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
+    ```
+    cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'
+    ```
 
-    <br>where:
-
-    <br>`SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`. <br> `SERVICE_KEY` is a name you choose to identify the service key.
+    <br>Where:
+    * `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`
+    * `SERVICE_KEY` is a name you choose to identify the service key
 
     <br>For example:
 
     <pre class="terminal">
-   $ cf create-service-key my-instance my-admin-key -c '{"tags":"administrator"}'<br>
-   Creating service key my-admin-key for service instance my-instance as user<span>@</span>example.com...
-   OK
-</pre>
+    $ cf create-service-key my-instance my-admin-key -c '{"tags":"administrator"}'<br>
+    Creating service key my-admin-key for service instance my-instance as user<span>@</span>example.com...
+    OK
+    </pre>
 
 1. Run this command to get the admin user credentials:
 
-    <br>`cf service-key SERVICE_INSTANCE SERVICE_KEY` where the variables are the same as above.
+    ```
+    cf service-key SERVICE_INSTANCE SERVICE_KEY
+    ```
+    Where the variables are the same as above.
 
     <br>This returns a Dashboard URL containing the admin credentials, which can be used to access the RabbitMQ Management UI. For example:
 
