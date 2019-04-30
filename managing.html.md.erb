@@ -4,24 +4,38 @@ title: Using the RabbitMQ Management Dashboard
 owner: London Services
 ---
 
-This topic describes how to use the RabbitMQ Management Dashboard, and applies to both the on-demand and pre-provisioned services.
+This topic describes how to access the RabbitMQ Management UI.
 
-## <a id="manage-dash"></a>RabbitMQ Management Dashboard
+## <a id="manage-dash"></a>Access the RabbitMQ Management UI
 
-### <a id="admin"></a>Admin User
+You can access the management UI for on-demand or for pre-provisioned instances.
 
-To gain access to the management dashboard as the `admin` user, visit `http://pivotal-rabbitmq.SYS-DOMAIN`.
-To retrieve your system domain, navigate to your Pivotal Application Service (PAS) tile and locate the **System Domain** field of the **Domains** section.
+### <a id="admin"></a>Pre-Provisioned Instances
 
-The username and password is the username and password you provided in the RabbitMQ configuration in OpsManager, which is also shown in the Credentials tab.
+To access the RabbitMQ Management UI as the `admin` user, do the following:
+
+1. Retrieve your system domain, by navigating to your Pivotal Application Service (PAS)
+tile and locating the **System Domain** field of the **Domains** section.
+
+1. Visit `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the system
+you found in step 1.
+
+1. The username and password is the username and password you provided in the RabbitMQ configuration in OpsManager.
 
 <%= image_tag("images/dashboard.jpeg") %>
 
-### <a id="dev"></a>Application Developer
+### <a id="admin"></a>On-Demand Instances
 
-Users of Cloud Foundry who create instances via the Apps Manager or the cf CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>.
+You can access the RabbitMQ Management UI for a service instance using Apps Manager or the cf CLI.
+This is done using credentials that only provide access to a specific <strong>vhost</strong>.
 
-The appropriate URL is accessible via the Manage button within the Apps Manager.
+**Using Apps Manager:**
+Retrieve the URL for the RabbitMQ Management UI for your service instance by clicking
+the **Manage** button in Apps Manager.
+
+**Using the cf CLI:**
+Create credentials using the cf CLI.
+For instructions, see [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
 
 <%= image_tag("images/console_manage.jpeg") %>
 
