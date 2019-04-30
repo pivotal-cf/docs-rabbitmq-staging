@@ -501,9 +501,12 @@ The following plugins are disabled by default:
 * `rabbitmq_event_exchange`---For more information, see [Event Exchange Plugin](https://www.rabbitmq.com/event-exchange.html).
 * `rabbitmq_mqtt`---For more information, see [MQTT Plugin](https://www.rabbitmq.com/mqtt.html).
 
-You can enable them under 'Global Settings for On-Demand Plans':
+Enable these plugins by doing the following:
 
-![Configuring On-Demand Plugins](images/on-demand-plugins-operator.png)
+1. Navigate **Ops Manager Installation Dashboard** > **RabbitMQ** > **Settings** > **Global Settings for On-Demand Plans**.
 
-Once enabled for the platform, an app developer can enable these plugins for each service instance.
-See [Enable Optional Plugins](./use.html#optional-plugins) for more information.
+1. Select the plugins you want to enable under **RabbitMQ plugins that can be enabled by App Developers**. 
+  ![Configuring On-Demand Plugins](images/on-demand-plugins-operator.png)
+
+  Once enabled for the platform, adeveloper can enable these plugins for each service instance.
+  For more information, see [Enable Optional Plugins](./use.html#optional-plugins).
