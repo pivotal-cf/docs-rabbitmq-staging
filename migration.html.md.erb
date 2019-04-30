@@ -29,7 +29,7 @@ To migrate from one service instance to another, do the following:
        <li>vhost-specific parameters, such as <code>max_connections</code></li>
      </ul>
      You can apply them using the API by following the steps below. Alternatively,
-     you can apply them in the RabbitMQ Management Dashboard and skip to step 11.
+     you can apply them in the RabbitMQ Management UI and skip to step 11.
      The API is the faster option if you have multiple instances to migrate.
 
 1. Create a service key for the new instance with the admin username and
@@ -70,7 +70,7 @@ To migrate from one service instance to another, do the following:
        Where:
        * `USERNAME` is the admin username for the cluster
        * `PASSWORD` is the admin password for the cluster
-       * `MANAGEMENT-URL-FOR-MT` is the management dashboard URL for your pre-provisioned instances
+       * `MANAGEMENT-URL-FOR-MT` is the RabbitMQ Management UI URL for your pre-provisioned instances
        * `VHOST` is your virtual host ID
 
 1. Upload the virtual host limit parameters JSON to the ODB instance with the
@@ -83,7 +83,7 @@ To migrate from one service instance to another, do the following:
      Where:
      * `USERNAME` is the admin username for the cluster
      * `PASSWORD` is the admin password for the cluster
-     * `MANAGEMENT-URL-FOR-ODB` is the management dashboard URL for your on-demand instances
+     * `MANAGEMENT-URL-FOR-ODB` is the RabbitMQ Management UI URL for your on-demand instances
      * `VHOST` is your virtual host ID
 
 1. Export the policies JSON to a local file with the following command:

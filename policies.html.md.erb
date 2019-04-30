@@ -6,7 +6,7 @@ owner: London Services
 
 <div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
 
-## <a id="policy"></a> Understanding a RabbitMQ Policy
+## <a id="policy"></a> About RabbitMQ Policies
 
 You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster.
 After you deploy the tile, Pivotal recommends that you use the RabbitMQ Management Interface to make configuration changes.
@@ -81,9 +81,9 @@ To set the RabbitMQ policy, do the following:
    and errors can cause the deployment to fail or policies to be applied incorrectly.</p>
 
 
-## <a id="dashboard"></a> Viewing Policies in the RabbitMQ Management Dashboard
+## <a id="dashboard"></a> Viewing Policies in the RabbitMQ Management UI
 
-You can view RabbitMQ policies in the RabbitMQ Management Dashboard, shown below.
+You can view RabbitMQ policies in the RabbitMQ Management UI, shown below.
 The example policy entered in the RabbitMQ for PCF tile above is applied to all queues and given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
@@ -94,5 +94,3 @@ In the **Queues** section shown below, you can see that any new queues created h
 <%= image_tag("images/policy_queue.jpeg") %>
 
 <p class="note"><strong>Note</strong>: Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code> for app developers.</p>
-
-
