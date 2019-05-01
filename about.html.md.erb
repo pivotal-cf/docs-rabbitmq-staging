@@ -46,8 +46,7 @@ rules are set up so that connections are open as described in the table below.
 				<li>8844</li>
 			</ul>
 		</td>
-		<td>The default ports are not configurable.<br><br>
-		The communication between these VMs is one-way.</td>
+		<td>The default ports are not configurable.</td>
 	</tr>
 	<tr>
 		<td><strong>ODB</strong></td>
@@ -55,16 +54,14 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>15672 (RabbitMQ Management UI)</td>
 		<td>This connection is for administrative tasks.
-			Avoid opening general use, app-specific ports for this connection.<br><br>
-			The communication between these VMs is one-way.</td>
+			Avoid opening general use, app-specific ports for this connection.</td>
 	</tr>
 	<tr>
 		<td><strong>ODB</strong></td>
 		<td><strong>PAS</strong>
 		</td>
 		<td>8443</td>
-		<td>The default port is not configurable.<br><br>
-		The communication between these VMs is one-way.</td>
+		<td>The default port is not configurable.</td>
 	</tr>
 	<tr>
 		<td><strong>Errand VMs</strong></td>
@@ -83,8 +80,7 @@ rules are set up so that connections are open as described in the table below.
 				<li>5671-2 (AMQP/AMQPS)</li>
 			</ul>
 		</td>
-		<td>The default port is not configurable.<br><br>
-		The communication between these VMs is one-way.</td>
+		<td>The default port is not configurable.</td>
 	</tr>
 	<tr>
 		<td><strong>BOSH Agent</strong></td>
@@ -108,8 +104,7 @@ rules are set up so that connections are open as described in the table below.
 				<li>1883, 8883 (MQTT/MQTTS)</li>
 		</td>
 		<td>This connection is for general use, app-specific tasks.
-			Avoid opening administrative ports for this connection.<br><br>
-			The communication between these VMs is one-way.</td>
+			Avoid opening administrative ports for this connection.</td>
 	</tr>
 	<tr>
 		<td><strong>PAS</strong></td>
@@ -118,8 +113,7 @@ rules are set up so that connections are open as described in the table below.
 		<td>8080</td>
 		<td>This port may be different for individual services.
 			This port may also be configurable by the operator if allowed by the
-			tile developer.<br><br>
-			The communication between these VMs is one-way.</td>
+			tile developer.</td>
 	</tr>
 		<tr>
 		<td><strong>Deployed apps on PAS</strong></td>
@@ -127,7 +121,6 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>8844</td>
 		<td>This port is needed if secure service instance credentials are enabled.<br>
-			For information, see <a href="install-config.html#credhub">(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub</a>.<br><br>
-			The communication between these VMs is one-way.</td>
+			For information, see <a href="install-config.html#credhub">(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub</a>.</td>
 	</tr>
 </table>
