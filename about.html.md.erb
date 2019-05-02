@@ -25,8 +25,8 @@ Regardless of the specific network layout, the operator must ensure network
 rules are set up so that connections are open as described in the table below.
 
 <table class="nice">
-	<th>Source VM</th>
-	<th>Destination VM</th>
+	<th>Source Component</th>
+	<th>Destination Component</th>
 	<th>Default TCP Port</th>
 	<th>Notes</th>
 	<tr>
@@ -87,7 +87,7 @@ rules are set up so that connections are open as described in the table below.
 		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.
 			The BOSH Agent initiates the connection with the BOSH Director.<br>
 			The default port is not configurable.<br><br>
-			The communication between these VMs is two-way.</td>
+			The communication between these components is two-way.</td>
 	</tr>
 	<tr>
 		<td><strong>Deployed apps on PAS</strong></td>
