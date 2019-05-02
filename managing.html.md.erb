@@ -6,67 +6,57 @@ owner: London Services
 
 This topic describes how to access the RabbitMQ Management UI.
 
+
 ## <a id="manage-dash"></a>Access the RabbitMQ Management UI
 
-You can access the management UI for on-demand or for pre-provisioned instances.
-
-### <a id="admin"></a>Pre-Provisioned Instances
-
-To access the RabbitMQ Management UI as the `admin` user, do the following:
-
-1. Retrieve your system domain, by navigating to your Pivotal Application Service (PAS)
-tile and locating the **System Domain** field of the **Domains** section.
-
-1. Visit `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the system
-you found in step 1.
-
-1. The username and password is the username and password you provided in the RabbitMQ configuration in OpsManager.
+You can access the management UI for both on-demand and for pre-provisioned service instances.
+The image below shows an example RabbitMQ Management UI.
 
 <%= image_tag("images/dashboard.jpeg") %>
 
-### <a id="admin"></a>On-Demand Instances
 
-You can access the RabbitMQ Management UI for a service instance using Apps Manager or the cf CLI.
+### <a id="admin"></a>Pre-Provisioned Service Instances
+
+To access the RabbitMQ Management UI as the `admin` user, do the following:
+
+1. Retrieve your system domain, by doing the following:
+  1. Navigate to your Pivotal Application Service (PAS) tile.
+  1. In the **Domains** tab, record the value in the **System Domain** field.
+
+1. Visit `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the system domain
+you found in step 1.
+
+1. The username and password for the Management UI is the username and password
+you provided in the RabbitMQ configuration in Ops Manager.
+
+
+### <a id="admin"></a>On-Demand Service Instances
+
+You can access the RabbitMQ Management UI for an on-demand service instance using Apps Manager or the cf CLI.
 This is done using credentials that only provide access to a specific <strong>vhost</strong>.
 
-**Using Apps Manager:**
-Retrieve the URL for the RabbitMQ Management UI for your service instance by clicking
-the **Manage** button in Apps Manager.
+To access the RabbitMQ Management UI, do one of the following:
 
-**Using the cf CLI:**
-Create credentials using the cf CLI.
+**Use the cf CLI:**
+
+1. Create credentials using the cf CLI.
 For instructions, see [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
 
-<%= image_tag("images/console_manage.jpeg") %>
+1. Using the output from step 2 of _Create an Admin User for a Service Instance_,
+navigate to the URL in `dashboard_url` and use the `username` and `password`
+to log in to the RabbitMQ Management UI.
 
-Or it is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry.
-This can also be found via the CLI using `cf env <your app name>`.
+**Use Apps Manager:**
 
-<%= image_tag("images/cli_manage.jpeg") %>
+1. In Apps Manager, navigate to the service instance you want to access the Management UI for.
 
-## <a id="logging"></a>Logging
+1. Click **CREATE SERVICE KEY** and give it a name of your choice.
 
-A TCP Syslog endpoint can be configured in OpsManager. Logs are currently only forwarded for the RabbitMQ cluster.
+    <%= image_tag("images/console_manage.jpeg") %>
 
-## <a id="cli"></a>RabbitMQ CLI
+    The service key you create should appear in the **Service Key Credentials** section.
 
-If you wish to run commands such as <code>rabbitmqctl</code> then you have two options:
+1. Select the service key you created in the previous step.
 
-SSH into one of the machines running the rabbitmq-server. IPs can be found from the Status tab and access credentials from the Credentials tab within the RabbitMQ component of the installer. From there you need to bring RabbitMQ and Erlang into your environment and from there you can use <code>rabbitmqctl</code>:
-
-<pre><code>
-bash-4.1# export PATH=$PATH:/var/vcap/packages/rabbitmq-server/bin
-bash-4.1# export PATH=$PATH:/var/vcap/packages/erlang/bin
-bash-4.1# rabbitmqctl cluster_status
-Cluster status of node rabbit@node0 ...
-[{nodes,[{disc,[rabbit@node0,rabbit@node1,rabbit@node2,rabbit@node3]}]},
- {running_nodes,[rabbit@node3,rabbit@node2,rabbit@node1,rabbit@node0]},
- {partitions,[]}]
-...done.
-</code></pre>
-
-Alternatively, install RabbitMQ and Erlang on a machine of your choice. Be sure to match versions of both to the cluster: the Management UI shows both the version of RabbitMQ and Erlang.
-
-Then set your <code>~/.erlang.cookie</code> to match the cookie used in the cluster (you may have supplied this as part of the installation; see above).
-
-You will need to set up your <code>/etc/hosts</code> file to match the RabbitMQ nodes.
+1. From the information displayed, navigate to the URL in `dashboard_url`.
+Use the `username` and `password` to log in to the RabbitMQ Management UI.
