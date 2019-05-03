@@ -54,6 +54,7 @@ Use this section to specify spelling of special words for RabbitMQ for PCF:
 + on-demand plan
 + shared-VM plan
 + dedicated-VM plan
++ RabbitMQ Management UI
 
 ### Making Your Documentation Changes Live
 
