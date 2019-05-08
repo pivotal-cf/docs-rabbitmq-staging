@@ -54,6 +54,8 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
+* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
 
@@ -101,6 +103,8 @@ This release has the following known issues:
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
+
+* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
@@ -155,6 +159,8 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
+* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
 
@@ -207,6 +213,8 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
+* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
 
@@ -237,7 +245,7 @@ This release has the following known issues:
 
 **Release Date**: February 14, 2019
 
-**This release has been removed Pivotal Network** because of incompatibility between the following:
+**This release has been removed from Pivotal Network** because of incompatibility between the following:
 
 + BOSH Process Manager (BPM) v1.0.3 and later
 + Trusty stemcells v3586.71 and later
