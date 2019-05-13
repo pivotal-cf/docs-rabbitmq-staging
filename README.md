@@ -81,3 +81,5 @@ Previously, these partials were sourced from the v018.x branch of the [On Demand
 Since **master** is the latest and greatest documentation, the process would be to cut a **x.x-live** branch for the version that **master** was targeting during that time. A corresponding section in **config.yml** in the [docs-book-pcfservices][docs-book-pcfservices] repository would also need to be made.
 
 After this point, **master** will then be the target for the next version of the RabbitMQ product tile.
+
+
