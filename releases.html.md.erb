@@ -26,24 +26,26 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 ## <a id="11412"></a> v1.14.12
 
-**Release Date**: May 9, 2019
+**Release Date**: May XX, 2019
 
 ### Features
 
 New features and changes in this release:
 
-* The RabbitMQ pre-provisioned service broker & errands can now be deployed over HTTPS.
-* Adds RabbitMQ 3.7.14
+* Errands and the pre-provisioned service broker can be deployed over HTTPS.
+* Updates OSS RabbitMQ to 3.7.14
 
-### Resolved Issues
+## Security Fixe
+
+This release includes the following security fix:
+
+* High [CVE-2019-3789: Gorouter allows space developer to hijack route services hosted outside the platform](https://pivotal.io/security/cve-2019-3789)
+
+### Resolved Issue
 
 This release fixes the following issue:
 
-* **[Security Issue]** Fix for CVE-2019-3789: Gorouter allows space developer to hijack route services hosted outside the platform.
-  For more information about this security issue, see
-    <a href="https://pivotal.io/security/cve-2019-3789">the Vulnerability Report</a>.
-
-* A bug in service metrics was leading to the accumulation of zombie processes on `rabbitmq-server` VMs.
+* An issue with service metrics caused zombie processes to accumulate on `rabbitmq-server` VMs. 
 
 ### Known Issues
 
