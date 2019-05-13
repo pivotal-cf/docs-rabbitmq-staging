@@ -69,28 +69,29 @@ This release has the following known issues:
 
 **Release Date**: May 3, 2019
 
-**This release has been removed from Pivotal Network** because of:
+**This release has been removed from Pivotal Network** because it can fail to deploy
+on Pivotal Application Service (PAS) 2.4.4 and earlier. 
 
-+ Release intermittently fails to deploy for PAS 2.4.4 and below
-
-This issue has been fixed in RabbitMQ for PCF 1.15.9.
+This issue has been fixed in RabbitMQ for PCF v1.15.9.
 
 ### Features
 
 New features and changes in this release:
 
-* The RabbitMQ pre-provisioned service broker & errands can now be deployed over HTTPS.
-* Adds RabbitMQ 3.7.14
+* Errands and the pre-provisioned service broker can be deployed over HTTPS.
+* Updates OSS RabbitMQ to 3.7.14
+
+### Security Fix
+
+This release includes the following security fix:
+
+* High [CVE-2019-3789: Gorouter allows space developer to hijack route services hosted outside the platform](https://pivotal.io/security/cve-2019-3789)
 
 ### Resolved Issue
 
 This release fixes the following issue:
 
-* **[Security Issue]** Fix for CVE-2019-3789: Gorouter allows space developer to hijack route services hosted outside the platform.
-  For more information about this security issue, see
-    <a href="https://pivotal.io/security/cve-2019-3789">the Vulnerability Report</a>.
-
-* A bug in service metrics was leading to the accumulation of zombie processes on `rabbitmq-server` VMs.
+* An issue with service metrics caused zombie processes to accumulate on `rabbitmq-server` VMs. 
 
 ### Known Issues
 
