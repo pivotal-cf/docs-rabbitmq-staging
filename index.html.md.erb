@@ -10,8 +10,6 @@ single command.
 
 As of v1.8, RabbitMQ for PCF supports two types of service, an *on-demand* service and a *pre-provisioned* service.
 
-<div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
-
 This table summarizes the main differences between the two:
 
 <table id='rabbit-odb-vs-pre' border="1" class="nice"><tr>
@@ -21,19 +19,16 @@ This table summarizes the main differences between the two:
   <col style="width:29%">
   <col style="width:18%">
    <th></th>
-   <th>Available Since</th>
    <th>VMs it Runs On</th>
    <th>How VMs are Created</th>
    <th>Metrics Name Prefix</th>
    </tr><tr>
    <th>On-Demand Service</th>
-   <td>v1.8</td>
    <td>Dedicated VM that serves a single service instance. See <a href="./ondemand.html">this topic</a> for details.</td>
    <td>PCF creates each VM on-demand when app developer creates service instance</td>
    <td><code>p.rabbitmq</code> (with a dot)</td>
    </tr><tr>
    <th>Pre-Provisioned Service</th>
-   <td>v1.2</td>
    <td>Multi-tenant VMs shared by apps across PCF deployment</td>
    <td>PCF creates all VMs when operator deploys or updates service</td>
    <td><code>p-rabbitmq</code> (with a dash)</td>
@@ -42,6 +37,11 @@ This table summarizes the main differences between the two:
 
 This RabbitMQ for PCF v1.8 documentation describes both service types.
 Documentation for RabbitMQ for PCF v1.7 and earlier only describes a pre-provisioned service.
+
+<p class="note"><strong>Note:</strong> For most new applications, Pivotal recommends that you use
+on-demand services instead of pre-provisioned services.
+On-demand isolates workloads by creating a separate VM for each service instance.
+</p>
 
 ### <a id="dedicated"></a> What are On-Demand Instances
 
