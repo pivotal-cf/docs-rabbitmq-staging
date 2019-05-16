@@ -55,6 +55,15 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
+* Preprovisioned broker does not terminate failed connections *
+
+When an invalid create, delete, bind, or unbind request is made, the preprovisioned broker fails to terminate
+the connection to the RabbitMQ instance. Over time this causes the memory on the VM which hosts the preprovisioned broker to reach capacity.
+This requires a restart of the VM. Until this is resolved, it affects the ability of the app developer to create, 
+delete, bind and unbind services to applications.
+The operation of the RabbitMQ instances is unaffected.
+
+
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
  For more information about this security issue, see
    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
