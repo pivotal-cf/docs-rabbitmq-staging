@@ -70,7 +70,7 @@ This release has the following known issues:
 **Release Date**: May 3, 2019
 
 **This release has been removed from Pivotal Network** because it can fail to deploy
-on PAS v2.4.4 and earlier. 
+on PAS v2.4.4 and earlier.
 
 This issue has been fixed in RabbitMQ for PCF v1.15.9.
 
@@ -91,11 +91,20 @@ This release includes the following security fix:
 
 This release fixes the following issue:
 
-* An issue with service metrics caused zombie processes to accumulate on `rabbitmq-server` VMs. 
+* An issue with service metrics caused zombie processes to accumulate on `rabbitmq-server` VMs.
 
 ### Known Issues
 
 This release has the following known issues:
+
+* Pre-provisioned broker does not terminate failed connections<br><br>
+
+    When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the connection to the RabbitMQ instance.<br><br>
+
+    Over time, this can cause the memory on the VM hosting the pre-provisioned broker to reach capacity. This requires a restart of the VM. Until the lack of memory is resolved, the app developer is less able to create, delete, bind, and unbind services to apps.<br><br>
+
+    The operation of the RabbitMQ instances is unaffected.<br><br>
+
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
