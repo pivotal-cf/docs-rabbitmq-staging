@@ -51,7 +51,8 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-* Pre-provisioned broker does not terminate failed tcp connections. This will cause RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
+* The pre-provisioned broker does not terminate failed TCP connections.
+  This causes RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
 
   * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
   * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
