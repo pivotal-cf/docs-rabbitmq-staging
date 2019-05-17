@@ -26,7 +26,7 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 ## <a id="1159"></a> v1.15.9
 
-**Release Date**: May XX, 2019
+**Release Date**: May 17, 2019
 
 ### Resolved Issue
 
@@ -78,9 +78,7 @@ This release has the following known issues:
 **Release Date**: May 3, 2019
 
 **This release has been removed from Pivotal Network** because it can fail to deploy
-on PAS v2.4.4 and earlier.
-
-This issue has been fixed in RabbitMQ for PCF v1.15.9.
+on PAS v2.4.4 and earlier. This issue has been fixed in RabbitMQ for PCF v1.15.9.
 
 ### Features
 
@@ -113,9 +111,11 @@ This release has the following known issues:
 
     The operation of the RabbitMQ instances is unaffected.<br><br>
 
+
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
-  For more information about this security issue, see
-    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+ For more information about this security issue, see
+   <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+
   * If you rely on the tile to generate the cookie by leaving the Erlang cookie
   field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
   * If you have set the Erlang cookie explicitly in the tile configuration,
@@ -123,12 +123,14 @@ This release has the following known issues:
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
 
-    For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+
+     For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
 [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 * Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
 
-    For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+     For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
 
 * When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
   * For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
@@ -162,7 +164,11 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+* An issue with service metrics causes zombie processes to accumulate on
+`rabbitmq-server` VMs.
+This can cause the VM to run out of resources and BOSH to restart it.
+If this occurs, Pivotal recommends that you stop the `service-metrics` job.
+However, if you stop the job, metrics will not be available.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
 
@@ -205,7 +211,11 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+* An issue with service metrics causes zombie processes to accumulate on
+  `rabbitmq-server` VMs.
+  This can cause the VM to run out of resources and BOSH to restart it.
+  If this occurs, Pivotal recommends that you stop the `service-metrics` job.
+  However, if you stop the job, metrics will not be available.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
 
@@ -251,7 +261,11 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+* An issue with service metrics causes zombie processes to accumulate on
+  `rabbitmq-server` VMs.
+  This can cause the VM to run out of resources and BOSH to restart it.
+  If this occurs, Pivotal recommends that you stop the `service-metrics` job.
+  However, if you stop the job, metrics will not be available.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
 
@@ -297,7 +311,11 @@ This release has the following known issues:
   * If you have set the Erlang cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* A bug in service metrics is leading to the accumulation of zombie processes on `rabbitmq-server` VMs. Over time this may result in the VM running out of resources and BOSH restarting it. Pivotal recommends stopping the `service-metrics` job if this is observed. Please note that if the job is stopped, no metrics will be available.
+* An issue with service metrics causes zombie processes to accumulate on
+  `rabbitmq-server` VMs.
+  This can cause the VM to run out of resources and BOSH to restart it.
+  If this occurs, Pivotal recommends that you stop the `service-metrics` job.
+  However, if you stop the job, metrics will not be available.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
 
