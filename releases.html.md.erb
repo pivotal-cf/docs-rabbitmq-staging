@@ -38,13 +38,11 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-* Pre-provisioned broker does not terminate failed connections<br><br>
+* The pre-provisioned broker does not terminate failed TCP connections.
+  This causes RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
 
-    When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the connection to the RabbitMQ instance.<br><br>
-
-    Over time, this can cause the memory on the VM hosting the pre-provisioned broker to reach capacity. This requires a restart of the VM. Until the lack of memory is resolved, the app developer is less able to create, delete, bind, and unbind services to apps.<br><br>
-
-    The operation of the RabbitMQ instances is unaffected.<br><br>
+  * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
+  * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -103,14 +101,11 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-* Pre-provisioned broker does not terminate failed connections<br><br>
+* The pre-provisioned broker does not terminate failed TCP connections.
+  This causes RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
 
-    When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the connection to the RabbitMQ instance.<br><br>
-
-    Over time, this can cause the memory on the VM hosting the pre-provisioned broker to reach capacity. This requires a restart of the VM. Until the lack of memory is resolved, the app developer is less able to create, delete, bind, and unbind services to apps.<br><br>
-
-    The operation of the RabbitMQ instances is unaffected.<br><br>
-
+  * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
+  * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
  For more information about this security issue, see
@@ -152,6 +147,12 @@ This release fixes the following issue:
 ### Known Issues
 
 This release has the following known issues:
+
+* The pre-provisioned broker does not terminate failed TCP connections.
+  This causes RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
+
+  * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
+  * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -199,6 +200,12 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues:
+
+* The pre-provisioned broker does not terminate failed TCP connections.
+  This causes RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
+
+  * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
+  * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -249,6 +256,12 @@ For more information, see [Post-Deploy Errands](./install-config.html#post-deplo
 ### Known Issues
 
 This release has the following known issues:
+
+* The pre-provisioned broker does not terminate failed TCP connections.
+  This causes RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
+
+  * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
+  * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
