@@ -28,7 +28,7 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 ## <a id="11320"></a> v1.13.20
 
-**Release Date**: May XX, 2019
+**Release Date**: May 20, 2019
 
 ### Features
 
@@ -49,15 +49,12 @@ This release includes the following security fix:
 This release fixes the following issue:
 
  * An issue with service metrics caused zombie processes to accumulate on `rabbitmq-server` VMs.
- 
+
 ### Known Issues
 
 This release has the following known issues:
 
-* Pre-provisioned broker does not terminate failed tcp connections. This will cause RabbitMQ to be unreachable if the HAProxy VM is affected. App developers will be unable to create, bind, unbind or delete service instances if the broker VM is affected.
-
-  * When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the tcp connection to the RabbitMQ instance. Over time, this can cause the file descriptor limit on the VMs hosting HAProxy and the pre-provisioned broker to reach capacity. 
-  * To resolve this, restart the `haproxy` and `rabbitmq-service-broker` monit jobs on the respective VMs. Restart the VMs if they are completely unresponsive.
+<%= partial '../../rabbitmq-cf/odb/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
