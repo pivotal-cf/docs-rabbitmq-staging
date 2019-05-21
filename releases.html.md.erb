@@ -32,13 +32,12 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 This release fixes the following issue:
 
-* Fixed an issue with the pre-provisioned broker where TCP connections were not being closed. Over time, this would cause the file descriptor limit on the VMs that host HAProxy and the pre-provisioned broker to reach capacity.
+* The issue where the pre-provisioned broker did not terminate failed TCP connections.
+  Over time, this caused the file descriptor limit on the HAProxy and the pre-provisioned broker VMs to reach capacity.
 
 ### Known Issues
 
 This release has the following known issues:
-
-<%= partial '../../rabbitmq-cf/odb/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
