@@ -89,17 +89,9 @@ This release fixes the following issues:
 * Cluster scaling no longer requires downtime because the Erlang cookie is
 generated using a different method.
 
-### Known Issues
+### Known Issue
 
-This release has the following known issues:
-
-* Pre-provisioned broker does not terminate failed connections<br><br>
-
-    When an invalid create, delete, bind, or unbind request is made, the pre-provisioned broker fails to terminate the connection to the RabbitMQ instance.<br><br>
-
-    Over time, this can cause the memory on the VM hosting the pre-provisioned broker to reach capacity. This requires a restart of the VM. Until the lack of memory is resolved, the app developer is less able to create, delete, bind, and unbind services to apps.<br><br>
-
-    The operation of the RabbitMQ instances is unaffected.<br><br>
+This release has the following known issue:
 
 * Changing the Erlang Cookie value requires cluster downtime, and can result in
 failed deployments.
