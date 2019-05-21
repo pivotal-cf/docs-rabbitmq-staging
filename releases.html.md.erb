@@ -24,9 +24,9 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
-## <a id="1162"></a> v1.16.2
+## <a id="1162"></a> v1.16.3
 
-**Release Date**: May 9, 2019
+**Release Date**: May 21, 2019
 
 <p class="note breaking"><strong>Breaking Change:</strong>
 To fix CVE-2018-1279, the method used to generate the Erlang cookie has changed in RabbitMQ for PCF v1.16.
@@ -79,6 +79,8 @@ For how this affects the RabbitMQ clients used by apps, see
 
 * Operators can enforce TLS for all connections to on-demand RabbitMQ nodes on a deployment.
 For more information, see [Configure Security](install-config.html#security).
+
+* Exposes the `return_unroutable` and `return_unroutable_rate` RabbitMQ metrics to the Cloud Foundry Loggregator subsystem.
 
 ### Resolved Issues
 
@@ -144,19 +146,19 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td>rabbitmq-metrics</td>
-        <td>9.20.0</td>
+        <td>10.0.0</td>
     </tr>
    <tr>
         <td>rabbitmq-on-demand-adapter</td>
-        <td>80.0.0</td>
+        <td>81.0.0</td>
     </tr>
    <tr>
         <td>cf-rabbitmq-multitenant-broker</td>
-        <td>51.0.0</td>
+        <td>52.0.0</td>
     </tr>
    <tr>
         <td>loggregator-agent</td>
-        <td>3.13</td>
+        <td>3.14</td>
     </tr>
    <tr>
         <td>routing</td>
