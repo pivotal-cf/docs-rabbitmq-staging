@@ -24,9 +24,9 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
-## <a id="1161"></a> v1.16.1
+## <a id="1162"></a> v1.16.3
 
-**Release Date**: MMM DD, YYYY
+**Release Date**: May 21, 2019
 
 <p class="note breaking"><strong>Breaking Change:</strong>
 To fix CVE-2018-1279, the method used to generate the Erlang cookie has changed in RabbitMQ for PCF v1.16.
@@ -80,6 +80,8 @@ For how this affects the RabbitMQ clients used by apps, see
 * Operators can enforce TLS for all connections to on-demand RabbitMQ nodes on a deployment.
 For more information, see [Configure Security](install-config.html#security).
 
+* Exposes the `return_unroutable` and `return_unroutable_rate` RabbitMQ metrics to the Cloud Foundry Loggregator subsystem.
+
 ### Resolved Issues
 
 This release fixes the following issues:
@@ -87,20 +89,86 @@ This release fixes the following issues:
 * Cluster scaling no longer requires downtime because the Erlang cookie is
 generated using a different method.
 
-### Known Issues
+### Known Issue
 
-This release has the following known issues:
+This release has the following known issue:
 
 * Changing the Erlang Cookie value requires cluster downtime, and can result in
 failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-### Packages
+### Compatibility
 
-* [OSS RabbitMQ v3.7.14](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
-* Erlang v20.3.8.20
-* HAProxy v1.8.19
+The following components are compatible with this release:
 
+<table class="nice">
+    <th>Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>170.x</td>
+    </tr>
+    <tr>
+        <td>PCF</td>
+        <td>v2.4.x, and v2.5.x</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a></td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>20.3.8.20</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.19</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.0.4</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.0</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.27.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>10.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>81.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>52.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.14</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.188.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.4.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>29.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>265.0.0</td>
+    </tr>
+</table>
 ## <a id="view"></a> View Release Notes for Another Version
 
 To view the release notes for another product version, select the version from
