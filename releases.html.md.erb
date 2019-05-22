@@ -24,12 +24,14 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
-## <a id="1163"></a> v1.16.3
+## <a id="1170"></a> v1.17.0
 
-**Release Date**: May 21, 2019
+**Release Date**: MMM DD, 2019
+
+<%# The below changes might not be true. %>
 
 <p class="note breaking"><strong>Breaking Change:</strong>
-To fix CVE-2018-1279, the method used to generate the Erlang cookie has changed in RabbitMQ for PCF v1.16.
+To fix CVE-2018-1279, the method used to generate the Erlang cookie has changed in RabbitMQ for PCF v1.17.
 For more information about this security issue, see
 <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
 <br><br>
@@ -44,54 +46,22 @@ affected by this issue or this change.</p>
 
 This release includes the following security fix:
 
-* High [CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie](https://pivotal.io/security/cve-2018-1279)
 
 ### Features
 
 New features and changes in this release:
 
-* You can enable the `rabbitmq_event_exchange` and the `rabbitmq_mqtt` plugins
-  for on-demand service instances.
-  These plugins are disabled by default.
-  For how to enable them, see [Enable Optional Plugins](./use.html#optional-plugins).
-
-* You can configure your RabbitMQ tile to share metrics with the PCF Healthwatch service.
-For more information about this service, see [Pivotal Cloud Foundry Healthwatch](https://docs.pivotal.io/pcf-healthwatch/index.html).
-
-* You can disable service metrics for RabbitMQ for PCF service instances to reduce
-operational costs.
-For how to do so for both the on-demand and pre-provisioned services, see
-[Set up Syslog Forwarding and Metrics Polling Interval](./monitor.html#config).
-
-* You can specify that a plan is a paid-type plan by selecting the **Paid Plan** checkbox
-on the plan configuration pane.
-In previous versions, all RabbitMQ for PCF plans were marked as free in the Marketplace.
-For how to mark that a plan is a paid plan, see [Configure the Service Plan](install-config.html#service-plan).
-
-* Configuring TLS on RabbitMQ for PCF service instances is simpler.
-You can now configure TLS when you create a service instance as well as when you update
-an existing service instance.
-For more information, see [Enable TLS for Your Service Instance](./use.html#tls).
-
-* Service bindings return DNS names instead of IP addresses.
-For how this affects the RabbitMQ clients used by apps, see
-[RabbitMQ Node Address Resolution](./use.html#bosh-dns).
-
-* Operators can enforce TLS for all connections to on-demand RabbitMQ nodes on a deployment.
-For more information, see [Configure Security](install-config.html#security).
-
-* Exposes the `return_unroutable` and `return_unroutable_rate` RabbitMQ metrics to the Cloud Foundry Loggregator subsystem.
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* Cluster scaling no longer requires downtime because the Erlang cookie is
-generated using a different method.
 
 ### Known Issue
 
 This release has the following known issue:
+
+<%# The below KI might not be true. %>
 
 * Changing the Erlang Cookie value requires cluster downtime, and can result in
 failed deployments.
@@ -110,7 +80,7 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td>PCF</td>
-        <td>v2.4.x, and v2.5.x</td>
+        <td>v2.4.x, v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
