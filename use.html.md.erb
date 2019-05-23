@@ -271,7 +271,7 @@ as a configuration parameter in JSON:
     </pre>
     For example, when enabling more than one plugin:
     <pre class="terminal">
-    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": true, "rabbitmq_mqtt": true } }'
+    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_amqp1_0": true, "rabbitmq_event_exchange": true } }'
     </pre>
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
