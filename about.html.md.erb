@@ -34,17 +34,13 @@ rules are set up so that connections are open as described in the table below.
 	<tr>
 		<td><strong>ODB</strong></td>
 		<td>
-		    <ul>
-		        <li><strong>BOSH Director</strong></li>
-		    	<li><strong>BOSH UAA</strong></li>
-		    </ul>
+		    <strong>BOSH Director</strong><br><br>
+		    <strong>BOSH UAA</strong>
 		</td>
 		<td>
-			<ul>
-				<li>25555</li>
-				<li>8443</li>
-				<li>8844</li>
-			</ul>
+				25555 (BOSH Director)<br><br>
+				8443 (UAA)<br><br>
+				8844 (CredHub)<br><br>
 		</td>
 		<td>The default ports are not configurable.</td>
 	</tr>
@@ -53,32 +49,29 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>Deployed service instances</strong>
 		</td>
 		<td>15672 (RabbitMQ Management UI)</td>
-		<td>This connection is for administrative tasks.
+		<td>This connection is for administrative tasks.<br><br>
 			Avoid opening general use, app-specific ports for this connection.</td>
 	</tr>
 	<tr>
 		<td><strong>ODB</strong></td>
 		<td><strong>PAS</strong>
 		</td>
-		<td>8443</td>
+		<td>8443 (UAA)</td>
 		<td>The default port is not configurable.</td>
 	</tr>
 	<tr>
 		<td><strong>Errand VMs</strong></td>
 		<td>
-			<ul>
-				<li><strong>PAS</strong></li>
-				<li><strong>ODB</strong></li>
-				<li><strong>Deployed Service Instances</strong></li>
-			</ul>
+				<strong>PAS</strong><br><br>
+				<strong>ODB</strong><br><br>
+				<strong>Deployed Service Instances</strong><br><br>
 		</td>
 		<td>
-			<ul>
-				<li>8443</li>
-				<li>8080</li>
-				<li>15672 (RabbitMQ Management UI)</li>
-				<li>5671-2 (AMQP/AMQPS)</li>
-			</ul>
+				8443 (UAA)<br><br>
+			  8080<br><br>
+				15672 (RabbitMQ Management UI)<br><br>
+				5672 (AMQP)<br><br>
+				5671 (AMQPS)<br><br>
 		</td>
 		<td>The default port is not configurable.</td>
 	</tr>
@@ -87,8 +80,8 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>BOSH Director</strong>
 		</td>
 		<td>4222</td>
-		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.
-			The BOSH Agent initiates the connection with the BOSH Director.<br>
+		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.<br><br>
+			The BOSH Agent initiates the connection with the BOSH Director.<br><br>
 			The default port is not configurable.<br><br>
 			The communication between these components is two-way.</td>
 	</tr>
@@ -97,13 +90,15 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>Deployed service instances</strong>
 		</td>
 		<td>
-			<ul>
-				<li>15672 (RabbitMQ Management UI)</li>
-				<li>5671-2 (AMQP/AMQPS)</li>
-				<li>61613-4 (STOMP/STOMPS)</li>
-				<li>1883, 8883 (MQTT/MQTTS)</li>
+				15672 (RabbitMQ Management UI)<br><br>
+				5672 (AMQP)<br><br>
+				5671 (AMQPS)<br><br>
+				61613 (STOMP)<br><br>
+				61614 (STOMPS)<br><br>
+				1883 (MQTT)<br><br>
+				8883 (MQTTS)<br><br>
 		</td>
-		<td>This connection is for general use, app-specific tasks.
+		<td>This connection is for general use, app-specific tasks.<br><br>
 			Avoid opening administrative ports for this connection.</td>
 	</tr>
 	<tr>
@@ -111,7 +106,7 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>ODB</strong>
 		</td>
 		<td>8080</td>
-		<td>This port may be different for individual services.
+		<td>This port may be different for individual services.<br><br>
 			This port may also be configurable by the operator if allowed by the
 			tile developer.</td>
 	</tr>
@@ -119,8 +114,8 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>Deployed apps on PAS</strong></td>
 		<td><strong>Runtime CredHub</strong>
 		</td>
-		<td>8844</td>
-		<td>This port is needed if secure service instance credentials are enabled.<br>
-			For information, see <a href="install-config.html#credhub">(Beta) On Demand - Secure Service Instance Credentials with Runtime CredHub</a>.</td>
+		<td>8844 (CredHub)</td>
+		<td>This port is needed if secure service instance credentials are enabled.
+		</td>
 	</tr>
 </table>
