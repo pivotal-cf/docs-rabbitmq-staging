@@ -24,6 +24,98 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1164"></a> v1.16.4
+
+**Release Date**: June 6, 2019
+
+### Resolved Issues
+
+This release fixes the following issues:
+
+* The issue where the pre-provisioned broker did not terminate TCP connections when unbinding services.
+  Over time, this caused the file descriptor limit on the HAProxy and the pre-provisioned broker VMs to reach capacity.
+
+### Known Issue
+
+This release has the following known issue:
+
+* Changing the Erlang Cookie value requires cluster downtime, and can result in
+failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th>Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>170.x</td>
+    </tr>
+    <tr>
+        <td>PCF</td>
+        <td>v2.4.x, v2.5.x, and v2.6.x</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a></td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>20.3.8.21</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.20</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.0.4</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.0</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.29.1</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>13.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>82.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>53.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.16</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.188.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.4.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>29.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>266.0.0</td>
+    </tr>
+</table>
+
 ## <a id="1163"></a> v1.16.3
 
 **Release Date**: May 22, 2019
@@ -92,6 +184,14 @@ generated using a different method.
 ### Known Issue
 
 This release has the following known issue:
+
+* The pre-provisioned broker does not terminate TCP connections when unbinding services. Over time, this can cause the file descriptor limit on the VMs that host HAProxy and the pre-provisioned broker to reach capacity:
+  * When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.
+  * When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.
+  To resolve the issue, do one of the following:
+  * Restart the haproxy or the rabbitmq-service-broker monit job on the VM.
+  * Increase the file descriptor limit on the VM. For how to increase the limit, see the example in Unable to create RabbitMQ service-instance in PCF “too many open files” in the Pivotal Support knowledge base.
+* If the VM is unresponsive, restart it.
 
 * Changing the Erlang Cookie value requires cluster downtime, and can result in
 failed deployments.
