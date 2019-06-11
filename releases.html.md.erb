@@ -89,13 +89,17 @@ This release fixes the following issues:
 * Cluster scaling no longer requires downtime because the Erlang cookie is
 generated using a different method.
 
-### Known Issue
+### Known Issues
 
-This release has the following known issue:
+This release has the following known issues:
 
 * Changing the Erlang Cookie value requires cluster downtime, and can result in
 failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Sharing Preprovisioned Service Instances is enabled via On-Demand settings
+Go to Global Settings for On-Demand Plans, then enable Shareable Instances and apply changes.
+
 
 ### Compatibility
 
