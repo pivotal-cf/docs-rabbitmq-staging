@@ -35,7 +35,7 @@ This release has the following fix:
 * The pre-provisioned broker now terminates failed TCP connections for the bind,
   provision, and deprovision broker endpoints.
   This prevents the file descriptor limit on the HAProxy and the pre-provisioned
-  broker VMs to reach capacity over time.
+  broker VMs from reaching capacity over time.
 
     <p class="note"><strong>Note: </strong>
       TCP connections still fail to terminate when unbinding services.</p>
