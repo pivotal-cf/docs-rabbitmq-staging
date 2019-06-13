@@ -1,38 +1,35 @@
 ---
-title: Migrating a RabbitMQ Service Instance to Another Service Instance
+title: Migrating From a Pre-Provisioned Instance to an On-Demand Instance
 owner: London Services
 ---
 
-## Migrate a RabbitMQ Service Instance to Another Service Instance
+The pre-provisioned service will be removed from future releases. Pivotal recommends
+using the on-demand service for new deployments.
+
+<div class="note warning"><strong>WARNING:</strong> Unconsumed messages are lost
+when you delete your old service instance.
+If you do not want to lose messages, do one of the following:<br><br>
+  <ul>
+    <li>Switch your producers to the new instance but keep the consumers bound to the
+        old instance until the queues are empty.</li>
+    <li>Use shovel or federation plugins to consume messages from the old instance.</li>
+  </ul>
+</div>
+
+## Migrate a Pre-Provisioned Instance to an On-Demand Instance
 
 To migrate from one service instance to another, do the following:
 
-1. Create a new service instance. Pivotal recommends using the on-demand service for new deployments.
-   For instructions, see [Create a Service Instance](./use.html#create).
+1. Create an on-demand instance. For instructions, see [Create a Service Instance](./use.html#create).
 
-1. If the RabbitMQ client in your apps has not defined the model for you, create queues, exchanges and bindings on the new
-   service instance that match your old service instance.
-
-1. Migrate policies and parameters. For instructions, see [Migrate Policies and Parameters](./migration.html#policies-and-params).
-
-1. If you require all messages in the old service instance to be preserved, migrate the messages in the queues.
-   For instructions, see [Migrate Messages in Queues](./migration.html#messages).
-
-1. When ready, delete your old instance. For instructions, see [Delete a Service Instance](./use.html#delete).
-
-1. If you have service-keys for the old instance, create service-keys for
-the new instance and replace the old credentials.
-
-## <a id="policies-and-params"></a> Migrate Policies and Parameters
-
-1. If your old instance uses any of the following, ensure that you
-     apply them to the new instance:
+1. If your pre-provisioned instance uses any of the following, ensure that you
+     apply them to the on-demand instance:
      <ul>
        <li>Policies</li>
        <li>vhost-specific parameters, such as <code>max_connections</code></li>
      </ul>
      You can apply them using the API by following the steps below. Alternatively,
-     you can apply them in the RabbitMQ Management UI.
+     you can apply them in the RabbitMQ Management UI and skip to step 11.
      The API is the faster option if you have multiple instances to migrate.
 
 1. Create a service key for the new instance with the admin username and
@@ -56,7 +53,7 @@ the new instance and replace the old credentials.
      * `SERVICE-INSTANCE` is your service instance
      * `SERVICE-KEY` is the service key name you chose in the step above
 
-1. Retrieve the URL of the new service instance with the following command:
+1. Retrieve the ODB URL with the following command:
 
        ```
        cf service SERVICE-INSTANCE
@@ -67,78 +64,50 @@ the new instance and replace the old credentials.
 1. Export the virtual host (vhost) limit parameters JSON to a local file with the following command:
 
        ```
-       curl -u USERNAME:PASSWORD OLD-MANAGEMENT-URL/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}' > PATH-TO-FILE
+       curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"parameters":[.parameters[]]}' > PATH-TO-FILE
        ```
 
        Where:
        * `USERNAME` is the admin username for the cluster
        * `PASSWORD` is the admin password for the cluster
-       * `OLD-MANAGEMENT-URL` is the RabbitMQ Management UI URL for your old service instance
+       * `MANAGEMENT-URL-FOR-MT` is the RabbitMQ Management UI URL for your pre-provisioned instances
        * `VHOST` is your virtual host ID
 
-1. Upload the virtual host limit parameters JSON to the new instance with the
+1. Upload the virtual host limit parameters JSON to the ODB instance with the
    following command:
 
      ```
-     curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD NEW-MANAGEMENT-URL/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
+     curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
      ```
 
      Where:
      * `USERNAME` is the admin username for the cluster
      * `PASSWORD` is the admin password for the cluster
-     * `NEW-MANAGEMENT-URL` is the RabbitMQ Management UI URL for your new service instance
+     * `MANAGEMENT-URL-FOR-ODB` is the RabbitMQ Management UI URL for your on-demand instances
      * `VHOST` is your virtual host ID
 
 1. Export the policies JSON to a local file with the following command:
 
      ```
-     curl -u USERNAME:PASSWORD OLD-MANAGEMENT-URL/api/definitions/VHOST | jq '{"policies":[.policies[]]}' > PATH-TO-FILE
+     curl -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-MT/api/definitions/VHOST | jq '{"policies":[.policies[]]}' > PATH-TO-FILE
      ```
 
-1. Upload the policies JSON to the new instance with the following command:
+1. Upload the policies JSON to the ODB instance with the following command:
 
      ```
-     curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD NEW-MANAGEMENT-URL/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
+     curl -H 'Content-type: application/json' -i -XPOST -u USERNAME:PASSWORD MANAGEMENT-URL-FOR-ODB/api/definitions/VHOST -d "$(cat PATH-TO-FILE)"
      ```
 
-## <a id="messages"></a> Migrate Messages in Queues
+1. Create queues, exchanges and bindings if the RabbitMQ client has not defined
+   the model for you.
 
-In order to safely migrate messages from one service instance to another, you must perform one of the following:
+1. Bind the new instance to your app. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
 
-* [Migrate Messages Using the RabbitMQ Shovel Plugin](./migration#messages-shovel)
-* [Migrate Messages By Using Consumers to Drain the Old Service Instance](./migration#messages-consumers)
+1. Unbind the pre-provisioned instance from your app. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
 
-Use of the shovel plugin requires less waiting time and manual steps, however does not preserve the
-ordering of messages.
+1. Restart your app. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
 
-### <a id="messages-shovel"></a> Migrate Messages Using the RabbitMQ Shovel Plugin
-It is possible to safely migrate messages to the new instance by using a 'shovel' to move messages between queues on the two instances.
-For more information, see [the RabbitMQ documentation](https://www.rabbitmq.com/shovel.html).
+1. When ready, delete your pre-provisioned instance. For instructions, see [Delete a Service Instance](./use.html#delete).
 
-1. Login into the RabbitMQ Management Web GUI for both the old and new service instances.
-1. For each queue, create a shovel from the queue on the old instance to the queue on the new instance.
-1. Unbind the consumer apps from the old service instance. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
-1. Bind the consumer apps to the new service instance. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
-1. Restart your consumer apps. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
-1. Using the Management Web GUI, confirm that your consumer apps are successfully connected to the new service instance.
-
-1. Carry out steps 3-5 for your producer apps.
-1. Using the Management Web GUI, confirm that your producer apps are successfully connected to the new service instance.
-
-1. Ensure all messages are moved from the old instance to the new instance using its Management Web GUI.
-1. Verify no messages are there in the old instance by checking its Management Web GUI.
-
-### <a id="messages-consumers"></a> Migrate Messages By Using Consumers to Drain the Old Service Instance
-It is possible to safely migrate messages to the new instance without the use of the shovel plugin, and confers more guarantees
-about consistent message ordering, however requires more manual steps and waiting for queues to be drained.
-
-1. Login into the RabbitMQ Management Web GUI for both the old and new service instances.
-1. Unbind the producer apps from the old service instance. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
-1. Bind the producer apps to the new service instance. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
-1. Restart your producer apps. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
-1. Using the Management Web GUI, confirm that your producer apps are successfully connected to the new service instance.
-
-1. Wait for the consumer apps to fully drain the queues of the old service instance.
-1. Repeat steps 2-4 for your consumer apps.
-1. Using the Management Web GUI, confirm that your consumer apps are successfully connected to the new service instance.
-
+1. If you have service-keys for the old instance, create service-keys for
+the new instance and replace the old credentials.
