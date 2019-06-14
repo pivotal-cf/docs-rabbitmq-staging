@@ -105,8 +105,8 @@ the new instance and replace the old credentials.
 
 In order to safely migrate messages from one service instance to another, you must perform one of the following:
 
-* [Migrate Messages Using the RabbitMQ Shovel Plugin](./migration#messages-shovel)
-* [Migrate Messages By Using Consumers to Drain the Old Service Instance](./migration#messages-consumers)
+* [Migrate Messages Using the RabbitMQ Shovel Plugin](#messages-shovel)
+* [Migrate Messages By Using Consumers to Drain the Old Service Instance](#messages-consumers)
 
 Use of the shovel plugin requires less waiting time and manual steps, however does not preserve the
 ordering of messages.
@@ -141,4 +141,3 @@ about consistent message ordering, however requires more manual steps and waitin
 1. Wait for the consumer apps to fully drain the queues of the old service instance.
 1. Repeat steps 2-4 for your consumer apps.
 1. Using the Management Web GUI, confirm that your consumer apps are successfully connected to the new service instance.
-
