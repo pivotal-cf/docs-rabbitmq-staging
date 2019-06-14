@@ -103,11 +103,38 @@ To migrate from one service instance to another, do the following:
 
 1. Bind the new instance to your app. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
 
-1. Unbind the pre-provisioned instance from your app. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
+* [Migrate Messages Using the RabbitMQ Shovel Plugin](#messages-shovel)
+* [Migrate Messages By Using Consumers to Drain the Old Service Instance](#messages-consumers)
 
 1. Restart your app. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
 
-1. When ready, delete your pre-provisioned instance. For instructions, see [Delete a Service Instance](./use.html#delete).
+### <a id="messages-shovel"></a> Migrate Messages Using the RabbitMQ Shovel Plugin
+It is possible to safely migrate messages to the new instance by using a 'shovel' to move messages between queues on the two instances.
+For more information, see [the RabbitMQ documentation](https://www.rabbitmq.com/shovel.html).
 
-1. If you have service-keys for the old instance, create service-keys for
-the new instance and replace the old credentials.
+1. Login into the RabbitMQ Management Web GUI for both the old and new service instances.
+1. For each queue, create a shovel from the queue on the old instance to the queue on the new instance.
+1. Unbind the consumer apps from the old service instance. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
+1. Bind the consumer apps to the new service instance. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
+1. Restart your consumer apps. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
+1. Using the Management Web GUI, confirm that your consumer apps are successfully connected to the new service instance.
+
+1. Carry out steps 3-5 for your producer apps.
+1. Using the Management Web GUI, confirm that your producer apps are successfully connected to the new service instance.
+
+1. Ensure all messages are moved from the old instance to the new instance using its Management Web GUI.
+1. Verify no messages are there in the old instance by checking its Management Web GUI.
+
+### <a id="messages-consumers"></a> Migrate Messages By Using Consumers to Drain the Old Service Instance
+It is possible to safely migrate messages to the new instance without the use of the shovel plugin, and confers more guarantees
+about consistent message ordering, however requires more manual steps and waiting for queues to be drained.
+
+1. Login into the RabbitMQ Management Web GUI for both the old and new service instances.
+1. Unbind the producer apps from the old service instance. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
+1. Bind the producer apps to the new service instance. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
+1. Restart your producer apps. For instructions, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
+1. Using the Management Web GUI, confirm that your producer apps are successfully connected to the new service instance.
+
+1. Wait for the consumer apps to fully drain the queues of the old service instance.
+1. Repeat steps 2-4 for your consumer apps.
+1. Using the Management Web GUI, confirm that your consumer apps are successfully connected to the new service instance.
