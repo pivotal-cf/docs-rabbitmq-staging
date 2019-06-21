@@ -3,33 +3,39 @@ title: Migrating a RabbitMQ Service Instance to Another Service Instance
 owner: London Services
 ---
 
-This topic describes how to safely and fully migrate a RabbitMQ service instance to another service instance. This migration can include migrating policies, parameters, and messages.
+This topic describes how to safely and fully migrate a RabbitMQ service instance to another service instance.
+This migration can include migrating policies, parameters, and messages.
 
 ## <a id="migrate-instance"></a> Migrate a RabbitMQ Service Instance to Another Service Instance
 
 To migrate from one service instance to another, do the following:
 
-1. Create a new service instance. Pivotal recommends using the on-demand service for new deployments. For instructions, see [Create a Service Instance](./use.html#create).
+1. Create a new service instance.
+   Pivotal recommends using the on-demand service for new deployments.
+   For instructions, see [Create a Service Instance](./use.html#create).
 
-1. If the RabbitMQ client in your apps has not defined the model for you, create queues, exchanges, and bindings on the new service instance that match your old service instance.
+1. If the RabbitMQ client in your apps has not defined the model for you, create queues, exchanges,
+   and bindings on the new service instance that match your old service instance.
 
-1. Migrate policies and parameters. For instructions, see [Migrate Policies and Parameters](#policies-and-params) below.
+1. Migrate policies and parameters.
+   For instructions, see [Migrate Policies and Parameters](#policies-and-params) below.
 
-1. If you need all the messages in the old service instance, migrate the messages in the queues. For instructions, see [Migrate Messages in Queues](#messages) below.
+1. If you need all the messages in the old service instance, migrate the messages in the queues.
+   For instructions, see [Migrate Messages in Queues](#messages) below.
 
-1. When ready, delete your old instance. For instructions, see [Delete a Service Instance](./use.html#delete).
+1. When ready, delete your old instance.
+   For instructions, see [Delete a Service Instance](./use.html#delete).
 
 1. If you have service-keys for the old instance, create service-keys for
 the new instance and replace the old credentials.
 
 ## <a id="policies-and-params"></a> Migrate Policies and Parameters
 
-If your old instance uses any of the following:
+If your old instance uses any of the following, ensure that you apply them to the new instance:
      <ul>
        <li>Policies</li>
        <li>Virtual host-specific parameters, such as <code>max_connections</code></li>
      </ul>
-ensure that you apply them to the new instance.
 You can apply them using the API by following the steps below.
 
 <p class="note"><strong>Note:</strong> You can also apply them in the RabbitMQ Management UI.
@@ -117,26 +123,34 @@ For more information, see [the RabbitMQ documentation](https://www.rabbitmq.com/
 
 1. Log in to the RabbitMQ Management Web UI for both the old and new service instances.
 1. For each queue, create a shovel from the queue on the old instance to the queue on the new instance.
-1. Unbind the consumer apps from the old service instance. For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
-1. Bind the consumer apps to the new service instance. For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
-1. Restart your consumer apps. For more information, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
+1. Unbind the consumer apps from the old service instance.
+   For instructions, see [Unbind a Service Instance From Your App](./use.html#unbind).
+1. Bind the consumer apps to the new service instance.
+   For instructions, see [Bind a Service Instance to Your App](./use.html#bind).
+1. Restart your consumer apps.
+   For more information, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
 1. Using the Management Web UI, confirm that your consumer apps are successfully connected to the new service instance.
 
-1. Carry out steps 3&ndash;5 for your producer apps.
+1. Carry out steps 3--5 for your producer apps.
 1. Using the Management Web UI, confirm that your producer apps are successfully connected to the new service instance.
 
 1. Ensure all messages are moved from the old instance to the new instance by using its Management Web UI.
 1. Verify no messages are in the old instance by checking its Management Web UI.
 
 ### <a id="messages-consumers"></a> Migrate Messages by Using Consumers to Drain the Old Service Instance
-You can safely migrate messages to the new instance without the use of the shovel plugin. This method is better for ensuring that messages are ordered consistently. However, it requires more manual steps and waiting for queues to be drained.
+You can safely migrate messages to the new instance without the use of the shovel plugin.
+This method is better for ensuring that messages are ordered consistently.
+However, it requires more manual steps and waiting for queues to be drained.
 
 1. Log in to the RabbitMQ Management Web UI for both the old and new service instances.
-1. Unbind the producer apps from the old service instance. For more information, see [Unbind a Service Instance From Your App](./use.html#unbind).
-1. Bind the producer apps to the new service instance. For more information, see [Bind a Service Instance to Your App](./use.html#bind).
-1. Restart your producer apps. For more information, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
+1. Unbind the producer apps from the old service instance.
+   For more information, see [Unbind a Service Instance From Your App](./use.html#unbind).
+1. Bind the producer apps to the new service instance.
+   For more information, see [Bind a Service Instance to Your App](./use.html#bind).
+1. Restart your producer apps.
+   For more information, see [Restart Your App](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html#restart).
 1. Using the Management Web UI, confirm that your producer apps are successfully connected to the new service instance.
 
 1. Wait for the consumer apps to fully drain the queues of the old service instance.
-1. Repeat steps 2-4 for your consumer apps.
+1. Repeat steps 2--4 for your consumer apps.
 1. Using the Management Web UI, confirm that your consumer apps are successfully connected to the new service instance.
