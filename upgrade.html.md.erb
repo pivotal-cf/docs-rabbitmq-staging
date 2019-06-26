@@ -3,6 +3,8 @@ title: Upgrading RabbitMQ for PCF
 owner: London Services
 ---
 
+<%= partial 'deprecation-notice' %>
+
 RabbitMQ for PCF enables automated upgrades between versions of the product.
 In some versions, you might be required to take the RabbitMQ cluster offline.
 Whenever this is necessary, it is noted in the release notes for those versions.
@@ -114,10 +116,10 @@ Always check the release notes for the version you are upgrading to.</p>
 
 ## <a id="pre-upgrade"></a>Prerequisite
 
-Before you upgrade, you must ensure that the following directory does not exist: 
+Before you upgrade, you must ensure that the following directory does not exist:
 
 ```
-/var/vcap/store/rabbitmq/Mnesia.rabbit@… 
+/var/vcap/store/rabbitmq/Mnesia.rabbit@…
 ```
 If this directory exists, you must move `Mnesia.rabbit@…` from `/var/vcap/store/rabbitmq`. If you do not move this directory, you might not be able to restart RabbitMQ  successfully after the upgrade.
 

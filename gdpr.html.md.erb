@@ -3,19 +3,21 @@ title: RabbitMQ for PCF and Data Protection
 owner: London Services
 ---
 
-This topic provides information for RabbitMQ for PCF operators to help with 
-compliance with the General Data Protection Regulation (GDPR). 
-For more information about GDPR and personal data in PCF, see 
+<%= partial 'deprecation-notice' %>
+
+This topic provides information for RabbitMQ for PCF operators to help with
+compliance with the General Data Protection Regulation (GDPR).
+For more information about GDPR and personal data in PCF, see
 [General Data Protection Regulation](https://gdpr-locations.cfapps.io/pivotalcf/2-2/security/gdpr-locations.html#pcf)
 
-It provides the locations where RabbitMQ for PCF might store personal data, and 
+It provides the locations where RabbitMQ for PCF might store personal data, and
 actions you can take to control this data.
 For information about personal data in the RabbitMQ server, see [Link to RabbitMQ GDPR docs].
 
 ## <a id="queues"></a> Personal Data in RabbitMQ for PCF
 
-Pivotal recommends that you strictly control personally identifiable information 
-used to interact with RabbitMQ for PCF. 
+Pivotal recommends that you strictly control personally identifiable information
+used to interact with RabbitMQ for PCF.
 This information might be stored in the following locations:
 
 * [Queues](#queues)
@@ -23,23 +25,23 @@ This information might be stored in the following locations:
 
 You should also control access to your RabbitMQ servers, RabbitMQ management commands, and the management console.
 
-<p class="note"><strong>Note</strong>: 
-	For a list of the locations that personal data might be stored throughout PCF, see 
+<p class="note"><strong>Note</strong>:
+	For a list of the locations that personal data might be stored throughout PCF, see
 	<a href="https://docs-pcf-staging.cfapps.io/pivotalcf/2-2/opsguide/gdpr.html#personal-data">
 		Understanding Personal Data</a></p>
 
 ## <a id="queues"></a> Queues
 
-RabbitMQ for PCF does not know if any message contains personally identifiable information. 
-If you use RabbitMQ for PCF to send personally identifiable information, 
+RabbitMQ for PCF does not know if any message contains personally identifiable information.
+If you use RabbitMQ for PCF to send personally identifiable information,
 you should take appropriate safeguards to protect that information.
 
 RabbitMQ stores messages, including message headers, in memory and on disk until they are consumed.
 The following are actions you can take to comply with the GDPR:
 
-* Monitor your queues to ensure that messages are being consumed in a timely manner, 
+* Monitor your queues to ensure that messages are being consumed in a timely manner,
 and the lifecycle of messages containing personally identifiable information is managed according to your data protection policies.
-* Consider using non-durable messages and setting a time to live (TTL) to limit the lifespan of messages.  
+* Consider using non-durable messages and setting a time to live (TTL) to limit the lifespan of messages.
 
 ## <a id="logs"></a> Logs
 
@@ -59,4 +61,4 @@ To empty the contents of an haproxy log, run the command:
 
 The RabbitMQ server logs may contain IP addresses.
 The log files are stored on rabbitmq-server VMs in the directory `/var/vcap/sys/log/rabbitmq-server`.
-For information about RabbitMQ server logs, see [Logging](https://www.rabbitmq.com/logging.html) in the RabbitMQ documentation. 
+For information about RabbitMQ server logs, see [Logging](https://www.rabbitmq.com/logging.html) in the RabbitMQ documentation.

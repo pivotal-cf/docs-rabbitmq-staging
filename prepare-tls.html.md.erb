@@ -3,6 +3,8 @@ title: Preparing for TLS
 owner: RabbitMQ
 ---
 
+<%= partial 'deprecation-notice' %>
+
 This topic provides an overview of how to prepare for using Transport Layer Security (TLS) with the RabbitMQ on-demand service to secure
 communication between apps and service instances.
 The topic also includes the procedure
@@ -243,7 +245,7 @@ Click **Security**.
     This errand must be run to ensure all service instances have the needed changes. </p>
     * **For a New Installation**: Complete the procedures in
     [Installing and Configuring RabbitMQ for PCF](install-config.html),
-    including enabling TLS in the **Security for On-Demand Plans** tab, 
+    including enabling TLS in the **Security for On-Demand Plans** tab,
     click **Review Pending Changes**, and then click **Apply Changes**
     in the Installation Dashboard.
     This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
