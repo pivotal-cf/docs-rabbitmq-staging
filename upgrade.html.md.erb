@@ -20,9 +20,10 @@ downtime during upgrades.
 ### <a id="downtime"></a> Downtime When Upgrading to v1.17
 
 Upgrading to RabbitMQ for PCF v1.17.0 causes app downtime.
-This is because the RabbitMQ cluster goes offline while each node upgrades to Erlang v21. After the final 
+This is because the RabbitMQ cluster goes offline while each node upgrades to Erlang v21. After the final
 node upgrades, the cluster starts and the service is available again.
-Notify app owners of this expected downtime before you upgrade.
+
+Pivotal recommends that you notify app owners of this expected downtime before you upgrade.
 
 
 ### <a id="general-downtime"></a> General Notes About Downtime
