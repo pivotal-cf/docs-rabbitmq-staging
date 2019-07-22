@@ -3,50 +3,20 @@ title: RabbitMQ&reg; for PCF Release Notes
 owner: London Services
 ---
 
-## <a id="upgrade"></a> Upgrade to the Latest Version
-
-Pivotal recommends upgrading from the v1.15 series to the latest v1.17 release. You can skip v1.16 in this case to save time and take advantange of the latest features.
-
-Pivotal discourages any other upgrade path that skips a release, such as v1.14 to v1.16, as they are untested.
-
-As v1.17 contains a new version of Erlang, upgrading to v1.17 from any previous version requires a cluster
-shutdown. The service is unavailable while the cluster upgrades. After the final node upgrades, the cluster starts and the service is available again.
-
-For product versions and upgrade paths,
-see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
-
-## <a id="1170"></a> v1.17.0
+## <a id="1180"></a> v1.18.0
 
 **Release Date**: MMMM DD, 2019
-
-<p class="note breaking"><strong>Breaking Change: </strong>
-  Upgrading to RabbitMQ for PCF v1.17.0 causes application <strong>downtime</strong>.
-This is because the RabbitMQ cluster is taken offline and each node is upgraded to Erlang v21.
-Notify app owners of this expected downtime before you upgrade.
-For more information about downtime during upgrades, see <a href="./upgrade.html#about">About the Upgrade</a>.
-</p>
 
 ### Features
 
 New features and changes in this release:
 
-* You can enable the `rabbitmq_amqp1_0` and the `rabbitmq_stomp` plugins
-  for on-demand service instances.
-  These plugins are disabled by default.
-  For how to enable them, see [Enable Optional Plugins](./use.html#optional-plugins).
-* You can enable shareable instances for the pre-provisioned offering independently of the on-demand service.
-* This release updates the following dependencies:
-	* OSS RabbitMQ to v3.7.15
-	* Erlang to v21
-	* golang to v1.12.6
+
 
 ### Known Issues
 
 This release has the following known issue:
 
-* Changing the Erlang Cookie value requires cluster downtime and can result in
-failed deployments.
-For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 ### Compatibility
 
