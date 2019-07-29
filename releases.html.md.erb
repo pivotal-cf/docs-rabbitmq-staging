@@ -9,7 +9,7 @@ Pivotal recommends upgrading from the latest v1.15 release to the latest v1.17 r
 
 Pivotal discourages any other upgrade path that skips a release, such as v1.14 to v1.16, as they are untested.
 
-As v1.17 contains a new version of Erlang, upgrading to v1.17 from any previous version requires a cluster 
+As v1.17 contains a new version of Erlang, upgrading to v1.17 from any previous version requires a cluster
 shutdown. The service is unavailable while the cluster upgrades. After the final node upgrades, the cluster
 starts and the service is available again.
 
@@ -46,6 +46,8 @@ This release has the following known issues:
 * Changing the Erlang Cookie value requires cluster downtime, and can result in
 failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* The RabbitMQ Management UI is not accessible from outside Cloud Foundry when TLS is enabled.
 
 <%= partial 'ki-shareable-instances' %>
 
@@ -214,6 +216,8 @@ This release has the following known issues:
 * Changing the Erlang Cookie value requires cluster downtime, and can result in failed deployments.
   For more information about this issue, see
   <a href="./install-config-pp.html#changing-issue">Changing the Erlang Cookie Value Known Issue</a>.
+
+* The RabbitMQ Management UI is not accessible from outside Cloud Foundry when TLS is enabled.
 
 <%= partial 'ki-shareable-instances' %>
 
