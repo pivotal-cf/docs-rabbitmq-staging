@@ -74,7 +74,7 @@ If the documentation is meant to be target several released versions, then you'l
 
 ### Partials
 
-Cross-product partials for **RabbitMQ for Pivotal CF** are single sourced from the [Services Partials](https://github.com/pivotal-cf/docs-services-partials) repo.
+Cross-product partials for **RabbitMQ for Pivotal CF** are single sourced from the [PCF Docs Partials](https://github.com/pivotal-cf/docs-partials) repo.
 
 Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repo.
 
@@ -83,5 +83,3 @@ Previously, these partials were sourced from the v018.x branch of the [On Demand
 Since **master** is the latest and greatest documentation, the process would be to cut a **x.x-live** branch for the version that **master** was targeting during that time. A corresponding section in **config.yml** in the [docs-book-pcfservices][docs-book-pcfservices] repository would also need to be made.
 
 After this point, **master** will then be the target for the next version of the RabbitMQ product tile.
-
-
