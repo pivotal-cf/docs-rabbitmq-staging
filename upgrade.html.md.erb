@@ -104,14 +104,13 @@ configuration changes are applied automatically.
 
 ### <a id="policy"></a> Release Policy
 
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
 <%= partial '../../rabbitmq-cf/odb/release-policy' %>
 
 Starting with RabbitMQ for PCF v1.14.0, the RabbitMQ tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
 This means that the tile can be updated to use the latest minor version of a stemcell,
 without the need to download a new RabbitMQ for PCF patch release from Pivnet.
-
-
-
 
 ## <a id="upgrade"></a> Upgrade RabbitMQ for PCF
 
