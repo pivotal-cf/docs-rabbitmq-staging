@@ -15,8 +15,9 @@ but also require their workloads be isolated. The platform operations team can c
 RabbitMQ for PCF cluster to meet their business requirements
 and empower app development teams to self-serve their own RabbitMQ cluster.
 
-RabbitMQ for PCF also provides smoke tests for the on-demand plans so that operations teams can validate the app developer workflow for on-demand services.
-See [Dedicated Instance Smoke Test Process](./install-config.html#dedicated_instance_smoke_test_process).
+RabbitMQ for PCF also provides smoke tests for the on-demand plans so that operations
+teams can validate the app developer workflow for on-demand services.
+See [Smoke Tests](./smoke-tests.html).
 
 With the on-demand cluster plan, platform operators can now offer their app developers three types of RabbitMQ for PCF service plans:
 
@@ -234,7 +235,7 @@ Therefore, developers must configure their app to use the array of hosts provide
 If developers enable queue mirroring, they must also ensure their apps have re-try logic
 and reconnection logic that iterates over the range of hosts provided.
 Most common RabbitMQ clients have this logic built into them.
-For more information, see the [Spring AMQP documentation](https://docs.spring.io/spring-amqp/reference/htmlsingle/#auto-recovery).
+For more information, see the [Spring Advanced Message Queuing Protocol (Spring AMQP) documentation](https://docs.spring.io/spring-amqp/reference/html/#auto-recovery).
 
 Because the cluster plan is designed to enable app developer teams to self-serve, not having a load balancer in front of the RabbitMQ cluster has these benefits:
 
@@ -356,8 +357,8 @@ The following are preconfigured for both the single node and the cluster plans:
 
 Pivotal recommends the on-demand service for production workloads due to its workload isolation.
 
-For instructions for developers about migrating, see
-[Migrating From a Pre-Provisioned Instance to an On-Demand Instance](./migration.html).
+For instructions for developers about migrating from a pre-provisioned to an on-demand instance, see
+[Migrating a RabbitMQ Service Instance to Another Service Instance](./migration.html).
 For how operators can turn off the pre-provisioned service, see
 [Turning Off the Pre-Provisioned Service](./turn-pre-provisioned-off.html).
 
