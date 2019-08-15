@@ -36,7 +36,7 @@ This table summarizes the main differences between the two:
 </table>
 
 
-<p class="note"><strong>Note:</strong> For most new applications, Pivotal recommends that you use
+<p class="note"><strong>Note:</strong> For most new apps, Pivotal recommends that you use
 on-demand services instead of pre-provisioned services.
 On-demand isolates workloads by creating a separate VM for each service instance.
 </p>
@@ -44,7 +44,7 @@ On-demand isolates workloads by creating a separate VM for each service instance
 ### <a id="dedicated"></a> What are On-Demand Instances
 
 In RabbitMQ for PCF versions before v1.8.0, the RabbitMQ service
-instances correspond to a unique RabbitMQ Vhost on the multi-tenant RabbitMQ
+instances correspond to a unique RabbitMQ virtual host on the multi-tenant RabbitMQ
 cluster. RabbitMQ for PCF v1.8.0 introduced [On-Demand Broker
 (ODB)](https://docs.pivotal.io/svc-sdk/odb/index.html) support. That means
 that a new, single-tenant, cluster can be created and dedicated to a single app.
@@ -111,8 +111,8 @@ The following table provides version and version-support information about Rabbi
 * Deployment into an availability zone specified by the plan
 * Enable Transport Layer Security (TLS) for the AMQP protocol
 * Automated upgrades of RabbitMQ for major, minor, and patch releases (see release notes for downtime requirements)
-* RabbitMQ Syslog forwarding configuration inherited from the pre-provisioned configuration
-* RabbitMQ metrics are exposed on the firehose
+* RabbitMQ syslog forwarding configuration inherited from the pre-provisioned configuration
+* RabbitMQ metrics are exposed on the Firehose
 * Run smoke tests for on-demand plans on plan 1
 * Errands are run on co-located VMs to decrease deployment times
 
@@ -120,7 +120,7 @@ For more information, see [Unlocking the Power of On-Demand RabbitMQ for PCF](./
 
 ###<a id='pre-provisioned'></a> Pre-Provisioned
 
-* Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
+* Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ virtual host
 * Bind apps to an instance of the plan, providing unique credentials for each binding
 * Management UI access to PCF Operators and app developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
@@ -129,8 +129,8 @@ For more information, see [Unlocking the Power of On-Demand RabbitMQ for PCF](./
 * Plugin configuration can be easily changed at any time and the cluster redeployed and updated
 * The cluster topology can be changed and easily scaled out
 * Automated upgrades of RabbitMQ for major, minor, and patch releases (see [Downtime When Upgrading](./upgrade.html#downtime) for downtime requirements)
-* Configure the end point for the RabbitMQ Syslog
-* RabbitMQ and HAProxy metrics are exposed on the firehose
+* Configure the end point for the RabbitMQ syslog
+* RabbitMQ and HAProxy metrics are exposed on the Firehose
 * Syslog forwarding on by default
 * Errands are run on co-located VMs to decrease deployment times
 
@@ -138,7 +138,7 @@ For more information, see [Unlocking the Power of On-Demand RabbitMQ for PCF](./
 
 ## <a id='known-issues'></a>Release Notes and Known Issues
 
-Check the [release notes](releases.html) for your release version for important information and known issues. To see release notes for another version, select the version from the dropdown list at the top of the page.
+Check the [release notes](releases.html) for your release version for important information and known issues. To see release notes for another version, select the version from the dropdown at the top of the page.
 
 ##<a id="other-services"></a> RabbitMQ for PCF and Other PCF Services
 

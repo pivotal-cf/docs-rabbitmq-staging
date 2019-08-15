@@ -15,10 +15,10 @@ shutdown. The service is unavailable while the cluster upgrades. After the final
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
+
 ## <a id="1171"></a> v1.17.1
 
 **Release Date**: August 15, 2019
-
 
 <p class="note breaking"><strong>Breaking Change: </strong>
   Upgrading to RabbitMQ for PCF v1.17 causes application <strong>downtime</strong>.
@@ -27,10 +27,17 @@ Notify app owners of this expected downtime before you upgrade.
 For more information about downtime during upgrades, see <a href="./upgrade.html#about">About the Upgrade</a>.
 </p>
 
-### Bug Fixes
+### Security Fix
 
-* **[Security Fix]** Fixed a critical CVE in the BPM BOSH release: https://nvd.nist.gov/vuln/detail/CVE-2019-9893
-* Fixed a bug where the Management Web UI could not be accessed for on-demand service instances when TLS was set to "enforced".
+This release includes the following security fix:
+
+* Critical [CVE-2019–9893: libseccomp before 2.4.0 did not correctly generate 64-bit syscall argument comparisons using the arithmetic operators (LT, GT, LE, GE)](https://nvd.nist.gov/vuln/detail/CVE-2019-9893)
+
+### Resolved Issue
+
+This release has the following fix:
+
+* The Management Web UI can now be accessed for on-demand service instances when TLS is set to **enforced**.
 
 ### Features
 
@@ -44,8 +51,7 @@ New features and changes in this release:
 
 This release has the following known issues:
 
-* Changing the Erlang Cookie value requires cluster downtime and can result in
-failed deployments.
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 <%= partial './ki-management-ui' %>
