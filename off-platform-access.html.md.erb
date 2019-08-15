@@ -1,0 +1,41 @@
+---
+title: Off Platform Access
+owner: RabbitMQ
+---
+
+## <a id='overview'></a> Overview
+
+Enabling off-platform allows a service instance to be connected to components outside the PCF foundation.
+
+There are multiple use cases for off-platform RabbitMQ access:
+- Accessing RabbitMQ from apps deployed to PAS, but in a different PCF foundation
+- Replicating messages between RabbitMQ clusters in different PCF foundations. For instance, to setup federation for disaster recovery.
+- Legacy apps communicating with PAS-deployed apps via RabbitMQ
+- Using RabbitMQ for PCF as a way to deploy and manage RabbitMQ for applications that are not deployed to PAS and never will be
+
+## <a id='architecture'></a> Architecture
+
+Off platform access to RabbitMQ instances leverages the [TCP router](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html) in Pivotal Application Service.
+It also requires some ports to be open on your external load balancer. These ports will be reserved for RabbitMQ traffic coming from outside the PCF foundation.
+Every time a developer creates a service instance of an off platform plan, a port in this range will be allocated to redirect traffic to the service instance.
+
+![architecture](/images/off-platform-architecture.png)
+
+
+## <a id='configuration'></a> Configuration
+
+1. Enable TCP Routing in Pivotal Application Service. Be sure to review the Pre-Deployment Steps required to enable this feature. These steps are documented in the [PAS documentation](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html)
+1. Provide the following properties in the Global Settings for On-Demand Plans.
+    - External TCP domain, corresponding with the DNS entry for the extenal load balancer
+    - Port Range, a valid range of ports that is going to be used by RabbitMQ service instances. E.g. 1024-2000. Every service instance will allocate a port for each plugin enabled, therefore make sure the range has enough capacity to accommodate the desired number of service instances.
+![global-settings-off-platform](/images/global-settings-off-platform.png)
+1. Allow ingress traffic at the load-balancer level for the specified port range.
+1. Tick the "Off-Platform Access" checkbox in the plan that you want to use. Pivotal recommends changing the name or the description of the plan to reflect the new feature.
+![enable-off-platform](/images/enable-off-platform.png)
+
+## <a id='workflow'></a> Workflow
+
+The app developer workflow does not change:
+1. Create a service instance with the off platform plan, using the CF CLI.
+1. Obtain credentials by creating a service key using the CF CLI. The `uri` section of the service key will contain the address to the TCP router and a port from the port range. The app developer
+  can now use this uri to connect to the service instance from outside the foundation.
