@@ -19,7 +19,7 @@ downtime during upgrades.
 
 ### <a id="downtime"></a> Downtime When Upgrading to v1.17
 
-Upgrading to RabbitMQ for PCF v1.17.0 causes app downtime.
+Upgrading from RabbitMQ for PCF v1.16 to v1.17 causes app downtime.
 This is because the RabbitMQ cluster goes offline while each node upgrades to Erlang v21. After the final
 node upgrades, the cluster starts and the service is available again.
 
@@ -44,14 +44,14 @@ the IaaS creates the new VM.
 The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
 This is stated in the release notes for those versions.
 
-<p class="note warning"><strong>IMPORTANT</strong>: The following table is only a guide.
+<p class="note warning"><strong>Important:</strong> The following table is only a guide.
 Always check the release notes for the version you are upgrading to.</p>
 
 
 <table border="1" class="nice">
 <tr>
   <th>Upgrade Type</th>
-  <th>Will Downtime Be Required For This Upgrade / Update? </th>
+  <th>Will Downtime Be Required for This Upgrade or Update? </th>
 </tr>
 <tr>
   <th>Major Tile Version</th>
@@ -66,18 +66,18 @@ Always check the release notes for the version you are upgrading to.</p>
 <tr>
   <th>Patch Tile Version</th>
   <td>Normally these are rolling deployments with each node being updated in turn.
-      In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
+      In these cases, the cluster remains available, but individual queues might be taken offline as each node is restarted.
       There are specific migration paths that require downtime, which are identified in the release notes for that version.
   </td>
 <tr>
   <th>Stemcell-Only Patch Tile Version</th>
-  <td>Where the patch update is only a new stemcell version these are rolling deployments with each node being updated in turn.
-      In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
+  <td>When the patch update is only a new stemcell version, these are rolling deployments with each node being updated in turn.
+      In these cases, the cluster remains available, but individual queues might be taken offline as each node is restarted.
   </td>
 </tr>
 </table>
 
-### <a id="general"></a> General Notes About the Upgrade Process
+### <a id="general"></a> General Notes about the Upgrade Process
 
 The following notes about the upgrade process apply to upgrading to any version of RabbitMQ for PCF.
 
