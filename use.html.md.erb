@@ -110,6 +110,29 @@ To create an instance of the on-demand RabbitMQ for PCF service, do the followin
 
    If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html) for more information.
 
+
+## <a id='#off-platform'></a> Create a Service Instance with Off-Platform Access
+
+If operators have enabled an off-platform plan, you can create a service instance
+that can connect to components outside the PCF foundation.
+For information about the architecture and use cases, see [Enabling Off Platform Access](./off-platform-access.html).
+
+To create a service instance that allows off-platform access:
+
+1. Create a service instance with the off-platform plan by running:
+
+    ```
+    cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE
+    ```
+
+1. Obtain credentials by creating a service key:
+
+    ```
+    cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'
+    ```
+The `uri` section of the service key contains the address to the TCP router and a port from the port range.
+You can use this URI to connect to the service instance from outside the foundation.
+
 ## <a id="using-tls"></a> Use Transport Layer Security (TLS)
 
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
@@ -411,13 +434,12 @@ OK
 To delete a service instance, use `cf delete-service`.
 
 1. Run `cf delete-service SERVICE-INSTANCE`, where `SERVICE-INSTANCE` is the name of the service to delete. See an example below.
-
-<pre class="terminal">
+  <pre class="terminal">
    $ cf delete-service my-instance<br>
     Are you sure you want to delete the service my-instance ? y
     Deleting service my-service in org my-org / space my-space as user<span>@</span>example.com...
     OK
-</pre>
+  </pre>
 
 1. Run `watch cf service SERVICE-INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
 
