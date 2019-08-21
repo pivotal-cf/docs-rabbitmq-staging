@@ -406,13 +406,12 @@ OK
 To delete a service instance, use `cf delete-service`.
 
 1. Run `cf delete-service SERVICE-INSTANCE`, where `SERVICE-INSTANCE` is the name of the service to delete. See an example below.
-
-<pre class="terminal">
+  <pre class="terminal">
    $ cf delete-service my-instance<br>
     Are you sure you want to delete the service my-instance ? y
     Deleting service my-service in org my-org / space my-space as user<span>@</span>example.com...
     OK
-</pre>
+  </pre>
 
 1. Run `watch cf service SERVICE-INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
 
