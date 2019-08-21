@@ -14,36 +14,36 @@ There are multiple use cases for off-platform RabbitMQ access:
 
 - Accessing RabbitMQ from apps deployed to Pivotal Application Service (PAS) in a different PCF foundation
 - Replicating messages between RabbitMQ clusters in different PCF foundations,
-for example, to setup federation for disaster recovery
+for example, to set up federation for disaster recovery
 - Enabling legacy apps to communicate with PAS-deployed apps through RabbitMQ
 - Using RabbitMQ for PCF as a way to deploy and manage RabbitMQ for apps
 that are not deployed to PAS
 
 ## <a id='architecture'></a> Architecture
 
-Off-platform access to RabbitMQ instances leverages the
-[TCP router](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html) in PAS.
+Off-platform access to RabbitMQ instances leverages the TCP router in PAS.
 It also requires some ports to be open on your external load balancer.
 These ports are reserved for RabbitMQ traffic coming from outside the PCF foundation.
 Every time a developer creates a service instance of an off-platform plan, a port
 in this range is allocated to redirect traffic to the service instance.
 
-![architecture](/images/off-platform-architecture.png)
+![architecture diagram shows app and load balancer external to the foundation and the TCP router
+  and RMQ nodes internal to the foundation](/images/off-platform-architecture.png)
 
 
 ## <a id='configuration'></a> Enable Off-Platform Access
 
 To enable off-platform access:
 
-1. Enable TCP Routing in PAS by doing steps 1, 2 and 4 of the procedure in
+1. Enable TCP Routing in PAS by doing steps 1, 2, and 4 of the procedure in
 [Configuring TCP Routing in PAS](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html).
 Ensure that you review the pre-deployment steps required to enable this feature.
 
 1. In **Global Settings for On-Demand Plans**, fill in the following fields:
-    - **External TCP domain**: corresponding with the DNS entry for the external load balancer.
-    - **Port Range**: a valid range of ports for RabbitMQ service instances to use.
-    Every service instance allocates a port for each plugin enabled,
-    therefore ensure that the range has enough capacity to accommodate the desired number of service instances.
+    - **External TCP domain**: Corresponding with the DNS entry for the external load balancer.
+    - **Port Range**: A valid range of ports for RabbitMQ service instances to use.
+    Every service instance allocates a port for each plugin enabled.
+    Therefore, ensure that the range has enough capacity to accommodate the desired number of service instances.
 
     ![An example Global settings for on-demand plans pane with the External TCP domain field
     filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
