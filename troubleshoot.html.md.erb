@@ -3,122 +3,72 @@ title: Troubleshooting and FAQs for <br>On-Demand RabbitMQ for PCF
 owner: London Services Enablement
 ---
 
-<div class="quick-links">
-    <ul>
-        <li><a href="#guid">How to Retrieve a Service Instance GUID</a></li>
-        <li><a href="#errors">Troubleshooting Errors</a></li>
-        <ul>
-            <li><a href="#install-fail">Failed Installation</a></li>
-            <li><a href="#cannot-create-delete">Cannot Create or Delete Service Instances</a></li>
-            <li><a href="#timeouts">Broker Request Timeouts</a></li>
-            <li><a href="#cannot-bind">Cannot Bind to or Unbind from Service Instances</a></li>
-            <li><a href="#cannot-connect">Cannot Connect to a Service Instance</a></li>
-            <li><a href="#upgrade-all-fails">Upgrade All Service Instances Failures</a></li>
-            <li><a href="#missing-logs">Missing Logs and Metrics</a></li>
-            <li><a href="#failed-deployment">Failed Deployment on Upgrade or after Apply Changes</a></li>
-        </ul>
-        <li><a href="#components">Troubleshooting Components</a></li>
-        <ul>
-            <li><a href="#bosh">BOSH Problems</a></li>
-            <li><a href="#bosh-config">Configuration</a></li>
-            <li><a href="#auth">Authentication</a></li>
-            <li><a href="#network">Networking</a></li>
-            <li><a href="#quotas">Quotas</a></li>
-            <li><a href="#failing-jobs">Failing Jobs and Unhealthy Instances</a></li>
-        </ul>
-        <li><a href="#techniques">Techniques for Troubleshooting</a></li>
-        <ul>
-            <li><a href="#parse-error">Parse a Cloud Foundry (CF) Error Message</a></li>
-            <li><a href="#bosh-cf-access">Access Broker and Instance Logs and VMs</a></li>
-            <li><a href="#broker-errands">Run Service Broker Errands to Manage Brokers and Instances</a></li>
-            <li><a href="#instance-creds">Get Admin Credentials for a Service Instance</a></li>
-            <li><a href="#reinstall">Reinstall a Tile</a></li>
-            <li><a href="#view-resources">View Resource Saturation and Scaling</a></li>
-            <li><a href="#id-instance-owner">Identify Service Instance Owner</a></li>
-            <li><a href="#monitor-quota">Monitor Quota Saturation and Service Instance Count</a></li>
-            <li><a href="#drop-restore-traffic">Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance</a></li>
-        </ul>
-        <li><a href="#faq">Frequently Asked Questions</a></li>
-        <ul>
-            <li><a href="#check-deploy">What should I check before deploying a new version of the tile?</a></li>
-            <li><a href="#stopstart">What is the correct way to stop and start RabbitMQ in PCF?</a></li>
-            <li><a href="#boshstop">What happens when I run bosh stop rabbitmq-server?</a></li>
-            <li><a href="#serverfailprocess">What happens when bosh stop rabbitmq-server fails?</a></li>
-            <li><a href="#serverfailactions">What do I do when bosh stop rabbitmq-server fails?</a></li>
-            <li><a href="#backup">How can I manually back up the state of the RabbitMQ cluster?</a></li>
-            <li><a href="#preupgrade">What pre-upgrade checks should I do?</a></li>
-        </ul>
-        <li><a href="#kb">Knowledge Base (Community)</a></li>
-        <li><a href="#support">File a Support Ticket</a></li>
-    </ul>
-</div>
-
 This topic provides operators with basic troubleshooting techniques and FAQs for
 on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
 
-<a id="guid"></a><h2>How to Retrieve a Service Instance GUID</h2>
+## <a id="guid"></a> How to Retrieve a Service Instance GUID
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/retrieve-guid' %>
 
-<a id="errors"></a><h2>Troubleshooting Errors</h2>
+## <a id="errors"></a> Troubleshooting Errors
 
 Start here if you are responding to a specific error or error messages.
 
-<a id="install-fail"></a><h3>Failed Installation</h3>
+## <a id="install-fail"></a> Failed Installation
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-install-fail' %>
 
-<a id="cannot-create-delete"></a><h3>Cannot Create or Delete Service Instances</h3>
+### <a id="cannot-create-delete"></a> Cannot Create or Delete Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-cannot-create-delete' %>
 
-<a id="timeouts"></a><h3>Broker Request Timeouts</h3>
+### <a id="timeouts"></a> Broker Request Timeouts
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-timeouts' %>
 
-<a id="cannot-bind"><h3></a>Cannot Bind to or Unbind from Service Instances</h3>
+### <a id="cannot-bind"></a> Cannot Bind to or Unbind from Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<a id="instance-not-exist"></a><h4>Instance Does Not Exist</h4>
+#### <a id="instance-not-exist"></a> Instance Does Not Exist
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-instance-not-exist' %>
 
-<a id="other-errors"></a><h4>Other Errors</h4>
+#### <a id="other-errors"></a> Other Errors
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-other-errors' %>
 
-<a id="cannot-connect"><h3></a>Cannot Connect to a Service Instance</h3>
+### <a id="cannot-connect"></a> Cannot Connect to a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-cannot-connect' %>
 
-<a id="upgrade-all-fails"><h3></a>Upgrade All Service Instances Failures</h3>
+### <a id="upgrade-all-fails"></a> Upgrade All Service Instances Failures
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-upgrade-all-fails' %>
 
-<a id="missing-logs"><h3></a>Missing Logs and Metrics</h3>
+### <a id="missing-logs"></a> Missing Logs and Metrics
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-missing-logs' %>
 
-<a id="failed-deployment"></a><h3>Failed Deployment on Upgrade or after Apply Changes</h3>
+### <a id="failed-deployment"></a> Failed Deployment on Upgrade or after Apply Changes
 
 If the deployment fails after editing the <strong>Assign AZs and Networks</strong>
 pane of the RabbitMQ for PCF tile,
@@ -130,169 +80,169 @@ This includes changes made to your current installation or during an upgrade.
 To diagnose and solve this issue, see
 <a href='changing-ips.html'>Changing Network or IP Addresses Results in a Failed Deployment</a>.
 
-<a id="components"></a><h2>Troubleshooting Components</h2>
+## <a id="components"></a> Troubleshooting Components
 
 Guidance on checking for and fixing issues in on-demand service components.
 
-<a id="bosh"></a><h3>BOSH Problems</h3>
+### <a id="bosh"></a> BOSH Problems
 
-<a id="large-queue"></a><h4>Large BOSH Queue</h4>
+#### <a id="large-queue"></a>Large BOSH Queue
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-large-queue' %>
 
-<a id="bosh-config"></a><h3>Configuration</h3>
+### <a id="bosh-config"></a> Configuration
 
-<a id="bosh-instance-fail"></a><h4>Service Instances in Failing State</h4>
+#### <a id="bosh-instance-fail"></a> Service Instances in Failing State
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-bosh-instance-fail' %>
 
-<a id="auth"></a><h3>Authentication</h3>
+### <a id="auth"></a> Authentication
 
-<a id="uaa-change"></a><h4>UAA Changes</h4>
+#### <a id="uaa-change"></a> UAA Changes
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-uaa-change' %>
 
-<a id="network"></a><h3>Networking</h3>
+### <a id="network"></a> Networking
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-network' %>
 
-<a id="broker-to-instances"></a><h4>Validate Service Broker Connectivity to Service Instances</h4>
+#### <a id="broker-to-instances"></a> Validate Service Broker Connectivity to Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-broker-to-instances' %>
 
-<a id="app-to-instances"></a><h4>Validate App Access to Service Instance</h4>
+#### <a id="app-to-instances"></a> Validate App Access to Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-app-to-instances' %>
 
-<a id="quotas"></a><h3>Quotas</h3>
+### <a id="quotas"></a> Quotas
 
-<a id="plan-quotas"></a><h4>Plan Quota Issues</h4>
+#### <a id="plan-quotas"></a> Plan Quota Issues
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-plan-quotas' %>
 
-<a id="global-quotas"></a><h4>Global Quota Issues</h4>
+#### <a id="global-quotas"></a> Global Quota Issues
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-global-quotas' %>
 
-<a id="failing-jobs"></a><h3>Failing Jobs and Unhealthy Instances</h3>
+### <a id="failing-jobs"></a> Failing Jobs and Unhealthy Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-failing-jobs' %>
 
-<a id="techniques"></a><h2>Techniques for Troubleshooting</h2>
+## <a id="techniques"></a> Techniques for Troubleshooting
 
 This section contains instructions on interacting with the on-demand service
 broker and on-demand service instance BOSH deployments, and on performing general
 maintenance and housekeeping tasks.
 
-<a id="parse-error"></a><h3>Parse a Cloud Foundry (CF) Error Message</h3>
+### <a id="parse-error"></a> Parse a Cloud Foundry (CF) Error Message
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-parse-error' %>
 
-<a id="bosh-cf-access"></a><h3>Access Broker and Instance Logs and VMs</h3>
+### <a id="bosh-cf-access"></a> Access Broker and Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-bosh-cf-access' %>
 
-<a id="access-broker"></a><h4>Access Broker Logs and VMs</h4>
+#### <a id="access-broker"></a> Access Broker Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-broker' %>
 
-<a id="access-instance"></a><h4>Access Service Instance Logs and VMs</h4>
+#### <a id="access-instance"></a> Access Service Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-access-instance' %>
 
-<a id="broker-errands"></a><h3>Run Service Broker Errands to Manage Brokers and Instances</h3>
+### <a id="broker-errands"></a> Run Service Broker Errands to Manage Brokers and Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-broker-errands' %>
 
-<a id="register-broker"></a><h4>Register Broker</h4>
+#### <a id="register-broker"></a> Register Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-register-broker' %>
 
-<a id="deregister-broker"></a><h4>Deregister Broker</h4>
+#### <a id="deregister-broker"></a> Deregister Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-deregister-broker' %>
 
-<a id="upgrade-all"></a><h4>Upgrade All Service Instances</h4>
+#### <a id="upgrade-all"></a> Upgrade All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-upgrade-all' %>
 
-<a id="delete-all"></a><h4>Delete All Service Instances</h4>
+#### <a id="delete-all"></a> Delete All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-delete-all' %>
 
-<a id="detect-orphans"></a><h4>Detect Orphaned Service Instances</h4>
+#### <a id="detect-orphans"></a> Detect Orphaned Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-detect-orphans' %>
 
-<a id="instance-creds"></a><h3>Get Admin Credentials for a Service Instance</h3>
+### <a id="instance-creds"></a> Get Admin Credentials for a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-instance-creds' %>
 
-<a id="reinstall"></a><h3>Reinstall a Tile</h3>
+### <a id="reinstall"></a> Reinstall a Tile
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-reinstall' %>
 
-<a id="view-resources"></a><h3>View Resource Saturation and Scaling</h3>
+### <a id="view-resources"></a> View Resource Saturation and Scaling
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-view-resources' %>
 
-<a id="id-instance-owner"></a><h3>Identify a Service Instance Owner</h3>
+### <a id="id-instance-owner"></a> Identify a Service Instance Owner
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-id-instance-owner' %>
 
-<a id="monitor-quota"></a><h3>Monitor the Quota Saturation and Service Instance Count</h3>
+### <a id="monitor-quota"></a> Monitor the Quota Saturation and Service Instance Count
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-monitor-quota' %>
 
-<a id="drop-restore-traffic"></a><h3>Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance</h3>
+### <a id="drop-restore-traffic"></a> Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance
 
 While debugging a RabbitMQ instance, you can prevent apps from
 sending and receiving messages, for example, to decrease the server load.
@@ -326,9 +276,9 @@ Alternatively, you can run these scripts on individual nodes:
 </ol>
 
 
-<a id="faq"></a><h2>Frequently Asked Questions</h2>
+## <a id="faq"></a> Frequently Asked Questions
 
-<a id="check-deploy"></a><h3>What should I check before deploying a new version of the tile?</h3>
+### <a id="check-deploy"></a> What should I check before deploying a new version of the tile?
 
 Ensure that all nodes in the cluster are healthy from the RabbitMQ Management UI,
 or health metrics exposed through Firehose.
@@ -336,7 +286,7 @@ You cannot rely solely on the BOSH <code>instances</code> output as that reflect
 of the Erlang VM used by RabbitMQ and not the RabbitMQ app.
 
 
-<a id="stopstart"></a><h3>What is the correct way to stop and start RabbitMQ in PCF?</h3>
+### <a id="stopstart"></a> What is the correct way to stop and start RabbitMQ in PCF?
 
 Only BOSH commands should be used by the operator to interact with the RabbitMQ app.
 <br><br>
@@ -352,7 +302,7 @@ You can also stop individual instances by running the stop command and specifyin
 <p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code>
     as this does not call the drain scripts</p>
 
-<a id="boshstop"></a><h3>What happens when I run bosh stop rabbitmq-server?</h3>
+### <a id="boshstop"></a> What happens when I run bosh stop rabbitmq-server?
 
 BOSH starts the shutdown sequence from the bootstrap instance.
 <br><br>
@@ -371,7 +321,7 @@ Once this completes on the bootstrap instance, BOSH continues the same
 sequence on the next instance. All remaining rabbitmq-server instances
 stop one by one.
 
-<a id="serverfailprocess"></a><h3>What happens when bosh stop rabbitmq-server fails?</h3>
+### <a id="serverfailprocess"></a> What happens when bosh stop rabbitmq-server fails?
 
 If the BOSH <code>stop</code> fails, you will likely get an error saying that the drain
 script failed with:
@@ -379,7 +329,7 @@ script failed with:
 <pre class="terminal">result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
 </pre>
 
-<a id="serverfailactions"></a><h3>What do I do when bosh stop rabbitmq-server fails?</h3>
+### <a id="serverfailactions"></a> What do I do when bosh stop rabbitmq-server fails?
 
 The drain script logs to <code>/var/vcap/sys/log/rabbitmq-server/drain.log</code>. If you
 have a remote syslog configured, this appears as the <code>rmq_server_drain</code>
@@ -394,20 +344,20 @@ Once rabbitmq-server job is running (confirm this with <code>monit status</code>
 <code>/var/vcap/jobs/rabbitmq-server/bin/drain</code>. This tells you exactly why it is
 failing.
 
-<a id="backup"></a><h3>How can I manually back up the state of the RabbitMQ cluster?</h3>
+### <a id="backup"></a> How can I manually back up the state of the RabbitMQ cluster?
 
 It is possible to back up the state of a RabbitMQ cluster for both the on-demand
 and pre-provisioned services using the RabbitMQ Management API.
 Backups include virtual hosts, exchanges, queues, and users.
 
-<h4>Back up Manually</h4>
+#### Back up Manually
 
 <ol>
     <li>Log in to the RabbitMQ Management UI as the admin user you created.</li>
     <li>Select <strong>export definitions</strong> from the main page.</li>
 </ol>
 
-<h4>Back up and Restore with a Script</h4>
+#### Back up and Restore with a Script
 
 Use the API to run scripts with code similar to the following:
 
@@ -429,7 +379,7 @@ curl -u "$USERNAME:$PASSWORD" "http://$RABBIT-ADDRESS:15672/api/definitions"
     </li>
 </ul>
 
-<a id="preupgrade"></a><h3>What pre-upgrade checks should I do?</h3>
+### <a id="preupgrade"></a> What pre-upgrade checks should I do?
 
 Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 <ol>
@@ -444,13 +394,13 @@ Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
     </li>
 </ol>
 
-<a id="kb"></a><h2>Knowledge Base (Community)</h2>
+## <a id="kb"></a> Knowledge Base (Community)
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-kb' %>
 
-<a id="support"></a><h2>File a Support Ticket</h2>
+## <a id="support"></a> File a Support Ticket
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
