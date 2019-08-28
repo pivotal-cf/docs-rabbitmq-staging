@@ -9,8 +9,9 @@ Pivotal recommends upgrading from the latest v1.15 release to the latest v1.17 r
 
 Pivotal discourages any other upgrade path that skips a release, such as v1.14 to v1.16, as they are untested.
 
-Because v1.17 contains a new version of Erlang, upgrading to v1.17 from any previous version requires a cluster
-shutdown. The service is unavailable while the cluster upgrades. After the final node upgrades, the cluster starts and the service is available again.
+Because v1.17 contains a new version of Erlang, upgrading to v1.17 from any previous version requires a
+cluster shutdown. The service is unavailable while the cluster upgrades. After the final node upgrades, the
+cluster starts and the service is available again.
 
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
@@ -161,7 +162,7 @@ This release has the following known issues:
 * Changing the Erlang Cookie value requires cluster downtime and can result in
 failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-* In contrast to other patches of 1.17, you can only upgrade to 1.17.0 from patches within version 1.16 and not from version 1.15. Please, consult Pivotal Network to ensure your upgrade path is supported.
+* You can only upgrade to v1.17.0 from a v1.16 patch. This is in contrast to other v1.17 patches, which you can upgrade to from any v1.15 patch, skipping v1.16.
 
 <%= partial './ki-management-ui' %>
 
