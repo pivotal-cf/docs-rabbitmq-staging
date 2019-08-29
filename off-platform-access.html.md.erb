@@ -41,7 +41,7 @@ Ensure that you review the pre-deployment steps required to enable this feature.
 
 1. In **Global Settings for On-Demand Plans**, fill in the following fields:
     - **External TCP domain**: Corresponding with the DNS entry for the external load balancer.
-    - **Port Range**: A valid range of ports for RabbitMQ service instances to use.
+    - **Port Range**: A valid range of ports for RabbitMQ service instances to use. (This should not overlap with the TCP Router port range entered in the PAS `Networking` tab.)
     Every service instance allocates a port for each plugin enabled.
     Therefore, ensure that the range has enough capacity to accommodate the desired number of service instances.
 
