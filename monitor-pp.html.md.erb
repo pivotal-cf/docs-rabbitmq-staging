@@ -32,7 +32,7 @@ RabbitMQ VM instances displayed in Ops Manager:
 
 RabbitMQ and HAProxy servers log at the <code>info</code> level and capture errors, warnings, and informational messages.
 
-<%= partial 'log-formats' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/log-formats' %>
 
 ## <a id="metrics"></a>Metrics
 
@@ -258,7 +258,7 @@ The following KPIs from the RabbitMQ server component:
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/odb/bosh_health_metrics_pcf2' %>
+<%= partial '../../rabbitmq-cf/partials/services/bosh_health_metrics_pcf2' %>
 
 All BOSH-deployed components generate the system health metrics below.
 These component metrics are from RabbitMQ for PCF components, and serve as KPIs for the RabbitMQ for PCF service.
