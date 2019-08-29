@@ -60,7 +60,7 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -128,7 +128,7 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -163,7 +163,7 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/odb/ki-pp-tcp-connections' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -185,7 +185,7 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -224,7 +224,7 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/odb/ki-pp-tcp-connections' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -252,7 +252,7 @@ However, if you stop the job, metrics will not be available.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -291,7 +291,7 @@ New features and changes in this release:
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/odb/ki-pp-tcp-connections' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -321,7 +321,7 @@ However, if you stop the job, metrics will not be available.
 
 * There are issues with the configuration of pre-provisioned RabbitMQ with external load balancers.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -361,7 +361,7 @@ For more information, see [Post-Deploy Errands](./install-config.html#post-deplo
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/odb/ki-pp-tcp-connections' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -391,7 +391,7 @@ However, if you stop the job, metrics will not be available.
 
 * There are issues with the configuration of pre-provisioned RabbitMQ with external load balancers.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -457,7 +457,7 @@ However, if you stop the job, metrics will not be available.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -524,7 +524,7 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -593,7 +593,7 @@ This release has the following known issues:
 * The maximum number of file descriptors is not set.
 Therefore, RabbitMQ instances use the default value from the operating system.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -664,7 +664,7 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -723,7 +723,7 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 
@@ -808,7 +808,7 @@ This release has the following known issues:
   `VCAP_SERVICES` for `amqp+ssl` incorrectly reports that the port is `5672`.
   The actual port used for `amqp+ssl` is `5671`.
 
-<%= partial 'ki-shareable-instances' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
 
 ### Packages
 

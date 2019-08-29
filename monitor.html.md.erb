@@ -86,7 +86,7 @@ With on-demand RabbitMQ for PCF logging configured, two types of components gene
 
 The RabbitMQ VMs log at the <code>info</code> level and capture errors, warnings, and informational messages.
 
-<%= partial 'log-formats' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/log-formats' %>
 
 ## <a id="metrics"></a>What Are Metrics
 
@@ -249,7 +249,9 @@ The following KPIs from the RabbitMQ server component:
 
 ### <a id="bosh"></a> BOSH System Health Metrics
 
-<%= partial '../../rabbitmq-cf/odb/bosh_health_metrics_pcf2' %>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial '../../rabbitmq-cf/partials/services/bosh_health_metrics_pcf2' %>
 
 All BOSH-deployed components generate the system health metrics below.
 These component metrics are from RabbitMQ for PCF components, and serve as KPIs for
