@@ -3,7 +3,7 @@ title: Troubleshooting On-Demand Instances
 owner: London Services
 ---
 
-<%= partial 'deprecation-notice' %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/deprecation-notice' %>
 
 This topic provides basic instructions for app developers troubleshooting on-demand RabbitMQ for PCF instances.
 
@@ -19,7 +19,9 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 
 ### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
 
-<%= partial '../../rabbitmq-cf/odb/tshoot-tech-parse-error' %>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-parse-error' %>
 
 ### <a id="instance"></a> Retrieve Service Instance Information
 
@@ -71,11 +73,15 @@ Getting key my-key for service instance my-rmq-instance as admin...
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
-<%= partial '../../rabbitmq-cf/odb/tshoot-kb' %>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-kb' %>
 
 ## <a id="support"></a>File a Support Ticket
 
-<%= partial '../../rabbitmq-cf/odb/tshoot-support-dev' %>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-support-dev' %>
 
 ## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instances
 
@@ -86,4 +92,3 @@ On-Demand Broker provides a BOSH command to delete all the On-Demand Broker depl
     <p class="note warning"><strong>WARNING: </strong>This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
 
     `bosh run-errand delete-sub-deployments`
-
