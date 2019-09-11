@@ -114,7 +114,8 @@ To create an instance of the on-demand RabbitMQ for PCF service, do the followin
 ## <a id='off-platform'></a> Create a Service Instance with Off-Platform Access
 
 If operators have enabled an off-platform plan, you can create a service instance
-that can connect to components outside the PCF foundation.
+that can connect to components outside the PCF foundation. Contact your operator if you are
+unsure which plans have been enabled for off-platform.
 For information about the architecture and use cases, see [Enabling Off Platform Access](./off-platform-access.html).
 
 To create a service instance that allows off-platform access:
@@ -122,7 +123,7 @@ To create a service instance that allows off-platform access:
 1. Create a service instance with the off-platform plan by running:
 
     ```
-    cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE
+    cf create-service p.rabbitmq OFF-PLATFORM-PLAN SERVICE-INSTANCE
     ```
 
 1. Obtain credentials by creating a service key:
