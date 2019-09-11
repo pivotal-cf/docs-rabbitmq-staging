@@ -27,7 +27,7 @@ To use on-demand RabbitMQ for PCF with your PCF apps, you need:
 
 For an app to use a service, the service must be available in the Marketplace for its space.
 
-Confirm this by following the steps below:
+To confirm this availability:
 
 1. Run `cf marketplace`.
 1. Check that `p.rabbitmq` is in the `service` column. If it is, on-demand RabbitMQ for PCF is available. If it is not, ask your operator to install it.
@@ -52,7 +52,7 @@ You can enable TLS and additional plugins using the `cf create-service` command.
 For instructions on how to modify the `cf create-service` command,
 see [Enable TLS for Your Service Instance](#tls) or [Enable Optional Plugins](#optional-plugins) below.
 
-To create an instance of the on-demand RabbitMQ for PCF service, do the following:
+To create an instance of the on-demand RabbitMQ for PCF service:
 
 1. Check to see if there is an existing service by running:
 
@@ -103,14 +103,14 @@ To create an instance of the on-demand RabbitMQ for PCF service, do the followin
        my-instance   p.rabbitmq     single-node                  create succeeded
     </pre>
 
-   If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html) for more information.
+   If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
 
 ## <a id="using-tls"></a> Use Transport Layer Security (TLS)
 
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
 For more information, see [Configure Security](./install-config.html#security).
 
-Use TLS to secure communication between your app and a RabbitMQ service instance by following these procedures:
+To use TLS to secure communication between your app and a RabbitMQ service instance:
 
 1. [Enable TLS for Your Service Instance](#tls)
 1. If your app is written in Java or Spring, follow the steps in the
@@ -124,7 +124,7 @@ If the operator has configured TLS to be optional, then follow the steps below t
 If the operator has configured TLS to be enforced, then all service instances have TLS enabled and it is not necessary to follow the steps below.
 For more information, see [Configure Security](./install-config.html#security).
 
-To configure TLS for your service instance, do the following:
+To configure TLS for your service instance:
 
 <p class="note"><strong>Note:</strong> If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
 
@@ -135,7 +135,7 @@ To configure TLS for your service instance, do the following:
         cf update-service MY-INSTANCE -c '{"tls": true}'
         ```
         Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
-  * If you have not yet created a RabbitMQ service instance, create one with TLS enabled by running:
+  * If you have not created a RabbitMQ service instance, create one with TLS enabled by running:
 
         ```
         cf create-service p.rabbitmq PLAN MY-INSTANCE -c '{"tls": true}'
@@ -164,7 +164,7 @@ To configure TLS for your service instance, do the following:
 
 ### <a id="tls-turn-off"></a> Disable TLS for Your Service Instance
 
-If the operator has configured TLS to be enforced, then all service instances will have TLS enabled and it is not possible to disable TLS.
+If the operator has configured TLS to be enforced, then all service instances have TLS enabled and it is not possible to disable TLS.
 If the operator has configured TLS to be optional or not configured, then follow the steps below to disable TLS on a service instance.
 For more information, see [Configure Security](./install-config.html#security).
 
@@ -175,7 +175,7 @@ For more information, see [Configure Security](./install-config.html#security).
         cf update-service MY-INSTANCE -c '{"tls": false}'
         ```
         Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
-  * If you have not yet created a RabbitMQ service instance,
+  * If you have not created a RabbitMQ service instance,
   run the following command to request a service instance with TLS disabled:
 
         ```
@@ -437,9 +437,9 @@ To share service instances, the feature-flag `service_instance_sharing` must be 
 
 ## <a id="federation"></a> Federate Exchanges and Queues
 
-You can federate exchanges and queues in RabbitMQ for PCF, as you would in any RabbitMQ deployment.
+You can federate exchanges and queues in RabbitMQ for PCF, just like in any other RabbitMQ deployment.
 
-To federate exchanges and queues, do the following:
+To federate exchanges and queues:
 
 1. Create a service key by following the instructions in [Create an Admin User for a Service Instance](./install-config.html#admin-service-key). The output of the above procedure returns admin user credentials, along with other data.
 
@@ -471,9 +471,9 @@ as seen in the below example.<br>
 
 ## <a id="shovel"></a> Shovel Exchanges and Queues
 
-You can shovel exchanges and queues in RabbitMQ for PCF, as you would in any RabbitMQ deployment.
+You can shovel exchanges and queues in RabbitMQ for PCF, just like in any other RabbitMQ deployment.
 
-To shovel exchanges and queues, do the following:
+To shovel exchanges and queues:
 
 1. Create a service key by following the instructions in [Create an Admin User for a Service Instance](./install-config.html#admin-service-key). The output of the above procedure returns admin user credentials, along with other data.
 
@@ -502,4 +502,4 @@ as seen in the example below.<br>
 1. Set up shovel as you normally would, using the RabbitMQ Management UI or API,
 with the URIs found in the `uris` array you got from the step above.<br><br>
 For shovel instructions, see the [RabbitMQ documentation](https://www.rabbitmq.com/shovel.html).
-At the moment, RabbitMQ for PCF only supports Dynamic Shovels.
+RabbitMQ for PCF currently only supports Dynamic Shovels.
