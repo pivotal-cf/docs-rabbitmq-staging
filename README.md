@@ -12,12 +12,12 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 | Branch Name| Use for… |
 |------------| ---------|
-| master     | 1.18 (staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html) |
-| 1.17       | 1.17 (http://docs.pivotal.io/rabbitmq-cf/1-17/) |
-| 1.16       | 1.16 (http://docs.pivotal.io/rabbitmq-cf/1-16/) |
-| 1.15-live  | 1.15 (http://docs.pivotal.io/rabbitmq-cf/1-15/) |
+| master     | v1.18 (staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html) |
+| 1.17       | v1.17 (http://docs.pivotal.io/rabbitmq-cf/1-17/) |
+| 1.16       | v1.16 (http://docs.pivotal.io/rabbitmq-cf/1-16/) |
+| 1.15-live  | v1.15 (http://docs.pivotal.io/rabbitmq-cf/1-15/) |
 | 1.14-live  | v1.14 (http://docs.pivotal.io/rabbitmq-cf/1-14/)|
-| 1.13-live  | v1.13 (http://docs.pivotal.io/rabbitmq-cf/1-13/)|
+| 1.13-live  | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-13/)|
 | 1.12-live  | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.12.pdf)|
 | 1.11-live  | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.11.pdf)|
 | 1.10-live  | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.10.pdf)|
