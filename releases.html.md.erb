@@ -24,6 +24,52 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1-15-13"></a> v1.15.13
+
+**Release Date**: September 25, 2019
+
+### Security Fixes
+
+This release includes the following security fixes:
+
+* Critical [CVE-2019-9512: Some HTTP/2 implementations are vulnerable to ping floods, potentially leading to a denial of service. The attacker sends continual pings to an HTTP/2 peer, causing the peer to build an internal queue of responses. Depending on how efficiently this data is queued, this can consume excess CPU, memory, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9512)
+* Critical [CVE-2019-9514: Some HTTP/2 implementations are vulnerable to a reset flood, potentially leading to a denial of service. The attacker opens a number of streams and sends an invalid request over each stream that should solicit a stream of RST_STREAM frames from the peer. Depending on how the peer queues the RST_STREAM frames, this can consume excess memory, CPU, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9514)
+* Critical [CVE-2019-9515: Some HTTP/2 implementations are vulnerable to a settings flood, potentially leading to a denial of service. The attacker sends a stream of SETTINGS frames to the peer. Since the RFC requires that the peer reply with one acknowledgement per SETTINGS frame, an empty SETTINGS frame is almost equivalent in behavior to a ping. Depending on how efficiently this data is queued, this can consume excess CPU, memory, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9515)
+* A RabbitMQ vulnerability which is TBA, see https://www.rabbitmq.com/changelog.html for further details
+
+### Known Issues
+
+This release has the following known issues:
+
+* **[Security Issue]** The method for generating the Erlang cookie is not secure.
+  For more information about this security issue, see
+    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
+  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
+  field blank, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue).
+  * If you have set the Erlang cookie explicitly in the tile configuration,
+  you are not affected by this issue.
+
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
+
+    For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
+[Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+* Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+
+    For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
+* When errand run rules are set to **When Changed**, Ops Manager might not run the errands when the tile has relevant changes.
+  * For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
+  * Pivotal recommends leaving the default run rule set to **On**.
+
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+
+### Packages
+
+* OSS RabbitMQ v3.7.18 - [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18)
+* Erlang v20.3.8.22
+* HAProxy v1.8.21
+
 ## <a id="1-15-12"></a> v1.15.12
 
 **Release Date**: August 27, 2019
