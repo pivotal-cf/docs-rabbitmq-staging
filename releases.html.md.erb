@@ -27,6 +27,127 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1-16-6"></a> v1.16.6
+
+**Release Date**: September 25, 2019
+
+### Security Fixes
+
+This release includes the following security fixes:
+
+* Critical [CVE-2019-9512](https://nvd.nist.gov/vuln/detail/CVE-2019-9512):
+Some HTTP/2 implementations are vulnerable to ping floods, potentially leading to a denial of service.
+The attacker sends continual pings to an HTTP/2 peer, causing the peer to build an internal queue of responses.
+Depending on how efficiently this data is queued, this can consume excess CPU, memory, or both.
+
+* Critical [CVE-2019-9514](https://nvd.nist.gov/vuln/detail/CVE-2019-9514):
+Some HTTP/2 implementations are vulnerable to a reset flood, potentially leading to a denial of service.
+The attacker opens a number of streams and sends an invalid request over each stream
+that should solicit a stream of RST\_STREAM frames from the peer.
+Depending on how the peer queues the RST\_STREAM frames, this can consume excess memory, CPU, or both.
+
+* Critical [CVE-2019-9515](https://nvd.nist.gov/vuln/detail/CVE-2019-9515):
+Some HTTP/2 implementations are vulnerable to a settings flood, potentially leading to a denial of service.
+The attacker sends a stream of SETTINGS frames to the peer. Since the RFC requires
+that the peer reply with one acknowledgement per SETTINGS frame, an empty SETTINGS
+frame is almost equivalent in behavior to a ping. Depending on how efficiently this
+data is queued, this can consume excess CPU, memory, or both.
+
+* The update to OSS RabbitMQ v3.7.18 includes a security fix.
+For more information about RabbitMQ v3.7.18, see the [RabbitMQ Changelog](https://www.rabbitmq.com/changelog.html).
+
+### Features
+
+New features and changes in this release:
+
+* This release updates the following dependencies:
+	* OSS RabbitMQ to v3.7.18
+	* Erlang to v20.3.8.22
+	* HAProxy to v1.8.21
+
+### Known Issues
+
+This release has the following known issues:
+
+* Changing the Erlang Cookie value requires cluster downtime, and can result in
+failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th>Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>170.x</td>
+    </tr>
+    <tr>
+        <td>PCF</td>
+        <td>v2.4.x, v2.5.x, and v2.6.x</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a></td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>20.3.8.22</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.21</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.1.3</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.1</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.33.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>18.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>97.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>57.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.21.1</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.188.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.4.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>34.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>274.0.0</td>
+    </tr>
+</table>
+
 ## <a id="1-16-5"></a> v1.16.5
 
 **Release Date**: August 27, 2019
