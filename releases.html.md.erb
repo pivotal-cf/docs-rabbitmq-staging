@@ -33,20 +33,17 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 This release includes the following security fixes:
 
 * Critical [CVE-2019-9512: Some HTTP/2 implementations are vulnerable to ping floods, potentially leading to a denial of service. The attacker sends continual pings to an HTTP/2 peer, causing the peer to build an internal queue of responses. Depending on how efficiently this data is queued, this can consume excess CPU, memory, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9512)
-* Critical [CVE-2019-9514: Some HTTP/2 implementations are vulnerable to a reset flood, potentially leading to a denial of service. The attacker opens a number of streams and sends an invalid request over each stream that should solicit a stream of RST_STREAM frames from the peer. Depending on how the peer queues the RST_STREAM frames, this can consume excess memory, CPU, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9514)
+* Critical [CVE-2019-9514: Some HTTP/2 implementations are vulnerable to a reset flood, potentially leading to a denial of service. The attacker opens a number of streams and sends an invalid request over each stream that should solicit a stream of RST\_STREAM frames from the peer. Depending on how the peer queues the RST\_STREAM frames, this can consume excess memory, CPU, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9514)
 * Critical [CVE-2019-9515: Some HTTP/2 implementations are vulnerable to a settings flood, potentially leading to a denial of service. The attacker sends a stream of SETTINGS frames to the peer. Since the RFC requires that the peer reply with one acknowledgement per SETTINGS frame, an empty SETTINGS frame is almost equivalent in behavior to a ping. Depending on how efficiently this data is queued, this can consume excess CPU, memory, or both.](https://nvd.nist.gov/vuln/detail/CVE-2019-9515)
-* A RabbitMQ vulnerability that is to be announced. For more information, see [the RabbitMQ documentation](https://www.rabbitmq.com/changelog.html).
+* A RabbitMQ vulnerability that is yet to be announced. For more information, see [the RabbitMQ documentation](https://www.rabbitmq.com/changelog.html).
 
 ### Known Issues
 
 This release has the following known issues:
 
-* **Security Issue**: The method for generating the Erlang cookie is not secure.
-  For more information, see
-    <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
-  * If you rely on the tile to generate the cookie by leaving the Erlang cookie
-  field blank, the tile generates the cookie in a way that can be reverse-engineered.
-  For more information, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue). If you have set the Erlang cookie explicitly in the tile configuration, this issue does not apply.
+* High: <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.<br>
+If you rely on the tile to generate the cookie by leaving the Erlang cookie field blank, the tile generates the cookie in a way that can be reverse-engineered.<br>
+For more information, see [Security Issue with the Tile Generated Erlang Cookie](./install-config-pp.html#erlang-security-issue). If you have set the Erlang cookie explicitly in the tile configuration, this issue does not apply.
 
 * Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value requires cluster downtime, and can result in failed deployments.
 For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and
@@ -62,7 +59,7 @@ For more information, see [Managing Errands in Ops Manager](https://docs.pivotal
 
 ### Packages
 
-* OSS RabbitMQ v3.7.18 - [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18)
+* OSS RabbitMQ v3.7.18 ⁠— [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18)
 * Erlang v20.3.8.22
 * HAProxy v1.8.21
 
@@ -105,7 +102,7 @@ This release has the following known issues:
 
 ### Packages
 
-* OSS RabbitMQ v3.7.14 - [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
+* OSS RabbitMQ v3.7.14 ⁠— [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
 * Erlang v20.3.8.21
 * HAProxy v1.8.20
 
@@ -151,7 +148,7 @@ This release has the following known issues:
 
 ### Packages
 
-* OSS RabbitMQ v3.7.14 - [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
+* OSS RabbitMQ v3.7.14 ⁠— [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
 * Erlang v20.3.8.21
 * HAProxy v1.8.20
 
@@ -220,7 +217,7 @@ This release has the following known issues:
 
 ### Packages
 
-* OSS RabbitMQ v3.7.14 - [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
+* OSS RabbitMQ v3.7.14 ⁠— [Release notes](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14)
 * Erlang v20.3.8.20
 * HAProxy v1.8.19
 
@@ -270,7 +267,7 @@ This release has the following known issues:
 * Erlang v20.3.8.20
 * HAProxy v1.8.19
 
-## <a id="1-15-8"></a> v1.15.8 - Withdrawn
+## <a id="1-15-8"></a> v1.15.8 ⁠— Withdrawn
 
 **Release Date**: May 3, 2019
 
