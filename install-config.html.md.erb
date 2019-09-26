@@ -107,14 +107,12 @@ Follow the steps below to configure global settings.
 1. Click the **Global Settings for On-Demand Plans** tab.
   ![Global Settings Tab](images/global-settings.png)
 1. Configure the following:
-<br><br>
-  * **Service instance quota**  min: 0, max: 200  set the total number of on-demand service instances which can be deployed.
+  * **Service instance quota**: Set the total number of on-demand service instances which can be deployed. Min: 0, max: 200.
 For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
 <br><br>
   * **VM options**:
-  <br><br>
-       **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
-         <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS administrator to ensure that your IaaS allows outbound traffic to the external networks you need.</p>
+      * **Allow outbound internet access (IaaS-dependent)**. Select this checkbox to enable external log forwarding, send backup artifacts to external destinations, or communicate with an external BOSH blobstore.
+        <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS admin to ensure that your IaaS permits outbound traffic to the external networks you need.</p>
   * **Shareable Instances**: Click **Yes** to enable the feature for sharing instances.<br>
   Sharing a service instance between spaces, allows apps in different spaces to share databases,
   messaging queues, and many other types of services. For more information,
