@@ -1,9 +1,9 @@
 ---
-title: Upgrading RabbitMQ for PCF
+title: Upgrading RabbitMQ for Pivotal Platform
 owner: London Services
 ---
 
-RabbitMQ for PCF enables automated upgrades between versions of the product.
+<%= vars.product_name %> enables automated upgrades between versions of the product.
 In some versions, you might be required to take the RabbitMQ cluster offline.
 Whenever this is necessary, it is noted in the release notes for those versions.
 
@@ -19,7 +19,7 @@ downtime during upgrades.
 
 ### <a id="downtime"></a> Downtime When Upgrading to v1.17
 
-Upgrading to RabbitMQ for PCF v1.17.0 causes app downtime.
+Upgrading to <%= vars.product_name %> v1.17.0 causes app downtime.
 This is because the RabbitMQ cluster goes offline while each node upgrades to Erlang v21. After the final
 node upgrades, the cluster starts and the service is available again.
 
@@ -79,7 +79,7 @@ Always check the release notes for the version you are upgrading to.</p>
 
 ### <a id="general"></a> General Notes About the Upgrade Process
 
-The following notes about the upgrade process apply to upgrading to any version of RabbitMQ for PCF.
+The following notes about the upgrade process apply to upgrading to any version of <%= vars.product_name %>.
 
 * Upgrading to a newer version of the product does not cause any loss of data or
 configuration.
@@ -108,11 +108,11 @@ configuration changes are applied automatically.
 
 <%= partial '../../rabbitmq-cf/partials/services/release-policy' %>
 
-Starting with RabbitMQ for PCF v1.14.0, the RabbitMQ tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
+Starting with <%= vars.product_name %> v1.14.0, the RabbitMQ tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
 This means that the tile can be updated to use the latest minor version of a stemcell,
-without the need to download a new RabbitMQ for PCF patch release from Pivnet.
+without the need to download a new <%= vars.product_name %> patch release from Pivnet.
 
-## <a id="upgrade"></a> Upgrade RabbitMQ for PCF
+## <a id="upgrade"></a> Upgrade <%= vars.product_name %>
 
 To upgrade the product, follow these steps:
 

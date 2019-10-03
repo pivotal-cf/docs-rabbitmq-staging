@@ -9,7 +9,7 @@ The topic also includes the procedure
 for providing an existing CA certificate to BOSH CredHub, or generating a new CA
 certificate with BOSH CredHub.
 
-<p class="note"><strong>Note</strong>: To enable TLS for RabbitMQ for PCF,
+<p class="note"><strong>Note</strong>: To enable TLS for <%= vars.product_name %>,
 	you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a>
     below <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles.
     If you have already performed this procedure you do not need to repeat it.
@@ -45,7 +45,7 @@ The following workflow is required to enable TLS and to allow developers to use 
 <ol>
 <li>An operator provides a CA certificate to CredHub by completing the procedures
     in <a href="#provide-generate-pcf">Provide or Generate a CA Certificate</a> below.</li>
-<li>An operator enables TLS in the tile configuration while installing RabbitMQ for PCF.
+<li>An operator enables TLS in the tile configuration while installing <%= vars.product_name %>.
     See <a href="install-config.html#security">Configure Security</a>.</li>
 <li>A developer enables TLS for an existing service instance.
     See <a href="use.html#tls">Enable TLS for Your Service Instance</a>.</li>
@@ -260,8 +260,8 @@ Click **Security**.
     Make sure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>.
     This errand must be run to ensure all service instances have the needed changes. </p>
     * **For a New Installation**: Complete the procedures in
-    [Installing and Configuring RabbitMQ for PCF](install-config.html),
+    [Installing and Configuring <%= vars.product_name %>](install-config.html),
     including enabling TLS in the **Security for On-Demand Plans** tab,
     click **Review Pending Changes**, and then click **Apply Changes**
     in the Installation Dashboard.
-    This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
+    This deploys <%= vars.product_name %>, restarts all the VMs in your PCF deployment, and applies your CA certificate.

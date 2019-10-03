@@ -1,10 +1,10 @@
 ---
-title: Troubleshooting and FAQs for <br>On-Demand RabbitMQ for PCF
+title: Troubleshooting and FAQs for <br>On-Demand RabbitMQ for Pivotal Platform
 owner: London Services Enablement
 ---
 
 This topic provides operators with basic troubleshooting techniques and FAQs for
-on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
+on-demand <%= vars.product_name %>.
 
 ## <a id="guid"></a> How to Retrieve a Service Instance GUID
 
@@ -71,9 +71,9 @@ Start here if you are responding to a specific error or error messages.
 ### <a id="failed-deployment"></a> Failed Deployment on Upgrade or after Apply Changes
 
 If the deployment fails after editing the <strong>Assign AZs and Networks</strong>
-pane of the RabbitMQ for PCF tile,
+pane of the <%= vars.product_name %> tile,
 it might be due to a change to the IP addresses assigned to the <code>RabbitMQ Server</code> job.
-RabbitMQ for PCF requires that these IP addresses do not change once assigned.
+<%= vars.product_name %> requires that these IP addresses do not change once assigned.
 If you change them, the deployment fails.
 This includes changes made to your current installation or during an upgrade.
 

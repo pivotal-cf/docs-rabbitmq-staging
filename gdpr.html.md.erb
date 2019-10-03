@@ -1,20 +1,20 @@
 ---
-title: RabbitMQ for PCF and Data Protection
+title: RabbitMQ for Pivotal Platform and Data Protection
 owner: London Services
 ---
 
-This topic provides information for RabbitMQ for PCF operators to help with
+This topic provides information for <%= vars.product_name %> operators to help with
 compliance with the General Data Protection Regulation (GDPR).
 For more information about GDPR and personal data in PCF, see
 [General Data Protection Regulation](https://docs.pivotal.io/pivotalcf/opsguide/gdpr.html).
 
-The topic describes locations where RabbitMQ for PCF might store personal data, and
+The topic describes locations where <%= vars.product_name %> might store personal data, and
 actions you can take to control this data.
 
-## <a id="personal-data"></a> Personal Data in RabbitMQ for PCF
+## <a id="personal-data"></a> Personal Data in <%= vars.product_name %>
 
 Pivotal recommends that you strictly control personally identifiable information
-used to interact with RabbitMQ for PCF.
+used to interact with <%= vars.product_name %>.
 This information might be stored in the following locations:
 
 * [Queues](#queues)
@@ -29,8 +29,8 @@ You should also control access to your RabbitMQ servers, RabbitMQ management com
 
 ## <a id="queues"></a> Queues
 
-RabbitMQ for PCF does not know if any message contains personally identifiable information.
-If you use RabbitMQ for PCF to send personally identifiable information,
+<%= vars.product_name %> does not know if any message contains personally identifiable information.
+If you use <%= vars.product_name %> to send personally identifiable information,
 you should take appropriate safeguards to protect that information.
 
 RabbitMQ stores messages, including message headers, in memory and on disk until they are consumed.
@@ -47,7 +47,7 @@ The following are actions you can take to comply with the GDPR:
 
 ### <a id="haproxy-logs"></a> HAProxy Logs
 
-RabbitMQ for PCF uses HAProxy as a load balancer for the pre-provisioned service.
+<%= vars.product_name %> uses HAProxy as a load balancer for the pre-provisioned service.
 The log may contain IP addresses.
 These are contained in the file `/var/vcap/sys/log/rabbitmq-haproxy/haproxy.log` on an haproxy VM.
 

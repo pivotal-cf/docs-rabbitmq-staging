@@ -1,4 +1,4 @@
-# RabbitMQ for Pivotal CF docs
+# RabbitMQ for Pivotal Platform docs
 
 ## Branches in this Content Repo
 
@@ -51,7 +51,7 @@ versions will be accessible on the [staging website][docs-staging].
 
 ### Style Sheet
 
-Use this section to specify spelling of special words for RabbitMQ for PCF:
+Use this section to specify spelling of special words for RabbitMQ for Pivotal Platform:
 
 + on-demand plan
 + shared-VM plan
@@ -74,7 +74,7 @@ If the documentation is meant to be target several released versions, then you'l
 
 ### Partials
 
-Cross-product partials for **RabbitMQ for Pivotal CF** are single sourced from the [PCF Docs Partials](https://github.com/pivotal-cf/docs-partials) repo.
+Cross-product partials for **RabbitMQ for Pivotal Platform** are single sourced from the [PCF Docs Partials](https://github.com/pivotal-cf/docs-partials) repo.
 
 Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repo.
 

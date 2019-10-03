@@ -4,7 +4,7 @@ owner: RabbitMQ
 ---
 
 This topic describes how to configure an on-demand plan that allows off-platform
-access for RabbitMQ for PCF service instances.
+access for <%= vars.product_name %> service instances.
 Off-platform access enables a RabbitMQ service instance to connect to components
 that are either on another PCF foundation or not on a PCF foundation.
 
@@ -16,7 +16,7 @@ There are multiple use cases for off-platform RabbitMQ access, for example:
 - Replicating messages between RabbitMQ clusters in different PCF foundations,
 for example, to set up federation for disaster recovery
 - Enabling legacy apps to communicate with PAS-deployed apps through RabbitMQ
-- Using RabbitMQ for PCF as a way to deploy and manage RabbitMQ for apps
+- Using <%= vars.product_name %> as a way to deploy and manage RabbitMQ for apps
 that are not deployed to PAS
 
 ## <a id='architecture'></a> Architecture

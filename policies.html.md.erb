@@ -1,5 +1,5 @@
 ---
-breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
+breadcrumb: RabbitMQ for Pivotal Platform Documentation
 title: Setting Default Policies for the RabbitMQ Service
 owner: London Services
 ---
@@ -8,14 +8,14 @@ owner: London Services
 
 ## <a id="policy"></a> About RabbitMQ Policies
 
-You can set a default queue and an exchange policy in the RabbitMQ for Pivotal Cloud Foundry (PCF) tile to be applied to the RabbitMQ cluster.
+You can set a default queue and an exchange policy in the <%= vars.product_name %> tile to be applied to the RabbitMQ cluster.
 After you deploy the tile, Pivotal recommends that you use the RabbitMQ Management Interface to make configuration changes.
 
 For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
 
 ## <a id="rules"></a> Rules for Policies Set in the Tile
 
-The following rules apply to polices set through the RabbitMQ for PCF tile:
+The following rules apply to polices set through the <%= vars.product_name %> tile:
 
 * A new policy, or an update to a policy, only applies to new instances (vhosts).
 Existing instances are not affected by the policy.
@@ -67,7 +67,7 @@ follower is created.
 
 To set the RabbitMQ policy, do the following:
 
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ for PCF tile and then click the **Pre-Provisioned RabbitMQ** tab.
+1. From the Ops Manager Installation Dashboard, click the <%= vars.product_name %> tile and then click the **Pre-Provisioned RabbitMQ** tab.
 
 	<%= image_tag("images/policy_opsman.png") %>
 
@@ -84,7 +84,7 @@ To set the RabbitMQ policy, do the following:
 ## <a id="dashboard"></a> Viewing Policies in the RabbitMQ Management UI
 
 You can view RabbitMQ policies in the RabbitMQ Management UI, shown below.
-The example policy entered in the RabbitMQ for PCF tile above is applied to all queues and given a **Priority** of **50**.
+The example policy entered in the <%= vars.product_name %> tile above is applied to all queues and given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
 <%= image_tag("images/policy_config.jpeg") %>

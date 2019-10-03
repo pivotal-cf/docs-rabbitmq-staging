@@ -4,7 +4,7 @@ owner: London Services
 ---
 
 This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install,
-configure, and deploy the RabbitMQ for PCF tile to provide a pre-provisioned service.
+configure, and deploy the <%= vars.product_name %> tile to provide a pre-provisioned service.
 
 The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
@@ -29,15 +29,15 @@ For more information about roles in Ops Manager, see
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF.
+3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_name %>.
 This adds the tile to your staging area.
 
-4. Click the newly added **RabbitMQ for PCF** tile.
+4. Click the newly added **<%= vars.product_name %>** tile.
 This lets you begin configuring the tile. The installation is complete when you apply the changes from the configuration.
 
-## <a id="tile_configurations"></a>Configure Pre-Provisioned RabbitMQ for PCF
+## <a id="tile_configurations"></a>Configure Pre-Provisioned <%= vars.product_name %>
 
-The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager.
+The configuration screen below appears when you click the <%= vars.product_name %> tile in Ops Manager.
 An orange circle beside a tab indicates that you must complete a configuration in the tab.
 A green check mark indicates that the tab is preconfigured and you are able to change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
@@ -127,12 +127,12 @@ If you leave this field blank, BOSH CredHub generates a secure Erlang cookie.
 
 #### <a id="security-fix"></a> Erlang Cookie Security Fix
 
-In RabbitMQ for PCF v1.15 and earlier, if you left the Erlang cookie field blank,
+In <%= vars.product_name %> v1.15 and earlier, if you left the Erlang cookie field blank,
 the tile generated the cookie in a way that could be reverse-engineered.
 For more information about this security issue, see
 [CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie](https://pivotal.io/security/cve-2018-1279).
 
-In RabbitMQ for PCF v1.16, BOSH CredHub securely generates the Erlang cookie when
+In <%= vars.product_name %> v1.16, BOSH CredHub securely generates the Erlang cookie when
 the field is left blank.
 If you rely on the tile to generate the Erlang cookie by leaving the field blank,
 do one of the following:
@@ -165,7 +165,7 @@ For more information, see <a href="./install-config-pp.html#security-fix">Erlang
 above.</p>
 
 If you rely on the tile to generate the Erlang cookie but need to upgrade to
-RabbitMQ for PCF v1.16 without a cluster shutdown, you can
+<%= vars.product_name %> v1.16 without a cluster shutdown, you can
 set the Erlang cookie to its existing value by following the steps below:
 
 1. Follow the steps in the following link, up to and including the section _Log in to the BOSH Director_:
@@ -410,13 +410,13 @@ To specify static IP addresses, do the following:
 
 ## <a id="syslog"></a>Configure Syslog Forwarding and Metrics Polling Interval
 
-To enable monitoring for RabbitMQ for PCF, operators forward the syslog by designating
+To enable monitoring for <%= vars.product_name %>, operators forward the syslog by designating
 an external syslog endpoint for RabbitMQ component log messages.
 This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 The metrics polling interval determines how often metrics are collected.
 
-To specify the destination for RabbitMQ for PCF log messages, do the following:
+To specify the destination for <%= vars.product_name %> log messages, do the following:
 
 1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
 1. In the RabbitMQ tile, click the **Settings** tab. ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
@@ -500,7 +500,7 @@ For information about configuring the on-demand service, see [Installing and Con
 
 (Optional) In the **Errands** tab, choose the defaults for when errands run.
 
-Errands can be thought of as tasks. For example, when deploying or updating RabbitMQ for PCF,
+Errands can be thought of as tasks. For example, when deploying or updating <%= vars.product_name %>,
 Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
@@ -509,14 +509,14 @@ You can toggle errands on and off on the Ops Manager **Review Pending Changes** 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
 This is a one-time action before an update.
-You can change these defaults by clicking **Errands** in the RabbitMQ for PCF
+You can change these defaults by clicking **Errands** in the <%= vars.product_name %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 <p class='note warning'><strong>Warning:</strong>
-  In RabbitMQ for PCF v1.9.0 and later, post-deploy errands are on by default
+  In <%= vars.product_name %> v1.9.0 and later, post-deploy errands are on by default
   except the Recreate All Service Instances errand.
   Pivotal recommends keeping these defaults, because the smoke tests can encounter
-  unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind
+  unexpected issues, and on-demand instances of <%= vars.product_name %> might fall behind
   if the Upgrade All Service Instances errand is not on by default.</p>
 
 
@@ -602,7 +602,7 @@ To verify that you have the correct stemcell, follow the procedure in
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
-1. Click **Apply Changes** to complete the installation of RabbitMQ for PCF.
+1. Click **Apply Changes** to complete the installation of <%= vars.product_name %>.
 
 ## <a id="other"></a> Other Configuration Topics
 
@@ -704,7 +704,7 @@ Create an ASG named `rabbitmq-app-containers` with the above configuration and b
 
 ### <a id="assigned_ips"></a> Assigned IPs
 
-RabbitMQ for PCF does not support changing the IP addresses which have been assigned to the RabbitMQ deployments.
+<%= vars.product_name %> does not support changing the IP addresses which have been assigned to the RabbitMQ deployments.
 For example, you cannot change the subnet into which the RabbitMQ cluster was originally provisioned.
 Doing so causes the deployment to fail.
 For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).

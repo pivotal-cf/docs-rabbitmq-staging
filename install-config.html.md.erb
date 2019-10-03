@@ -4,14 +4,14 @@ owner: London Services
 ---
 
 This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about
-how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service.
+how to install, configure, and deploy the <%= vars.product_name %> tile to provide on-demand service.
 
 The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
 see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
 
 <div class="note"><strong>Notes:</strong> <br><br><ul><li>For how to install and
-  configure the RabbitMQ for PCF pre-provisioned service,
+  configure the <%= vars.product_name %> pre-provisioned service,
   see <a href="./install-config-pp.html">Installing and Configuring the Pre-Provisioned Service.</a></li>
   <li>For how to turn off the pre-provisioned service,
     see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</li></ul>
@@ -30,7 +30,7 @@ For more information about roles in Ops Manager, see
 
 ## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
 
-Before deploying RabbitMQ for PCF as an on-demand service, ensure the following:
+Before deploying <%= vars.product_name %> as an on-demand service, ensure the following:
 
 *  <strong>Networking:</strong> You must ensure that the required network rules are in place to allow various components to communicate.
 See [Required Networking Rules for On-Demand Services](about.html#network-rules)
@@ -39,20 +39,20 @@ for details on the network connections that must be open to enable the on-demand
 * <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ service instances,
 you must complete the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile.
 
-## <a id="install"></a> Download and Install RabbitMQ for PCF
+## <a id="install"></a> Download and Install <%= vars.product_name %>
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
+3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_name %>. This adds the tile to your staging area.
 
-4. Click the newly added **RabbitMQ for PCF** tile.
+4. Click the newly added **<%= vars.product_name %>** tile.
 This lets you begin configuring the tile. The installation is complete when you apply the changes from the configuration.
 
-## <a id="tile_configurations"></a> Configure On-Demand RabbitMQ for PCF
+## <a id="tile_configurations"></a> Configure On-Demand <%= vars.product_name %>
 
-The configuration screen below appears when you click the RabbitMQ for PCF tile in Ops Manager.
+The configuration screen below appears when you click the <%= vars.product_name %> tile in Ops Manager.
 An orange circle beside a tab indicates that you must complete a configuration in the tab.
 A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
@@ -73,7 +73,7 @@ An orange circle indicates that you are required to configure fields on the tab 
      <tr><td><strong>Place singleton jobs in</strong></td>
          <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
      <tr><td><strong>Balance other jobs in</strong></td>
-         <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
+         <td>Select additional region. This selection does not affect the on-demand <%= vars.product_name %> service.</td></tr>
      <tr><td><strong>Network</strong></td>
          <td>Select a network for the RabbitMQ On-Demand Broker.<br><br>
              This should be a separate network from the one you select for <strong>Service Network</strong>.
@@ -96,7 +96,7 @@ An orange circle indicates that you are required to configure fields on the tab 
 
 ### <a id='logging'></a>Configure Logging and Monitoring
 
-Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF.
+Pivotal recommends that you configure logging to monitor the health of <%= vars.product_name %>.
 Follow the instructions in [Set Up Syslog Forwarding and Metrics Polling Interval](./monitor.html#config).
 
 
@@ -141,7 +141,7 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
 
 ### <a id="security"></a> Configure Security
 
-RabbitMQ for PCF lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances.
+<%= vars.product_name %> lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances.
 
 To configure the TLS settings, do the following:
 
@@ -332,11 +332,11 @@ Your installation is not complete until you apply your configuration changes. Fo
 For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
-1. Click **Apply Changes** to complete the installation of RabbitMQ for PCF.
+1. Click **Apply Changes** to complete the installation of <%= vars.product_name %>.
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a
+When deploying or updating <%= vars.product_name %>, Ops Manager can optionally run a
 series of [Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
 An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ
 cluster after a deploy or upgrade.
@@ -345,18 +345,18 @@ You can toggle errands on and off on the **Review Pending Changes** page.
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
-<p class='note warning'><strong>Warning:</strong> In RabbitMQ for PCF v1.9.0 and later,
+<p class='note warning'><strong>Warning:</strong> In <%= vars.product_name %> v1.9.0 and later,
   post-deploy errands are on by default except for the Recreate All Service Instances errand.
   Pivotal recommends keeping these defaults, because the smoke tests can encounter
-  unexpected issues, and on-demand instances of RabbitMQ for PCF might fall behind
+  unexpected issues, and on-demand instances of <%= vars.product_name %> might fall behind
   if the Upgrade All Service Instances errand is not on by default.</p>
 
-You can change these defaults by clicking **Errands** in the RabbitMQ for PCF
+You can change these defaults by clicking **Errands** in the <%= vars.product_name %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
 
-RabbitMQ for PCF errands are co-located with their brokers to decrease errand run time and VM footprint.
+<%= vars.product_name %> errands are co-located with their brokers to decrease errand run time and VM footprint.
 In earlier releases, a new VM was deployed for each errand.
 For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
@@ -466,7 +466,7 @@ To create an admin user on a RabbitMQ instance do the following:
 
 ## <a id="server-plugins"></a> RabbitMQ Server Plugins
 
-RabbitMQ for PCF supports a subset of available RabbitMQ plugins.
+<%= vars.product_name %> supports a subset of available RabbitMQ plugins.
 See the sections below for which plugins are supported, and whether they are
 enabled or disabled by default.
 
