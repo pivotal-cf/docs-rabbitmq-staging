@@ -3,7 +3,7 @@ title: Installing and Configuring the <br>On-Demand Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about
+This topic provides instructions to <%= vars.platform_name %> operators about
 how to install, configure, and deploy the <%= vars.product_name %> tile to provide on-demand service.
 
 The RabbitMQ open source product provides additional documentation.
@@ -71,7 +71,7 @@ An orange circle indicates that you are required to configure fields on the tab 
    <table>
      <tr><th>Field</th><th>Instructions</th></tr>
      <tr><td><strong>Place singleton jobs in</strong></td>
-         <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
+         <td>Select the region that you want for singleton VMs. <%= vars.platform_name %> creates the RabbitMQ broker in this AZ.</td></tr>
      <tr><td><strong>Balance other jobs in</strong></td>
          <td>Select additional region. This selection does not affect the on-demand <%= vars.product_name %> service.</td></tr>
      <tr><td><strong>Network</strong></td>
@@ -134,7 +134,7 @@ For more information, see [Setting Limits for On-Demand Service Instances](./set
   * **Maximum number of instances upgraded in parallel**: Set the limit for the
   number of instances on which to simultaneously run the "upgrade all service instances" errand or the "recreate all service instances" errand.
   The number of available BOSH workers limits the number of simultaneous runs.
-  See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a> in the Cloud Foundry BOSH documentation.
+  See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a> in the BOSH documentation.
   Set the value lower than this limit to avoid over-saturating BOSH.
 
 1. Click **Save**.
@@ -258,7 +258,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 #### <a id="resources"></a> RabbitMQ VM Types and Persistent Disk Size
 
 The **RabbitMQ VM Type** and **Persistent disk type** are required fields on the service plan configuration pages.
-If you are installing on PCF v2.0 or later, these properties are pre-configured by default.
+If you are installing on <%= vars.platform_name %>, these properties are pre-configured by default.
 
 <%= image_tag("images/vm-ram-disk-example.png", :width => "400") %>
 
@@ -372,7 +372,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   <tr>
     <td><strong>Pre-Provisioned Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to
-      a Cloud Foundry app, and that the app can publish and subscribe to a RabbitMQ cluster.
+      a <%= vars.platform_name %> app, and that the app can publish and subscribe to a RabbitMQ cluster.
     See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
   <tr>
@@ -381,7 +381,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   </tr>
   <tr>
     <td><strong>On Demand Instance Smoke Tests</strong></td>
-    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can publish and subscribe to a RabbitMQ cluster.
+    <td>Checks that on-demand RabbitMQ service instances can be bound to a <%= vars.platform_name %> app, and that the app can publish and subscribe to a RabbitMQ cluster.
     Smoke tests only run against Plan 1. See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
   <tr>

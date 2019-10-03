@@ -6,14 +6,14 @@ owner: RabbitMQ
 This topic describes how to configure an on-demand plan that allows off-platform
 access for <%= vars.product_name %> service instances.
 Off-platform access enables a RabbitMQ service instance to connect to components
-that are either on another PCF foundation or not on a PCF foundation.
+that are either on another <%= vars.platform_name %> foundation or not on a <%= vars.platform_name %> foundation.
 
 ## <a id='overview'></a> Overview
 
 There are multiple use cases for off-platform RabbitMQ access, for example:
 
-- Accessing RabbitMQ from apps deployed to Pivotal Application Service (PAS) in a different PCF foundation
-- Replicating messages between RabbitMQ clusters in different PCF foundations,
+- Accessing RabbitMQ from apps deployed to Pivotal Application Service (PAS) in a different <%= vars.platform_name %> foundation
+- Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
 for example, to set up federation for disaster recovery
 - Enabling legacy apps to communicate with PAS-deployed apps through RabbitMQ
 - Using <%= vars.product_name %> as a way to deploy and manage RabbitMQ for apps
@@ -23,7 +23,7 @@ that are not deployed to PAS
 
 Off-platform access to RabbitMQ instances leverages the TCP router in PAS.
 It also requires some ports to be open on your external load balancer.
-These ports are reserved for RabbitMQ traffic coming from outside the PCF foundation.
+These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.platform_name %> foundation.
 Every time a developer creates a service instance of an off-platform plan, a port
 in this range is allocated to redirect traffic to the service instance.
 

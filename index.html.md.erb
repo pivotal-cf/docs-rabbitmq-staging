@@ -5,7 +5,7 @@ owner: London Services
 ---
 ## <a id='AboutTile'></a>About <%= vars.product_name %>
 
-<%= vars.product_name %> enables PCF app developers to provision and use the RabbitMQ message broker with a
+<%= vars.product_name %> enables <%= vars.platform_name %> app developers to provision and use the RabbitMQ message broker with a
 single command.
 
 As of v1.8, <%= vars.product_name %> supports two types of service, an *on-demand* service and a *pre-provisioned* service.
@@ -25,12 +25,12 @@ This table summarizes the main differences between the two:
    </tr><tr>
    <th>On-Demand Service</th>
    <td>Dedicated VM that serves a single service instance. See <a href="./ondemand.html">this topic</a> for details.</td>
-   <td>PCF creates each VM on-demand when app developer creates service instance</td>
+   <td><%= vars.platform_name %> creates each VM on-demand when app developer creates service instance</td>
    <td><code>p.rabbitmq</code> (with a dot)</td>
    </tr><tr>
    <th>Pre-Provisioned Service</th>
-   <td>Multi-tenant VMs shared by apps across PCF deployment</td>
-   <td>PCF creates all VMs when operator deploys or updates service</td>
+   <td>Multi-tenant VMs shared by apps across <%= vars.platform_name %> deployment</td>
+   <td><%= vars.platform_name %> creates all VMs when operator deploys or updates service</td>
    <td><code>p-rabbitmq</code> (with a dash)</td>
    </tr>
 </table>
@@ -122,7 +122,7 @@ For more information, see [Unlocking the Power of On-Demand <%= vars.product_nam
 
 * Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
 * Bind apps to an instance of the plan, providing unique credentials for each binding
-* Management UI access to PCF Operators and app developers
+* Management UI access to <%= vars.platform_name %> Operators and app developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
 * Enable SSL (Secure Sockets Layer) for the AMQP, MQTT, STOMP protocols
 * HAProxy load balancer across all nodes to balance connections
@@ -140,7 +140,7 @@ For more information, see [Unlocking the Power of On-Demand <%= vars.product_nam
 
 Check the [release notes](releases.html) for your release version for important information and known issues. To see release notes for another version, select the version from the dropdown list at the top of the page.
 
-##<a id="other-services"></a> <%= vars.product_name %> and Other PCF Services
+##<a id="other-services"></a> <%= vars.product_name %> and Other <%= vars.platform_name %> Services
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
@@ -148,4 +148,4 @@ Check the [release notes](releases.html) for your release version for important 
 
 ## <a id='feedback'></a>Feedback
 
-Please provide any bugs, feature requests, or questions to the [PCF Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions to the [<%= vars.platform_name %> Feedback list](mailto:pivotal-cf-feedback@pivotal.io).

@@ -4,7 +4,7 @@ title: Using On-Demand RabbitMQ for Pivotal Platform
 owner: London Services
 ---
 
-This topic provides instructions for developers on how to use the on-demand RabbitMQ service for their Pivotal Cloud Foundry (PCF) apps. RabbitMQ enables messaging between cloud-based servers, apps and devices.
+This topic provides instructions for developers on how to use the on-demand RabbitMQ service for their apps that run on <%= vars.platform_name %>. RabbitMQ enables messaging between cloud-based servers, apps and devices.
 
 These procedures use the Cloud Foundry Command-Line Interface (cf CLI). You can also use [Apps Manager](http://docs.pivotal.io/pivotalcf/console/dev-console.html) to perform the same tasks using a graphical UI.
 
@@ -12,10 +12,10 @@ For general information, see [Managing Service Instances with the cf CLI](http:/
 
 ## <a id="prereqs"></a>Prerequisites
 
-To use on-demand <%= vars.product_name %> with your PCF apps, you need:
+To use on-demand <%= vars.product_name %> with your <%= vars.platform_name %> apps, you need:
 
-* A PCF installation with [<%= vars.product_name %>](https://network.pivotal.io/products/pivotal-rabbitmq-service) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
-* A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) or Admin account on the PCF installation
+* A <%= vars.platform_name %> installation with [<%= vars.product_name %>](https://network.pivotal.io/products/pivotal-rabbitmq-service) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
+* A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) or Admin account on the <%= vars.platform_name %> installation
 * A local machine with the following installed:
    - a browser
    - a shell
@@ -114,7 +114,7 @@ To create an instance of the on-demand <%= vars.product_name %> service:
 ## <a id='off-platform'></a> Create a Service Instance with Off-Platform Access
 
 If operators have enabled an off-platform plan, you can create a service instance
-that can connect to components outside the PCF foundation. Please contact your operator if you are
+that can connect to components outside the <%= vars.platform_name %> foundation. Please contact your operator if you are
 unsure which plans have been enabled for off-platform access.
 For information about the architecture and use cases, see [Enabling Off Platform Access](./off-platform-access.html).
 
@@ -326,7 +326,7 @@ OK
 
 ## <a id="call"></a>Use the RabbitMQ Service in Your App
 
-Apps running in Cloud Foundry gain access to the bound service instances through
+Apps running in <%= vars.platform_name %> gain access to the bound service instances through
 an environment variable credentials hash called `VCAP_SERVICES`.
 An example hash is shown below:
 

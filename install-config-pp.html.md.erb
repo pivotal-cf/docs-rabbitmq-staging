@@ -3,7 +3,7 @@ title: Installing and Configuring the <br>Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install,
+This topic provides instructions to <%= vars.platform_name %> operators about how to install,
 configure, and deploy the <%= vars.product_name %> tile to provide a pre-provisioned service.
 
 The RabbitMQ open source product provides additional documentation.
@@ -533,7 +533,7 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
   </tr>
   <tr>
     <td><strong>Pre-Provisioned Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app,
+    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a <%= vars.platform_name %> app,
       and that the app can publish and subscribe to a RabbitMQ cluster.
       See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
@@ -543,7 +543,7 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
   </tr>
   <tr>
     <td><strong>On Demand Instance Smoke Tests</strong></td>
-    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app,
+    <td>Checks that on-demand RabbitMQ service instances can be bound to a <%= vars.platform_name %> app,
       and that the app can publish and subscribe to a RabbitMQ cluster.
       See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
@@ -653,7 +653,7 @@ Ensure the following ports are enabled for those VMs:
 * 4567
 * 3457 - 3459
 
-The following is a template for configuring your Cloud Foundry security groups:
+The following is a template for configuring your <%= vars.platform_name %> security groups:
 ```
 [
 {"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},
