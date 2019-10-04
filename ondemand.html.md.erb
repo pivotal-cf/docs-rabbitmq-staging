@@ -185,7 +185,7 @@ RabbitMQ clusters are only recommended for deployment in low latency networks,
 which normally means that it is not advisable to deploy these clusters across availability zones (AZs).
 The stability and performance of the RabbitMQ cluster is heavily influenced by the workload on the nodes, replication choices, and network latency.
 
-For this reason, Pivotal recommends that you deploy RabbitMQ clusters into a single Ops Manager AZ.
+For this reason, Pivotal recommends that you deploy RabbitMQ clusters into a single <% vars.ops_manager_full %> AZ.
 However, where different AZs are in the same data center, with reliable low latency links, spanning AZs can be used.
 
 For cloud IaaS deployments, Pivotal does not recommend that deployments span *regions*.
@@ -318,7 +318,7 @@ The following are preconfigured for both the single node and the cluster plans:
         Pivotal recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
-  The polling interval is set in Ops Manager, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the <%= vars.product_name %> tile.
+  The polling interval is set in <% vars.ops_manager %>, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the <%= vars.product_name %> tile.
   Due to the impact of some of the cluster settings detailed below,
   Pivotal strongly recommends that you monitor the exposed metrics
   and configure alarms as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_name %>](./monitor.html#kpi).

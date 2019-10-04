@@ -17,15 +17,15 @@ see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitm
     see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</li></ul>
   </div>
 
-## <a id="rbac"></a>Role-Based Access in Ops Manager
+## <a id="rbac"></a>Role-Based Access in <% vars.ops_manager_full %>
 
-Ops Manager administrators can use Role-Based Access Control (RBAC) to manage which
-operators can make deployment changes, view credentials, and manage user roles in Ops Manager.
+<% vars.ops_manager %> administrators can use Role-Based Access Control (RBAC) to manage which
+operators can make deployment changes, view credentials, and manage user roles in <% vars.ops_manager %>.
 Therefore, your role permissions might not permit you to perform every procedure in this operator guide.
 
-For more information about roles in Ops Manager, see
+For more information about roles in <% vars.ops_manager %>, see
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
-        Understand Roles in Ops Manager</a>.</p>
+        Understand Roles in <% vars.ops_manager %></a>.</p>
 
 
 ## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
@@ -43,7 +43,7 @@ you must complete the procedures in [Provide or Generate a CA Certificate](./pre
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+2. Navigate to the <% vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_name %>. This adds the tile to your staging area.
 
@@ -52,7 +52,7 @@ This lets you begin configuring the tile. The installation is complete when you 
 
 ## <a id="tile_configurations"></a> Configure On-Demand <%= vars.product_name %>
 
-The configuration screen below appears when you click the <%= vars.product_name %> tile in Ops Manager.
+The configuration screen below appears when you click the <%= vars.product_name %> tile in <% vars.ops_manager %>.
 An orange circle beside a tab indicates that you must complete a configuration in the tab.
 A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
@@ -159,7 +159,7 @@ To configure the TLS settings, do the following:
 
   <li>Click <strong>Save</strong>.</li>
 
-  <li>Click <strong>Review Pending Changes</strong>. For more information about this Ops Manager page, see <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">Reviewing Pending Product Changes</a>.</li>
+  <li>Click <strong>Review Pending Changes</strong>. For more information about this <% vars.ops_manager %> page, see <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">Reviewing Pending Product Changes</a>.</li>
 
   <li>In the Installation Dashboard, ensure the <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>, and then click <strong>Apply Changes</strong>.</li>
 
@@ -326,17 +326,17 @@ To verify that you have the correct stemcell, follow the procedure in
 
 Your installation is not complete until you apply your configuration changes. Follow the steps below:
 
-1. Return to the Ops Manager Installation Dashboard.
+1. Return to the <% vars.ops_manager %> Installation Dashboard.
 
 1. Click **Review Pending Changes**.
-For more information about this Ops Manager page,
+For more information about this <% vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes** to complete the installation of <%= vars.product_name %>.
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating <%= vars.product_name %>, Ops Manager can optionally run a
+When deploying or updating <%= vars.product_name %>, <% vars.ops_manager %> can optionally run a
 series of [Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
 An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ
 cluster after a deploy or upgrade.
@@ -393,7 +393,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
     <td><strong>Recreate All Service Instances</strong></td>
     <td>This errand re-creates all on-demand instance VMs managed by the on-demand broker.
       It is useful for tasks that require re-creating a service instance VM,
-      such as rotating the Ops Manager root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
+      such as rotating the <% vars.ops_manager %> root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
     <br>
     <strong>This errand is off by default and should be enabled only when you want to re-create a VM.</strong></td>
   </tr>
@@ -503,7 +503,7 @@ The following plugins are disabled by default:
 
 You can enable disabled plugins by doing the following:
 
-1. Navigate to **Ops Manager Installation Dashboard** > **RabbitMQ** > **Settings** > **Global Settings for On-Demand Plans**.
+1. Navigate to **<% vars.ops_manager %> Installation Dashboard** > **RabbitMQ** > **Settings** > **Global Settings for On-Demand Plans**.
 
 1. Select the plugins you want to enable under **RabbitMQ plugins that can be enabled by App Developers**.
   ![Configuring On-Demand Plugins](images/on-demand-plugins-operator.png)
