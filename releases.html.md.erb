@@ -45,8 +45,9 @@ For more information about RabbitMQ v3.7.18, see the [RabbitMQ Changelog](https:
 
 New features and changes in this release:
 
-* This patch release implements rolling upgrade to migrate RabbitMQ nodes to use Erlang 21. Upgrades from previous minor versions of
-RabbitMQ for PCF to this patch will not require the cluster to be shutdown as part of the upgrade.
+* This release uses rolling upgrades to upgrade RabbitMQ nodes to Erlang v21.
+Upgrades from previous RabbitMQ for PCF releases
+to RabbitMQ for PCF v1.17.3 does not cause cluster downtime.
 
 * This release updates the following dependencies:
   * OSS RabbitMQ to v3.7.18
@@ -137,14 +138,8 @@ The following components are compatible with this release:
 
 **Release Date**: August 27, 2019
 
-<p class="note breaking"><strong>Breaking Change: </strong>
-  Upgrading to RabbitMQ for PCF v1.17.1 causes cluster <strong>downtime</strong>.
-This is because the RabbitMQ cluster is taken offline and each node is upgraded to Erlang v21.
-Pivotal recommends upgrading instead to RabbitMQ for PCF v1.17.3 or later. This upgrade path uses rolling upgrade,
-and as such does not involve the cluster being taken offline during the upgrade to Erlang v21.
-
-For more information about downtime during upgrades, see <a href="./upgrade.html#about">About the Upgrade</a>.
-</p>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/downtime-breaking-change' %>
 
 ### Security Fix
 
@@ -250,14 +245,8 @@ The following components are compatible with this release:
 
 **Release Date**: July 18, 2019
 
-<p class="note breaking"><strong>Breaking Change: </strong>
-  Upgrading to RabbitMQ for PCF v1.17.0 causes cluster <strong>downtime</strong>.
-This is because the RabbitMQ cluster is taken offline and each node is upgraded to Erlang v21.
-Pivotal recommends upgrading instead to RabbitMQ for PCF v1.17.3 or later. This upgrade path uses rolling upgrade,
-and as such does not involve the cluster being taken offline during the upgrade to Erlang v21.
-
-For more information about downtime during upgrades, see <a href="./upgrade.html#about">About the Upgrade</a>.
-</p>
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/downtime-breaking-change' %>
 
 ### Features
 
