@@ -4,6 +4,9 @@ title: Using On-Demand RabbitMQ for PCF
 owner: London Services
 ---
 
+<!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
+<%= partial vars.path_to_partials + "/services/deprecation-notice-eogs" %>
+
 This topic provides instructions for developers on how to use the on-demand RabbitMQ service for their Pivotal Cloud Foundry (PCF) apps. RabbitMQ enables messaging between cloud-based servers, apps and devices.
 
 These procedures use the Cloud Foundry Command-Line Interface (cf CLI). You can also use [Apps Manager](http://docs.pivotal.io/pivotalcf/console/dev-console.html) to perform the same tasks using a graphical UI.
@@ -312,9 +315,37 @@ In order to [share service instances](https://docs.cloudfoundry.org/devguide/ser
 
 ## <a id="log-cache"></a> Access RabbitMQ Metrics for On-Demand Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+To access metrics for RabbitMQ for PCF service instances, you can use Loggregator's Log
+Cache feature with the Log Cache CLI plugin.
+Log Cache is enabled by default in Pivotal Application Service v2.2 and later.
 
-<%= partial '../../rabbitmq-cf/partials/services/log-cache-cli-plugin' %>
+To access metrics for on-demand service instances, do the following:
+
+1. To install the cf CLI plugin, run the following command:
+
+    ```
+    cf install-plugin -r CF-Community "log-cache"
+    ```
+
+1. To access metrics for a service instance, run the following command:
+    ```
+    cf tail SERVICE-INSTANCE-NAME
+    ```
+    Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
+    <br><br>
+  For example:
+
+    <pre class="terminal">
+     $ cf tail my-instance
+     Retrieving logs for service my-instance in org system / space pivotal-services as admin...
+     2018-12-06T11:01:06.03+0000 [my-instance] GAUGE /p.rabbitmq/rabbitmq/channels/count:0.000000 count /p.rabbitmq/rabbitmq/connections/count:0.000000...
+    </pre>
+  For more information about the metrics output, see
+[Monitoring and KPIs for On-Demand RabbitMQ for Pivotal Cloud Foundry](./monitor.html).
+
+For more information about how to enable Log Cache and about the `cf tail` command,
+see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).
+
 
 ## <a id="plugins"></a> RabbitMQ Plugins Enabled
 

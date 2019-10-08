@@ -3,6 +3,8 @@ title: Frequently Asked Questions for <br>Pre-Provisioned RabbitMQ for PCF
 owner: London Services Enablement
 ---
 
+<!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
+<%= partial vars.path_to_partials + "/services/deprecation-notice-eogs" %>
 
 This topic lists frequently asked questions that apply to the RabbitMQ for Pivotal Cloud Foundry (PCF) pre-provisioned service.
 
@@ -113,12 +115,20 @@ consumed by each node in the RabbitMQ Managment UI.
 
 ## <a id="kb"></a> Knowledge Base (Community)
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-kb' %>
+<p>
+  Find the answer to your question and browse product discussions and solutions by
+  searching the <a href="https://community.pivotal.io/s/">Pivotal Knowledge Base</a>.
+</p>
 
 ## <a id="support"></a> File a Support Ticket
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  You can file a ticket with <a href="https://support.pivotal.io/">Pivotal Support</a>.
+  Be sure to provide the error message from <code>cf service YOUR-SERVICE-INSTANCE</code>.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-support' %>
+<p>
+  To expedite troubleshooting, provide your service broker logs and your service instance logs.
+  If your <code>cf service YOUR-SERVICE-INSTANCE</code> output includes a
+  <code>task-id</code>, provide the BOSH task output.
+</p>
