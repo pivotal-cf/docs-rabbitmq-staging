@@ -3,6 +3,9 @@ title: RabbitMQ&reg; for PCF Release Notes
 owner: London Services
 ---
 
+<!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
+<%= partial vars.path_to_partials + "/services/deprecation-notice-eogs" %>
+
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
 Pivotal recommends that you upgrade to the latest version of your current minor line,
@@ -60,7 +63,10 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -128,7 +134,10 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -163,7 +172,48 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
+<ul>
+<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
+  4xx status code and when unbinding services.
+  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
+  and the pre-provisioned broker to reach capacity:
+   <ul>
+    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
+   </ul>
+  To resolve the issue, do one of the following:
+   <ul>
+   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code> monit job on the VM.
+   <li> Increase the file descriptor limit on the VM.
+    For how to increase the limit, see the example in
+    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in Pivotal Cloud Foundry "too many open files"</a>
+      in the Pivotal Support knowledge base.  </li>
+   <li> If the VM is unresponsive, restart it.</li>
+   </ul>
+</li>
+</ul>
+<ul>
+<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
+  4xx status code and when unbinding services.
+  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
+  and the pre-provisioned broker to reach capacity:
+   <ul>
+    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
+   </ul>
+  To resolve the issue, do one of the following:
+   <ul>
+   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code>
+     monit job on the VM.
+   <li> Increase the file descriptor limit on the VM.
+    For how to increase the limit, see the example in
+    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in Pivotal Cloud Foundry "too many open files"</a>
+      in the Pivotal Support knowledge base.  </li>
+   <li> If the VM is unresponsive, restart it.</li>
+   </ul>
+</li>
+</ul>
+
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -185,7 +235,10 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -224,7 +277,27 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
+<ul>
+<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
+  4xx status code and when unbinding services.
+  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
+  and the pre-provisioned broker to reach capacity:
+   <ul>
+    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
+   </ul>
+  To resolve the issue, do one of the following:
+   <ul>
+   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code>
+     monit job on the VM.
+   <li> Increase the file descriptor limit on the VM.
+    For how to increase the limit, see the example in
+    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in Pivotal Cloud Foundry "too many open files"</a>
+      in the Pivotal Support knowledge base.  </li>
+   <li> If the VM is unresponsive, restart it.</li>
+   </ul>
+</li>
+</ul>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -252,7 +325,10 @@ However, if you stop the job, metrics will not be available.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -291,7 +367,27 @@ New features and changes in this release:
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
+<ul>
+<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
+  4xx status code and when unbinding services.
+  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
+  and the pre-provisioned broker to reach capacity:
+   <ul>
+    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
+   </ul>
+  To resolve the issue, do one of the following:
+   <ul>
+   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code>
+     monit job on the VM.
+   <li> Increase the file descriptor limit on the VM.
+    For how to increase the limit, see the example in
+    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in Pivotal Cloud Foundry "too many open files"</a>
+      in the Pivotal Support knowledge base.  </li>
+   <li> If the VM is unresponsive, restart it.</li>
+   </ul>
+</li>
+</ul>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -321,7 +417,11 @@ However, if you stop the job, metrics will not be available.
 
 * There are issues with the configuration of pre-provisioned RabbitMQ with external load balancers.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
+
 
 ### Packages
 
@@ -361,7 +461,27 @@ For more information, see [Post-Deploy Errands](./install-config.html#post-deplo
 
 This release has the following known issues:
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
+<ul>
+<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
+  4xx status code and when unbinding services.
+  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
+  and the pre-provisioned broker to reach capacity:
+   <ul>
+    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
+   </ul>
+  To resolve the issue, do one of the following:
+   <ul>
+   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code>
+     monit job on the VM.
+   <li> Increase the file descriptor limit on the VM.
+    For how to increase the limit, see the example in
+    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in Pivotal Cloud Foundry "too many open files"</a>
+      in the Pivotal Support knowledge base.  </li>
+   <li> If the VM is unresponsive, restart it.</li>
+   </ul>
+</li>
+</ul>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -391,7 +511,9 @@ However, if you stop the job, metrics will not be available.
 
 * There are issues with the configuration of pre-provisioned RabbitMQ with external load balancers.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
 
 ### Packages
 
@@ -457,7 +579,10 @@ However, if you stop the job, metrics will not be available.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -524,7 +649,10 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -593,7 +721,9 @@ This release has the following known issues:
 * The maximum number of file descriptors is not set.
 Therefore, RabbitMQ instances use the default value from the operating system.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
 
 ### Packages
 
@@ -664,7 +794,9 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
 
 ### Packages
 
@@ -723,7 +855,10 @@ This release has the following known issues:
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
   Pivotal recommends leaving the default run rule set to **On**.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
+
 
 ### Packages
 
@@ -808,7 +943,9 @@ This release has the following known issues:
   `VCAP_SERVICES` for `amqp+ssl` incorrectly reports that the port is `5672`.
   The actual port used for `amqp+ssl` is `5671`.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+* Shareable instances are enabled in the **Global Settings for On-Demand Plans** tab
+  for the pre-provisioned service as well as the on-demand service.
+  For how to enable shareable instances, see [Configure Global Settings](./install-config.html#global).
 
 ### Packages
 

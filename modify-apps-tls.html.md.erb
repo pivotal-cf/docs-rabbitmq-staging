@@ -3,12 +3,15 @@ title: Modifying Apps for TLS
 owner: RabbitMQ for PCF
 ---
 
-<p class="note"><strong>Note:</strong> If your app is written in Java or Spring, 
+<!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
+<%= partial vars.path_to_partials + "/services/deprecation-notice-eogs" %>
+
+<p class="note"><strong>Note:</strong> If your app is written in Java or Spring,
     see <a href="./use.html#tls-java-spring"> Activate TLS for Java and Spring Apps</a>.
-For other types of apps, use the procedures in this topic.</p> 
+For other types of apps, use the procedures in this topic.</p>
 
 
-This topic provides instructions to developers to modify apps that are not written in Java or Spring 
+This topic provides instructions to developers to modify apps that are not written in Java or Spring
 to use TLS to secure their connection with RabbitMQ on-demand service instances.
 
 
@@ -17,13 +20,13 @@ to use TLS to secure their connection with RabbitMQ on-demand service instances.
 The following are prerequisites to procedures in this topic:
 
 * The operator must complete these procedures, in this order:
-    1. [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) 
+    1. [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf)
     2. [Configure Security](./install-config.html#security)
 * The developer must complete the procedures in [Configure TLS for Your Service Instance](use.html#tls).
 
 ##<a id='modify'></a> Modify Your App for TLS
 
-To start using TLS for apps that are not written in Java or Spring, you must modify your app to use the correct protocol. 
+To start using TLS for apps that are not written in Java or Spring, you must modify your app to use the correct protocol.
 
 To modify your app, do the following:
 
@@ -56,7 +59,7 @@ In these examples, `VCAP_SERVICES` is an environment variable available from the
 
 ##<a id='repush-rebind'></a> Repush or Rebind Your App
 
-After modifying your app, repush it with `cf push`. 
+After modifying your app, repush it with `cf push`.
 
 <p class="note warning"><strong>WARNING</strong>: Any apps using an existing service instance must be rebound after enabling TLS for the instance.</p>
 

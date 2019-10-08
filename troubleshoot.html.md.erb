@@ -3,14 +3,27 @@ title: Troubleshooting and FAQs for <br>On-Demand RabbitMQ for PCF
 owner: London Services Enablement
 ---
 
+<!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
+<%= partial vars.path_to_partials + "/services/deprecation-notice-eogs" %>
+
 This topic provides operators with basic troubleshooting techniques and FAQs for
 on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 ## <a id="guid"></a> How to Retrieve a Service Instance GUID
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  You need the GUID of your service instance to run some BOSH commands.
+  To retrieve the GUID, run the command:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services/retrieve-guid' %>
+<pre><code>cf service SERVICE-INSTANCE-NAME --guid</code></pre>
+
+<p>
+  If you do not know the name of the service instance, run <code>cf services</code> to see a
+  listing of all service instances in the space. The service instances are listed
+  in the name column.
+</p>
+
 
 ## <a id="errors"></a> Troubleshooting Errors
 
@@ -18,55 +31,310 @@ Start here if you are responding to a specific error or error messages.
 
 ## <a id="install-fail"></a> Failed Installation
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-install-fail' %>
+<ol>
+  <li>
+    Certificate issues: The on-demand broker (ODB) requires valid certificates.
+    Ensure that your certificates are valid and generate new ones if necessary.
+    To generate new certificates, contact <a href="https://support.pivotal.io">Pivotal Support</a>.
+  </li>
+  <li>Deploy fails: Deploys can fail for a variety of reasons.
+    View the logs using Ops Manager to determine why the deploy is failing.
+  </li>
+  <li><a href="#network">Networking problems</a>: </li>
+  <ul>
+    <li>Cloud Foundry cannot reach the RabbitMQ for PCF broker</li>
+    <li>Cloud Foundry cannot reach the service instances</li>
+    <li>The service network cannot access the BOSH director </li>
+  </ul>
+  <li><a href="#register-broker">Register broker errand</a> fails.</li>
+  <li>The smoke test errand fails.</li>
+  <li>
+    Resource sizing issues: These occur when the resource sizes selected for a
+    given plan are less than RabbitMQ for PCF requires to function.
+    Check your resource configuration in Ops Manager and ensure that the
+    configuration matches that recommended by the service.
+  </li>
+  <li>Other service-specific issues.</li>
+</ol>
 
 ### <a id="cannot-create-delete"></a> Cannot Create or Delete Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If developers report errors such as:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-cannot-create-delete' %>
+<pre class="terminal">
+Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: service: redis-acceptance, service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089, broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, task-id: 442, operation: create
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		<p>
+			If the BOSH error shows a problem with the deployment manifest, open the
+			manifest in a text editor to inspect it.
+		</p>
+	</li>
+	<li>
+		<p>
+			To continue troubleshooting,
+			<a href="https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in">Log in to BOSH</a>
+			and target the RabbitMQ for PCF service instance using the instructions
+			on <a href="#parse-error">parsing a Cloud Foundry error message</a>.
+		</p>
+	</li>
+	<li>
+		<p>
+			Retrieve the BOSH task ID from the error message and run the following command:
+		</p>
+		<pre><code>bosh task TASK-ID</code></pre>
+	</li>
+	<li>
+		<p>
+			If you need more information, <a href="#access-broker">access the broker logs</a> and
+			use the <code>broker-request-id</code> from the error message above to search the logs for
+			more information. Check for:
+		</p>
+	</li>
+	<ul>
+		<li><a href="#auth">Authentication errors</a></li>
+		<li><a href="#network">Network errors</a></li>
+		<li><a href="#quotas">Quota errors</a></li>
+	</ul>
+</ol>
+
 
 ### <a id="timeouts"></a> Broker Request Timeouts
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If developers report errors such as:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-timeouts' %>
+<pre class="terminal">
+Server error, status code: 504, error code: 10001, message: The request to the service broker timed out: https://BROKER-URL/v2/service_instances/e34046d3-2379-40d0-a318-d54fc7a5b13f/service_bindings/aa635a3b-ef6d-41c3-a23f-55752f3f651b
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		Confirm that Cloud Foundry (CF) is <a href="#network">connected to the service broker</a>.
+	</li>
+	<li>
+		Check the BOSH queue size:
+		<ol>
+			<li>Log into BOSH as an admin.</li>
+			<li>Run <code>bosh tasks</code>.</li>
+		</ol>
+	</li>
+	<li>
+		If there are a large number of queued tasks, the system may be under too much load.
+		BOSH is configured with two workers and one status worker, which may not be
+		sufficient resources for the level of load.
+		Advise app developers to try again once the system is under less load.
+	</li>
+</ol>
+
 
 ### <a id="cannot-bind"></a> Cannot Bind to or Unbind from Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
 #### <a id="instance-not-exist"></a> Instance Does Not Exist
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If developers report errors such as:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-instance-not-exist' %>
+<pre class="terminal">
+Server error, status code: 502, error code: 10001, message: Service broker error: instance does not exist`
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		<p>
+			Confirm that the RabbitMQ for PCF service instance exists in BOSH and
+			obtain the GUID CF by running:
+		</p>
+		<pre><code>cf service MY-INSTANCE --guid</code></pre>
+	</li>
+	<li>
+		<p>
+			Using the GUID obtained above, the following BOSH CLI command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID vms</code></pre>
+	</li>
+</ol>
+
+<p>
+	If the BOSH deployment is not found, it has been deleted from BOSH.
+	Contact Pivotal support for further assistance.
+</p>
+
 
 #### <a id="other-errors"></a> Other Errors
+<p>
+  If developers report errors such as:
+</p>
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<pre class="terminal">
+Server error, status code: 502, error code: 10001, message: Service broker error: There was a problem completing your request. Please contact your operations team providing the following information: service: example-service, service-instance-guid: 8d69de6c-88c6-4283-b8bc-1c46103714e2, broker-request-id: 15f4f87e-200a-4b1a-b76c-1c4b6597c2e1, operation: bind
+</pre>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-other-errors' %>
+<p>
+  To find out the exact issue with the binding process:
+</p>
+
+<ol>
+  <li>
+    <p>
+      <a href="#access-broker">Access the service broker logs</a>.
+    </p>
+  </li>
+  <li>
+    <p>
+      Search the logs for the <code>broker-request-id</code> string listed in the error message above.
+    </p>
+  </li>
+  <li>
+    <p>
+      Contact Pivotal support for further assistance if you are unable to resolve the problem.
+    </p>
+  </li>
+  <li>
+    <p>
+      Check for:
+    </p>
+  </li>
+  <ul>
+    <li><a href="#auth">Authentication errors</a></li>
+    <li><a href="#network">Network errors</a></li>
+  </ul>
+</ol>
+
 
 ### <a id="cannot-connect"></a> Cannot Connect to a Service Instance
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If developers report that their app cannot use service instances that they have
+  successfully created and bound:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-cannot-connect' %>
+<p>
+  Ask the user to send application logs that show the connection error.
+  If the error is originating from the service, then follow RabbitMQ for PCF-specific instructions.
+  If the issue appears to be network-related, then:
+</p>
+
+<ol>
+  <li>
+    <p>
+      Check that <a href="https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html">application security groups</a>
+      are configured correctly.
+      Access should be configured for the service network that the tile is deployed to.
+    </p>
+  </li>
+  <li>
+    <p>
+      Ensure that the network the Pivotal Application Service (PAS) tile is deployed
+      to has network access to the service network. You can find the network definition
+      for this service network in the BOSH Director tile.
+    </p>
+  </li>
+  <li>
+    <p>
+      In Ops Manager go into the service tile and see the service network that is
+      configured in the networks tab.
+    </p>
+  </li>
+  <li>
+    <p>
+      In Ops Manager go into the PAS tile and see the network it is assigned to.
+      Make sure that these networks can access each other.
+    </p>
+  </li>
+</ol>
+
 
 ### <a id="upgrade-all-fails"></a> Upgrade All Service Instances Failures
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If the <a href="#upgrade-all"><code>upgrade-all-service-instances</code></a> errand fails,
+  look at the errand output in the Ops Manager log.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-upgrade-all-fails' %>
+<p>
+  If an instance fails to upgrade, debug and fix it before running the errand again
+  to prevent any failure issues from spreading to other on-demand instances.
+</p>
+
+<p>
+  Once the Ops Manager log no longer lists the deployment as <code>failing</code>,
+  <a href="#upgrade-all">re-run the errand</a> to upgrade the rest of the instances.
+</p>
+
 
 ### <a id="missing-logs"></a> Missing Logs and Metrics
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If no logs are being emitted by the on-demand broker, check that your syslog
+  forwarding address is correct in Ops Manager.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-missing-logs' %>
+<ol>
+  <li>
+    <p>
+      Ensure you have configured syslog for the tile.
+    </p>
+  </li>
+  <li>
+    <p>
+      Ensure that you have network connectivity between the networks that the tile
+      is using and the syslog destination.
+      If the destination is external, you need to use the <a href="https://docs.pivotal.io/svc-sdk/odb/tile.html#public-ip">public ip</a>
+      VM extension feature available in your Ops Manager tile configuration settings.
+    </p>
+  </li>
+  <li>
+    <p>
+      Verify that the Firehose is emitting metrics:
+    </p>
+    <ol>
+      <li>
+        <p>
+          Install the <code>cf nozzle</code> plugin.
+          For instructions, see the <a href="https://github.com/cloudfoundry-community/firehose-plugin">firehose plugin</a>
+          GitHub repository.
+        </p>
+      </li>
+      <li>
+        <p>
+          To find logs from your service in the <code>cf nozzle</code> output, run the following:
+        </p>
+        <p>
+          <pre><code>cf nozzle -f ValueMetric | grep --line-buffered "on-demand-broker/MY-SERVICE"</code></pre>
+        </p>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<p>
+  If no metrics appear within five minutes, verify that the broker network has access
+  to the Loggregator system on all required ports.
+</p>
+
+<p>
+  <a href="#support">Contact Pivotal support</a> if you are unable to resolve the issue.
+</p>
+
 
 ### <a id="failed-deployment"></a> Failed Deployment on Upgrade or after Apply Changes
 
@@ -88,61 +356,180 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 #### <a id="large-queue"></a>Large BOSH Queue
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  On-demand service brokers add tasks to the BOSH request queue, which can back up
+  and cause delay under heavy loads.
+  An app developer who requests a new RabbitMQ for PCF service instance sees
+  <code>create in progress</code> in the Cloud Foundry Command Line Interface (cf CLI) until
+  BOSH processes the queued request.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-large-queue' %>
+<p>
+  Ops Manager currently deploys two BOSH workers to process its queue.
+  Future versions of Ops Manager will let users configure the number of BOSH workers.
+</p>
 
 ### <a id="bosh-config"></a> Configuration
 
 #### <a id="bosh-instance-fail"></a> Service Instances in Failing State
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  You may have configured a VM / Disk type in tile plan page in Ops Manager that
+  is insufficiently large for the RabbitMQ for PCF service instance to start.
+  See tile-specific guidance on resource requirements.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-bosh-instance-fail' %>
 
 ### <a id="auth"></a> Authentication
 
 #### <a id="uaa-change"></a> UAA Changes
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If you have rotated any UAA user credentials then you may see authentication
+	issues in the service broker logs.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-uaa-change' %>
+<p>
+	To resolve this, redeploy the RabbitMQ for PCF tile in Ops Manager.
+	This provides the broker with the latest configuration.
+</p>
+
+<p class="note">
+    <strong>Note</strong>: You must ensure that any changes to UAA
+    credentials are reflected in the Ops Manager <code>credentials</code>
+    tab of the Pivotal Application Service (PAS) tile.
+</p>
+
 
 ### <a id="network"></a> Networking
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	Common issues with networking include:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-network' %>
+<table class="nice">
+	<col width="50%">
+	<col width="50%">
+	<th>Issue</th>
+	<th>Solution</th>
+	<tr>
+		<td>Latency when connecting to the RabbitMQ for PCF service instance to create or delete a binding.</td>
+		<td>Try again or improve network performance.</td>
+	</tr>
+	<tr>
+		<td>Firewall rules are blocking connections from the RabbitMQ for PCF service broker to the service instance.</td>
+		<td>Open the RabbitMQ for PCF tile in Ops Manager and check the two networks configured in the <strong>Networks</strong> pane. Ensure that these networks allow access to each other.</td>
+	</tr>
+	<tr>
+		<td>Firewall rules are blocking connections from the service network to the BOSH director network.</td>
+		<td>Ensure that service instances can access the Director so that the BOSH agents can report in.</td>
+	</tr>
+	<tr>
+		<td>Apps cannot access the service network.</td>
+		<td>Configure Cloud Foundry application security groups to allow runtime access to the service network.</td>
+	</tr>
+	<tr>
+		<td>Problems accessing BOSH’s UAA or the BOSH director.</td>
+		<td>Follow network troubleshooting and check that the BOSH director is online</td>
+	</tr>
+</table>
+
 
 #### <a id="broker-to-instances"></a> Validate Service Broker Connectivity to Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	To validate connectivity, do the following:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-broker-to-instances' %>
+<ol>
+	<li>
+		<p>
+			To SSH into the RabbitMQ for PCF service  broker, run the following command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID ssh</code></pre>
+	</li>
+	<li>
+		<p>
+			If no BOSH <code>task-id</code> appears in the error message, look in the
+			broker log using the <code>broker-request-id</code> from the task.
+		</p>
+	</li>
+</ol>
+
 
 #### <a id="app-to-instances"></a> Validate App Access to Service Instance
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  Use <code>cf ssh</code> to access to the app container, then try connecting to
+  the RabbitMQ for PCF service instance using the binding included in the
+  <code>VCAP_SERVICES</code> environment variable.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-app-to-instances' %>
 
 ### <a id="quotas"></a> Quotas
 
 #### <a id="plan-quotas"></a> Plan Quota Issues
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-plan-quotas' %>
+<p>
+  If developers report errors such as:
+</p>
+
+<pre class="terminal">
+Message: Service broker error: The quota for this service plan has been exceeded.
+Please contact your Operator for help.
+</pre>
+
+<ol>
+  <li>Check your current plan quota.</li>
+  <li>Increase the plan quota.</li>
+  <li>Log into Ops Manager.</li>
+  <li>Reconfigure the quota on the plan page.</li>
+  <li>Deploy the tile.</li>
+  <li>Find who is using the plan quota and take the appropriate action.</li>
+</ol>
+
 
 #### <a id="global-quotas"></a> Global Quota Issues
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If developers report errors such as:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-global-quotas' %>
+<pre class="terminal">
+Message: Service broker error: The quota for this service has been exceeded.
+Please contact your Operator for help.
+</pre>
+
+<ol>
+  <li>Check your current global quota.</li>
+  <li>Increase the global quota.</li>
+  <li>Log into Ops Manager.</li>
+  <li>Reconfigure the quota on the on-demand settings page.</li>
+  <li>Deploy the tile.</li>
+  <li>Find out who is using the quota and take the appropriate action.</li>
+</ol>
+
 
 ### <a id="failing-jobs"></a> Failing Jobs and Unhealthy Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  To determine whether there is an issue with the RabbitMQ for PCF service
+  deployment, inspect the VMs. To do so, run the following command:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-failing-jobs' %>
+<pre><code>bosh -d service-instance_GUID vms --vitals</code></pre>
+
+<p>
+  For additional information, run the following command:
+</p>
+
+<pre><code>bosh instances --ps --vitals</code></pre>
+
+<p>
+  If the VM is failing, follow the service-specific information.
+  Any unadvised corrective actions (such as running BOSH <code>restart</code> on
+  a VM) can cause issues in the service instance.
+</p>
 
 ## <a id="techniques"></a> Techniques for Troubleshooting
 
@@ -152,93 +539,635 @@ maintenance and housekeeping tasks.
 
 ### <a id="parse-error"></a> Parse a Cloud Foundry (CF) Error Message
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  Failed operations (create, update, bind, unbind, delete) result in an error message.
+  You can retrieve the error message later by running the cf CLI command <code>cf service INSTANCE-NAME</code>.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-parse-error' %>
+<pre class="terminal">
+$ cf service myservice
+
+Service instance: myservice
+Service: super-db
+Bound apps:
+Tags:
+Plan: dedicated-vm
+Description: Dedicated Instance
+Documentation url:
+Dashboard:
+
+Last Operation
+Status: create failed
+Message: Instance provisioning failed: There was a problem completing your request.
+     Please contact your operations team providing the following information:
+     service: redis-acceptance,
+     service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089,
+     broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac,
+     task-id: 442,
+     operation: create
+Started: 2017-03-13T10:16:55Z
+Updated: 2017-03-13T10:17:58Z
+</pre>
+
+<p>
+  Use the information in the <code>Message</code> field to debug further.
+  Provide this information to Pivotal Support when filing a ticket.
+</p>
+
+<p>
+  The <code>task-id</code> field maps to the BOSH task ID.
+  For more information on a failed BOSH task, use the <code>bosh task TASK-ID</code>.
+</p>
+
+<p>
+  The <code>broker-request-guid</code> maps to the portion of the On-Demand Broker log
+  containing the failed step.
+  Access the broker log through your syslog aggregator, or access BOSH logs for
+  the broker by typing <code>bosh logs broker 0</code>.
+  If you have more than one broker instance, repeat this process for each instance.
+</p>
+
 
 ### <a id="bosh-cf-access"></a> Access Broker and Instance Logs and VMs
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  Before following the procedures below, log into the
+  <a href="https://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html">cf CLI</a> and the
+  <a href="https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare">BOSH CLI</a>.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-bosh-cf-access' %>
 
 #### <a id="access-broker"></a> Access Broker Logs and VMs
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	You can <a href="https://docs.pivotal.io/pivotalcf/customizing/troubleshooting.html#component_logs">access logs using Ops Manager</a>
+	by clicking on the <strong>Logs</strong> tab in the tile and downloading the broker logs.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-access-broker' %>
+<p>
+	To access logs using the BOSH CLI, do the following:
+</p>
+
+<ol>
+	<li>
+		<p>
+			Identify the on-demand broker (ODB) deployment by running the following command:
+		</p>
+		<pre><code>bosh deployments</code></pre>
+	</li>
+	<li>
+		<p>
+			View VMs in the deployment by running the following command:
+		</p>
+		<pre><code>bosh -d DEPLOYMENT-NAME instances</code></pre>
+	</li>
+	<li>
+		<p>
+			SSH onto the VM by running the following command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID ssh</code></pre>
+	</li>
+	<li>
+		<p>
+			Download the broker logs by running the following command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID logs</code></pre>
+	</li>
+</ol>
+
+<p>
+	The archive generated by BOSH or Ops Manager includes the following logs:
+</p>
+
+<table class="nice">
+	<th>Log Name</th>
+	<th>Description</th>
+	<tr>
+		<td>broker.log</td>
+		<td>Requests to the on-demand broker and the actions the broker performs
+			while orchestrating the request (e.g. generating a manifest and calling BOSH).
+			Start here when troubleshooting.</td>
+	</tr>
+	<tr>
+		<td>broker_ctl.log</td>
+		<td>Control script logs for starting and stopping the on-demand broker.</td>
+	</tr>
+	<tr>
+		<td>post-start.stderr.log</td>
+		<td>Errors that occur during post-start verification.</td>
+	</tr>
+	<tr>
+		<td>post-start.stdout.log</td>
+		<td>Post-start verification.</td>
+	</tr>
+	<tr>
+		<td>drain.stderr.log</td>
+		<td>Errors that occur while running the drain script.</td>
+	</tr>
+</table>
+
 
 #### <a id="access-instance"></a> Access Service Instance Logs and VMs
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<ol>
+	<li>
+		<p>
+			To target an individual service instance deployment, retrieve the GUID of your
+			service instance with the following cf CLI command:
+		</p>
+		<pre><code>cf service MY-SERVICE --guid</code></pre>
+	</li>
+	<li>
+		<p>
+			To view VMs in the deployment, run the following command:
+		</p>
+		<pre><code>bosh -d DEPLOYMENT-NAME instances</code></pre>
+	</li>
+	<li>
+		<p>
+			To SSH into a VM, run the following command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID ssh</code></pre>
+	</li>
+	<li>
+		<p>
+			To download the instance logs, run the following command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID logs</code></pre>
+	</li>
+</ol>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-access-instance' %>
 
 ### <a id="broker-errands"></a> Run Service Broker Errands to Manage Brokers and Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  From the BOSH CLI, you can run service broker errands that manage the service
+  brokers and perform mass operations on the service instances that the brokers created.
+  These service broker errands include:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-broker-errands' %>
+<ul>
+  <li>
+    <p>
+      <a href="#register-broker"><code>register-broker</code></a> registers a broker with the Cloud Controller
+      and lists it in the Marketplace.
+    </p>
+  </li>
+  <li>
+    <p>
+      <a href="#deregister-broker"><code>deregister-broker</code></a> deregisters a broker with the Cloud
+      Controller and removes it from the Marketplace.
+    </p>
+  </li>
+  <li>
+    <p>
+      <a href="#upgrade-all"><code>upgrade-all-service-instances</code></a> upgrades existing instances of
+      a service to its latest installed version.
+    </p>
+  </li>
+  <li>
+    <p>
+      <a href="#delete-all"><code>delete-all-service-instances</code></a> deletes all instances of service.
+    </p>
+  </li>
+  <li>
+    <p>
+      <a href="#detect-orphans"><code>orphan-deployments</code></a> detects "orphan" instances that are
+      running on BOSH but not registered with the Cloud Controller.
+    </p>
+  </li>
+</ul>
+
+<p>
+  To run an errand, run the following command:
+</p>
+
+<pre><code>bosh -d DEPLOYMENT-NAME run-errand ERRAND-NAME</code></pre>
+
+<p>
+  For example:
+</p>
+
+<pre class="terminal">bosh -d my-deployment run-errand deregister-broker</pre>
+
 
 #### <a id="register-broker"></a> Register Broker
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  The <code>register-broker</code> errand registers the broker with Cloud Foundry and enables
+  access to plans in the service catalog.
+  Run this errand whenever the broker is re-deployed with new catalog metadata to
+  update the Cloud Foundry catalog.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-register-broker' %>
+<p>
+  Plans with disabled service access are not visible to non-admin Cloud Foundry
+  users, including Org Managers and Space Managers.
+  Admin Cloud Foundry users can see all plans including those with disabled service access.
+</p>
+
+<p>
+  The errand does the following:
+</p>
+
+<ul>
+  <li>Registers the service broker with Cloud Controller.</li>
+  <li>
+    Enables service access for any plans that have the radio button set to <code>enabled</code>
+    in the tile plan page.
+  </li>
+  <li>Disables service access for any plans that have the radio button set to <code>disabled</code>
+    in the tile plan page.
+  </li>
+  <li>Does nothing for any for any plans that have the radio button set to <code>manual</code>.</li>
+</ul>
+
+<p>
+  To run the errand, run the following command:
+</p>
+
+<pre><code>bosh -d DEPLOYMENT-NAME run-errand register-broker</code></pre>
+
 
 #### <a id="deregister-broker"></a> Deregister Broker
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  This errand deregisters a broker from Cloud Foundry.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-deregister-broker' %>
+<p>
+  The errand does the following:
+</p>
+
+<ul>
+  <li>Deletes the service broker from Cloud Controller</li>
+  <li>Fails if there are any service instances, with or without bindings</li>
+</ul>
+
+<p>Use the <a href="#delete-all">
+  Delete All Service Instances errand</a> to delete any existing service instances.
+</p>
+
+<p>
+  To run the errand, run the following command:
+</p>
+
+<pre><code>bosh -d DEPLOYMENT-NAME run-errand deregister-broker</code></pre>
+
 
 #### <a id="upgrade-all"></a> Upgrade All Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	If you have made changes to the plan definition or uploaded a new tile into Ops
+	Manager, you might want to upgrade all the RabbitMQ for PCF service
+	instances to the latest software or plan definition.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-upgrade-all' %>
+<p>
+	The <code>upgrade-all-service-instances</code> errand does the following:
+</p>
+
+<ul>
+	<li>Collects all of the service instances the on-demand broker has registered</li>
+	<li>For each instance the errand does the following serially
+		<ul>
+			<li>Issues an upgrade command to the on-demand broker</li>
+			<li>Regenerates the service instance manifest based on its latest configuration from the tile</li>
+			<li>Deploys the new manifest for the service instance</li>
+			<li>Waits for this operation to complete, then proceeds to the next instance</li>
+		</ul>
+	</li>
+	<li>Adds to a retry list any instances that have ongoing BOSH tasks at the time of upgrade</li>
+	<li>Retries any instances in the retry list until all are upgraded</li>
+</ul>
+
+<p>
+	If any instance fails to upgrade, the errand fails immediately.
+	This prevents systemic problems from spreading to the rest of your service instances.
+</p>
+
+<p>
+	To run the errand, do one of the following:
+</p>
+
+<ul>
+	<li>
+		Select the errand through the Ops Manager UI and have it run when you click
+		<strong>Apply Changes</strong>.
+	</li>
+	<li>
+		<p>
+			Run the following command.
+		</p>
+		<pre><code>bosh -d DEPLOYMENT-NAME run-errand upgrade-all-service-instances</code></pre>
+	</li>
+</ul>
+
 
 #### <a id="delete-all"></a> Delete All Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  This errand uses the Cloud Controller API to delete all instances of your broker’s
+  service offering in every Cloud Foundry org and space. It only deletes instances
+  the Cloud Controller knows about.
+  It does not delete orphan BOSH deployments.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-delete-all' %>
+<p class="note">
+  <strong>Note</strong>: Orphan BOSH deployments do not correspond to a known service instance.
+  While rare, orphan deployments can occur. Use the <code>orphan-deployments</code>
+  errand to identify them.
+</p>
+
+<p>
+  The <code>delete-all-service-instances</code> errand does the following:
+</p>
+
+<ol>
+  <li>Unbinds all apps from the service instances.</li>
+  <li>
+    Deletes all service instances sequentially. Each service instance deletion includes:
+    <ol>
+      <li>Running any pre-delete errands</li>
+      <li>Deleting the BOSH deployment of the service instance</li>
+      <li>Removing any ODB-managed secrets from BOSH CredHub</li>
+      <li>Checking for instance deletion failure, which results in the errand failing immediately</li>
+    </ol>
+  </li>
+  <li>
+    Determines whether any instances have been created while the errand was running.
+    If new instances are detected, the errand returns an error.
+    In this case, Pivotal recommends running the errand again.
+  </li>
+</ol>
+
+<p class="note warning">
+  <strong>Warning:</strong> Use extreme caution when running this errand.
+  You should only use it when you want to totally destroy all of the on-demand service
+  instances in an environment.
+</p>
+
+<p>
+  To run the errand, run the following command:
+</p>
+
+<pre><code>bosh -d service-instance_GUID delete-deployment</code></pre>
+
 
 #### <a id="detect-orphans"></a> Detect Orphaned Service Instances
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  A service instance is defined as "orphaned" when the BOSH deployment for the
+  instance is still running, but the service is no longer registered in Cloud Foundry.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-detect-orphans' %>
+<p>
+  The <code>orphan-deployments</code> errand collates a list of service deployments that have
+  no matching service instances in Cloud Foundry and return the list to the operator.
+  It is then up to the operator to remove the orphaned BOSH deployments.
+</p>
+
+<p>
+  To run the errand, run the following command:
+</p>
+
+<pre><code>bosh -d DEPLOYMENT-NAME run-errand orphan-deployments</code></pre>
+
+<p>
+  <strong>If orphan deployments exist</strong>---The errand script does the following:
+</p>
+
+<ul>
+  <li>Exit with exit code 10</li>
+  <li>Output a list of deployment names under a <code>[stdout]</code> header</li>
+  <li>Provide a detailed error message under a <code>[stderr]</code> header</li>
+</ul>
+
+<p>
+  For example:
+</p>
+
+<pre class="terminal">
+[stdout]
+[{"deployment\_name":"service-instance\_80e3c5a7-80be-49f0-8512-44840f3c4d1b"}]
+
+[stderr]
+Orphan BOSH deployments detected with no corresponding service instance in Cloud Foundry. Before deleting any deployment it is recommended to verify the service instance no longer exists in Cloud Foundry and any data is safe to delete.
+
+Errand 'orphan-deployments' completed with error (exit code 10)
+</pre>
+
+<p>
+  These details will also be available through the BOSH <code>/tasks/</code> API endpoint for use in scripting:
+</p>
+
+<pre class="terminal">
+$ curl 'https<span>:</span>//bosh-user:bosh-password@bosh-url:25555/tasks/task-id/output?type=result' | jq .
+{
+  "exit_code": 10,
+  "stdout": "[{"deployment_name":"service-instance_80e3c5a7-80be-49f0-8512-44840f3c4d1b"}]\n",
+  "stderr": "Orphan BOSH deployments detected with no corresponding service instance in Cloud Foundry. Before deleting any deployment it is recommended to verify the service instance no longer exists in Cloud Foundry and any data is safe to delete.\n",
+  "logs": {
+    "blobstore_id": "d830c4bf-8086-4bc2-8c1d-54d3a3c6d88d"
+  }
+}
+</pre>
+
+<p>
+  <strong>If no orphan deployments exist</strong>---The errand script does the following:
+</p>
+
+<ul>
+  <li>Exit with exit code 0</li>
+  <li>Stdout will be an empty list of deployments</li>
+  <li>Stderr will be <code>None</code></li>
+</ul>
+
+<pre class="terminal">
+[stdout]
+[]
+
+[stderr]
+None
+
+Errand 'orphan-deployments' completed successfully (exit code 0)
+</pre>
+
+<p>
+  <strong>If the errand encounters an error during running</strong>---The errand script does the following:
+</p>
+
+<ul>
+  <li>Exit with exit 1</li>
+  <li>Stdout will be empty</li>
+  <li>Any error messages will be under stderr</li>
+</ul>
+
+<p>
+  To clean up orphaned instances, run the following command on each instance:
+</p>
+
+<p class="note warning">
+  <strong>WARNING: </strong> Running this command may leave IaaS resources in an unusable state.
+</p>
+
+<pre><code>bosh delete-deployment service-instance_SERVICE-INSTANCE-GUID</code></pre>
+
 
 ### <a id="instance-creds"></a> Get Admin Credentials for a Service Instance
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<ol>
+	<li><a href="#instance-deployment">Identify the service deployment by GUID</a>.</li>
+	<li><a href="https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare">Log in to BOSH</a>.</li>
+	<li>Open the manifest in a text editor.</li>
+	<li>Look in the manifest for the credentials.</li>
+</ol>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-instance-creds' %>
 
 ### <a id="reinstall"></a> Reinstall a Tile
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	To reinstall a tile in the same environment where it was previously uninstalled:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-reinstall' %>
+<ol>
+	<li>Ensure that the previous tile was correctly uninstalled as follows:
+	<ol>
+		<li>
+			Log in as an admin by running: <pre>cf login</pre>
+		</li>
+		<li>
+			Confirm that the Marketplace does not list
+			RabbitMQ for PCF by running: <pre>cf m</pre>
+		</li>
+		<li>
+			Log in to BOSH as an admin by running: <pre>bosh log-in</pre>
+		</li>
+		<li>
+			Display your BOSH deployments to confirm that the output does not
+			show the RabbitMQ for PCF deployment by running:
+			<pre>bosh deployments</pre>
+		</li>
+		<li>
+			Run the <a href="#delete-all">"delete-all-service-instances"</a> errand
+			to delete every instance of the service.
+		</li>
+		<li>
+			Run the <a href="#deregister-broker">"deregister-broker"</a> errand
+			to delete the service broker.
+		</li>
+		<li>
+			Delete the service broker BOSH deployment by running:
+			<pre>bosh delete-deployment BROKER-DEPLOYMENT-NAME</pre>
+		</li>
+		<li>
+			Reinstall the tile.
+		</li>
+	</ol>
+</ol>
+
 
 ### <a id="view-resources"></a> View Resource Saturation and Scaling
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+	To view usage statistics for any service, do the following:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-view-resources' %>
+<ol>
+	<li>
+		<p>
+			Run the following command:
+		</p>
+		<pre><code>bosh -d DEPLOYMENT-NAME vms --vitals</code></pre>
+	</li>
+	<li>
+		<p>
+			To view process-level information, run:
+		</p>
+		<pre><code>bosh -d DEPLOYMENT-NAME instances --ps</code></pre>
+	</li>
+</ol>
+
 
 ### <a id="id-instance-owner"></a> Identify a Service Instance Owner
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  If you want to identify which apps are using a specific service instance from the
+  BOSH deployments name, do the following:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-id-instance-owner' %>
+<ol>
+  <li>Take the deployment name and strip the <code>service-instance_</code> leaving you with the GUID.</li>
+  <li>Log in to CF as an admin.</li>
+  <li>
+    Obtain a list of all service bindings by running the following:
+    <pre><code>cf curl /v2/service_instances/GUID/service_bindings</code></pre>
+  </li>
+  <li>
+    The output from the above curl gives you a list of <code>resources</code>,
+    with each item referencing a service binding, which contains the <code>APP-URL</code>.
+    To find the name, org, and space for the app, run the following:
+    <ol>
+      <li><code>cf curl APP-URL</code> and record the app name under <code>entity.name</code>.</li>
+      <li><code>cf curl SPACE-URL</code> to obtain the space, using the <code>entity.space_url</code>
+        from the above curl.
+        Record the space name under <code>entity.name</code>.
+      </li>
+      <li>
+        <code>cf curl ORGANIZATION-URL</code> to obtain the org, using the
+        <code>entity.organization_url</code> from the above curl.
+        Record the organization name under <code>entity.name</code>.
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<p class="note">
+  <strong>Note</strong>: When running <code>cf curl</code> ensure that you query
+  all pages, because the responses are limited to a certain number of bindings per page.
+    The default is 50.
+    To find the next page curl the value under <code>next_url</code>.
+</p>
+
 
 ### <a id="monitor-quota"></a> Monitor the Quota Saturation and Service Instance Count
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  Quota saturation and total number of service instances are available through ODB
+  metrics emitted to Loggregator. The metric names are shown below:
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-monitor-quota' %>
+<table>
+  <thead>
+    <tr>
+      <th><strong>Metric Name</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>on-demand-broker/SERVICE-NAME-MARKETPLACE/quota_remaining</code></td>
+      <td>global quota remaining for all instances across all plans</td>
+    </tr>
+    <tr>
+      <td><code>on-demand-broker/SERVICE-NAME-MARKETPLACE/PLAN-NAME/quota_remaining</code></td>
+      <td>quota remaining for a particular plan</td>
+    </tr>
+    <tr>
+      <td><code>on-demand-broker/SERVICE-NAME-MARKETPLACE/total_instances</code></td>
+      <td>total instances created across all plans</td>
+    </tr>
+    <tr>
+      <td><code>on-demand-broker/SERVICE-NAME-MARKETPLACE/PLAN-NAME/total_instances</code></td>
+      <td>total instances created for a given plan</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="note">
+  <strong>Note</strong>: Quota metrics are not emitted if no quota has been set.
+</p>
+
 
 ### <a id="drop-restore-traffic"></a> Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance
 
@@ -394,12 +1323,21 @@ Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 
 ## <a id="kb"></a> Knowledge Base (Community)
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  Find the answer to your question and browse product discussions and solutions by
+  searching the <a href="https://community.pivotal.io/s/">Pivotal Knowledge Base</a>.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-kb' %>
 
 ## <a id="support"></a> File a Support Ticket
 
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<p>
+  You can file a ticket with <a href="https://support.pivotal.io/">Pivotal Support</a>.
+  Be sure to provide the error message from <code>cf service YOUR-SERVICE-INSTANCE</code>.
+</p>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-support' %>
+<p>
+  To expedite troubleshooting, provide your service broker logs and your service instance logs.
+  If your <code>cf service YOUR-SERVICE-INSTANCE</code> output includes a
+  <code>task-id</code>, provide the BOSH task output.
+</p>
