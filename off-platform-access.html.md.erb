@@ -15,13 +15,13 @@ There are multiple use cases for off-platform RabbitMQ access, for example:
 - Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> in a different <%= vars.platform_name %> foundation
 - Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
 for example, to set up federation for disaster recovery
-- Enabling legacy apps to communicate with <%= vars.app_runtime_full %>-deployed apps through RabbitMQ
+- Enabling legacy apps to communicate with <%= vars.app_runtime %>-deployed apps through RabbitMQ
 - Using <%= vars.product_name %> as a way to deploy and manage RabbitMQ for apps
-that are not deployed to <%= vars.app_runtime_full %>
+that are not deployed to <%= vars.app_runtime %>
 
 ## <a id='architecture'></a> Architecture
 
-Off-platform access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime_full %>.
+Off-platform access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
 It also requires some ports to be open on your external load balancer.
 These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.platform_name %> foundation.
 Every time a developer creates a service instance of an off-platform plan, a port
@@ -35,8 +35,8 @@ in this range is allocated to redirect traffic to the service instance.
 
 To enable off-platform access:
 
-1. Enable TCP Routing in <%= vars.app_runtime_full %> by doing steps 1, 2, and 4 of the procedure in
-[Configuring TCP Routing in <%= vars.app_runtime_full %>](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html).
+1. Enable TCP Routing in <%= vars.app_runtime %> by doing steps 1, 2, and 4 of the procedure in
+[Configuring TCP Routing in <%= vars.app_runtime %>](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html).
 Ensure that you review the pre-deployment steps required to enable this feature.
 
 1. In **Global Settings for On-Demand Plans**, fill in the following fields:
@@ -44,7 +44,7 @@ Ensure that you review the pre-deployment steps required to enable this feature.
     - **Port Range**: A range of ports for RabbitMQ service instances to use.
     You must have at least one port for each service instance.
     Ensure that the range has enough capacity to accommodate the maximum number of service instances.<br>
-    This range must not overlap with the range entered in the <%= vars.app_runtime_full %> tile &gt; **Networking** &gt; **TCP Routing Ports**.
+    This range must not overlap with the range entered in the <%= vars.app_runtime %> tile &gt; **Networking** &gt; **TCP Routing Ports**.
 
      ![An example Global settings for on-demand plans pane with the External TCP domain field
      filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
