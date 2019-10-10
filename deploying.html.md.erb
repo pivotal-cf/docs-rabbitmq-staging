@@ -6,7 +6,7 @@ owner: London Services
 
 ## <a id="default"></a>Default Deployment
 
-Deploying <%= vars.product_name %> through <% vars.ops_manager_full %> deploys a RabbitMQ cluster of **3 nodes** by default.
+Deploying <%= vars.product_name %> through <%= vars.ops_manager_full %> deploys a RabbitMQ cluster of **3 nodes** by default.
 
 The deployment includes a single load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 
@@ -46,7 +46,7 @@ This is because the AZ setup cannot be changed after the tile has been deployed 
 
 ### <a id="upgrade-from-multi-az"></a>Upgrading to this deployment from a multi AZ deployment
 
-If you have deployed the tile across two AZs, but with a single HAProxy instance, you can migrate to this setup by deploying an additional HAProxy instance through <% vars.ops_manager %>.
+If you have deployed the tile across two AZs, but with a single HAProxy instance, you can migrate to this setup by deploying an additional HAProxy instance through <%= vars.ops_manager %>.
 New or re-bound applications to the RabbitMQ service see the IPs of both HAProxies immediately.
 Existing bound applications will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
 
@@ -83,10 +83,10 @@ It is possible to first deploy with multiple HAProxy jobs, as per the recommende
 This can be achieved without downtime to your applications. Follow these steps to do so:
 
 1. Configure your external load balancer to point to the RabbitMQ Node IPs.
-2. Configure the DNS name or IP address for the external load balancer (ELB) on the RabbitMQ tile in <% vars.ops_manager %>.
+2. Configure the DNS name or IP address for the external load balancer (ELB) on the RabbitMQ tile in <%= vars.ops_manager %>.
 3. Deploy the changes. Any new instances of the RabbitMQ service **or** any re-bound connections will use the DNS name or IP address of the ELB in their `VCAP_SERVICES`. Any existing instances will continue to use the HAProxy IP addresses in their `VCAP_SERVICES`
 6. Phase the re-binding of existing applications to update their environment variables.
-7. After all applications are updated, reduce the instance count of the `HAProxy` job in <% vars.ops_manager %> to 1.
+7. After all applications are updated, reduce the instance count of the `HAProxy` job in <%= vars.ops_manager %> to 1.
 9. Deploy the changes.
 
 This approach works as any existing bound applications have their `VCAP_SERVICES` information cached in Cloud Controller and are only updated by a re-bind request.

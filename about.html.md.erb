@@ -58,7 +58,7 @@ rules are set up so that connections are open as described in the table below.
 	</tr>
 	<tr>
 		<td><strong>ODB</strong></td>
-		<td><strong><% vars.app_runtime_full %></strong>
+		<td><strong><%= vars.app_runtime_full %></strong>
 		</td>
 		<td>8443 (UAA)</td>
 		<td>The default port is not configurable.</td>
@@ -66,7 +66,7 @@ rules are set up so that connections are open as described in the table below.
 	<tr>
 		<td><strong>Errand VMs</strong></td>
 		<td>
-				<strong><% vars.app_runtime_full %></strong><br><br>
+				<strong><%= vars.app_runtime_full %></strong><br><br>
 				<strong>ODB</strong><br><br>
 				<strong>Deployed Service Instances</strong><br><br>
 		</td>
@@ -90,7 +90,7 @@ rules are set up so that connections are open as described in the table below.
 			The communication between these components is two-way.</td>
 	</tr>
 	<tr>
-		<td><strong>Deployed apps on <% vars.app_runtime_full %></strong></td>
+		<td><strong>Deployed apps on <%= vars.app_runtime_full %></strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
 		<td>
@@ -106,7 +106,7 @@ rules are set up so that connections are open as described in the table below.
 			Avoid opening administrative ports for this connection.</td>
 	</tr>
 	<tr>
-		<td><strong><% vars.app_runtime_full %></strong></td>
+		<td><strong><%= vars.app_runtime_full %></strong></td>
 		<td><strong>ODB</strong>
 		</td>
 		<td>8080</td>
@@ -115,7 +115,7 @@ rules are set up so that connections are open as described in the table below.
 			tile developer.</td>
 	</tr>
 		<tr>
-		<td><strong>Deployed apps on <% vars.app_runtime_full %></strong></td>
+		<td><strong>Deployed apps on <%= vars.app_runtime_full %></strong></td>
 		<td><strong>Runtime CredHub</strong>
 		</td>
 		<td>8844 (CredHub)</td>

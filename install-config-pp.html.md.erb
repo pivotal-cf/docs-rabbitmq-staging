@@ -12,22 +12,22 @@ see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitm
 
 <div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
 
-## <a id="rbac"></a>Role-Based Access in <% vars.ops_manager_full %>
+## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager_full %>
 
-<% vars.ops_manager %> administrators can use Role-Based Access Control (RBAC) to manage which
-operators can make deployment changes, view credentials, and manage user roles in <% vars.ops_manager %>.
+<%= vars.ops_manager %> administrators can use Role-Based Access Control (RBAC) to manage which
+operators can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
 Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
 
-For more information about roles in <% vars.ops_manager %>, see
+For more information about roles in <%= vars.ops_manager %>, see
     <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
-        Understand Roles in <% vars.ops_manager %></a>.</p>
+        Understand Roles in <%= vars.ops_manager %></a>.</p>
 
 
 ## <a id="install"></a> Download and Install the Tile
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
-2. Navigate to the <% vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
+2. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_name %>.
 This adds the tile to your staging area.
@@ -37,7 +37,7 @@ This lets you begin configuring the tile. The installation is complete when you 
 
 ## <a id="tile_configurations"></a>Configure Pre-Provisioned <%= vars.product_name %>
 
-The configuration screen below appears when you click the <%= vars.product_name %> tile in <% vars.ops_manager %>.
+The configuration screen below appears when you click the <%= vars.product_name %> tile in <%= vars.ops_manager %>.
 An orange circle beside a tab indicates that you must complete a configuration in the tab.
 A green check mark indicates that the tab is preconfigured and you are able to change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
@@ -68,7 +68,7 @@ An orange circle indicates that you are required to configure fields on the tab 
              This should be a separate network from the one you select for <strong>Service Network</strong>.
              This network is represented by the Default Network,
              described in <a href="./about.html#on-demand">Default Network and Service Network</a>.
-             Typically, you select the network used for <% vars.app_runtime_full %> components.
+             Typically, you select the network used for <%= vars.app_runtime_full %> components.
          </td></tr>
      <tr><td><strong>Service Network</strong></td>
          <td>Select a network.
@@ -100,7 +100,7 @@ You can use a combination of upper or lowercase alphanumerics and supported spec
 This grants you full admin access to the RabbitMQ Management UI.
 
 <p class="note"><strong>Note</strong>: To rotate your admin credentials, enter a new username and password,
-  save your options, and redeploy by returning to the <% vars.ops_manager %> Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
+  save your options, and redeploy by returning to the <%= vars.ops_manager %> Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
 
 ### <a id='plugin'></a>Plugins
@@ -187,10 +187,10 @@ This field is shown [above](#erlang).
 1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row,
 raise the value for the number of **Instances** of the **RabbitMQ node**.
 
-1. Return to the <% vars.ops_manager %> Installation Dashboard.
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
 1. Click **Review Pending Changes**.
-For more information about this <% vars.ops_manager %> page,
+For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
@@ -418,8 +418,8 @@ The metrics polling interval determines how often metrics are collected.
 
 To specify the destination for <%= vars.product_name %> log messages, do the following:
 
-1. From the <% vars.ops_manager %> Installation Dashboard, click the RabbitMQ tile.
-1. In the RabbitMQ tile, click the **Settings** tab. ![<% vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the RabbitMQ tile.
+1. In the RabbitMQ tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
 1. Click **Syslog and Metrics**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
@@ -461,10 +461,10 @@ To specify the destination for <%= vars.product_name %> log messages, do the fol
 
 1. Click **Save**.
 
-1. Return to the <% vars.ops_manager %> Installation Dashboard.
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
 2. Click **Review Pending Changes**.
-For more information about this <% vars.ops_manager %> page,
+For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes** to redeploy with the changes.
@@ -501,10 +501,10 @@ For information about configuring the on-demand service, see [Installing and Con
 (Optional) In the **Errands** tab, choose the defaults for when errands run.
 
 Errands can be thought of as tasks. For example, when deploying or updating <%= vars.product_name %>,
-<% vars.ops_manager %> can optionally run a series of [post-deploy errands](#post-deploy-errands).
+<%= vars.ops_manager %> can optionally run a series of [post-deploy errands](#post-deploy-errands).
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
-You can toggle errands on and off on the <% vars.ops_manager %> **Review Pending Changes** page.
+You can toggle errands on and off on the <%= vars.ops_manager %> **Review Pending Changes** page.
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
@@ -558,7 +558,7 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>
-    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker. It is useful for tasks that require re-creating the service instance VM, such as rotating the <% vars.ops_manager %> root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
+    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker. It is useful for tasks that require re-creating the service instance VM, such as rotating the <%= vars.ops_manager %> root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
     <br>
     <strong>This errand is off by default and should be enabled only when you want to re-create a VM.</strong></td>
   </tr>
@@ -566,8 +566,8 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
 
 ### <a id="pre-delete-errands"></a>Pre-Delete Errands
 
-Pre-delete errands run after an operator chooses to delete a product in the <% vars.ops_manager %> Installation Dashboard,
-but before <% vars.ops_manager %> finishes deleting the product.
+Pre-delete errands run after an operator chooses to delete a product in the <%= vars.ops_manager %> Installation Dashboard,
+but before <%= vars.ops_manager %> finishes deleting the product.
 
 <table class="nice">
   <th>Errand</th>
@@ -596,10 +596,10 @@ To verify that you have the correct stemcell, follow the procedure in
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
 
-1. Return to the <% vars.ops_manager %> Installation Dashboard.
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
 1. Click **Review Pending Changes**.
-For more information about this <% vars.ops_manager %> page,
+For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes** to complete the installation of <%= vars.product_name %>.
@@ -639,7 +639,7 @@ For example, with two HAProxy jobs deployed, the following properties are presen
 
 To enable access to the RabbitMQ tile service, you must ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
-You can obtain the IP addresses for these from the <% vars.ops_manager %> **Status** page for the RabbitMQ tile.
+You can obtain the IP addresses for these from the <%= vars.ops_manager %> **Status** page for the RabbitMQ tile.
 Ensure the following ports are enabled for those VMs:
 
 * 15672
@@ -712,7 +712,7 @@ For more information, see [Changing Network or IP Addresses Results in a Failed 
 ### <a id="switching"></a>Preserving Dynamically Assigned IPs
 
 You cannot switch from dynamically assigned IP addresses to a different set of static IP addresses.
-However, you can configure <% vars.ops_manager %> so the
+However, you can configure <%= vars.ops_manager %> so the
 current set of dynamically assigned IP addresses always continue to be used.
 This might be useful when upgrading.
 

@@ -8,7 +8,7 @@ owner: Services
 ## <a id="overview"></a> Overview
 
 <%= vars.product_name %> Replicator is a tool that allows you to install multiple <%= vars.product_name %> tiles
-in a single <% vars.ops_manager_full %> environment.
+in a single <%= vars.ops_manager_full %> environment.
 This lets you run multiple pre-provisioned RabbitMQ clusters that are isolated from each other.
 
 For example, you may want to isolate the cluster serving Spring Cloud Services (SCS) from the cluster serving apps in the Marketplace.
@@ -44,13 +44,13 @@ broker from being exposed in the Marketplace.
 For more information, see [Errands](./install-config.html#errands).
 
 To offer RabbitMQ as a cloud messaging service in the Marketplace, create one or several replicas,
-install them in <% vars.ops_manager %>, and either allow the broker registrar errand to run, or
+install them in <%= vars.ops_manager %>, and either allow the broker registrar errand to run, or
 [register the service manually using CF](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker).
 
 ### <a id="dedicated"></a> Providing a Pre-Provisioned Dedicated Cluster
 
 To reserve a RabbitMQ cluster for use by a specific team,
-disable the **Broker Registrar** errand in <% vars.ops_manager %>.
+disable the **Broker Registrar** errand in <%= vars.ops_manager %>.
 This prevents service registration in the Marketplace.
 For more information, see [Errands](./install-config.html#errands).
 
@@ -116,15 +116,15 @@ For the purposes of this example, assume that when you generate a replica tile a
 | Broker URL                             | pivotal-rabbitmq-broker.YOUR\_CF\_DOMAIN | pivotal-rabbitmq-broker-finance.YOUR\_CF\_DOMAIN |
 | Service name                    | p-rabbitmq                               | p-rabbitmq-finance                               |
 | URL for the RabbitMQ Management UI | pivotal-rabbitmq.YOUR\_CF\_DOMAIN        | pivotal-rabbitmq-finance.YOUR\_CF\_DOMAIN        |
-| Tile display name in <% vars.ops_manager %>                     | RabbitMQ                                 | RabbitMQ (finance)                               |
-| Tile name used internally by <% vars.ops_manager %>                             | p-rabbitmq                               | p-rabbitmq-finance                               |
+| Tile display name in <%= vars.ops_manager %>                     | RabbitMQ                                 | RabbitMQ (finance)                               |
+| Tile name used internally by <%= vars.ops_manager %>                             | p-rabbitmq                               | p-rabbitmq-finance                               |
 | Metrics/Logging Origin                 | p-rabbitmq                               | p-rabbitmq-finance                               |
 
 
 
 ## <a id="install"></a> Installing Replica Tiles
 
-After you have generated a replica tile, you can upload it to <% vars.ops_manager %> as you would any other tile.
+After you have generated a replica tile, you can upload it to <%= vars.ops_manager %> as you would any other tile.
 After you have uploaded it, follow the instructions for [Installing and Configuring <%= vars.product_name %> as a
 Pre-Provisioned Service](./install-config-pp.html).
 The On-Demand service is not offered on replica tiles.
@@ -165,7 +165,7 @@ This is shown in the example workflow below.
 ### Example of an In-Place Upgrade of a Replica
 
 Suppose you used the replicator to generate a replica of v1 of the <%= vars.product_name %> tile,
-with the `name` **trading-team**, and you installed it in <% vars.ops_manager %>.
+with the `name` **trading-team**, and you installed it in <%= vars.ops_manager %>.
 Here is the sample replicator command you used for the initial installation:
 
 ```mac
@@ -225,7 +225,7 @@ result for the section about the service plan you want:
     Specifying the parameters `--plan-uuid` and `--service-uuid` ensures the new
     replica updates the existing service offering and plans.
 
-1. After you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to <% vars.ops_manager %>.
+1. After you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to <%= vars.ops_manager %>.
 This upgrades the v1 replica tile in place.
 
 

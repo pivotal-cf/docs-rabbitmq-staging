@@ -383,7 +383,7 @@ curl -u "$USERNAME:$PASSWORD" "http://$RABBIT-ADDRESS:15672/api/definitions"
 
 Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 <ol>
-    <li>In <% vars.ops_manager %> check that the status of all of the instances is healthy.</li>
+    <li>In <%= vars.ops_manager %> check that the status of all of the instances is healthy.</li>
     <li>
         Log into the RabbitMQ Management UI and check that no alarms have been triggered
         and that all nodes display as green, showing they are healthy.
