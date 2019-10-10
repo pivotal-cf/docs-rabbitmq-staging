@@ -107,35 +107,70 @@ Follow the steps below to configure global settings.
 1. Click the **Global Settings for On-Demand Plans** tab.
   ![Global Settings Tab](images/global-settings.png)
 1. Configure the following:
-  * **Service instance quota**: Set the total number of on-demand service instances which can be deployed.
-For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).
-<br><br>
-  * **VM options**:
-      * **Allow outbound internet access (IaaS-dependent)**. Select this checkbox to enable external log forwarding, send backup artifacts to external destinations, or communicate with an external BOSH blobstore.
-        <p class="note"><strong>Note</strong>: Outbound network traffic rules also depend on your IaaS settings. Consult your network or IaaS admin to ensure that your IaaS permits outbound traffic to the external networks you need.</p>
-  * **Shareable Instances**: Click **Yes** to enable the feature for sharing instances.<br>
-  Sharing a service instance between spaces, allows apps in different spaces to share databases,
-  messaging queues, and many other types of services. For more information,
-  see [Sharing Service Instances](https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html).
-  <br><br>
-  * <a id="credhub"></a>**On Demand - Secure Service Instance Credentials with Runtime CredHub**:
-  For on-demand services instances, click **Yes** to secure credentials with CredHub.
-  <p class="note"><strong>Note</strong>: For this feature to work you must also enable it in <%= vars.app_runtime %>.
-    For instructions, see <a href="https://docs.pivotal.io/platform/application-service/2-7/operating/secure-si-creds.html#pas-config">Step 1: Configure the <%= vars.app_runtime_abbr %> Tile</a>.
-    After deploying the tile, notify developers that they must unbind and rebind existing service instances
-    to secure their credentials with CredHub.</p>
-  * **On Demand Service Broker Static IP**: Enter an IP address to assign to your on-demand service broker node.
-  BOSH allocates an IP address if the field is left blank.
-  <br><br>
-  * **Number of upgrade canary instances**: Set the number of canary instances
-  on which to run the "upgrade all service instances" or the "recreate all service instances" errands first.
-  If the errand succeeds on all canary instances, it is run on the remaining instances.
-  <br><br>
-  * **Maximum number of instances upgraded in parallel**: Set the limit for the
-  number of instances on which to simultaneously run the "upgrade all service instances" errand or the "recreate all service instances" errand.
-  The number of available BOSH workers limits the number of simultaneous runs.
-  See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a> in the BOSH documentation.
-  Set the value lower than this limit to avoid over-saturating BOSH.
+    <table>
+      <tr>
+        <th>Field</th>
+        <th>Instructions</th>
+      </tr>
+      
+      <tr>
+        <td><strong>Dedicated Instance Service Quota</strong></td>
+        <td>Set the total number of on-demand service instances which can be deployed.
+        For more information, 
+        see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Allow outbound internet access (IaaS-dependent)</strong></td>
+        <td>Select this checkbox to enable external log forwarding, send backup artifacts to external destinations, 
+          or communicate with an external BOSH blobstore.
+          <p class="note"><strong>Note:</strong> Outbound network traffic rules also depend on your IaaS settings. 
+            Consult your network or IaaS admin to ensure that your IaaS permits outbound traffic to 
+            the external networks you need.</p></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Shareable Instances</strong></td>
+        <td>Click <strong>Yes</strong> to enable the feature for sharing instances.<br>
+        Sharing a service instance between spaces, enables apps in different spaces to share databases and
+        messaging queues. For more information,
+        see <a href="https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html">Sharing Service Instances</a>.</td>
+      </tr>
+      <a id="credhub"></a>
+      <tr>
+        <td><strong>On Demand - Secure Service Instance Credentials with Runtime CredHub</strong></td>
+        <td>For on-demand services instances, click **Yes** to secure credentials with CredHub.
+        <p class="note"><strong>Note:</strong> For this feature to work you must also enable it in <%= vars.app_runtime %>.
+          For instructions, see <a href="https://docs.pivotal.io/platform/application-service/2-7/operating/secure-si-creds.html#pas-config">Step 1: Configure the <%= vars.app_runtime_abbr %> Tile</a>.
+          After deploying the tile, notify developers that they must unbind and rebind existing service instances
+          to secure their credentials with CredHub.</p></td>
+      </tr>
+      
+      <tr>
+        <td><strong>On Demand Service Broker Static IP</strong></td>
+        <td>Enter an IP address to assign to your on-demand service broker node.
+        BOSH allocates an IP address if the field is left blank.</td>
+      </tr>
+      
+      <tr>
+        <td><strong>Number of upgrade canary instances</strong></td>
+        <td>Set the number of canary instances
+        on which to run the <code>upgrade-all-service-instances</code> or the <code>recreate-all-service-instances</code> errands first.
+        If the errand succeeds on all canary instances, it runs on the remaining instances.</td>
+      </tr>
+      
+      <tr>
+        <td><strong>Maximum number of instances upgraded in parallel</strong></td>
+        <td>Set the limit for the
+        number of instances on which to simultaneously run the <code>upgrade-all-service-instances</code> errand 
+        or the <code>recreate-all-service-instances</code> errand.
+        The number of available BOSH workers limits the number of simultaneous runs.
+        See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a> 
+        in the BOSH documentation.
+        Set the value lower than this limit to avoid over-saturating BOSH.</td>
+      </tr>
+      
+    </table> 
 
 1. Click **Save**.
 
