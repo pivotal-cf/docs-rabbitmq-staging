@@ -124,13 +124,17 @@ To create a service instance that allows off-platform access:
 1. Create a service instance with the off-platform plan by running:
 
     ```
-    cf create-service p.rabbitmq OFF-PLATFORM-PLAN SERVICE-INSTANCE
+    cf create-service p.rabbitmq OFF-PLATFORM-PLAN SERVICE-INSTANCE -c '{"tls": true}'
     ```
+
+<p class="note"><strong>Note:</strong> Pivotal strongly recommends that you configure off-platform access to use Transport Layer Security (TLS). It is possible to
+use off-platform service instances without TLS. However, this would leave the service instance vulnerable to a man-in-the-middle attack. For more information
+on using TLS on your platform, see <a href="./use.html#using-tls">Use Transport Layer Security</a>.</p>
 
 1. Obtain credentials by creating a service key:
 
     ```
-    cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'
+    cf create-service-key SERVICE_INSTANCE SERVICE_KEY
     ```
 The `uri` section of the service key contains the address to the TCP router and a port from the port range.
 You can use this URI to connect to the service instance from outside the foundation.
