@@ -1,16 +1,16 @@
 ---
-title: Enabling Off-Platform Access
+title: Enabling Service Gateway Access
 owner: RabbitMQ
 ---
 
-This topic describes how to configure an on-demand plan that allows off-platform
+This topic describes how to configure an on-demand plan that allows service gateway
 access for <%= vars.product_name %> service instances.
-Off-platform access enables a RabbitMQ service instance to connect to components
+Service gateway access enables a RabbitMQ service instance to connect to components
 that are either on another <%= vars.platform_name %> foundation or not on a <%= vars.platform_name %> foundation.
 
 ## <a id='overview'></a> Overview
 
-There are multiple use cases for off-platform RabbitMQ access, for example:
+There are multiple use cases for service gateway RabbitMQ access, for example:
 
 - Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> in a different <%= vars.platform_name %> foundation
 - Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
@@ -21,19 +21,19 @@ that are not deployed to <%= vars.app_runtime %>
 
 ## <a id='architecture'></a> Architecture
 
-Off-platform access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
+Service gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
 It also requires some ports to be open on your external load balancer.
 These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.platform_name %> foundation.
-Every time a developer creates a service instance of an off-platform plan, a port
+Every time a developer creates a service instance of a service gateway plan, a port
 in this range is allocated to redirect traffic to the service instance.
 
 ![architecture diagram shows app and load balancer external to the foundation and the TCP router
-  and RMQ nodes internal to the foundation](/images/off-platform-architecture.png)
+  and RMQ nodes internal to the foundation](/images/service-gateway-architecture.png)
 
 
-## <a id='configuration'></a> Enable Off-Platform Access
+## <a id='configuration'></a> Enable Service Gateway Access
 
-To enable off-platform access:
+To enable service gateway access:
 
 1. Enable TCP Routing in <%= vars.app_runtime %> by doing steps 1, 2, and 4 of the procedure in
 [Configuring TCP Routing in <%= vars.app_runtime %>](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html).
@@ -48,19 +48,19 @@ Ensure that you review the pre-deployment steps required to enable this feature.
 
      ![An example Global settings for on-demand plans pane with the External TCP domain field
      filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
-     1024-2025.](/images/global-settings-off-platform.png)
+     1024-2025.](/images/global-settings-service-gateway.png)
 
 1. Allow ingress traffic on your external load balancer for the specified port range.
 
-1. Navigate to the service plan that you want to use and select the **Off-Platform Access** checkbox.
+1. Navigate to the service plan that you want to use and select the **Service Gateway Access** checkbox.
 Pivotal recommends that you change the name or the description of the plan to reflect the new feature.
-![Service plan pane with the Off-Platform Access checkbox selected.](/images/enable-off-platform.png)
-<p class="note"><strong>Note:</strong> If off-platform access is disabled and then re-enabled, application developers must create
-new service keys to obtain a new set of credentials for off-platform access.</p>
+![Service plan pane with the Service Gateway Access checkbox selected.](/images/enable-service-gateway.png)
+<p class="note"><strong>Note:</strong> If service gateway access is disabled and then re-enabled, application developers must create
+new service keys to obtain a new set of credentials for service gateway access.</p>
 
-<p class="note warning"><strong>Important:</strong> Pivotal strongly recommends configuring off-platform access with TLS to prevent
+<p class="note warning"><strong>Important:</strong> Pivotal strongly recommends configuring service gateway access with TLS to prevent
 man-in-the-middle attacks. For instructions on configuring this, see [Configure Security](./install-config.html#security).</p>
 
 ## <a id='workflow'></a> Developer Workflow
 
-For instructions for app developers, see [Create a Service Instance with Off-Platform Access](./use.html#off-platform).
+For instructions for app developers, see [Create a Service Instance with Service Gateway Access](./use.html#service-gateway).
