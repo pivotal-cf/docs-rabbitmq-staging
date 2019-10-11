@@ -55,9 +55,11 @@ Ensure that you review the pre-deployment steps required to enable this feature.
 1. Navigate to the service plan that you want to use and select the **Off-Platform Access** checkbox.
 Pivotal recommends that you change the name or the description of the plan to reflect the new feature.
 ![Service plan pane with the Off-Platform Access checkbox selected.](/images/enable-off-platform.png)
-
 <p class="note"><strong>Note:</strong> If off-platform access is disabled and then re-enabled, application developers must create
 new service keys to obtain a new set of credentials for off-platform access.</p>
+
+<p class="note warning"><strong>Important:</strong> Pivotal strongly recommends configuring off-platform access with TLS to prevent
+man-in-the-middle attacks. For instructions on configuring this, see [Configure Security](./install-config.html#security).</p>
 
 ## <a id='workflow'></a> Developer Workflow
 
