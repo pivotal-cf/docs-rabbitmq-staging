@@ -119,7 +119,7 @@ Contact your operator if you are
 unsure which plans have been enabled for service gateway access.
 For information about the architecture and use cases, see [Enabling Service Gateway Access](./service-gateway-access.html).
 
-To create a service instance that allows service gateway access:
+To create a service instance that enables service gateway access:
 
 1. Create a service instance with the service gateway plan by running:
 
@@ -127,9 +127,10 @@ To create a service instance that allows service gateway access:
     cf create-service p.rabbitmq SERVICE-GATEWAY-PLAN SERVICE-INSTANCE -c '{"tls": true}'
     ```
 
-<p class="note"><strong>Note:</strong> Pivotal strongly recommends that you configure service gateway access to use Transport Layer Security (TLS). It is possible to
-configure service gateway access without TLS, however this would leave the service instances vulnerable to a man-in-the-middle attack. For more information
-on using TLS on your platform, see <a href="./use.html#using-tls">Use Transport Layer Security</a>.</p>
+    <p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends that you configure service gateway access
+      to use Transport Layer Security (TLS) prevent man-in-the-middle attacks. For instructions
+      on using TLS on your platform, see <a href="./use.html#using-tls">Use Transport Layer Security</a> below.
+    </p>
 
 1. Obtain credentials by creating a service key:
 
