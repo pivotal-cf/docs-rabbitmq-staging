@@ -19,7 +19,10 @@ Replicating message queues across nodes is an expensive operation and should onl
 
 ## Automatic Network Partition Behaviors in RabbitMQ Clusters
 
-The RabbitMQ tile uses the `pause_minority` option for handling cluster partitions by default. This ensures data integrity by pausing the partition of the cluster in the minority, and resumes it with the data from the majority partition. You must maintain more than two nodes. If there is a partition when you only have two nodes, both nodes immediately pause.
+The <%= vars.product_name %> tile uses the `pause_minority` option for handling cluster partitions by default.
+This ensures data integrity by pausing the partition of the cluster in the minority,
+and resumes it with the data from the majority partition. You must maintain more than two nodes.
+If there is a partition when you only have two nodes, both nodes immediately pause.
 
 You can also choose the `autoheal` option in the **Pre-Provisioned RabbitMQ** tab. In this mode, if a partition occurs, RabbitMQ automatically decides on a winning partition, and restarts all nodes that are not in the winning partition. This option allows you to continue to receive connections to both parts of partitions.
 
@@ -49,7 +52,8 @@ You can also run the `rabbitmqctl cluster_status` command on any of the RabbitMQ
 
 ##<a id="recovering"></a> Recovering
 
-Because the RabbitMQ tile uses the `pause_minority` option, minority nodes recover automatically after the partition is resolved.
+Because the <%= vars.product_name %> tile uses the `pause_minority` option,
+minority nodes recover automatically after the partition is resolved.
 After a node recovers, it resumes accessing the queue along with data from the queues on the other nodes.
 However, if your queues use `ha-mode: all`, they only synchronize fully after consuming all the messages created while the node was down.
 This is similar to how messages synchronize when you create a new queue.
