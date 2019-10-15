@@ -17,15 +17,6 @@ This topic applies to both the on-demand and pre-provisioned services.
 This section provides information about the upgrade process, release cycle, and
 downtime during upgrades.
 
-### <a id="downtime"></a> Downtime When Upgrading to v1.17
-
-Upgrading to <%= vars.product_name %> v1.17.0 causes app downtime.
-This is because the RabbitMQ cluster goes offline while each node upgrades to Erlang v21. After the final
-node upgrades, the cluster starts and the service is available again.
-
-Pivotal recommends that you notify app owners of this expected downtime before you upgrade.
-
-
 ### <a id="general-downtime"></a> General Notes About Downtime
 
 Resilient apps are less likely to crash during downtime.
@@ -55,19 +46,22 @@ Always check the release notes for the version you are upgrading to.</p>
 </tr>
 <tr>
   <th>Major Tile Version</th>
-  <td>The RabbitMQ cluster is taken offline for the duration of the upgrade.
+  <td>Refer to the release notes for that version
   </td>
 </tr>
 <tr>
   <th>Minor Tile Version</th>
-  <td>The RabbitMQ cluster is taken offline for the duration of the upgrade.
+  <td><strong>For 1.17.2 and earlier:</strong> The RabbitMQ cluster is taken offline for the duration of the upgrade.<br>
+      <strong>For 1.17.3 and later:</strong> Normally these are rolling deployments with each node being updated in turn.
+        In these cases, the cluster remains available, but individual queues might be taken offline as each node is restarted.
+        There might be specific migration paths that require downtime. These are identified in the release notes for that version.
   </td>
 </tr>
 <tr>
   <th>Patch Tile Version</th>
   <td>Normally these are rolling deployments with each node being updated in turn.
       In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
-      There are specific migration paths that require downtime, which are identified in the release notes for that version.
+      There might be specific migration paths that require downtime. These are identified in the release notes for that version.
   </td>
 <tr>
   <th>Stemcell-Only Patch Tile Version</th>
