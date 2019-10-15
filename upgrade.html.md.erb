@@ -54,11 +54,11 @@ Always check the release notes for the version you are upgrading to.</p>
 <table border="1" class="nice">
 <tr>
   <th>Upgrade Type</th>
-  <th>Will Downtime Be Required for This Upgrade or Update? </th>
+  <th>Will Downtime Be Required For This Upgrade / Update? </th>
 </tr>
 <tr>
   <th>Major Tile Version</th>
-  <td>Refer to the release notes for that version.
+  <td>Refer to the release notes for that version
   </td>
 </tr>
 <tr>
@@ -66,19 +66,19 @@ Always check the release notes for the version you are upgrading to.</p>
   <td><strong>For 1.17.2 and earlier:</strong> The RabbitMQ cluster is taken offline for the duration of the upgrade.<br>
       <strong>For 1.17.3 and later:</strong> Normally these are rolling deployments with each node being updated in turn.
         In these cases, the cluster remains available, but individual queues might be taken offline as each node is restarted.
-        There are specific migration paths that require downtime, which are identified in the release notes for that version.
+        There might be specific migration paths that require downtime. These are identified in the release notes for that version.
   </td>
 </tr>
 <tr>
   <th>Patch Tile Version</th>
   <td>Normally these are rolling deployments with each node being updated in turn.
-      In these cases, the cluster remains available, but individual queues might be taken offline as each node is restarted.
-      There are specific migration paths that require downtime, which are identified in the release notes for that version.
+      In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
+      There might be specific migration paths that require downtime. These are identified in the release notes for that version.
   </td>
 <tr>
   <th>Stemcell-Only Patch Tile Version</th>
-  <td>When the patch update is only a new stemcell version, these are rolling deployments with each node being updated in turn.
-      In these cases, the cluster remains available, but individual queues might be taken offline as each node is restarted.
+  <td>Where the patch update is only a new stemcell version, these are rolling deployments with each node being updated in turn.
+      In these cases the cluster remains available, but individual queues might be taken offline as each node is restarted.
   </td>
 </tr>
 </table>
