@@ -53,9 +53,8 @@ This lets you begin configuring the tile. The installation is complete when you 
 ## <a id="tile_configurations"></a> Configure On-Demand <%= vars.product_name %>
 
 The configuration screen below appears when you click the <%= vars.product_name %> tile in <%= vars.ops_manager %>.
-An orange circle beside a tab indicates that you must complete a configuration in the tab.
-A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
+A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 
 ![Rabbit Tile Configuration](images/rmq_tile_config.png)
 
@@ -87,7 +86,7 @@ An orange circle indicates that you are required to configure fields on the tab 
               This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
    </table>
 
-    <p class="note warning"><strong>WARNING</strong>: Changing the Network or Service Network after you have configured them, or changing their IP configurations,
+    <p class="note warning"><strong>Warning:</strong> Changing the Network or Service Network after you have configured them, or changing their IP configurations,
        results in a failed deployment.
        For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
 
@@ -112,27 +111,42 @@ Follow the steps below to configure global settings.
         <th>Field</th>
         <th>Instructions</th>
       </tr>
-      
+
       <tr>
         <td><strong>Dedicated Instance Service Quota</strong></td>
-        <td>Set the total number of on-demand service instances which can be deployed.
-        For more information, 
+        <td>Set the total number of on-demand service instances that can be deployed.
+        For more information,
         see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a>.</td>
       </tr>
-      
+
       <tr>
         <td><strong>Allow outbound internet access (IaaS-dependent)</strong></td>
-        <td>Select this checkbox to enable external log forwarding, send backup artifacts to external destinations, 
+        <td>Select this checkbox to enable external log forwarding, send backup artifacts to external destinations,
           or communicate with an external BOSH blobstore.
-          <p class="note"><strong>Note:</strong> Outbound network traffic rules also depend on your IaaS settings. 
-            Consult your network or IaaS admin to ensure that your IaaS permits outbound traffic to 
+          <p class="note"><strong>Note:</strong> Outbound network traffic rules also depend on your IaaS settings.
+            Consult your network or IaaS admin to ensure that your IaaS permits outbound traffic to
             the external networks you need.</p></td>
       </tr>
-      
+
+      <tr>
+        <td><strong>RabbitMQ plugins that can be enabled by App Developers</strong></td>
+        <td>For more information, see [Optional RabbitMQ Server Plugins](#optional-plugins) below.</td>
+      </tr>
+
+      <tr>
+        <td><strong>External TCP domain</strong></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td><strong>Port Range</strong></td>
+        <td></td>
+      </tr>
+
       <tr>
         <td><strong>Shareable Instances</strong></td>
         <td>Click <strong>Yes</strong> to enable the feature for sharing instances.<br>
-        Sharing a service instance between spaces, enables apps in different spaces to share databases and
+        Sharing a service instance between spaces enables apps in different spaces to share databases and
         messaging queues. For more information,
         see <a href="https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html">Sharing Service Instances</a>.</td>
       </tr>
@@ -145,32 +159,32 @@ Follow the steps below to configure global settings.
           After deploying the tile, notify developers that they must unbind and rebind existing service instances
           to secure their credentials with CredHub.</p></td>
       </tr>
-      
+
       <tr>
         <td><strong>On Demand Service Broker Static IP</strong></td>
         <td>Enter an IP address to assign to your on-demand service broker node.
         BOSH allocates an IP address if the field is left blank.</td>
       </tr>
-      
+
       <tr>
         <td><strong>Number of upgrade canary instances</strong></td>
         <td>Set the number of canary instances
         on which to run the <code>upgrade-all-service-instances</code> or the <code>recreate-all-service-instances</code> errands first.
         If the errand succeeds on all canary instances, it runs on the remaining instances.</td>
       </tr>
-      
+
       <tr>
         <td><strong>Maximum number of instances upgraded in parallel</strong></td>
         <td>Set the limit for the
-        number of instances on which to simultaneously run the <code>upgrade-all-service-instances</code> errand 
+        number of instances on which to simultaneously run the <code>upgrade-all-service-instances</code> errand
         or the <code>recreate-all-service-instances</code> errand.
         The number of available BOSH workers limits the number of simultaneous runs.
-        See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a> 
+        See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
         in the BOSH documentation.
         Set the value lower than this limit to avoid over-saturating BOSH.</td>
       </tr>
-      
-    </table> 
+
+    </table>
 
 1. Click **Save**.
 
