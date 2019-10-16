@@ -19,10 +19,10 @@ downtime during upgrades.
 
 ### <a id="downtime"></a> Downtime When Upgrading to v1.17
 
-Upgrading to v1.17.3 and later from previous versions does not cause a cluster shutdown.
+Upgrading to v1.17.3 and later does not cause a cluster shutdown.
 You will experience little to no downtime.
 
-Upgrading to RabbitMQ for PCF v1.17.2 and earler causes app downtime.
+Upgrading to v1.17.2 and earlier causes app downtime.
 This is because the RabbitMQ cluster goes offline while each node upgrades to Erlang v21. After the final
 node upgrades, the cluster starts and the service is available again.
 
