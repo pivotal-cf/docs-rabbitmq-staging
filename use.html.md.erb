@@ -126,6 +126,8 @@ To create a service instance that enables service-gateway access:
     ```
     cf create-service p.rabbitmq SERVICE-GATEWAY-PLAN SERVICE-INSTANCE -c '{"tls": true}'
     ```
+    Where:
+    * `SERVICE-INSTANCE` is a name you choose to identify the service instance.
 
     <p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends that you configure service-gateway access
       to use Transport Layer Security (TLS) prevent man-in-the-middle attacks. For instructions
@@ -135,10 +137,14 @@ To create a service instance that enables service-gateway access:
 1. Obtain credentials by creating a service key:
 
     ```
-    cf create-service-key SERVICE_INSTANCE SERVICE_KEY
+    cf create-service-key SERVICE-INSTANCE SERVICE-KEY
     ```
-The `uri` section of the service key contains the address to the TCP router and a port from the port range.
-You can use this URI to connect to the service instance from outside the foundation.
+    Where:
+    * `SERVICE-INSTANCE` is the name of the service instance you created previously.
+    * `SERVICE-KEY` is the name that you choose for your service key.
+
+    The `uri` section of the service key contains the address to the TCP router and a port from the port range.
+    You can use this URI to connect to the service instance from outside the foundation.
 
 <p class="note"><strong>Note:</strong> If the operator disables and then re-enables service-gateway access on a plan, you must create new service keys to obtain a new set of credentials for service-gateway access.</p>
 

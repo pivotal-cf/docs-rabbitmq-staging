@@ -24,13 +24,16 @@ The following are prerequisites to procedures in this topic:
 ##<a id='modify'></a> Modify Your App for TLS
 
 To start using TLS for apps that are not written in Java or Spring, you must modify your app to use the correct protocol.
-The exact steps to enable the above vary between client libraries. Please consult your library's documentation for the necessary configuration.
-In the following examples, we use the [`ruby-amqp/bunny` library](https://github.com/ruby-amqp/bunny).
+The exact steps vary between client libraries.
+Consult the documentation for your library for the necessary configuration.
+
+The following examples use the [ruby-amqp/bunny](https://github.com/ruby-amqp/bunny) library.
 In these examples, `VCAP_SERVICES` is an environment variable available from the app.
 
 To modify your app, do the following:
 
-* **Option 1:** If the operator enabled TLS using a certificate from a trusted authority, use the code below.
+* **If the operator enabled TLS using a certificate from a trusted authority:**
+<br>Use the code below:
 
 	```ruby
 	require 'json'
@@ -42,8 +45,9 @@ To modify your app, do the following:
 	conn.start
 	```
 	<br>
-* **Option 2:** If the operator used a self-signed ceritificate, configure the RabbitMQ client to use the same CA certificate, and valid certificate and key.
-Use the example code below, replacing the variables for `PATH_TO_CERTIFICATE`, `PATH_TO_KEY`, and `PATH_TO_CA_CERTIFICATE`.
+
+* **If the operator used a self-signed CA certificate:** Use the code below to configure the RabbitMQ client
+to use the same CA certificate, as well as a valid TLS certificate and key.
 
 	```ruby
 	require 'json'
@@ -51,22 +55,29 @@ Use the example code below, replacing the variables for `PATH_TO_CERTIFICATE`, `
 
 	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
 	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uri']
-	conn = Bunny.new(uri, tls_cert: PATH_TO_CERTIFICATE, tls_key: PATH_TO_KEY, tls_ca_certificates: [PATH_TO_CA_CERTIFICATE])
+	conn = Bunny.new(uri, tls_cert: PATH-TO-CERTIFICATE, tls_key: PATH-TO-KEY, tls_ca_certificates: [PATH-TO-CA-CERTIFICATE])
 	conn.start
 	```
-	<br>
-* **Option 3:** If connecting to a service-gateway instance, configure the RabbitMQ client to verify the identity of the
-service instance by providing the CA certificate which signed the RabbitMQ server certificate, and specifying `verify_peer`.
+  Where:
+  * `PATH-TO-CERTIFICATE` is the path to your TLS certificate
+  * `PATH-TO-KEY` is the path to your TLS key
+  * `PATH-TO-CA-CERTIFICATE` is the path to the self-signed CA certificate the operator used
+	<br><br>
+* **If connecting to a service-gateway instance:** Use the code below to configure the
+RabbitMQ client to verify the identity of the service instance.
 
 	```ruby
 	require 'json'
 	require 'bunny'
 
-	service_key = JSON.load(File.open(PATH_TO_SERVICE_KEY_JSON))
+	service_key = JSON.load(File.open(PATH-TO-SERVICE-KEY-JSON))
 	uri = service_key['protocols']['amqp+ssl']['uri']
-	conn = Bunny.new(uri, tls: true, verify_peer: true, tls_ca_certificates: [PATH_TO_CA_CERTIFICATE])
+	conn = Bunny.new(uri, tls: true, verify_peer: true, tls_ca_certificates: [PATH-TO-CA-CERTIFICATE])
 	conn.start
 	```
+  Where:
+  * `PATH-TO-SERVICE-KEY-JSON` is the path to the service key in JSON
+  * `PATH-TO-CA-CERTIFICATE` is the path to the CA certificate which signed the RabbitMQ server certificate
 
 ##<a id='repush-rebind'></a> Repush or Rebind Your App
 

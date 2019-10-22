@@ -33,6 +33,10 @@ in this range is allocated to redirect traffic to the service instance.
 
 ## <a id='configuration'></a> Enable Service-Gateway Access
 
+<p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends configuring
+service-gateway access with TLS to prevent man-in-the-middle attacks.
+For instructions on how to configure TLS, see <a href="./install-config.html#security">Configure Security</a>.</p>
+
 To enable service-gateway access:
 
 1. Enable TCP Routing in <%= vars.app_runtime %> by doing steps 1, 2, and 4 of the procedure in
@@ -58,9 +62,6 @@ Pivotal recommends that you change the name or the description of the plan to re
 <p class="note"><strong>Note:</strong> If service-gateway access is disabled and then re-enabled, app developers must create
 new service keys to obtain a new set of credentials for service-gateway access.</p>
 
-<p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends configuring
-service-gateway access with TLS to prevent man-in-the-middle attacks.
-For instructions on configuring this, see <a href="./install-config.html#security">Configure Security</a>.</p>
 
 ## <a id='workflow'></a> Developer Workflow
 
