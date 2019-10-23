@@ -24,35 +24,43 @@ The following are prerequisites to procedures in this topic:
 ##<a id='modify'></a> Modify Your App for TLS
 
 To start using TLS for apps that are not written in Java or Spring, you must modify your app to use the correct protocol.
+The exact steps vary between client libraries.
+Consult the documentation for your library for the necessary configuration.
+
+The following examples use the [ruby-amqp/bunny](https://github.com/ruby-amqp/bunny) library.
+In these examples, `VCAP_SERVICES` is an environment variable available from the app.
 
 To modify your app, do the following:
 
-1. Use one of the code snippets below. <br><br>
-In these examples, `VCAP_SERVICES` is an environment variable available from the app.
-	* **Option 1:** If the operator enabled TLS using a certificate from a trusted authority, use the code below.
+* **If the operator enabled TLS using a certificate from a trusted authority:**
+<br>Use the code below:
 
-		```ruby
-		require 'json'
-		require 'bunny'
+	```ruby
+	require 'json'
+	require 'bunny'
 
-		vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
-		uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uris'].sample
-		conn = Bunny.new(uri)
-		conn.start
-		```
-		<br>
-	* **Option 2:** If the operator used a self-signed ceritificate, configure the RabbitMQ client to use the same CA certificate, and valid certificate and key.
-	Use the example code below, replacing the variables for `PATH_TO_CERTIFICATE`, `PATH_TO_KEY`, and `PATH_TO_CA_CERTIFICATE`.
+	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uris'].sample
+	conn = Bunny.new(uri)
+	conn.start
+	```
+	<br>
+* **If the operator used a self-signed CA certificate:** Use the code below to configure the RabbitMQ client
+to use the same CA certificate, as well as a valid TLS certificate and key.
 
-		```ruby
-		require 'json'
-		require 'bunny'
+	```ruby
+	require 'json'
+	require 'bunny'
 
-		vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
-		uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uris'].sample
-		conn = Bunny.new(uri, tls_cert: PATH_TO_CERTIFICATE, tls_key: PATH_TO_KEY, tls_ca_certificates: [PATH_TO_CA_CERTIFICATE])
-		conn.start
-		```
+	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uris'].sample
+	conn = Bunny.new(uri, tls_cert: PATH-TO-CERTIFICATE, tls_key: PATH-TO-KEY, tls_ca_certificates: [PATH-TO-CA-CERTIFICATE])
+	conn.start
+	```
+  Where:
+  * `PATH-TO-CERTIFICATE` is the path to your TLS certificate
+  * `PATH-TO-KEY` is the path to your TLS key
+  * `PATH-TO-CA-CERTIFICATE` is the path to the self-signed CA certificate the operator used
 
 ##<a id='repush-rebind'></a> Repush or Rebind Your App
 
