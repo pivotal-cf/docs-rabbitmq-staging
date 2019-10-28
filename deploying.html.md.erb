@@ -6,15 +6,18 @@ owner: London Services
 
 ## <a id="default"></a>Default Deployment
 
-Deploying <%= vars.product_name %> through <%= vars.ops_manager_full %> deploys a RabbitMQ cluster of **3 nodes** by default.
-
-The deployment includes a single load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
-
+Deploying <%= vars.product_name %> through <%= vars.ops_manager_full %> deploys a
+RabbitMQ cluster of **3 nodes** by default.
+The deployment includes a single load balancer `haproxy` which spreads connections
+on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 The deployment occurs in a single availability zone (AZ).
 
-The default configuration is for testing purposes only and Pivotal recommends that customers have a minimum of **3 RabbitMQ nodes** and **2 HAProxy nodes**
+The default configuration is for testing purposes only and Pivotal recommends that
+customers have a minimum of **3 RabbitMQ nodes** and **2 HAProxy nodes**
 
-<%= image_tag("images/deployment_default.jpeg") %>
+The diagram below shows the default <%= vars.product_name %> pre-provisioned deployment.
+
+<%= image_tag("images/deployment_default.png") %>
 
 ### <a id="default-consider"></a>Considerations for this deployment
 
@@ -34,21 +37,24 @@ Only use replication of queues where required as it can have a big impact on sys
 The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
 This removes the HAProxy SPOF and provides further redundancy.
 
-<%= image_tag("images/deployment_recommended.jpeg") %>
+The diagram below shows the recommended <%= vars.product_name %> pre-provisioned deployment.
+It shows that when you use this configuration, if a single HAProxy and single RabbitMQ node fail,
+your cluster can remain online and apps remain connected.
 
-The diagram above shows that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected.
+<%= image_tag("images/deployment_recommended.png") %>
 
 ### <a id="upgrade-from-single-az"></a>Upgrading to this deployment from a single AZ deployment
 
 It is **not** possible to upgrade to this setup from the default deployment across a single AZ.
 
-This is because the AZ setup cannot be changed after the tile has been deployed for the first time. This is to protect against data loss when moving jobs between AZs.
+This is because the AZ setup cannot be changed after the tile has been deployed for the first time.
+This is to protect against data loss when moving jobs between AZs.
 
 ### <a id="upgrade-from-multi-az"></a>Upgrading to this deployment from a multi AZ deployment
 
 If you have deployed the tile across two AZs, but with a single HAProxy instance, you can migrate to this setup by deploying an additional HAProxy instance through <%= vars.ops_manager %>.
-New or re-bound applications to the RabbitMQ service see the IPs of both HAProxies immediately.
-Existing bound applications will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
+New or re-bound apps to the RabbitMQ service see the IPs of both HAProxies immediately.
+Existing bound apps will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
 
 ### <a id="recommended-consider"></a>Considerations for this deployment
 
@@ -60,36 +66,38 @@ Existing bound applications will continue to work, but only using the previously
 ## <a id="advanced"></a>Advanced Deployment
 
 This deployment builds upon the above recommended deployment and so follows the same upgrade paths.
+This allows you to replace the use of HAProxy with your own external load balancer.d
+You might choose to do this to remove any knowledge of the topology of the RabbitMQ setup from app developers.
 
-This allows you to replace the use of HAProxy with your own external load balancer.
+The diagram below shows an advanced <%= vars.product_name %> pre-provisioned deployment.
 
-You might choose to do this to remove any knowledge of the topology of the RabbitMQ setup from application developers.
+<%= image_tag("images/deployment_advanced.png") %>
 
-<%= image_tag("images/deployment_advanced.jpeg") %>
+**Advantages:**
 
-Advantages
+* App developers do not need to handle multiple IPs for the HAProxy jobs in their apps
 
-* Application developers do not need to handle multiple IPs for the HAProxy jobs in their applications
+**Disadvantages:**
 
-Disadvantages
-
-* The load balancer needs to be configured with the IPs of the RabbitMQ Nodes. These are only be known after the deployment is finished. The IPs should remain the same during subsequent deployments but there is a risk they might change.
+* The load balancer needs to be configured with the IPs of the RabbitMQ Nodes.
+These are only be known after the deployment is finished.
+ The IPs should remain the same during subsequent deployments but there is a risk they might change.
 
 
 ### <a id="upgrade-from-recommended"></a>Upgrading to this deployment from the recommended deployment
 
 It is possible to first deploy with multiple HAProxy jobs, as per the recommended deployment, and later use your own external load balancer.
 
-This can be achieved without downtime to your applications. Follow these steps to do so:
+This can be achieved without downtime to your apps. Follow these steps to do so:
 
 1. Configure your external load balancer to point to the RabbitMQ Node IPs.
 2. Configure the DNS name or IP address for the external load balancer (ELB) on the RabbitMQ tile in <%= vars.ops_manager %>.
 3. Deploy the changes. Any new instances of the RabbitMQ service **or** any re-bound connections will use the DNS name or IP address of the ELB in their `VCAP_SERVICES`. Any existing instances will continue to use the HAProxy IP addresses in their `VCAP_SERVICES`
-6. Phase the re-binding of existing applications to update their environment variables.
-7. After all applications are updated, reduce the instance count of the `HAProxy` job in <%= vars.ops_manager %> to 1.
+6. Phase the re-binding of existing apps to update their environment variables.
+7. After all apps are updated, reduce the instance count of the `HAProxy` job in <%= vars.ops_manager %> to 1.
 9. Deploy the changes.
 
-This approach works as any existing bound applications have their `VCAP_SERVICES` information cached in Cloud Controller and are only updated by a re-bind request.
+This approach works as any existing bound apps have their `VCAP_SERVICES` information cached in Cloud Controller and are only updated by a re-bind request.
 
 ### <a id="downgrade-to-recommended"></a>Downgrading from this deployment to the recommended deployment
 

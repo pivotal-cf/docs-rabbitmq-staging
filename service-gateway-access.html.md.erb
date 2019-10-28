@@ -27,9 +27,13 @@ These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.p
 Every time a developer creates a service instance of a service-gateway plan, a port
 in this range is allocated to redirect traffic to the service instance.
 
-![architecture diagram shows app and load balancer external to the foundation and the TCP router
-  and RMQ nodes internal to the foundation](/images/service-gateway-architecture.png)
+The diagram below shows how traffic from components outside the <%= vars.platform_name %>
+foundation is routed by the TCP router to the RabbitMQ nodes in the service-gateway service instance.
+The TCP router balances the load among the nodes.
 
+![An app that is external to the foundation sends traffic to the external load balancer.
+The load balancer sends the traffic to the TCP router, which is inside the Pivotal Platform foundation.
+The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 
 ## <a id='configuration'></a> Enable Service-Gateway Access
 
