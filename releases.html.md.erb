@@ -17,15 +17,14 @@ New features and changes in this release:
 
 * You can configure an on-demand plan that enables service instances to connect to components outside the <%= vars.platform_name %> foundation.
 For more information, see [Enabling Service-Gateway Access](./service-gateway-access.html).
-* This release uses [RabbitMQ 3.8](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0).
-* The max limit on the number of on-demand service instances has been removed.
+* This release uses RabbitMQ 3.8. For more information, see the [repository](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) in GitHub.
+* The maximum limit on the number of on-demand service instances has been removed.
 
 ### Known Issues
 
 This release has the following known issue:
 
-* Caution should be exercised when utilising quorum queues in production, as they may experience downtime during a rolling 
-upgrade.
+* When utilized in production, quorum queues might experience downtime during a rolling upgrade.
 
 ### Compatibility
 
@@ -48,7 +47,7 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15">v3.7.15</a></td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15">v3.7.15</a> in GitHub</td>
     </tr>
     <tr>
         <td>Erlang</td>
