@@ -19,12 +19,14 @@ New features and changes in this release:
 For more information, see [Enabling Service-Gateway Access](./service-gateway-access.html).
 * This release uses RabbitMQ 3.8. For more information, see the [repository](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) in GitHub.
 * The maximum limit on the number of on-demand service instances has been removed.
+* This releases supports quorum queues. For more information about quorum queues, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
 
 ### Known Issues
 
 This release has the following known issue:
 
-* When used in production, [quorum queues](https://www.rabbitmq.com/quorum-queues.html) might experience downtime during a rolling upgrade.
+* When used in production, quorum queues might experience downtime during a rolling upgrade.
 
 ### Compatibility
 
