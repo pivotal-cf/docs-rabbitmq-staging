@@ -250,18 +250,24 @@ Click **Security**.
 1. Paste the contents of the CA certificate into **Trusted Certificates**, and then click **Save**.
 1. After preparing your environment for TLS, you must enable TLS in the tile configuration,
    following the appropriate step below.
-    <p class="note warning"><strong>WARNING</strong>: Restarting all of the VMs in your PCF deployment in order to apply a
-    CA certificate takes a long time to complete.</p>
-    * **For an Existing Installation**: Complete the steps in
-    [Configure Security](install-config.html#security) to enable TLS in the tile,
-    click **Review Pending Changes**, and then click **Apply Changes** in the Installation Dashboard.
-    This restarts all the VMs in your PCF deployment and applies your CA certificate.
-    <p class="note"><strong>Note:</strong>
-    Make sure the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>.
-    This errand must be run to ensure all service instances have the needed changes. </p>
-    * **For a New Installation**: Complete the procedures in
-    [Installing and Configuring RabbitMQ for PCF](install-config.html),
-    including enabling TLS in the **Security for On-Demand Plans** tab,
-    click **Review Pending Changes**, and then click **Apply Changes**
-    in the Installation Dashboard.
-    This deploys RabbitMQ for PCF, restarts all the VMs in your PCF deployment, and applies your CA certificate.
+    <p class="note warning"><strong>Warning</strong>: Restarting all of the VMs in your <%= vars.platform_name %> deployment in order to apply a
+    CA certificate takes a long time to complete.
+	</p>
+    * **For an Existing Installation**: 
+			<ol>
+				<li>Complete the steps in <a href="./install-config.html#security">Configure Security</a> 
+					to enable TLS in the tile.</li>
+				<li>Click <strong>Review Pending Changes</strong>.</li>
+				<li> Ensure that the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>. 
+				This errand must be run to ensure all service instances have the needed changes.</li>
+				<li>Click <strong>Apply Changes</strong> in the Installation Dashboard.</li>
+			</ol>
+			This restarts all the VMs in your <%= vars.platform_name %> deployment and applies your CA certificate.	<br>		    	
+    * **For a New Installation**: 
+			<ol>
+				<li>Complete the procedures in <a href="./install-config.html">Installing and Configuring <%= vars.product_name %></a>, including enabling TLS in the <strong>Security for On-Demand Plans</strong> tab.</li>
+				<li>Click <strong>Review Pending Changes</strong>.</li>
+				<li>Ensure that the PAS tile is selected. This ensures the new certificate is deployed to all the VMs.</li>
+				<li>Click <strong>Apply Changes</strong>in the Installation Dashboard.</li>
+			</ol>
+	    This deploys <%= vars.product_name %>, restarts all the VMs in your <%= vars.platform_name %> deployment, and applies your CA certificate.
