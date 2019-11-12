@@ -248,8 +248,7 @@ Follow these steps to log in to CredHub, provide or generate a CA certificate, a
 1. Navigate to the Ops Manager **Installation Dashboard** and select the BOSH Director tile.
 Click **Security**.
 1. Paste the contents of the CA certificate into **Trusted Certificates**, and then click **Save**.
-1. After preparing your environment for TLS, you must enable TLS in the tile configuration,
-   following the appropriate step below.
+1. After preparing your environment for TLS, you must enable TLS in the tile configuration by doing one of the following:
     <p class="note warning"><strong>Warning</strong>: Restarting all of the VMs in your <%= vars.platform_name %> deployment in order to apply a
     CA certificate takes a long time to complete.
 	</p>
@@ -260,6 +259,7 @@ Click **Security**.
 				<li>Click <strong>Review Pending Changes</strong>.</li>
 				<li> Ensure that the <code>upgrade-all-service-instances</code> errand is set to <strong>On</strong>. 
 				This errand must be run to ensure all service instances have the needed changes.</li>
+				<li>Ensure that the <%= vars.app_runtime %> tile is selected. This ensures the new certificate is deployed to all the VMs.</li>
 				<li>Click <strong>Apply Changes</strong> in the Installation Dashboard.</li>
 			</ol>
 			This restarts all the VMs in your <%= vars.platform_name %> deployment and applies your CA certificate.	<br>		    	
@@ -267,7 +267,7 @@ Click **Security**.
 			<ol>
 				<li>Complete the procedures in <a href="./install-config.html">Installing and Configuring <%= vars.product_name %></a>, including enabling TLS in the <strong>Security for On-Demand Plans</strong> tab.</li>
 				<li>Click <strong>Review Pending Changes</strong>.</li>
-				<li>Ensure that the PAS tile is selected. This ensures the new certificate is deployed to all the VMs.</li>
-				<li>Click <strong>Apply Changes</strong>in the Installation Dashboard.</li>
+				<li>Ensure that the <%= vars.app_runtime %> tile is selected. This ensures the new certificate is deployed to all the VMs.</li>
+				<li>Click <strong>Apply Changes</strong> in the Installation Dashboard.</li>
 			</ol>
 	    This deploys <%= vars.product_name %>, restarts all the VMs in your <%= vars.platform_name %> deployment, and applies your CA certificate.
