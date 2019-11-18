@@ -294,10 +294,10 @@ the <%= vars.product_name %> service.
 #### <a id="cpu"></a> CPU
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.cpu.user<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system.cpu.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>CPU being consumed by the user processes on the <code>p.rabbitmq</code> VM.<br><br>
+      <td>CPU being consumed by the <code>p.rabbitmq</code> VM.<br><br>
 
       <strong>Use</strong>: A node that experiences context switching or high CPU usage becomes unresponsive.
       This also affects the ability of the node to report metrics.
@@ -327,7 +327,7 @@ the <%= vars.product_name %> service.
 #### <a id="ephemeral-disk"></a> Ephemeral Disk
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.disk.ephemeral.percent<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Ephemeral Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
@@ -358,7 +358,7 @@ the <%= vars.product_name %> service.
 #### <a id="persistent-disk"></a> Persistent Disk
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.disk.persistent.percent<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Persistent Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
