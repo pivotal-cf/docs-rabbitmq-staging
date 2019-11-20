@@ -21,6 +21,8 @@ For more information, see [Enabling Service-Gateway Access](./service-gateway-ac
 * The maximum limit on the number of on-demand service instances has been removed.
 * This releases supports quorum queues. For more information about quorum queues, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
+* User name and password are removed from the RabbitMQ dashboard URL because of a potential XSS vector (see [PR](https://github.com/rabbitmq/rabbitmq-management/pull/748) for more information).
+This means users do not get logged in automatically anymore when navigating to the dashboard URL. Instead, users need to explicitly enter user name and password on the RabbitMQ dashboard login page.
 
 ### Known Issues
 
