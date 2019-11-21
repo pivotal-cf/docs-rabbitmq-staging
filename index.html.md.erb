@@ -149,7 +149,9 @@ Check the [release notes](releases.html) for your release version for important 
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services/on-demand-service-table' %>
+<%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
+  :service_name => vars.service_name, :platform_name => vars.platform_name, :rabbit => "RabbitMQ for Pivotal Platform", :redis => "Redis for Pivotal Platform", :mysql => "MySQL for Pivotal Platform"
+} %>
 
 ## <a id='feedback'></a>Feedback
 
