@@ -58,6 +58,9 @@ Ensure that you review the pre-deployment steps required to enable this feature.
      filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
      1024-2025.](/images/global-settings-service-gateway.png)
 
+     <p class="note warning"><strong>Warning:</strong> If previously set, changing the port range may cause service instance
+     upgrades to fail if the service instance is already using a port that is no longer in the new range. </p>
+
 1. Allow ingress traffic on your external load balancer for the specified port range.
 
 1. Navigate to the service plan that you want to use and select the **Service-Gateway Access** checkbox.
