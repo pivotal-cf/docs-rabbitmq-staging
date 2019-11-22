@@ -27,6 +27,116 @@ For instructions on how to install, configure, and deploy RabbitMQ for PCF
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
+## <a id="1-16-7"></a> v1.16.7
+
+**Release Date**: XXX XX, 2019
+
+### Security Fixes
+
+This release includes the following security fixes:
+
+* High [CVE-2019-17596](https://nvd.nist.gov/vuln/detail/CVE-2019-17596):
+Go before 1.12.11 and 1.3.x before 1.13.2 can panic upon an attempt to process network traffic containing an invalid DSA public key.
+There are several attack scenarios, such as traffic from a client to a server that verifies client certificates.
+
+* High [CVE-2019-16276](https://nvd.nist.gov/vuln/detail/CVE-2019-16276):
+Go before 1.12.10 and 1.13.x before 1.13.1 allow HTTP Request Smuggling.
+
+* The update to OSS RabbitMQ v3.7.21 includes security fixes.
+For more information about RabbitMQ v3.7.21, see the [RabbitMQ Changelog](https://www.rabbitmq.com/changelog.html).
+
+### Features
+
+New features and changes in this release:
+
+* This release updates the following dependencies:
+	* OSS RabbitMQ to <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a>
+	* Erlang to v21.3.8.10 (**Note: This changes the Erlang major version from 20 to 21. Regardless, upgrade to this version does not require a full cluster shutdown and is done as a rolling upgrade.**)
+	* HAProxy to v1.8.22
+
+### Known Issues
+
+This release has the following known issues:
+
+* Changing the Erlang Cookie value requires cluster downtime, and can result in
+failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-shareable-instances' %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th>Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>170.x</td>
+    </tr>
+    <tr>
+        <td>PCF</td>
+        <td>v2.4.x, v2.5.x, and v2.6.x</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a></td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>21.3.8.10</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.22</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.1.5</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.3</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.35.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>21.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>108.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>60.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.21.4</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.193.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.6.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>38.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>281.0.0</td>
+    </tr>
+</table>
+
 ## <a id="1-16-6"></a> v1.16.6
 
 **Release Date**: October 11, 2019
