@@ -477,7 +477,8 @@ To share service instances, the feature-flag `service_instance_sharing` must be 
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services/log-cache-cli-plugin' %>
+<%= partial vars.path_to_partials + '/services/log-cache-cli-plugin',
+:locals => {:service_name => vars.service_name, :platform_name => vars.platform_name} %>
 
 ## <a id="federation"></a> Federate Exchanges and Queues
 
