@@ -17,6 +17,111 @@ However, upgrading to v1.17.2 and earlier still requires a cluster shutdown.
 For product versions and upgrade paths,
 see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
+## <a id="1174"></a> v1.17.4
+
+**Release Date**: XXX XX, 2019
+
+### Security Fixes
+
+* High [CVE-2019-17596](https://nvd.nist.gov/vuln/detail/CVE-2019-17596):
+Go before 1.12.11 and 1.3.x before 1.13.2 can panic upon an attempt to process network traffic containing an invalid DSA public key.
+There are several attack scenarios, such as traffic from a client to a server that verifies client certificates.
+
+* High [CVE-2019-16276](https://nvd.nist.gov/vuln/detail/CVE-2019-16276):
+Go before 1.12.10 and 1.13.x before 1.13.1 allow HTTP Request Smuggling.
+
+* The update to OSS RabbitMQ v3.7.21 includes security fixes.
+For more information about RabbitMQ v3.7.21, see the [RabbitMQ Changelog](https://www.rabbitmq.com/changelog.html).
+
+### Features
+
+New features and changes in this release:
+
+* This release updates the following dependencies:
+	* OSS RabbitMQ to <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a>
+	* Erlang to v21.3.8.10
+	* HAProxy to v1.8.22
+
+### Known Issues
+
+This release has the following known issue:
+
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th>Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>315.x</td>
+    </tr>
+    <tr>
+        <td>PCF</td>
+        <td>v2.4.x, v2.5.x, v2.6.x and v2.7.x</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a></td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>21.3.8.10</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.22</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.1.5</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.3</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.35.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>21.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>108.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>60.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.21.4</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.193.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.6.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>38.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>281.0.0</td>
+    </tr>
+</table>
+
 ## <a id="1173"></a> v1.17.3
 
 **Release Date**: October 11, 2019
@@ -83,7 +188,7 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td>PCF</td>
-        <td>v2.4.x, v2.5.x, and v2.6.x</td>
+        <td>v2.4.x, v2.5.x, v2.6.x and v2.7.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
@@ -194,7 +299,7 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td>PCF</td>
-        <td>v2.4.x, v2.5.x, and v2.6.x</td>
+        <td>v2.4.x, v2.5.x, v2.6.x and v2.7.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
