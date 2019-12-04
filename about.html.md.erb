@@ -11,20 +11,106 @@ For information about architecture of the older, pre-provisioned service, see [D
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services/service-networks-v3' %>
+When you deploy <%= vars.platform_old %>, you must create a statically defined network to host
+the component VMs that make up the <%= vars.platform_old %> infrastructure.
+<%= vars.platform_old %> components, such as Cloud Controller and UAA, run on this infrastructure network.
+
+On-demand <%= vars.platform_old %> services might require you to host them on a separate network
+from the <%= vars.platform_old %> default network.
+You can also deploy on-demand services on a separate service networks to meet your own security requirements.
+
+<%= vars.platform_old %> supports dynamic networking.
+Operators can use dynamic networking with asynchronous service provisioning to define
+dynamically-provisioned service networks.
+For more information, see [Default Network and Service Network](#on-demand) below.
+
+On-demand services are enabled by default on all networks.
+Operators can optionally create separate networks to host services in BOSH Director.
+Operators can select which network hosts on-demand service instances when they configure the tile for
+that service.
+
 
 ## <a id='on-demand'></a>Default Network and Service Network
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services/on_demand_architecture' %>
+On-demand <%= vars.product_short %> services use BOSH to dynamically deploy VMs and create single-tenant
+service instances in a dedicated network.
+On-demand services use the dynamically-provisioned service network to host single-tenant worker VMs.
+These worker VMs run as service instances within development spaces.
+
+This on-demand architecture has the following advantages:
+
++ Developers can provision IaaS resources for their services instances when the instances are created.
+This removes the need for operators to pre-provision a fixed amount of IaaS resources
+when they deploy the service broker.
++ Service instances run on a dedicated VM and do not share VMs with unrelated processes.
+This removes the "noisy neighbor" problem, where an app monopolizes resources on a shared cluster.
++ Single-tenant services can support regulatory compliances where
+sensitive data must be separated across different machines.
+
+An on-demand service separates operations between the default network and the
+service network. Shared service components, such as executive controllers and databases,
+Cloud Controller, UAA, and other on-demand components, run on the default network.
+Worker pools deployed to specific spaces run on the service network.
+
+
+The diagram below shows worker VMs in an on-demand service instance
+running on a separate services network, while other components run on the default
+network.
+
+<img src="/images/odb-architecture.png">
+
+<a href="./images/odb-architecture.png" target="_blank">View a larger version of this image</a>
+
 
 
 ## <a id="network-rules"></a> Required Networking Rules for On-Demand Services
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services/service_networks_table' %>
+Before deploying a service tile that uses the on-demand service broker (ODB),
+you must create networking rules to enable <%= vars.platform_name %> components
+to communicate with ODB. For instructions for creating networking rules,
+see the documentation for your IaaS.
+
+The following table lists key components and their responsibilities in the on-demand
+architecture.
+
+<table class="nice">
+	<th>Key Components</th>
+	<th>Component Responsibilities</th>
+	<tr>
+		<td><strong>BOSH Director</strong></td>
+		<td>Creates and updates service instances as instructed by ODB.</td>
+	</tr>
+	<tr>
+		<td><strong>BOSH Agent</strong></td>
+		<td>Adds an agent on every VM that it deploys. The agent
+ listens for instructions from the BOSH Director and executes those instructions.
+ The agent receives job specifications from the BOSH Director and uses them to assign
+a role or job to the VM.</td>
+	</tr>
+	<tr>
+		<td><strong>BOSH UAA</strong></td>
+		<td>Issues OAuth2 tokens for clients to use when they act on behalf of BOSH users.</td>
+	</tr>
+	<tr>
+		<td><strong><%= vars.app_runtime_full %></strong></td>
+		<td>Contains the apps that consume services.</td>
+	</tr>
+	<tr>
+		<td><strong>ODB</strong></td>
+		<td>Instructs BOSH to create and update services.
+			 Connects to services to create bindings.</td>
+	</tr>
+	<tr>
+		<td><strong>Deployed service instance</strong></td>
+		<td>Runs the given service.
+			For example, a deployed <%= vars.product_short %>
+			service instance runs the <%= vars.product_short %> service.</td>
+	</tr>
+</table>
 
 <br>
 Regardless of the specific network layout, the operator must ensure network
