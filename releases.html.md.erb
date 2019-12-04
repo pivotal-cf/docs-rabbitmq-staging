@@ -7,13 +7,7 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-<p class="note warning"><strong> Warning</strong>:
-You must follow the upgrade procedure described in
-<a href="upgrade.html#upgrade-preprovisioned">Upgrade the <%= vars.product_old %> Pre-Provisioned Service</a>
-to successfully upgrade from RabbitMQ for PCF v1.12 to v1.13.
-If you do not follow the procedure, you will experience prolonged downtime and might experience data loss.
-</p>
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/do-not-upgrade' %>
 
 <p class="note warning"><strong>Warning:</strong>
   Pivotal requires you to upgrade to the latest 1.12.x, and then move to the latest
@@ -62,27 +56,7 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-<ul>
-<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
-  4xx status code and when unbinding services.
-  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
-  and the pre-provisioned broker to reach capacity:
-   <ul>
-    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
-    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
-   </ul>
-  To resolve the issue, do one of the following:
-   <ul>
-   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code> monit job on the VM.
-   <li> Increase the file descriptor limit on the VM.
-    For how to increase the limit, see the example in
-    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in <%= vars.product_name %> "too many open files"</a>
-      in the Pivotal Support knowledge base.  </li>
-   <li> If the VM is unresponsive, restart it.</li>
-   </ul>
-</li>
-</ul>
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -110,8 +84,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -139,27 +112,7 @@ This release fixes the following issue:
 
 This release has the following known issues:
 
-<ul>
-<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
-  4xx status code and when unbinding services.
-  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
-  and the pre-provisioned broker to reach capacity:
-   <ul>
-    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
-    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
-   </ul>
-  To resolve the issue, do one of the following:
-   <ul>
-   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code> monit job on the VM.
-   <li> Increase the file descriptor limit on the VM.
-    For how to increase the limit, see the example in
-    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in <%= vars.product_name %> "too many open files"</a>
-      in the Pivotal Support knowledge base.  </li>
-   <li> If the VM is unresponsive, restart it.</li>
-   </ul>
-</li>
-</ul>
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -193,8 +146,7 @@ However, if you stop the job, metrics will not be available.
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -216,27 +168,7 @@ New features and changes in this release:
 
 This release has the following known issues:
 
-<ul>
-<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
-  4xx status code and when unbinding services.
-  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
-  and the pre-provisioned broker to reach capacity:
-   <ul>
-    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
-    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
-   </ul>
-  To resolve the issue, do one of the following:
-   <ul>
-   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code> monit job on the VM.
-   <li> Increase the file descriptor limit on the VM.
-    For how to increase the limit, see the example in
-    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in <%= vars.product_name %> "too many open files"</a>
-      in the Pivotal Support knowledge base.  </li>
-   <li> If the VM is unresponsive, restart it.</li>
-   </ul>
-</li>
-</ul>
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -272,8 +204,7 @@ However, if you stop the job, metrics will not be available.
 
 * There are issues with the configuration of pre-provisioned RabbitMQ with external load balancers.
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -298,27 +229,7 @@ For more information, see [Post-Deploy Errands](./install-config.html#post-deplo
 
 This release has the following known issues:
 
-<ul>
-<li>The pre-provisioned broker does not terminate failed TCP connections when the request fails with a
-  4xx status code and when unbinding services.
-  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
-  and the pre-provisioned broker to reach capacity:
-   <ul>
-    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
-    <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
-   </ul>
-  To resolve the issue, do one of the following:
-   <ul>
-   <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code> monit job on the VM.
-   <li> Increase the file descriptor limit on the VM.
-    For how to increase the limit, see the example in
-    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in <%= vars.product_name %> "too many open files"</a>
-      in the Pivotal Support knowledge base.  </li>
-   <li> If the VM is unresponsive, restart it.</li>
-   </ul>
-</li>
-</ul>
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-pp-tcp-connections' %>
 
 * **[Security Issue]** The method for generating the Erlang cookie is not secure.
   For more information about this security issue, see
@@ -354,8 +265,7 @@ However, if you stop the job, metrics will not be available.
 
 * There are issues with the configuration of pre-provisioned RabbitMQ with external load balancers.
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -411,8 +321,7 @@ However, if you stop the job, metrics will not be available.
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -472,8 +381,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -506,10 +414,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
@@ -529,8 +434,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -569,10 +473,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.2.6 or later.
@@ -592,8 +493,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -635,10 +535,7 @@ This release has the following known issues:
   on the Loggregator Firehose.
   This issue does not affect new installations.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -658,8 +555,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -690,10 +586,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -713,8 +606,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -746,10 +638,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -769,8 +658,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -803,10 +691,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -826,8 +711,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -860,10 +744,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v1.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -881,8 +762,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -917,10 +797,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from RabbitMQ for PCF v.12 to v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -938,8 +815,7 @@ This release has the following known issues:
   Pivotal recommends leaving the default run rule set to **On**.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html).
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
@@ -984,10 +860,7 @@ This release has the following known issues:
   * If you have set the Erlang Cookie explicitly in the tile configuration,
   you are not affected by this issue.
 
-* **[Security Issue]** There is a issue related to BPM v1.0.2 and earlier.
-  <%= vars.product_old %> v1.13 cannot use BPM v1.0.3.
-  To resolve this issue, upgrade to <%= vars.product_old %> v1.14.
-
+<%= partial '../../rabbitmq-cf/partials/rabbitmq/bpm-issue' %>
 
 * You cannot upgrade from PCF v.12 to PCF v1.13 on PCF v2.2.0 - v2.2.5.
   You must upgrade on PCF v2.1 or on PCF v2.2.6 or later.
@@ -1011,8 +884,7 @@ This release has the following known issues:
   `VCAP_SERVICES` for `amqp+ssl` incorrectly reports that the port is `5672`.
   The actual port used for `amqp+ssl` is `5671`.
 
-* When you upgrade from RabbitMQ v3.6 to v3.7, a directory might be created. This causes issues after the service is restarted. For information on how to resolve this issue, see [Prerequisite](./upgrade.html#pre-upgrade) in _Upgrading <%= vars.product_old %>_.
-
+<%= partial "../../rabbitmq-cf/partials/rabbitmq/directory-created" %>
 
 ### Packages
 
