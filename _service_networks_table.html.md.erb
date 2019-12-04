@@ -1,0 +1,42 @@
+Before deploying a service tile that uses the on-demand service broker (ODB),
+you must create networking rules to enable PCF components
+to communicate with ODB. For instructions for creating networking rules,
+see the documentation for your IaaS.
+
+The following table lists key components and their responsibilities in the on-demand
+architecture.
+
+<table class="nice">
+	<th>Key Components</th>
+	<th>Component Responsibilities</th>
+	<tr>
+		<td><strong>BOSH Director</strong></td>
+		<td>Creates and updates service instances as instructed by ODB.</td>
+	</tr>
+	<tr>
+		<td><strong>BOSH Agent</strong></td>
+		<td>Adds an agent on every VM that it deploys. The agent
+ listens for instructions from the BOSH Director and executes those instructions.
+ The agent receives job specifications from the BOSH Director and uses them to assign
+a role or job to the VM.</td>
+	</tr>
+	<tr>
+		<td><strong>BOSH UAA</strong></td>
+		<td>Issues OAuth2 tokens for clients to use when they act on behalf of BOSH users.</td>
+	</tr>
+	<tr>
+		<td><strong>Pivotal Application Service</strong></td>
+		<td>Contains the apps that consume services.</td>
+	</tr>
+	<tr>
+		<td><strong>ODB</strong></td>
+		<td>Instructs BOSH to create and update services.
+			 Connects to services to create bindings.</td>
+	</tr>
+	<tr>
+		<td><strong>Deployed service instance</strong></td>
+		<td>Runs the given service.
+			For example, a deployed RabbitMQ for PCF
+			service instance runs the PCF service.</td>
+	</tr>
+</table>

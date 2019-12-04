@@ -1,0 +1,52 @@
+<p>
+	When you make changes to the plan configuration, you should
+	upgrade all RabbitMQ for Pivotal Cloud Foundry (PCF)  instances to the latest version of the plan.
+</p>
+
+<h3> What the Errand Does </h3>
+
+<p>
+	The <code>upgrade-all-service-instances</code> errand does the following:
+</p>
+
+<ol>
+	<li>Collects all of the service instances that the on-demand broker has registered</li>
+	<li>For each instance the errand does the following:
+		<ol>
+			<li>Issues an upgrade command to the on-demand broker</li>
+			<li>Regenerates the service instance manifest based on the latest configuration from the tile</li>
+			<li>Deploys the new manifest for the service instance</li>
+			<li>Waits for this operation to complete, then proceeds to the next instance</li>
+		</ol>
+	</li>
+	<li>Adds to a retry list any instances that have ongoing BOSH tasks at the time of upgrade</li>
+	<li>Retries any instances in the retry list until all instances are upgraded</li>
+</ol>
+
+<p>
+	If any instance fails to upgrade, the errand fails immediately.
+	This prevents systemic problems from spreading to the rest of your service instances.
+</p>
+
+<h3> How to Run the Errand </h3>
+
+<p>
+	To run the errand:
+</p>
+<ol>
+	<li>Do one of the following</li>
+
+	<ul>
+		<li>
+			Select the errand in the <strong>Ops Manager Installation Dashboard</strong>
+			on the <strong>Review Pending Changes</strong> page and
+			then click <strong>Apply Changes</strong>.
+		</li>
+		<li>
+			<p>
+				Run the following command:
+			</p>
+			<pre><code>bosh -d DEPLOYMENT-NAME run-errand upgrade-all-service-instances</code></pre>
+		</li>
+	</ul>
+</ol>

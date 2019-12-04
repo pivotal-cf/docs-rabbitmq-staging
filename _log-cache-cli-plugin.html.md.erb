@@ -1,0 +1,30 @@
+To access metrics for <%= service_name %> service instances, you can use Loggregator's Log
+Cache feature with the Log Cache CLI plugin.
+Log Cache is enabled by default in  Pivotal Application Service v2.2 and later.
+
+To access metrics for on-demand service instances, do the following:
+
+1. To install the cf CLI plugin, run the following command:
+
+    ```
+    cf install-plugin -r CF-Community "log-cache"
+    ```
+
+1. To access metrics for a service instance, run the following command:
+
+    ```
+    cf tail SERVICE-INSTANCE-NAME
+    ```
+    Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
+    <br><br>
+  For example:
+  <pre>
+     $ cf tail my-instance
+     Retrieving logs for service my-instance in org system / space pivotal-services as admin...
+     2018-12-06T11:01:06.03+0000 [my-instance] GAUGE /p.rabbitmq/rabbitmq/channels/count:0.000000 count /p.rabbitmq/rabbitmq/connections/count:0.000000...
+    </pre>
+  For more information about the metrics output, see
+[Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html).
+
+For more information about how to enable Log Cache and about the `cf tail` command,
+see [Enable Log Cache](https://docs.pivotal.io/pivotalcf/opsguide/logging-config-opsman.html#log-cache).

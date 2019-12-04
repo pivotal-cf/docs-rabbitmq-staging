@@ -1,0 +1,32 @@
+<p>
+	If developers report errors such as:
+</p>
+
+<pre class="terminal">
+Server error, status code: 502, error code: 10001, message: Service broker error: instance does not exist`
+</pre>
+
+<p>
+	Follow these steps:
+</p>
+
+<ol>
+	<li>
+		<p>
+			Confirm that RabbitMQ for Pivotal Cloud Foundry (PCF)  instance exists in BOSH and
+			obtain the GUID CF by running:
+		</p>
+		<pre><code>cf service MY-INSTANCE --guid</code></pre>
+	</li>
+	<li>
+		<p>
+			Using the GUID obtained above, the following BOSH CLI command:
+		</p>
+		<pre><code>bosh -d service-instance_GUID vms</code></pre>
+	</li>
+</ol>
+
+<p>
+	If the BOSH deployment is not found, it has been deleted from BOSH.
+	Contact Pivotal support for further assistance.
+</p>

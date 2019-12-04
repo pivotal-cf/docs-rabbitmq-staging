@@ -1,0 +1,209 @@
+<%# This partial is currently not in use at the moment.
+We decided not to use the partial because the current procedure might contain
+service specific information.
+Other services might want to customize the procedure for their needs.
+
+However, we're keeping the partial in the repo in case other services want to add it.
+If that happens we can review the content of the partial, check the links, and
+delete this comment.
+If you edit this partial, remember to update it in all branches (v0.18.x to master) %>
+
+Perform the following procedures to create a UAA client for CredHub,
+log in to CredHub, and provide or generate a CA certificate.
+
+###<a id='uaa'></a> Create UAA Client
+
+Perform the following steps to create a UAA client for CredHub on your UAA server:
+
+1. Retrieve the IP address of the BOSH Director VM and the Director credentials
+   by performing the steps in
+   [Gather Credential and IP Address Information](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#gather).
+   Both the UAA and CredHub servers are colocated on the BOSH Director VM.
+
+1. SSH into the Ops Manager VM by performing the steps in
+   [SSH into Ops Manager of Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#ssh).
+
+1. From the Ops Manager VM, use the UAA Command Line Interface (UAAC) to target
+   the UAA server on the BOSH Director VM.
+    In the UAAC command, specify the IP address for the BOSH Director VM, and
+    port 8443.
+    <br><br>
+    Run the following command:
+
+    ```
+    uaac target BOSH-DIRECTOR:8443
+    ```
+    <br>
+    Where `BOSH-DIRECTOR` is the IP address of the BOSH Director VM.
+    You retrieved this address from the **Status** tab of the BOSH Director
+    tile in step 1.
+    <br><br>
+    For example:
+    <pre class="terminal">
+    $ uaac target 10.0.0.5:8443
+    </pre>
+
+1. In the **Credentials** tab of the BOSH Director tile, retrieve the
+   **Uaa Login Client Credentials** and record the `identity` and `password` values.
+    <p class="note"><strong>Note</strong>: These are the credentials for the UAA
+        server colocated on the BOSH Director, not the UAA server colocated on
+        Pivotal Application Service.</p>
+
+1. Retrieve the **Uaa Admin User Credentials** and record the `identity` and
+`password` values.
+
+1. From the Ops Manager VM, use the UAAC to get a token.
+    <br><br>
+    Run the following command:
+
+    ```
+    uaac token owner get login --secret=UAA-LOGIN-CLIENT-CRED
+    ```
+    Where `UAA-LOGIN-CLIENT-CRED` is the `password` value of the **Uaa Login Client
+    Credentials** that you retrieved in step 4.
+    <br><br>
+    For example:
+    <pre class="terminal">
+    $ uaac token owner get \
+        login --secret=abcdefghijklm123456789
+    </pre>
+
+1. When prompted for a user name and password, enter the values for `identity`
+   and `password` of the **Uaa Admin User Credentials** you retrieved in step 5.
+    For example:
+    <pre class="terminal">
+    User name:  admin
+    Password:  ********************************
+    </pre>
+
+1. Add a UAA client for CredHub with the correct grants.
+    <br><br>
+    Enter the following command:
+
+    ```
+    uaac client add \
+    	--authorized\_grant\_types client\_credentials \
+    	--authorities credhub.read,credhub.write
+    ```
+
+1. When prompted for Client ID, enter `credhub`.
+   When prompted for `New client secret`, enter a secure password of your choice.
+    For example:
+    <pre class="terminal">
+    Client ID:  credhub
+    New client secret:  *******
+    Verify new client secret:  *******
+      scope: uaa.none
+      client\_id: credhub
+      resource\_ids: none
+      authorized\_grant\_types: client\_credentials
+      autoapprove:
+      authorities: credhub.write credhub.read
+      name: credhub
+      required_user_groups:
+      lastmodified: 1518198701452
+      id: credhub
+      created_by: f609e861-39ec-4a16-8aee-cba9e9b079e3
+    </pre>
+
+<%# (replace the link in this step with a link to Credhub documentation) %>
+1. If you are using RabbitMQ for PCF v1.12, perform the steps in [Downloading the CredHub CLI]
+  to download the CredHub CLI on the Ops Manager VM.
+  In RabbitMQ for PCF v2.0 and later or PCF 2.7 and later the Ops Manager VM ships with the CredHub CLI already
+  installed.
+
+###<a id='add-ca-cert'></a> Add the CA Certificate
+
+Perform the following steps to log in to CredHub, provide or generate a CA
+certificate, and add the certificate to Ops Manager:
+
+1. From the Ops Manager VM, set the API target of the CredHub CLI to your CredHub
+   server.
+    <br><br>
+    Run the following command:
+
+    ```
+    credhub api https://BOSH-DIRECTOR:8844 --ca-cert=/var/tempest/workspaces/default/root_ca_certificate
+    ```
+    <br>
+    Where `BOSH-DIRECTOR` is the IP address of the BOSH Director VM.
+    <br><br>
+    For example:
+    <pre class="terminal">
+    $ credhub api http<span>s:</span>//10.0.0.5:8844 --ca-cert=/var/tempest/workspaces/default/root_ca_certificate
+    </pre>
+
+1. Log in to CredHub.
+    <br><br>
+    Run the following command:
+
+    ```
+    credhub login --client-name=credhub --client-secret=CLIENT-SECRET
+    ```
+    <br>
+    Where `client-secret` is the client secret you set in step 9 above.
+    <br><br>
+    For example:
+    <pre class="terminal">
+    $ credhub login \
+    	--client-name=credhub \
+    	--client-secret=abcdefghijklm123456789
+    </pre>
+
+1. Use the CredHub CLI to generate a CA certificate or provide an existing one.
+    <p class="note"><strong>Note</strong>: Your PCF deployment may have multiple
+        CA certificates.
+       Pivotal recommends a dedicated CA certificate for services.</p>
+	* If you do not have a CA certificate, use the CredHub CLI to generate one.
+          Enter the following command:
+		<pre class="terminal">
+		$ credhub generate \
+			--name="/services/tls_ca" \
+			--type="certificate" \
+			--is-ca \
+            --common-name="rootCA"
+		</pre>
+    * If you have an existing CA certificate that you want to use, create a new
+      file called `root.pem` with the contents of the certificate.
+      Then enter the following command, specifying the path to `root.pem` and the
+      private key for the certificate:
+        <pre class="terminal">
+        $ credhub set \
+            --name="/services/tls_ca" \
+            --type="certificate" \
+            --certificate=./root.pem \
+            --private=ERKSOSMFF...
+        </pre>
+
+1. Use the BOSH CLI v2 to extract the `certificate` portion from the CA certificate
+   and print it.
+    Run the following command:
+
+    ```
+    bosh int <(credhub get \
+    --name=/services/tls_ca) \
+    --path /value/certificate
+    ```
+1. Copy the output.
+
+1. Navigate to the Ops Manager **Installation Dashboard** and select the BOSH Director tile.
+   Click **Security**.
+
+1. Paste the contents of the CA certificate into **Trusted Certificates** and
+   click **Save**.
+
+<%# (replace the links in this step with links to relevant installing/configuration topics) %>
+1. After preparing your environment for TLS, you must enable TLS in the tile
+   configuration while installing RabbitMQ for PCF:
+    * **Existing Installation**: If you have already installed the
+            RabbitMQ for PCF tile, perform the procedures in
+			[Configure TLS] to enable TLS in the **Security** section of the tile.
+			Then return to the Ops Manager Installation Dashboard and click **Apply Changes**.
+			This restarts all the VMs in your PCF deployment and applies your CA certificate.
+    * **New Installation**: If you have not yet installed the RabbitMQ for PCF
+            tile, perform all of the procedures in [Installing] RabbitMQ for PCF.
+			When you click **Apply Changes**, this deploys RabbitMQ for PCF,
+            restarts all the VMs in your PCF deployment, and applies your CA certificate.
+    <p class="note warning"><strong>WARNING</strong>:
+        Restarting all of the VMs in your PCF deployment in order to apply a CA
+        certificate takes a long time to complete.</p>

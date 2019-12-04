@@ -1,0 +1,39 @@
+<p>
+  If developers report that their app cannot use service instances that they have
+  successfully created and bound:
+</p>
+
+<p>
+  Ask the user to send application logs that show the connection error.
+  If the error is originating from the service, then follow RabbitMQ for PCF-specific instructions.
+  If the issue appears to be network-related, then:
+</p>
+
+<ol>
+  <li>
+    <p>
+      Check that <a href="https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html">application security groups</a>
+      are configured correctly.
+      Access should be configured for the service network that the tile is deployed to.
+    </p>
+  </li>
+  <li>
+    <p>
+      Ensure that the network the Pivotal Application Service tile is deployed
+      to has network access to the service network. You can find the network definition
+      for this service network in the BOSH Director tile.
+    </p>
+  </li>
+  <li>
+    <p>
+      In Ops Manager go into the service tile and see the service network that is
+      configured in the networks tab.
+    </p>
+  </li>
+  <li>
+    <p>
+      In Ops Manager go into the PAS tile and see the network it is assigned to.
+      Make sure that these networks can access each other.
+    </p>
+  </li>
+</ol>

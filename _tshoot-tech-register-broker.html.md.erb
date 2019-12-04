@@ -1,0 +1,39 @@
+<p>
+  The <code>register-broker</code> errand registers the broker with Cloud Controller and enables
+  access to plans in the Marketplace.
+  You should run this errand whenever the broker is re-deployed with new catalog metadata to
+  update the Marketplace.
+</p>
+
+<p>
+  Plans with disabled service access are only visible to admin Cloud Foundry
+  users. Non-admin Cloud Foundry users, including Org Managers and Space Managers, cannot
+  see these plans.
+</p>
+
+<h3>What the Errand Does</h3>
+
+<p>
+  The <code>register-broker</code> errand does the following:
+</p>
+
+<ol>
+  <li>Registers the service broker with Cloud Controller.</li>
+  <li>
+    Enables service access for any plans that are enabled on the tile.
+  </li>
+  <li>Disables service access for any plans that are disabled on the tile.
+  </li>
+  <li>Does nothing for any plans that are set to manual on the tile.</li>
+</ol>
+
+<h3>How to Run the Errand</h3>
+
+<p>  To run the errand:</p>
+<ol>
+  <li>Run the following command:
+
+<pre><code>bosh -d DEPLOYMENT-NAME run-errand register-broker</code></pre>
+  </li>
+</ol>
+
