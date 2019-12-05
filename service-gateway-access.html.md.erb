@@ -58,8 +58,7 @@ Ensure that you review the pre-deployment steps required to enable this feature.
      filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
      1024-2025.](/images/global-settings-service-gateway.png)
 
-     <p class="note warning"><strong>Warning:</strong> If previously set, changing the port range may cause service instance
-     upgrades to fail if the service instance is already using a port that is no longer in the new range. </p>
+     <p class="note warning"><strong>Warning:</strong> Changes to this range must include ports that are assigned to service instances. If a service instance is using a port that is no longer within the range, service instance upgrades will fail. </p>
 
 1. Allow ingress traffic on your external load balancer for the specified port range.
 
