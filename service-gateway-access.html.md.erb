@@ -35,6 +35,12 @@ The TCP router balances the load among the nodes.
 The load balancer sends the traffic to the TCP router, which is inside the Pivotal Platform foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 
+## <a id='protocols'></a> Protocols Available Via Service Gateway
+
+1. Currently it is possible to configure any On-Demand RabbitMQ instance to accept a variety of Protocols. Applications running within
+Pivotal Platform can communicate with any On-Demand RabbitMQ instance via any supported protocol. For Applications that connect to
+On-Demand RabbitMQ instances via Service Gateway, only AMQP 0.9.1 can be used.
+
 ## <a id='configuration'></a> Enable Service-Gateway Access
 
 <p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends that you configure
