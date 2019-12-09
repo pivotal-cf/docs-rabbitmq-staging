@@ -15,14 +15,17 @@ owner: London Services
 
 New features and changes in this release:
 
-* You can configure an on-demand plan that enables service instances to connect to components outside the <%= vars.platform_name %> foundation.
-For more information, see [Enabling Service-Gateway Access](./service-gateway-access.html).
+* Operators can configure an on-demand plan that enables service instances to connect to components outside the <%= vars.platform_name %> foundation via AMQP.
+For more information, see [Enabling Service-Gateway Access ᴮᴱᵀᴬ](./service-gateway-access.html). Future releases will extend this functionality to other supported protocols.
 * This release uses RabbitMQ 3.8. For more information, see the [repository](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) in GitHub.
-* The maximum limit on the number of on-demand service instances has been removed.
-* This releases supports quorum queues. For more information about quorum queues, see the
+  * This version supports quorum queues. For more information about quorum queues, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
-* Breaking change: User name and password are removed from the RabbitMQ dashboard URL because of a potential XSS vector (see [pull request](https://github.com/rabbitmq/rabbitmq-management/pull/748) for more information).
-This means users do not get logged in automatically anymore when navigating to the dashboard URL. Instead, users need to explicitly enter user name and password on the RabbitMQ dashboard login page.
+* Previously, operators could not set an upper limit on the number of on-demand service instances higher than 200. This restriction has been removed.
+
+<p class="note warning"><strong>Warning:</strong>
+  User name and password are removed from the RabbitMQ dashboard URL in a service binding because of a potential XSS vector (see [pull request](https://github.com/rabbitmq/rabbitmq-management/pull/748) for more information).
+  This means users are no longer automatically logged in when navigating to the dashboard URL. Instead, users need to explicitly enter user name and password on the RabbitMQ dashboard login page.
+</p>
 
 ### Known Issues
 
