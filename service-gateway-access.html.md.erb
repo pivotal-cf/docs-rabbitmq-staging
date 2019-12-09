@@ -1,5 +1,5 @@
 ---
-title: Enabling Service&#8209;Gateway Access
+title: Enabling Service&#8209;Gateway Access &#x1D2E;&#x1D31;&#x1D40;&#x1D2C;
 owner: RabbitMQ
 ---
 
@@ -19,6 +19,9 @@ for example, to set up federation for disaster recovery
 - Using <%= vars.product_name %> as a way to deploy and manage RabbitMQ for apps
 that are not deployed to <%= vars.app_runtime %>
 
+<p class="note"><strong>Note:</strong> Currently, Service-Gateway access is only supported for AMQP. This support will be extended to other
+RabbitMQ protocols in future releases.</p>
+
 ## <a id='architecture'></a> Architecture
 
 Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
@@ -27,19 +30,13 @@ These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.p
 Every time a developer creates a service instance of a service-gateway plan, a port
 in this range is allocated to redirect traffic to the service instance.
 
-The diagram below shows how traffic from components outside the <%= vars.platform_name %>
-foundation is routed by the TCP router to the RabbitMQ nodes in the service-gateway service instance.
-The TCP router balances the load among the nodes.
+The diagram below shows how traffic from applications is routed by the TCP router to the RabbitMQ nodes in the service-gateway service instance.
+The TCP router balances the load among the nodes. Note that this route is the same both for applications running on the <%= vars.platform_name %> foundation,
+and those running outside of the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
 The load balancer sends the traffic to the TCP router, which is inside the Pivotal Platform foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
-
-## <a id='protocols'></a> Protocols Available Via Service Gateway
-
-1. Currently it is possible to configure any On-Demand RabbitMQ instance to accept a variety of Protocols. Applications running within
-Pivotal Platform can communicate with any On-Demand RabbitMQ instance via any supported protocol. For Applications that connect to
-On-Demand RabbitMQ instances via Service Gateway, only AMQP 0.9.1 can be used.
 
 ## <a id='configuration'></a> Enable Service-Gateway Access
 

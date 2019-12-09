@@ -7,7 +7,7 @@ owner: London Services
 
 <%= partial '../../rabbitmq-cf/partials/pcf-name-change' %>
 
-## <a id="1-18-0"></a> v1.18.0
+## <a id="1-18-1"></a> v1.18.1
 
 **Release Date**: MMMM DD, 2019
 
@@ -15,14 +15,17 @@ owner: London Services
 
 New features and changes in this release:
 
-* You can configure an on-demand plan that enables service instances to connect to components outside the <%= vars.platform_name %> foundation.
-For more information, see [Enabling Service-Gateway Access](./service-gateway-access.html).
+* Operators can configure an on-demand plan that enables service instances to connect to components outside the <%= vars.platform_name %> foundation via AMQP.
+For more information, see [Enabling Service-Gateway Access ᴮᴱᵀᴬ](./service-gateway-access.html). Future releases will extend this functionality to other supported protocols.
 * This release uses RabbitMQ 3.8. For more information, see the [repository](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) in GitHub.
-* The maximum limit on the number of on-demand service instances has been removed.
-* This releases supports quorum queues. For more information about quorum queues, see the
+  * This version supports quorum queues. For more information about quorum queues, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
-* Breaking change: User name and password are removed from the RabbitMQ dashboard URL because of a potential XSS vector (see [pull request](https://github.com/rabbitmq/rabbitmq-management/pull/748) for more information).
-This means users do not get logged in automatically anymore when navigating to the dashboard URL. Instead, users need to explicitly enter user name and password on the RabbitMQ dashboard login page.
+* Previously, operators could not set an upper limit on the number of on-demand service instances higher than 200. This restriction has been removed.
+
+<p class="note warning"><strong>Warning:</strong>
+  User name and password are removed from the RabbitMQ dashboard URL in a service binding because of a potential XSS vector (see [pull request](https://github.com/rabbitmq/rabbitmq-management/pull/748) for more information).
+  This means users are no longer automatically logged in when navigating to the dashboard URL. Instead, users need to explicitly enter user name and password on the RabbitMQ dashboard login page.
+</p>
 
 ### Known Issues
 
@@ -39,71 +42,75 @@ The following components are compatible with this release:
     <th>Version</th>
     <tr>
         <td>Stemcell</td>
-        <td>315.x</td>
+        <td>621.x</td>
     </tr>
     <tr>
         <td><%= vars.platform_name %></td>
-        <td>2.7</td>
+        <td>2.7 and 2.8</td>
     </tr>
     <tr>
         <td><%= vars.platform_old %></td>
-        <td>2.4, 2.5, and 2.6</td>
+        <td>2.5, and 2.6</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0">v3.8.0</a></td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a></td>
     </tr>
     <tr>
         <td>Erlang</td>
-        <td>21.3.8.3</td>
+        <td>22.1.8</td>
     </tr>
     <tr>
         <td>HAProxy</td>
-        <td>1.8.20</td>
+        <td>1.8.23</td>
     </tr>
     <tr>
         <td>bpm</td>
-        <td>1.0.4</td>
+        <td>1.1.6</td>
     </tr>
     <tr>
         <td>service-metrics</td>
-        <td>1.12.0</td>
+        <td>1.12.5</td>
     </tr>
     <tr>
         <td>on-demand-service-broker</td>
-        <td>0.30.0</td>
+        <td>0.36.0</td>
     </tr>
     <tr>
         <td>rabbitmq-metrics</td>
-        <td>14.0.0</td>
+        <td>22.0.0</td>
     </tr>
    <tr>
         <td>rabbitmq-on-demand-adapter</td>
-        <td>83.0.0</td>
+        <td>109.0.0</td>
     </tr>
    <tr>
         <td>cf-rabbitmq-multitenant-broker</td>
-        <td>54.0.0</td>
+        <td>61.0.0</td>
     </tr>
    <tr>
         <td>loggregator-agent</td>
-        <td>3.17</td>
+        <td>3.21.4</td>
     </tr>
    <tr>
         <td>routing</td>
-        <td>0.188.0</td>
+        <td>0.193.0</td>
     </tr>
    <tr>
         <td>syslog</td>
-        <td>11.4.0</td>
+        <td>11.6.1</td>
     </tr>
    <tr>
         <td>cf-rabbitmq-smoke-tests</td>
-        <td>30.0.0</td>
+        <td>40.0.0</td>
     </tr>
    <tr>
         <td>cf-rabbitmq</td>
-        <td>268.0.0</td>
+        <td>283.0.0</td>
+    </tr>
+    <tr>
+        <td>cf-rabbitmq-service-gateway</td>
+        <td>4.0.0</td>
     </tr>
 </table>
 
