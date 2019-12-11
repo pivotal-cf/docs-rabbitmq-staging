@@ -19,7 +19,8 @@ New features and changes in this release:
 the <%= vars.platform_name %> foundation through AMQP.
 For more information, see [Enabling Service-Gateway Access (Beta)](./service-gateway-access.html).
 This functionality is planned for other supported protocols in later releases.
-* This release uses RabbitMQ 3.8. For more information, see the [repository](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) in GitHub.
+* This release uses RabbitMQ 3.8.
+  For more information, see [RabbitMQ 3.8.0](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.0) in GitHub.
 * This version supports quorum queues. For more information about quorum queues, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
 * Previously, operators could not set an upper limit on the number of on-demand service instances higher than 200.
@@ -28,8 +29,8 @@ This restriction has been removed.
 <p class="note warning">
   <strong>Warning:</strong> Usernames and passwords are removed from the RabbitMQ dashboard URL in a service
   binding because of a potential XSS vector.
-  For more information, see this <a href="https://github.com/rabbitmq/rabbitmq-management/pull/748">pull request</a>
-  in GitHub.<br>
+  For more information, see this <a href="https://github.com/rabbitmq/rabbitmq-management/pull/748">Remove
+  direct login route pull request</a> in GitHub.<br>
   This means users are no longer automatically logged in when navigating to the dashboard URL.
   Instead, the user must explicitly enter their username and password on the RabbitMQ dashboard login page.
 </p>
