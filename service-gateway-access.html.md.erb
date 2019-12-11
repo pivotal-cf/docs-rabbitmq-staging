@@ -1,5 +1,5 @@
 ---
-title: Enabling Service&#8209;Gateway Access &#x1D2E;&#x1D31;&#x1D40;&#x1D2C;
+title: Enabling Service-Gateway Access (Beta)
 owner: RabbitMQ
 ---
 
@@ -19,30 +19,36 @@ for example, to set up federation for disaster recovery
 - Using <%= vars.product_name %> as a way to deploy and manage RabbitMQ for apps
 that are not deployed to <%= vars.app_runtime %>
 
-<p class="note"><strong>Note:</strong> Currently, Service-Gateway access is only supported for AMQP. This support will be extended to other
-RabbitMQ protocols in future releases.</p>
+<p class="note">
+  <strong>Note:</strong> Currently, Service-Gateway access is only supported for Advanced Message Queuing
+  Protocol (AMQP). This support is planned to be extended to other RabbitMQ protocols in later releases.
+</p>
 
 ## <a id='architecture'></a> Architecture
 
 Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
 It also requires some ports to be open on your external load balancer.
 These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.platform_name %> foundation.
-Every time a developer creates a service instance of a service-gateway plan, a port
-in this range is allocated to redirect traffic to the service instance.
+Every time a developer creates a service instance of a service-gateway plan, a port in this range is allocated
+to redirect traffic to the service instance.
 
-The diagram below shows how traffic from applications is routed by the TCP router to the RabbitMQ nodes in the service-gateway service instance.
-The TCP router balances the load among the nodes. Note that this route is the same both for applications running on the <%= vars.platform_name %> foundation,
-and those running outside of the foundation.
+The diagram below shows how the TCP router routes traffic from apps to the RabbitMQ nodes in the
+service-gateway service instance.
+The TCP router balances the load among the nodes.
+This route is the same for apps running on the <%= vars.platform_name %> foundation as it is for apps running
+outside the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
-The load balancer sends the traffic to the TCP router, which is inside the Pivotal Platform foundation.
+The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 
 ## <a id='configuration'></a> Enable Service-Gateway Access
 
-<p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends that you configure
-service-gateway access with TLS to prevent man-in-the-middle attacks.
-For instructions on how to configure TLS, see <a href="./install-config.html#security">Configure Security</a>.</p>
+<p class="note warning">
+  <strong>Warning:</strong> Pivotal recommends that you configure service-gateway access with TLS to
+  prevent man-in-the-middle attacks.
+  For instructions on how to configure TLS, see <a href="./install-config.html#security">Configure Security</a>.
+</p>
 
 To enable service-gateway access:
 
@@ -55,13 +61,17 @@ Ensure that you review the pre-deployment steps required to enable this feature.
     - **Port Range**: A range of ports for RabbitMQ service instances to use.
     You must have at least one port for each service instance.
     Ensure that the range has enough capacity to accommodate the maximum number of service instances.<br>
-    This range must not overlap with the range entered in the <%= vars.app_runtime %> tile &gt; **Networking** &gt; **TCP Routing Ports**.
+    This range must not overlap with the range entered in the <%= vars.app_runtime %> tile &gt; **Networking**
+    &gt; **TCP Routing Ports**.
 
      ![An example Global settings for on-demand plans pane with the External TCP domain field
      filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
-     1024-2025.](/images/global-settings-service-gateway.png)
+     1024&ndash;2025.](/images/global-settings-service-gateway.png)
 
-     <p class="note warning"><strong>Warning:</strong> Changes to this range must include ports that are assigned to service instances. If a service instance is using a port that is no longer within the range, service instance upgrades will fail. </p>
+     <p class="note warning">
+       <strong>Warning:</strong> Changes to this range must include ports that are assigned to service instances.
+       If a service instance is using a port that is no longer within the range, service instance upgrades fail.
+     </p>
 
 1. Allow ingress traffic on your external load balancer for the specified port range.
 
