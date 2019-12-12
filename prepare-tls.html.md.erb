@@ -45,7 +45,7 @@ The following workflow is required to enable TLS and to allow developers to use 
 <ol>
 <li>An operator provides a CA certificate to CredHub by completing the procedures
     in <a href="#provide-generate-pcf">Provide or Generate a CA Certificate</a> below.</li>
-<li>An operator enables TLS in the tile configuration while installing <%= vars.product_name %>.
+<li>An operator enables TLS in the tile configuration while installing <%= vars.product_short %>.
     See <a href="install-config.html#security">Configure Security</a>.</li>
 <li>A developer enables TLS for an existing service instance.
     See <a href="use.html#tls">Enable TLS for Your Service Instance</a>.</li>
@@ -270,4 +270,4 @@ Click **Security**.
 				<li>Ensure that the <%= vars.app_runtime %> tile is selected. This ensures the new certificate is deployed to all the VMs.</li>
 				<li>Click <strong>Apply Changes</strong> in the Installation Dashboard.</li>
 			</ol>
-	    This deploys <%= vars.product_name %>, restarts all the VMs in your <%= vars.platform_name %> deployment, and applies your CA certificate.
+	    This deploys <%= vars.product_short %>, restarts all the VMs in your <%= vars.platform_name %> deployment, and applies your CA certificate.

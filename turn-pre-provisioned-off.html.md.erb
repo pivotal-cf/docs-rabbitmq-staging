@@ -22,7 +22,7 @@ de-register the pre-provisioned service broker by running the following command:
     bosh -d p-rabbitmq-GUID run-errand broker-deregistrar
     ```
 
-    Where is `GUID` is the <%= vars.product_name %> deployment GUID.
+    Where is `GUID` is the <%= vars.product_short %> deployment GUID.
 
     For example:
 
@@ -50,7 +50,7 @@ de-register the pre-provisioned service broker by running the following command:
 
 
 You can turn off the pre-provisioned service if you are using automation such as scripts
-or pipelines to configure the <%= vars.product_name %> tile.
+or pipelines to configure the <%= vars.product_short %> tile.
 
 To do this, set the `.properties.multitenant_support` property to `disabled`.
 For more information about properties, see [Configuring products](https://docs.pivotal.io/pivotalcf/opsman-api/#configuring-products).

@@ -15,7 +15,7 @@ For more information about RabbitMQ policies, see the [RabbitMQ documentation](h
 
 ## <a id="rules"></a> Rules for Policies Set in the Tile
 
-The following rules apply to polices set through the <%= vars.product_name %> tile:
+The following rules apply to polices set through the <%= vars.product_short %> tile:
 
 * A new policy, or an update to a policy, only applies to new instances (vhosts).
 Existing instances are not affected by the policy.
@@ -67,7 +67,7 @@ follower is created.
 
 To set the RabbitMQ policy, do the following:
 
-1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_name %> tile and then click the **Pre-Provisioned RabbitMQ** tab.
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile and then click the **Pre-Provisioned RabbitMQ** tab.
 
 	<%= image_tag("images/policy_opsman.png") %>
 
@@ -84,7 +84,7 @@ To set the RabbitMQ policy, do the following:
 ## <a id="dashboard"></a> Viewing Policies in the RabbitMQ Management UI
 
 You can view RabbitMQ policies in the RabbitMQ Management UI, shown below.
-The example policy entered in the <%= vars.product_name %> tile above is applied to all queues and given a **Priority** of **50**.
+The example policy entered in the <%= vars.product_short %> tile above is applied to all queues and given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
 <%= image_tag("images/policy_config.jpeg") %>

@@ -12,14 +12,14 @@ for their app developer teams, in addition to the single-node on-demand plan.
 
 The on-demand cluster plan is designed for workloads that require the same resilience requirements as the pre-provisioned offering,
 but also require their workloads be isolated. The platform operations team can configure a
-<%= vars.product_name %> cluster to meet their business requirements
+<%= vars.product_short %> cluster to meet their business requirements
 and empower app development teams to self-serve their own RabbitMQ cluster.
 
-<%= vars.product_name %> also provides smoke tests for the on-demand plans so that operations
+<%= vars.product_short %> also provides smoke tests for the on-demand plans so that operations
 teams can validate the app developer workflow for on-demand services.
 See [Smoke Tests](./smoke-tests.html).
 
-With the on-demand cluster plan, platform operators can offer their app developers three types of <%= vars.product_name %> service plans:
+With the on-demand cluster plan, platform operators can offer their app developers three types of <%= vars.product_short %> service plans:
 
 * **On-Demand single node**---For app developer teams requiring greater isolation than provided by the pre-provisioned approach.
   App development teams can have full access to their own message broker to adapt the runtime parameters to their requirements.
@@ -148,7 +148,7 @@ to meet all but the most demanding high availability app messaging requirements.
 
 This plan can suit high performance workloads requiring messaging resilience (copied to disk)
 and asynchronous messaging replication through the RabbitMQ Federation plugin.
-With this plan, however, you also scale out <%= vars.product_name %> to multiple nodes.
+With this plan, however, you also scale out <%= vars.product_short %> to multiple nodes.
 
 This plan offers:
 
@@ -204,7 +204,7 @@ Pivotal recommends keeping the default cluster partition option of `pause_minori
 Choosing the `pause_minority` partition-handling strategy favors message consistency over availability.
 For more information about the options for handling partitions,
 see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
-For a detailed description of the options available in <%= vars.product_name %>, see [Clustering and Network Partitions](./partitions.html).
+For a detailed description of the options available in <%= vars.product_short %>, see [Clustering and Network Partitions](./partitions.html).
 
 Here is an example of how `pause_minority` works.
 If you create a RabbitMQ cluster with three nodes and one node becomes unable to communicate with the other two, this node is in the minority.
@@ -273,7 +273,7 @@ In configuring each plan, there are a number of operational controls that platfo
 
 ## <a id="customizing"></a> Customizing Plan Options
 
-The <%= vars.product_name %> on-demand plans expose a number of configuration options.
+The <%= vars.product_short %> on-demand plans expose a number of configuration options.
 In most cases, the default configurations meet most app demands.
 However, it is important for an operations team to consider the options to ensure that they provide the best service to their app developers.
 This section explains these options.
@@ -318,14 +318,14 @@ The following are preconfigured for both the single node and the cluster plans:
         Pivotal recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
-  The polling interval is set in <%= vars.ops_manager %>, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the <%= vars.product_name %> tile.
+  The polling interval is set in <%= vars.ops_manager %>, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the <%= vars.product_short %> tile.
   Due to the impact of some of the cluster settings detailed below,
   Pivotal strongly recommends that you monitor the exposed metrics
   and configure alarms as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_full %>](./monitor.html#kpi).
   See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
 
 * **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration
-    as contained in the **Syslog and Metrics** tab of the <%= vars.product_name %> tile.
+    as contained in the **Syslog and Metrics** tab of the <%= vars.product_short %> tile.
 
 * **Disk free space limit**---The disk free space limit is set to 150% of RAM of the instance type you select.
   For example, if you select an instance type with 10&nbsp;GB of RAM, the disk free space limit is set to 15&nbsp;GB.

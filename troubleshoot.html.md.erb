@@ -71,9 +71,9 @@ Start here if you are responding to a specific error or error messages.
 ### <a id="failed-deployment"></a> Failed Deployment on Upgrade or after Apply Changes
 
 If the deployment fails after editing the <strong>Assign AZs and Networks</strong>
-pane of the <%= vars.product_name %> tile,
+pane of the <%= vars.product_short %> tile,
 it might be due to a change to the IP addresses assigned to the <code>RabbitMQ Server</code> job.
-<%= vars.product_name %> requires that these IP addresses do not change once assigned.
+<%= vars.product_short %> requires that these IP addresses do not change once assigned.
 If you change them, the deployment fails.
 This includes changes made to your current installation or during an upgrade.
 
@@ -286,7 +286,7 @@ You cannot rely solely on the BOSH <code>instances</code> output as that reflect
 of the Erlang VM used by RabbitMQ and not the RabbitMQ app.
 
 
-### <a id="stopstart"></a> What is the correct way to stop and start <%= vars.product_name %>?
+### <a id="stopstart"></a> What is the correct way to stop and start <%= vars.product_short %>?
 
 Only BOSH commands should be used by the operator to interact with the RabbitMQ app.
 <br><br>

@@ -11,7 +11,7 @@ For more information about getting started with RabbitMQ and ensuring production
 see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
 
 <div class="note"><strong>Notes:</strong> <br><br><ul><li>For how to install and
-  configure the <%= vars.product_name %> pre-provisioned service,
+  configure the <%= vars.product_short %> pre-provisioned service,
   see <a href="./install-config-pp.html">Installing and Configuring the Pre-Provisioned Service.</a></li>
   <li>For how to turn off the pre-provisioned service,
     see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</li></ul>
@@ -30,7 +30,7 @@ For more information about roles in <%= vars.ops_manager %>, see
 
 ## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
 
-Before deploying <%= vars.product_name %> as an on-demand service, ensure the following:
+Before deploying <%= vars.product_short %> as an on-demand service, ensure the following:
 
 *  <strong>Networking:</strong> You must ensure that the required network rules are in place to allow various components to communicate.
 See [Required Networking Rules for On-Demand Services](about.html#network-rules)
@@ -39,20 +39,20 @@ for details on the network connections that must be open to enable the on-demand
 * <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and RabbitMQ service instances,
 you must complete the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile.
 
-## <a id="install"></a> Download and Install <%= vars.product_name %>
+## <a id="install"></a> Download and Install <%= vars.product_short %>
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
 2. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_name %>. This adds the tile to your staging area.
+3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_short %>. This adds the tile to your staging area.
 
-4. Click the newly added **<%= vars.product_name %>** tile.
+4. Click the newly added **<%= vars.product_short %>** tile.
 This lets you begin configuring the tile. The installation is complete when you apply the changes from the configuration.
 
-## <a id="tile_configurations"></a> Configure On-Demand <%= vars.product_name %>
+## <a id="tile_configurations"></a> Configure On-Demand <%= vars.product_short %>
 
-The configuration screen below appears when you click the <%= vars.product_name %> tile in <%= vars.ops_manager %>.
+The configuration screen below appears when you click the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
 A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 
@@ -72,7 +72,7 @@ A green checkmark indicates that the tab is preconfigured and you may optionally
      <tr><td><strong>Place singleton jobs in</strong></td>
          <td>Select the region that you want for singleton VMs. <%= vars.platform_name %> creates the RabbitMQ broker in this AZ.</td></tr>
      <tr><td><strong>Balance other jobs in</strong></td>
-         <td>Select additional region. This selection does not affect the on-demand <%= vars.product_name %> service.</td></tr>
+         <td>Select additional region. This selection does not affect the on-demand <%= vars.product_short %> service.</td></tr>
      <tr><td><strong>Network</strong></td>
          <td>Select a network for the RabbitMQ On-Demand Broker.<br><br>
              This should be a separate network from the one you select for <strong>Service Network</strong>.
@@ -96,7 +96,7 @@ A green checkmark indicates that the tab is preconfigured and you may optionally
 
 ### <a id='logging'></a>Configure Logging and Monitoring
 
-Pivotal recommends that you configure logging to monitor the health of <%= vars.product_name %>.
+Pivotal recommends that you configure logging to monitor the health of <%= vars.product_short %>.
 Follow the instructions in [Set Up Syslog Forwarding and Metrics Polling Interval](./monitor.html#config).
 
 
@@ -198,7 +198,7 @@ Follow the steps below to configure global settings.
 
 ### <a id="security"></a> Configure Security
 
-<%= vars.product_name %> lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances.
+<%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure communication between apps and RabbitMQ service instances.
 
 To configure the TLS settings, do the following:
 
@@ -389,11 +389,11 @@ Your installation is not complete until you apply your configuration changes. Fo
 For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
-1. Click **Apply Changes** to complete the installation of <%= vars.product_name %>.
+1. Click **Apply Changes** to complete the installation of <%= vars.product_short %>.
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating <%= vars.product_name %>, <%= vars.ops_manager %> can optionally run a
+When deploying or updating <%= vars.product_short %>, <%= vars.ops_manager %> can optionally run a
 series of [Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
 An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ
 cluster after a deploy or upgrade.
@@ -402,18 +402,18 @@ You can toggle errands on and off on the **Review Pending Changes** page.
 
 ![Configuring One-time Errands](images/errands-installation-pending-changes.png)
 
-<p class='note warning'><strong>Warning:</strong> In <%= vars.product_name %> v1.9.0 and later,
+<p class='note warning'><strong>Warning:</strong> In <%= vars.product_short %> v1.9.0 and later,
   post-deploy errands are on by default except for the Recreate All Service Instances errand.
   Pivotal recommends keeping these defaults, because the smoke tests can encounter
-  unexpected issues, and on-demand instances of <%= vars.product_name %> might fall behind
+  unexpected issues, and on-demand instances of <%= vars.product_short %> might fall behind
   if the Upgrade All Service Instances errand is not on by default.</p>
 
-You can change these defaults by clicking **Errands** in the <%= vars.product_name %>
+You can change these defaults by clicking **Errands** in the <%= vars.product_short %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
 For more information on errand run rules, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
 
-<%= vars.product_name %> errands are co-located with their brokers to decrease errand run time and VM footprint.
+<%= vars.product_short %> errands are co-located with their brokers to decrease errand run time and VM footprint.
 In earlier releases, a new VM was deployed for each errand.
 For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
@@ -523,7 +523,7 @@ To create an admin user on a RabbitMQ instance do the following:
 
 ## <a id="server-plugins"></a> RabbitMQ Server Plugins
 
-<%= vars.product_name %> supports a subset of available RabbitMQ plugins.
+<%= vars.product_short %> supports a subset of available RabbitMQ plugins.
 See the sections below for which plugins are supported, and whether they are
 enabled or disabled by default.
 

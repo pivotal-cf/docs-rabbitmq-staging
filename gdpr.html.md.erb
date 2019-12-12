@@ -8,13 +8,13 @@ compliance with the General Data Protection Regulation (GDPR).
 For more information about GDPR and personal data in <%= vars.platform_name %>, see
 [General Data Protection Regulation](https://docs.pivotal.io/pivotalcf/opsguide/gdpr.html).
 
-The topic describes locations where <%= vars.product_name %> might store personal data, and
+The topic describes locations where <%= vars.product_short %> might store personal data, and
 actions you can take to control this data.
 
-## <a id="personal-data"></a> Personal Data in <%= vars.product_name %>
+## <a id="personal-data"></a> Personal Data in <%= vars.product_short %>
 
 Pivotal recommends that you strictly control personally identifiable information
-used to interact with <%= vars.product_name %>.
+used to interact with <%= vars.product_short %>.
 This information might be stored in the following locations:
 
 * [Queues](#queues)
@@ -29,8 +29,8 @@ You should also control access to your RabbitMQ servers, RabbitMQ management com
 
 ## <a id="queues"></a> Queues
 
-<%= vars.product_name %> does not know if any message contains personally identifiable information.
-If you use <%= vars.product_name %> to send personally identifiable information,
+<%= vars.product_short %> does not know if any message contains personally identifiable information.
+If you use <%= vars.product_short %> to send personally identifiable information,
 you should take appropriate safeguards to protect that information.
 
 RabbitMQ stores messages, including message headers, in memory and on disk until they are consumed.
@@ -47,7 +47,7 @@ The following are actions you can take to comply with the GDPR:
 
 ### <a id="haproxy-logs"></a> HAProxy Logs
 
-<%= vars.product_name %> uses HAProxy as a load balancer for the pre-provisioned service.
+<%= vars.product_short %> uses HAProxy as a load balancer for the pre-provisioned service.
 The log may contain IP addresses.
 These are contained in the file `/var/vcap/sys/log/rabbitmq-haproxy/haproxy.log` on an haproxy VM.
 
