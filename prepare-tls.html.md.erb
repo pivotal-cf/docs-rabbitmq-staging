@@ -9,7 +9,7 @@ The topic also includes the procedure
 for providing an existing CA certificate to BOSH CredHub, or generating a new CA
 certificate with BOSH CredHub.
 
-<p class="note"><strong>Note</strong>: To enable TLS for <%= vars.product_name %>,
+<p class="note"><strong>Note</strong>: To enable TLS for <%= vars.product_full %>,
 	you must perform the procedures in <a href="#provide-generate-pcf"> Provide or Generate a CA Certificate</a>
     below <strong>before</strong> installing and configuring the tile. This certificate is shared by multiple tiles.
     If you have already performed this procedure you do not need to repeat it.
@@ -265,7 +265,7 @@ Click **Security**.
 			This restarts all the VMs in your <%= vars.platform_name %> deployment and applies your CA certificate.	<br>		    	
     * **For a New Installation**: 
 			<ol>
-				<li>Complete the procedures in <a href="./install-config.html">Installing and Configuring <%= vars.product_name %></a>, including enabling TLS in the <strong>Security for On-Demand Plans</strong> tab.</li>
+				<li>Complete the procedures in <a href="./install-config.html">Installing and Configuring <%= vars.product_full %></a>, including enabling TLS in the <strong>Security for On-Demand Plans</strong> tab.</li>
 				<li>Click <strong>Review Pending Changes</strong>.</li>
 				<li>Ensure that the <%= vars.app_runtime %> tile is selected. This ensures the new certificate is deployed to all the VMs.</li>
 				<li>Click <strong>Apply Changes</strong> in the Installation Dashboard.</li>

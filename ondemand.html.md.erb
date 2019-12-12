@@ -7,7 +7,7 @@ This topic explains how to benefit from the on-demand service plans.
 
 ## <a id="intro"></a> Introduction
 
-<%= vars.product_name %> responds to the demands of <%= vars.platform_name %> operators by offering a RabbitMQ on-demand cluster
+<%= vars.product_full %> responds to the demands of <%= vars.platform_name %> operators by offering a RabbitMQ on-demand cluster
 for their app developer teams, in addition to the single-node on-demand plan.
 
 The on-demand cluster plan is designed for workloads that require the same resilience requirements as the pre-provisioned offering,
@@ -321,7 +321,7 @@ The following are preconfigured for both the single node and the cluster plans:
   The polling interval is set in <%= vars.ops_manager %>, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the <%= vars.product_name %> tile.
   Due to the impact of some of the cluster settings detailed below,
   Pivotal strongly recommends that you monitor the exposed metrics
-  and configure alarms as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_name %>](./monitor.html#kpi).
+  and configure alarms as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_full %>](./monitor.html#kpi).
   See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
 
 * **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration
@@ -352,7 +352,7 @@ The following are preconfigured for both the single node and the cluster plans:
 
 * Each instance is pre-configured to emit metrics to the Firehose and can be identified by the `deployment` tag,
   which has the service instance ID.
-  It is important to monitor these metrics as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_name %>](./monitor.html#kpi).
+  It is important to monitor these metrics as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_full %>](./monitor.html#kpi).
 
 ## <a id="migrating-from-mt"></a> About Migrating a Pre-Provisioned Instance to an On-Demand Instance
 
@@ -409,7 +409,7 @@ that you should be aware of:
 
 * The instance you are migrating to might use a different version of RabbitMQ than
 your old instance.
-For more information, see the [<%= vars.product_name %> Release Notes](./releases.html) and the
+For more information, see the [<%= vars.product_full %> Release Notes](./releases.html) and the
 [RabbitMQ Changelog](https://www.rabbitmq.com/changelog.html).
 
 * Critical tier-1 plugins are enabled for on-demand. However, on-demand does not
