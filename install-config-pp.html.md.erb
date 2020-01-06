@@ -236,9 +236,11 @@ The list defaults to the following:
   * 61614 - STOMP+SSL
   * 15674 - WebSTOMP
 
-* You must leave the management plugin listening on port `15672` and load balance that port.
-
 * If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
+
+<p class='note warning'><strong>WARNING</strong>:
+You must leave the management plugin listening on port `15672` and load balance that port.
+</p>
 
 ### <a id="ssl"></a> SSL
 
