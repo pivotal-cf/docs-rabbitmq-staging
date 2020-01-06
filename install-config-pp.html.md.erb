@@ -238,6 +238,9 @@ The list defaults to the following:
 
 * If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
+<p class="note"><strong>Note</strong>: Programmatic access to the Management API over HTTPS for the pre-provisioned offerring is not supported.
+As such, there is no need to expose port 15671.</p>
+
 <p class='note warning'><strong>WARNING</strong>:
 You must leave the management plugin listening on port `15672` and load balance that port.
 </p>
