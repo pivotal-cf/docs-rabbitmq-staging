@@ -57,7 +57,10 @@ rules are set up so that connections are open as described in the table below.
 		<td><strong>ODB</strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>15672 (RabbitMQ Management UI)</td>
+		<td>
+		  15672 (RabbitMQ Management UI)<br><br>
+		  15671 (RabbitMQ Management UI over TLS)<br><br>
+		</td>
 		<td>This connection is for administrative tasks.<br><br>
 			Avoid opening general use, app-specific ports for this connection.</td>
 	</tr>
@@ -77,8 +80,9 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>
 				8443 (UAA)<br><br>
-			  8080<br><br>
+				8080<br><br>
 				15672 (RabbitMQ Management UI)<br><br>
+				15671 (RabbitMQ Management UI over TLS)<br><br>
 				5672 (AMQP)<br><br>
 				5671 (AMQPS)<br><br>
 		</td>
@@ -100,6 +104,7 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 		<td>
 				15672 (RabbitMQ Management UI)<br><br>
+				15671 (RabbitMQ Management UI over TLS)<br><br>
 				5672 (AMQP)<br><br>
 				5671 (AMQPS)<br><br>
 				61613 (STOMP)<br><br>
