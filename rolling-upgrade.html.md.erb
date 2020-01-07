@@ -1,0 +1,70 @@
+---
+title: Rolling Upgrades in RabbitMQ for Pivotal Platform
+owner: London Services
+---
+
+## What is a rolling upgrade
+A rolling upgrade is a rollout strategy for updating software in a distributed system. Rolling upgrades guarantee at least one node will remain up throughout the upgrade process for availabilty at all times. Before 1.17.3, some scenarios required the whole cluster to be shutdown in order to perform an upgrade. These scenarios included where the major or minor version of the underlying RabbitMQ software was updated, or where the major version of the underlying Erlang distribution was updated.
+
+As of 1.17.3, these scenarios are now performed with a rolling upgrade strategy. The only case where a cluster is required to fully shut down as part of an upgrade is where the Erlang cookie for the cluster is changed.
+
+## What happens during a rolling upgrade for RMQ for PP
+On a single canary node in the cluster, the following steps are carried out:
+* The RabbitMQ server process and the Erlang VM are stopped by running `rabbitmqctl stop`
+* Persistent disk is detached
+* The VM is torn down for the node
+* (After 0-5 seconds) The BOSH DNS service detects a failing healthcheck for the node that has just gone down, and no longer routes service traffic to the node
+* BOSH recreates the VM on the uplevel software and reattaches the persistent disk
+* The uplevel RabbitMQ server is started, and the node rejoins the cluster
+* The new node registers with the BOSH DNS service and begins receiving traffic
+
+The above steps are then carried out on the remaining nodes in the cluster, one-by-one.
+
+
+## Example scenario
+The following is an example of an upgrade scenario where rolling upgrade is employed. An operator upgrades their platform to use a new version of RabbitMQ for Pivotal Platform; they upgrade from v1.17.4 to v1.18.1 of the product. This example is designed to show a system performing a rolling upgrade under heavy load, with a fair amount of disk I/O, with both the underlying RabbitMQ & Erlang software upgrading to a newer version. Without rolling upgrade, the whole cluster would be required to shut down, resulting in a service outage as publishers & consumers are unable to connect to the cluster. We aim to explore the extent of downtime associated with a rolling upgrade in this case.
+
+<p class='note'><strong>Note</strong>: The following is provided for example purposes only and is not intended to represent all upgrade situations; your platform setup may incur different results.</p>
+
+### Configuration and setup
+
+#### Cluster config
+We used Google Cloud Platform as the IaaS for this experiment. The RabbitMQ node VMs were configured with 2 CPUs, 2GB of RAM, 8GB of disk and in addition 5GB persistent disk.
+Initially we installed a RabbitMQ for Pivotal Platform v1.17.4 with a plan configured to build a three node cluster with queues being mirrored. This environment was then upgraded to use RabbitMQ for Pivotal Platform v1.18.1.
+
+#### Application configuration
+In order to simulate the workload on the cluster we used the [RabbitMQ Performance Tool For Cloud Foundry](https://github.com/rabbitmq/rabbitmq-perf-test-for-cf), which is a Java application that tests throughput of RabbitMQ. This tool uses a resilient client with reconnection and retry logic. When the performance test is run it creates a direct exchange and a queue. In addition it creates all the necessary consumers and producers and binds them to the newly created queue. In our scenario the the perf test is configured to use durable queues and persistent messages which will ensure that messages are persisted to disk. We also enabled publisher confirms to make sure that there is no data loss.
+
+This setup ensures that there is a backlog of message to be read from disk and consumed at any point during the upgrade.
+
+The publishers are configured to constantly produce messages in three different bursts:
+1. 500 messages per second for 30 seconds
+1. 750 messages per second for 15 seconds
+1. 250 messages per second for 15 seconds
+
+On the other hand the publishers are expected to consume a total of 500 messages per second. Each message is a JSON blob of size 50000 bytes.
+
+The equivalent app manifest for this test is as follows:
+```yaml
+---
+applications:
+  - name: rabbitmq-perf-test
+    path: ./target/pcf-perf-test-1.0-SNAPSHOT.jar
+    buildpacks:
+      - https://github.com/cloudfoundry/java-buildpack.git
+    memory: 2G
+    health-check-type: process
+    services: [rmq]
+    env:
+      VARIABLE_RATE: "500:30,750:15,250:15"
+      CONSUMER_RATE: 500
+      JSON_BODY: true
+      SIZE: 50000
+      SLOW_START: true
+      METRICS_PROMETHEUS: true
+      FLAG: persistent
+      CONFIRM: 30000
+```
+
+### Observations
+We successfully observed that the downtime experienced during this rolling upgrade was significantly reduced compared to a similar upgrade where the cluster is brought fully down. Our metrics indicated that the 'downtime', i.e. where a publisher was unable to publish a message to a queue, was at maximum 5 seconds. This is due to the fact that the internal BOSH DNS record used to round-robin messages to the nodes in the cluster has a TTL of 5 seconds. The messages may be routed to nodes which have just been replaced. As our app has retry logic we did not observe service outage.
