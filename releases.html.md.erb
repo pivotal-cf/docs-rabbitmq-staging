@@ -7,6 +7,105 @@ owner: London Services
 
 <%= partial '../../rabbitmq-cf/partials/pcf-name-change' %>
 
+## <a id="1-18-3"></a> v1.18.3
+
+**Release Date**: January 9, 2020
+
+### Bug Fixes
+
+This release fixes the following bugs:
+
+* The upgrade path 1.15.x -> 1.17.0/1.17.1/1.17.3 -> 1.18.3 with TLS set to optional in 1.15.x, no longer fails. This is the case for version 1.18.2 of the tile.
+Please upgrade to this version or later to avoid the bug.
+
+* On platform on-demand service instances, created with a [service gateway](./service-gateway-access.html) enabled
+plan, now do not fail to connect when using the [MQTT and STOMP protocols](./install-config.html#server-plugins).
+
+### Known Issues
+
+This release has the following known issues:
+
+* When used in production, quorum queues might experience downtime during a rolling upgrade.
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th width="50%">Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>621.x</td>
+    </tr>
+    <tr>
+        <td><%= vars.platform_name %></td>
+        <td>2.7 and 2.8</td>
+    </tr>
+    <tr>
+        <td><%= vars.platform_old %></td>
+        <td>2.5, and 2.6</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a></td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>22.1.8</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.23</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.1.6</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.5</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.36.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>22.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>111.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>61.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.21.5</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.196.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.6.1</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>40.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>283.0.0</td>
+    </tr>
+</table>
+
 ## <a id="1-18-2"></a> v1.18.2
 
 **Release Date**: December 17, 2019
