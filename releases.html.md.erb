@@ -19,21 +19,21 @@ see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="1-17-5"></a> v1.17.5
 
-**Release Date**: January 9, 2020
+**Release Date**: January 10, 2020
 
-### Bug Fixes
+### Resolved Issues
 
-This release includes the following bug fixes:
+This release includes the following fixes:
 
-* Upgrading from 1.15.x with TLS set to optional, to this patch, no longer fails. This is the case for v1.17.4 of the tile.
-Please upgrade to this version or later to avoid the bug.
+* Upgrading from 1.15.x to this patch, with TLS set to optional, no longer fails.
+Upgrade to this version or later to avoid the issue.
 
 ### Features
 
 New features and changes in this release:
 
 * This release updates the following dependencies:
-	* OSS RabbitMQ to <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a>
+	* OSS RabbitMQ to v3.7.22. For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub documentation.
 	* Erlang to v21.3.8.11
 	* HAProxy to v1.8.23
 
@@ -56,12 +56,12 @@ The following components are compatible with this release:
         <td>315.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.5.x, v2.6.x, v2.7.x and v2.8.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a></td>
+        <td>3.7.22*</td>
     </tr>
     <tr>
         <td>Erlang</td>
@@ -116,6 +116,7 @@ The following components are compatible with this release:
         <td>283.0.0</td>
     </tr>
 </table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub documentation.
 
 ## <a id="1-17-4"></a> v1.17.4
 
@@ -138,7 +139,8 @@ For more information about RabbitMQ v3.7.21, see the [RabbitMQ Changelog](https:
 New features and changes in this release:
 
 * This release updates the following dependencies:
-	* OSS RabbitMQ to <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a>
+	* OSS RabbitMQ to v3.7.21
+	For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub documentation.
 	* Erlang to v21.3.8.10
 	* HAProxy to v1.8.22
 
@@ -163,12 +165,12 @@ The following components are compatible with this release:
         <td>315.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, v2.6.x and v2.7.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a></td>
+        <td>3.7.21*</td>
     </tr>
     <tr>
         <td>Erlang</td>
@@ -223,6 +225,7 @@ The following components are compatible with this release:
         <td>281.0.0</td>
     </tr>
 </table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub documentation.
 
 ## <a id="1-17-3"></a> v1.17.3
 
@@ -245,7 +248,7 @@ Depending on how the peer queues the RST\_STREAM frames, this can consume excess
 
 * Critical [CVE-2019-9515](https://nvd.nist.gov/vuln/detail/CVE-2019-9515):
 Some HTTP/2 implementations are vulnerable to a settings flood, potentially leading to a denial of service.
-The attacker sends a stream of SETTINGS frames to the peer. Since the RFC requires
+The attacker sends a stream of SETTINGS frames to the peer. Because the RFC requires
 that the peer reply with one acknowledgement per SETTINGS frame, an empty SETTINGS
 frame is almost equivalent in behavior to a ping. Depending on how efficiently this
 data is queued, this can consume excess CPU, memory, or both.
@@ -289,12 +292,12 @@ The following components are compatible with this release:
         <td>v2.7.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, v2.6.x and v2.7.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a></td>
+        <td>v3.7.18*</td>
     </tr>
     <tr>
         <td>Erlang</td>
@@ -349,6 +352,7 @@ The following components are compatible with this release:
         <td>274.0.0</td>
     </tr>
 </table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a> GitHub documentation.
 
 ## <a id="1-17-1"></a> v1.17.1
 
@@ -367,7 +371,7 @@ This release includes the following security fix:
 
 This release has the following fix:
 
-* When TLS is enabled, the RabbitMQ Management UI is now accessible from outside PCF.
+* When TLS is enabled, the RabbitMQ Management UI is now accessible from outside <%= vars.platform_old %>.
 
 ### Features
 
@@ -400,12 +404,12 @@ The following components are compatible with this release:
         <td>v2.7.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, v2.6.x and v2.7.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.17">v3.7.17</a></td>
+        <td>3.7.17*</td>
     </tr>
     <tr>
         <td>Erlang</td>
@@ -440,7 +444,7 @@ The following components are compatible with this release:
         <td>56.0.0</td>
     </tr>
    <tr>
-        <td>loggregator-agent</td>
+        <td>loggregator<%# Call it "Loggregator" -- capitalized and without a preceding "the". %>-agent</td>
         <td>3.21</td>
     </tr>
    <tr>
@@ -460,6 +464,7 @@ The following components are compatible with this release:
         <td>269.0.0</td>
     </tr>
 </table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.17">v3.7.17</a> GitHub documentation.
 
 ## <a id="1-17-0"></a> v1.17.0
 
@@ -480,7 +485,7 @@ New features and changes in this release:
 * This release updates the following dependencies:
 	* OSS RabbitMQ to v3.7.15
 	* Erlang to v21
-	* golang to v1.12.6
+	* Golang to v1.12.6
 
 ### Known Issues
 
@@ -505,12 +510,12 @@ The following components are compatible with this release:
         <td>315.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15">v3.7.15</a></td>
+        <td>3.7.15*</td>
     </tr>
     <tr>
         <td>Erlang</td>
@@ -565,6 +570,7 @@ The following components are compatible with this release:
         <td>268.0.0</td>
     </tr>
 </table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.15">v3.7.15</a> GitHub documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
