@@ -9,14 +9,14 @@ owner: London Services
 
 ## <a id="1-18-3"></a> v1.18.3
 
-**Release Date**: January 9, 2020
+**Release Date**: January 10, 2020
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* The upgrade path 1.15.x -> 1.17.0/1.17.1/1.17.3 -> 1.18.3 with TLS set to optional in 1.15.x, no longer fails. This is the case for v1.18.2 of the tile.
-Upgrade to this version or later to avoid the issue.
+* The upgrade path from v1.15.x through 1.17.0/1.17.1/1.17.3 to v1.18.3 with TLS set to optional in v1.15.x does not fail.
+  The similar upgrade path to v1.18.2 does fail.
 
 * On platform on-demand service instances, created with a [service gateway](./service-gateway-access.html) enabled
 plan, now do not fail to connect when using the [MQTT and STOMP protocols](./install-config.html#server-plugins).
@@ -46,7 +46,7 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td><%= vars.platform_old %></td>
-        <td>2.5, and 2.6</td>
+        <td>2.5 and 2.6</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
