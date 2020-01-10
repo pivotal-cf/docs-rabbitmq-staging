@@ -44,10 +44,10 @@ New features and changes in this release:
 
 * This release updates the following dependencies:
 	* OSS RabbitMQ to v3.7.22.
-	For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub repository.
+	For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub documentation.
 	* Erlang to v21.3.8.11. This changes the Erlang major version from 20 to 21. Regardless, upgrade to this
 	version does not require a full cluster shutdown and is done as a rolling upgrade.
-	* HA Proxy to v1.8.23
+	* HAProxy to v1.8.23
 
 ### Known Issues
 
@@ -83,7 +83,7 @@ The following components are compatible with this release:
         <td>21.3.8.11</td>
     </tr>
     <tr>
-        <td>HA Proxy</td>
+        <td>HAProxy</td>
         <td>1.8.23</td>
     </tr>
     <tr>
@@ -133,7 +133,7 @@ The following components are compatible with this release:
 </table>
 
 * For more information, see the
-<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub repository.
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub documentation.
 
 ## <a id="1-16-7"></a> v1.16.7
 
@@ -159,9 +159,9 @@ New features and changes in this release:
 
 * This release updates the following dependencies:
 	* OSS RabbitMQ to v3.7.21. For more information, see the
-	<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub repository.
+	<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub documentation.
 	* Erlang to v21.3.8.10 (**Note: This changes the Erlang major version from 20 to 21. Regardless, upgrade to this version does not require a full cluster shutdown and is done as a rolling upgrade.**)
-	* HA Proxy to v1.8.22
+	* HAProxy to v1.8.22
 
 ### Known Issues
 
@@ -199,7 +199,7 @@ The following components are compatible with this release:
         <td>21.3.8.10</td>
     </tr>
     <tr>
-        <td>HA Proxy</td>
+        <td>HAProxy</td>
         <td>1.8.22</td>
     </tr>
     <tr>
@@ -249,7 +249,7 @@ The following components are compatible with this release:
 </table>
 
 * For more information, see the
-<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub repository.
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub documentation.
 
 ## <a id="1-16-6"></a> v1.16.6
 
@@ -287,7 +287,7 @@ New features and changes in this release:
 * This release updates the following dependencies:
 	* OSS RabbitMQ to v3.7.18
 	* Erlang to v20.3.8.22
-	* HA Proxy to v1.8.21
+	* HAProxy to v1.8.21
 
 ### Known Issues
 
@@ -323,7 +323,7 @@ The following components are compatible with this release:
         <td>20.3.8.22</td>
     </tr>
     <tr>
-        <td>HA Proxy</td>
+        <td>HAProxy</td>
         <td>1.8.21</td>
     </tr>
     <tr>
@@ -373,7 +373,7 @@ The following components are compatible with this release:
 </table>
 
 * For more information, see the
-<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a> GitHub repository.
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a> GitHub documentation.
 
 ## <a id="1-16-5"></a> v1.16.5
 
@@ -425,7 +425,7 @@ The following components are compatible with this release:
         <td>20.3.8.22</td>
     </tr>
     <tr>
-        <td>HA Proxy</td>
+        <td>HAProxy</td>
         <td>1.8.20</td>
     </tr>
     <tr>
@@ -475,7 +475,7 @@ The following components are compatible with this release:
 </table>
 
 * For more information, see the
-<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.17">v3.7.17</a> GitHub repository.
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.17">v3.7.17</a> GitHub documentation.
 
 ## <a id="1-16-4"></a> v1.16.4
 
@@ -486,7 +486,7 @@ The following components are compatible with this release:
 This release has the following fix:
 
 * The pre-provisioned broker now terminates failed TCP connections when unbinding services.
-This prevents the file descriptor limit on the HA Proxy and the pre-provisioned broker VMs from reaching
+This prevents the file descriptor limit on the HAProxy and the pre-provisioned broker VMs from reaching
 capacity over time.
 
 ### Known Issues
@@ -525,7 +525,7 @@ The following components are compatible with this release:
         <td>20.3.8.21</td>
     </tr>
     <tr>
-        <td>HA Proxy</td>
+        <td>HAProxy</td>
         <td>1.8.20</td>
     </tr>
     <tr>
@@ -575,7 +575,7 @@ The following components are compatible with this release:
 </table>
 
 * For more information, see the
-<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a> GitHub repository.
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a> GitHub documentation.
 
 ## <a id="1-16-3"></a> v1.16.3
 
@@ -648,10 +648,10 @@ This release has the following known issues:
 
 <ul>
 <li>The pre-provisioned broker does not terminate failed TCP connections when unbinding services.
-  Over time, this can cause the file descriptor limit on the VMs that host HA Proxy
+  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
   and the pre-provisioned broker to reach capacity:
    <ul>
-    <li> When capacity is reached on the HA Proxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
     <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
    </ul>
   To resolve the issue, do one of the following:
@@ -698,7 +698,7 @@ The following components are compatible with this release:
         <td>20.3.8.20</td>
     </tr>
     <tr>
-        <td>HA Proxy</td>
+        <td>HAProxy</td>
         <td>1.8.19</td>
     </tr>
     <tr>
@@ -748,7 +748,7 @@ The following components are compatible with this release:
 </table>
 
 * For more information, see the
-<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a> GitHub repository.
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a> GitHub documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
