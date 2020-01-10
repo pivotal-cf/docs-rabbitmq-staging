@@ -10,7 +10,7 @@ You can skip v1.16 in this case to save time and take advantage of the latest fe
 Pivotal discourages any other upgrade path that skips a release, such as v1.14 to v1.16, as they are untested.
 
 Upgrading to v1.17.3 and later from previous versions does not cause a cluster shutdown.
-You will experience little to no downtime.
+It causes little to no downtime.
 However, upgrading to v1.17.2 and earlier still requires a cluster shutdown.
 
 For product versions and upgrade paths,
@@ -31,21 +31,23 @@ Installing and Configuring RabbitMQ for PCF the On-Demand Service</a>.
 
 **Release Date**: January 9, 2020
 
-### Bug Fixes
+### Resolved Issues
 
-This release includes the following bug fixes:
+This release includes the following fixes:
 
-* Upgrading from 1.15.x with TLS set to optional, to this patch, no longer fails. This is the case for v1.16.7 of the tile.
-Please upgrade to this version or later to avoid the bug.
+* Upgrading from 1.15.x to this patch no longer fails when TLS set to optional.
+Upgrade to this version or later to avoid the issue.
 
 ### Features
 
 New features and changes in this release:
 
 * This release updates the following dependencies:
-	* OSS RabbitMQ to <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a>
-	* Erlang to v21.3.8.11 (**Note: This changes the Erlang major version from 20 to 21. Regardless, upgrade to this version does not require a full cluster shutdown and is done as a rolling upgrade.**)
-	* HAProxy to v1.8.23
+	* OSS RabbitMQ to v3.7.22.
+	For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub repository.
+	* Erlang to v21.3.8.11. This changes the Erlang major version from 20 to 21. Regardless, upgrade to this
+	version does not require a full cluster shutdown and is done as a rolling upgrade.
+	* HA Proxy to v1.8.23
 
 ### Known Issues
 
@@ -69,19 +71,19 @@ The following components are compatible with this release:
         <td>170.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a></td>
+        <td>v3.7.22*</td>
     </tr>
     <tr>
         <td>Erlang</td>
         <td>21.3.8.11</td>
     </tr>
     <tr>
-        <td>HAProxy</td>
+        <td>HA Proxy</td>
         <td>1.8.23</td>
     </tr>
     <tr>
@@ -130,6 +132,9 @@ The following components are compatible with this release:
     </tr>
 </table>
 
+* For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.22">v3.7.22</a> GitHub repository.
+
 ## <a id="1-16-7"></a> v1.16.7
 
 **Release Date**: November 22, 2019
@@ -153,9 +158,10 @@ For more information about RabbitMQ v3.7.21, see the [RabbitMQ Changelog](https:
 New features and changes in this release:
 
 * This release updates the following dependencies:
-	* OSS RabbitMQ to <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a>
+	* OSS RabbitMQ to v3.7.21. For more information, see the
+	<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub repository.
 	* Erlang to v21.3.8.10 (**Note: This changes the Erlang major version from 20 to 21. Regardless, upgrade to this version does not require a full cluster shutdown and is done as a rolling upgrade.**)
-	* HAProxy to v1.8.22
+	* HA Proxy to v1.8.22
 
 ### Known Issues
 
@@ -181,19 +187,19 @@ The following components are compatible with this release:
         <td>170.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a></td>
+        <td>v3.7.21*</td>
     </tr>
     <tr>
         <td>Erlang</td>
         <td>21.3.8.10</td>
     </tr>
     <tr>
-        <td>HAProxy</td>
+        <td>HA Proxy</td>
         <td>1.8.22</td>
     </tr>
     <tr>
@@ -242,6 +248,9 @@ The following components are compatible with this release:
     </tr>
 </table>
 
+* For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.21">v3.7.21</a> GitHub repository.
+
 ## <a id="1-16-6"></a> v1.16.6
 
 **Release Date**: October 11, 2019
@@ -263,7 +272,7 @@ Depending on how the peer queues the RST\_STREAM frames, this can consume excess
 
 * Critical [CVE-2019-9515](https://nvd.nist.gov/vuln/detail/CVE-2019-9515):
 Some HTTP/2 implementations are vulnerable to a settings flood, potentially leading to a denial of service.
-The attacker sends a stream of SETTINGS frames to the peer. Since the RFC requires
+The attacker sends a stream of SETTINGS frames to the peer. Because the RFC requires
 that the peer reply with one acknowledgement per SETTINGS frame, an empty SETTINGS
 frame is almost equivalent in behavior to a ping. Depending on how efficiently this
 data is queued, this can consume excess CPU, memory, or both.
@@ -278,7 +287,7 @@ New features and changes in this release:
 * This release updates the following dependencies:
 	* OSS RabbitMQ to v3.7.18
 	* Erlang to v20.3.8.22
-	* HAProxy to v1.8.21
+	* HA Proxy to v1.8.21
 
 ### Known Issues
 
@@ -302,19 +311,19 @@ The following components are compatible with this release:
         <td>170.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a></td>
+        <td>v3.7.18*</td>
     </tr>
     <tr>
         <td>Erlang</td>
         <td>20.3.8.22</td>
     </tr>
     <tr>
-        <td>HAProxy</td>
+        <td>HA Proxy</td>
         <td>1.8.21</td>
     </tr>
     <tr>
@@ -363,6 +372,9 @@ The following components are compatible with this release:
     </tr>
 </table>
 
+* For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.18">v3.7.18</a> GitHub repository.
+
 ## <a id="1-16-5"></a> v1.16.5
 
 **Release Date**: August 27, 2019
@@ -377,7 +389,7 @@ This release includes the following security fix:
 
 This release has the following fix:
 
-* When TLS is enabled, the RabbitMQ Management UI is now accessible from outside PCF.
+* When TLS is enabled, the RabbitMQ Management UI is now accessible from outside <%= vars.platform_old %>.
 
 ### Known Issues
 
@@ -401,19 +413,19 @@ The following components are compatible with this release:
         <td>170.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.17">v3.7.17</a></td>
+        <td>v3.7.17*</td>
     </tr>
     <tr>
         <td>Erlang</td>
         <td>20.3.8.22</td>
     </tr>
     <tr>
-        <td>HAProxy</td>
+        <td>HA Proxy</td>
         <td>1.8.20</td>
     </tr>
     <tr>
@@ -462,6 +474,9 @@ The following components are compatible with this release:
     </tr>
 </table>
 
+* For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.17">v3.7.17</a> GitHub repository.
+
 ## <a id="1-16-4"></a> v1.16.4
 
 **Release Date**: June 17, 2019
@@ -471,8 +486,8 @@ The following components are compatible with this release:
 This release has the following fix:
 
 * The pre-provisioned broker now terminates failed TCP connections when unbinding services.
-This prevents the file descriptor limit on the HAProxy and the pre-provisioned
-broker VMs from reaching capacity over time.
+This prevents the file descriptor limit on the HA Proxy and the pre-provisioned broker VMs from reaching
+capacity over time.
 
 ### Known Issues
 
@@ -498,19 +513,19 @@ The following components are compatible with this release:
         <td>170.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, v2.5.x, and v2.6.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a></td>
+        <td>v3.7.14*</td>
     </tr>
     <tr>
         <td>Erlang</td>
         <td>20.3.8.21</td>
     </tr>
     <tr>
-        <td>HAProxy</td>
+        <td>HA Proxy</td>
         <td>1.8.20</td>
     </tr>
     <tr>
@@ -559,6 +574,9 @@ The following components are compatible with this release:
     </tr>
 </table>
 
+* For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a> GitHub repository.
+
 ## <a id="1-16-3"></a> v1.16.3
 
 **Release Date**: May 22, 2019
@@ -569,7 +587,7 @@ For more information about this security issue, see
 <a href="https://pivotal.io/security/cve-2018-1279">CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie</a>.
 <br><br>
 If you rely on the tile to generate the cookie by leaving the Erlang cookie field
-blank, you will experience a few minutes of downtime when you upgrade.
+blank, you experience a few minutes of downtime when you upgrade.
 For more information, see <a href="./install-config-pp.html#security-fix">Erlang Cookie Security Fix</a>.
 <br><br>
 If you have set the cookie explicitly in the tile configuration, you are not
@@ -590,8 +608,8 @@ New features and changes in this release:
   These plugins are disabled by default.
   For how to enable them, see [Enable Optional Plugins](./use.html#optional-plugins).
 
-* You can configure your RabbitMQ tile to share metrics with the PCF Healthwatch service.
-For more information about this service, see [Pivotal Cloud Foundry Healthwatch](https://docs.pivotal.io/pcf-healthwatch/index.html).
+* You can configure your RabbitMQ tile to share metrics with the <%= vars.platform_old %> Healthwatch service.
+For more information about this service, see [<%= vars.platform_old %> Healthwatch](https://docs.pivotal.io/pcf-healthwatch/index.html).
 
 * You can disable service metrics for RabbitMQ for PCF service instances to reduce
 operational costs.
@@ -630,10 +648,10 @@ This release has the following known issues:
 
 <ul>
 <li>The pre-provisioned broker does not terminate failed TCP connections when unbinding services.
-  Over time, this can cause the file descriptor limit on the VMs that host HAProxy
+  Over time, this can cause the file descriptor limit on the VMs that host HA Proxy
   and the pre-provisioned broker to reach capacity:
    <ul>
-    <li> When capacity is reached on the HAProxy VM, RabbitMQ is unreachable.</li>
+    <li> When capacity is reached on the HA Proxy VM, RabbitMQ is unreachable.</li>
     <li> When capacity is reached on the pre-provisioned broker, app developers cannot create, bind, unbind, or delete service instances.</li>
    </ul>
   To resolve the issue, do one of the following:
@@ -641,7 +659,7 @@ This release has the following known issues:
    <li> Restart the <code>haproxy</code> or the <code>rabbitmq-service-broker</code> monit job on the VM.
    <li> Increase the file descriptor limit on the VM.
     For how to increase the limit, see the example in
-    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in PCF "too many open files"</a>
+    <a href="https://community.pivotal.io/s/article/unable-to-create-rabbitmq-service-instance">Unable to create RabbitMQ service-instance in <%= vars.platform_old %> "too many open files"</a>
       in the Pivotal Support knowledge base.  </li>
    <li> If the VM is unresponsive, restart it.</li>
    </ul>
@@ -668,19 +686,19 @@ The following components are compatible with this release:
         <td>170.x</td>
     </tr>
     <tr>
-        <td>PCF</td>
+        <td><%= vars.platform_old %></td>
         <td>v2.4.x, and v2.5.x</td>
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a></td>
+        <td>v3.7.14*</td>
     </tr>
     <tr>
         <td>Erlang</td>
         <td>20.3.8.20</td>
     </tr>
     <tr>
-        <td>HAProxy</td>
+        <td>HA Proxy</td>
         <td>1.8.19</td>
     </tr>
     <tr>
@@ -728,6 +746,10 @@ The following components are compatible with this release:
         <td>265.0.0</td>
     </tr>
 </table>
+
+* For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.14">v3.7.14</a> GitHub repository.
+
 ## <a id="view"></a> View Release Notes for Another Version
 
 To view the release notes for another product version, select the version from
