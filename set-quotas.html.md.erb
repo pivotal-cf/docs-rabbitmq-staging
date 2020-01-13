@@ -4,7 +4,13 @@ owner: London Services
 ---
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+<%= partial vars.path_to_partials + '/services/toc-set-quotas'%>
 
-<%= partial '../../rabbitmq-cf/partials/services/toc-set-quotas' %>
+<strong><%= modified_date %></strong>
 
-<%= partial '../../rabbitmq-cf/partials/services/set_quotas' %>
+<%= partial vars.path_to_partials + '/services/set_quotas',:locals => {
+  :product_full => "RabbitMQ for Pivotal Cloud Foundry (PCF)",
+  :product_short => "RabbitMQ for PCF",
+  :platform_name => "PCF",
+  :service_name => vars.service_name,
+  :tile_name => "RabbitMQ for PCF"}%>
