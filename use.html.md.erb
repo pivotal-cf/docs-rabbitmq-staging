@@ -270,7 +270,8 @@ To activate TLS for Java and Spring apps, do one of the following:
     <pre class="terminal">$ cf restart my-app</pre>
 
 <p class="note"><strong>Note:</strong> If the operator used a self-signed certificate,
-configure your app to use the same CA certificate and valid certificate and key.</p>
+configure your app to use the same CA certificate and valid certificate and key.
+</p>
 
 
 ## <a id="optional-plugins"></a> Enable Optional Plugins
@@ -279,8 +280,10 @@ For a list of RabbitMQ plugins that are enabled or disabled by default in
 On-Demand RabbitMQ instances, see
 [RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
-<p class="note"><strong>Note:</strong> If a plugin is disabled by default, the operator must enable the plugin
-for the platform before you can enable it on your service instances. For more information, see <a href="./install-config.html#optional-plugins">Optional RabbitMQ Server Plugins</a>.</p>
+<p class="note"><strong>Note:</strong> If a plugin is disabled by default,
+the operator must enable the plugin for the platform before you can enable it on your service instances.
+For more information, see <a href="./install-config.html#optional-plugins">Optional RabbitMQ Server Plugins</a>.
+</p>
 
 You can enable plugins when you create a service instance or by updating an existing
 service instance. When enabling more than one plugin, specify all the plugin names in the same command.
