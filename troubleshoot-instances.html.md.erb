@@ -5,7 +5,7 @@ owner: London Services
 
 This topic provides basic instructions for app developers troubleshooting on-demand <%= vars.product_full %> instances.
 
-## <a id="errors"></a> Errors
+## <a id="errors"></a> Troubleshoot Errors
 
 You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI) to perform basic operations on a <%= vars.product_short %> service instance:
 
@@ -80,6 +80,30 @@ Both operators and app developers can use this procedure. See [Create an Admin U
 
 <%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-credhub-failing-credentials' %>
 
+### <a id="no-metrics"></a> No Metrics from Log Cache
+
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-no-metrics' %>
+
+
+## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instances
+
+The on-demand broker provides a BOSH command to delete all on-demand broker deployed instances.
+
+<p class="note warning"><strong>Warning:</strong>
+  This command deletes deployment instances serially. It is very destructive and cannot be undone.
+</p>
+
+To delete the instances:
+
+1. Run:
+
+    ```
+    bosh run-errand delete-sub-deployments
+    ```
+
+
 ## <a id="kb"></a>Knowledge Base (Community)
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
@@ -91,13 +115,3 @@ Both operators and app developers can use this procedure. See [Create an Admin U
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-support-dev' %>
-
-## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instances
-
-On-Demand Broker provides a BOSH command to delete all the On-Demand Broker deployed instances. To delete the instances, do the following procedure:
-
-1. Run the following command to delete all instances of the On-Demand Broker:
-
-    <p class="note warning"><strong>Warning:</strong> This command deletes deployment instances serially. It is very destructive and cannot be undone.</p>
-
-    `bosh run-errand delete-sub-deployments`
