@@ -4,18 +4,24 @@ owner: London Services
 ---
 
 ## What is a rolling upgrade
-A rolling upgrade is a rollout strategy for updating software in a distributed
-system. Rolling upgrades guarantee at least one node will remain up throughout
-the upgrade process for availability at all times. Before 1.17.3 some upgrades
-required the whole cluster to be shut down. For example when the major or minor
-version of RabbitMQ was updated, or when the major version of the Erlang
-distribution was updated.
+A rolling upgrade is one possible strategy employed when updating a distributed
+system. 
+
+In a rolling upgrade on Pivotal Platform, each VM is updated in turn.
+After the update completes, the VM is started, and once the specified processes are running, 
+the update procedure begins for the next VM in the sequence.
+
+In a RabbitMQ cluster, each node runs on a separate VM. Rolling upgrades help to
+ensure availability as at least one node will remain up throughout the upgrade process. 
+
+Before 1.17.3 some upgrades required the whole cluster to be shut down, for example when the major or minor
+version of RabbitMQ was updated, or when the major version of the Erlang distribution was updated.
 
 As of 1.17.3, upgrades are now performed using a rolling upgrade strategy.
-Today, the only case where a cluster is required to fully shut down as part of
-an upgrade is where the Erlang cookie for the cluster is changed. However as
+The only case where a cluster is required to fully shut down as part of
+an upgrade is where the Erlang cookie for the cluster is changed. As
 new features are developed in RabbitMQ, there is no guarantee that future
-versions of RabbitMQ can be applied to existing clusters, without down time.
+versions of RabbitMQ can be applied to existing clusters, without downtime.
 
 
 ## What happens during a rolling upgrade for RMQ for PP
@@ -114,6 +120,8 @@ seconds. This is due to the fact that the internal BOSH DNS record used to
 round-robin messages to the nodes in the cluster has a TTL of 5 seconds. The
 messages may be routed to nodes which have just been replaced. As our app has
 retry logic we did not observe service outage.
+
+There is more information on creating resilient applications in [this repository](https://github.com/rabbitmq/workloads/tree/master/resiliency).
 
 If our cluster had been under greater load, we would expect longer down time.
 When a node comes back up and rejoins the cluster, messages from the other nodes
