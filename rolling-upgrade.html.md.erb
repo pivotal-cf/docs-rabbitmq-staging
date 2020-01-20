@@ -4,6 +4,7 @@ owner: London Services
 ---
 
 ## <a id='overview'></a> Overview
+
 A rolling upgrade is a strategy for updating a distributed system.
 
 In a rolling upgrade on <%= vars.platform_name %>, each VM is updated in turn.
@@ -13,11 +14,11 @@ procedure begins for the next VM in the sequence.
 In a <%= vars.product_short %> cluster, each node runs on a separate VM.
 Rolling upgrades help to ensure availability by keeping at least one node up throughout the upgrade process.
 
-Before 1.17.3, some upgrades required the whole cluster to be shut down.
-For example, when the major or minor version of <%= vars.product_short %> was updated, or when the major
+Before v1.17.3, some upgrades required the whole cluster to be shut down.
+For example, when a major or minor version of <%= vars.product_short %> was updated, or when a major
 version of the Erlang distribution was updated.
 
-As of 1.17.3, upgrades are now performed using a rolling upgrade strategy.
+As of v1.17.3, upgrades are performed using a rolling upgrade strategy.
 The only case where a cluster is required to fully shut down as part of an upgrade is where the Erlang cookie
 for the cluster is changed.
 Development of <%= vars.product_short %> is on-going.
@@ -25,28 +26,35 @@ Downtime might occur when applying later versions of <%= vars.product_short %> t
 
 
 ## <a id='rolling'></a> Running a Rolling Upgrade for <%= vars.product_full %>
-On a single canary node in the cluster, the following steps are carried out:
- - The <%= vars.product_short %> server process and the Erlang VM are stopped by running
-`rabbitmqctl stop`
- - Persistent disk is detached
- - The VM is torn down for the node
- - After 0–5 seconds the BOSH DNS service detects a failing health check for
- the node that has just gone down, and no longer routes service traffic to the node
- - BOSH requests a new VM from the underlying IaaS, and attaches the persistent
- disk from the old VM
- - rabbitmq-server is started on the new VM, and the node rejoins the cluster
- - The new node registers with the BOSH DNS service and begins receiving traffic. The above steps are then
- carried out on the remaining nodes in the cluster, one by one.
 
-## <a id='example'></a> Example Scenario
-The following is an example of an upgrade scenario where rolling upgrade is employed.
-An operator upgrades their platform to use a new version of <%= vars.product_full %>; they upgrade from
-v1.17.4 to v1.18.1 of the product.
-This example is designed to show a system performing a rolling upgrade under a heavy load, with substantial
-disk I/O, with both the underlying <%= vars.product_short %> and Erlang software upgrading to a newer version.
-Without a rolling upgrade, the whole cluster is required to shut down, resulting in a service outage given
+On a single canary node in the cluster, the following steps are carried out:
+
+* `rabbitmqctl stop` runs, stopping the <%= vars.product_short %> server process and the Erlang VM.
+* The persistent disk is detached.
+* The VM is torn down for the node.
+* After 0–5 seconds the BOSH DNS service detects a failing health check for
+ the node that has just gone down. It stops routing service traffic to the node.
+* BOSH requests a new VM from the underlying IaaS. It attaches the persistent
+ disk from the old VM.
+* rabbitmq-server starts on the new VM. The node rejoins the cluster.
+* The new node registers with the BOSH DNS service and begins receiving traffic.
+
+The above steps are then carried out on the remaining nodes in the cluster, one by one.
+
+## <a id='example'></a> Example Rolling Upgrade Scenario
+
+The experiment described below is an example of a rolling upgrade scenario.
+
+In the experiment, an operator upgrades their platform to use a new version of <%= vars.product_full %>.
+They upgrade from v1.17.4 to v1.18.1.
+
+This experiment is designed to show a system performing a rolling upgrade under a heavy load: there is
+substantial disk I/O with both the underlying <%= vars.product_short %> and Erlang software upgrading to a
+newer version.
+
+Without a rolling upgrade, the whole cluster must shut down, resulting in a service outage given
 publishers and consumers are unable to connect to the cluster.
-Pivotal aims to explore the extent of downtime associated with a rolling upgrade in this case.
+This experiment shows the extent of downtime associated with a rolling upgrade.
 
 <p class='note'>
   <strong>Note:</strong> The following is provided for example purposes only and is not intended to represent
@@ -58,16 +66,23 @@ Pivotal aims to explore the extent of downtime associated with a rolling upgrade
 Details of the configuration and setup of the experiment are detailed in the sections below.
 
 #### <a id='cluster-config'></a> Cluster Configuration
-The IaaS used for this experiment was Google Cloud Platform (GCP).
-The <%= vars.product_short %> node VMs were configured with 2 CPUs, 2&nbsp;GB of RAM, 8&nbsp;GB of disk, and
-5&nbsp;GB persistent disk.
+
+The IaaS used for this experiment is Google Cloud Platform (GCP).
+
+The <%= vars.product_short %> node VMs are configured with:
+
+* 2 CPUs
+* 2&nbsp;GB of RAM
+* 8&nbsp;GB of disk
+* 5&nbsp;GB of persistent disk
+
 Initially <%= vars.product_full %> v1.17.4 was installed with a plan configured to build a three-node
 cluster with queues being mirrored.
 This environment was then upgraded to use <%= vars.product_full %> v1.18.1.
 
 #### <a id='app-config'></a> App Configuration
 
-The RabbitMQ Performance Tool for Cloud Foundry was used to simulate the workload on the cluster.
+The RabbitMQ Performance Tool for Cloud Foundry is used to simulate the workload on the cluster.
 This is a Java application that tests throughput of <%= vars.product_short %>.
 For more information, see the
 [RabbitMQ PerfTest for Cloud Foundry](https://github.com/rabbitmq/rabbitmq-perf-test-for-cf) repository in GitHub.
@@ -75,31 +90,34 @@ For more information, see the
 This tool uses a resilient client with reconnection and retry logic.
 When the performance test is run it creates a direct exchange and a queue.
 For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/tutorials/amqp-concepts.html).
-
 In addition, it creates all the necessary consumers and producers and binds them to the newly created queue.
-In our scenario the performance test is configured to use durable and mirrored queues, and persistent messages
-which ensure that messages are persisted to disk.
+
+In this experiment the performance test is configured to use durable and mirrored queues and persistent
+messages, which ensure that messages are persisted to disk.
+
 For more information about durability, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/queues.html#durability).
 For more information about mirrored queues, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
 
-The protocol extension publisher confirms is enabled to ensure that there is no data loss.
-For more information about publisher confirms, see the
+A protocol extension called Publisher Confirms is enabled to ensure that there is no data loss.
+For more information about Publisher Confirms, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/confirms.html#publisher-confirms).
 
-This setup ensures that there is a backlog of message to be read from disk and consumed at any point during the
-upgrade.
+This setup ensures that there is a backlog of messages to be read from disk and consumed at any point during
+the upgrade.
 
 The publishers are configured to constantly produce messages in three different bursts:
+
 1. 500 messages per second for 30 seconds
 1. 750 messages per second for 15 seconds
 1. 250 messages per second for 15 seconds
 
-On the other hand the publishers are expected to consume a total of 500 messages per second.
-Each message is a JSON blob of size 50000 bytes.
+The publishers are expected to consume a total of 500 messages per second.
+Each message is a 50,000-byte JSON blob.
 
 The equivalent app manifest for this test is as follows:
+
 ```yaml
 ---
 applications:
@@ -123,14 +141,15 @@ applications:
 
 ### <a id='observe'></a> Observations
 
-Tests show that downtime experienced during this rolling upgrade is significantly reduced compared to a similar
-upgrade where the cluster is brought fully down.
-Our metrics indicated that the downtime, in this case a publisher being unable to publish a message to a queue,
-was 5 seconds at maximum.
-This is because the internal BOSH DNS record used to round-robin messages to the nodes in the cluster has a TTL
-of 5 seconds.
-The messages can be routed to nodes which have just been replaced.
-Because the tested app has retry logic, no service outage was observed.
+Tests show that downtime experienced during this rolling upgrade is significantly reduced compared to a
+similar upgrade where the cluster is fully shut down.
+
+The metrics indicate that the downtime, in this case a publisher being unable to publish a message to a
+queue, is 5 seconds at maximum.
+
+This is because the internal BOSH DNS record used to round-robin messages to the nodes in the cluster has a
+5-second time to live (TTL). The messages can be routed to nodes that have just been replaced.
+Because the tested app has retry logic, no service outage is observed.
 
 There is more information about creating resilient apps in the
 [workloads repository](https://github.com/rabbitmq/workloads/tree/master/resiliency) in GitHub.
