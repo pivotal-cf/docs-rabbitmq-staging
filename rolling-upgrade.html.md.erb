@@ -3,6 +3,11 @@ title: Rolling Upgrades in RabbitMQ for Pivotal Platform
 owner: London Services
 ---
 
+This topic describes the rolling upgrade strategy and how it can incur less downtime than other upgrade
+methods.
+It includes steps for running a rolling upgrade and a description of an experiment that illustrates the
+benefits of rolling upgrades in detail.
+
 ## <a id='overview'></a> Overview
 
 A rolling upgrade is a strategy for updating a distributed system.
@@ -139,7 +144,6 @@ applications:
       CONFIRM: 30000
 ```
 
-<%#
 For more information about concepts mentioned above, see:
 <table class="nice">
 <col width="50%">
@@ -168,7 +172,7 @@ For more information about concepts mentioned above, see:
 		<td>the <a href="https://www.rabbitmq.com/confirms.html#publisher-confirms">RabbitMQ documentation</td>
 	</tr>
 </table>
-%>
+
 ### <a id='observe'></a> Observations
 
 Tests show that downtime experienced during this rolling upgrade is significantly reduced compared to a
