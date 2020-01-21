@@ -89,25 +89,15 @@ This environment was then upgraded to use <%= vars.product_full %> v1.18.1.
 
 The RabbitMQ Performance Tool for Cloud Foundry simulates the workload on the cluster.
 This is a Java app that tests throughput of <%= vars.product_short %>.
-For more information, see the
-[RabbitMQ PerfTest for Cloud Foundry](https://github.com/rabbitmq/rabbitmq-perf-test-for-cf) repository in GitHub.
 
 This tool uses a resilient client with reconnection and retry logic.
 When the performance test is run, it creates a direct exchange and a queue.
-For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/tutorials/amqp-concepts.html).
 In addition, it creates the necessary consumers and producers and binds them to the newly created queue.
 
 In this experiment, the performance test is configured to use durable and mirrored queues and persistent
 messages, which ensure that messages are persisted to disk.
 
-For more information about durability, see the
-[RabbitMQ documentation](https://www.rabbitmq.com/queues.html#durability).
-For more information about mirrored queues, see the
-[RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
-
 A protocol extension called Publisher Confirms is enabled to ensure that there is no data loss.
-For more information about Publisher Confirms, see the
-[RabbitMQ documentation](https://www.rabbitmq.com/confirms.html#publisher-confirms).
 
 This setup ensures that there is a backlog of messages to be read from disk and consumed at any point during
 the upgrade.
@@ -157,7 +147,7 @@ For more information about concepts mentioned above, see:
 	</tr>
 	<tr>
 		<td>Direct exchange</td>
-		<td>the <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html">RabbitMQ documentation</td>
+		<td>the <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchange-direct">RabbitMQ documentation</td>
 	</tr>
 	<tr>
 		<td>Durable queues</td>
