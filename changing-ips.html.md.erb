@@ -17,7 +17,7 @@ part of that network
 
 ## <a id="diagnose"></a> Diagnose a Failed Deployment
 
-When a deployment fails, check the Ops Manager Change log, in the section under `Detecting deployment changes`. If you see that the changes include IP addresses, then it is likely that the IP addresses assigned to the `RabbitMQ Server` job have changed, causing the failed deployment. Here is an example of similar messages from this section of the log:
+When a deployment fails, check the <%= vars.ops_manager %> Change log, in the section under `Detecting deployment changes`. If you see that the changes include IP addresses, then it is likely that the IP addresses assigned to the `RabbitMQ Server` job have changed, causing the failed deployment. Here is an example of similar messages from this section of the log:
 
 ```
   networks:

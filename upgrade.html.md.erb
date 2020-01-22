@@ -104,7 +104,7 @@ the upgrade and you must not interrupt this process.
   These counts are the default.
   For more information, see [Clustering and Network Partitions](./partitions.html).
 
-* Ops Manager ensures the instances are updated with the new packages and any
+* <%= vars.ops_manager %> ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
 
 
@@ -125,8 +125,8 @@ without the need to download a new RabbitMQ for PCF patch release from Pivotal N
 To upgrade the product, follow these steps:
 
 1. Download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service).
-1. Upload the new .pivotal file to Ops Manager.
+1. Upload the new .pivotal file to <%= vars.ops_manager %>.
 1. Upload the stemcell associated with the update (*if required*).
 1. Update any new mandatory configuration parameters (*if required*).
-1. Click **Apply changes** in the Ops Manager Installation Dashboard.
+1. Click **Apply changes** in the <%= vars.ops_manager %> Installation Dashboard.
    The rest of the process is automated.

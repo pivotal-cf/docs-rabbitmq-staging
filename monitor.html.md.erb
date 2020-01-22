@@ -22,15 +22,15 @@ See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.htm
 
 As of RabbitMQ for PCF v1.9.0, syslog forwarding is preconfigured and set to on by default.
 Pivotal recommends that you keep the default setting because it is good operational practice.
-However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager **Settings** tab.
+However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the <%= vars.ops_manager %> **Settings** tab.
 
 To enable monitoring for RabbitMQ for PCF, operators designate an external syslog endpoint for RabbitMQ component log messages.
 The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic. </br>
 
 To specify the destination for RabbitMQ for PCF log messages, do the following:
 
-1. From the Ops Manager Installation Dashboard, click the RabbitMQ tile.
-1. In the RabbitMQ tile, click the **Settings** tab. ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the RabbitMQ tile.
+1. In the RabbitMQ tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
 1. Click **Syslog and Metrics**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
@@ -71,9 +71,9 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
 </table>
 
 1. Click **Save**.
-1. Return to the Ops Manager Installation Dashboard.
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-For more information about this Ops Manager page,
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
+1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 1. Click **Apply Changes** to redeploy with the changes.
 
