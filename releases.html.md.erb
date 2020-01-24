@@ -359,7 +359,7 @@ The following components are compatible with this release:
 **Release Date**: August 27, 2019
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/downtime-breaking-change' %>
+<%= partial vars.path_to_partials + '/rabbitmq/downtime-breaking-change' %>
 
 ### Security Fix
 
@@ -471,7 +471,7 @@ The following components are compatible with this release:
 **Release Date**: July 18, 2019
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/downtime-breaking-change' %>
+<%= partial vars.path_to_partials + '/rabbitmq/downtime-breaking-change' %>
 
 ### Features
 
@@ -496,7 +496,7 @@ failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 * You can only upgrade to v1.17.0 from a v1.16 patch. This is in contrast to other v1.17 patches, which you can upgrade to from any v1.15 patch, skipping v1.16.
 
-<%= partial '../../rabbitmq-cf/partials/rabbitmq/ki-management-ui' %>
+<%= partial vars.path_to_partials + '/rabbitmq/ki-management-ui' %>
 
 ### Compatibility
 
