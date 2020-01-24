@@ -10,7 +10,7 @@ on-demand <%= vars.product_full %>.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services/retrieve-guid' %>
+<%= partial vars.path_to_partials + '/services/retrieve-guid' %>
 
 ## <a id="errors"></a> Troubleshooting Errors
 
@@ -18,47 +18,57 @@ Start here if you are responding to a specific error or error messages.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-install-fail' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-install-fail' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-cannot-create-delete' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-cannot-create-delete' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-timeouts' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-timeouts' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-instance-not-exist' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-instance-not-exist' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-other-errors' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-other-errors' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-cannot-connect' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-cannot-connect' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-upgrade-all-fails' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-cannot-update' %>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-err-missing-logs' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-upgrade-all-fails' %>
 
-### <a id="failed-deployment"></a> Failed Deployment on Upgrade or after Apply Changes
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-If the deployment fails after editing the <strong>Assign AZs and Networks</strong>
-pane of the <%= vars.product_short %> tile,
-it might be due to a change to the IP addresses assigned to the <code>RabbitMQ Server</code> job.
-<%= vars.product_short %> requires that these IP addresses do not change once assigned.
-If you change them, the deployment fails.
-This includes changes made to your current installation or during an upgrade.
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-missing-logs' %>
 
-To diagnose and solve this issue, see
-<a href='changing-ips.html'>Changing Network or IP Addresses Results in a Failed Deployment</a>.
+
+### <a id="rabbitmQ"></a> <%= vars.product_short %>-Specific Errors
+
+The following troubleshooting errors are specific to <%= vars.product_short %>:
+
+<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
+    id: 'failed-deployment' ,
+    description: 'Failed Deployment on Upgrade or after Apply Changes',
+    symptom: 'Your deployment fails after editing the <strong>Assign AZs and Networks</strong>
+    pane in the ' + vars.product_short + ' tile.' ,
+    cause: 'This error might occur if you change the
+    IP addresses assigned to the <code>RabbitMQ Server</code> job.
+    RabbitMQ requires that you do not change these IP addresses after they are assigned.
+    This includes changes made to your current installation or during an upgrade.' ,
+    solution: 'To diagnose and solve this issue, see
+    <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.'
+} %>
 
 ## <a id="components"></a> Troubleshooting Components
 
@@ -70,7 +80,7 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-large-queue' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-large-queue' %>
 
 ### <a id="bosh-config"></a> Configuration
 
@@ -78,7 +88,7 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-bosh-instance-fail' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-bosh-instance-fail' %>
 
 ### <a id="auth"></a> Authentication
 
@@ -86,25 +96,25 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-uaa-change' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-uaa-change' %>
 
 ### <a id="network"></a> Networking
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-network' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-network' %>
 
 #### <a id="broker-to-instances"></a> Validate Service Broker Connectivity to Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-broker-to-instances' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-broker-to-instances' %>
 
 #### <a id="app-to-instances"></a> Validate App Access to Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-app-to-instances' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-app-to-instances' %>
 
 ### <a id="quotas"></a> Quotas
 
@@ -112,19 +122,19 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-plan-quotas' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-plan-quotas' %>
 
 #### <a id="global-quotas"></a> Global Quota Issues
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-global-quotas' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-global-quotas' %>
 
 ### <a id="failing-jobs"></a> Failing Jobs and Unhealthy Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-comp-failing-jobs' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-comp-failing-jobs' %>
 
 ## <a id="techniques"></a> Techniques for Troubleshooting
 
@@ -136,91 +146,91 @@ maintenance and housekeeping tasks.
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-parse-error' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-parse-error' %>
 
 ### <a id="bosh-cf-access"></a> Access Broker and Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-bosh-cf-access' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-bosh-cf-access' %>
 
 #### <a id="access-broker"></a> Access Broker Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-access-broker' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-access-broker' %>
 
 #### <a id="access-instance"></a> Access Service Instance Logs and VMs
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-access-instance' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-access-instance' %>
 
 ### <a id="broker-errands"></a> Run Service Broker Errands to Manage Brokers and Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-broker-errands' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-broker-errands' %>
 
 #### <a id="register-broker"></a> Register Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-register-broker' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-register-broker' %>
 
 #### <a id="deregister-broker"></a> Deregister Broker
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-deregister-broker' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-deregister-broker' %>
 
 #### <a id="upgrade-all"></a> Upgrade All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-upgrade-all' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-upgrade-all' %>
 
 #### <a id="delete-all"></a> Delete All Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-delete-all' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-delete-all' %>
 
 #### <a id="detect-orphans"></a> Detect Orphaned Service Instances
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-detect-orphans' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-detect-orphans' %>
 
 ### <a id="instance-creds"></a> Get Admin Credentials for a Service Instance
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-instance-creds' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-instance-creds' %>
 
 ### <a id="reinstall"></a> Reinstall a Tile
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-reinstall' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-reinstall' %>
 
 ### <a id="view-resources"></a> View Resource Saturation and Scaling
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-view-resources' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-view-resources' %>
 
 ### <a id="id-instance-owner"></a> Identify a Service Instance Owner
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-id-instance-owner' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-id-instance-owner' %>
 
 ### <a id="monitor-quota"></a> Monitor the Quota Saturation and Service Instance Count
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-tech-monitor-quota' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-monitor-quota' %>
 
 ### <a id="drop-restore-traffic"></a> Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance
 
@@ -378,10 +388,10 @@ Before doing any upgrade of RabbitMQ, Pivotal recommends checking the following:
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-kb' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-kb' %>
 
 ## <a id="support"></a> File a Support Ticket
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial '../../rabbitmq-cf/partials/services-tshoot/tshoot-support' %>
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-support' %>
