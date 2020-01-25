@@ -53,15 +53,15 @@ Start here if you are responding to a specific error or error messages.
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-err-missing-logs' %>
 
 
-### <a id="rabbitmQ"></a> <%= vars.product_short %>-Specific Errors
+### <a id="rabbitmQ"></a> <%= vars.product_old %> Specific Errors
 
-The following troubleshooting errors are specific to <%= vars.product_short %>:
+The following troubleshooting errors are specific to <%= vars.product_old %>:
 
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'failed-deployment' ,
     description: 'Failed Deployment on Upgrade or after Apply Changes',
     symptom: 'Your deployment fails after editing the <strong>Assign AZs and Networks</strong>
-    pane in the ' + vars.product_short + ' tile.' ,
+    pane in the ' + vars.product_old + ' tile.' ,
     cause: 'This error might occur if you change the
     IP addresses assigned to the <code>RabbitMQ Server</code> job.
     RabbitMQ requires that you do not change these IP addresses after they are assigned.
