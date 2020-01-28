@@ -45,15 +45,16 @@ To specify the destination for <%= vars.product_short %> log messages, do the fo
     </tr>
     <tr>
         <td><strong>Syslog address</strong></td>
-        <td>IP or DNS address of the syslog server</td>
+        <td>Enter the IP or DNS address of the syslog server</td>
     </tr>
     <tr>
         <td><strong>Syslog port</strong></td>
-        <td>Port of the syslog server</td>
+        <td>Enter the port of the syslog server</td>
     </tr>
     <tr>
         <td><strong>Transport protocol</strong></td>
-        <td>Transport protocol of the syslog server. One of `udp`, `tcp`, `relp`.</td>
+        <td>Select the transport protocol of the syslog server. The options are <strong>TLS</strong>,
+          <strong>UDP</strong>, <strong>RELP</strong>.</td>
     </tr>
     <tr>
         <td><strong>Enable TLS</strong></td>
@@ -62,12 +63,12 @@ To specify the destination for <%= vars.product_short %> log messages, do the fo
     <tr>
         <td><strong>Permitted Peer</strong></td>
         <td>If there are several peer servers that can respond to remote syslog connections,
-            then you can provide a wildcard in the domain, such as `*.example.com`.</td>
+            enter a wildcard in the domain, such as `*.example.com`.</td>
     </tr>
     <tr>
         <td><strong>Custom CA Certificate</strong></td>
         <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
-            provide the CA certificate of the log management service endpoint.</td>
+            enter the CA certificate of the log management service endpoint.</td>
     </tr>
 </table>
 

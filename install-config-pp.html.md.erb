@@ -84,8 +84,8 @@ An orange circle indicates that you are required to configure fields on the tab 
 
 ## <a id="rabbitmq-cluster"></a> Pre-Provisioned RabbitMQ
 
-To configure the following sections in the **Pre-Provisioned RabbitMQ** tab, in the [Settings](#tile_configurations) screen,
-click **Pre-Provisioned RabbitMQ**.
+To configure the following sections in the **Pre-Provisioned RabbitMQ** tab, on the **Settings** screen,
+click **Pre-Provisioned RabbitMQ** and under **Deploy Pre-Provisioned service offering**, click **Yes**.
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
@@ -200,11 +200,6 @@ default value in the manifest is empty, which results in an auto-generated
 cookie. However, the value of the cookie on the server remains the same, so there
 is no downtime.</p>
 
-### <a id="custom-policy"></a> Enable Custom Policy on New Instances
-
-You can specify a custom RabbitMQ policy in this part of the **Pre-Provisioned RabbitMQ** tab. For information and instructions, see
-[Setting Default Policies for the RabbitMQ Service](./policies.html).
-
 ### <a id="load-balance"></a> External Load Balancer
 
 (Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
@@ -216,6 +211,11 @@ Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
 
 If you configure an external load balancer, to avoid an unnecessary VM deployment,
 in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
+
+### <a id="custom-policy"></a> Enable Custom Policy on New Instances
+
+You can specify a custom RabbitMQ policy in this part of the **Pre-Provisioned RabbitMQ** tab. For information and instructions, see
+[Setting Default Policies for the RabbitMQ Service](./policies.html).
 
 ### <a id="haproxy"></a>HAProxy Ports
 
@@ -413,7 +413,7 @@ To specify static IP addresses, do the following:
     <p class="note"><strong>Note</strong>: If any of the above fields are left blank,
       BOSH allocates an IP address.</p>
 
-    ![Networking](images/config-networking-pp.png)
+    <%= image_tag("config-networking-pp.png", :width => "400", :alt => "Networking") %>
 
 1. Click **Save**.
 
