@@ -234,66 +234,67 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 <p class="note"><strong>Note</strong>: You must fully configure <strong>On Demand Instance: Plan 1</strong> even if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).</p>
 
 
-1. Choose the on-demand service instance you want to configure:<br><br>**On Demand Instance: Plan 1** (complete required fields even if you disable this plan):
+1. Choose the on-demand service instance you want to configure. You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this plan <br><br>
 
     ![service-plan-1-tab](images/plan-1-configuration.png)
 
-    **On Demand Instance: Plan 2, 3, 4, and 5**:
-
-    ![service-plan-2-tab](images/plan-2-configuration.png)
-
 2. Configure the fields as follows:
-  <table>
-    <tr><th>Field</th><th>Instructions</th></tr>
-    <tr><td><strong>Enable This Plan</strong></strong></td>
-        <td>(Plans 2 - 5 only) To enable, select **Plan Enable**.</td></tr>
-    <tr><td><strong>CF Service Access</strong></strong></td>
-    <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
-        If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
-        If you change this default setting, the smoke tests fail.
-        Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
-        For more information, see the [Errands](#errands) section below.<br>
-      <br><ul>
-        <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
-        </li>
-        <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the Marketplace. This setting cannot be selected at a later time in the UI.
-        </li>
-        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can change the access settings later using the cf CLI. For instructions, see [Controlling Access to Service Plans by Org](./control-access.html).
-        </li>
+    <table>
+      <tr><th>Field</th><th>Instructions</th></tr>
+      <tr><td><strong>Enable This Plan</strong></strong></td>
+          <td>For Plans 2 - 5, enable the plan by selecting **Plan Enable**.</td></tr>
+      <tr><td><strong>CF Service Access</strong></strong></td>
+      <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
+          If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
+          If you change this default setting, the smoke tests fail.
+          Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
+          For more information, see the [Errands](#errands) section below.<br>
+        <br><ul>
+          <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
+          </li>
+          <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the Marketplace. This setting cannot be selected at a later time in the UI.
+          </li>
+          <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can change the access settings later using the cf CLI. For instructions, see [Controlling Access to Service Plans by Org](./control-access.html).
+          </li>
+        </ul></td></tr>
+      <tr><td><strong>Plan Name</strong></td>
+          <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
+      <tr><td><strong>Plan Description</strong></td>
+          <td>Accept the default or enter a description.  This description appears in the Marketplace.</td></tr>
+      <tr><td><strong>Paid Plan</strong></td>
+          <td>Enable this checkbox to indicate that this service plan is paid.
+              The plan is marked with an asterisk in the <code>cf marketplace</code> list and
+              labeled <code>paid</code> in the <code><strong>free or paid</strong></code> column when individual plans are listed.</td></tr>
+              <tr>
+                <td><strong>Service Gateway Access</strong></td>
+                <td>Enable this checkbox to enable service gateway access. For information, see
+                <a href="./service-gateway-access.html">Enabling Service-Gateway Access (Beta)</a></td>
+              </tr>
+      <tr><td><strong>Plan Features</strong></td>
+          <td>Accept the default or enter a description.  This description appears in Apps Manager.</td></tr>
+      <tr><td><strong>Plan Quota</strong></td>
+          <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td></tr>
+      <tr><td><strong>Number of Nodes</strong></strong></td>
+          <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
+              Previously deployed service instances are **not** updated.</td></tr>
+      <tr><td><strong>Network Partition Behaviour</strong></strong></td>
+          <td>Select <code>pause_minority</code> or <code>autoheal</code>. Pivotal recommends using pause minority.
+              For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
+              <tr><td><strong>AZ Placement</strong></td>
+              <td>This field is available after you complete the Assign AZs and Networks page. See the [Assign AZs and Networks](#azs-networks) section above for more information.
+                  <ul><li>For a single-node plan, select one or more AZs.</li>
+                    <li>For a plan containing multiple nodes, select only one AZ.
+                  Pivotal recommends this for multi-node plans to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
+                  <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz) below for more information.</li>
       </ul></td></tr>
-    <tr><td><strong>Plan Name</strong></td>
-        <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
-    <tr><td><strong>Plan Description</strong></td>
-        <td>Accept the default or enter a description.  This description appears in the Marketplace.</td></tr>
-    <tr><td><strong>Paid Plan</strong></td>
-        <td>Enable this checkbox to indicate that this service plan is paid.
-            The plan is marked with an asterisk in the <code>cf marketplace</code> list and
-            labeled <code>paid</code> in the <code><strong>free or paid</strong></code> column when individual plans are listed.</td></tr>
-    <tr><td><strong>Plan Features</strong></td>
-        <td>Accept the default or enter a description.  This description appears in Apps Manager.</td></tr>
-    <tr><td><strong>Plan Quota</strong></td>
-        <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td></tr>
-    <tr><td><strong>Number of Nodes</strong></strong></td>
-        <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
-            Previously deployed service instances are **not** updated.</td></tr>
-    <tr><td><strong>Network Partition Behaviour</strong></strong></td>
-        <td>Select <code>pause_minority</code> or <code>autoheal</code>. Pivotal recommends using pause minority.
-            For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
-    <tr><td><strong>RabbitMQ VM Type</strong></td>
-        <td>Select a large VM type. The plan creates a service instance of this size. For more information, see <a href="#resources">About RabbitMQ VM Types and Persistent Disk Size</a> below. </td></tr>
-    <tr><td><strong>Persistent Disk Type</strong></td>
-    <td>This is where RabbitMQ pages messages to disk.
-    Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
-    For more information, see <a href="#resources">About RabbitMQ VM Types and Persistent Disk Size</a> below.</td></tr>
-    <tr><td><strong>AZ Placement</strong></td>
-    <td>This field is available after you complete the Assign AZs and Networks page. See the [Assign AZs and Networks](#azs-networks) section above for more information.
-        <ul><li>For a single-node plan, select one or more AZs.</li>
-          <li>For a plan containing multiple nodes, select only one AZ.
-        Pivotal recommends this for multi-node plans to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
-        <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz) below for more information.</li>
-      </ul></td></tr>
-  </table>
+      <tr><td><strong>RabbitMQ VM Type</strong></td>
+          <td>Select a large VM type. The plan creates a service instance of this size. For more information, see <a href="#resources">About RabbitMQ VM Types and Persistent Disk Size</a> below. </td></tr>
+      <tr><td><strong>Persistent Disk Type</strong></td>
+      <td>This is where RabbitMQ pages messages to disk.
+      Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
+      For more information, see <a href="#resources">About RabbitMQ VM Types and Persistent Disk Size</a> below.</td></tr>
 
+    </table>
 
 3. Click **Save**.
 
