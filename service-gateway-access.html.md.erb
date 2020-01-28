@@ -3,10 +3,8 @@ title: Service-Gateway Access for On-Demand (Beta)
 owner: RabbitMQ
 ---
 
-This topic describes how to configure an on-demand plan with service-gateway
-access for <%= vars.product_full %> service instances.
-Service-gateway access enables a RabbitMQ service instance to connect to components
-that are either on another <%= vars.platform_name %> foundation or not on a <%= vars.platform_name %> foundation.
+Service gateway access enables a RabbitMQ service instance to connect to external components
+that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service.
 
 ## <a id='overview'></a> Overview
 
@@ -15,9 +13,8 @@ There are multiple use cases for service-gateway RabbitMQ access, for example:
 - Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> in a different <%= vars.platform_name %> foundation
 - Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
 for example, to set up federation for disaster recovery
-- Enabling legacy apps to communicate with <%= vars.app_runtime %>-deployed apps through RabbitMQ
-- Using <%= vars.product_short %> as a way to deploy and manage RabbitMQ for apps
-that are not deployed to <%= vars.app_runtime %>
+- Enabling apps running outside the <%= vars.platform_name %> foundation to communicate, through RabbitMQ, with <%= vars.app_runtime %>-deployed apps
+- Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime %>
 
 <p class="note">
   <strong>Note:</strong> Currently, Service-Gateway access is only supported for Advanced Message Queuing
@@ -27,22 +24,20 @@ that are not deployed to <%= vars.app_runtime %>
 ## <a id='architecture'></a> Architecture
 
 Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
-It also requires some ports to be open on your external load balancer.
-These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.platform_name %> foundation.
-Every time a developer creates a service instance of a service-gateway plan, a port in this range is allocated
-to redirect traffic to the service instance.
 
-The diagram below shows how the TCP router routes traffic from apps to the RabbitMQ nodes in the
-service-gateway service instance.
-The TCP router balances the load among the nodes.
-This route is the same for apps running on the <%= vars.platform_name %> foundation as it is for apps running
-outside the foundation.
+Any RabbitMQ requests made by an application are forwarded via DNS to a load balancer which can route traffic from outside to the <%= vars.platform_name %> foundation.
+This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app developer creates a service instance on a plan with service gateway access enabled,
+a port is provisioned in this range of ports for that service instance. The load balancer then forwards the requests for this RabbitMQ to the TCP router.
+The TCP router internally load balances between the RabbitMQ Service instance nodes.
+
+The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
+All apps using this RabbitMQ instance, irrespective of whether they are hosted on the <%= vars.platform_name %> foundation or outside of the foundation follow the same route.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
 The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 
 ## <a id='workflow'></a> Workflow
-
-For instructions for operators, see [Enabling Service-Gateway Access](./enable-service-gateway.html).
-For instructions for app developers, see [Create a Service Instance with Service-Gateway Access](./use.html#service-gateway).
+For instructions,
+- Operators: see [Enabling Service-Gateway Access](./enable-service-gateway.html).
+- Application developers: see [Create a Service Instance with Service-Gateway Access](./use.html#service-gateway).
