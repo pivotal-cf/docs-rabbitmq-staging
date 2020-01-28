@@ -1,5 +1,5 @@
 ---
-title: Enabling Service-Gateway Access (Beta)
+title: Service-Gateway Access for On-Demand (Beta)
 owner: RabbitMQ
 ---
 
@@ -42,46 +42,7 @@ outside the foundation.
 The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 
-## <a id='configuration'></a> Enable Service-Gateway Access
+## <a id='workflow'></a> Workflow
 
-<p class="note warning">
-  <strong>Warning:</strong> Pivotal recommends that you configure service-gateway access with TLS to
-  prevent man-in-the-middle attacks.
-  For instructions on how to configure TLS, see <a href="./install-config.html#security">Configure Security</a>.
-</p>
-
-To enable service-gateway access:
-
-1. Enable TCP Routing in <%= vars.app_runtime %> by doing steps 1, 2, and 4 of the procedure in
-[Configuring TCP Routing in <%= vars.app_runtime %>](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html).
-Ensure that you review the pre-deployment steps required to enable this feature.
-
-1. In **Global Settings for On-Demand Plans**, fill in the following fields:
-    - **External TCP domain**: Corresponding with the DNS entry for the external load balancer.
-    - **Port Range**: A range of ports for RabbitMQ service instances to use.
-    You must have at least one port for each service instance.
-    Ensure that the range has enough capacity to accommodate the maximum number of service instances.<br>
-    This range must not overlap with the range entered in the <%= vars.app_runtime %> tile &gt; **Networking**
-    &gt; **TCP Routing Ports**.
-
-     ![An example Global settings for on-demand plans pane with the External TCP domain field
-     filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
-     1024&ndash;2025.](/images/global-settings-service-gateway.png)
-
-     <p class="note warning">
-       <strong>Warning:</strong> Changes to this range must include ports that are assigned to service instances.
-       If a service instance is using a port that is no longer within the range, service instance upgrades fail.
-     </p>
-
-1. Allow ingress traffic on your external load balancer for the specified port range.
-
-1. Navigate to the service plan that you want to use and select the **Service-Gateway Access** checkbox.
-Pivotal recommends that you change the name or the description of the plan to reflect the new feature.
-![Service plan pane with the Service-Gateway Access checkbox selected.](/images/enable-service-gateway.png)
-<p class="note"><strong>Note:</strong> If service-gateway access is disabled and then re-enabled, app developers must create
-new service keys to obtain a new set of credentials for service-gateway access.</p>
-
-
-## <a id='workflow'></a> Developer Workflow
-
+For instructions for operators, see [Enabling Service-Gateway Access](./enable-service-gateway.html).
 For instructions for app developers, see [Create a Service Instance with Service-Gateway Access](./use.html#service-gateway).
