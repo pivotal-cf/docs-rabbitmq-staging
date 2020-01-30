@@ -3,12 +3,12 @@ title: Service-Gateway Access (Beta)
 owner: RabbitMQ
 ---
 
-Service gateway access enables a RabbitMQ service instance to connect to external components
+Service-Gateway access enables a RabbitMQ service instance to connect to external components
 that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service.
 
 ## <a id='overview'></a> Overview
 
-There are multiple use cases for service-gateway RabbitMQ access, for example:
+There are multiple use cases for Service-Gateway RabbitMQ access, for example:
 
 - Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> in a different <%= vars.platform_name %> foundation
 - Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
@@ -23,10 +23,10 @@ for example, to set up federation for disaster recovery
 
 ## <a id='architecture'></a> Architecture
 
-Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
+Service-Gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
 
 Any RabbitMQ requests made by an application are forwarded via DNS to a load balancer which can route traffic from outside to the <%= vars.platform_name %> foundation.
-This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app developer creates a service instance on a plan with service gateway access enabled,
+This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app developer creates a service instance on a plan with Service-Gateway access enabled,
 a port is provisioned in this range of ports for that service instance. The load balancer then forwards the requests for this RabbitMQ to the TCP router.
 The TCP router internally load balances between the RabbitMQ Service instance nodes.
 
@@ -40,4 +40,4 @@ The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ servic
 ## <a id='workflow'></a> Workflow
 For instructions,
 - Operators: see [Enabling Service-Gateway Access](./enable-service-gateway.html).
-- Application developers: see [Create a Service Instance with Service-Gateway Access](./use.html#service-gateway).
+- Application developers: see [Create a Service Instance with Service-Gateway Access](./create-service-gateway-instance.html).
