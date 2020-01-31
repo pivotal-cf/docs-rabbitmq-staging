@@ -12,9 +12,23 @@ on-demand RabbitMQ for Pivotal Cloud Foundry (PCF).
 
 <%= partial vars.path_to_partials + '/services/retrieve-guid' %>
 
-## <a id="errors"></a> Troubleshooting Errors
+## <a id="errors"></a> Troubleshoot Errors
 
 Start here if you are responding to a specific error or error messages.
+
+### <a id="x-product"></a> Errors Occurring in Multiple Services
+
+The following errors occur in multiple services:
+
++ [Failed Installation](#install-fail)
++ [Cannot Create or Delete Service Instances](#cannot-create-delete)
++ [Broker Request Timeouts](#timeouts)
++ [Instance Does Not Exist](#instance-not-exist)
++ [Cannot Bind to or Unbind from Service Instances](#cannot-bind)
++ [Cannot Connect to a Service Instance](#cannot-connect)
++ [Cannot Update a Service Instance](#upgrade-individual-instances)
++ [Upgrade All Service Instances Errand Fails](#upgrade-all-fails)
++ [Missing Logs and Metrics](#missing-logs)
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
@@ -70,7 +84,7 @@ The following troubleshooting errors are specific to <%= vars.product_old %>:
     <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.'
 } %>
 
-## <a id="components"></a> Troubleshooting Components
+## <a id="components"></a> Troubleshoot Components
 
 Guidance on checking for and fixing issues in on-demand service components.
 
@@ -220,7 +234,7 @@ maintenance and housekeeping tasks.
 
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-view-resources' %>
 
-### <a id="id-instance-owner"></a> Identify a Service Instance Owner
+### <a id="id-instance-owner"></a> Identify Service Instance Owners
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
@@ -232,7 +246,7 @@ maintenance and housekeeping tasks.
 
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-monitor-quota' %>
 
-### <a id="drop-restore-traffic"></a> Drop and Restore AMQP(S) Traffic to a RabbitMQ Instance
+### <a id="drop-restore-traffic"></a> Drop and Restore AMQP or AMQPS Traffic to a RabbitMQ Instance
 
 While debugging a RabbitMQ instance, you can prevent apps from
 sending and receiving messages, for example, to decrease the server load.
@@ -241,7 +255,7 @@ which run the necessary <code>iptables</code> commands to achieve that.<br><br>
 
 To stop and then restore traffic to a RabbitMQ instance, do the following:<br>
 <ol>
-    <li> To stop all AMQP(S) traffic to a RabbitMQ instance, enter the following command:
+    <li> To stop all AMQP or AMQPS traffic to a RabbitMQ instance, enter the following command:
     <pre>
     bosh -d service-instance_GUID ssh rabbitmq-server
     "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"
@@ -261,7 +275,7 @@ Alternatively, you can run these scripts on individual nodes:
 <ol>
     <li><code>bosh ssh</code> to a rabbitmq-server instance.</li>
     <li><code>sudo -s</code> to gain root privileges.</li>
-    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP(S) traffic to this
+    <li>Execute <code>drop-amqp-traffic</code> to drop all AMQP or AMQPS traffic to this
         instance, or <code>restore-amqp-traffic</code> to start accepting traffic again.</li>
 </ol>
 
