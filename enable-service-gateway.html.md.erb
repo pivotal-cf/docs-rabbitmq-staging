@@ -11,7 +11,7 @@ external components that are not on the same <%= vars.platform_name %> foundatio
 To enable Service-Gateway access for an on-demand offering:
 1. [Enable TCP routing using the <%= vars.app_runtime_abbr %> tile](#tcp-routing)
 1. [Configure the load balancer in the IaaS to redirect traffic to the TCP router](#configure-lb)
-1. [Create a DNS record that resolves to the load balancer](#create-dns-record)
+1. [Create a DNS record that maps to the load balancer](#create-dns-record)
 1. [Configure a Service-Gateway-enabled plan](#configure-service-gateway-plan)
 
 <p class="note warning">
@@ -55,9 +55,9 @@ For example, if your TCP routing port range is `1024-1123` then your load balanc
 1. Note down this port range.
 
 
-### <a id='create-dns-record'></a> 3. Create a DNS Record That Resolves to the Load Balancer
+### <a id='create-dns-record'></a> 3. Create a DNS Record That Maps to the Load Balancer
 
-1. Following the documentation for your IaaS, create a new DNS record of type A that resolves to the external
+1. Following the documentation for your IaaS, create a new DNS record of type A that maps to the external
 IP address of the load balancer created in [step 2](#configure-lb) above.
 1. Note down the domain used for this DNS record.
 
