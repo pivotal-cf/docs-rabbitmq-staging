@@ -3,34 +3,36 @@ title: Modifying Apps for TLS
 owner: RabbitMQ for Pivotal Platform
 ---
 
-<p class="note"><strong>Note:</strong> If your app is written in Java or Spring,
-    see <a href="./use.html#tls-java-spring"> Activate TLS for Java and Spring Apps</a>.
-For other types of apps, use the procedures in this topic.</p>
-
+<p class="note">
+  <strong>Note:</strong> If your app is written in Java or Spring, see
+  <a href="./use.html#tls-java-spring">Activate TLS for Java and Spring Apps</a>.
+  For other types of apps, use the procedures in this topic.
+</p>
 
 This topic provides instructions to developers to modify apps that are not written in Java or Spring
 to use TLS to secure their connection with RabbitMQ on-demand service instances.
 
 
-##<a id='prereqs'></a> Prerequisites
+## <a id='prereqs'></a> Prerequisites
 
-The following are prerequisites to procedures in this topic:
+The prerequisites for the procedures in this topic are:
 
 * The operator must complete these procedures, in this order:
     1. [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf)
     2. [Configure Security](./install-config.html#security)
 * The developer must complete the procedures in [Enable TLS for Your Service Instance](use.html#tls).
 
-##<a id='modify'></a> Modify Your App for TLS
+## <a id='modify'></a> Modify Your App for TLS
 
-To start using TLS for apps that are not written in Java or Spring, you must modify your app to use the correct protocol.
+To start using TLS for apps that are not written in Java or Spring, you must modify your app to use the
+correct protocol.
 The exact steps vary between client libraries.
 Consult the documentation for your library for the necessary configuration.
 
-The following examples use the [ruby-amqp/bunny](https://github.com/ruby-amqp/bunny) library.
+The following examples use the [ruby-amqp/bunny](https://github.com/ruby-amqp/bunny) library in GitHub.
 In these examples, `VCAP_SERVICES` is an environment variable available from the app.
 
-To modify your app, do the following:
+To modify your app:
 
 * **If the operator enabled TLS using a certificate from a trusted authority:**
 <br>Use the code below.
@@ -39,7 +41,7 @@ To modify your app, do the following:
 	require 'json'
 	require 'bunny'
 
-	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+	vcap_services = JSON.parse(ENV ['VCAP_SERVICES'])
 	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uri']
 	conn = Bunny.new(uri)
 	conn.start
@@ -53,7 +55,7 @@ to use the same CA certificate, as well as a valid TLS certificate and key.
 	require 'json'
 	require 'bunny'
 
-	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+	vcap_services = JSON.parse(ENV ['VCAP_SERVICES'])
 	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uri']
 	conn = Bunny.new(uri, tls_cert: PATH-TO-CERTIFICATE, tls_key: PATH-TO-KEY, tls_ca_certificates: [PATH-TO-CA-CERTIFICATE])
 	conn.start
@@ -63,8 +65,8 @@ to use the same CA certificate, as well as a valid TLS certificate and key.
   * `PATH-TO-KEY` is the path to your TLS key
   * `PATH-TO-CA-CERTIFICATE` is the path to the self-signed CA certificate the operator used
 	<br><br>
-* **If connecting to a service-gateway instance:** Use the code below to configure the
-RabbitMQ client to verify the identity of the service instance.
+* **If connecting to a Service-Gateway instance:** Use the code below to configure the RabbitMQ client to
+verify the identity of the service instance.
 
 	```ruby
 	require 'json'
@@ -79,21 +81,32 @@ RabbitMQ client to verify the identity of the service instance.
   * `PATH-TO-SERVICE-KEY-JSON` is the path to the service key in JSON
   * `PATH-TO-CA-CERTIFICATE` is the path to the CA certificate which signed the RabbitMQ server certificate
 
-##<a id='repush-rebind'></a> Repush or Rebind Your App
+##<a id='repush-rebind'></a> Re-push or Rebind Your App
 
-After modifying your app, repush it with `cf push`.
+After modifying your app, re-push it with `cf push`.
 
-<p class="note warning"><strong>WARNING</strong>: Any apps using an existing service instance must be rebound after enabling TLS for the instance.</p>
+<p class="note warning">
+  <strong>Warning:</strong> Any apps using an existing service instance must be rebound after enabling TLS for
+  the instance.
+</p>
 
-Follow these steps to rebind an app using an existing service intance:
+To rebind an app using an existing service instance:
 
-1. Stop the app. For example:
-    <pre class="terminal">$ cf stop my-app</pre>
-1. Unbind the app from the service instance. For example:
-    <pre class="terminal">$ cf unbind-service my-app my-service-instance</pre>
-1. Re-bind the app to the service instance. For example:
-    <pre class="terminal">$ cf bind-service my-app my-service-instance</pre>
-1. Restage the app. For example:
-    <pre class="terminal">$ cf restage my-app</pre>
+1. Stop the app by running:
+    ```
+    cf stop APP-NAME
+    ```
+1. Unbind the app from the service instance by running:
+    ```
+    cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
+    ```
+1. Re-bind the app to the service instance by running:
+    ```
+    cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+    ```
+1. Restage the app by running:
+    ```
+    cf restage APP-NAME
+    ```
 
-Your app should now communicate securely with the RabbitMQ service instance.
+Your app now communicates securely with the RabbitMQ service instance.
