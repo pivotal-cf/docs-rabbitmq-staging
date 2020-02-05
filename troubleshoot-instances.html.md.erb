@@ -7,13 +7,22 @@ This topic provides basic instructions for app developers troubleshooting on-dem
 
 ## <a id="errors"></a> Troubleshoot Errors
 
-You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI) to perform basic operations on a RabbitMQ for PCF service instance:
+Start here if you are responding to a specific error or error messages.
 
-* `cf create`
-* `cf update`
-* `cf bind`
-* `cf unbind`
-* `cf delete`
+### <a id="general-errors"></a> Troubleshoot General Errors
+
+<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
+
+<%= partial vars.path_to_partials + '/services-tshoot/tshoot-no-metrics' %>
+
+
+## <a id="techniques"></a> Techniques for Troubleshooting
+
+See the following sections for troubleshooting techniques when using 
+the Cloud Foundry Command-Line Interface (cf CLI) to perform basic 
+operations on a <%= vars.product_short %> service instance.
+
+Basic cf CLI operations include `create`, `update`, `bind`, `unbind`, and `delete`.
 
 ### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
 
@@ -73,12 +82,6 @@ Getting key my-key for service instance my-rmq-instance as admin...
 To gain admin privileges for the RabbitMQ Management UI, create an admin user for a service instance and obtain user credentials that you can share with other app developers.
 
 Both operators and app developers can use this procedure. See [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) for more information.
-
-### <a id="no-metrics"></a> No Metrics from Log Cache
-
-<%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
-
-<%= partial vars.path_to_partials + '/services-tshoot/tshoot-no-metrics' %>
 
 
 ## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instances
