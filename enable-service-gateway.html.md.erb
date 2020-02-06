@@ -5,10 +5,10 @@ owner: RabbitMQ
 
 ## <a id='overview'></a> Overview
 
-[Service-Gateway access](./service-gateway-access.html) enables a RabbitMQ service instance to connect to
+[Service-gateway access](./service-gateway-access.html) enables a RabbitMQ service instance to connect to
 external components that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service.
 
-To enable Service-Gateway access for an on-demand offering:
+To enable service-gateway access for an on-demand offering:
 1. [Enable TCP routing using the <%= vars.app_runtime_abbr %> tile](#tcp-routing)
 1. [Configure the load balancer in the IaaS to redirect traffic to the TCP router](#configure-lb)
 1. [Create a DNS record that maps to the load balancer](#create-dns-record)
@@ -16,7 +16,7 @@ To enable Service-Gateway access for an on-demand offering:
 
 <p class="note warning">
   <strong>Warning:</strong> Pivotal recommends that you configure Transport Layer Security (TLS) alongside
-  Service-Gateway access to prevent man-in-the-middle attacks.
+  service-gateway access to prevent man-in-the-middle attacks.
   For instructions on how to configure TLS, see <a href="./install-config.html#security">Configure Security</a>.
 </p>
 
@@ -41,14 +41,13 @@ For example, `1024` for a single port or `1024–1123` for a range of ports.
 
 ### <a id='configure-lb'></a> 2. Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router
 
-1. Find the VM instance using your IaaS console for TCP router using the CID that you noted down earlier.
-<%# Check Slack thread for actual meaning of above sentence and add new steps accordingly. %>
+1. Use the IaaS console and the CID you noted down earlier to find the VM that runs the TCP router.
 1. Create an external TCP Load Balancer that points to the VM running the TCP router.
 1. Configure a new external port range that does not overlap with the TCP networking port or port range you
-configured earlier in [step 1](#tcp-routing).
+configured in [step 1](#tcp-routing) above.
 For example, if your TCP routing port range is `1024-1123` then your load balancer port range must not be `1000-1100`.
    <p class="note">
-        <strong>Note:</strong> Each RabbitMQ service instance using Service-Gateway access requires a unique port.
+        <strong>Note:</strong> Each RabbitMQ service instance using service-gateway access requires a unique port.
         Ensure that the port range configured above has enough capacity to accommodate the maximum number of
         service instances desired.
    </p>
@@ -66,11 +65,11 @@ IP address of the load balancer created in [step 2](#configure-lb) above.
 
 1. In **Global Settings for On-Demand Plans**, fill in the following fields:
     - **External TCP domain**: This must correspond with the DNS entry for the external load balancer, noted
-    in [step 3](#create-dns-record).
+    in [step 3](#create-dns-record) above.
     - **Port Range**: This is the range of ports you configured for the external load balancer for RabbitMQ
     service instances in [step 2](#configure-lb) above.
 
-    ![Example of the Global Settings for On-demand Plans pane.
+    ![Example of the Global Settings for On-Demand Plans pane.
     The External TCP domain field has tcp.elcajon.cf-app.com. The Port Range field has 1024–2025.]
     (/images/global-settings-service-gateway.png)
 
@@ -78,7 +77,7 @@ IP address of the load balancer created in [step 2](#configure-lb) above.
        <strong>Warning:</strong> Future modifications to this range must include ports that are already
        assigned to service instances.
        When a service instance uses a port that is no longer within the range, service instance upgrades fail.
-       For example, if Service-Gateway access has the port range <code>1000-1005</code>,
+       For example, if service-gateway access has the port range <code>1000-1005</code>,
        and there are service instances that correspond to ports <code>1000</code>, <code>1001</code> and
        <code>1002</code>, then the new port range must have ports <code>1000</code>, <code>1001</code> and
        <code>1002</code>.
@@ -87,14 +86,14 @@ IP address of the load balancer created in [step 2](#configure-lb) above.
 1. Navigate to the service plan that you want to use and select the **Service-Gateway Access** checkbox.
     <p class="note">
       <strong>Note:</strong> Pivotal recommends that you change the name or the description of the plan to
-      indicate that Service-Gateway access is enabled for that plan.
+      indicate that service-gateway access is enabled for that plan.
     </p>
 
-    ![Service plan pane with the Service-Gateway Access checkbox selected.](/images/enable-service-gateway.png)
+    ![Service plan pane with the service-gateway access checkbox selected.](/images/enable-service-gateway.png)
 
     <p class="note">
-      <strong>Note:</strong> If Service-Gateway access is disabled and then re-enabled, app developers must
-      create new service keys to obtain a new set of credentials for Service-Gateway access.
+      <strong>Note:</strong> If service-gateway access is disabled and then re-enabled, app developers must
+      create new service keys to obtain a new set of credentials for service-gateway access.
     </p>
 
 1. In <%= vars.ops_manager %>, apply changes for the RabbitMQ tile.
