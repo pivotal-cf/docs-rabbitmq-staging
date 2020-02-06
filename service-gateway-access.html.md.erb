@@ -6,6 +6,7 @@ owner: RabbitMQ
 This topic gives an overview of service-gateway access.
 
 For related procedures, see:
+
 * [Enabling Service-Gateway Access](./enable-service-gateway.html)
 * [Create a Service Instance with Service-Gateway Access](./create-service-gateway-instance.html)
 
@@ -36,13 +37,14 @@ Service-gateway access to RabbitMQ instances leverages the TCP router in <%= var
 Any RabbitMQ requests an app makes are forwarded through DNS to a load balancer that can route traffic from
 outside to the <%= vars.platform_name %> foundation.
 This load balancer opens a range of ports that are reserved for RabbitMQ traffic.
-When an app developer creates a service instance on a plan with service-gateway access enabled, a port from the
-range is provisioned for that service instance.
+When an app developer creates a service instance on a plan with service-gateway access enabled, a port from
+the range is provisioned for that service instance.
 The load balancer then forwards the requests for this RabbitMQ instance to the TCP router.
 The TCP router internally load balances between the RabbitMQ Service instance nodes.
 
 The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
-All apps using this RabbitMQ instance follow the same route, irrespective of whether they are hosted on the <%= vars.platform_name %> foundation or are hosted outside of the foundation.
+All apps using this RabbitMQ instance follow the same route, irrespective of whether they are hosted on the
+<%= vars.platform_name %> foundation or are hosted outside of the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
 The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.

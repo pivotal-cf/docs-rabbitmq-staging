@@ -9,21 +9,21 @@ owner: London Services
 This section assumes that the [prerequisites](use.html#Prerequisites) for using on-demand <%= vars.product_full %>
 are fulfilled.
 
-If operators have enabled a Service-Gateway plan, you can create a service instance that can connect to
+If operators have enabled a service-gateway plan, you can create a service instance that can connect to
 components outside the <%= vars.platform_name %> foundation.
-Contact your operator if you are unsure which plans have been enabled for Service-Gateway access.
+Contact your operator if you are unsure which plans have been enabled for service-gateway access.
 For information about the architecture and use cases, see [Enabling Service-Gateway Access](./service-gateway-access.html).
 
-To create a service instance that enables Service-Gateway access:
+To create a service instance that enables service-gateway access:
 
-1. Create a service instance with the Service-Gateway plan by running:
+1. Create a service instance with the service-gateway plan by running:
 
     ```
     cf create-service p.rabbitmq SERVICE-GATEWAY-PLAN SERVICE-INSTANCE-NAME -c '{"tls": true}'
     ```
 
     <p class="note warning">
-      <strong>Warning:</strong> Pivotal recommends that you configure Service-Gateway access with TLS to
+      <strong>Warning:</strong> Pivotal recommends that you configure service-gateway access with TLS to
       prevent man-in-the-middle attacks.
       For instructions on using TLS on your platform, see <a href="./use.html#using-tls">Use Transport Layer Security</a>.
     </p>
@@ -38,6 +38,6 @@ To create a service instance that enables Service-Gateway access:
     You can use this URI to connect to the service instance from outside the foundation.
 
 <p class="note">
-  <strong>Note:</strong> If the operator disables and then re-enables Service-Gateway access on a plan, you
-  must create new service keys to obtain a new set of credentials for Service-Gateway access.
+  <strong>Note:</strong> If the operator disables and then re-enables service-gateway access on a plan, you
+  must create new service keys to obtain a new set of credentials for service-gateway access.
 </p>
