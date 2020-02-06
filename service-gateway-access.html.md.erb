@@ -3,85 +3,47 @@ title: Enabling Service-Gateway Access (Beta)
 owner: RabbitMQ
 ---
 
-This topic describes how to configure an on-demand plan with service-gateway
-access for <%= vars.product_full %> service instances.
-Service-gateway access enables a RabbitMQ service instance to connect to components
-that are either on another <%= vars.platform_name %> foundation or not on a <%= vars.platform_name %> foundation.
+This topic gives an overview of service-gateway access.
+
+For related procedures, see:
+* [Enabling Service-Gateway Access](./enable-service-gateway.html)
+* [Create a Service Instance with Service-Gateway Access](./create-service-gateway-instance.html)
+
+Service-gateway access enables a RabbitMQ service instance to connect to external components that are not on
+the same <%= vars.platform_name %> foundation as the RabbitMQ service.
 
 ## <a id='overview'></a> Overview
 
-There are multiple use cases for service-gateway RabbitMQ access, for example:
+There are multiple use cases for service-gateway RabbitMQ access. For example:
 
-- Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) in a different <%= vars.platform_name %> foundation
+- Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) in a
+different <%= vars.platform_name %> foundation
 - Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
 for example, to set up federation for disaster recovery
-- Enabling legacy apps to communicate with <%= vars.app_runtime_abbr %>-deployed apps through RabbitMQ
-- Using <%= vars.product_short %> as a way to deploy and manage RabbitMQ for apps
-that are not deployed to <%= vars.app_runtime_abbr %>
+- Enabling apps running outside the <%= vars.platform_name %> foundation to communicate, through RabbitMQ,
+with <%= vars.app_runtime_abbr %>-deployed apps
+- Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime_abbr %>
 
 <p class="note">
-  <strong>Note:</strong> Currently, Service-Gateway access is only supported for Advanced Message Queuing
+  <strong>Note:</strong> Currently, service-gateway access is only supported for Advanced Message Queuing
   Protocol (AMQP). Support for other RabbitMQ protocols is planned.
 </p>
 
 ## <a id='architecture'></a> Architecture
 
 Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
-It also requires some ports to be open on your external load balancer.
-These ports are reserved for RabbitMQ traffic coming from outside the <%= vars.platform_name %> foundation.
-Every time a developer creates a service instance of a service-gateway plan, a port in this range is allocated
-to redirect traffic to the service instance.
 
-The diagram below shows how the TCP router routes traffic from apps to the RabbitMQ nodes in the
-service-gateway service instance.
-The TCP router balances the load among the nodes.
-This route is the same for apps running on the <%= vars.platform_name %> foundation as it is for apps running
-outside the foundation.
+Any RabbitMQ requests an app makes are forwarded through DNS to a load balancer that can route traffic from
+outside to the <%= vars.platform_name %> foundation.
+This load balancer opens a range of ports that are reserved for RabbitMQ traffic.
+When an app developer creates a service instance on a plan with service-gateway access enabled, a port from the
+range is provisioned for that service instance.
+The load balancer then forwards the requests for this RabbitMQ to the TCP router.
+The TCP router internally load balances between the RabbitMQ Service instance nodes.
+
+The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
+All apps using this RabbitMQ instance follow the same route, irrespective of whether they are hosted on the <%= vars.platform_name %> foundation or are hosted outside of the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
 The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
-
-## <a id='configuration'></a> Enable Service-Gateway Access
-
-<p class="note warning">
-  <strong>Warning:</strong> Pivotal recommends that you configure service-gateway access with TLS to
-  prevent man-in-the-middle attacks.
-  For instructions on how to configure TLS, see <a href="./install-config.html#security">Configure Security</a>.
-</p>
-
-To enable service-gateway access:
-
-1. Enable TCP Routing in <%= vars.app_runtime_abbr %> by doing steps 1, 2, and 4 of the procedure in
-[Configuring TCP Routing in <%= vars.app_runtime_abbr %>](https://docs.pivotal.io/pivotalcf/opsguide/tcp-routing-ert-config.html).
-Ensure that you review the pre-deployment steps required to enable this feature.
-
-1. In **Global Settings for On-Demand Plans**, fill in the following fields:
-    - **External TCP domain**: Corresponding with the DNS entry for the external load balancer.
-    - **Port Range**: A range of ports for RabbitMQ service instances to use.
-    You must have at least one port for each service instance.
-    Ensure that the range has enough capacity to accommodate the maximum number of service instances.<br>
-    This range must not overlap with the range entered in the <%= vars.app_runtime_abbr %> tile &gt; **Networking**
-    &gt; **TCP Routing Ports**.
-
-     ![An example Global settings for on-demand plans pane with the External TCP domain field
-     filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
-     1024&ndash;2025.](/images/global-settings-service-gateway.png)
-
-     <p class="note warning">
-       <strong>Warning:</strong> Changes to this range must include ports that are assigned to service instances.
-       If a service instance is using a port that is no longer within the range, service instance upgrades fail.
-     </p>
-
-1. Allow ingress traffic on your external load balancer for the specified port range.
-
-1. Navigate to the service plan that you want to use and select the **Service-Gateway Access** checkbox.
-Pivotal recommends that you change the name or the description of the plan to reflect the new feature.
-![Service plan pane with the Service-Gateway Access checkbox selected.](/images/enable-service-gateway.png)
-<p class="note"><strong>Note:</strong> If service-gateway access is disabled and then re-enabled, app developers must create
-new service keys to obtain a new set of credentials for service-gateway access.</p>
-
-
-## <a id='workflow'></a> Developer Workflow
-
-For instructions for app developers, see [Create a Service Instance with Service-Gateway Access](./use.html#service-gateway).
