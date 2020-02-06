@@ -15,11 +15,18 @@ owner: London Services
 
 This release fixes the following issues:
 
-* The upgrade path from v1.15.x through 1.17.0/1.17.1/1.17.3 to v1.18.3 with TLS set to optional in v1.15.x does not fail.
-  The similar upgrade path to v1.18.2 does fail.
+* These upgrade paths, each starting from v1.15.x with TLS set to optional, no longer fail:
+  - v1.15.x to v1.17.0 to v1.18.2
+  - v1.15.x to v1.17.0 to v1.18.3
+  - v1.15.x to v1.17.1 to v1.18.2
+  - v1.15.x to v1.17.1 to v1.18.3
+  - v1.15.x to v1.17.3 to v1.18.2
+  - v1.15.x to v1.17.3 to v1.18.3
 
-* On platform on-demand service instances, created with a [Service-Gateway](./service-gateway-access.html) enabled
-plan, now do not fail to connect when using the [MQTT and STOMP protocols](./install-config.html#server-plugins).
+* On platform on-demand service instances, created with a service-gateway-enabled plan, no longer fail to
+connect when using the MQTT and STOMP protocols.
+For more information, see [Service-Gateway Access (Beta)](./service-gateway-access.html) and
+[RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
 ### Known Issues
 
@@ -27,7 +34,7 @@ This release has the following known issues:
 
 * When used in production, quorum queues might experience downtime during a rolling upgrade.
 * Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
-For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+For more information, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 ### Compatibility
 
@@ -119,7 +126,7 @@ New features and changes in this release:
 the <%= vars.platform_name %> foundation through AMQP.
 For more information, see [Enabling Service-Gateway Access (Beta)](./service-gateway-access.html).
 This functionality is planned for other supported protocols in later releases.
-* This release uses RabbitMQ 3.8.2.
+* This release uses RabbitMQ v3.8.2.
   For more information, see [RabbitMQ 3.8.2](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2) in GitHub.
 * This version supports quorum queues. For more information about quorum queues, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
