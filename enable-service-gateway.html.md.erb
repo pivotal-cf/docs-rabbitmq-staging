@@ -64,8 +64,8 @@ This port range is for TCP networking. However, for RabbitMQ service gateway acc
      1024&ndash;2025.](/images/global-settings-service-gateway.png)
 
      <p class="note warning">
-       <strong>Warning:</strong> Future modifications to this range must include ports that are already assigned to service instances.
-       If a service instance is using a port that is no longer within the range, service instance upgrades fail.
+       <strong>Warning:</strong> If you already have service instances using Service-Gateway, any modifications to this range must include ports that are already assigned to these service instances.
+       If the port range does not contain the ports already assigned to service instances, the service instances upgrades fail.
        For example, if Service Gateway Access was previously set up with a port range of <code>1000-1005</code> and service instances were created corresponding to ports <code>1000</code>, <code>1001</code> and <code>1002</code>,
        the new port range configured must contain <code>1000</code>, <code>1001</code> and <code>1002</code> ports.
      </p>
