@@ -5,15 +5,17 @@ owner: RabbitMQ
 
 ## <a id='overview'></a> Overview
 
-[Service-gateway access](./service-gateway-access.html) enables a RabbitMQ service instance to connect to
-external components that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service.
+Service-gateway access enables a RabbitMQ service instance to connect to external components that are not on
+the same <%= vars.platform_name %> foundation as the RabbitMQ service.
+
+For a more detailed overview, see [Service-Gateway Access](./service-gateway-access.html).
 
 To enable service-gateway access for an on-demand offering:
 
 1. [Enable TCP routing using the <%= vars.app_runtime_abbr %> tile](#tcp-routing)
 1. [Configure the load balancer in the IaaS to redirect traffic to the TCP router](#configure-lb)
 1. [Create a DNS record that maps to the load balancer](#create-dns-record)
-1. [Configure a Service-Gateway-enabled plan](#configure-service-gateway-plan)
+1. [Configure a service-gateway-enabled plan](#configure-service-gateway-plan)
 
 <p class="note warning">
   <strong>Warning:</strong> Pivotal recommends that you configure Transport Layer Security (TLS) alongside

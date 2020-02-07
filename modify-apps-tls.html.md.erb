@@ -9,8 +9,8 @@ owner: RabbitMQ for Pivotal Platform
   For other types of apps, use the procedures in this topic.
 </p>
 
-This topic provides instructions to developers to modify apps that are not written in Java or Spring
-to use TLS to secure their connection with RabbitMQ on-demand service instances.
+This topic explains how to modify apps not written in Java or Spring to use TLS to secure their connection
+with RabbitMQ on-demand service instances.
 
 
 ## <a id='prereqs'></a> Prerequisites
@@ -65,7 +65,7 @@ to use the same CA certificate, as well as a valid TLS certificate and key.
   * `PATH-TO-KEY` is the path to your TLS key
   * `PATH-TO-CA-CERTIFICATE` is the path to the self-signed CA certificate the operator used
 	<br><br>
-* **If connecting to a Service-Gateway instance:** Use the code below to configure the RabbitMQ client to
+* **If connecting to a service-gateway instance:** Use the code below to configure the RabbitMQ client to
 verify the identity of the service instance.
 
 	```ruby
