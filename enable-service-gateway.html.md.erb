@@ -10,9 +10,10 @@ that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ se
 
 The following are the steps to enable Service Gateway Access for On-Demand offering:
 1. [Enable TCP routing using the PAS tile](#tcp-routing)
-2. [Configure load balancer in IaaS to redirect traffic to TCP router](#configure-load-balancer)
-3. [Create a DNS record which resolves to the load balancer](#create-dns-record)
-4. [Configure a service gateway enabled plan](#configure-service-gateway-plan)
+2. [Configure firewall to allow incoming traffic to TCP router](#configure-firewall)
+3. [Configure load balancer in IaaS to redirect traffic to TCP router](#configure-load-balancer)
+4. [Create a DNS record which resolves to the load balancer](#create-dns-record)
+5. [Configure a service gateway enabled plan](#configure-service-gateway-plan)
 
 <p class="note warning">
   <strong>Warning:</strong> Pivotal recommends that you configure TLS alongside service-gateway access to prevent man-in-the-middle attacks.
@@ -36,8 +37,10 @@ This port range is for TCP networking. However, for RabbitMQ service gateway acc
 
     ![Get the CID of TCP Router from PAS tile status tab](/images/TCP-router-CID.png)
 
+### <a id='configure-firewall'></a>2. Configure firewall to allow incoming traffic to TCP  router
+1. Following the documentation for your IaaS, allow incoming traffic to the TCP router vm created in [step 1](#tcp-routing).
 
-### <a id='configure-load-balancer'></a>2. Configure load balancer in IaaS to redirect traffic to TCP router
+### <a id='configure-load-balancer'></a>3. Configure load balancer in IaaS to redirect traffic to TCP router
 1. Find the VM instance using your IaaS console for TCP router using the CID noted earlier.
 2. Following the documentation for your IaaS, create an external TCP Load Balancer which points to the TCP router VM found above.
 3. Configure a new external port range on this load balancer, which does not overlap with the port range configured in the **<%= vars.app_runtime %> tile** &gt; **Networking**
@@ -47,14 +50,14 @@ This port range is for TCP networking. However, for RabbitMQ service gateway acc
    </p>
 4. Note down this port range as we will need it to configure our service gateway plan.
 
-### <a id='create-dns-record'></a>3. Create a DNS record which resolves to the load balancer
-1. Following the documentation for your IaaS, create a new DNS record of type A which resolves to the external IP address of the load balancer created in [step 2](#configure-load-balancer).
+### <a id='create-dns-record'></a>4. Create a DNS record which resolves to the load balancer
+1. Following the documentation for your IaaS, create a new DNS record of type A which resolves to the external IP address of the load balancer created in [step 3](#configure-load-balancer).
 2. Note the domain used for this DNS record, as we will need it to configure our service gateway plan.
 
-### <a id='configure-service-gateway-plan'></a>4. Configure a service gateway enabled plan
+### <a id='configure-service-gateway-plan'></a>5. Configure a service gateway enabled plan
 1. In **Global Settings for On-Demand Plans**, fill in the following fields:
-    - **External TCP domain**: Corresponding with the DNS entry for the external load balancer, noted in [step 3](#create-dns-record).
-    - **Port Range**: A range of ports configured in external load balancer for RabbitMQ service instances to use, noted in [step 2](#configure-load-balancer).
+    - **External TCP domain**: Corresponding with the DNS entry for the external load balancer, noted in [step 4](#create-dns-record).
+    - **Port Range**: A range of ports configured in external load balancer for RabbitMQ service instances to use, noted in [step 3](#configure-load-balancer).
 
     ![An example Global settings for on-demand plans pane with the External TCP domain field
      filled in with tcp.elcajon.cf-app.com and the Port Range field filled in with
