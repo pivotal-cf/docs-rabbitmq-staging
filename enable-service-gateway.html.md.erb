@@ -38,7 +38,7 @@ This port range is for TCP networking. However, for RabbitMQ service gateway acc
     ![Get the CID of TCP Router from PAS tile status tab](/images/TCP-router-CID.png)
 
 ### <a id='configure-firewall'></a>2. Configure firewall to allow incoming traffic to TCP  router
-1. Following the documentation for your IaaS, allow incoming traffic to the TCP router vm created in [step 1](#tcp-routing).
+1. Following the documentation for your IaaS, allow incoming traffic to the TCP router VM created in [step 1](#tcp-routing).
 
 ### <a id='configure-load-balancer'></a>3. Configure load balancer in IaaS to redirect traffic to TCP router
 1. Find the VM instance using your IaaS console for TCP router using the CID noted earlier.
@@ -67,7 +67,7 @@ This port range is for TCP networking. However, for RabbitMQ service gateway acc
 
      <p class="note warning">
        <strong>Warning:</strong> If you already have service instances using Service-Gateway, any modifications to this range must include ports that are already assigned to these service instances.
-       If the port range does not contain the ports already assigned to service instances, the service instances upgrades fail.
+       If the port range does not contain the ports already assigned to service instances, the service instances' upgrades fail.
        For example, if Service Gateway Access was previously set up with a port range of <code>1000-1005</code> and service instances were created corresponding to ports <code>1000</code>, <code>1001</code> and <code>1002</code>,
        the new port range configured must contain <code>1000</code>, <code>1001</code> and <code>1002</code> ports.
      </p>
