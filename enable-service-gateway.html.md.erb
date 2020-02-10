@@ -46,7 +46,9 @@ This port range is for TCP networking. However, for RabbitMQ service gateway acc
 3. Configure a new external port range on this load balancer, which does not overlap with the port range configured in the **<%= vars.app_runtime %> tile** &gt; **Networking**
           &gt; **TCP Routing Ports** in [step 1](#tcp-routing). For example, if TCP routing port range is configured to ```1024-1123```, then your load balancer port range could be ```1200-1300```, but could not be ```1000-1100```.
    <p class="note">
-        <strong>Note:</strong> Each RabbitMQ service instance using service gateway access requires a unique port. Ensure that the port range configured above has enough capacity to accommodate the maximum number of service instances desired.<br>
+   <strong>Note:</strong> Each RabbitMQ service instance using service gateway access requires a unique port. Ensure that the port range configured above has enough capacity to accommodate the maximum number of service instances desired.
+    Both the start and the end port are inclusive. 
+   <br>
    </p>
 4. Note down this port range as we will need it to configure our service gateway plan.
 
