@@ -12,15 +12,15 @@ benefits of rolling upgrades in detail.
 
 A rolling upgrade is a strategy for updating a distributed system.
 
-In a rolling upgrade on <%= vars.platform_name %>, each VM is updated in turn.
+In a rolling upgrade on <%= vars.platform_old %>, each VM is updated in turn.
 After the update completes, the VM is started, and, after the specified processes are running, the update
 procedure begins for the next VM in the sequence.
 
-In a <%= vars.product_short %> cluster, each node runs on a separate VM.
+In a <%= vars.product_old %> cluster, each node runs on a separate VM.
 Rolling upgrades help to ensure availability by keeping at least one node up throughout the upgrade process.
 
 Before v1.17.3, some upgrades required the whole cluster to be shut down.
-For example, when a major or minor version of <%= vars.product_short %> was updated, or when a major
+For example, when a major or minor version of <%= vars.product_old %> was updated, or when a major
 version of the Erlang distribution was updated.
 
 As of v1.17.3, upgrades are performed using a rolling upgrade strategy.
@@ -30,11 +30,11 @@ Due to ongoing development, <%= vars.recommended_by %> cannot guarantee that rol
 <%= vars.recommended_by %> always recommends checking the release notes for each version before upgrading.
 
 
-## <a id='rolling'></a> Running a Rolling Upgrade for <%= vars.product_full %>
+## <a id='rolling'></a> Running a Rolling Upgrade for <%= vars.product_old %>
 
 On a single canary node in the cluster, the following steps are carried out:
 
-* `rabbitmqctl stop` runs, stopping the <%= vars.product_short %> server process and the Erlang VM.
+* `rabbitmqctl stop` runs, stopping the <%= vars.product_old %> server process and the Erlang VM.
 * The persistent disk is detached.
 * The VM is torn down for the node.
 * After 0–5 seconds the BOSH DNS service detects a failing health check for
@@ -50,11 +50,11 @@ The above steps are then carried out on the remaining nodes in the cluster, one 
 
 The experiment described below is an example of a rolling upgrade scenario.
 
-In the experiment, an operator upgrades their platform to use a new version of <%= vars.product_full %>.
+In the experiment, an operator upgrades their platform to use a new version of <%= vars.product_old %>.
 They upgrade from v1.17.4 to v1.18.1.
 
 This experiment is designed to show a system performing a rolling upgrade under a heavy load: there is
-substantial disk I/O with both the underlying <%= vars.product_short %> and Erlang software upgrading to a
+substantial disk I/O with both the underlying <%= vars.product_old %> and Erlang software upgrading to a
 newer version.
 
 Without a rolling upgrade, the whole cluster must shut down, resulting in a service outage given
@@ -74,7 +74,7 @@ Details of the configuration and setup of the experiment are detailed in the sec
 
 The IaaS used for this experiment is Google Cloud Platform (GCP).
 
-The <%= vars.product_short %> node VMs are configured with:
+The <%= vars.product_old %> node VMs are configured with:
 
 * CPUs: 2
 * RAM: 2&nbsp;GB
@@ -83,12 +83,12 @@ The <%= vars.product_short %> node VMs are configured with:
 
 Initially, <%= vars.product_old %> v1.17.4 was installed with a plan configured to build a three-node
 cluster with queues being mirrored.
-This environment was then upgraded to use <%= vars.product_full %> v1.18.1.
+This environment was then upgraded to use <%= vars.product_old %> v1.18.1.
 
 #### <a id='app-config'></a> App Configuration
 
 The RabbitMQ Performance Tool for Cloud Foundry simulates the workload on the cluster.
-This is a Java app that tests throughput of <%= vars.product_short %>.
+This is a Java app that tests throughput of <%= vars.product_old %>.
 
 This tool uses a resilient client with reconnection and retry logic.
 When the performance test is run, it creates a direct exchange and a queue.
