@@ -4,7 +4,14 @@ owner: RabbitMQ
 ---
 
 Service gateway access enables a RabbitMQ service instance to connect to external components
-that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service.
+that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service. These components could be
+on another <%= vars.platform_name %> foundation or hosted outside of the <%= vars.platform_name %> foundation.
+
+<p class="note">
+  <strong>Note:</strong> Service-Gateway access is marked as beta because it is only supported for Advanced Message Queuing
+  Protocol (AMQP). Support for other RabbitMQ protocols is planned.
+</p>
+
 
 ## <a id='overview'></a> Overview
 
@@ -15,11 +22,6 @@ There are multiple use cases for service-gateway RabbitMQ access, for example:
 for example, to set up federation for disaster recovery
 - Enabling apps running outside the <%= vars.platform_name %> foundation to communicate, through RabbitMQ, with <%= vars.app_runtime %>-deployed apps
 - Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime %>
-
-<p class="note">
-  <strong>Note:</strong> Currently, Service-Gateway access is only supported for Advanced Message Queuing
-  Protocol (AMQP). Support for other RabbitMQ protocols is planned.
-</p>
 
 ## <a id='architecture'></a> Architecture
 
