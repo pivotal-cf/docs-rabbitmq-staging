@@ -1,0 +1,189 @@
+---
+title: Rolling Upgrades in RabbitMQ for Pivotal Platform
+owner: London Services
+---
+
+This topic describes the rolling upgrade strategy and how it can incur less downtime than other upgrade
+methods.
+It includes steps for running a rolling upgrade and a description of an experiment that illustrates the
+benefits of rolling upgrades in detail.
+
+## <a id='overview'></a> Overview
+
+A rolling upgrade is a strategy for updating a distributed system.
+
+In a rolling upgrade on <%= vars.platform_name %>, each VM is updated in turn.
+After the update completes, the VM is started, and, after the specified processes are running, the update
+procedure begins for the next VM in the sequence.
+
+In a <%= vars.product_short %> cluster, each node runs on a separate VM.
+Rolling upgrades help to ensure availability by keeping at least one node up throughout the upgrade process.
+
+Before v1.17.3, some upgrades required the whole cluster to be shut down.
+For example, when a major or minor version of <%= vars.product_short %> was updated, or when a major
+version of the Erlang distribution was updated.
+
+As of v1.17.3, upgrades are performed using a rolling upgrade strategy.
+The only case where a cluster is required to fully shut down as part of an upgrade is where the Erlang cookie
+for the cluster is changed.
+Due to ongoing development, <%= vars.recommended_by %> cannot guarantee that rolling upgrades will always be possible in the future.
+<%= vars.recommended_by %> always recommends checking the release notes for each version before upgrading.
+
+
+## <a id='rolling'></a> Running a Rolling Upgrade for <%= vars.product_full %>
+
+On a single canary node in the cluster, the following steps are carried out:
+
+* `rabbitmqctl stop` runs, stopping the <%= vars.product_short %> server process and the Erlang VM.
+* The persistent disk is detached.
+* The VM is torn down for the node.
+* After 0–5 seconds the BOSH DNS service detects a failing health check for
+ the node that has just gone down. It stops routing service traffic to the node.
+* BOSH requests a new VM from the underlying IaaS. It attaches the persistent
+ disk from the old VM.
+* rabbitmq-server starts on the new VM. The node rejoins the cluster.
+* The new node registers with the BOSH DNS service and begins receiving traffic.
+
+The above steps are then carried out on the remaining nodes in the cluster, one by one.
+
+## <a id='example'></a> Example Rolling Upgrade Scenario
+
+The experiment described below is an example of a rolling upgrade scenario.
+
+In the experiment, an operator upgrades their platform to use a new version of <%= vars.product_full %>.
+They upgrade from v1.17.4 to v1.18.1.
+
+This experiment is designed to show a system performing a rolling upgrade under a heavy load: there is
+substantial disk I/O with both the underlying <%= vars.product_short %> and Erlang software upgrading to a
+newer version.
+
+Without a rolling upgrade, the whole cluster must shut down, resulting in a service outage given
+publishers and consumers are unable to connect to the cluster.
+This experiment shows the extent of downtime associated with a rolling upgrade.
+
+<p class='note'>
+  <strong>Note:</strong> The following is provided for example purposes only and is not intended to represent
+  all upgrade situations. Your platform setup might have different results.
+</p>
+
+### <a id='setup'></a> Configuration and Setup
+
+Details of the configuration and setup of the experiment are detailed in the sections below.
+
+#### <a id='cluster-config'></a> Cluster Configuration
+
+The IaaS used for this experiment is Google Cloud Platform (GCP).
+
+The <%= vars.product_short %> node VMs are configured with:
+
+* CPUs: 2
+* RAM: 2&nbsp;GB
+* Disk: 8&nbsp;GB
+* Persistent disk: 5&nbsp;GB
+
+Initially, <%= vars.product_old %> v1.17.4 was installed with a plan configured to build a three-node
+cluster with queues being mirrored.
+This environment was then upgraded to use <%= vars.product_full %> v1.18.1.
+
+#### <a id='app-config'></a> App Configuration
+
+The RabbitMQ Performance Tool for Cloud Foundry simulates the workload on the cluster.
+This is a Java app that tests throughput of <%= vars.product_short %>.
+
+This tool uses a resilient client with reconnection and retry logic.
+When the performance test is run, it creates a direct exchange and a queue.
+In addition, it creates the necessary consumers and producers and binds them to the newly created queue.
+
+In this experiment, the performance test is configured to use durable and mirrored queues and persistent
+messages, which ensure that messages are persisted to disk.
+
+A protocol extension called Publisher Confirms is enabled to ensure that there is no data loss.
+
+This setup ensures that there is a backlog of messages to be read from disk and consumed at any point during
+the upgrade.
+
+The publishers are configured to constantly produce messages in three different bursts:
+
++ 500 messages per second for 30 seconds
++ 750 messages per second for 15 seconds
++ 250 messages per second for 15 seconds
+
+The publishers are expected to consume a total of 500 messages per second.
+Each message is a 50,000-byte JSON blob.
+
+The equivalent app manifest for this test is as follows:
+
+```yaml
+---
+applications:
+  - name: rabbitmq-perf-test
+    path: ./target/pcf-perf-test-1.0-SNAPSHOT.jar
+    buildpacks:
+      - https://github.com/cloudfoundry/java-buildpack.git
+    memory: 2G
+    health-check-type: process
+    services: [rmq]
+    env:
+      VARIABLE_RATE: "500:30,750:15,250:15"
+      CONSUMER_RATE: 500
+      JSON_BODY: true
+      SIZE: 50000
+      SLOW_START: true
+      METRICS_PROMETHEUS: true
+      FLAG: persistent
+      CONFIRM: 30000
+```
+
+For more information about concepts mentioned above, see:
+<table class="nice">
+<col width="50%">
+<col width="50%">
+	<th>Concept</th>
+	<th>More information in…</th>
+	<tr>
+		<td>The RabbitMQ Performance Tool for Cloud Foundry</td>
+		<td>the <a href="https://github.com/rabbitmq/rabbitmq-perf-test-for-cf">RabbitMQ
+                    PerfTest for Cloud Foundry</a> repository in GitHub</td>
+	</tr>
+	<tr>
+		<td>Direct exchange</td>
+		<td>the <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchange-direct">RabbitMQ documentation</td>
+	</tr>
+	<tr>
+		<td>Durable queues</td>
+		<td>the <a href="https://www.rabbitmq.com/queues.html#durability">RabbitMQ documentation</td>
+	</tr>
+	<tr>
+		<td>Mirrored queues</td>
+		<td>the <a href="https://www.rabbitmq.com/ha.html">RabbitMQ documentation</td>
+	</tr>
+	<tr>
+		<td>Publisher Confirms protocol extension</td>
+		<td>the <a href="https://www.rabbitmq.com/confirms.html#publisher-confirms">RabbitMQ documentation</td>
+	</tr>
+</table>
+
+### <a id='observe'></a> Observations
+
+Tests show that downtime experienced during this rolling upgrade is significantly reduced compared to a
+similar upgrade where the cluster is fully shut down.
+
+The metrics indicate that the downtime, in this case a publisher being unable to publish a message to a
+queue, is 5 seconds at maximum.
+
+This is because the internal BOSH DNS record used to round-robin messages to the nodes in the cluster has a
+5-second time to live (TTL). The messages are routed to nodes that have just been replaced.
+Because the tested app has retry logic, no service outage is observed.
+
+For more information about creating resilient apps, see the
+[workloads repository](https://github.com/rabbitmq/workloads/tree/master/resiliency) in GitHub.
+
+In most cases, downtime is longer for a cluster under a greater load.
+When a node comes back up and rejoins the cluster, messages from the other nodes sync with the newly joined node.
+Queues on the newly joined node reject publishers and consumers until the messages are synced.
+
+### <a id='consider'></a> Cluster Configuration Considerations
+
+There is downtime for a cluster without mirrored queues.
+This is because when the hosting node is down, the queue does not exist and any published messages are dropped
+unless the publisher uses the `mandatory` flag or the exchange is configured with an alternate exchange.
