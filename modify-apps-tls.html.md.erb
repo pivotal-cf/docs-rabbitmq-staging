@@ -41,7 +41,7 @@ To modify your app:
 	require 'json'
 	require 'bunny'
 
-	vcap_services = JSON.parse(ENV ['VCAP_SERVICES'])
+	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
 	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uri']
 	conn = Bunny.new(uri)
 	conn.start
@@ -55,7 +55,7 @@ to use the same CA certificate, as well as a valid TLS certificate and key.
 	require 'json'
 	require 'bunny'
 
-	vcap_services = JSON.parse(ENV ['VCAP_SERVICES'])
+	vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
 	uri = vcap_services['p.rabbitmq'][0]['credentials']['protocols']['amqp+ssl']['uri']
 	conn = Bunny.new(uri, tls_cert: PATH-TO-CERTIFICATE, tls_key: PATH-TO-KEY, tls_ca_certificates: [PATH-TO-CA-CERTIFICATE])
 	conn.start
@@ -93,18 +93,22 @@ After modifying your app, re-push it with `cf push`.
 To rebind an app using an existing service instance:
 
 1. Stop the app by running:
+
     ```
     cf stop APP-NAME
     ```
 1. Unbind the app from the service instance by running:
+
     ```
     cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
     ```
 1. Re-bind the app to the service instance by running:
+
     ```
     cf bind-service APP-NAME SERVICE-INSTANCE-NAME
     ```
 1. Restage the app by running:
+
     ```
     cf restage APP-NAME
     ```
