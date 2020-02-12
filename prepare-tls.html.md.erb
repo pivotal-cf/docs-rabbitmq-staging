@@ -9,4 +9,8 @@ owner: RabbitMQ
 
 <strong><%= modified_date %></strong>
 
-<%= partial vars.path_to_partials + "/services/prepare-tls" %>
+<%= partial vars.path_to_partials + "/services/prepare-tls", :locals => {
+  :product_full => vars.product_full,
+  :product_short => vars.product_short,
+  :platform_name => vars.platform_name
+} %>
