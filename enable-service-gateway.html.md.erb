@@ -3,6 +3,8 @@ title: Enabling Service-Gateway Access (Beta)
 owner: RabbitMQ
 ---
 
+This topic explains how to enable service-gateway access.
+
 ## <a id='overview'></a> Overview
 
 Service-gateway access enables a RabbitMQ service instance to connect to external components that are not on
@@ -24,9 +26,7 @@ To enable service-gateway access for an on-demand offering:
 </p>
 
 
-## <a id='configuration'></a> Enable Service-Gateway Access
-
-### <a id='tcp-routing'></a>1. Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile
+## <a id='tcp-routing'></a> Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile
 
 TCP routing is disabled by default. To enable TCP routing:
 
@@ -41,7 +41,7 @@ For example, `1024` for a single port or `1024–1123` for a range of ports.
     ![Get the CID of TCP Router from the <%= vars.app_runtime_abbr %> tile status](/images/TCP-router-CID.png)
 
 
-### <a id='configure-lb'></a> 2. Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router
+## <a id='configure-lb'></a> Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router
 
 To configure the load balancer:
 
@@ -58,7 +58,7 @@ For example, if your TCP routing port range is `1024-1123` then your load balanc
 1. Note down this port range.
 
 
-### <a id='create-dns-record'></a> 3. Create a DNS Record That Maps to the Load Balancer
+## <a id='create-dns-record'></a> Create a DNS Record That Maps to the Load Balancer
 
 To create a DNS record and prepare to map it:
 
@@ -66,7 +66,8 @@ To create a DNS record and prepare to map it:
 IP address of the load balancer created in [step 2](#configure-lb) above.
 1. Note down the domain used for this DNS record.
 
-### <a id='configure-service-gateway-plan'></a> 4. Configure a Service-Gateway-Enabled Plan
+
+## <a id='configure-service-gateway-plan'></a> Configure a Service-Gateway-Enabled Plan
 
 To configure a service-gateway-enabled plan:
 
@@ -104,6 +105,7 @@ To configure a service-gateway-enabled plan:
     </p>
 
 1. In <%= vars.ops_manager %>, apply changes for the RabbitMQ tile.
+
 
 ## <a id='workflow'></a> Developer Workflow
 
