@@ -1,5 +1,5 @@
 ---
-title: Service-Gateway Access (Beta)
+title: Enabling Service-Gateway Access (Beta)
 owner: RabbitMQ
 ---
 
@@ -15,17 +15,19 @@ on another <%= vars.platform_name %> foundation or hosted outside of the <%= var
 
 ## <a id='overview'></a> Overview
 
-There are multiple use cases for service-gateway RabbitMQ access, for example:
+There are multiple use cases for service-gateway RabbitMQ access. For example:
 
-- Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> in a different <%= vars.platform_name %> foundation
+- Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) in a
+different <%= vars.platform_name %> foundation
 - Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
 for example, to set up federation for disaster recovery
-- Enabling apps running outside the <%= vars.platform_name %> foundation to communicate, through RabbitMQ, with <%= vars.app_runtime %>-deployed apps
-- Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime %>
+- Enabling apps running outside the <%= vars.platform_name %> foundation to communicate, through RabbitMQ,
+with <%= vars.app_runtime_abbr %>-deployed apps
+- Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime_abbr %>
 
 ## <a id='architecture'></a> Architecture
 
-Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime %>.
+Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
 
 Any RabbitMQ requests made by an application are forwarded via DNS to a load balancer which can route traffic from outside to the <%= vars.platform_name %> foundation.
 This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app developer creates a service instance on a plan with service gateway access enabled,

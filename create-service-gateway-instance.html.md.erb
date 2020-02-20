@@ -1,0 +1,45 @@
+---
+breadcrumb: RabbitMQ for Pivotal Platform Documentation
+title: Create a Service Instance with Service-Gateway Access
+owner: London Services
+---
+
+This topic explains how to create a service instance with service-gateway access.
+
+## <a id='service-gateway'></a> Create a Service Instance with Service-Gateway Access
+
+This section assumes that you meet the prerequisites for using on-demand <%= vars.product_full %>.
+For more information, see [Prerequisites](use.html#prereqs).
+
+If operators have enabled a service-gateway plan, you can create a service instance that can connect to
+components outside the <%= vars.platform_name %> foundation.
+Contact your operator if you are unsure which plans have been enabled for service-gateway access.
+For information about the architecture and use cases, see [Service-Gateway Access](./service-gateway-access.html).
+
+To create a service instance that enables service-gateway access:
+
+1. Create a service instance with the service-gateway plan by running:
+
+    ```
+    cf create-service p.rabbitmq SERVICE-GATEWAY-PLAN SERVICE-INSTANCE-NAME -c '{"tls": true}'
+    ```
+
+    <p class="note warning">
+      <strong>Warning:</strong> Pivotal recommends that you configure service-gateway access with TLS to
+      prevent man-in-the-middle attacks.
+      For instructions on using TLS on your platform, see <a href="./use.html#using-tls">Use Transport Layer Security</a>.
+    </p>
+
+1. Obtain credentials by creating a service key:
+
+    ```
+    cf create-service-key SERVICE-INSTANCE-NAME SERVICE-KEY-NAME
+    ```
+
+    The `uri` section of the service key contains the address to the TCP router and a port from the port range.
+    You can use this URI to connect to the service instance from outside the foundation.
+
+<p class="note">
+  <strong>Note:</strong> If the operator disables and then re-enables service-gateway access on a plan, you
+  must create new service keys to obtain a new set of credentials for service-gateway access.
+</p>
