@@ -50,7 +50,7 @@ This table summarizes the main differences between the two:
 
 In <%= vars.product_short %> versions before v1.8.0, the RabbitMQ service instances correspond to a unique
 RabbitMQ virtual host on the multi-tenant RabbitMQ cluster.
-<%= vars.product_short %> v1.8.0 introduced On-Demand Broker (ODB) support.
+<%= vars.product_short %> v1.8.0 introduced on-demand service broker (ODB) support.
 That means you can create a new single-tenant cluster and dedicate it to a single app.
 
 For more information, see
@@ -151,10 +151,10 @@ To see release notes for another version, select the version from the dropdown a
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
-  :service_name => vars.service_name, :platform_name => vars.platform_name, :rabbit => "RabbitMQ for Pivotal Platform<%# Use <%= vars.product_full %>", :redis => "Redis for Pivotal Platform", :mysql => "MySQL for Pivotal Platform"
+  :service_name => vars.service_name, :platform_name => vars.platform_name, :rabbit => "RabbitMQ for Pivotal Platform", :redis => "Redis for Pivotal Platform", :mysql => "MySQL for Pivotal Platform"
 } %>
 
 ## <a id='feedback'></a>Feedback
 
-Please provide any issues, feature requests, or questions to the
+Please send any issue reports, feature requests, or questions to the
 [<%= vars.platform_name %> Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
