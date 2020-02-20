@@ -7,18 +7,142 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/pcf-name-change' %>
 
-## <a id="1-19-0"></a> v1.19.X
+## <a id="1-18-3"></a> v1.18.3
 
-**Release Date**: MMM DD, YYYY
+**Release Date**: January 10, 2020
+
+### Resolved Issues
+
+This release fixes the following issues:
+
+* The upgrade path from v1.15.x through 1.17.0/1.17.1/1.17.3 to v1.18.3 with TLS set to optional in v1.15.x does not fail.
+  The similar upgrade path to v1.18.2 does fail.
+
+* On platform on-demand service instances, created with a [service gateway](./service-gateway-access.html) enabled
+plan, now do not fail to connect when using the [MQTT and STOMP protocols](./install-config.html#server-plugins).
+
+### Known Issues
+
+This release has the following known issues:
+
+* When used in production, quorum queues might experience downtime during a rolling upgrade.
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th width="50%">Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>621.x</td>
+    </tr>
+    <tr>
+        <td><%= vars.platform_name %></td>
+        <td>2.7 and 2.8</td>
+    </tr>
+    <tr>
+        <td><%= vars.platform_old %></td>
+        <td>2.5 and 2.6</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td>3.8.2*</td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>22.1.8</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.23</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.1.6</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.5</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.36.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>22.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>111.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>61.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.21.5</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.196.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.6.1</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>40.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>283.0.0</td>
+    </tr>
+</table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a> GitHub documentation.
+
+## <a id="1-18-2"></a> v1.18.2
+
+**Release Date**: December 17, 2019
 
 ### Features
 
 New features and changes in this release:
 
+* Operators can configure an on-demand plan that enables service instances to connect to components outside
+the <%= vars.platform_name %> foundation through AMQP.
+For more information, see [Enabling Service-Gateway Access (Beta)](./service-gateway-access.html).
+This functionality is planned for other supported protocols in later releases.
+* This release uses RabbitMQ 3.8.2.
+  For more information, see [RabbitMQ 3.8.2](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2) in GitHub.
+* This version supports quorum queues. For more information about quorum queues, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
+* Previously, operators could not set an upper limit on the number of on-demand service instances higher than 200.
+This restriction has been removed.
+
+<p class="note warning">
+  <strong>Warning:</strong> Usernames and passwords are removed from the RabbitMQ dashboard URL in a service
+  binding because of a potential XSS vector.
+  For more information, see this <a href="https://github.com/rabbitmq/rabbitmq-management/pull/748">Remove
+  direct login route pull request</a> in GitHub.<br>
+  This means users are no longer automatically logged in when navigating to the dashboard URL.
+  Instead, the user must explicitly enter their username and password on the RabbitMQ dashboard login page.
+</p>
 
 ### Known Issues
 
 This release has the following known issues:
+
+* When used in production, quorum queues might experience downtime during a rolling upgrade.
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
 
 ### Compatibility
 
@@ -41,7 +165,7 @@ The following components are compatible with this release:
     </tr>
     <tr>
         <td>OSS RabbitMQ</td>
-        <td><a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a></td>
+        <td>3.8.2*</td>
     </tr>
     <tr>
         <td>Erlang</td>
@@ -100,6 +224,7 @@ The following components are compatible with this release:
         <td>4.0.0</td>
     </tr>
 </table>
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a> GitHub documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
