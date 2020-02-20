@@ -1,14 +1,15 @@
 ---
-title: Rotating CA Certificates
+title: Rotating Certificates
 owner: RabbitMQ
 ---
 
-If you are using TLS for <%= vars.product_full %>, you provided a CA certificate to BOSH CredHub when
-performing the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf).
+<div class="quick-links">
+  <ul>
+    <%= partial vars.path_to_partials + "/certs/rotating-certs-toc.html.erb" %>
+  </ul>
+</div>
 
-To rotate this CA certificate, see
-[Rotating CA Certificates for <%= vars.platform_name %> Services](https://community.pivotal.io/s/article/rotating-ca-certificates-for-pivotal-cloud-foundry-services) in the Pivotal Support knowledge base.
+This topic describes how to access BOSH CredHub, check expiration dates, 
+and rotate certificates using <%= vars.product_full %>.
 
-<p class="note warning"><strong>Warning:</strong> Do not rotate a CA certificate on your own.
-Contact <a href="https://support.pivotal.io">Pivotal Support</a>
-and follow the procedure in the Knowledge Base article with their help.</p>
+<%= partial vars.path_to_partials + "/certs/rotating-certs", :locals => { :local_product_name => vars.product_full } %>
