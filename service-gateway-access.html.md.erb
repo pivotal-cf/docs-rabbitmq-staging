@@ -7,6 +7,11 @@ Service gateway access enables a RabbitMQ service instance to connect to externa
 that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service. These components could be
 on another <%= vars.platform_name %> foundation or hosted outside of the <%= vars.platform_name %> foundation.
 
+For related procedures, see:
+
+* [Enabling Service-Gateway Access](./enable-service-gateway.html)
+* [Create a Service Instance with Service-Gateway Access](./create-service-gateway-instance.html)
+
 <p class="note">
   <strong>Note:</strong> Service-Gateway access is marked as beta because it is only supported for Advanced Message Queuing
   Protocol (AMQP). Support for other RabbitMQ protocols is planned.
@@ -29,13 +34,17 @@ with <%= vars.app_runtime_abbr %>-deployed apps
 
 Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
 
-Any RabbitMQ requests made by an application are forwarded via DNS to a load balancer which can route traffic from outside to the <%= vars.platform_name %> foundation.
-This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app developer creates a service instance on a plan with service gateway access enabled,
-a port is provisioned in this range of ports for that service instance. The load balancer then forwards the requests for this RabbitMQ to the TCP router.
+Any RabbitMQ requests made by an application are forwarded via DNS to a load balancer which can route
+traffic from outside to the <%= vars.platform_name %> foundation.
+This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app
+developer creates a service instance on a plan with service gateway access enabled,
+a port is provisioned in this range of ports for that service instance. The load balancer then
+forwards the requests for this RabbitMQ to the TCP router.
 The TCP router internally load balances between the RabbitMQ Service instance nodes.
 
 The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
-All apps using this RabbitMQ instance, irrespective of whether they are hosted on the <%= vars.platform_name %> foundation or outside of the foundation follow the same route.
+All apps using this RabbitMQ instance, irrespective of whether they are hosted on the
+<%= vars.platform_name %> foundation or outside of the foundation follow the same route.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
 The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.
