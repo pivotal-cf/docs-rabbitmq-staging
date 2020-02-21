@@ -15,7 +15,7 @@ For a more detailed overview, see [Service-Gateway Access](./service-gateway-acc
 To enable service-gateway access for an on-demand offering:
 
 1. [Enable TCP routing using the <%= vars.app_runtime_abbr %> tile](#tcp-routing)
-1. [Configure firewall to allow incoming traffic to TCP router](#configure-firewall)
+1. [Configure the firewall to allow incoming traffic to the TCP router](#configure-firewall)
 1. [Configure the load balancer in the IaaS to redirect traffic to the TCP router](#configure-lb)
 1. [Create a DNS record that maps to the load balancer](#create-dns-record)
 1. [Configure a service-gateway-enabled plan](#configure-service-gateway-plan)
@@ -41,8 +41,8 @@ For example, `1024` for a single port or `1024–1123` for a range of ports.
 
     ![Get the CID of TCP Router from the <%= vars.app_runtime_abbr %> tile status](/images/TCP-router-CID.png)
 
-## <a id='configure-firewall'></a> Configure firewall to allow incoming traffic to TCP  router
-1. Following the documentation for your IaaS, allow incoming traffic to the TCP router vm created in [step 1](#tcp-routing).
+## <a id='configure-firewall'></a> Configure the Firewall to Allow Incoming Traffic to the TCP Router
+1. Allow incoming traffic to the TCP router VM created in [step 1](#tcp-routing). For information on how to do so, see the documentation for your IaaS.
 
 ## <a id='configure-lb'></a> Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router
 
@@ -56,7 +56,7 @@ For example, if your TCP routing port range is `1024-1123` then your load balanc
    <p class="note">
         <strong>Note:</strong> Each RabbitMQ service instance using service-gateway access requires a unique port.
         Ensure that the port range configured above has enough capacity to accommodate the maximum number of
-        service instances desired. Both the start and the end port are inclusive.
+        service instances desired. The start port and the end port are both inclusive.
    </p>
 1. Note down this port range.
 
@@ -65,8 +65,8 @@ For example, if your TCP routing port range is `1024-1123` then your load balanc
 
 To create a DNS record and prepare to map it:
 
-1. Following the documentation for your IaaS, create a new DNS record of type A that maps to the external
-IP address of the load balancer created in [step 3](#configure-lb) above.
+1. Following the documentation for your IaaS, create a new DNS record of type A that maps to the
+external IP address of the load balancer created in [step 3](#configure-lb) above.
 1. Note down the domain used for this DNS record.
 
 
@@ -75,8 +75,8 @@ IP address of the load balancer created in [step 3](#configure-lb) above.
 To configure a service-gateway-enabled plan:
 
 1. In **Global Settings for On-Demand Plans**, fill in the following fields:
-    - **External TCP domain**: This must correspond to the DNS entry for the external load balancer, noted
-    in [step 4](#create-dns-record) above.
+    - **External TCP domain**: This must correspond to the DNS entry for the external load balancer,
+    noted in [step 4](#create-dns-record) above.
     - **Port Range**: This is the range of ports you configured for the external load balancer for RabbitMQ
     service instances in [step 3](#configure-lb) above.
 
@@ -86,13 +86,14 @@ To configure a service-gateway-enabled plan:
 
      <p class="note warning">
        <strong>Warning:</strong>
-       If you already have service instances using Service-Gateway, any modifications to this range must include ports
-       that are already assigned to these service instances. If the port range does not contain the ports already
-       assigned to service instances, the service instances' upgrades fail.
+       If you already have service instances using service-gateway, any modifications to this range
+       must include ports that are already assigned to these service instances.
+       If the port range does not contain the ports already assigned to service instances, the
+       upgrades for the service instances fail.
        For example, if service-gateway access has the port range <code>1000-1005</code>,
-       and there are service instances that correspond to ports <code>1000</code>, <code>1001</code> and
-       <code>1002</code>, then the new port range must have ports <code>1000</code>, <code>1001</code> and
-       <code>1002</code>.
+       and there are service instances that correspond to ports <code>1000</code>, <code>1001</code>,
+       and <code>1002</code>, then the new port range must have ports <code>1000</code>,
+       <code>1001</code>, and <code>1002</code>.
      </p>
 
 1. Navigate to the service plan that you want to use and select the **Service-Gateway Access** checkbox.
