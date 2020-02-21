@@ -47,7 +47,8 @@ All apps using this RabbitMQ instance follow the same route, irrespective of whe
 <%= vars.platform_name %> foundation or are hosted outside of the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
-The load balancer sends the traffic to the TCP router, which is inside the <%= vars.platform_name %> foundation.
+The load balancer sends the traffic to a RabbitMQ tile port in the TCP router.
+The TCP router is inside the <%= vars.platform_name %> foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 [Click here to view a larger version of this image.](./images/service-gateway-architecture.png)
 
