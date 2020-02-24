@@ -34,26 +34,20 @@ with <%= vars.app_runtime_abbr %>-deployed apps
 
 Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
 
-Any RabbitMQ requests made by an application are forwarded via DNS to a load balancer which can route
-traffic from outside to the <%= vars.platform_name %> foundation.
-This load balancer opens a range of ports which are reserved for RabbitMQ traffic. When an app
-developer creates a service instance on a plan with service gateway access enabled,
-a port is provisioned in this range of ports for that service instance. The load balancer then
-forwards the requests for this RabbitMQ to the TCP router.
+Any RabbitMQ requests an app makes are forwarded through DNS to a load balancer that can route traffic from
+outside to the <%= vars.platform_name %> foundation.
+This load balancer opens a range of ports that are reserved for RabbitMQ traffic.
+When an app developer creates a service instance on a plan with service-gateway access enabled, a port from
+the range is provisioned for that service instance.
+The load balancer then forwards the requests for this RabbitMQ instance to the TCP router.
 The TCP router internally load balances between the RabbitMQ Service instance nodes.
 
 The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
-All apps using this RabbitMQ instance, irrespective of whether they are hosted on the
-<%= vars.platform_name %> foundation or outside of the foundation follow the same route.
+All apps using this RabbitMQ instance follow the same route, irrespective of whether they are hosted on the
+<%= vars.platform_name %> foundation or are hosted outside of the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
 The load balancer sends the traffic to a RabbitMQ tile port in the TCP router.
 The TCP router is inside the <%= vars.platform_name %> foundation.
 The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
 [Click here to view a larger version of this image.](./images/service-gateway-architecture.png)
-
-## <a id='workflow'></a> Workflow
-For instructions:
-
-* Operators: See [Enabling Service-Gateway Access](./enable-service-gateway.html).
-* App developers: See [Create a Service Instance with Service-Gateway Access](./use.html#service-gateway).
