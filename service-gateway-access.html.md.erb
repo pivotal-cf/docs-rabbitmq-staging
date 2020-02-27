@@ -3,7 +3,7 @@ title: Service-Gateway Access (Beta)
 owner: RabbitMQ
 ---
 
-Service-gateway access enables a RabbitMQ service instance to connect to external components
+Service-gateway access enables an on-demand RabbitMQ service instance to connect to external components
 that are not on the same <%= vars.platform_name %> foundation as the RabbitMQ service. These
 components could be on another <%= vars.platform_name %> foundation or hosted outside of the
 <%= vars.platform_name %> foundation.
@@ -41,7 +41,7 @@ This load balancer opens a range of ports that are reserved for RabbitMQ traffic
 When an app developer creates a service instance on a plan with service-gateway access enabled, a port from
 the range is provisioned for that service instance.
 The load balancer then forwards the requests for this RabbitMQ instance to the TCP router.
-The TCP router internally load balances between the RabbitMQ Service instance nodes.
+The TCP router internally load balances between the RabbitMQ service instance nodes.
 
 The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
 All apps using this RabbitMQ instance follow the same route, irrespective of whether they are hosted on the
