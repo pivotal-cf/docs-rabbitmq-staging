@@ -38,12 +38,15 @@ TCP routing is disabled by default. To enable TCP routing:
 1. For TCP routing ports, enter one or more ports to which the load balancer forwards requests.
 For example, `1024` for a single port or `1024–1123` for a range of ports.
 1. Apply changes in <%= vars.ops_manager %> for the <%= vars.app_runtime_abbr %> tile to create the TCP router.
-1. From the status tab of the <%= vars.app_runtime_abbr %> tile, make note of the cloud identity (CID) of the TCP router.
+1. From the status tab of the <%= vars.app_runtime_abbr %> tile, make note of the cloud identity (CID) of the
+TCP router.
 
     ![Get the CID of TCP Router from the <%= vars.app_runtime_abbr %> tile status](/images/TCP-router-CID.png)
 
 ## <a id='configure-firewall'></a> Configure the Firewall to Allow Incoming Traffic to the TCP Router
-1. Allow incoming traffic to the TCP router VM created in [step 1](#tcp-routing). For information on how to do so, see the documentation for your IaaS.
+1. Allow incoming traffic to the TCP router VM created in
+[Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#tcp-routing) above.
+For information about how to do so, see the documentation for your IaaS.
 
 ### <a id='configure-lb'></a> 2. Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router
 
@@ -52,12 +55,13 @@ To configure the load balancer:
 1. Use the IaaS console and the CID you noted down earlier to find the VM that runs the TCP router.
 1. Create an external TCP load balancer that points to the VM running the TCP router.
 1. Configure a new external port range that does not overlap with the TCP networking port or port range you
-configured in [step 1](#tcp-routing) above.
-For example, if your TCP routing port range is `1024-1123` then your load balancer port range must not be `1000-1100`.
+configured in [Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#tcp-routing) above.
+For example, if your TCP routing port range is `1024-1123` then your load balancer port range must not be
+`1000-1100`.
    <p class="note">
-        <strong>Note:</strong> Each RabbitMQ service instance using service-gateway access requires a unique port.
-        Ensure that the port range configured above has enough capacity to accommodate the maximum number of
-        service instances desired. The start port and the end port are both inclusive.
+        <strong>Note:</strong> Each RabbitMQ service instance using service-gateway access requires a unique
+        port. Ensure that the port range configured above has enough capacity to accommodate the maximum number
+        of service instances desired. The start port and the end port are both inclusive.
    </p>
 1. Note down this port range.
 
@@ -67,7 +71,7 @@ For example, if your TCP routing port range is `1024-1123` then your load balanc
 To create a DNS record and prepare to map it:
 
 1. Following the documentation for your IaaS, create a new DNS record of type A that maps to the
-external IP address of the load balancer created in [step 3](#configure-lb) above.
+external IP address of the load balancer created in [Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router](#configure-lb) above.
 1. Note down the domain used for this DNS record.
 
 
@@ -77,9 +81,10 @@ To configure a service-gateway-enabled plan:
 
 1. In the **Global Settings for On-Demand Plans** pane in the RMQ tile, fill in the following fields:
     - **External TCP domain**: This must correspond to the DNS entry for the external load balancer,
-    noted in [step 4](#create-dns-record) above.
+    noted in [Create a DNS Record That Maps to the Load Balancer](#create-dns-record) above.
     - **Port Range**: This is the range of ports you configured for the external load balancer for RabbitMQ
-    service instances in [step 3](#configure-lb) above.
+    service instances in
+    [Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router](#configure-lb) above.
 
     ![Example of the Global Settings for On-Demand Plans pane.
     The External TCP domain field has tcp.elcajon.cf-app.com. The Port Range field has 1024–2025.]
