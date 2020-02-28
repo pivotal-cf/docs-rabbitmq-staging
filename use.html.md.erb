@@ -110,45 +110,6 @@ To create an instance of the on-demand <%= vars.product_short %> service:
 
    If you encounter an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
 
-
-## <a id='service-gateway'></a> Create a Service Instance with Service-Gateway Access
-
-If operators have enabled a service-gateway plan, you can create a service instance
-that can connect to components outside the <%= vars.platform_name %> foundation.
-Contact your operator if you are
-unsure which plans have been enabled for service-gateway access.
-For information about the architecture and use cases, see [Enabling Service-Gateway Access](./service-gateway-access.html).
-
-To create a service instance that enables service-gateway access:
-
-1. Create a service instance with the service-gateway plan by running:
-
-    ```
-    cf create-service p.rabbitmq SERVICE-GATEWAY-PLAN SERVICE-INSTANCE -c '{"tls": true}'
-    ```
-    Where:
-    * `SERVICE-INSTANCE` is a name you choose to identify the service instance.
-
-    <p class="note warning"><strong>Warning:</strong> Pivotal strongly recommends that you configure service-gateway access
-      with TLS to prevent man-in-the-middle attacks.
-     For instructions on using TLS on your platform,
-     see <a href="./use.html#using-tls">Use Transport Layer Security</a> below.
-    </p>
-
-1. Obtain credentials by creating a service key:
-
-    ```
-    cf create-service-key SERVICE-INSTANCE SERVICE-KEY
-    ```
-    Where:
-    * `SERVICE-INSTANCE` is the name of the service instance you created previously.
-    * `SERVICE-KEY` is the name that you choose for your service key.
-
-    The `uri` section of the service key contains the address to the TCP router and a port from the port range.
-    You can use this URI to connect to the service instance from outside the foundation.
-
-<p class="note"><strong>Note:</strong> If the operator disables and then re-enables service-gateway access on a plan, you must create new service keys to obtain a new set of credentials for service-gateway access.</p>
-
 ## <a id="using-tls"></a> Use Transport Layer Security (TLS)
 
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
