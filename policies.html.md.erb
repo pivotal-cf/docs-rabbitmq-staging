@@ -9,7 +9,7 @@ owner: London Services
 ## <a id="policy"></a> About RabbitMQ Policies
 
 You can set a default queue and an exchange policy in the <%= vars.product_full %> tile to be applied to the RabbitMQ cluster.
-After you deploy the tile, Pivotal recommends that you use the RabbitMQ Management Interface to make configuration changes.
+After you deploy the tile, VMware recommends that you use the RabbitMQ Management Interface to make configuration changes.
 
 For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
 
@@ -24,7 +24,7 @@ Existing instances are not affected by the policy.
 * It is not possible to use pattern matching with policies. Policies will be
 applied to all queues and exchanges.
 
-    For granular policy settings, Pivotal recommends using the
+    For granular policy settings, VMware recommends using the
     RabbitMQ Management UI. Set a `priority number` lower than
     `50`, the default `priority number` applied through the <%= vars.ops_manager_full %> configuration.
 

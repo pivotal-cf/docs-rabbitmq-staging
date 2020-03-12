@@ -12,7 +12,7 @@ The deployment includes a single load balancer `haproxy` which spreads connectio
 on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 The deployment occurs in a single availability zone (AZ).
 
-The default configuration is for testing purposes only and Pivotal recommends that
+The default configuration is for testing purposes only and VMware recommends that
 customers have a minimum of **3 RabbitMQ nodes** and **2 HAProxy nodes**
 
 The diagram below shows the default <%= vars.product_short %> pre-provisioned deployment.
@@ -29,7 +29,7 @@ The diagram below shows the default <%= vars.product_short %> pre-provisioned de
 
 ## <a id="recommended"></a>Recommended Deployment
 
-Pivotal recommends that <%= vars.product_short %> is deployed across at least two AZs.
+VMware recommends that <%= vars.product_short %> is deployed across at least two AZs.
 Scale RabbitMQ server nodes to an odd number that is greater than or equal to three.
 
 Only use replication of queues where required as it can have a big impact on system performance.

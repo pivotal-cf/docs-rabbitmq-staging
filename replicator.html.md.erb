@@ -37,7 +37,7 @@ Therefore, if you want to isolate the RabbitMQ cluster that is used by SCS from 
 you can reserve the unreplicated <%= vars.product_short %> tile for SCS, as shown in the diagram below.
 You can then add replica RabbitMQ clusters for use by apps in the Marketplace.
 
-Pivotal recommends that you use the unreplicated <%= vars.product_short %> tile solely for SCS to avoid contention between apps
+VMware recommends that you use the unreplicated <%= vars.product_short %> tile solely for SCS to avoid contention between apps
 using SCS, and apps using <%= vars.product_short %> in the Marketplace.
 
 To reserve the unreplicated tile for SCS, turn off the **Broker Registrar** errand to prevent the
@@ -83,7 +83,7 @@ This topic describes how to install the replicator and generate replica tiles of
 
 ### <a id="download"></a> Download the Replicator
 
-The <%= vars.product_short %> Replicator is currently available from [Pivotal Network](https://network.pivotal.io). Search for and download this archive, and then run the enclosed binary.
+The <%= vars.product_short %> Replicator is currently available from [<%= vars.product_network %>](https://network.pivotal.io). Search for and download this archive, and then run the enclosed binary.
 
 ### <a id="replica"></a> Generate Replica Tiles
 
@@ -178,7 +178,7 @@ Here is the sample replicator command you used for the initial installation:
 
 To upgrade to v2, follow these steps:
 
-1. Download and unzip the new <%= vars.product_short %> Tile Replicator from [Pivotal Network](https://network.pivotal.io/products/p-rabbitmq/).
+1. Download and unzip the new <%= vars.product_short %> Tile Replicator from [<%= vars.product_network %>](https://network.pivotal.io/products/p-rabbitmq/).
 You must download the version of Tile Replicator that corresponds with the
 version of the <%= vars.product_short %> Tile you want to replicate.
 

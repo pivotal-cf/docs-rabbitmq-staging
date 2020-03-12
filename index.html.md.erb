@@ -42,7 +42,7 @@ This table summarizes the main differences between the two:
 
 
 <p class="note">
-  <strong>Note:</strong> For most new apps, Pivotal recommends that you use on-demand services instead of
+  <strong>Note:</strong> For most new apps, VMware recommends that you use on-demand services instead of
   pre-provisioned services. The on-demand service offering isolates workloads by creating a separate VM for each service instance.
 </p>
 
@@ -151,7 +151,7 @@ To see release notes for another version, select the version from the dropdown a
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
-  :service_name => vars.service_name, :platform_name => vars.platform_name, :rabbit => vars.product_full, :redis => "Redis for Pivotal Platform", :mysql => "MySQL for VMware Tanzu"
+  :service_name => vars.product_full, :platform_name => vars.platform_name, :rabbit => vars.product_full, :redis => "Redis for Pivotal Platform", :mysql => "MySQL for VMware Tanzu"
 } %>
 
 ## <a id='feedback'></a>Feedback

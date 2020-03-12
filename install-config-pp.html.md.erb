@@ -25,7 +25,7 @@ For more information about roles in <%= vars.ops_manager %>, see
 
 ## <a id="install"></a> Download and Install the Tile
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
+1. Download the product file from [<%= vars.product_network %>](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
 2. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
@@ -150,7 +150,7 @@ For how to do this, see [Set the Erlang Cookie to Existing its Value](#existing-
 
 Changing the Erlang cookie value causes a few minutes of downtime because it
 requires a full cluster shutdown.
-Pivotal *strongly* recommends that you do not change anything else during this
+VMware *strongly* recommends that you do not change anything else during this
 time, because it is possible for the configuration to be inconsistently applied
 during this process.
 
@@ -159,7 +159,7 @@ The deployment might fail after this process. If so, redeploying fixes the issue
 #### <a id="existing-value"></a> Set the Erlang Cookie to Its Existing Value
 
 <p class="note warning"><strong>WARNING:</strong>
-Pivotal recommends that you change the Erlang cookie to prevent being affected
+VMware recommends that you change the Erlang cookie to prevent being affected
 by CVE-2018-1279.
 For more information, see <a href="./install-config-pp.html#security-fix">Erlang Cookie Security Fix</a>
 above.</p>
@@ -329,7 +329,7 @@ event of a network partition.
   <br>For more information about these options and on RabbitMQ clusters and network partitions,
             see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
 
-  <br>For production purposes, Pivotal recommends that customers have at least three RabbitMQ server nodes
+  <br>For production purposes, VMware recommends that customers have at least three RabbitMQ server nodes
             and two HAProxies spread across low latency availability zones.
 
 
@@ -389,7 +389,7 @@ space free to satisfy the **Disk free alarm limit** that you choose.
 
 #### <a name='50mb'></a> When to Use the 50MB Value
 
-Pivotal does not recommend using this value in production. However, if you are experimenting with a
+VMware does not recommend using this value in production. However, if you are experimenting with a
 development environment you might want to use a small disk to keep down costs,
 though this increases the possibility that RabbitMQ crashes and loses data.
 
@@ -436,7 +436,7 @@ To specify the destination for <%= vars.product_short %> log messages, do the fo
     <th>Description</th>
     <tr>
         <td><strong>Metrics polling interval</strong></td>
-        <td>The default setting is 30 seconds for all deployed components. Pivotal recommends that you do not change this interval.
+        <td>The default setting is 30 seconds for all deployed components. VMware recommends that you do not change this interval.
         To avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
         Changing this setting affects all deployed instances.</td>
     </tr>
@@ -524,7 +524,7 @@ You can change these defaults by clicking **Errands** in the <%= vars.product_sh
 <p class='note warning'><strong>Warning:</strong>
   In <%= vars.product_short %> v1.9.0 and later, post-deploy errands are on by default
   except the Recreate All Service Instances errand.
-  Pivotal recommends keeping these defaults, because the smoke tests can encounter
+  VMware recommends keeping these defaults, because the smoke tests can encounter
   unexpected issues, and on-demand instances of <%= vars.product_short %> might fall behind
   if the Upgrade All Service Instances errand is not on by default.</p>
 
@@ -563,7 +563,7 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
     If this errand is set to <strong>Off</strong>, updates to <strong>Dedicated Instance</strong> settings are not
     applied to existing service instances.
     <br>
-    <strong>Pivotal recommends that this errand is configured to always run</strong>.</td>
+    <strong>VMware recommends that this errand is configured to always run</strong>.</td>
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>

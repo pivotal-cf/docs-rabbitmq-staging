@@ -41,7 +41,7 @@ you must complete the procedures in [Provide or Generate a CA Certificate](./pre
 
 ## <a id="install"></a> Download and Install <%= vars.product_short %>
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
+1. Download the product file from [<%= vars.product_network %>](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
 2. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
 
@@ -96,7 +96,7 @@ A green checkmark indicates that the tab is preconfigured and you may optionally
 
 ### <a id='logging'></a>Configure Logging and Monitoring
 
-Pivotal recommends that you configure logging to monitor the health of <%= vars.product_short %>.
+VMware recommends that you configure logging to monitor the health of <%= vars.product_short %>.
 Follow the instructions in [Set Up Syslog Forwarding and Metrics Polling Interval](./monitor.html#config).
 
 
@@ -278,13 +278,13 @@ To enable the on-demand service, you must configure at least one on-demand plan.
           <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
               Previously deployed service instances are **not** updated.</td></tr>
       <tr><td><strong>Network Partition Behaviour</strong></strong></td>
-          <td>Select <code>pause_minority</code> or <code>autoheal</code>. Pivotal recommends using pause minority.
+          <td>Select <code>pause_minority</code> or <code>autoheal</code>. VMware recommends using pause minority.
               For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
               <tr><td><strong>AZ Placement</strong></td>
               <td>This field is available after you complete the Assign AZs and Networks page. See the [Assign AZs and Networks](#azs-networks) section above for more information.
                   <ul><li>For a single-node plan, select one or more AZs.</li>
                     <li>For a plan containing multiple nodes, select only one AZ.
-                  Pivotal recommends this for multi-node plans to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
+                  VMware recommends this for multi-node plans to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.
                   <br><br>If you change this selection after deployment, existing instances are not affected by the change. See [Determine which AZs a Service Instance Uses](#determineaz) below for more information.</li>
       </ul></td></tr>
       <tr><td><strong>RabbitMQ VM Type</strong></td>
@@ -320,7 +320,7 @@ If you are installing on <%= vars.platform_name %>, these properties are pre-con
 
 <%= image_tag("images/vm-ram-disk-example.png", :width => "400") %>
 
-Pivotal recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
+VMware recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the RabbitMQ instances.
   For example, if you are running out of disk space you might want to increase the persistent disk size
@@ -405,7 +405,7 @@ You can toggle errands on and off on the **Review Pending Changes** page.
 
 <p class='note warning'><strong>Warning:</strong> In <%= vars.product_short %> v1.9.0 and later,
   post-deploy errands are on by default except for the Recreate All Service Instances errand.
-  Pivotal recommends keeping these defaults, because the smoke tests can encounter
+  VMware recommends keeping these defaults, because the smoke tests can encounter
   unexpected issues, and on-demand instances of <%= vars.product_short %> might fall behind
   if the Upgrade All Service Instances errand is not on by default.</p>
 
@@ -445,7 +445,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
     <td>On-Demand instances are updated and redeployed if there are changes to on-demand plan settings or the
-    tile is upgraded. If this errand is set to <strong>Off</strong>, updates to on-demand plan settings are <strong>not</strong> applied to existing service instances. <strong>Pivotal recommends that this errand is configured to always run</strong>.</td>
+    tile is upgraded. If this errand is set to <strong>Off</strong>, updates to on-demand plan settings are <strong>not</strong> applied to existing service instances. <strong>VMware recommends that this errand is configured to always run</strong>.</td>
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>

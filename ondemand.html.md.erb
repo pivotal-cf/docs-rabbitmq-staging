@@ -35,12 +35,12 @@ For information about using pre-provisioned plans to isolate workloads, see [Cre
 
 ## <a id="plan-selection"></a> Deciding Which Service Plan to Use
 
-Pivotal recommends the on-demand service, which is designed for independent isolated RabbitMQ instances.
+VMware recommends the on-demand service, which is designed for independent isolated RabbitMQ instances.
 The existing pre-provisioned offering has many RabbitMQ instances on a single VM, in a multi-tenancy model.
 In this multi-tenancy model, a single misbehaving app can take down the entire cluster for everyone.
 
 From research and feedback on the issues customers had when using the pre-provisioned service,
-Pivotal is making different design decisions for the on-demand service.
+VMware is making different design decisions for the on-demand service.
 
 To provide you enough visibility to decide which service to use,
 the table below describes the current feature discrepancies between the pre-provisioned and on-demand services,
@@ -177,7 +177,7 @@ For a detailed description of distributed RabbitMQ brokers, see the [RabbitMQ do
 
 Every node in the on-demand cluster maintains a complete database of all metadata, and all changes to the metadata are confirmed by every node in the cluster.
 Therefore, going beyond seven nodes can have a significant negative impact on performance.
-For optimum resilience and performance, Pivotal recommends three nodes for most workloads.
+For optimum resilience and performance, VMware recommends three nodes for most workloads.
 
 #### <a id="latency"></a> Network Latency
 
@@ -185,10 +185,10 @@ RabbitMQ clusters are only recommended for deployment in low latency networks,
 which normally means that it is not advisable to deploy these clusters across availability zones (AZs).
 The stability and performance of the RabbitMQ cluster is heavily influenced by the workload on the nodes, replication choices, and network latency.
 
-For this reason, Pivotal recommends that you deploy RabbitMQ clusters into a single <%= vars.ops_manager_full %> AZ.
+For this reason, VMware recommends that you deploy RabbitMQ clusters into a single <%= vars.ops_manager_full %> AZ.
 However, where different AZs are in the same data center, with reliable low latency links, spanning AZs can be used.
 
-For cloud IaaS deployments, Pivotal does not recommend that deployments span *regions*.
+For cloud IaaS deployments, VMware does not recommend that deployments span *regions*.
 For example, in Amazon Web Services (AWS) terms, deploying a RabbitMQ cluster across AZs
 within a region should provide high enough network performance to prevent impacting cluster stability.
 However, deploying across AWS regions is likely to lead to cluster instability.
@@ -200,7 +200,7 @@ In a distributed messaging system, a tradeoff must be made between availability 
 and one or more nodes are not able to communicate with each other.
 The cluster plan lets operators decide how they want the RabbitMQ cluster to react in the event of a network partition.
 
-Pivotal recommends keeping the default cluster partition option of `pause_minority` because this satisfies most use cases.
+VMware recommends keeping the default cluster partition option of `pause_minority` because this satisfies most use cases.
 Choosing the `pause_minority` partition-handling strategy favors message consistency over availability.
 For more information about the options for handling partitions,
 see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
@@ -315,12 +315,12 @@ The following are preconfigured for both the single node and the cluster plans:
     each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space.
 
     <br>You can change this setting in the [Service Plan Configuration](./install-config.html#service-plan) page.
-        Pivotal recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
+        VMware recommends you set this value to be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
 * **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
   The polling interval is set in <%= vars.ops_manager %>, in the **Metrics polling interval** field, in the **Pre-Provisioned RabbitMQ** tab of the <%= vars.product_short %> tile.
   Due to the impact of some of the cluster settings detailed below,
-  Pivotal strongly recommends that you monitor the exposed metrics
+  VMware strongly recommends that you monitor the exposed metrics
   and configure alarms as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_full %>](./monitor.html#kpi).
   See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
 
@@ -356,7 +356,7 @@ The following are preconfigured for both the single node and the cluster plans:
 
 ## <a id="migrating-from-mt"></a> About Migrating a Pre-Provisioned Instance to an On-Demand Instance
 
-Pivotal recommends the on-demand service for production workloads due to its workload isolation.
+VMware recommends the on-demand service for production workloads due to its workload isolation.
 
 For instructions for developers about migrating from a pre-provisioned to an on-demand instance, see
 [Migrating a RabbitMQ Service Instance to Another Service Instance](./migration.html).
@@ -374,7 +374,7 @@ but avoids unnecessary resource consumption.
   * For example: you might select a single-node plan with a small VM for development
 purposes, but select a three-node cluster of large VMs for a mission critical system.
 
-* Pivotal recommends that you define all required structures in your app to ensure
+* VMware recommends that you define all required structures in your app to ensure
 they get defined if you connect to a new instance.
 These structures include:
   + Exchanges
@@ -404,7 +404,7 @@ that you should be aware of:
 * On-Demand instances are not fronted by a load balancer, therefore, ensure the following:
   * That you configure the RabbitMQ client in your app with all available nodes,
   not just one.
-  * That your re-connection logic can handle a node failure. Pivotal recommends this
+  * That your re-connection logic can handle a node failure. VMware recommends this
   behavior for Spring AMQP clients.
 
 * The instance you are migrating to might use a different version of RabbitMQ than
@@ -414,7 +414,7 @@ For more information, see the [<%= vars.product_full %> Release Notes](./release
 
 * Critical tier-1 plugins are enabled for on-demand. However, on-demand does not
 yet have the same plugins enabled as pre-provisioned.
-If you are missing a plugin, contact your Pivotal representative.
+If you are missing a plugin, contact your VMware representative.
 
 * You might have configured your on-demand instance differently.
 For example, you might have changed:
