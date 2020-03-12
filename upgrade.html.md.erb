@@ -100,7 +100,7 @@ configuration changes are applied automatically.
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/release-policy', :locals => {
-  :service_name => "RabbitMQ for Pivotal Platform", :platform_name => "Pivotal Platform", :os_name => "RabbitMQ"
+  :os_name => "RabbitMQ"
 } %>
 
 Starting with <%= vars.product_short %> v1.14.0, the RabbitMQ tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
