@@ -281,6 +281,26 @@ as a configuration parameter in JSON:
     <pre class="terminal">
     $ cf update-service myservice -c '{ "plugins": { "rabbitmq_amqp1_0": true, "rabbitmq_event_exchange": true } }'
     </pre>
+    
+To disable plugins, run one of the following commands, specifying the plugins
+as a configuration parameter in JSON:
+* When creating a service instance, optional plugins are disabled by default. 
+
+* When updating an existing service instance, run:
+
+    ```
+    cf update-service SERVICE-INSTANCE -c PARAMETER-AS-JSON
+    ```
+    For example:
+
+    <pre class="terminal">
+    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_event_exchange": false}}'
+    </pre>
+    For example, when disabling more than one plugin:
+    <pre class="terminal">
+    $ cf update-service myservice -c '{ "plugins": { "rabbitmq_amqp1_0": false, "rabbitmq_event_exchange": false } }'
+    </pre>
+ 
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
