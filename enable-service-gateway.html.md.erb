@@ -119,6 +119,25 @@ To configure a service-gateway-enabled plan:
 
 1. Click **Apply Changes** to apply the changes to the RabbitMQ tile.
 
+## <a id='disable-service-gateway-access'></a> Disable Service-Gateway Access
+
+To disable service-gateway access:
+
+1. Navigate to the service plan that you want to disable Service-Gateway Access and un-check the **Service-Gateway Access** checkbox.
+    <p class="note">
+      <strong>Note:</strong> VMware recommends that you change the name or the description of the plan to
+      indicate that service-gateway access is disabled for that plan.
+    </p>
+
+    <p class="note">
+      <strong>Note:</strong> If service-gateway access is disabled and then re-enabled, app developers must
+      create new service keys to obtain a new set of credentials for service-gateway access.
+    </p>
+
+1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
+
+1. Click **Apply Changes** to apply the changes to the RabbitMQ tile.
+
 
 ## <a id='workflow'></a> Developer Workflow
 
