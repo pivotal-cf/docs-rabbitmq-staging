@@ -16,6 +16,105 @@ However, upgrading to v1.17.2 and earlier still requires a cluster shutdown.
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="1-17-7"></a> v1.17.7
+
+**Release Date**: ???, 2020
+
+### Resolved Issues
+
+This release includes the following fixes:
+* Resolves CVE-2020-9283
+
+### Features
+
+New features and changes in this release:
+
+* This release updates the following dependencies:
+	* OSS RabbitMQ to v3.7.24. For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.24">v3.7.24</a> GitHub documentation.
+	* Erlang to v21.3.8.14
+	* HAProxy to v1.8.24
+
+### Known Issues
+
+This release has the following known issue:
+
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
+For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+    <th>Component</th>
+    <th>Version</th>
+    <tr>
+        <td>Stemcell</td>
+        <td>315.x</td>
+    </tr>
+    <tr>
+        <td><%= vars.platform_old %></td>
+        <td>v2.5.x, v2.6.x, v2.7.x and v2.8.x</td>
+    </tr>
+    <tr>
+        <td>OSS RabbitMQ</td>
+        <td>3.7.24*</td>
+    </tr>
+    <tr>
+        <td>Erlang</td>
+        <td>21.3.8.14</td>
+    </tr>
+    <tr>
+        <td>HAProxy</td>
+        <td>1.8.24</td>
+    </tr>
+    <tr>
+        <td>bpm</td>
+        <td>1.1.6</td>
+    </tr>
+    <tr>
+        <td>service-metrics</td>
+        <td>1.12.5</td>
+    </tr>
+    <tr>
+        <td>on-demand-service-broker</td>
+        <td>0.38.0</td>
+    </tr>
+    <tr>
+        <td>rabbitmq-metrics</td>
+        <td>23.0.0</td>
+    </tr>
+   <tr>
+        <td>rabbitmq-on-demand-adapter</td>
+        <td>115.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-multitenant-broker</td>
+        <td>64.0.0</td>
+    </tr>
+   <tr>
+        <td>loggregator-agent</td>
+        <td>3.21.5</td>
+    </tr>
+   <tr>
+        <td>routing</td>
+        <td>0.199.0</td>
+    </tr>
+   <tr>
+        <td>syslog</td>
+        <td>11.6.1</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq-smoke-tests</td>
+        <td>44.0.0</td>
+    </tr>
+   <tr>
+        <td>cf-rabbitmq</td>
+        <td>288.0.0</td>
+    </tr>
+</table>
+<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.7.24">v3.7.24</a> GitHub documentation.
+
 ## <a id="1-17-5"></a> v1.17.5
 
 **Release Date**: January 10, 2020
