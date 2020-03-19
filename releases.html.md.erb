@@ -47,7 +47,7 @@ You can skip v1.17 in this case to save time.
 
 This release fixes the following issues:
 
-* Post-deploy errands for the on-demand broker no longer fail.
+* Post-deploy scripts for the on-demand broker no longer fail due to a timing issue.
 
 ### Known Issues
 
@@ -164,6 +164,7 @@ This release has the following known issues:
 * When used in production, quorum queues might experience downtime during a rolling upgrade.
 * Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
 For more information, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+* <%= partial vars.path_to_partials + "/rabbitmq/ki-post-deploy-scripts" %>
 
 ### Compatibility
 
@@ -282,7 +283,7 @@ This release has the following known issues:
 * When used in production, quorum queues might experience downtime during a rolling upgrade.
 * Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
 For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
+* <%= partial vars.path_to_partials + "/rabbitmq/ki-post-deploy-scripts" %>
 
 ### Compatibility
 
