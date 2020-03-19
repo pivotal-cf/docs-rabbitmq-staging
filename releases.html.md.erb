@@ -42,6 +42,12 @@ New features and changes in this release:
 	* Erlang to v21.3.8.14
 	* HAProxy to v1.8.24
 
+### Resolved Issues
+
+This release includes the following fix:
+
+* Post-deploy scripts for the on-demand broker no longer fail due to a timing issue.
+
 ### Known Issues
 
 This release has the following known issue:
@@ -229,6 +235,8 @@ The following components are compatible with this release:
 **Release Date**: November 22, 2019
 
 ### Security Fixes
+
+This release includes the following security fixes:
 
 * High [CVE-2019-17596](https://nvd.nist.gov/vuln/detail/CVE-2019-17596):
 Go v1.12.11 and earlier and Go v1.13.2 and earlier can panic when trying to process network traffic that contains an invalid DSA public key.
