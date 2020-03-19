@@ -7,23 +7,43 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/pcf-name-change' %>
 
-<%= partial vars.path_to_partials + '/upgrade-planner' %>
+## <a id="upgrade"></a> Upgrade to the Latest Version
 
+Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release.
+You can skip v1.17 in this case to save time and take advantage of the latest features.
+Pivotal discourages any other upgrade path that skips a release, such as v1.14 to v1.16,
+because they are untested.
+
+<%= partial vars.path_to_partials + '/upgrade-planner' %>
 
 ## <a id="1-18-2"></a> v1.18.4
 
-**Release Date**: ???, 2020
+**Release Date**: March 19, 2020
+
+### Security Fixes
+
+This release includes the following security fix:
+
+* High [CVE-2020-9283](https://nvd.nist.gov/vuln/detail/CVE-2020-9283):
+golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic
+during signature verification in the golang.org/x/crypto/ssh package.
+A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client.
 
 ### Features
-* Upgrades from 1.16 releases to 1.18 releases from 1.18.4 onwards are now supported. Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release. You can skip v1.17 in this case to save time.
 
-<p class="note warning">Note: Pivotal discourages any other upgrade path that skips a release, such as v1.14 to v1.16, as they are untested. </p>
+* Upgrades from 1.16 releases to 1.18 releases are supported from 1.18.4 and later.
+Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release.
+You can skip v1.17 in this case to save time.
+<p class="note">
+	<strong>Note:</strong> Pivotal discourages any other upgrade path that skips a
+	release, such as v1.14 to v1.16, because they are untested.
+</p>
 
 ### Resolved Issues
 
 This release fixes the following issues:
-* Resolves CVE-2020-9283
-* Post-deploy errands for the on-demand broker no longer fail
+
+* Post-deploy errands for the on-demand broker no longer fail.
 
 ### Known Issues
 
