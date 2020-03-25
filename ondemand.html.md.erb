@@ -185,7 +185,7 @@ RabbitMQ clusters are only recommended for deployment in low latency networks,
 which normally means that it is not advisable to deploy these clusters across availability zones (AZs).
 The stability and performance of the RabbitMQ cluster is heavily influenced by the workload on the nodes, replication choices, and network latency.
 
-For this reason, VMware recommends that you deploy RabbitMQ clusters into a single <%= vars.ops_manager_full %> AZ.
+For this reason, VMware recommends that you deploy RabbitMQ clusters into a single <%= vars.ops_manager %> AZ.
 However, where different AZs are in the same data center, with reliable low latency links, spanning AZs can be used.
 
 For cloud IaaS deployments, VMware does not recommend that deployments span *regions*.

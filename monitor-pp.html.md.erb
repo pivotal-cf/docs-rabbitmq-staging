@@ -25,7 +25,7 @@ With pre-provisioned <%= vars.product_short %> logging configured, three types o
 component generate logs: the RabbitMQ message server nodes, the service broker,
 and HAProxy. If you have multiple server or HAProxy nodes, you can identify logs
 from individual nodes by their index, which corresponds to the index of the
-RabbitMQ VM instances displayed in <%= vars.ops_manager_full %>:
+RabbitMQ VM instances displayed in <%= vars.ops_manager %>:
 
 * The logs for RabbitMQ server nodes follow the format <code>[job=rabbitmq-server-partition-GUID index=X]</code>
 * The logs for HAProxy nodes follow the format <code>[job=rabbitmq-haproxy-partition-GUID index=X]</code>
