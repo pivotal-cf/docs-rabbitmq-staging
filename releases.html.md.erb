@@ -7,7 +7,7 @@ owner: London Services
 
 Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release.
 You can skip v1.17 in this case to save time and take advantage of the latest features.
-You can also upgrade from the latest v1.15 release to the latest v1.17 release skipping v1.16.
+You can also upgrade from the latest v1.15 release to the latest v1.17 release, skipping v1.16.
 
 <p class="note">
 	<strong>Note:</strong> Pivotal discourages any other upgrade path that skips a release,
@@ -28,10 +28,7 @@ However, upgrading to v1.17.2 and earlier still requires a cluster shutdown.
 
 This release includes the following security fix:
 
-* High [CVE-2020-9283](https://nvd.nist.gov/vuln/detail/CVE-2020-9283):
-golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic
-during signature verification in the golang.org/x/crypto/ssh package.
-A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client.
+* High [CVE-2020-9283](https://nvd.nist.gov/vuln/detail/CVE-2020-9283)
 
 ### Features
 
