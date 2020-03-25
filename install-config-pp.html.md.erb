@@ -64,7 +64,7 @@ An orange circle indicates that you are required to configure fields on the tab 
          <td>Select additional region(s).
              This selection only affects the pre-provisioned service.</td></tr>
      <tr><td><strong>Network</strong></td>
-         <td>Select a network for the RabbitMQ Broker.<br><br>
+         <td>Select a network for the <%= vars.product_short %> Broker.<br><br>
              This should be a separate network from the one you select for <strong>Service Network</strong>.
              This network is represented by the Default Network,
              described in <a href="./about.html#on-demand">Default Network and Service Network</a>.
@@ -420,15 +420,15 @@ To specify static IP addresses, do the following:
 ## <a id="syslog"></a>Configure Syslog Forwarding and Metrics Polling Interval
 
 To enable monitoring for <%= vars.product_short %>, operators forward the syslog by designating
-an external syslog endpoint for RabbitMQ component log messages.
+an external syslog endpoint for <%= vars.product_short %> component log messages.
 This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
 The metrics polling interval determines how often metrics are collected.
 
 To specify the destination for <%= vars.product_short %> log messages, do the following:
 
-1. From the <%= vars.ops_manager %> Installation Dashboard, click the RabbitMQ tile.
-1. In the RabbitMQ tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
 1. Click **Syslog and Metrics**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
@@ -538,21 +538,21 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
   <th>Description</th>
   <tr>
     <td><strong>Pre-Provisioned Broker Registrar</strong></td>
-    <td>Makes the pre-provisioned RabbitMQ service plans available in the Marketplace</td>
+    <td>Makes the pre-provisioned <%= vars.product_short %> service plans available in the Marketplace</td>
   </tr>
   <tr>
     <td><strong>Pre-Provisioned Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a <%= vars.platform_name %> app,
+    <td>Checks that a pre-provisioned <%= vars.product_short %> service instance can be bound to a <%= vars.app_runtime_abbr %> app,
       and that the app can publish and subscribe to a RabbitMQ cluster.
       See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
   <tr>
     <td><strong>Register On Demand Service Broker</strong></td>
-    <td>Makes the on-demand RabbitMQ service plans available in the Marketplace. If you change the Service Plan Configuration, you must run this errand in order for the changes to be reflected in the Marketplace.</td>
+    <td>Makes the on-demand <%= vars.product_short %> service plans available in the Marketplace. If you change the Service Plan Configuration, you must run this errand in order for the changes to be reflected in the Marketplace.</td>
   </tr>
   <tr>
     <td><strong>On Demand Instance Smoke Tests</strong></td>
-    <td>Checks that on-demand RabbitMQ service instances can be bound to a <%= vars.platform_name %> app,
+    <td>Checks that on-demand <%= vars.product_short %> service instances can be bound to a <%= vars.app_runtime_abbr %> app,
       and that the app can publish and subscribe to a RabbitMQ cluster.
       See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
@@ -583,7 +583,7 @@ but before <%= vars.ops_manager %> finishes deleting the product.
   <th>Description</th>
   <tr>
     <td><strong>Deregister and Purge Instances</strong></td>
-    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings.
+    <td>Removes the pre-provisioned <%= vars.product_short %> service from the Marketplace and deletes all associated service instances and bindings.
     For more information,
     see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</td>
   </tr>
@@ -594,7 +594,7 @@ but before <%= vars.ops_manager %> finishes deleting the product.
   </tr>
   <tr>
     <td><strong>Deregister On-Demand Service Broker</strong></td>
-    <td>Removes the on-demand RabbitMQ service from the Marketplace</td>
+    <td>Removes the on-demand <%= vars.product_short %> service from the Marketplace</td>
   </tr>
 </table>
 
@@ -617,7 +617,7 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 ### <a id='ha-cluster'></a>Connecting to a Highly Available RabbitMQ Cluster
 
-The RabbitMQ tile allows for a highly available cluster through multiple
+The <%= vars.product_short %> tile allows for a highly available cluster through multiple
 HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added
 and should be used in preference over the equivalent singular properties. The
 singular properties are maintained for backwards compatibility and always
@@ -646,9 +646,9 @@ For example, with two HAProxy jobs deployed, the following properties are presen
 
 ### <a id='sec-groups'></a>Security Groups
 
-To enable access to the RabbitMQ tile service, you must ensure your security
+To enable access to the <%= vars.product_short %> tile service, you must ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
-You can obtain the IP addresses for these from the <%= vars.ops_manager %> **Status** page for the RabbitMQ tile.
+You can obtain the IP addresses for these from the <%= vars.ops_manager %> **Status** page in the <%= vars.product_short %> tile.
 Ensure the following ports are enabled for those VMs:
 
 * 15672
@@ -714,7 +714,7 @@ Create an ASG named `rabbitmq-app-containers` with the above configuration and b
 
 ### <a id="assigned_ips"></a> Assigned IPs
 
-<%= vars.product_short %> does not support changing the IP addresses which have been assigned to the RabbitMQ deployments.
+<%= vars.product_short %> does not support changing the IP addresses which have been assigned to the <%= vars.product_short %> deployments.
 For example, you cannot change the subnet into which the RabbitMQ cluster was originally provisioned.
 Doing so causes the deployment to fail.
 For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
@@ -728,7 +728,7 @@ This might be useful when upgrading.
 
 To do this, follow these steps:
 
-1. Go to the **Status** page in the RabbitMQ tile.
+1. Go to the **Status** page in the <%= vars.product_short %> tile.
 2. Take note of the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
 3. Go to the **Settings** page, and click the **Pre-Provisioned RabbitMQ** tab.
 4. Enter the IP addresses you got from the **Status** page as a comma-separated list.

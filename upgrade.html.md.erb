@@ -27,9 +27,8 @@ In some cases, the RabbitMQ cluster remains available during a tile upgrade,
 but individual queues on cluster nodes might be taken offline.
 
 The length of the downtime depends on whether there is a stemcell update to
-replace the operating system image or whether the existing VM can just have
-the RabbitMQ software updated. Stemcell updates incur additional downtime while
-the IaaS creates the new VM.
+replace the operating system image, or whether the update is for the RabbitMQ software only.
+Stemcell updates incur additional downtime while the IaaS creates the new VM.
 
 The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
 This is stated in the release notes for those versions.
@@ -103,7 +102,7 @@ configuration changes are applied automatically.
   :os_name => "RabbitMQ"
 } %>
 
-Starting with <%= vars.product_old %> v1.14.0, the RabbitMQ tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
+Starting with <%= vars.product_old %> v1.14.0, the <%= vars.product_short %> tile uses [floating stemcells](https://docs.pivotal.io/pivotalcf/2-1/customizing/understanding-stemcells.html).
 This means that the tile can be updated to use the latest minor version of a stemcell,
 without the need to download a new <%= vars.product_short %> patch release from Pivnet.
 

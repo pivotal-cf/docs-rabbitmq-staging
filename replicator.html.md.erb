@@ -31,7 +31,7 @@ These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Clus
 
 ### <a id="scs-isolation"></a> Running SCS on a Dedicated RabbitMQ Cluster
 
-Replica RabbitMQ tiles cannot be used to provide a backing service for Spring Cloud Services (SCS) because SCS expects that
+Replica <%= vars.product_short %> tiles cannot be used to provide a backing service for Spring Cloud Services (SCS) because SCS expects that
 the service is called `p-rabbitmq`.
 Therefore, if you want to isolate the RabbitMQ cluster that is used by SCS from other tenants,
 you can reserve the unreplicated <%= vars.product_short %> tile for SCS, as shown in the diagram below.
@@ -58,7 +58,7 @@ For more information, see [Errands](./install-config.html#errands).
 After you deploy the tile, manually expose the service broker to your desired orgs and spaces.
 For instructions, see [Register a Broker](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker).
 
-### <a id="on-demand"></a> Using Replicas While Offering the On-Demand RabbitMQ Service
+### <a id="on-demand"></a> Using Replicas While Offering the On-Demand <%= vars.product_short %> Service
 
 The On-Demand service is not offered in replica tiles, since the purpose of the replicator is
 to create additional pre-provisioned clusters. If you wish to offer on-demand service plans,
@@ -117,7 +117,7 @@ For the purposes of this example, assume that when you generate a replica tile a
 | Broker URL                             | pivotal-rabbitmq-broker.YOUR\_CF\_DOMAIN | pivotal-rabbitmq-broker-finance.YOUR\_CF\_DOMAIN |
 | Service name                    | p-rabbitmq                               | p-rabbitmq-finance                               |
 | URL for the RabbitMQ Management UI | pivotal-rabbitmq.YOUR\_CF\_DOMAIN        | pivotal-rabbitmq-finance.YOUR\_CF\_DOMAIN        |
-| Tile display name in <%= vars.ops_manager %>                     | RabbitMQ                                 | RabbitMQ (finance)                               |
+| Tile display name in <%= vars.ops_manager %>                     | <%= vars.product_short %>                                | <%= vars.product_short %> (finance)                               |
 | Tile name used internally by <%= vars.ops_manager %>                             | p-rabbitmq                               | p-rabbitmq-finance                               |
 | Metrics/Logging Origin                 | p-rabbitmq                               | p-rabbitmq-finance                               |
 

@@ -30,13 +30,13 @@ With the on-demand cluster plan, platform operators can offer their app develope
 
 * **Pre-provisioned**---For light to moderate messaging needs, this service is fully operated and managed by platform operators as a service.
 
-For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html).
+For information about the pre-provisioned plan, see [Deploying the <%= vars.product_short %> Pre-Provisioned Service](./deploying.html).
 For information about using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
 ## <a id="plan-selection"></a> Deciding Which Service Plan to Use
 
-VMware recommends the on-demand service, which is designed for independent isolated RabbitMQ instances.
-The existing pre-provisioned offering has many RabbitMQ instances on a single VM, in a multi-tenancy model.
+VMware recommends the on-demand service, which is designed for independent isolated <%= vars.product_short %> service instances.
+The existing pre-provisioned offering has many <%= vars.product_short %> service instances on a single VM, in a multi-tenancy model.
 In this multi-tenancy model, a single misbehaving app can take down the entire cluster for everyone.
 
 From research and feedback on the issues customers had when using the pre-provisioned service,
@@ -73,7 +73,7 @@ on how to meet your use case requirements with the on-demand service.
     <td>This is managed by the service. No operator intervention needed.</td>
   </tr>
   <tr>
-    <td>RabbitMQ TLS versions</td>
+    <td><%= vars.product_short %> TLS versions</td>
     <td>Available due to security concerns about the TLS packaged with the pre-provisioned service</td>
     <td>All instances only have TLS v1.1 and TLS v1.2 available.</td>
   </tr>
@@ -287,8 +287,8 @@ This section explains these options.
 * Determine which orgs and spaces can see and access the plan
 * Set Service Instance Quota
 * Select AZ placement (where applicable)
-* Set RabbitMQ instance size (CPU and Memory)
-* Set persistent disk size (Persisted Message Store) for the RabbitMQ instance.
+* Set <%= vars.product_short %> service instance size (CPU and Memory)
+* Set persistent disk size (Persisted Message Store) for the <%= vars.product_short %> service instance.
   Ensure the size of the persistent disk is at least twice as large as the instance memory.
 
 #### Cluster Plan Only
@@ -324,7 +324,7 @@ The following are preconfigured for both the single node and the cluster plans:
   and configure alarms as recommended in [Monitoring and KPIs for On-Demand <%= vars.product_full %>](./monitor.html#kpi).
   See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
 
-* **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration
+* **Logs**---On-demand <%= vars.product_short %> service instance logs are forwarded using the same configuration
     as contained in the **Syslog and Metrics** tab of the <%= vars.product_short %> tile.
 
 * **Disk free space limit**---The disk free space limit is set to 150% of RAM of the instance type you select.
@@ -359,7 +359,7 @@ The following are preconfigured for both the single node and the cluster plans:
 VMware recommends the on-demand service for production workloads due to its workload isolation.
 
 For instructions for developers about migrating from a pre-provisioned to an on-demand instance, see
-[Migrating a RabbitMQ Service Instance to Another Service Instance](./migration.html).
+[Migrating a <%= vars.product_short %> Service Instance to Another Service Instance](./migration.html).
 For how operators can turn off the pre-provisioned service, see
 [Turning Off the Pre-Provisioned Service](./turn-pre-provisioned-off.html).
 
@@ -421,5 +421,5 @@ For example, you might have changed:
     * VM sizing---CPU, RAM, and disk
     * RabbitMQ network partition behavior, both offerings default to `pause_minority`
 
-* If your RabbitMQ instance uses TLS, ensure that you enable TLS for on-demand instances.
+* If your <%= vars.product_short %> service instance uses TLS, ensure that you enable TLS for on-demand instances.
 See [Enable TLS for Your Service Instance](./use.html#tls).
