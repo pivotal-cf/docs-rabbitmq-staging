@@ -11,7 +11,7 @@ owner: London Services
 
 Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release.
 You can skip v1.17 in this case to save time and take advantage of the latest features.
-You can also upgrade from the latest v1.15 release to the latest v1.17 release skipping v1.16.
+You can also upgrade from the latest v1.15 release to the latest v1.17 release, skipping v1.16.
 
 <p class="note">
 	<strong>Note:</strong> Pivotal discourages any other upgrade path that skips a release,
@@ -28,20 +28,27 @@ You can also upgrade from the latest v1.15 release to the latest v1.17 release s
 
 This release includes the following security fix:
 
-* High [CVE-2020-9283](https://nvd.nist.gov/vuln/detail/CVE-2020-9283):
-golang.org/x/crypto before v0.0.0-20200220183623-bac4c82f6975 for Go allows a panic
-during signature verification in the golang.org/x/crypto/ssh package.
-A client can attack an SSH server that accepts public keys. Also, a server can attack any SSH client.
+* High [CVE-2020-9283](https://nvd.nist.gov/vuln/detail/CVE-2020-9283)
 
 ### Features
 
-* Upgrades from 1.16 releases to 1.18 releases are supported from 1.18.4 and later.
+New features and changes in this release:
+
+* You can upgrade <%= vars.product_short %> from v1.16 to v1.18.4 and later.
 Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release.
 You can skip v1.17 in this case to save time.
 <p class="note">
 	<strong>Note:</strong> Pivotal discourages other upgrade paths that skip a release,
 	such as v1.14 to v1.16 or v1.15 to v1.18, because they are untested.
 </p>
+
+* This release updates the following dependencies:
+
+  * OSS RabbitMQ to v3.8.3. For more information, see the
+	[RabbitMQ v3.8.3](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.3)
+	GitHub documentation.
+  * Erlang to v22.2.8
+  * HAProxy to v1.8.24
 
 ### Resolved Issues
 
