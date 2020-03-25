@@ -9,7 +9,7 @@ This project is maintained by the RabbitMQ for Pivotal Platform team.
 We will aim to review or close existing pull requests and issues as of August 2017 as soon as we are able.
 We do not have an expected turnaround timeframe for new PRs or issues.
 
-If you are a VMware customer, please do not use this repository to flag issues. Please use normal customer support channels.
+If you are a Pivotal customer, please do not use this repository to flag issues. Please use normal customer support channels.
 
 ## Legal
 

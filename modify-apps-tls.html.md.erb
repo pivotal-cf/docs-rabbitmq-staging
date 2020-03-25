@@ -10,7 +10,7 @@ owner: RabbitMQ for Pivotal Platform
 </p>
 
 This topic explains how to modify apps not written in Java or Spring to use TLS to secure their connection
-with RabbitMQ on-demand service instances.
+with <%= vars.product_full %> on-demand service instances.
 
 
 ## <a id='prereqs'></a> Prerequisites
@@ -113,4 +113,4 @@ To rebind an app using an existing service instance:
     cf restage APP-NAME
     ```
 
-Your app now communicates securely with the RabbitMQ service instance.
+Your app now communicates securely with the <%= vars.product_short %> service instance.

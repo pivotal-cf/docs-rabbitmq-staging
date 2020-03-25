@@ -52,15 +52,15 @@ Basic cf CLI operations include `create`, `update`, `bind`, `unbind`, and `delet
 
 1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance, which is useful for debugging.
 
-### <a id="management-ui-credentials"></a> Retrieve RabbitMQ Instance Credentials
+### <a id="management-ui-credentials"></a> Retrieve <%= vars.product_short %> Service Instance Credentials
 
 To access the RabbitMQ Management UI for troubleshooting,
-create a new service-key to retrieve RabbitMQ instance credentials.
+create a new service-key to retrieve <%= vars.product_short %> service instance credentials.
 Pivotal recommends that you use this key for troubleshooting only, and that you
 delete the key after troubleshooting.
 To retrieve the credentials, do the following:
 
-1. Create a service-key for your RabbitMQ instance using the command
+1. Create a service-key for your <%= vars.product_short %> service instance using the command
 `cf create-service-key INSTANCE-NAME SERVICE-KEY-NAME`.
 
 1. Retrieve the credentials using the command
@@ -86,15 +86,15 @@ To gain admin privileges for the RabbitMQ Management UI, create an admin user fo
 Both operators and app developers can use this procedure. See [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) for more information.
 
 
-### <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instances
+### <a id="delete_rabbitmq_instance"></a>Delete <%= vars.product_short %> Service Instances
 
-The on-demand broker provides a BOSH command to delete all on-demand broker deployed instances.
+The on-demand broker provides a BOSH command to delete all on-demand broker deployed service instances.
 
 <p class="note warning"><strong>Warning:</strong>
   This command deletes deployment instances serially. It is very destructive and cannot be undone.
 </p>
 
-To delete the instances:
+To delete all on-demand service instances:
 
 1. Run:
 

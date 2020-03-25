@@ -52,13 +52,14 @@ This is to protect against data loss when moving jobs between AZs.
 
 ### <a id="upgrade-from-multi-az"></a>Upgrading to this deployment from a multi AZ deployment
 
-If you have deployed the tile across two AZs, but with a single HAProxy instance, you can migrate to this setup by deploying an additional HAProxy instance through <%= vars.ops_manager %>.
-New or re-bound apps to the RabbitMQ service see the IPs of both HAProxies immediately.
+If you have deployed the tile across two AZs, but with a single HAProxy instance,
+you can migrate to this setup by deploying an additional HAProxy instance through <%= vars.ops_manager %>.
+New or re-bound apps to the <%= vars.product_short %> service instance see the IPs of both HAProxies immediately.
 Existing bound apps will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
 
 ### <a id="recommended-consider"></a>Considerations for this deployment
 
-* Requires IaaS configuration for AZs ahead of deploying the RabbitMQ tile
+* Requires IaaS configuration for AZs ahead of deploying the <%= vars.product_short %> tile
 * Application developers are handed the IPs of each deployed HAProxy in their environment variables
 * Queues must be configured to be high availability as they are placed on one node by default
 * Customers should decide on which partition behavior is best suited to their use case. For three or more nodes 'pause_minority' is preferred.
@@ -67,7 +68,7 @@ Existing bound apps will continue to work, but only using the previously deploye
 
 This deployment builds upon the above recommended deployment and so follows the same upgrade paths.
 This allows you to replace the use of HAProxy with your own external load balancer.
-You might choose to do this to remove any knowledge of the topology of the RabbitMQ setup from app developers.
+You might choose to do this to remove any knowledge of the topology of the <%= vars.product_short %> setup from app developers.
 
 The diagram below shows an advanced <%= vars.product_short %> pre-provisioned deployment.
 
@@ -91,8 +92,10 @@ It is possible to first deploy with multiple HAProxy jobs, as per the recommende
 This can be achieved without downtime to your apps. Follow these steps to do so:
 
 1. Configure your external load balancer to point to the RabbitMQ Node IPs.
-2. Configure the DNS name or IP address for the external load balancer (ELB) on the RabbitMQ tile in <%= vars.ops_manager %>.
-3. Deploy the changes. Any new instances of the RabbitMQ service **or** any re-bound connections will use the DNS name or IP address of the ELB in their `VCAP_SERVICES`. Any existing instances will continue to use the HAProxy IP addresses in their `VCAP_SERVICES`
+2. Configure the DNS name or IP address for the external load balancer (ELB) on the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
+3. Deploy the changes. Any new <%= vars.product_short %> service instances **or** any re-bound connections
+will use the DNS name or IP address of the ELB in their `VCAP_SERVICES`.
+Any existing service instances continue to use the HAProxy IP addresses in their `VCAP_SERVICES`
 6. Phase the re-binding of existing apps to update their environment variables.
 7. After all apps are updated, reduce the instance count of the `HAProxy` job in <%= vars.ops_manager %> to 1.
 9. Deploy the changes.
@@ -144,7 +147,7 @@ The following table shows the default resource and IP requirements for installin
 	</tr>
 	<tr>
 		<td>RabbitMQ</td>
-		<td>RabbitMQ service broker</td>
+		<td><%= vars.product_short %> service broker</td>
 		<td>1</td>
 		<td>1</td>
 		<td>2048</td>

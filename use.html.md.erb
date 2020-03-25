@@ -122,7 +122,7 @@ To create an instance of the on-demand <%= vars.product_short %> service:
 The operator must enable TLS in the **Security for On-Demand Plans** tab before you can use this feature.
 For more information, see [Configure Security](./install-config.html#security).
 
-To use TLS to secure communication between your app and a RabbitMQ service instance:
+To use TLS to secure communication between your app and a <%= vars.product_short %> service instance:
 
 1. [Enable TLS for Your Service Instance](#tls)
 1. If your app is written in Java or Spring, follow the steps in the
@@ -141,13 +141,13 @@ To configure TLS for your service instance:
 <p class="note"><strong>Note:</strong> If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
 
 1. Enable TLS by doing one of the following steps:
-  * If you have already created a RabbitMQ service instance, update the service instance to use TLS by running:
+  * If you have already created a <%= vars.product_short %> service instance, update the service instance to use TLS by running:
 
         ```
         cf update-service MY-INSTANCE -c '{"tls": true}'
         ```
         Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
-  * If you have not created a RabbitMQ service instance, create one with TLS enabled by running:
+  * If you have not created a <%= vars.product_short %> service instance, create one with TLS enabled by running:
 
         ```
         cf create-service p.rabbitmq PLAN MY-INSTANCE -c '{"tls": true}'
@@ -181,13 +181,13 @@ If the operator has configured TLS to be optional or not configured, then follow
 For more information, see [Configure Security](./install-config.html#security).
 
 1. Disable TLS by doing one of the following steps:
-  * If you have already created a RabbitMQ service instance, update the service instance by running:
+  * If you have already created a <%= vars.product_short %> service instance, update the service instance by running:
 
         ```
         cf update-service MY-INSTANCE -c '{"tls": false}'
         ```
         Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
-  * If you have not created a RabbitMQ service instance,
+  * If you have not created a <%= vars.product_short %> service instance,
   run the following command to request a service instance with TLS disabled:
 
         ```
@@ -220,7 +220,7 @@ For more information, see [Configure Security](./install-config.html#security).
 <p class="note"><strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.</p>
 
 
-For an app to use TLS, you must update it to request encrypted communications when connecting to a RabbitMQ service instance.
+For an app to use TLS, you must update it to request encrypted communications when connecting to a <%= vars.product_short %> service instance.
 The procedure for updating your app depends on the app's language and framework. Java and Spring apps automatically detect TLS.
 
 To activate TLS for Java and Spring apps, do one of the following:
@@ -245,7 +245,7 @@ configure your app to use the same CA certificate and valid certificate and key.
 ## <a id="optional-plugins"></a> Enable Optional Plugins
 
 For a list of RabbitMQ plugins that are enabled or disabled by default in
-On-Demand RabbitMQ instances, see
+on-demand <%= vars.product_short %> instances, see
 [RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
 <p class="note"><strong>Note:</strong> If a plugin is disabled by default,
@@ -315,13 +315,13 @@ as a configuration parameter in JSON:
 For an app to use a service, you must bind it to a service instance.
 Do this after you push or re-push the app using `cf push`.
 
-To bind an app to a RabbitMQ instance, run
+To bind an app to a <%= vars.product_short %> service instance, run
 
 ```
 cf bind-service APP SERVICE-INSTANCE
 ```
 
-Where `APP` is the app you want to use the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
+Where `APP` is the app you want to use the <%= vars.product_short %> service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
 
 See an example below.
 
@@ -395,6 +395,7 @@ To see the `VCAP_SERVICES` for an app, run `cf env APP-NAME` with the name of an
 For more information about the environment variable `VCAP_SERVICES`, see [RabbitMQ Environment Variables](./reference.html).
 
 ## <a id="bosh-dns"></a>RabbitMQ Node Address Resolution
+
 The `hostnames` field in `VCAP_SERVICES` contains a single hostname,
 even if there is more than one RabbitMQ node.
 BOSH DNS resolves the hostname to a list of the IP addresses of all the available RabbitMQ nodes.
@@ -427,7 +428,7 @@ To stop an app from using a service it no longer needs, unbind it from the servi
 $ cf unbind-service APP SERVICE-INSTANCE
 </pre>
 
-Where `APP` is the app you want to stop using the RabbitMQ service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
+Where `APP` is the app you want to stop using the <%= vars.product_short %> service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
 
 See an example below.
 

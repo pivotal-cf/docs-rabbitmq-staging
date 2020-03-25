@@ -77,8 +77,8 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     symptom: 'Your deployment fails after editing the <strong>Assign AZs and Networks</strong>
     pane in the ' + vars.product_short + ' tile.' ,
     cause: 'This error might occur if you change the
-    IP addresses assigned to the <code>RabbitMQ Server</code> job.
-    RabbitMQ requires that you do not change these IP addresses after they are assigned.
+    IP addresses assigned to the <code>RabbitMQ Server</code> job.'
+    + vars.product_short + 'requires that you do not change these IP addresses after they are assigned.
     This includes changes made to your current installation or during an upgrade.' ,
     solution: 'To diagnose and solve this issue, see
     <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.'
@@ -246,16 +246,16 @@ maintenance and housekeeping tasks.
 
 <%= partial vars.path_to_partials + '/services-tshoot/tshoot-tech-monitor-quota' %>
 
-### <a id="drop-restore-traffic"></a> Drop and Restore AMQP or AMQPS Traffic to a RabbitMQ Instance
+### <a id="drop-restore-traffic"></a> Drop and Restore AMQP or AMQPS Traffic to a <%= vars.product_short %> Service Instance
 
-While debugging a RabbitMQ instance, you can prevent apps from
+While debugging a <%= vars.product_short %> service instance, you can prevent apps from
 sending and receiving messages, for example, to decrease the server load.
 You can use <code>drop-amqp-traffic</code> and <code>restore-amqp-traffic</code> scripts,
 which run the necessary <code>iptables</code> commands to achieve that.<br><br>
 
-To stop and then restore traffic to a RabbitMQ instance, do the following:<br>
+To stop and then restore traffic to a <%= vars.product_short %> service instance, do the following:<br>
 <ol>
-    <li> To stop all AMQP or AMQPS traffic to a RabbitMQ instance, enter the following command:
+    <li> To stop all AMQP or AMQPS traffic to a <%= vars.product_short %> service instance, enter the following command:
     <pre>
     bosh -d service-instance_GUID ssh rabbitmq-server
     "echo y | sudo /var/vcap/packages/rabbitmq-admin/bin/drop-amqp-traffic"

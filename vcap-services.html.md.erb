@@ -72,7 +72,7 @@ You can search for your service by its `name`, given when creating the service i
 
 ## Connecting to a Highly Available RabbitMQ Cluster
 
-The latest version of RabbitMQ tile 1.5.*, allows for a highly available cluster through multiple HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added and should be used in preference over the equivalent singular properties. The singular properties are maintained for backwards compatibility and will always contain the first value from the equivalent plural property. The singular properties will eventually be deprecated.
+The latest version of <%= vars.product_short %> tile 1.5.*, allows for a highly available cluster through multiple HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added and should be used in preference over the equivalent singular properties. The singular properties are maintained for backwards compatibility and will always contain the first value from the equivalent plural property. The singular properties will eventually be deprecated.
 
 For example with two HAProxy jobs deployed the following properties will be present:
 <pre><code>"hostname": "10.0.0.41",
@@ -83,7 +83,7 @@ For example with two HAProxy jobs deployed the following properties will be pres
 
 ## Changing Enabled Plugins and Protocols
 
-<p class="note"><strong>Note</strong>: Removing or adding plugins/protocols may cause apps bound with RabbitMQ to break.</p>
+<p class="note"><strong>Note</strong>: Removing or adding plugins/protocols may cause apps bound with <%= vars.product_short %> to break.</p>
 
 If you adjust the plugins and protocols enabled for RabbitMQ, you may need to force all app's `VCAP_SERVICES` environment variable to be regenerated. Adding and removing the following plugins require bound applications to be restaged:
 
