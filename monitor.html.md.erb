@@ -17,7 +17,7 @@ see [Monitoring and KPIs for Pre‑Provisioned <%= vars.product_full %>](./monit
 <p class="note"><strong>Note</strong>: On-Demand service metrics are prefixed with <code>p.rabbitmq</code> (with a dot), to distinguish them from the pre-provisioned service metrics.</p>
 
 See [Overview of Logging and Metrics](https://docs.pivotal.io/platform/application-service/loggregator/data-sources.html)
-for general information about logging and metrics in <%= vars.platform_name %>.
+for general information about logging and metrics in <%= vars.app_runtime_full %>.
 
 ## <a id="config"></a>Set up Syslog Forwarding and Metrics Polling Interval
 
@@ -25,13 +25,13 @@ As of <%= vars.product_short %> v1.9.0, syslog forwarding is preconfigured and s
 Pivotal recommends that you keep the default setting because it is good operational practice.
 However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the <%= vars.ops_manager_full %> **Settings** tab.
 
-To enable monitoring for <%= vars.product_short %>, operators designate an external syslog endpoint for RabbitMQ component log messages.
+To enable monitoring for <%= vars.product_short %>, operators designate an external syslog endpoint for <%= vars.product_short %> component log messages.
 The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic. </br>
 
 To specify the destination for <%= vars.product_short %> log messages, do the following:
 
-1. From the <%= vars.ops_manager %> Installation Dashboard, click the RabbitMQ tile.
-1. In the RabbitMQ tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
 1. Click **Syslog and Metrics**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
@@ -93,7 +93,7 @@ The RabbitMQ VMs log at the <code>info</code> level and capture errors, warnings
 ## <a id="metrics"></a>What Are Metrics
 
 Metrics are regularly-generated log messages that report measured component states. The metrics polling interval defaults to 30 seconds.
-The **metrics polling interval** is a configuration option on the RabbitMQ tile (**Settings** > **RabbitMQ**). Setting this interval to -1 disables metrics. The interval setting applies to all components deployed by the tile.
+The **metrics polling interval** is a configuration option on the <%= vars.product_short %> tile (**Settings** > **RabbitMQ**). Setting this interval to -1 disables metrics. The interval setting applies to all components deployed by the tile.
 
 Metrics are long, single lines of text that follow the format:
 
