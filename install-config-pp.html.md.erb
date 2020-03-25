@@ -3,7 +3,7 @@ title: Installing and Configuring the <br>Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to <%= vars.platform_name %> operators about how to install,
+This topic provides instructions to operators about how to install,
 configure, and deploy the <%= vars.product_full %> tile to provide a pre-provisioned service.
 
 The RabbitMQ open source product provides additional documentation.
@@ -662,7 +662,8 @@ Ensure the following ports are enabled for those VMs:
 * 4567
 * 3457 - 3459
 
-The following is a template for configuring your <%= vars.platform_name %> security groups:
+The following is a template for configuring your <%= vars.app_runtime_abbr %> security groups:
+
 ```
 [
 {"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},

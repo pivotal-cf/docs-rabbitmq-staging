@@ -6,7 +6,7 @@ owner: London Services
 
 ## <a id='AboutTile'></a>About <%= vars.product_full %>
 
-<%= vars.product_short %> enables <%= vars.platform_name %> app developers to provision and use the RabbitMQ message broker with a
+<%= vars.product_short %> enables app developers to provision and use the RabbitMQ message broker with a
 single command.
 
 As of v1.8, <%= vars.product_short %> supports two types of service, an *on-demand* service and a *pre-provisioned* service.
@@ -30,7 +30,7 @@ This table summarizes the main differences between the two:
    <td><code>p.rabbitmq</code> (with a dot)</td>
    </tr><tr>
    <th>Pre-Provisioned Service</th>
-   <td>Multi-tenant VMs shared by apps across <%= vars.platform_name %> deployment</td>
+   <td>Multi-tenant VMs shared by apps across your deployment</td>
    <td><%= vars.platform_name %> creates all VMs when operator deploys or updates service</td>
    <td><code>p-rabbitmq</code> (with a dash)</td>
    </tr>
@@ -123,7 +123,7 @@ For more information, see [Unlocking the Power of On-Demand <%= vars.product_ful
 
 * Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ virtual host
 * Bind apps to an instance of the plan, providing unique credentials for each binding
-* Management UI access to <%= vars.platform_name %> Operators and app developers
+* Management UI access to operators and app developers
 * Deployment across multiple AZs, with nodes striped across the AZs automatically
 * Enable SSL (Secure Sockets Layer) for the AMQP, MQTT, STOMP protocols
 * HA Proxy load balancer across all nodes to balance connections
@@ -142,7 +142,7 @@ For more information, see [Unlocking the Power of On-Demand <%= vars.product_ful
 Check the [release notes](releases.html) for your release version for important information and known issues.
 To see release notes for another version, select the version from the dropdown at the top of the page.
 
-##<a id="other-services"></a> <%= vars.product_short %> and Other <%= vars.platform_name %> Services
+##<a id="other-services"></a> <%= vars.product_short %> and Other On-Demand Services
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
@@ -153,4 +153,4 @@ To see release notes for another version, select the version from the dropdown a
 ## <a id='feedback'></a>Feedback
 
 Please send any issue reports, feature requests, or questions to the
-[<%= vars.platform_name %> Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+[Feedback list](mailto:pivotal-cf-feedback@pivotal.io).

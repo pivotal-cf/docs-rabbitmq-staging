@@ -7,7 +7,7 @@ This topic explains how to benefit from the on-demand service plans.
 
 ## <a id="intro"></a> Introduction
 
-<%= vars.product_full %> responds to the demands of <%= vars.platform_name %> operators by offering a RabbitMQ on-demand cluster
+<%= vars.product_full %> responds to the demands of operators by offering a RabbitMQ on-demand cluster
 for their app developer teams, in addition to the single-node on-demand plan.
 
 The on-demand cluster plan is designed for workloads that require the same resilience requirements as the pre-provisioned offering,
@@ -303,7 +303,7 @@ This section explains these options.
 
 The following are preconfigured for both the single node and the cluster plans:
 
-* **RabbitMQ VM Type**---When installing on <%= vars.platform_name %>, each RabbitMQ node is configured to have the following properties:
+* **RabbitMQ VM Type**---When installing using <%= vars.ops_manager %>, each RabbitMQ node is configured to have the following properties:
   - CPUs: 2
   - RAM: 8&nbsp;GB
   - Ephemeral disk: 16&nbsp;GB
@@ -311,7 +311,7 @@ The following are preconfigured for both the single node and the cluster plans:
     You can change these settings in the [Service Plan Configuration](./install-config.html#service-plan) page.
     Changing these settings affects all nodes.
 
-* **Persistent Disk Type**---When installing on <%= vars.platform_name %>,
+* **Persistent Disk Type**---When installing using <%= vars.ops_manager %>,
     each RabbitMQ node is configured to have 30&nbsp;GB of persistent disk space.
 
     <br>You can change this setting in the [Service Plan Configuration](./install-config.html#service-plan) page.

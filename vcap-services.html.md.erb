@@ -4,7 +4,7 @@ title: RabbitMQ Entries in the VCAP_SERVICES Environment Variable
 owner: London Services
 ---
 
-Apps running in <%= vars.platform_name %> gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is shown below:
+Apps running in your deployment gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is shown below:
 
 <pre><code>
 {
@@ -92,4 +92,7 @@ If you adjust the plugins and protocols enabled for RabbitMQ, you may need to fo
 * rabbitmq_mqtt
 * rabbitmq\_amqp1\_0
 
-In common with all services in [<%= vars.platform_name %>](https://network.pivotal.io/products/pivotal-cf) (<%= vars.platform_name %>), the `VCAP_SERVICES` environment variable for an application is only modified when the application is bound to a service instance. Users will need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
+In common with all services on [<%= vars.product_network %>](https://network.pivotal.io/products/pivotal-cf),
+the `VCAP_SERVICES` environment variable for an application
+is only modified when the application is bound to a service instance.
+Users will need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
