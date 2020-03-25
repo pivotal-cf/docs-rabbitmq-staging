@@ -21,34 +21,34 @@ For related procedures, see:
 
 ## <a id='overview'></a> Overview
 
-There are multiple use cases for service-gateway RabbitMQ access. For example:
+There are multiple use cases for service-gateway access. For example:
 
 - Accessing RabbitMQ from apps deployed to <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
-in a different <%= vars.platform_name %> foundation
-- Replicating messages between RabbitMQ clusters in different <%= vars.platform_name %> foundations,
+in a different foundation
+- Replicating messages between RabbitMQ clusters in different foundations,
 for example, to set up federation for disaster recovery
-- Enabling apps running outside the <%= vars.platform_name %> foundation to communicate, through RabbitMQ,
+- Enabling apps running outside the foundation to communicate, through RabbitMQ,
 with <%= vars.app_runtime_abbr %>-deployed apps
 - Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime_abbr %>
 
 ## <a id='architecture'></a> Architecture
 
-Service-gateway access to RabbitMQ instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
+Service-gateway access to <%= vars.product_short %> instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
 
-Any RabbitMQ requests an app makes are forwarded through DNS to a load balancer that can route traffic from
-outside to the <%= vars.platform_name %> foundation.
+Any RabbitMQ requests that an app makes are forwarded through DNS to a load balancer that can route traffic from
+outside to inside the foundation.
 This load balancer opens a range of ports that are reserved for RabbitMQ traffic.
 When an app developer creates a service instance on a plan with service-gateway access enabled, a port from
 the range is provisioned for that service instance.
-The load balancer then forwards the requests for this RabbitMQ instance to the TCP router.
-The TCP router internally load balances between the RabbitMQ service instance nodes.
+The load balancer then forwards the requests for this <%= vars.product_short %> service instance to the TCP router.
+The TCP router internally load balances between the <%= vars.product_short %> service instance nodes.
 
 The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.
-All apps using this RabbitMQ instance follow the same route, irrespective of whether they are hosted on the
-<%= vars.platform_name %> foundation or are hosted outside of the foundation.
+All apps using this <%= vars.product_short %> service instance follow the same route,
+irrespective of whether they are hosted on the foundation or are hosted outside of the foundation.
 
 ![An app that is external to the foundation sends traffic to the external load balancer.
-The load balancer sends the traffic to a RabbitMQ tile port in the TCP router.
-The TCP router is inside the <%= vars.platform_name %> foundation.
-The TCP router balances the load among the RabbitMQ nodes in the RabbitMQ service instance.](/images/service-gateway-architecture.png)
+The load balancer sends the traffic to a <%= vars.product_short %> tile port in the TCP router.
+The TCP router is inside the foundation.
+The TCP router balances the load among the RabbitMQ nodes in the <%= vars.product_short %> service instance.](/images/service-gateway-architecture.png)
 [Click here to view a larger version of this image.](./images/service-gateway-architecture.png)

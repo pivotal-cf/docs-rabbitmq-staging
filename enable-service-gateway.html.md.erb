@@ -59,7 +59,7 @@ configured in [Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#
 For example, if your TCP routing port range is `1024-1123` then your load balancer port range must not be
 `1000-1100`.
    <p class="note">
-        <strong>Note:</strong> Each RabbitMQ service instance using service-gateway access requires a unique
+        <strong>Note:</strong> Each <%= vars.product_short %> service instance using service-gateway access requires a unique
         port. Ensure that the port range configured above has enough capacity to accommodate the maximum number
         of service instances desired. The start port and the end port are both inclusive.
    </p>
@@ -82,7 +82,7 @@ To configure a service-gateway-enabled plan:
 1. In the **Global Settings for On-Demand Plans** pane in the RMQ tile, fill in the following fields:
     - **External TCP domain**: This must correspond to the DNS entry for the external load balancer,
     noted in [Create a DNS Record That Maps to the Load Balancer](#create-dns-record) above.
-    - **Port Range**: This is the range of ports you configured for the external load balancer for RabbitMQ
+    - **Port Range**: This is the range of ports you configured for the external load balancer for <%= vars.product_short %>
     service instances in
     [Configure the Load Balancer in the IaaS to Redirect Traffic to the TCP Router](#configure-lb) above.
 
@@ -117,7 +117,7 @@ To configure a service-gateway-enabled plan:
 
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
 
-1. Click **Apply Changes** to apply the changes to the RabbitMQ tile.
+1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
 
 
 ## <a id='disable-service-gateway-access'></a> Disable Service-Gateway Access
@@ -138,7 +138,7 @@ and clear the **Service-Gateway Access** checkbox.
 
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
 
-1. Click **Apply Changes** to apply the changes to the RabbitMQ tile.
+1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
 
 
 ## <a id='workflow'></a> Developer Workflow
