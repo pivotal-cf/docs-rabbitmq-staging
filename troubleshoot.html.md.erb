@@ -77,8 +77,8 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     symptom: 'Your deployment fails after editing the <strong>Assign AZs and Networks</strong>
     pane in the ' + vars.product_short + ' tile.' ,
     cause: 'This error might occur if you change the
-    IP addresses assigned to the <code>RabbitMQ Server</code> job.'
-    + vars.product_short + 'requires that you do not change these IP addresses after they are assigned.
+    IP addresses assigned to the <code>RabbitMQ Server</code> job.' + vars.product_short + 'requires
+    that you do not change these IP addresses after they are assigned.
     This includes changes made to your current installation or during an upgrade.' ,
     solution: 'To diagnose and solve this issue, see
     <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.'
