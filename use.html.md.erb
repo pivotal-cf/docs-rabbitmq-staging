@@ -41,7 +41,7 @@ For an app to use a service, the service must be available in the Marketplace fo
 To confirm this availability:
 
 1. Run `cf marketplace`.
-1. Check that `p.rabbitmq` is in the `service` column. If it is, on-demand <%= vars.product_short %> is available. If it is not, ask your operator to install it.
+1. Verify that `p.rabbitmq` is in the `service` column. If it is, on-demand <%= vars.product_short %> is available. If it is not, ask your operator to install it.
 
     <pre class="terminal">
     $ cf marketplace
@@ -65,7 +65,7 @@ see [Enable TLS for Your Service Instance](#tls) or [Enable Optional Plugins](#o
 
 To create an instance of the on-demand <%= vars.product_short %> service:
 
-1. Check to see if there is an existing service by running:
+1. See if there is an existing service by running:
 
     ```
     cf services
@@ -85,17 +85,17 @@ To create an instance of the on-demand <%= vars.product_short %> service:
 1. Create the service instance by running:
 
     ```
-    cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE
+    cf create-service p.rabbitmq SINGLE-NODE SERVICE-INSTANCE-NAME
     ```
 
     Where:
-    + `SERVICE-INSTANCE` is a name you choose to identify the service instance.
+    + `SERVICE-INSTANCE-NAME` is a name you choose to identify the service instance.
     This name appears under `name` in the output from `cf services`.
     + `SINGLE-NODE` is the plan.
     You can replace it with any of the other plans listed in the Marketplace for the
     `p.rabbitmq` service.
 
-1. Check that the process was successful by running:
+1. Verify that the process was successful by running:
 
     ```
     watch cf services
@@ -157,7 +157,7 @@ To configure TLS for your service instance:
           * `PLAN` is the name of the deployment plan to use for this service instance
           * `MY-INSTANCE` is the name to give to the new service instance
 
-1. Check that the process was successful by running:
+1. Verify that the process was successful by running:
 
     ```
     watch cf services
@@ -188,7 +188,7 @@ For more information, see [Configure Security](./install-config.html#security).
         ```
         Where `MY-INSTANCE` is the name you chose when you created your service instance.<br><br>
   * If you have not created a <%= vars.product_short %> service instance,
-  run the following command to request a service instance with TLS disabled:
+  request a service instance with TLS disabled by running:
 
         ```
         cf create-service p.rabbitmq PLAN MY-INSTANCE -c '{"tls": false}'
@@ -198,7 +198,7 @@ For more information, see [Configure Security](./install-config.html#security).
           * `PLAN` is the name of the deployment plan to use for this service instance
           * `MY-INSTANCE` is the name to give to the new service instance
 
-1. Check that the process was successful by running:
+1. Verify that the process was successful by running:
 
     ```
     watch cf services
@@ -227,7 +227,7 @@ To activate TLS for Java and Spring apps, do one of the following:
 
 * For apps that are not bound to an existing service instance, re-push the apps by running `cf push`.
 
-* For apps bound to an existing service instance, follow these steps:
+* For apps bound to an existing service instance:
   1. Stop the app. For example:
     <pre class="terminal">$ cf stop my-app</pre>
   1. Unbind the app from the service instance. For example:
@@ -262,8 +262,11 @@ as a configuration parameter in JSON:
 * When creating a service instance, run:
 
     ```
-    cf create-service SERVICE PLAN SERVICE-INSTANCE -c PARAMETER-AS-JSON
+    cf create-service SERVICE PLAN SERVICE-INSTANCE-NAME -c PARAMETER-AS-JSON
     ```
+
+    Where the `PARAMETER-AS-JSON` key is the plugin and the value is `true`.
+
     For example:
 
     <pre class="terminal">
@@ -277,8 +280,11 @@ as a configuration parameter in JSON:
 * When updating an existing service instance, run:
 
     ```
-    cf update-service SERVICE-INSTANCE -c PARAMETER-AS-JSON
+    cf update-service SERVICE-INSTANCE-NAME -c PARAMETER-AS-JSON
     ```
+
+    Where the `PARAMETER-AS-JSON` key is the plugin and the value is `true`.
+
     For example:
 
     <pre class="terminal">
@@ -289,16 +295,21 @@ as a configuration parameter in JSON:
     $ cf update-service myservice -c '{ "plugins": { "rabbitmq_amqp1_0": true, "rabbitmq_event_exchange": true } }'
     </pre>
 
-To disable plugins, run one of the following commands, specifying the plugins
-as a configuration parameter in JSON:
 
-* When creating a service instance, optional plugins are disabled by default.
+## <a id="disable-plugins"></a> Disable Optional Plugins
 
-* When updating an existing service instance, run:
+<p class="note">
+  <strong>Note:</strong> When creating a service instance, optional plugins are disabled by default.
+</p>
+
+To disable plugins for an existing service instance, run:
 
     ```
-    cf update-service SERVICE-INSTANCE -c PARAMETER-AS-JSON
+    cf update-service SERVICE-INSTANCE-NAME -c PARAMETER-AS-JSON
     ```
+
+    Where the `PARAMETER-AS-JSON` key is the plugin and the value is `false`.
+
     For example:
 
     <pre class="terminal">
@@ -315,13 +326,13 @@ as a configuration parameter in JSON:
 For an app to use a service, you must bind it to a service instance.
 Do this after you push or re-push the app using `cf push`.
 
-To bind an app to a <%= vars.product_short %> service instance, run
+To bind an app to a <%= vars.product_short %> service instance, run:
 
 ```
-cf bind-service APP SERVICE-INSTANCE
+cf bind-service APP-NAME SERVICE-INSTANCE-NAME
 ```
 
-Where `APP` is the app you want to use the <%= vars.product_short %> service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
+Where `APP-NAME` is the app you want to use the <%= vars.product_short %> service instance and `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
 
 See an example below.
 
@@ -410,7 +421,7 @@ The Java buildpack automatically disables DNS caching.
 
 If you bind a new service or change the service bindings, you need to run `cf restart` to update the `VCAP_SERVICES` environment variable in the application container.
 
-Run `cf restart-app APP`, where `APP` is the app you want to use the updated service instance.
+Run `cf restart-app APP-NAME`, where `APP-NAME` is the app you want to use the updated service instance.
 
 See an example below.
 
@@ -425,10 +436,10 @@ Pushing the new version of an app automatically re-stages and restarts the app o
 To stop an app from using a service it no longer needs, unbind it from the service instance by running;
 
 <pre class="terminal">
-$ cf unbind-service APP SERVICE-INSTANCE
+$ cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
 </pre>
 
-Where `APP` is the app you want to stop using the <%= vars.product_short %> service instance and `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`.
+Where `APP-NAME` is the app you want to stop using the <%= vars.product_short %> service instance and `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
 
 See an example below.
 
@@ -440,19 +451,34 @@ OK
 
 ## <a id="delete"></a>Delete a Service Instance
 
-To delete a service instance, use `cf delete-service`.
+<p class="note">
+  <strong>Note:</strong> You cannot delete a service instance that an app is bound to.
+</p>
 
-1. Run `cf delete-service SERVICE-INSTANCE`, where `SERVICE-INSTANCE` is the name of the service to delete. See an example below.
-  <pre class="terminal">
-   $ cf delete-service my-instance<br>
+To delete a service instance:
+
+1. Run:
+
+    ```
+    cf delete-service SERVICE-INSTANCE-NAME
+    ```
+
+    For example:
+    <pre class="terminal">
+    $ cf delete-service my-instance<br>
     Are you sure you want to delete the service my-instance ? y
     Deleting service my-service in org my-org / space my-space as user<span>@</span>example.com...
     OK
-  </pre>
+    </pre>
 
-1. Run `watch cf service SERVICE-INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
+1. Verify that the service instance was deleted by running:
 
-You cannot delete a service instance that an app is bound to.
+    ```
+    watch cf service SERVICE-INSTANCE-NAME
+    ```
+
+    and then wait for a `Service instance not found` error indicating that the instance no longer exists.
+
 
 ## <a id="admin"></a> Create an Admin User for a Service Instance
 
@@ -463,8 +489,10 @@ share with other app developers.
 Both operators and app developers can use this procedure.
 For instructions, see [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
 
-## <a id="share-instances"></a> Sharing Service Instances
-To share service instances, the feature-flag `service_instance_sharing` must be enabled by your operator. You can then follow the [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html) to share your service instances across Cloud Foundry Organizations and Spaces.
+## <a id="share-instances"></a> Share Service Instances
+To share service instances, your operator must enable the feature flag `service_instance_sharing`.
+You can then follow the [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/services/sharing-instances.html)
+to share your service instances across Cloud Foundry orgs and spaces.
 
 ## <a id="log-cache"></a> Access RabbitMQ Metrics for On-Demand Service Instances
 
@@ -504,7 +532,7 @@ as seen in the below example.<br>
 </pre>
 
 
-1. Set up federation as you normally would, using the RabbitMQ Management UI or API, with the URIs found in the `uris` array you got from the step above.<br><br>
+1. Set up federation as usual, using the RabbitMQ Management UI or API, with the URIs found in the `uris` array you got from the step above.<br><br>
     For instructions on federation, see the [RabbitMQ documentation](https://www.rabbitmq.com/federation.html).
 
 ## <a id="shovel"></a> Shovel Exchanges and Queues
@@ -537,7 +565,7 @@ as seen in the example below.<br>
 }
 </pre>
 
-1. Set up shovel as you normally would, using the RabbitMQ Management UI or API,
+1. Set up shovel as usual, using the RabbitMQ Management UI or API,
 with the URIs found in the `uris` array you got from the step above.<br><br>
 For shovel instructions, see the [RabbitMQ documentation](https://www.rabbitmq.com/shovel.html).
 <%= vars.product_short %> currently only supports Dynamic Shovels.
