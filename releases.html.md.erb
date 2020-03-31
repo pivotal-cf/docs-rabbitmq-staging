@@ -9,14 +9,19 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-Pivotal recommends upgrading from the latest v1.16 release to the latest v1.18 release.
-You can skip v1.17 in this case to save time and take advantage of the latest features.
-You can also upgrade from the latest v1.15 release to the latest v1.17 release, skipping v1.16.
+For <%= vars.product_short %> v1.15 and v1.16, you are able 
+to skip a minor version when you upgrade.
 
-<p class="note">
-	<strong>Note:</strong> Pivotal discourages any other upgrade path that skips a release,
-	such as v1.14 to v1.16 or v1.15 to v1.18, because they are untested.
-</p>
+For example:
+
+| If you are on...  | Upgrade to...  |
+|---|---|
+| v1.16  | 1.18  |
+| v1.15  | v1.17  |
+
+
+If you are upgrading a version other than v1.16 or v1.15, do not 
+skip minor versions.
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
