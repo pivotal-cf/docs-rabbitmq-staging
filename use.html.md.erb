@@ -18,15 +18,15 @@ For general information, see [Managing Service Instances with the cf CLI](http:/
 
 To use on-demand <%= vars.product_short %> with your <%= vars.app_runtime_abbr %> apps, you need:
 
-* An <%= vars.ops_manager %> installation with [<%= vars.product_short %>](https://network.pivotal.io/products/pivotal-rabbitmq-service)
-installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
-* A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles)
-or Admin account on the <%= vars.app_runtime_abbr %> installation
+* An <%= vars.ops_manager %> installation with <%= vars.product_short %> installed and listed in the Marketplace.
+For more information, see [Confirm Service Availability](#marketplace) below.
+* A Space Developer or Admin account on the <%= vars.app_runtime_abbr %> installation.
+For more information, see [User Roles](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles).
 * A local machine with the following installed:
-   - a browser
-   - a shell
-   - the [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
-   - the Linux [watch](http://www.linfo.org/watch.html) command
+   - A browser
+   - A shell
+   - The [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
+   - The Linux [watch](http://www.linfo.org/watch.html) command
 
 ## <a id="resilient-apps"></a> Create Resilient Apps
 
@@ -40,18 +40,23 @@ For an app to use a service, the service must be available in the Marketplace fo
 
 To confirm this availability:
 
-1. Run `cf marketplace`.
-1. Verify that `p.rabbitmq` is in the `service` column. If it is, on-demand <%= vars.product_short %> is available. If it is not, ask your operator to install it.
+1. List the services that are available in the Marketplace:
 
-    <pre class="terminal">
-    $ cf marketplace
-    Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
-    OK
-    service      plans         description
-    [...]
-    p.rabbitmq   single-node   RabbitMQ service to provide dedicated instances of this high-performance multi-protocol messaging broker
-    [...]
-    </pre>
+    ```
+    cf marketplace
+    ```
+1. Verify that `p.rabbitmq` is in the `service` column. If it is, on-demand <%= vars.product_short %> is available. If it is not, ask your operator to install it.
+<br><br>
+For example:
+<pre class="terminal">
+$ cf marketplace
+Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
+OK
+service      plans         description
+[...]
+p.rabbitmq   single-node   RabbitMQ service to provide dedicated instances of this high-performance multi-protocol messaging broker
+[...]
+</pre>
 
 ## <a id='create'></a>Create a Service Instance
 
@@ -179,7 +184,7 @@ If the operator has configured TLS to be enforced, then all service instances ha
 If the operator has configured TLS to be optional or not configured, then follow the steps below to disable TLS on a service instance.
 For more information, see [Configure Security](./install-config.html#security).
 
-1. Disable TLS by doing one of the following steps:
+1. Disable TLS by doing one of the following:
   * If you have already created a <%= vars.product_short %> service instance, update the service instance by running:
 
         ```
@@ -224,17 +229,30 @@ The procedure for updating your app depends on the app's language and framework.
 
 To activate TLS for Java and Spring apps, do one of the following:
 
-* For apps that are not bound to an existing service instance, re-push the apps by running `cf push`.
+* For apps that are not bound to an existing service instance, re-push the apps by running
+the `cf push` command.
 
-* For apps bound to an existing service instance:
-  1. Stop the app. For example:
-    <pre class="terminal">$ cf stop my-app</pre>
-  1. Unbind the app from the service instance. For example:
-    <pre class="terminal">$ cf unbind-service my-app my-service-instance</pre>
-  1. Re-bind the app to the service instance. For example:
-    <pre class="terminal">$ cf bind-service my-app my-service-instance</pre>
-  1. Restart the app. For example:
-    <pre class="terminal">$ cf restart my-app</pre>
+* For apps bound to an existing service instance, re-bind the apps as follows:
+  1. Stop the app:
+
+        ```
+        cf stop APP-NAME
+        ```
+  1. Unbind the app from the service instance:
+
+        ```
+        cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
+        ```
+  1. Re-bind the app to the service instance:
+
+        ```
+        cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+        ```
+  1. Restart the app.
+
+        ```
+        cf restart APP-NAME
+        ```
 
 <p class="note"><strong>Note:</strong> If the operator used a self-signed certificate,
 configure your app to use the same CA certificate and valid certificate and key.
@@ -255,7 +273,7 @@ For more information, see <a href="./install-config.html#optional-plugins">Optio
 You can enable plugins when you create a service instance or by updating an existing
 service instance. When enabling more than one plugin, specify all the plugin names in the same command.
 
-To enable plugins, run one of the following commands, specifying the plugins
+To enable plugins, run one of these commands, specifying the plugins
 as a configuration parameter in JSON:
 
 * When creating a service instance, run:
@@ -327,21 +345,25 @@ To disable plugins for an existing service instance:
 For an app to use a service, you must bind it to a service instance.
 Do this after you push or re-push the app using `cf push`.
 
-To bind an app to a <%= vars.product_short %> service instance, run:
+To bind an app to a <%= vars.product_short %> service instance:
 
-```
-cf bind-service APP-NAME SERVICE-INSTANCE-NAME
-```
+1. Run:
 
-Where `APP-NAME` is the app you want to use the <%= vars.product_short %> service instance and `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
+    ```
+    cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+    ```
 
-See an example below.
+    Where:
+    - `APP-NAME` is the app you want to use the <%= vars.product_short %> service instance.
+    - `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
 
-<pre class="terminal">
-$ cf bind-service my-app my-instance<br>
-Binding service mydb to my-app in org my-org / space test as user<span>@</span>example.com...
-OK
-</pre>
+    For example:
+
+    <pre class="terminal">
+    $ cf bind-service my-app my-instance<br>
+    Binding service mydb to my-app in org my-org / space test as user<span>@</span>example.com...
+    OK
+    </pre>
 
 ## <a id="call"></a>Use the RabbitMQ Service in Your App
 
@@ -420,35 +442,51 @@ The Java buildpack automatically disables DNS caching.
 
 ## <a id="restart"></a>Update a Service Instance
 
-If you bind a new service or change the service bindings, you need to run `cf restart` to update the `VCAP_SERVICES` environment variable in the application container.
+If you bind a new service or change the service bindings, you need to run
+`cf restart` to update the `VCAP_SERVICES` environment variable in the application container.
 
-Run `cf restart-app APP-NAME`, where `APP-NAME` is the app you want to use the updated service instance.
+To restart your app:
 
-See an example below.
+1. Run:
 
-<pre class="terminal">
-$ cf restart my-app
-</pre>
+    ```
+    cf restart-app APP-NAME
+    ```
+    Where `APP-NAME` is the app you want to use the updated service instance.
 
-Pushing the new version of an app automatically re-stages and restarts the app on any service instances it is bound to.
+    For example:
+
+    <pre class="terminal">
+    $ cf restart my-app
+    </pre>
+
+Pushing the new version of an app automatically restages and restarts the app on
+any service instances it is bound to.
 
 ## <a id="unbind"></a>Unbind a Service Instance From Your App
 
-To stop an app from using a service it no longer needs, unbind it from the service instance by running;
+To stop an app from using a service it no longer needs, unbind it from the service instance.
 
-<pre class="terminal">
-$ cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
-</pre>
 
-Where `APP-NAME` is the app you want to stop using the <%= vars.product_short %> service instance and `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
+To unbind a service instance from your app:
 
-See an example below.
+1. Run:
 
-<pre class="terminal">
-$ cf unbind-service my-app my-instance<br>
-Unbinding app my-app from service my-instance in org my-org / space my-space as user<span>@</span>example.com...
-OK
-</pre>
+    ```
+    cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
+    ```
+
+    Where:
+    - `APP-NAME` is the app you want to stop using the <%= vars.product_short %> service instance.
+    - `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
+
+    For example:
+
+    <pre class="terminal">
+    $ cf unbind-service my-app my-instance<br>
+    Unbinding app my-app from service my-instance in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    </pre>
 
 ## <a id="delete"></a>Delete a Service Instance
 
