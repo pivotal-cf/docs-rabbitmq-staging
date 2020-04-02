@@ -34,12 +34,7 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 ## Book Repo
 
-**docs-book-rabbitmq** is the book repo:
-
-* **Edge** branch is for the next unreleased version, available on staging at this link:<br>
-http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html
-
-* **Master** branch is for the published/live releases listed above.
+**docs-book-rabbitmq** is the book repo: https://github.com/pivotal-cf/docs-book-rabbitmq
 
 
 ### Staging Environment
