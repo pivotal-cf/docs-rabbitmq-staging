@@ -147,7 +147,12 @@ To see release notes for another version, select the version from the dropdown a
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
-  :service_name => vars.product_full, :platform_name => vars.platform_name, :rabbit => vars.product_full, :redis => "Redis for Pivotal Platform", :mysql => "MySQL for VMware Tanzu"
+  :service_name => vars.product_full,
+  :rabbit => vars.product_full,
+  :redis => "Redis for Pivotal Platform",
+  :mysql => "MySQL for VMware Tanzu",
+  :cloud_cache => "VMware Tanzu GemFire",
+  :gemfire => "VMware GemFire"
 } %>
 
 ## <a id='feedback'></a>Feedback
