@@ -145,7 +145,12 @@ Check the [release notes](releases.html) for your release version for important 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
-  :service_name => "RabbitMQ for PCF", :platform_name => "PCF", :rabbit => "RabbitMQ for PCF", :redis => "Redis for PCF", :mysql => "MySQL for PCF"
+  :service_name => vars.product_full,
+  :rabbit => vars.product_full,
+  :redis => "Redis for PCF",
+  :mysql => "MySQL for PCF",
+  :cloud_cache => "Pivotal Cloud Cache (PCC)",
+  :gemfire => "Pivotal GemFire"
 } %>
 
 ## <a id='feedback'></a>Feedback
