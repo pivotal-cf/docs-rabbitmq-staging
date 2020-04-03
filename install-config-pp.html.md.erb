@@ -643,6 +643,7 @@ For example, with two HAProxy jobs deployed, the following properties are presen
 * 15674 = Web STOMP
 * 4567 = RabbitMQ Service Broker
 * 3457 - 3459 = CF Loggregator
+* 16592 = RabbitMQ Prometheus metrics
 
 ### <a id='sec-groups'></a>Security Groups
 
@@ -669,6 +670,9 @@ The following is a template for configuring your <%= vars.app_runtime_abbr %> se
 {"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},
 {"protocol":"tcp","destination":"<service-broker-node-IP-addresses>","ports":"4567"}
 ]
+
+You must also enable port 15692 to allow access to <%= vars.product_short %> service instance VMs from within your deployment for
+<%= vars.product_short %> Prometheus metrics.
 ```
 
 ### <a id="asg"></a>Application Security Groups
