@@ -643,11 +643,12 @@ For example, with two HAProxy jobs deployed, the following properties are presen
 * 15674 = Web STOMP
 * 4567 = RabbitMQ Service Broker
 * 3457 - 3459 = CF Loggregator
+* 15692 = RabbitMQ Prometheus metrics
 
-### <a id='sec-groups'></a>Security Groups
+### <a id='firewall-rules'></a>Firewall Rules
 
-To enable access to the <%= vars.product_short %> tile service, you must ensure your security
-group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
+To enable access to the <%= vars.product_short %> tile service, you must ensure your firewall
+rules allow access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
 You can obtain the IP addresses for these from the <%= vars.ops_manager %> **Status** page in the <%= vars.product_short %> tile.
 Ensure the following ports are enabled for those VMs:
 
@@ -662,7 +663,7 @@ Ensure the following ports are enabled for those VMs:
 * 4567
 * 3457 - 3459
 
-The following is a template for configuring your <%= vars.app_runtime_abbr %> security groups:
+The following is a template for configuring your <%= vars.app_runtime_abbr %> firewall rules:
 
 ```
 [
@@ -670,6 +671,9 @@ The following is a template for configuring your <%= vars.app_runtime_abbr %> se
 {"protocol":"tcp","destination":"<service-broker-node-IP-addresses>","ports":"4567"}
 ]
 ```
+
+To allow Prometheus to scrape metrics from each of the Pre-Provisioned RabbitMQ VMs,
+set up a firewall rule which allows incoming traffic on port 15692 on the RabbitMQ VMs.
 
 ### <a id="asg"></a>Application Security Groups
 
