@@ -12,7 +12,7 @@ owner: London Services
 
 New features in this release:
 * [RabbitMQ Prometheus](https://www.rabbitmq.com/prometheus.html) plugin support is enabled to allow metrics for RabbitMQ nodes.
-
+* Support to wait for quorum critical nodes and mirror sync critical nodes to sync before upgrades.
 
 ### Resolved Issues
 
@@ -23,79 +23,6 @@ This release fixes the following issues:
 
 This release has the following known issues:
 
-
-### Compatibility
-
-The following components are compatible with this release:
-
-<table class="nice">
-    <th width="50%">Component</th>
-    <th>Version</th>
-    <tr>
-        <td>Stemcell</td>
-        <td>621.x</td>
-    </tr>
-    <tr>
-        <td><%= vars.ops_manager %></td>
-        <td>2.5, 2.6, 2.7, and 2.8</td>
-    </tr>
-    <tr>
-        <td>OSS RabbitMQ</td>
-        <td>3.8.2*</td>
-    </tr>
-    <tr>
-        <td>Erlang</td>
-        <td>22.1.8</td>
-    </tr>
-    <tr>
-        <td>HAProxy</td>
-        <td>1.8.23</td>
-    </tr>
-    <tr>
-        <td>bpm</td>
-        <td>1.1.6</td>
-    </tr>
-    <tr>
-        <td>service-metrics</td>
-        <td>1.12.5</td>
-    </tr>
-    <tr>
-        <td>on-demand-service-broker</td>
-        <td>0.36.0</td>
-    </tr>
-    <tr>
-        <td>rabbitmq-metrics</td>
-        <td>22.0.0</td>
-    </tr>
-   <tr>
-        <td>rabbitmq-on-demand-adapter</td>
-        <td>111.0.0</td>
-    </tr>
-   <tr>
-        <td>cf-rabbitmq-multitenant-broker</td>
-        <td>61.0.0</td>
-    </tr>
-   <tr>
-        <td>loggregator-agent</td>
-        <td>3.21.5</td>
-    </tr>
-   <tr>
-        <td>routing</td>
-        <td>0.196.0</td>
-    </tr>
-   <tr>
-        <td>syslog</td>
-        <td>11.6.1</td>
-    </tr>
-   <tr>
-        <td>cf-rabbitmq-smoke-tests</td>
-        <td>40.0.0</td>
-    </tr>
-   <tr>
-        <td>cf-rabbitmq</td>
-        <td>283.0.0</td>
-    </tr>
-</table>
 * For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a> GitHub documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
