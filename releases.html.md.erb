@@ -9,7 +9,7 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-For <%= vars.product_short %> v1.15 and v1.16, you can skip a 
+For <%= vars.product_short %> v1.15 and v1.16, you can skip a
 minor version when you upgrade.
 
 See the following table to find your upgrade path:
@@ -20,7 +20,7 @@ See the following table to find your upgrade path:
 | v1.15  | v1.17.3 or later patches |
 
 
-If you are upgrading a version other than v1.16 or v1.15, do not 
+If you are upgrading a version other than v1.16 or v1.15, do not
 skip minor versions.
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
@@ -65,9 +65,8 @@ This release fixes the following issues:
 
 This release has the following known issues:
 
-* When used in production, quorum queues might experience downtime during a rolling upgrade.
-* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
-For more information, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+<%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
 ### Compatibility
 
@@ -173,10 +172,8 @@ For more information, see [Service-Gateway Access (Beta)](./service-gateway-acce
 
 This release has the following known issues:
 
-* When used in production, quorum queues might experience downtime during a rolling upgrade.
-* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
-For more information, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
+<%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-post-deploy-scripts" %>
 
 ### Compatibility
@@ -293,10 +290,8 @@ This restriction has been removed.
 
 This release has the following known issues:
 
-* When used in production, quorum queues might experience downtime during a rolling upgrade.
-* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
-For more information about this issue, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
+<%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-post-deploy-scripts" %>
 
 ### Compatibility
