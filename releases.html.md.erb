@@ -21,21 +21,18 @@ see the [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html).<br>
 For more information about enabling this feature,
 see [Required Networking Rules for On-Demand Services](./about.html#network-rules).
 
-* <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
-
 ### Resolved Issues
 
 This release fixes the following issues:
 
+* When used in production, quorum queues no longer experience downtime during a rolling upgrade.
+This is because <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
 
 ### Known Issues
 
 This release has the following known issues:
 
-* When used in production, quorum queues might experience downtime during a rolling upgrade.
-* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
-For more information, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
-
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 ## <a id="view"></a> View Release Notes for Another Version
 
 To view the release notes for another product version, select the version from the dropdown at the top of this
