@@ -5,14 +5,23 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="1-19-0"></a> v1.19.X
+## <a id="1-19-0"></a> v1.19.0
 
 **Release Date**: MMMM DD, 2020
-### Features 
+
+### Features
 
 New features in this release:
-* [RabbitMQ Prometheus](https://www.rabbitmq.com/prometheus.html) plugin support is enabled to allow metrics for RabbitMQ nodes.
-* Support to wait for quorum critical nodes and mirror sync critical nodes to sync before upgrades.
+
+* **RabbitMQ Prometheus plugin support:**
+This plugin collects RabbitMQ node metrics that you can use for monitoring.
+To enable this feature, you must open port `15692`. <br><br>
+For information about the RabbitMQ Prometheus plugin,
+see the [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html).<br>
+For more information about enabling this feature,
+see [Required Networking Rules for On-Demand Services](./about.html#network-rules).
+
+* <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
 
 ### Resolved Issues
 
@@ -23,7 +32,9 @@ This release fixes the following issues:
 
 This release has the following known issues:
 
-* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a> GitHub documentation.
+* When used in production, quorum queues might experience downtime during a rolling upgrade.
+* Changing the Erlang Cookie value requires cluster downtime and can result in failed deployments.
+For more information, see [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
 ## <a id="view"></a> View Release Notes for Another Version
 

@@ -663,6 +663,12 @@ Ensure the following ports are enabled for those VMs:
 * 4567
 * 3457 - 3459
 
+
+To enable Prometheus to collect metrics from pre-provisioned RabbitMQ nodes, you must also
+permit incoming traffic on port <code>15692</code>.
+For information about the RabbitMQ Prometheus plugin,
+see the [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html).
+
 The following is a template for configuring your <%= vars.app_runtime_abbr %> firewall rules:
 
 ```
@@ -670,13 +676,9 @@ The following is a template for configuring your <%= vars.app_runtime_abbr %> fi
 {"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},
 {"protocol":"tcp","destination":"<service-broker-node-IP-addresses>","ports":"4567"}
 ]
-
-You must also enable port 15692 to allow access to <%= vars.product_short %> service instance VMs from within your deployment for
-<%= vars.product_short %> Prometheus metrics.
 ```
 
-To allow Prometheus to scrape metrics from each of the Pre-Provisioned RabbitMQ VMs,
-set up a firewall rule which allows incoming traffic on port 15692 on the RabbitMQ VMs.
+
 
 ### <a id="asg"></a>Application Security Groups
 

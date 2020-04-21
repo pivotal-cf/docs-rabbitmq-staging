@@ -62,16 +62,6 @@ rules are set up so that connections are open as described in the table below.
 		<td>This connection is for administrative tasks.<br><br>
 			Avoid opening general use, app-specific ports for this connection.</td>
 	</tr>
-  <tr>
-		<td><strong>PAS</strong></td>
-		<td><strong>Deployed service instances</strong>
-		</td>
-		<td>
-		  15692 (RabbitMQ Prometheus metrics)<br><br>
-		</td>
-    <td>This connection is gathering metrics from RabbitMQ nodes. <br><br>
-    Refer to the [RabbitMQ Prometheus documentation](https://www.rabbitmq.com/prometheus.html) for more details.</td>
-	</tr>
 
 	<tr>
 		<td><strong>ODB</strong></td>
@@ -142,12 +132,15 @@ rules are set up so that connections are open as described in the table below.
 		</td>
 	</tr>
 	</tr>
-		<tr>
+  <tr>
 		<td><strong><%= vars.app_runtime_abbr %></strong></td>
 		<td><strong>Deployed service instances</strong>
 		</td>
-		<td>15692 (RabbitMQ Prometheus)</td>
-		<td>RabbitMQ exposes this port to be scraped by Prometheus.
+		<td>
+		  15692 (RabbitMQ Prometheus plugin)<br><br>
 		</td>
+    <td>This connection is enables Prometheus to collect metrics from RabbitMQ nodes. <br><br>
+    For more information, see the
+    <a href="https://www.rabbitmq.com/prometheus.html">RabbitMQ documentation</a>.</td>
 	</tr>
 </table>
