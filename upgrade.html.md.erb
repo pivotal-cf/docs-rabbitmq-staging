@@ -7,7 +7,7 @@ RabbitMQ for PCF enables automated upgrades between versions of the product.
 In some versions, you might be required to take the RabbitMQ cluster offline.
 Whenever this is necessary, it is noted in the release notes for those versions.
 
-<%= partial vars.path_to_partials + '/upgrade-planner' %>
+<%= partial  '/upgrade-planner' %>
 
 This topic applies to both the on-demand and pre-provisioned services.
 
@@ -42,7 +42,7 @@ configuration changes are applied automatically.
 
 ### <a id="policy"></a> Release Policy
 
-<%= partial vars.path_to_partials + '/services/release-policy', :locals => {
+<%= partial  '/services/release-policy', :locals => {
   :os_name => "RabbitMQ"
 } %>
 

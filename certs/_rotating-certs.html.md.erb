@@ -1,0 +1,371 @@
+## <a id="credhub"></a> Access BOSH CredHub
+
+<%= vars.ops_manager %> stores some of its internal CA (certificate authority) and
+non-CA certificates in the BOSH CredHub credentials store.
+For more information, see [BOSH CredHub](https://docs.pivotal.io/platform/credhub/#bosh).
+
+To access the BOSH CredHub credentials store, you must retrieve
+credentials from the BOSH Director and then use the credentials
+to log in to CredHub from the <%= vars.ops_manager %> VM.
+
+
+To access the BOSH CredHub:
+
+1. In the <%= vars.ops_manager %> Installation Dashboard, click the **BOSH Director** tile.
+
+1. Click the **Credentials** tab.
+
+1. In the **BOSH Director** section, click the link to the **BOSH Commandline Credentials**.
+
+1. Record the values for `BOSH_CLIENT` and `BOSH_CLIENT_SECRET`.<br>
+  For example:
+
+    ```
+    {"credential":"BOSH_CLIENT=ops_manager
+    BOSH_CLIENT_SECRET=abCdE1FgHIjkL2m3n-3PqrsT4EUVwXy5
+    BOSH_CA_CERT=/var/tempest/workspaces/default/root_ca_certificate
+    BOSH_ENVIRONMENT=10.0.0.5 bosh "}
+    ```
+  The `BOSH_CLIENT` is the BOSH CredHub client name and the `BOSH_CLIENT_SECRET` is
+  the BOSH CredHub client secret.
+
+1. Follow the procedure in
+[Gather Credential and IP Address Information](https://docs.pivotal.io/pivotalcf/2-4/customizing/trouble-advanced.html#gather)
+to obtain the information needed to log in to the BOSH Director VM.
+Record the IP address for the BOSH Director and the Director Credentials.
+
+1. Log in to the <%= vars.ops_manager %> VM by following the procedure in
+[Log in to the <%= vars.ops_manager %> VM with SSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh).
+
+1. From the <%= vars.ops_manager %> VM, set the API target of the CredHub CLI to your BOSH
+CredHub server by running the following command:
+
+    ```
+    credhub api  \
+    https://BOSH-DIRECTOR-IP:8844 \
+    --ca-cert=/var/tempest/workspaces/default/root_ca_certificate
+    ```
+  Where `BOSH-DIRECTOR-IP` is the IP address of the BOSH Director VM you recorded above.
+  <br><br>
+  For example:
+  <pre class="terminal">$ credhub api \
+    http<span>s:</span>//10.0.0.5:8844 \
+    --ca-cert=/var/tempest/workspaces/default/root\_ca\_certificate</pre>
+
+1. Log in to CredHub by running the following command:
+
+    ```
+    credhub login \
+    --client-name=CREDHUB-CLIENT-NAME \
+    --client-secret=CREDHUB-CLIENT-SECRET
+    ```
+    Where:<br>
+    * `CREDHUB-CLIENT-NAME` is the value you recorded for `BOSH_CLIENT` earlier in this procedure.
+    * `CREDHUB-CLIENT-SECRET` is the value you recorded for `BOSH_CLIENT_SECRET` earlier in this procedure.
+
+    For example:
+    <pre class="terminal">$ credhub login \
+    --client-name=credhub \
+    --client-secret=abcdefghijklm123456789</pre>
+
+## <a id="check"></a> Check Expiration Dates
+
+You can check the expiration date for CA and <%= local_product_name %> certificates.
+
+To check certificate expiration dates:
+
+1. Log in to CredHub by following the procedure in [Access BOSH CredHub](#credhub) above.
+
+1. Run:
+
+    ```
+    credhub get -n OLD-CERT -j | jq -r .value.ca | openssl x509 -text -noout | grep -A 2 "Validity"
+    ```
+    Where `OLD-CERT` is the CredHub name or path to the certificate you are checking.<br /><br>
+    For example:
+    <pre class="terminal">
+    $ credhub get -n /services/tls_ca -j | jq -r .value.ca | \
+        openssl x509 -text -noout | grep -A 2 "Validity"
+    Validity
+              Not Before: Jan 23 19:04:58 2019 GMT
+              Not After : Jan 23 19:04:58 2020 GMT
+    </pre>
+
+    The above command retrieves the certificate from CredHub, decrypts it, parses its JSON structure,
+    and finds its `Validity` properties.
+    The expiration date for the certificate is the value of `Not After`.<br><br>
+
+<% if local_product_name.include?("MySQL") %>
+1. If any of your certificates are about to expire or have expired, do one of the following:
+  * **If your TLS certificates are about to expire or have expired:**
+    Do the procedures in [Rotate CA Certificates Manually](#tls) below.
+    This rotates both the TLS certificates and the internal certificates.
+  * **If only your internal certificates are about to expire or have expired:** Follow the procedure in [Rotate Internal Certificates ](#internal) below.
+<% end %>
+
+##<a id='tls'></a> Rotate CA Certificates Manually
+
+<p class="note warning"><strong>Warning</strong>: This procedure assumes that you use only one foundation and do not have a Wide Area Network (WAN) setup.
+For a WAN setup, all of the <code>apply changes</code> steps need to be applied to your entire WAN. Also, all certificates must
+include Subject Alternate Name (SAN) and Common Name (CN) entries.</p>
+
+To manually rotate the CA certificate:
+
+1. [Obtain or Generate a New CA Certificate](#obtainorgenerate)
+1. [Add New Certificates to <%= vars.ops_manager %>](#addnewandold)
+1. [Apply Changes](#applychanges)
+<% if !local_product_name.include?("RabbitMQ") %>
+1. [Rebind Your Apps](#rebind)
+<% end %>
+1. [Set New CA Certificate](#setnew)
+1. [Remove the Old CA Certificate](#remove)
+1. [Apply Changes](#applychanges2)
+<% if !local_product_name.include?("RabbitMQ") %>
+1. [Rebind Your Apps](#rebind2)
+<% end %>
+
+### <a id="obtainorgenerate" class="no-quick-link"></a> Obtain or Generate a New CA Certificate
+
+To obtain or generate a new CA certificate:
+
+1. Check if a certificate already exists by running:
+    <pre><code>credhub get -n NEW-CERT</code></pre>
+    Where `NEW-CERT` is your chosen CredHub path or name for the new certificate.
+
+1. If a certificate already exists, delete the certificate by running:
+  <pre><code>credhub delete -n NEW-CERT</code></pre>
+
+1. Do one of the following:
+  * **If you can obtain a CA (certificate authority):** Obtain the CA that signs its certificate. You add this to the <%= vars.ops_manager %> settings in the following section.
+  * **If you use self-signed certificates:** Generate a new self-signed certificate with a separate name or path
+in CredHub:
+
+        ```
+        credhub generate \
+        --name="NEW-CERT" \
+        --type="certificate" \
+        --no-overwrite \
+        --is-ca \
+        --common-name="COMMON-NAME"
+        ```
+        Where:
+        - `NEW-CERT` is your chosen CredHub path or name to the new certificate.
+        - `COMMON-NAME` is the common name of the generated certificate.
+
+        For example:
+        <pre class="terminal">$ credhub generate \
+          --name="/services/new_ca" \
+          --type="certificate" \
+          --no-overwrite \
+          --is-ca \
+          --common-name="servicesCA"</pre>
+  * **If you use an intermediate certificate signed by a root CA in credhub:** Generate a new certificate signed by the CredHub root CA by running: 
+          <pre><code>credhub generate \
+          --name="NEW-CERT" \
+          --type="certificate" \
+          --no-overwrite \
+          --is-ca \
+          --common-name="COMMON-NAME" \
+          --ca=PATH-TO-ROOT-CA</code></pre>
+          Where:
+          - `COMMON-NAME` is the common name of the generated certificate.
+          - `PATH-TO-ROOT-CA` is the name of CA used to sign the generated certificate.
+
+            For example:
+            <pre class="terminal">
+            $ credhub generate \
+              --name="/services/new_ca" \
+              --type="certificate" \
+              --no-overwrite \
+              --is-ca \
+              --common-name="servicesCA" \
+              --ca=/path-to-root-ca</pre>
+
+### <a id="addnewandold" class="no-quick-link"></a> Add Certificates to <%= vars.ops_manager %>
+
+To add your new and current CA certificates to <%= vars.ops_manager %>:
+
+1. Log in to CredHub by following the procedure in [Access BOSH CredHub](#credhub) above.
+
+1. Get the current CA by running:
+
+    ```
+    credhub get --name=OLD-CERT -k ca
+    ```
+    Where `OLD-CERT` is the CredHub name or path to the certificate to later replace.<br><br>
+    For example:
+    <pre class="terminal">
+    credhub get --name=/services/tls_ca -k ca
+    </pre>
+
+1. Get the new CA, either from a pre-existing file, or from your new CredHub location by running:
+
+    ```
+    credhub get --name=NEW-CERT -k ca
+    ```
+    Where `NEW-CERT` is the CredHub generated or pre-existing certificate created in the previous section.<br><br>
+    For example:
+    <pre class="terminal">
+    credhub get --name=/services/new_ca -k ca
+    </pre>
+1. Paste both CA values into **<%= vars.ops_manager %> > BOSH Director > Security > Trusted Certificates**.
+1. Click **Save**.
+1. Paste both CA values into **<%= vars.app_runtime_abbr %> tile > Networking > Certificate Authorities Trusted by Router and HAProxy**.
+1. Click **Save**.
+
+### <a id="applychanges" class="no-quick-link"></a> Apply Changes
+
+<p class="note warning"><strong>Warning</strong>: This procedure involves restarting
+all of the VMs in your <%= vars.ops_manager %> deployment to apply a CA certificate. The
+operation can take a long time to complete.</p>
+
+To apply these changes:
+
+1. Navigate back to the **Installation Dashboard**.
+1. Click **Review Pending Changes**.
+1. Expand errands.
+1. Select the errand to upgrade all service instances.
+1. Click **Apply Changes**.
+
+<% if !local_product_name.include?("RabbitMQ") %>
+
+### <a id='rebind' class="no-quick-link"></a> Rebind Your Apps
+
+If your apps do not use the trusted store to validate server certificates, you
+must rebind apps to the service instance to receive the updated CA certificate.
+Apps must be written in Spring to use the trusted store.
+
+To rebind your app:
+
+1. Stop your app by running the following command:
+
+	```
+	cf stop APP-NAME
+	```
+	Where `APP-NAME` is the name of your app.
+
+1. Unbind your app from the service instance by running the following command:
+
+	```
+	cf unbind-service APP-NAME SERVICE-INSTANCE-NAME
+	```
+	Where:
+	+ `APP-NAME` is the name of your app.
+	+ `SERVICE-INSTANCE-NAME` is the name of your service instance.
+
+1. Rebind your app to the service instance by running the following command:
+
+	```
+	cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+	```
+	Where:
+	+ `APP-NAME` is the name of your app.
+	+ `SERVICE-INSTANCE-NAME` is the name of your service instance.
+
+1. Restage your app by running the following command:
+
+	```
+	cf restage APP-NAME
+	```
+	Where `APP-NAME` is the name of your app.
+
+<% end %>
+
+
+### <a id="setnew" class="no-quick-link"></a> Set New CA Certification
+
+To have all instances use the new CA Certificate:
+
+1. Do one of the following:
+  * **If you have an existing certificate:** Obtain the CA certificate and private key file corresponding
+  to the CA that you applied in the previous step. Then, run:
+
+        ```
+        credhub set \
+        --name="OLD-CERT" \
+        --type="certificate" \
+        --certificate=PEM-PATH/root.pem \
+        --private=CERT-KEY
+        ```
+        Where:
+        - `OLD-CERT` is the CredHub name or path to the certificate to replace.
+        - `PEM-PATH` is the path to the `root.pem` file.
+        - `CERT-KEY` is the private key for the new certificate.
+
+        For example:
+        <pre class="terminal">
+        $ credhub set \
+          --name="/services/tls_ca" \
+          --type="certificate" \
+          --certificate=PEM-PATH/root.pem \
+          --private=CERT-KEY
+        </pre>
+  * **If you have created a new self-signed or intermediary certificate:**
+Set `OLD-CERT` to the new CredHub value `NEW-CERT` that you generated in the previous step:
+
+        ```
+        credhub get -n NEW-CERT -k ca > new_ca.ca
+        credhub get -n NEW-CERT -k certificate > new_ca.certificate
+        credhub get -n NEW-CERT -k private_key > new_ca.private_key
+        credhub set -n OLD-CERT \
+        --type=certificate \
+        --root=new_ca.ca \
+        --certificate=new_ca.certificate \
+        --private=new_ca.private_key
+        ```
+        For example:
+        <pre class="terminal">
+        $ credhub get -n /services/new\_ca -k ca > new\_ca.ca
+        $ credhub get -n /services/new\_ca -k certificate > new\_ca.certificate
+        $ credhub get -n /services/new\_ca -k private_key > new\_ca.private\_key
+        $ credhub set -n /services/tls\_ca \
+          --type=certificate \
+          --root=new\_ca.ca \
+          --certificate=new\_ca.certificate \
+          --private=new\_ca.private\_key
+        </pre>
+
+### <a id="remove" class="no-quick-link"></a> Remove the Old CA Certificate
+
+After your apps have reconnected to service instances with certificates generated
+by the new CA, remove the old CA certificate:
+
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %> and click the **BOSH
+Director** tile.
+
+1. Click **Security**.
+
+1. Delete the old CA certificate in **Trusted Certificates**.
+
+1. Click **Save**.
+
+1. Navigate to the **Installation Dashboard** in <%= vars.ops_manager %> and click the **<%= vars.app_runtime_abbr %>** tile.
+
+1. Click **Networking**.
+
+1. Delete the old CA certificate in **Certificate Authorities Trusted by Router and HAProxy**
+
+1. Click **Save**.
+
+### <a id="applychanges2" class="no-quick-link"></a> Apply Changes
+
+<p class="note warning"><strong>Warning: </strong> This procedure involves restarting
+	all of the VMs in your <%= vars.ops_manager %> deployment to apply a CA certificate. The
+	operation can take a long time to complete.</p>
+
+To apply these changes:
+
+1. Navigate back to the **Installation Dashboard**.
+1. Click **Review Pending Changes**.
+1. Expand errands.
+1. Select the errand to upgrade all service instances.
+1. Click **Apply Changes**.
+
+<% if !local_product_name.include?("RabbitMQ") %>
+
+### <a id='rebind2' class="no-quick-link"></a> Rebind Your Apps
+
+Again, if your apps do not use the trusted store to validate server certificates, you must rebind
+your apps to incorporate this last round of changes. See [Rebind Your Apps](#rebind) above.
+
+<% end %>
