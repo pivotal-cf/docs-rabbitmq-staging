@@ -144,7 +144,7 @@ Check the [release notes](releases.html) for your release version for important 
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
+<%= partial  '/services/on-demand-service-table', :locals => {
   :service_name => vars.product_full,
   :rabbit => vars.product_full,
   :redis => "Redis for PCF",
