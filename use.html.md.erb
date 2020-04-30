@@ -12,17 +12,9 @@ For general information, see [Managing Service Instances with the cf CLI](http:/
 
 ## <a id="prereqs"></a>Prerequisites
 
-To use on-demand RabbitMQ for PCF with your PCF apps, you need:
+<!-- The below partial is in https://github.com/pivotal-cf/docs-partials -->
 
-* An <%= vars.ops_manager %> installation with <%= vars.product_short %> installed and listed in the Marketplace.
-For more information, see [Confirm Service Availability](#marketplace) below.
-* A Space Developer or Admin account on the <%= vars.app_runtime_abbr %> installation.
-For more information, see [User Roles](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles).
-* A local machine with the following installed:
-   - A browser
-   - A shell
-   - The [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
-   - The Linux [watch](http://www.linfo.org/watch.html) command
+<%= partial vars.path_to_partials + "/services/developer-prereqs" %>
 
 
 ## <a id='marketplace'></a>Confirm Service Availability
