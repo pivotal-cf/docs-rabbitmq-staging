@@ -1,16 +1,23 @@
 ## <a id="1-18-5"></a> v1.18.5
 
-**Release Date**: April 29, 2020
+**Release Date**: April 30, 2020
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
+* Wait for quorum critical nodes and mirror sync critical nodes to sync before upgrades.
+* On demand instance plan features will display as bullets in Apps Manager
+* Previously, we used `features.converge_variables` which may have side effects, e.g. BOSH Runtime configs variables maybe re-generated,
+  possibly causing downtime and other unexpected behaviour. We now use BOSH `update_mode: converge` instead of `feature.converge_variables`
+  to avoid these side effects.
 
 ### Known Issues
 
 This release has the following known issues:
 
+<%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
 ### Compatibility
 
