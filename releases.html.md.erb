@@ -37,9 +37,12 @@ This release fixes the following issues:
   rolling upgrade. This is because <%= vars.product_short %> waits for quorum
   and mirror-sync critical nodes to sync before upgrades are applied.
 * On demand instance plan features now display with bullet points in Apps Manager.
-* BOSH `update_mode: converge` is now used instead of `feature.converge_variables`,
-  avoiding side effects. For example, BOSH runtime config variables could have been regenerated,
-  causing downtime and other unexpected behavior.
+* BOSH `update_mode: converge` is now used instead of `feature.converge_variables`.
+  This is because `feature.converge_variables` can result in unintended side
+	effects. It regenerates all variables associated with a deployment,
+	even those that are specified in a runtime config, causing downtime
+	and other unexpected behavior.
+
 
 ### Known Issues
 
