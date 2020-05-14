@@ -25,8 +25,8 @@ This table summarizes the main differences between the two:
    <th>Metrics Name Prefix</th>
    </tr><tr>
    <th>On-Demand Service</th>
-   <td>Dedicated VM that serves a single service instance. See <a href="./ondemand.html">this topic</a> for details.</td>
-   <td><%= vars.platform_name %> creates each VM on-demand when app developer creates service instance</td>
+   <td>Dedicated VM that serves a single service instance. For more information, see <a href="./ondemand.html">Unlocking the Power of On-Demand RabbitMQ for VMware Tanzu [VMs]</a>.</td>
+   <td><%= vars.platform_name %> creates each VM on-demand when an app developer creates a service instance.</td>
    <td><code>p.rabbitmq</code> (with a dot)</td>
    </tr><tr>
    <th>Pre-Provisioned Service</th>
@@ -39,13 +39,14 @@ This table summarizes the main differences between the two:
 
 <p class="note">
   <strong>Note:</strong> For most new apps, VMware recommends that you use on-demand services instead of
-  pre-provisioned services. The on-demand service offering isolates workloads by creating a separate VM for each service instance.
+  pre-provisioned services. The on-demand service offering isolates workloads by creating a separate VM for
+  each service instance.
 </p>
 
-### <a id="dedicated"></a> What are On-Demand Instances
+### <a id="dedicated"></a> Overview of On-Demand Instances
 
-In <%= vars.product_short %> versions before v1.8.0, the <%= vars.product_short %> service instances correspond to a unique
-RabbitMQ virtual host on the multi-tenant RabbitMQ cluster.
+In <%= vars.product_short %> versions before v1.8.0, the <%= vars.product_short %> service instances
+correspond to a unique RabbitMQ virtual host on the multi-tenant RabbitMQ cluster.
 <%= vars.product_short %> v1.8.0 introduced on-demand service broker (ODB) support.
 That means you can create a new single-tenant cluster and dedicate it to a single app.
 
@@ -55,7 +56,8 @@ For more information, see
 ## <a id='AboutRabbit'></a>About RabbitMQ
 
 RabbitMQ is a fast and dependable open-source message server, which supports a wide range of use cases
-including reliable integration, content-based routing and global data delivery, and high-volume monitoring and data ingestion.
+including reliable integration, content-based routing and global data delivery, and high-volume monitoring and
+data ingestion.
 
 Emerging as the de facto standard for cloud messaging, RabbitMQ is used for efficient communication
 between servers, apps and devices, and creates lasting value by enabling rapid development of modern decentralized
@@ -71,15 +73,15 @@ The following table provides version and version-support information about <%= v
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>1.19.x</td>
+        <td>1.19.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>MMMM DD, YYYY</td>
+        <td>May 6, 2020</td>
     </tr>
     <tr>
         <td>Software component version</td>
-        <td>RabbitMQ OSS 3.8.2</td>
+        <td>RabbitMQ OSS 3.8.3</td>
     </tr>
     <tr>
         <td>Compatible <%= vars.ops_manager %> versions</td>
