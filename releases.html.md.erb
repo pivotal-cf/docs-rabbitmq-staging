@@ -5,36 +5,24 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="1-19-0"></a> v1.19.0
+## <a id="1-20-0"></a> v1.20.0
 
-**Release Date**: May 6, 2020
+**Release Date**: MMMM DD, 2020
 
 ### Features
 
 New features in this release:
 
-* **RabbitMQ Prometheus plugin support:** This plugin collects RabbitMQ node metrics that you can use for
-monitoring.
-To enable this feature, you must open port `15692`. <br><br>
-For information about the RabbitMQ Prometheus plugin, see the
-[RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html).<br>
-For more information about enabling this feature,
-see [Required Networking Rules for On-Demand Services](./about.html#network-rules).
+* **Run-in Heading:** Feature
 
-* **More connection options:** Operators can configure an on-demand plan that enables service
-instances to connect to components outside the <%= vars.platform_name %> foundation through MQTT and STOMP.
-For more information, see [Enabling Service-Gateway Access](./enable-service-gateway.html).
+* **Run-in Heading:** Feature
 
-* **Filter metrics by cluster names:** The RabbitMQ cluster name now matches its service instance GUID,
-enabling operators to filter metrics by cluster names.
 
 ### Resolved Issues
 
 This release fixes the following issue:
 
-* **Quorum queue downtime during rolling upgrades:** When used in production, quorum queues no longer
-experience downtime during a rolling upgrade.
-This is because <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
+* **Run-in Heading:** Fixed issue
 
 ### Known Issues
 
