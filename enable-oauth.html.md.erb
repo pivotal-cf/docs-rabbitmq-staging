@@ -25,3 +25,45 @@ To enable OAuth for on-demand offering:
 1. Apply changes
 
 ![Enable OAuth](/images/enable-oauth.png)
+
+
+## <a id='configure-uaa-groups'></a> Configure UAA Groups for RabbitMQ
+
+1. [Install UAA and create UAA admin](#install-uaa)
+2. [Create UAA groups for RabbitMQ](#create-rmq-uaa-group)
+3. [Configure Users to RabbitMQ UAA Groups](#configure-users)
+
+## <a id='install-uaa'></a> Install and authenticate with UAA by following the steps outlined [here](https://docs.pivotal.io/platform/application-service/2-9/uaa/uaa-user-management.html#-create-an-admin-user).
+
+It is possible to fetch the UAA Admin Client secret from the opsmanager UI:
+1. Click on the Tanzu Application Service Tile
+1. Open the Credentials tab
+![Credentials tab](/images/oauth-create-uaa-group-1.png)
+1. Locate the Admin Client Credentials in the UAA job
+![Admin Client Credential](/images/oauth-create-uaa-group-2.png)
+1. Click on "Link to Credential"
+1. Copy the password field, this is the value for the Admin Client Credential
+
+Once you have created an admin user in UAA, the next step is to create a group for RabbitMQ permisions and map user groups to those permissions.
+
+## <a id='create-rmq-uaa-group'></a> Create a UAA Group for RabbitMQ permissions
+For each space in Tanzu Application Service that contains RabbitMQ instances, the following steps need to be taken to enable access via OAuth.
+
+Record the space ID for a RabbitMQ On Demand instance.
+`cf space <space_name> --guid`
+
+Create a UAA group using the space guid and RabbitMQ Tag as [here](https://www.rabbitmq.com/management.html#permissions)
+`uaac group add p-rabbitmq_<space_guid>.tag:<rabbitmq_tag>`
+
+Example
+`uaac group add p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker`
+
+
+## <a id='configure-users'></a> Configure Users to RabbitMQ UAA Groups
+You can either map external Identity Provider Groups to the RabbitMQ UAA Groups or add UAA members to the groups.
+
+- Map the RabbitMQ UAA group created above to your Identity Provider group following the instructions [here]("https://docs.pivotal.io/platform/application-service/2-9/uaa/uaa-user-management.html#-grant-admin-permissions-to-an-external-group-(saml,-ldap,-or-oidc)").
+The users in the Identity Provider group mapped above will have permissions based on the RabbitMQ tag provided in the UAA group name.
+
+- Add UAA members to UAA Groups
+`uaac member add GROUP USERNAME`
