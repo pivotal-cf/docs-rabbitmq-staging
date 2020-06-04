@@ -35,7 +35,7 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 ## Book Repo
 
-**docs-book-rabbitmq** is the book repo: https://github.com/pivotal-cf/docs-book-rabbitmq
+The book repo associated with this content repo is [**docs-book-redis**](https://github.com/pivotal-cf/docs-book-rabbitmq).
 
 
 ### Staging Environment
