@@ -30,15 +30,12 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 | 1.5-live   | NOT IN USE (PDF is here: https://docs.pivotal.io/archives/rabbitmq-pcf-1.5.pdf)|
 
 
-[docs-book-rabbitmq]: https://github.com/pivotal-cf/docs-book-rabbitmq/blob/master/config.yml
-
-
 ## Book Repo
 
-The book repo associated with this content repo is [**docs-book-redis**](https://github.com/pivotal-cf/docs-book-rabbitmq).
+The book repo associated with this content repo is [**docs-book-rabbitmq**](https://github.com/pivotal-cf/docs-book-rabbitmq).
 
 
-### Staging Environment
+## Staging Environment
 
 When a commit is made into any of the above branches, the documentation is deployed by [this concourse build][docs-staging-deploy]. All the supported
 versions will be accessible on the [staging website][docs-staging].
@@ -46,7 +43,7 @@ versions will be accessible on the [staging website][docs-staging].
 [docs-staging-deploy]: https://wings.concourse.ci/teams/cf-docs/pipelines/cf-services?groups=rabbitmq
 [docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
 
-### Style Sheet
+## Style Sheet
 
 Use this section to specify spelling of special words for VMware Tanzu RabbitMQ [VMs]:
 
@@ -55,27 +52,27 @@ Use this section to specify spelling of special words for VMware Tanzu RabbitMQ 
 + dedicated-VM plan
 + RabbitMQ Management UI
 
-### Making Your Documentation Changes Live
+## Making Your Documentation Changes Live
 
 Click the deploy button in the pipeline! Living the dream :-D
 
-### Tag Management
+## Tag Management
 
 We do not need to maintain older versions of the documentation so we're electing to not use tags to snapshot the state of the documentation for each previous patch version.
 
-### Contributing Documentation
+## Contributing Documentation
 
 If there's some documentation to add for an unreleased patch version of RabbitMQ then create a branch off of the **live** branch you intend to modify and create a Pull Request against that branch. Once the version that change is targeting is released, the Pull Request can be merged and will be live the next time a documentation deployment occurs.
 
 If the documentation is meant to be target several released versions, then you'll need to create a Pull Request for each individual minor version.
 
-### Partials
+## Partials
 
 Cross-product partials for **VMware Tanzu RabbitMQ [VMs]** are single sourced from the [PCF Docs Partials](https://github.com/pivotal-cf/docs-partials) repo.
 
 Previously, these partials were sourced from the v018.x branch of the [On Demand Service Broker SDK](https://github.com/pivotal-cf/docs-on-demand-service-broker/tree/v0.18.x) content repo.
 
-### Releasing a New Minor Version
+## Releasing a New Minor Version
 
 Since **master** is the latest and greatest documentation, the process would be to cut a **x.x-live** branch for the version that **master** was targeting during that time. A corresponding section in **config.yml** in the [docs-book-pcfservices][docs-book-pcfservices] repository would also need to be made.
 
