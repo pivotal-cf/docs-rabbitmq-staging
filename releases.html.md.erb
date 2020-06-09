@@ -26,14 +26,18 @@ skip minor versions.
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
 ## <a id="1-18-6"></a> v1.18.6
-**Release Date**: June 01, 2020
+**Release Date**: June 09, 2020
 
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* Replicated tile upgrade to 1.18.6 does not fail
-* Admin password for pre-provisioned instances supports special characters like `$` 
+* Upgrading a replicated tile to 1.18.[2-5] fails with the error `this migration in a replicated tile caused the
+error "TypeError: Cannot read property 'value' of undefined".` Upgrading a replicated tile to 1.18.6 does not fail anymore.
+* BOSH deployment does not fail anymore when the RabbitMQ admin password for the pre-provisioned cluster contains a special character such as the `$` sign.
+However, as our docs recommend, "You can use a combination of upper or lowercase alphanumerics and supported special characters: `-=_+":;/?.><,~.`"
+* We observed in production use cases that 'rabbitmqctl node_health_check' times out after 70 seconds. Therefore, this release uses less comprehensive health checks as described in
+https://www.rabbitmq.com/monitoring.html#health-checks
 
 ### Compatibility
 
@@ -41,7 +45,7 @@ The following components are compatible with this release:
 
 <table class="nice"> <th>Component</th> <th>Version</th> 	<tr>
 		<td>Erlang</td>
-		<td>22.3.4.1</td>
+		<td>22.3.4</td>
 	</tr>
 	<tr>
 		<td>HAProxy</td>
@@ -49,7 +53,7 @@ The following components are compatible with this release:
 	</tr>
 	<tr>
 		<td>OSS RabbitMQ*</td>
-		<td>3.8.4</td>
+		<td>3.8.3</td>
 	</tr>
 	<tr>
 		<td>Stemcell</td>
@@ -112,7 +116,7 @@ The following components are compatible with this release:
 		<td>11.6.1</td>
 	</tr></table>
 
-* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.4">v3.8.4</a> GitHub documentation.
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.3">v3.8.3</a> GitHub documentation.
 
 
 ## <a id="1-18-5"></a> v1.18.5
