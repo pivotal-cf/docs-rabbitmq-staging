@@ -9,21 +9,26 @@ owner: London Services
 
 **Release Date**: June 10, 2020
 
+
 ### Resolved Issues
 
 This release fixes the following issues:
 
-* Upgrading a replicated tile no longer fails with the error `this migration in a replicated tile caused the
-error "TypeError: Cannot read property 'value' of undefined".`
-* BOSH deployment does not fail anymore when the RabbitMQ admin password for the pre-provisioned cluster
-contains a special character, such as `$`.
-* To prevent `rabbitmqctl node_health_check` timing out after 70 seconds, RabbitMQ performs less intrusive
-health checks.
-For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/monitoring.html#health-checks).
+* Upgrading a replicated tile no longer fails with the error `this migration in a replicated tile
+caused the error "TypeError: Cannot read property 'value' of undefined".`
+* BOSH deployments no longer fail when the RabbitMQ admin password for the pre-provisioned cluster
+contains a special character.
+* To prevent `rabbitmqctl node_health_check` timing out after 70 seconds, RabbitMQ has less
+intrusive health checks.
+For more information, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/monitoring.html#health-checks).
+
 
 ### Known Issues
 
 This release has the following known issues:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
 
 ### Compatibility
@@ -110,6 +115,7 @@ The following components are compatible with this release:
 
 **Release Date**: May 15, 2020
 
+
 ### Features
 
 New features in this release:
@@ -123,11 +129,13 @@ For more information about enabling this feature,
 see [Required Networking Rules for On-Demand Services](./about.html#network-rules).
 
 * **Service-Gateway Improvement:** Operators can configure an on-demand plan that enables service
-instances to connect to components outside the <%= vars.platform_name %> foundation through MQTT and STOMP.
+instances to connect to components outside the <%= vars.app_runtime_abbr %> foundation through MQTT
+and STOMP.
 For more information, see [Enabling Service-Gateway Access](./enable-service-gateway.html).
 
-* **Filter metrics by cluster names:** The RabbitMQ cluster name now matches its service instance GUID,
-enabling operators to filter metrics by cluster names.
+* **Filter metrics by cluster names:** The RabbitMQ cluster name now matches its service instance
+GUID, enabling operators to filter metrics by cluster names.
+
 
 ### Resolved Issues
 
@@ -137,14 +145,15 @@ This release fixes the following issue:
 experience downtime during a rolling upgrade.
 This is because <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
 
+
 ### Known Issues
 
 This release has the following known issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-* Upgrading a replicated tile fails with the error `this migration in a replicated tile caused the error
-"TypeError: Cannot read property 'value' of undefined".`
-* In production use cases, `rabbitmqctl node_health_check` times out after 70 seconds.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
+
 
 ### Compatibility
 
