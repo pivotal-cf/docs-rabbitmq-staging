@@ -9,8 +9,7 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-For <%= vars.product_short %> v1.15 and v1.16, you can skip a
-minor version when you upgrade.
+For <%= vars.product_short %> v1.15 and v1.16, you can skip a minor version when you upgrade.
 
 See the following table to find your upgrade path:
 
@@ -32,13 +31,22 @@ If you are upgrading a version other than v1.16 or v1.15, do not skip minor vers
 
 This release fixes the following issues:
 
-* Upgrading a replicated tile no longer fails with the error `this migration in a replicated tile caused the
-error "TypeError: Cannot read property 'value' of undefined".`
-* BOSH deployment does not fail anymore when the RabbitMQ admin password for the pre-provisioned cluster
-contains a special character, such as `$`.
-* To prevent `rabbitmqctl node_health_check` timing out after 70 seconds, RabbitMQ performs less intrusive
-health checks.
-For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/monitoring.html#health-checks).
+* Upgrading a replicated tile no longer fails with the error `this migration in a replicated tile
+caused the error "TypeError: Cannot read property 'value' of undefined".`
+* BOSH deployments no longer fail when the RabbitMQ admin password for the pre-provisioned
+cluster contains a special character.
+* To prevent `rabbitmqctl node_health_check` timing out after 70 seconds, RabbitMQ has less
+intrusive health checks.
+For more information, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/monitoring.html#health-checks).
+
+
+### Known Issues
+
+This release has the following known issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
 
 ### Compatibility
 
@@ -144,9 +152,8 @@ This release fixes the following issues:
 This release has the following known issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-* Upgrading a replicated tile fails with the error `this migration in a replicated tile caused the error
-"TypeError: Cannot read property 'value' of undefined".`
-* In production use cases, `rabbitmqctl node_health_check` times out after 70 seconds.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 
 
 ### Compatibility
@@ -279,9 +286,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-bullet-points-appsman" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-bosh-variables" %>
-* Upgrading a replicated tile fails with the error `this migration in a replicated tile caused the error
-"TypeError: Cannot read property 'value' of undefined".`
-* In production use cases, `rabbitmqctl node_health_check` times out after 70 seconds.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 
 ### Compatibility
 
@@ -378,8 +384,8 @@ This release fixes the following issues:
   - v1.15.x to v1.17.1 to v1.18.3
   - v1.15.x to v1.17.3 to v1.18.3
 
-* On platform on-demand service instances, created with a service-gateway-enabled plan, no longer fail to
-connect when using the MQTT and STOMP protocols.
+* On platform on-demand service instances, created with a service-gateway-enabled plan, no longer
+fail to connect when using the MQTT and STOMP protocols.
 For more information, see [Service-Gateway Access (Beta)](./service-gateway-access.html) and
 [RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
@@ -392,9 +398,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-post-deploy-scripts" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-bullet-points-appsman" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-bosh-variables" %>
-* Upgrading a replicated tile fails with the error `this migration in a replicated tile caused the error
-"TypeError: Cannot read property 'value' of undefined".`
-* In production use cases, `rabbitmqctl node_health_check` times out after 70 seconds.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 
 ### Compatibility
 
@@ -515,9 +520,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-post-deploy-scripts" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-bullet-points-appsman" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-bosh-variables" %>
-* Upgrading a replicated tile fails with the error `this migration in a replicated tile caused the error
-"TypeError: Cannot read property 'value' of undefined".`
-* In production use cases, `rabbitmqctl node_health_check` times out after 70 seconds.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 
 ### Compatibility
 
@@ -603,9 +607,11 @@ The following components are compatible with this release:
         <td>4.0.0</td>
     </tr>
 </table>
-<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a> GitHub documentation.
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a>
+GitHub documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
-To view the release notes for another product version, select the version from the dropdown at the top of this
-page.
+To view the release notes for another product version, select the version from the dropdown at the
+top of this page.
