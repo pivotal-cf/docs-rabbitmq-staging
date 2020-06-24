@@ -3,48 +3,29 @@ title: Enabling OAuth
 owner: RabbitMQ
 ---
 
-This topic explains how to enable OAuth.
+This topic explains how to enable OAuth access to the management dashboard.
 
 ## <a id='overview'></a> Overview
 
-This option enables the OAuth 2 plugin for RabbitMQ. This enables apps and users to authenticate
-and authorize using JWT-encoded OAuth 2.0 access tokens.
+Tanzu RabbitMQ [VMs] allows the operator to enable OAuth access to RabbitMQ management dashboard by leveraging an integration with UAA. 
+This enables developers to access the management dashboard using credentials stored in UAA or external identity provider (LDAP) connected to UAA. 
 
 To enable OAuth for an on-demand offering:
 
-1. [Create a UAA Group for OAuth](#create-uaa-group)
-1. [Enable OAuth in <%= vars.ops_manager %>](#enable-oauth)
 1. [Configure UAA Groups for RabbitMQ](#configure-uaa-groups)
+1. [Enable OAuth in <%= vars.ops_manager %>](#enable-oauth)
+1. [Access Management Dashboard](#access-management-dashboard)
 
-## <a id='create-uaa-group'></a> Create a UAA Group for OAuth
-
-<%# Needs stem and steps. %>
-
-## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
-
-To enable OAuth in <%= vars.ops_manager %>:
-
-1. Go to the **Security for On-Demand Plans** section of the <%= vars.app_runtime_abbr %> tile.
-1. Select the **Enable OAuth** checkbox.
-1. Click **Save**.
-1. Apply changes <%# Click **Apply Changes** ? %>
-
-![Enable OAuth](/images/enable-oauth.png)
 
 ## <a id='configure-uaa-groups'></a> Configure UAA Groups for RabbitMQ
 
-1. [Install UAA and Create UAA Admin](#install-uaa)
+1. [Locate UAA Admin Credentials](#uaa-admin-credentials)
 2. [Create UAA Groups for RabbitMQ](#create-rmq-uaa-group)
-3. [Configure Users for the RabbitMQ UAA Groups](#configure-users)
+3. [Add Users to the RabbitMQ UAA Groups](#configure-users)
 
-## <a id='uaa-admin-user'></a> Create an Admin User for UAA
+### <a id='uaa-admin-credentials'></a> Locate UAA Admin Credentials
 
-To install and authenticate with UAA:
-
-1. Create an admin user for UAA by following the steps in [Create an Admin User](https://docs.pivotal.io/platform/application-service/2-9/uaa/uaa-user-management.html#-create-an-admin-user).
-
-To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
-
+The admin credential can be fetched from the <%= vars.ops_manager %>: 
 1. Click on the <%= vars.app_runtime_full %> tile.
 1. Click the **Credentials** tab.
     ![Credentials tab](/images/oauth-create-uaa-group-1.png)
@@ -53,33 +34,36 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
 1. Click **Link to Credential**.
 1. Copy the text in the password field. This is the UAA Admin Client secret.
 
+<p class="note">
+  <strong>Note:</strong> If the admin credentials are missing they can be created by following
+  the steps in [Create an Admin User](https://docs.pivotal.io/platform/application-service/2-9/uaa/uaa-user-management.html#-create-an-admin-user).
+</p>
 
 ### <a id='create-rmq-uaa-group'></a> Create a UAA Group for RabbitMQ Permissions
 
-After creating an admin user in UAA, the next step is to create a group for RabbitMQ permissions and
-map user groups to those permissions.
+The next step is to create a UAA group with name mapping to RabbitMQ permissions.
 
-For each space in <%= vars.app_runtime_full %> that contains RabbitMQ instances you must enable access through OAuth.
+For each space in <%= vars.app_runtime_full %> that contains RabbitMQ instances you must create appropriate UAA group for OAuth to work.
 
-To enable access through OAuth:
+To create UAA group:
 
-1. Display the space GUID for a RabbitMQ on-demand instance by running:
+1. Display the space GUID:
 
     ```
     cf space SPACE-NAME --guid
     ```
     Where `SPACE-NAME` is the name of the space.
 
-    Record the space GUID.
+    Record the `SPACE-GUID`.
 
-1. Create a UAA group using the space GUID and RabbitMQ tag by running:
+1. Create a UAA group using the `SPACE-GUID` and RabbitMQ tag by running:
 
     ```
     uaac group add p-rabbitmq_SPACE-GUID.tag:RABBITMQ-TAG
     ```
 
     Where:
-    * `SPACE-GUID` is the space GUID.
+    * `SPACE-GUID` was located in previous step.
     * `RABBITMQ-TAG` is the RabbitMQ tag. For more information about RabbitMQ tags, see the
     [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions)
 
@@ -89,10 +73,13 @@ To enable access through OAuth:
     </pre>
 
 
-### <a id='configure-users'></a> Configure Users for the RabbitMQ UAA Groups
+### <a id='configure-users'></a> Add Users to the RabbitMQ UAA Groups
+
+The next step is to allow  Space Developers who provision on demand service instances to have access to the managment dashboard. 
+This is achieved by assigning those  users to the UAA groups created above.
 
 You can either map external identity provider groups to the RabbitMQ UAA groups or add UAA members
-to the groups.
+to those groups.
 
 Do one of the following:
 
@@ -108,5 +95,26 @@ tag provided in the UAA group name.
     ```
 
     Where:
-    * `GROUP-NAME` is the UAA group name.
+    * `GROUP-NAME` is the UAA group name created in [Create UAA Groups for RabbitMQ](#create-rmq-uaa-group).
     * `USERNAME` is a UAA group member.
+
+
+## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
+
+To enable OAuth in <%= vars.ops_manager %>:
+
+1. Go to the **Security for On-Demand Plans** section of the <%= vars.app_runtime_abbr %> tile.
+1. Select the **Enable OAuth** checkbox.
+1. Click **Save**.
+1. Apply changes <%# Click **Apply Changes** ? %>
+
+![Enable OAuth](/images/enable-oauth.png)
+
+
+## <a id='access-management-dashboard'></a> Access Management Dashboard
+ 1. Create service instance
+ 1. Create service-key
+ 1. Navigate to the dashboard url
+ 1. Click `Single Sign-on` button
+ 1. Login to UAA
+ 1. Grant permissions
