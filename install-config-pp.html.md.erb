@@ -417,40 +417,36 @@ To specify static IP addresses, do the following:
 
 1. Click **Save**.
 
-## <a id="syslog"></a>Configure Syslog Forwarding and Metrics Polling Interval
+## <a id="config"></a>Configure Syslog Forwarding
 
-To enable monitoring for <%= vars.product_short %>, operators forward the syslog by designating
-an external syslog endpoint for <%= vars.product_short %> component log messages.
-This endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
+As of <%= vars.product_short %> v1.9.0, syslog forwarding is preconfigured and set to on by default.
+VMware recommends that you keep the default setting because it is good operational practice.
+However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the <%= vars.ops_manager %> **Settings** tab.
 
-The metrics polling interval determines how often metrics are collected.
+To enable monitoring for <%= vars.product_short %>, operators designate an external syslog endpoint for <%= vars.product_short %> component log messages.
+The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic. </br>
 
 To specify the destination for <%= vars.product_short %> log messages, do the following:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
-1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
-1. Click **Syslog and Metrics**.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.20.0.png)
+1. Click **Syslog**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
     <th>Field</th>
     <th>Description</th>
     <tr>
-        <td><strong>Metrics polling interval</strong></td>
-        <td>The default setting is 30 seconds for all deployed components. VMware recommends that you do not change this interval.
-        To avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
-        Changing this setting affects all deployed instances.</td>
-    </tr>
-    <tr>
         <td><strong>Syslog address</strong></td>
-        <td>IP or DNS address of the syslog server</td>
+        <td>Enter the IP or DNS address of the syslog server</td>
     </tr>
     <tr>
         <td><strong>Syslog port</strong></td>
-        <td>Port of the syslog server</td>
+        <td>Enter the port of the syslog server</td>
     </tr>
     <tr>
         <td><strong>Transport protocol</strong></td>
-        <td>Transport protocol of the syslog server. One of `udp`, `tcp`, `relp`.</td>
+        <td>Select the transport protocol of the syslog server. The options are <strong>TLS</strong>,
+          <strong>UDP</strong>, or <strong>RELP</strong>.</td>
     </tr>
     <tr>
         <td><strong>Enable TLS</strong></td>
@@ -459,25 +455,58 @@ To specify the destination for <%= vars.product_short %> log messages, do the fo
     <tr>
         <td><strong>Permitted Peer</strong></td>
         <td>If there are several peer servers that can respond to remote syslog connections,
-            then you can provide a wildcard in the domain, such as `*.example.com`.</td>
+            enter a wildcard in the domain, such as `*.example.com`.</td>
     </tr>
     <tr>
-        <td><strong>Custom CA Certificate</strong></td>
+        <td><strong>SSL Certificate</strong></td>
         <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
-            provide the CA certificate of the log management service endpoint.</td>
+            enter the CA certificate of the log management service endpoint.</td>
+    </tr>
+    <tr>
+        <td><strong>Queue Size</strong></td>
+        <td>The number of log messages the buffer holds before dropping messages. A larger buffer size might overload the system. Default is 100000.</td>
+    </tr>
+    <tr>
+        <td><strong>Forward Debug Logs</strong></td>
+        <td>Some components produce voluminous debug logs. This option prevents them from being forwarded. They will still be written to local disk.</td>
+    </tr>
+    <tr>
+        <td><strong>Custom Rules</strong></td>
+        <td>The custom rsyslog rules shown below are written in [RainerScript](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html). The custom rules are inserted before the rule that forwards logs.</td>
     </tr>
 </table>
 
 1. Click **Save**.
-
 1. Return to the <%= vars.ops_manager %> Installation Dashboard.
-
-2. Click **Review Pending Changes**.
+1. Click **Review Pending Changes**.
 For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
-
 1. Click **Apply Changes** to redeploy with the changes.
 
+## <a id="config"></a>Configure Metrics Polling Interval
+To configure metrics polling interval, do the following:
+
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Metrics Polling](images/metrics-configuration-1.20.png)
+1. Click **Metrics**.
+1. Configure the fields on the Metrics Syslog pane as follows:
+<table class="nice">
+    <th>Field</th>
+    <th>Description</th>
+    <tr>
+        <td><strong>Metrics polling interval</strong></td>
+        <td>The default setting is 30 seconds for all deployed components. VMware recommends that you do not change this interval.
+        In order to avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
+        Changing this setting affects all deployed instances.</td>
+    </tr>
+</table>
+
+1. Click **Save**.
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
+1. Click **Review Pending Changes**.
+For more information about this <%= vars.ops_manager %> page,
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Click **Apply Changes** to redeploy with the changes.
 
 ## <a id="global-settings"></a>Global Settings
 

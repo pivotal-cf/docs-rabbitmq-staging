@@ -19,7 +19,7 @@ see [Monitoring and KPIs for Pre‑Provisioned <%= vars.product_full %>](./monit
 See [Overview of Logging and Metrics](https://docs.pivotal.io/platform/application-service/loggregator/data-sources.html)
 for general information about logging and metrics in <%= vars.app_runtime_full %>.
 
-## <a id="config"></a>Set up Syslog Forwarding and Metrics Polling Interval
+## <a id="config"></a>Configure Syslog Forwarding
 
 As of <%= vars.product_short %> v1.9.0, syslog forwarding is preconfigured and set to on by default.
 VMware recommends that you keep the default setting because it is good operational practice.
@@ -31,18 +31,12 @@ The endpoint serves as the input to a monitoring platform such as Datadog, Paper
 To specify the destination for <%= vars.product_short %> log messages, do the following:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
-1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
-1. Click **Syslog and Metrics**.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.20.0.png)
+1. Click **Syslog**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
     <th>Field</th>
     <th>Description</th>
-    <tr>
-        <td><strong>Metrics polling interval</strong></td>
-        <td>The default setting is 30 seconds for all deployed components. VMware recommends that you do not change this interval.
-        In order to avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
-        Changing this setting affects all deployed instances.</td>
-    </tr>
     <tr>
         <td><strong>Syslog address</strong></td>
         <td>Enter the IP or DNS address of the syslog server</td>
@@ -66,9 +60,21 @@ To specify the destination for <%= vars.product_short %> log messages, do the fo
             enter a wildcard in the domain, such as `*.example.com`.</td>
     </tr>
     <tr>
-        <td><strong>Custom CA Certificate</strong></td>
+        <td><strong>SSL Certificate</strong></td>
         <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
             enter the CA certificate of the log management service endpoint.</td>
+    </tr>
+    <tr>
+        <td><strong>Queue Size</strong></td>
+        <td>The number of log messages the buffer holds before dropping messages. A larger buffer size might overload the system. Default is 100000.</td>
+    </tr>
+    <tr>
+        <td><strong>Forward Debug Logs</strong></td>
+        <td>Some components produce voluminous debug logs. This option prevents them from being forwarded. They will still be written to local disk.</td>
+    </tr>
+    <tr>
+        <td><strong>Custom Rules</strong></td>
+        <td>The custom rsyslog rules shown below are written in [RainerScript](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html). The custom rules are inserted before the rule that forwards logs.</td>
     </tr>
 </table>
 
@@ -90,20 +96,42 @@ The RabbitMQ VMs log at the <code>info</code> level and capture errors, warnings
 
 <%= partial vars.path_to_partials + '/rabbitmq/log-formats' %>
 
-## <a id="metrics"></a>What Are Metrics
+## <a id="metrics"></a>Metrics
 
-Metrics are regularly-generated log messages that report measured component states. The metrics polling interval defaults to 30 seconds.
-The **metrics polling interval** is a configuration option on the <%= vars.product_short %> tile (**Settings** > **RabbitMQ**). Setting this interval to -1 disables metrics. The interval setting applies to all components deployed by the tile.
-
-Metrics are long, single lines of text that follow the format:
+Metrics are regularly-generated log messages that report measured component states. Metrics are long, single lines of text that follow the format:
 
 ```mac
 origin:"p.rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p.rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB">
 ```
 
-The following sections describe the metrics used as Key Performance Indicators and other useful metrics for monitoring the <%= vars.product_short %> on-demand service.
+## <a id="config"></a>Configure Metrics Polling Interval
+To configure metrics polling interval, do the following:
+
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Metrics Polling](images/metrics-configuration-1.20.png)
+1. Click **Metrics**.
+1. Configure the fields on the Metrics Syslog pane as follows:
+<table class="nice">
+    <th>Field</th>
+    <th>Description</th>
+    <tr>
+        <td><strong>Metrics polling interval</strong></td>
+        <td>The default setting is 30 seconds for all deployed components. VMware recommends that you do not change this interval.
+        In order to avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
+        Changing this setting affects all deployed instances.</td>
+    </tr>
+</table>
+
+1. Click **Save**.
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
+1. Click **Review Pending Changes**.
+For more information about this <%= vars.ops_manager %> page,
+see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Click **Apply Changes** to redeploy with the changes.
+
 
 ## <a id="kpi"></a>Key Performance Indicators
+The following sections describe the metrics used as Key Performance Indicators and other useful metrics for monitoring the <%= vars.product_short %> on-demand service.
 
 Key Performance Indicators (KPIs) for <%= vars.product_short %> are metrics that operators find most useful for monitoring their <%= vars.product_short %> service to ensure smooth operation. KPIs are high-signal-value metrics that can indicate emerging issues. KPIs can be raw component metrics or _derived_ metrics generated by applying formulas to raw metrics.
 
