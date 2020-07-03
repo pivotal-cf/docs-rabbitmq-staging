@@ -41,6 +41,7 @@ field (UAA-ADMIN-CLIENT-SECRET in the next step).
 To set up UAAC:
 
 1. Run:
+
     ```
     uaac target UAA-URL
     uaac token client get UAA-ADMIN-CLIENT-IDENTITY -s UAA-ADMIN-CLIENT-SECRET
@@ -56,7 +57,7 @@ To set up UAAC:
 For each space in <%= vars.app_runtime_full %> that contains, or is expected to contain, RabbitMQ
 on-demand instances:
 
-1. Display the space GUID:
+1. Display the space GUID by running:
 
     ```
     cf space SPACE-NAME --guid
@@ -96,6 +97,7 @@ Do one of the following:
 
 - Map the RabbitMQ UAA groups created above to your identity provider group by running the following
 command for every RabbitMQ UAA group:
+
     ```
     uaac group map --name "RABBITMQ-UAA-GROUP" "GROUP-DISTINGUISHED-NAME"
     ```
@@ -108,6 +110,7 @@ The users in the identity provider group mapped above gain the permissions speci
 tag provided in the UAA group name.
 
 - Add UAA members to UAA groups by running:
+
     ```
     uaac member add GROUP-NAME USERNAME
     ```
