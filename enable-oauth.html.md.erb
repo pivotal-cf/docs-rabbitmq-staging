@@ -32,7 +32,7 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
 1. Locate the Admin Client Credentials in the UAA job.
     ![Admin Client Credential](/images/oauth-create-uaa-group-2.png)
 1. Click **Link to Credential**.
-1. Copy the text in the identity field (UAA-ADMIN-CLIENT-IDENTITY in the next step) and password
+1. Record the text in the identity field (UAA-ADMIN-CLIENT-IDENTITY in the next step) and password
 field (UAA-ADMIN-CLIENT-SECRET in the next step).
 
 
@@ -45,6 +45,10 @@ To set up UAAC:
     uaac target UAA-URL
     uaac token client get UAA-ADMIN-CLIENT-IDENTITY -s UAA-ADMIN-CLIENT-SECRET
     ```
+    Where:
+    * `UAA-URL` is the UAA URL.
+    * `UAA-ADMIN-CLIENT-IDENTITY` and `UAA-ADMIN-CLIENT-SECRET` are the text you recorded in
+    [Get Admin User Credentials for UAA](#uaa-admin-user).
 
 
 ### <a id='create-rmq-uaa-group'></a> Create a UAA Group
@@ -70,7 +74,7 @@ on-demand instances:
     Where:
     * `SPACE-GUID` is the space GUID.
     * `RABBITMQ-TAG` is the RabbitMQ tag. For more information about RabbitMQ tags, see the
-    [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions)
+    [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions).
 
     For example:
     <pre class="terminal">
@@ -109,7 +113,7 @@ tag provided in the UAA group name.
     ```
 
     Where:
-    * `GROUP-NAME` is the UAA group name create above. For example, `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker`
+    * `GROUP-NAME` is the UAA group name created above. For example, `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker`
     * `USERNAME` is a UAA group member. For example, a CF user.
 
 
