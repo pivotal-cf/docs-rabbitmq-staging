@@ -9,7 +9,7 @@ owner: London Services
 <%= vars.product_short %> enables app developers to provision and use the RabbitMQ message broker with a
 single command.
 
-As of v1.8, <%= vars.product_short %> supports two types of service, an *on-demand* service and a *pre-provisioned* service.
+<%= vars.product_short %> supports two types of service, an *on-demand* service and a *pre-provisioned* service.
 
 This table summarizes the main differences between the two:
 
@@ -26,12 +26,12 @@ This table summarizes the main differences between the two:
    </tr><tr>
    <th>On-Demand Service</th>
    <td>Dedicated VM that serves a single service instance. For more information, see <a href="./ondemand.html">Unlocking the Power of On-Demand VMware Tanzu RabbitMQ [VMs]</a>.</td>
-   <td><%= vars.platform_name %> creates each VM on-demand when an app developer creates a service instance.</td>
+   <td>The BOSH Director creates each VM on-demand when an app developer creates a service instance.</td>
    <td><code>p.rabbitmq</code> (with a dot)</td>
    </tr><tr>
    <th>Pre-Provisioned Service</th>
    <td>Multi-tenant VMs shared by apps across your deployment</td>
-   <td><%= vars.platform_name %> creates all VMs when operator deploys or updates service</td>
+   <td>The BOSH Director creates all VMs when operator deploys or updates service</td>
    <td><code>p-rabbitmq</code> (with a dash)</td>
    </tr>
 </table>
