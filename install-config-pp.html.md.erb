@@ -1,57 +1,66 @@
 ---
-title: Installing and Configuring the <br>Pre-Provisioned Service
+title: Installing and Configuring the Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to operators about how to install,
-configure, and deploy the <%= vars.product_full %> tile to provide a pre-provisioned service.
+This topic provides instructions to operators about how to install, configure, and deploy the
+<%= vars.product_full %> tile to provide a pre-provisioned service.
 
 The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
 see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
 
-<div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
+<p class="note">
+  <strong>Note:</strong> <%= vars.note_pre_provisioned %>
+</p>
 
 ## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager %>
 
-<%= vars.ops_manager %> administrators can use Role-Based Access Control (RBAC) to manage which
+<%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which
 operators can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
-Therefore, your role permissions might not allow you to perform every procedure in this operator guide.
+Therefore, your role permissions might not allow you to follow every procedure in this operator guide.
 
 For more information about roles in <%= vars.ops_manager %>, see
-    <a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">
-        Understand Roles in <%= vars.ops_manager %></a>.</p>
+<a href="https://docs.pivotal.io/pivotalcf/opsguide/config-rbac.html#about">Understand Roles in <%= vars.ops_manager %></a>.
 
 
 ## <a id="install"></a> Download and Install the Tile
 
-1. Download the product file from [<%= vars.product_network %>](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
+To download and install the tile:
 
-2. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to upload the product file.
+1. Download the product file from
+[<%= vars.product_network %>](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
-3. Under the **Import a Product** button, click **+** next to the version number of <%= vars.product_short %>.
+2. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to
+upload the product file.
+
+3. Under **Import a Product**, click **+** next to the version number of <%= vars.product_short %>.
 This adds the tile to your staging area.
 
 4. Click the newly added **<%= vars.product_short %>** tile.
-This lets you begin configuring the tile. The installation is complete when you apply the changes from the configuration.
+This lets you begin configuring the tile. The installation is complete when you apply the changes
+from the configuration.
 
 ## <a id="tile_configurations"></a>Configure Pre-Provisioned <%= vars.product_short %>
 
-The configuration screen below appears when you click the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
+The configuration screen below appears when you click the <%= vars.product_short %> tile in
+<%= vars.ops_manager %>.
 An orange circle beside a tab indicates that you must complete a configuration in the tab.
 A green check mark indicates that the tab is preconfigured and you are able to change its settings.
-An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
+An orange circle indicates that you are required to configure fields on the tab before you can deploy
+the tile.
 
 ![Rabbit Tile Configuration](images/rmq_tile_config.png)
 
 
 ## <a id="azs-networks"></a> Assign AZs and Networks
 
- Follow the steps below to configure the AZs and networks.
+Follow the steps below to configure the AZs and networks:
 
- 1. In the [Settings](#tile_configurations) screen, click **Assign AZs and Networks**.
+1. In the [Settings](#tile_configurations) screen, click **Assign AZs and Networks**.
      <p class="note warning"><strong>Warning:</strong> You cannot change the regions or networks after
-     you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+     you have clicked <strong>Apply Changes</strong> during the
+     <a id="#apply-changes">Apply Configuration and Complete the Installation</a> procedure below.</p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows.
     **All fields are required**, though some do not apply to the pre-provisioned service.
@@ -61,7 +70,7 @@ An orange circle indicates that you are required to configure fields on the tab 
          <td>Select a region.
              This selection only affects the on-demand service.</td></tr>
      <tr><td><strong>Balance other jobs in</strong></td>
-         <td>Select additional region(s).
+         <td>Select additional regions.
              This selection only affects the pre-provisioned service.</td></tr>
      <tr><td><strong>Network</strong></td>
          <td>Select a network for the <%= vars.product_short %> Broker.<br><br>
@@ -75,9 +84,12 @@ An orange circle indicates that you are required to configure fields on the tab 
              This selection only affects the on-demand service.</td></tr>
    </table>
 
-    <p class="note warning"><strong>WARNING</strong>: Changing the Network after you have configured it, or changing the IP configuration,
-       results in a failed deployment.
-       For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
+    <p class="note warning">
+      <strong>Warning:</strong> Changing the Network after you have configured it, or changing the IP
+      address configuration, results in a failed deployment.
+      For more information, see
+      <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
+    </p>
 
  3. Click **Save**.
 
@@ -89,18 +101,25 @@ click **Pre-Provisioned RabbitMQ** and under **Deploy Pre-Provisioned service of
 
 ### <a id='dash'></a>RabbitMQ Admin User Credentials
 
-In the **RabbitMQ admin user credentials** field of the RabbitMQ pane, enter an admin username and password:
+In the **RabbitMQ admin user credentials** field of the RabbitMQ pane, enter an admin username and
+password:
 
-<%= image_tag("images/config-credentials.png") %>
+<%= image_tag("images/config-credentials.png") %><%# Images require alt text. %>
 
-You can use a combination of upper or lowercase alphanumerics and supported special characters: `-=_+":;/?.><,~`.
+You can use a combination of upper or lowercase alphanumerics and supported special characters:
+`-=_+":;/?.><,~`.
 
-<p class="note"><strong>Note</strong>: You cannot use back quote <code>`</code> or single quote <code>'</code>.</p>
+<p class="note">
+  <strong>Note:</strong> You cannot use back quote <code>`</code> or single quote <code>'</code>.
+</p>
 
 This grants you full admin access to the RabbitMQ Management UI.
 
-<p class="note"><strong>Note</strong>: To rotate your admin credentials, enter a new username and password,
-  save your options, and redeploy by returning to the <%= vars.ops_manager %> Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
+<p class="note">
+  <strong>Note:</strong> To rotate your admin credentials, enter a new username and password,
+  save your options, and redeploy by returning to the <%= vars.ops_manager %> Installation Dashboard
+  and clicking <strong>Apply Changes</strong>.
+</p>
 
 
 ### <a id='plugin'></a>Plugins
@@ -109,20 +128,21 @@ Choose which plugins you want to enable in this section of the **Pre-Provisioned
 
 You must leave the **rabbitmq_management** plugin enabled for this product to work.
 
-<%= image_tag("images/config-plugins.png") %>
+<%= image_tag("images/config-plugins.png") %><%# Images require alt text. %>
 
-For more information about RabbitMQ plugins, see the [RabbitMQ documentation](https://www.rabbitmq.com/plugins.html).
+For more information about RabbitMQ plugins, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/plugins.html).
 
 ### <a id="erlang"></a>Erlang Cookie
 
-(Optional) Provide an Erlang cookie to be used by the cluster in this section of
-the **Pre-Provisioned RabbitMQ** tab.
-This is useful if you want to connect directly to the RabbitMQ cluster, for
-example with `rabbitmqctl`, or to connect other VMs running Erlang.
+(Optional) In this section of the **Pre-Provisioned RabbitMQ** tab, provide an Erlang cookie for the
+cluster to use.
+This is useful if you want to connect directly to the RabbitMQ cluster, for example with
+`rabbitmqctl`, or to connect other VMs running Erlang.
 
 If you leave this field blank, BOSH CredHub generates a secure Erlang cookie.
 
-<%= image_tag("images/config-erlang.png") %>
+<%= image_tag("images/config-erlang.png") %><%# Images require alt text. %>
 
 
 #### <a id="security-fix"></a> Erlang Cookie Security Fix
@@ -148,44 +168,48 @@ For how to do this, see [Set the Erlang Cookie to Existing its Value](#existing-
 
 #### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
-Changing the Erlang cookie value causes a few minutes of downtime because it
-requires a full cluster shutdown.
-VMware *strongly* recommends that you do not change anything else during this
-time, because it is possible for the configuration to be inconsistently applied
-during this process.
+Changing the Erlang cookie value causes a few minutes of downtime because it requires a full cluster
+shutdown.
+VMware recommends that you do not change anything else during this time, because it is possible for
+the configuration to be applied inconsistently during this process.
 
 The deployment might fail after this process. If so, redeploying fixes the issue.
 
+
 #### <a id="existing-value"></a> Set the Erlang Cookie to Its Existing Value
 
-<p class="note warning"><strong>WARNING:</strong>
-VMware recommends that you change the Erlang cookie to prevent being affected
-by CVE-2018-1279.
-For more information, see <a href="./install-config-pp.html#security-fix">Erlang Cookie Security Fix</a>
-above.</p>
+<p class="note warning">
+  <strong>Warning:</strong> VMware recommends that you change the Erlang cookie to prevent
+  CVE-2018-1279 affecting it.
+  For more information, see
+  <a href="./install-config-pp.html#security-fix">Erlang Cookie Security Fix</a> above.
+</p>
 
 If you rely on the tile to generate the Erlang cookie but need to upgrade to
-<%= vars.product_short %> v1.16 without a cluster shutdown, you can
-set the Erlang cookie to its existing value by following the steps below:
+<%= vars.product_short %> v1.16 without a cluster shutdown, set the Erlang cookie to its existing value:
 
-1. Follow the steps in the following link, up to and including the section _Log in to the BOSH Director_:
-  [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather).
+1. Follow the steps in
+[Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather), up to and including the section **Log in to the BOSH Director**:
 
-1. Run the following command: <br>
-    `bosh ssh rabbitmq-server/0`
+1. SSH into the RabbitMQ server by running:
 
-1. Run the following commands:
+    ```
+    bosh ssh rabbitmq-server/0
+    ```
+
+1. Get the value of the Erlang cookie by running:
 
     ```
     sudo -i
     echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
     ```
 
-1. Paste the value returned from the last command into the Erlang cookie field in the **Pre-Provisioned RabbitMQ** tab.
-This field is shown [above](#erlang).
+1. Paste the value returned from the last command into the Erlang cookie field in the
+**Pre-Provisioned RabbitMQ** tab.
+This field is shown in the [Erlang Cookie](#erlang) section above.
 
-1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row,
-raise the value for the number of **Instances** of the **RabbitMQ node**.
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first
+row, raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
@@ -195,38 +219,47 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 1. Click **Apply Changes**.
 
-<p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
-default value in the manifest is empty, which results in an auto-generated
-cookie. However, the value of the cookie on the server remains the same, so there
-is no downtime.</p>
-
-### <a id="load-balance"></a> External Load Balancer
-
-(Optional) Enter a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`)
-to app developers.
-Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config-elb.png") %>
+<p class="note">
+  <strong>Note:</strong> BOSH tells you that the cookie has changed. This is because the default
+  value in the manifest is empty, which results in an auto-generated cookie.
+  However, the value of the cookie on the server remains the same, so there is no downtime.
+</p>
 
 
-If you configure an external load balancer, to avoid an unnecessary VM deployment,
-in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
+### <a id="load-balance"></a> Set an External Load Balancer <%# Is this whole section optional? %>
+
+To set an external load balancer:
+
+1. In the **External Load Balancer DNS name** field, enter a DNS name or IP address of an external
+load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to app developers.
+
+    <%= image_tag("images/config-elb.png") %><%# Images require alt text. %>
+
+1. To avoid unnecessary VM deployment, in the **Resource Config** tab set the **HAProxy for RabbitMQ**
+instance count to **0**.
+
 
 ### <a id="custom-policy"></a> Enable Custom Policy on New Instances
 
-You can specify a custom RabbitMQ policy in this part of the **Pre-Provisioned RabbitMQ** tab. For information and instructions, see
+You can specify a custom RabbitMQ policy in this part of the **Pre-Provisioned RabbitMQ** tab.
+For information and instructions, see
 [Setting Default Policies for the RabbitMQ Service](./policies.html).
+
 
 ### <a id="haproxy"></a>HAProxy Ports
 
-Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **Pre-Provisioned RabbitMQ** tab:
+To add HAProxy ports:
 
-<%= image_tag("images/config-haproxy.png") %>
+1. In the **RabbitMQ cluster HAproxy ports** field, enter the ports HAProxy should load balance to
+the RabbitMQ nodes.
 
-* Enter a comma-separated list of ports that are proxied to RabbitMQ nodes.
-If you enable other protocol plugins or have a custom configuration
-that changes the ports that RabbitMQ listens on, you can extend this list.
-The list defaults to the following:
+    <%= image_tag("images/config-haproxy.png") %><%# Images require alt text. %>
+
+1. Enter a comma-separated list of ports that are proxied to RabbitMQ nodes. You must include port
+<code>15672</code> for the Management UI to listen on.
+If you enable other protocol plugins or have a custom configuration that changes the ports that
+RabbitMQ listens on, you can extend this list.
+The list defaults to:
   * 15672 - Management
   * 5672 - AMQP
   * 5671 - AMQP+SSL
@@ -236,64 +269,60 @@ The list defaults to the following:
   * 61614 - STOMP+SSL
   * 15674 - WebSTOMP
 
-    <p class="note warning"><strong>Warning</strong>:
-      The Management UI must listen on port <code>15672</code>.
-      You must include this port on the list.
+    <p class="note">
+      <strong>Note:</strong> You do not need to expose port <code>15671</code> because the
+      pre-provisioned offering does not support access to the Management UI over TLS.
     </p>
-    <p class="note"><strong>Note</strong>:
-    You do not need to expose port <code>15671</code> because the pre-provisioned offering does not support
-    access to the Management UI over TLS.</p>
 
-* If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
+If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during
+the deployment.
 
+### <a id="ssl"></a>(Optional) Provide SSL Certificates
 
-### <a id="ssl"></a> SSL
+To provide SSL certificates:
 
-(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
+1. In the **RabbitMQ server certificate** fields, enter SSL certificates and keys for the RabbitMQ
+cluster to use.
 
-<%= image_tag("images/config_ssl.png") %>
+<%= image_tag("images/config_ssl.png") %><%# Images require alt text. %>
 
-* SSL is simultaneously provided for AMQPS, STOMP and MQTT.
+SSL is simultaneously provided for AMQPS, STOMP and MQTT.
 No other plugins are automatically configured for use with SSL.
 
-* If you provide SSL keys and certificates, non-SSL support for AMQP is disabled.
-If you previously deployed this service without SSL support and
-have apps connected to the service using AMQP, these apps lose
-their connections and must reconnect using AMQPS. Apps
-connected to the cluster over MQTT and STOMP continue to function
-without SSL.
+If you provide SSL keys and certificates, non-SSL support for AMQP is disabled.
+If you previously deployed this service without SSL support and have apps connected to the service
+using AMQP, these apps lose their connections and must reconnect using AMQPS.
+Apps connected to the cluster over MQTT and STOMP continue to function without SSL.
 
-* SSL settings are applied equally across all VMs in the cluster.
+SSL settings are applied equally across all VMs in the cluster.
 
-* You can provide more then one CA certificate.
+You can provide more then one CA certificate.
 
-For more information about SSL support, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
-
-
-### <a id="tls"></a>TLS Support
-
-Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config_tls.png", :width => "400") %>
-
-* TLS v1.0 is disabled by default, due to security issues.
-
-* TLS v1.1 and v1.2 are enabled by default and can be turned on and off.
+For more information about SSL support, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
 
 
-### <a id="configfile"></a> RabbitMQ Configuration
+### <a id="tls"></a>Configure TLS Support
 
-(Optional) Provide a full <code>rabbitmq.config</code> file by pasting its contents in
-the **RabbitMQ configuration** field in the **Pre-Provisioned RabbitMQ** tab.
+To configure TLS support:
+
+1. Select the TLS versions to support. TLS v1.0 is disabled by default, due to security issues.
+TLS v1.1 and v1.2 are enabled by default.
+
+<%= image_tag("images/config_tls.png", :width => "400") %><%# Images require alt text. %>
+
+
+### <a id="configfile"></a> (Optional) Configure the RabbitMQ Service
+
+1. Provide a full <code>rabbitmq.config</code> file by pasting its contents in the
+**RabbitMQ configuration** field.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 
-<%= image_tag("images/config_rabbitmq.png") %>
+<%= image_tag("images/config_rabbitmq.png") %><%# Images require alt text. %>
 
+The input in this field must be encoded in Base64.
 
-The input in this field must be Base64 encoded.
-
-For example, suppose you want to configure the
-`rates_mode` of the `rabbitmq_management` stats below:
+For example, to configure the `rates_mode` of the `rabbitmq_management` stats below:
 
 ```
 [
@@ -303,7 +332,7 @@ For example, suppose you want to configure the
 ].
 ```
 
-1. Encode the file into Base64:
+1. Encode the file in Base64:
 
     ```
     WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
@@ -311,43 +340,48 @@ For example, suppose you want to configure the
 
 2. Paste the above into the **RabbitMQ configuration** field:
 
-    <%= image_tag("images/config_rabbitmq_file.png") %>
+    <%= image_tag("images/config_rabbitmq_file.png") %><%# Images require alt text. %>
 
 
-You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
-For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
+You can see an example `rabbitmq.config` file
+[here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example) in GitHub.
+<%# Ask RabbitMQ engineer for correct link %>
+For more information about the RabbitMQ configuration, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
 
 
 ### <a id="partition"></a> Select the Network Partition Behavior of the RabbitMQ Cluster
 
-In this part of the **Pre-Provisioned RabbitMQ** tab, you can select one of two behaviors to occur in the
-event of a network partition.
+In this part of the **Pre-Provisioned RabbitMQ** tab, you can select one of two behaviors to occur in
+the event of a network partition.
 
 1. In the **Select the network partition behavior of the RabbitMQ cluster** field,
-   choose the desired behavior: **pause_minority** or **autoheal**.
+   choose the desired behavior **pause_minority** or **autoheal**.
 
-  <br>For more information about these options and on RabbitMQ clusters and network partitions,
-            see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
+  For more information about these options and RabbitMQ clusters and network partitions,
+  see the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
 
-  <br>For production purposes, VMware recommends that customers have at least three RabbitMQ server nodes
-            and two HAProxies spread across low latency availability zones.
+  For production purposes, VMware recommends that customers have at least three RabbitMQ server
+  nodes and two HAProxies spread across low-latency AZs.
 
 
-### Disk Free Alarm Limit <a id="disk_free_alarm_selector"></a>
+### <a id="disk_free_alarm_selector"></a> Disk-free Alarm Limit
 
-Choose how much disk space RabbitMQ attempts to keep free at any
-given time in this section of the **Pre-Provisioned RabbitMQ** tab:
+To set the alarm for the amount of free disk space remaining:
 
-<%= image_tag("images/disk_alarm_threshold.png") %>
+1. Choose how much disk space RabbitMQ attempts to keep free at any given time in this section of the
+**Pre-Provisioned RabbitMQ** tab:
 
-RabbitMQ periodically checks if there is sufficient free space on disk. If there is not,
-RabbitMQ temporarily stops accepting new messages. This gives your apps time
-to consume existing messages, and thus free up some disk space. The RabbitMQ
-tile provides four options for this value:
+<%= image_tag("images/disk_alarm_threshold.png") %><%# Images require alt text. %>
+
+RabbitMQ periodically checks if there is sufficient free disk space. If there is not,
+RabbitMQ temporarily stops accepting new messages.
+This gives your apps time to consume existing messages, and therefore free up some disk space.
+The RabbitMQ tile provides four options for this value:
 
 * **50MB** is the minimum value. (Not Recommended)
 
-    Selecting **50MB** is not recommended and can cause data loss. For more information,
+    Selecting **50MB** is discouraged because it can cause data loss. For more information,
     see [Dangers of Setting This Value Too Low](#too-low) and [When to Use the 50MB Value](#50mb) below.
 
 * **100% Memory** ensures that at the time when RabbitMQ checks the available disk,
@@ -368,10 +402,9 @@ tile provides four options for this value:
 For more information about disk alarms, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html).
 
-####<a name='too-low'></a> Dangers of Setting This Value Too Low
+#### <a name='too-low'></a> Dangers of Setting This Value Too Low
 
-If the disk of a given RabbitMQ node completely fills while RabbitMQ is running,
-that node crashes.
+If the disk of a RabbitMQ node completely fills while RabbitMQ is running, that node crashes.
 This can lead to data loss, and loss of availability.
 
 RabbitMQ reserves the right to page any and all messages in memory (even
@@ -389,20 +422,20 @@ space free to satisfy the **Disk free alarm limit** that you choose.
 
 #### <a name='50mb'></a> When to Use the 50MB Value
 
-VMware does not recommend using this value in production. However, if you are experimenting with a
-development environment you might want to use a small disk to keep down costs,
-though this increases the possibility that RabbitMQ crashes and loses data.
+VMware discourages using this value in production. However, if you are experimenting with a local
+machine you might want to use a small disk to keep down costs, even though this increases the
+risk of RabbitMQ crashing and losing data.
 
 ### <a id="networking"></a>Specify Static IP Addresses
 
-To specify static IP addresses, do the following:
+To specify static IP addresses:
 
 1. In the **Pre-Provisioned RabbitMQ** tab, configure the following fields:<br>
   * **Pre-Provisioned HAProxy Static IPs**:
-    Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
+    Enter a comma-separated list of IP addresses grouped in the order of AZs configured.
     These IP addresses are assigned to your Pre-Provisioned HAProxy nodes.<br><br>
   * **Pre-Provisioned RabbitMQ Server Static IPs**:
-    Enter a comma-delimited list of IP addresses grouped in the order of AZs configured.
+    Enter a comma-separated list of IP addresses grouped in the order of AZs configured.
     These IP addresses are assigned to your Pre-Provisioned RabbitMQ Server nodes.<br><br>
   * **Pre-Provisioned Service Broker Static IP**:
     Enter an IP address. This address must be in the network range of the network name
@@ -417,34 +450,38 @@ To specify static IP addresses, do the following:
 
 1. Click **Save**.
 
-## <a id="config"></a>Configure Syslog Forwarding
+## <a id="config"></a> Configure Syslog Forwarding
 
-As of <%= vars.product_short %> v1.9.0, syslog forwarding is preconfigured and set to on by default.
+From <%= vars.product_short %> v1.9.0, syslog forwarding is preconfigured and enabled by default.
 VMware recommends that you keep the default setting because it is good operational practice.
-However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the <%= vars.ops_manager %> **Settings** tab.
+However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the
+<%= vars.ops_manager %> **Settings** tab.
 
-To enable monitoring for <%= vars.product_short %>, operators designate an external syslog endpoint for <%= vars.product_short %> component log messages.
-The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic. </br>
+To enable monitoring for <%= vars.product_short %>, operators, designate an external syslog endpoint
+for <%= vars.product_short %> component log entries.
+The endpoint serves as the input to a monitoring platform such as Datadog, Papertrail, or SumoLogic.
 
-To specify the destination for <%= vars.product_short %> log messages, do the following:
+To specify the destination for <%= vars.product_short %> log entries:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
-1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.20.0.png)
+1. In the <%= vars.product_short %> tile, click the **Settings** tab.
+![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.20.0.png)
+<%# image alt text needed %>
 1. Click **Syslog**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
     <th>Field</th>
     <th>Description</th>
     <tr>
-        <td><strong>Syslog address</strong></td>
+        <td><strong>Syslog Address</strong></td>
         <td>Enter the IP or DNS address of the syslog server</td>
     </tr>
     <tr>
-        <td><strong>Syslog port</strong></td>
+        <td><strong>Syslog Port</strong></td>
         <td>Enter the port of the syslog server</td>
     </tr>
     <tr>
-        <td><strong>Transport protocol</strong></td>
+        <td><strong>Transport Protocol</strong></td>
         <td>Select the transport protocol of the syslog server. The options are <strong>TLS</strong>,
           <strong>UDP</strong>, or <strong>RELP</strong>.</td>
     </tr>
@@ -455,24 +492,28 @@ To specify the destination for <%= vars.product_short %> log messages, do the fo
     <tr>
         <td><strong>Permitted Peer</strong></td>
         <td>If there are several peer servers that can respond to remote syslog connections,
-            enter a wildcard in the domain, such as `*.example.com`.</td>
+            enter a wildcard in the domain, such as <code>*.example.com</code>.</td>
     </tr>
     <tr>
         <td><strong>SSL Certificate</strong></td>
-        <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
-            enter the CA certificate of the log management service endpoint.</td>
+        <td>If the server certificate is not signed by a known authority, such as an internal syslog
+          server, enter the CA certificate of the log management service endpoint.</td>
     </tr>
     <tr>
         <td><strong>Queue Size</strong></td>
-        <td>The number of log messages the buffer holds before dropping messages. A larger buffer size might overload the system. Default is 100000.</td>
+        <td>The number of log entries the buffer holds before dropping messages.
+          A larger buffer size might overload the system. The default is 100000.</td>
     </tr>
     <tr>
         <td><strong>Forward Debug Logs</strong></td>
-        <td>Some components produce voluminous debug logs. This option prevents them from being forwarded. They will still be written to local disk.</td>
+        <td>Some components produce very long debug logs. This option prevents them from being
+          forwarded. They will still be written to local disk.</td>
     </tr>
     <tr>
         <td><strong>Custom Rules</strong></td>
-        <td>The custom rsyslog rules shown below are written in [RainerScript](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html). The custom rules are inserted before the rule that forwards logs.</td>
+        <td>The custom rsyslog rules shown below are written in
+          <a href="https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html">RainerScript</a>.
+          The custom rules are inserted before the rule that forwards logs.</td>
     </tr>
 </table>
 
@@ -483,11 +524,13 @@ For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 1. Click **Apply Changes** to redeploy with the changes.
 
-## <a id="config"></a>Configure Metrics Polling Interval
-To configure metrics polling interval, do the following:
+## <a id="config"></a> Configure the Metrics Polling Interval
+
+To configure the metrics polling interval:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
-1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![Ops Manager Metrics Polling](images/metrics-configuration-1.20.png)
+1. In the <%= vars.product_short %> tile, click the **Settings** tab.
+![Ops Manager Metrics Polling](images/metrics-configuration-1.20.png)
 1. Click **Metrics**.
 1. Configure the fields on the Metrics Syslog pane as follows:
 <table class="nice">
@@ -495,9 +538,11 @@ To configure metrics polling interval, do the following:
     <th>Description</th>
     <tr>
         <td><strong>Metrics polling interval</strong></td>
-        <td>The default setting is 30 seconds for all deployed components. VMware recommends that you do not change this interval.
-        In order to avoid overwhelming components, do not set this below 10 seconds. Set this to -1 to disable Metrics.
-        Changing this setting affects all deployed instances.</td>
+        <td>The default setting is 30 seconds for all deployed components.
+          VMware recommends that you do not change this interval.
+          To avoid overwhelming components, do not set this below 10 seconds.
+          Set this to <code>-1</code> to disable metrics.
+          Changing this setting affects all deployed instances.</td>
     </tr>
 </table>
 
@@ -532,15 +577,18 @@ Therefore, if you are not using the on-demand service:
 
 * Select or enter any values in the required fields, select the **Acknowledge** checkbox, and click **Save**.
 
-For information about configuring the on-demand service, see [Installing and Configuring the On-Demand Service](./install-config.html).
+For information about configuring the on-demand service, see
+[Installing and Configuring the On-Demand Service](./install-config.html).
 
 ## <a id='errands'></a>Errands
 
 (Optional) In the **Errands** tab, choose the defaults for when errands run.
 
 Errands can be thought of as tasks. For example, when deploying or updating <%= vars.product_short %>,
-<%= vars.ops_manager %> can optionally run a series of [post-deploy errands](#post-deploy-errands).
-An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+<%= vars.ops_manager %> can optionally run a series of post-deploy errands.
+An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a
+deploy or upgrade.
+For more information, see [Post-Deploy Errands](#post-deploy-errands) below.
 
 You can toggle errands on and off on the <%= vars.ops_manager %> **Review Pending Changes** page.
 
@@ -550,15 +598,17 @@ This is a one-time action before an update.
 You can change these defaults by clicking **Errands** in the <%= vars.product_short %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
-<p class='note warning'><strong>Warning:</strong>
+<p class='note warning'>
+  <strong>Warning:</strong>
   In <%= vars.product_short %> v1.9.0 and later, post-deploy errands are on by default
   except the Recreate All Service Instances errand.
   VMware recommends keeping these defaults, because the smoke tests can encounter
   unexpected issues, and on-demand instances of <%= vars.product_short %> might fall behind
-  if the Upgrade All Service Instances errand is not on by default.</p>
+  if the Upgrade All Service Instances errand is not on by default.
+</p>
 
-
-For more information about errand run rules, see [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+For more information about errand run rules, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 ### <a id='post-deploy-errands'></a>Post-Deploy Errands
 
@@ -571,32 +621,37 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
   </tr>
   <tr>
     <td><strong>Pre-Provisioned Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned <%= vars.product_short %> service instance can be bound to a <%= vars.app_runtime_abbr %> app,
-      and that the app can publish and subscribe to a RabbitMQ cluster.
+    <td>Checks that a pre-provisioned <%= vars.product_short %> service instance can be bound to a
+      <%= vars.app_runtime_abbr %> app, and that the app can publish and subscribe to a RabbitMQ cluster.
       See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
   <tr>
     <td><strong>Register On Demand Service Broker</strong></td>
-    <td>Makes the on-demand <%= vars.product_short %> service plans available in the Marketplace. If you change the Service Plan Configuration, you must run this errand in order for the changes to be reflected in the Marketplace.</td>
+    <td>Makes the on-demand <%= vars.product_short %> service plans available in the Marketplace.
+      If you change the Service Plan Configuration, you must run this errand in order for the changes
+      to be reflected in the Marketplace.</td>
   </tr>
   <tr>
     <td><strong>On Demand Instance Smoke Tests</strong></td>
-    <td>Checks that on-demand <%= vars.product_short %> service instances can be bound to a <%= vars.app_runtime_abbr %> app,
-      and that the app can publish and subscribe to a RabbitMQ cluster.
+    <td>Checks that on-demand <%= vars.product_short %> service instances can be bound to a
+      <%= vars.app_runtime_abbr %> app, and that the app can publish and subscribe to a RabbitMQ cluster.
       See <a href="./smoke-tests.html">Smoke Tests</a>.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-Demand instances are updated and redeployed if there are changes to the <strong>Dedicated Instance</strong> settings or the
-    tile is upgraded.
-    If this errand is set to <strong>Off</strong>, updates to <strong>Dedicated Instance</strong> settings are not
-    applied to existing service instances.
+    <td>On-Demand instances are updated and redeployed if there are changes to the
+      <strong>Dedicated Instance</strong> settings or the tile is upgraded.
+    If this errand is set to <strong>Off</strong>, updates to <strong>Dedicated Instance</strong>
+    settings are not applied to existing service instances.
     <br>
     <strong>VMware recommends that this errand is configured to always run</strong>.</td>
   </tr>
   <tr>
     <td><strong>Recreate All Service Instances</strong></td>
-    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker. It is useful for tasks that require re-creating the service instance VM, such as rotating the <%= vars.ops_manager %> root certificate authority (CA) or fully restoring the platform during disaster recovery or migration.
+    <td>This errand re-creates all On-Demand instance VMs managed by the On-Demand broker.
+      It is useful for tasks that require re-creating the service instance VM, such as rotating the
+      <%= vars.ops_manager %> root certificate authority (CA) or fully restoring the platform during
+      disaster recovery or migration.
     <br>
     <strong>This errand is off by default and should be enabled only when you want to re-create a VM.</strong></td>
   </tr>
@@ -604,15 +659,16 @@ For more information about errand run rules, see [Errand Run Rules](https://docs
 
 ### <a id="pre-delete-errands"></a>Pre-Delete Errands
 
-Pre-delete errands run after an operator chooses to delete a product in the <%= vars.ops_manager %> Installation Dashboard,
-but before <%= vars.ops_manager %> finishes deleting the product.
+Pre-delete errands run after an operator chooses to delete a product in the <%= vars.ops_manager %>
+Installation Dashboard, but before <%= vars.ops_manager %> finishes deleting the product.
 
 <table class="nice">
   <th>Errand</th>
   <th>Description</th>
   <tr>
     <td><strong>Deregister and Purge Instances</strong></td>
-    <td>Removes the pre-provisioned <%= vars.product_short %> service from the Marketplace and deletes all associated service instances and bindings.
+    <td>Removes the pre-provisioned <%= vars.product_short %> service from the Marketplace and
+      deletes all associated service instances and bindings.
     For more information,
     see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</td>
   </tr>
@@ -633,6 +689,8 @@ To verify that you have the correct stemcell, follow the procedure in
 [Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html).
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
+
+To apply the configuration and complete the installation:
 
 1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
@@ -660,7 +718,7 @@ For example, with two HAProxy jobs deployed, the following properties are presen
     "10.0.0.51"]
 </code></pre>
 
-### <a id='port-map'></a>Port to protocol mappings
+### <a id='port-map'></a>Port to Protocol Mappings
 
 * 15672 = RabbitMQ Management UI
 * 5672 = RabbitMQ
@@ -678,7 +736,8 @@ For example, with two HAProxy jobs deployed, the following properties are presen
 
 To enable access to the <%= vars.product_short %> tile service, you must ensure your firewall
 rules allow access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment.
-You can obtain the IP addresses for these from the <%= vars.ops_manager %> **Status** page in the <%= vars.product_short %> tile.
+You can obtain the IP addresses for these from the <%= vars.ops_manager %> **Status** page in the
+<%= vars.product_short %> tile.
 Ensure the following ports are enabled for those VMs:
 
 * 15672
@@ -714,7 +773,7 @@ The following is a template for configuring your <%= vars.app_runtime_abbr %> fi
 To allow this service to have network access, you must create
 [Application Security Groups](http://docs.pivotal.io/platform/application-service/operating/app-sec-groups.html) (ASGs).
 
-<p class="note"><strong>Note</strong>: The service is unusable without Application Security Groups.</p>
+<p class="note"><strong>Note:</strong> The service is unusable without Application Security Groups.</p>
 
 ### Application Container Network Connections
 
@@ -764,14 +823,14 @@ However, you can configure <%= vars.ops_manager %> so the
 current set of dynamically assigned IP addresses always continue to be used.
 This might be useful when upgrading.
 
-To do this, follow these steps:
+To do so:
 
 1. Go to the **Status** page in the <%= vars.product_short %> tile.
 2. Take note of the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
 3. Go to the **Settings** page, and click the **Pre-Provisioned RabbitMQ** tab.
 4. Enter the IP addresses you got from the **Status** page as a comma-separated list.
 
-    <br><%= image_tag("images/config_static_ip.png") %>
+    <br><%= image_tag("images/config_static_ip.png") %><%# Images require alt text. %>
 
 5. Click **Save**.
 
