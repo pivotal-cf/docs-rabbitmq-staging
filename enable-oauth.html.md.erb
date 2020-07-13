@@ -3,8 +3,8 @@ title: Enabling OAuth
 owner: RabbitMQ
 ---
 
-This topic explains how to enable app developers to authorize using JWT-encoded OAuth 2.0 access
-tokens.
+This topic explains how to enable app developers to authenticate users through JWT-encoded OAuth
+2.0 access tokens.
 
 
 ## <a id='overview'></a> Overview
@@ -38,11 +38,17 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
 field (`UAA-ADMIN-CLIENT-SECRET` in the next step).
 
 
-### <a id='create-rmq-uaa-group'></a> Set up UAAC
+### <a id='create-rmq-uaa-group'></a> Install and Set up UAAC
 
-To set up UAAC:
+To install and set up UAAC:
 
-1. Run:
+1. Install UAAC by running:
+
+    ```
+    gem install cf-uaac
+    ```
+
+1. Set up UAAC by running:
 
     ```
     uaac target UAA-URL
@@ -50,7 +56,7 @@ To set up UAAC:
     ```
     Where:
     * `UAA-URL` is the UAA URL.
-    * `UAA-ADMIN-CLIENT-IDENTITY` and `UAA-ADMIN-CLIENT-SECRET` are the from text you recorded in
+    * `UAA-ADMIN-CLIENT-IDENTITY` and `UAA-ADMIN-CLIENT-SECRET` are from the text you recorded in
     [Get Admin User Credentials for UAA](#uaa-admin-user) above.
 
 
@@ -78,7 +84,8 @@ To create a UAA group for a space:
 
     Where:
     * `SPACE-GUID` is the space GUID.
-    * `RABBITMQ-TAG` is the RabbitMQ tag. For more information about RabbitMQ tags, see the
+    * `RABBITMQ-TAG` is a RabbitMQ tag of your choice that dictates what the user is permitted to do.
+    For more information about the RabbitMQ tags, see the
     [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions).
 
     For example:
@@ -96,6 +103,7 @@ The intersection of these two fields are scopes that can be populated in the acc
 
 You can either map external identity provider groups to the RabbitMQ UAA groups or add UAA members
 to the groups.
+Users gain the permissions specified by the RabbitMQ tag provided in the UAA group name.
 
 Do one of the following:
 
@@ -109,9 +117,6 @@ command for every RabbitMQ UAA group:
     Where:
     * `RABBITMQ-UAA-GROUP` is the UAA group name created above. For example: `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker`
     * `GROUP-DISTINGUISHED-NAME` is the name of the LDAP group.
-
-  The users in the identity provider group mapped above gain the permissions specified by the RabbitMQ
-tag provided in the UAA group name.
 
 - Add UAA members to UAA groups by running:
 
@@ -134,3 +139,4 @@ To enable OAuth in <%= vars.ops_manager %>:
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
 ![Enable OAuth](/images/enable-oauth.png) <%# Images require helpful alt text. %>
+[Click here to view a larger version of this image.](/images/enable-oauth.png)
