@@ -19,6 +19,14 @@ This improvement does not affect syslog configuration for within the tile.
 However, for new service instances the default program name will be different.
 To learn how to configure syslog to keep the log format consistent, see
 [Configure Syslog Forwarding](./monitor.html#config)
+* On-demand service instances created in <%= vars.product_short %> versions `[>=1.20.0]`
+use the `vm_strategy` `create-swap-delete` (see https://bosh.io/docs/changing-deployment-vm-strategy/).
+This significantly reduces downtime because VM creation and deletion does not affect anymore the downtime
+of a RabbitMQ node being updated. Depending on your IaaS, VM creation and deletion can take a few seconds
+up to several minutes. Your IaaS resource usage will surge during the deploy while BOSH creates additional VMs in preparation for the update.
+You may need to review any resource limits which are in effect for your IaaS and account.
+On-demand service instances that were created in <%= vars.product_short %> versions `[<1.20.0]`
+and upgraded to `[>=1.20.0]` continue to use the `vm_strategy` `delete-create`.
 
 * **Run-in Heading:** Feature
 
