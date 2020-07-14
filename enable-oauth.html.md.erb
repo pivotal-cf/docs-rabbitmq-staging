@@ -29,11 +29,13 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
 
 1. Click on the <%= vars.app_runtime_full %> tile.
 1. Click the **Credentials** tab.
-    ![Screenshot of the Ops Manager TAZ UI. The location of the Credentials tab is indicated with a red circle. The
-    Credentials tab is the third tab from the left, after 'Settings' and 'Status'.](/images/oauth-create-uaa-group-1.png) <%# Images require helpful alt text. %>
+    ![Screenshot of the Ops Manager TAZ UI. The location of the Credentials tab is shown with a
+    red circle. The Credentials tab is the third tab from the left, after 'Settings' and 'Status'.](/images/oauth-create-uaa-group-1.png)
 1. Locate the Admin Client Credentials in the UAA job.
-    ![Admin Client Credential](/images/oauth-create-uaa-group-2.png) <%# Images require helpful alt text. %>
-1. Click **Link to Credential**.
+    ![Screenshot of the Ops Manager TAZ UI. There is a list of credential types and, next to it, a
+    list of corresponding links. The location of the link for Admin Client Credentials is shown with
+    a red circle.](/images/oauth-create-uaa-group-2.png)
+1. Click **Link to Credential** next to **Admin Client Credentials**.
 1. Record the text in the identity field (`UAA-ADMIN-CLIENT-IDENTITY` in the next step) and password
 field (`UAA-ADMIN-CLIENT-SECRET` in the next step).
 
@@ -138,4 +140,7 @@ To enable OAuth in <%= vars.ops_manager %>:
 1. Click **Save**.
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
-![Enable OAuth](/images/enable-oauth.png) <%# Images require helpful alt text. %>
+![Screenshot of the Security for On-demand Plans section, which includes TLS Option radio buttons, a
+checkbox for enabling OAuth, and a Save button. The Not Configured radio button and the Enable OAuth
+checkbox are selected.](/images/enable-oauth.png)
+[Click here to view a larger version of the image above.](./images/enable-oauth.png)
