@@ -17,7 +17,10 @@ customers have a minimum of **3 RabbitMQ nodes** and **2 HAProxy nodes**
 
 The diagram below shows the default <%= vars.product_short %> pre-provisioned deployment.
 
-<%= image_tag("images/deployment_default.png") %>
+<%= image_tag("images/deployment_default.png",
+:alt => "The default pre-provisioned deployment shows 
+Tanzu Application Service and an app within it. The app communnicates to the HAProxy, which communicates to three RabbitMQ nodes. The HAProxy and RabbitMQ nodes are within 
+VMware Tanzu RabbitMQ, which is within availability zone 1.") %>
 
 ### <a id="default-consider"></a>Considerations for this deployment
 
@@ -41,7 +44,12 @@ The diagram below shows the recommended <%= vars.product_short %> pre-provisione
 It shows that when you use this configuration, if a single HAProxy and single RabbitMQ node fail,
 your cluster can remain online and apps remain connected.
 
-<%= image_tag("images/deployment_recommended.png") %>
+<%= image_tag("images/deployment_recommended.png", 
+:alt => "An app is inside 'Tanzu Application Service'. It tries to communicate 
+to the failed HAProxy and to a functioning HA Proxy. The HA proxy 
+tries to communicate with the failed RabbitMQ node before communicatinng 
+with the RabbitMQ node. These components are inside the VMware Tanzu RabbitMQ 
+service, within Availability Zone 1 and Availability Zone 2.") %>
 
 ### <a id="upgrade-from-single-az"></a>Upgrading to this deployment from a single AZ deployment
 
@@ -72,7 +80,11 @@ You might choose to do this to remove any knowledge of the topology of the <%= v
 
 The diagram below shows an advanced <%= vars.product_short %> pre-provisioned deployment.
 
-<%= image_tag("images/deployment_advanced.png") %>
+<%= image_tag("images/deployment_advanced.png",
+:alt => "Tanzu Application Service has an existing bound app and a re-bound app. 
+The existing bound app goes through the same sequence as the diagram in the recommended 
+deployment. The rebound app communicates to the customer's load balancer, which thenn communicates 
+directly to the working RabbitMQ Node.") %>
 
 **Advantages:**
 
