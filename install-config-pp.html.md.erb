@@ -42,7 +42,10 @@ An orange circle beside a tab indicates that you must complete a configuration i
 A green check mark indicates that the tab is preconfigured and you are able to change its settings.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
 
-![Rabbit Tile Configuration](images/rmq_tile_config.png)
+![Screenshot of the Ops Manager UI showing the configuration pane 
+called 'AZ and Network Assignments'. The screenshot shows several
+fields including radio buttons for 'singleton jobs', a 'Network' field, 
+and a 'Service Network' field.](images/rmq_tile_config.png)
 
 
 ## <a id="azs-networks"></a> Assign AZs and Networks
@@ -91,7 +94,9 @@ click **Pre-Provisioned RabbitMQ** and under **Deploy Pre-Provisioned service of
 
 In the **RabbitMQ admin user credentials** field of the RabbitMQ pane, enter an admin username and password:
 
-<%= image_tag("images/config-credentials.png") %>
+<%= image_tag("images/config-credentials.png", :alt => "Screenshot of a field with the label 'RabbitMQ admin 
+user credentials'. The field has a red asterisk to indicate it is required. and two text fields for username 
+and password.") %>
 
 You can use a combination of upper or lowercase alphanumerics and supported special characters: `-=_+":;/?.><,~`.
 
@@ -109,7 +114,9 @@ Choose which plugins you want to enable in this section of the **Pre-Provisioned
 
 You must leave the **rabbitmq_management** plugin enabled for this product to work.
 
-<%= image_tag("images/config-plugins.png") %>
+<%= image_tag("images/config-plugins.png", :alt => "Screenshot of multi-select checkbox fields labeled 'RabbitMQ plugins'. 
+Next to the label is a red asterisk to indicate that selecting plugins is required.
+A checkbox field called 'rabbitmq_management' is enabled.") %>
 
 For more information about RabbitMQ plugins, see the [RabbitMQ documentation](https://www.rabbitmq.com/plugins.html).
 
@@ -122,7 +129,8 @@ example with `rabbitmqctl`, or to connect other VMs running Erlang.
 
 If you leave this field blank, BOSH CredHub generates a secure Erlang cookie.
 
-<%= image_tag("images/config-erlang.png") %>
+<%= image_tag("images/config-erlang.png", :alt => "Screenshot of text field with the label 
+'Erlang cookie used by RabbitMQ nodes and rabbitmqctl'.") %>
 
 
 #### <a id="security-fix"></a> Erlang Cookie Security Fix
@@ -206,9 +214,6 @@ is no downtime.</p>
 to app developers.
 Enter this in this section of the **Pre-Provisioned RabbitMQ** tab:
 
-<%= image_tag("images/config-elb.png") %>
-
-
 If you configure an external load balancer, to avoid an unnecessary VM deployment,
 in the **Resource Config** tab set the **HAProxy for RabbitMQ** instance count to **0**.
 
@@ -220,8 +225,6 @@ You can specify a custom RabbitMQ policy in this part of the **Pre-Provisioned R
 ### <a id="haproxy"></a>HAProxy Ports
 
 Enter the ports HAProxy should load balance to the RabbitMQ nodes in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config-haproxy.png") %>
 
 * Enter a comma-separated list of ports that are proxied to RabbitMQ nodes.
 If you enable other protocol plugins or have a custom configuration
@@ -251,7 +254,16 @@ The list defaults to the following:
 
 (Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
 
-<%= image_tag("images/config_ssl.png") %>
+<%= image_tag("images/config_ssl.png", :width =>"450", 
+:alt => "Screenshot of several fields related to certificates. 
+Two textarea fields are labeled 'RabbitMQ server certificate.' The first 
+textarea field has placeholder text called 'Certificate PEM'. The second 
+textarea field has placeholder text called 'Private Key PEM'. Underneith 
+this field is a blue link called 'Generate RSA Certificate.' The next field 
+is another textarea field labeled 'RabbitMQ server CA certificates'. The next two fields 
+are checkboxes labeled 'Enable 'verify_peer' SSL certificate verification' and
+'Require peer certificate validation'. The last field is a textbox labeled 'SSL certificate 
+veritication depth.' The field has a value of '5'.") %>
 
 * SSL is simultaneously provided for AMQPS, STOMP and MQTT.
 No other plugins are automatically configured for use with SSL.
@@ -287,8 +299,9 @@ Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
 the **RabbitMQ configuration** field in the **Pre-Provisioned RabbitMQ** tab.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 
-<%= image_tag("images/config_rabbitmq.png") %>
-
+<%= image_tag("images/config_rabbitmq.png", 
+:alt => "Screenshot of a textarea field labeled 'RabbitMQ configuration' 
+and help text that says 'RabbitMQ config file contents, can be blank'.") %>
 
 The input in this field must be Base64 encoded.
 
@@ -311,7 +324,10 @@ For example, suppose you want to configure the
 
 2. Paste the above into the **RabbitMQ configuration** field:
 
-    <%= image_tag("images/config_rabbitmq_file.png") %>
+    <%= image_tag("images/config_rabbitmq_file.png", 
+    :alt => "Screenshot of a textarea field labeled 'RabbitMQ configuration'. 
+    The field has the value 'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K'.
+    The field also has help text that says, 'RabbitMQ config file contents, can be blank'.") %>
 
 
 You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
@@ -338,7 +354,10 @@ event of a network partition.
 Choose how much disk space RabbitMQ attempts to keep free at any
 given time in this section of the **Pre-Provisioned RabbitMQ** tab:
 
-<%= image_tag("images/disk_alarm_threshold.png") %>
+<%= image_tag("images/disk_alarm_threshold.png", 
+:alt => "Screenshot of a dropdown field labeled 'Disk free alarm limit.' 
+A red asterisk is next to the label to indicate that the field is required. 
+The dropdown field is set to '100% Memory (default)'.") %>
 
 RabbitMQ periodically checks if there is sufficient free space on disk. If there is not,
 RabbitMQ temporarily stops accepting new messages. This gives your apps time
@@ -413,7 +432,10 @@ To specify static IP addresses, do the following:
     <p class="note"><strong>Note</strong>: If any of the above fields are left blank,
       BOSH allocates an IP address.</p>
 
-    <%= image_tag("config-networking-pp.png", :width => "400", :alt => "Networking") %>
+    <%= image_tag("config-networking-pp.png", :width => "350", 
+    :alt => "Screenshot of three text fields labeled 'Pre-Provisioned HAProxy Static IPs', 
+    'Pre-Provisioned RabbitMQ Server Static IPs', and 
+    'Pre-Provisioned Service Broker Static IP'.") %>
 
 1. Click **Save**.
 
@@ -428,8 +450,12 @@ The metrics polling interval determines how often metrics are collected.
 To specify the destination for <%= vars.product_short %> log messages, do the following:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
-1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![<%= vars.ops_manager %> Syslog Forwarding Configuration](images/syslog-config-1.10.0.png)
-1. Click **Syslog and Metrics**.
+1. In the <%= vars.product_short %> tile, click the **Settings** tab.
+![Screenshot of the entire 'Syslog' pane in the Ops Manager UI. The pane has several fields 
+labeled 'Do you want to configure Syslog forwarding?', 'Address', 
+'Port', 'Transport Protocol', 'Enable TLS', 'Permitted Peer', 'SSL Certificate',
+'Queue Size', 'Forward Debug Logs', and 'Custom rsyslog Configuration'.](images/syslog-config-1.20.0.png)
+1. Click **Syslog**.
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
     <th>Field</th>
@@ -490,7 +516,7 @@ see [Sharing Service Instances](https://docs.pivotal.io/pivotalcf/devguide/servi
 
 2. Select **Enable Service Instance Sharing**<br>
 
-    ![Sharing Service Instances](images/sharing-instances.png)
+    ![Screenshot of a checkbox field labeled 'Enable Service Instance Sharing' with the help text 'App Developers can have the ability to share their Cloud Foundy Service Instances across Orgs and Spaces.'](images/sharing-instances.png)
 
 
 3. Click **Save**.
@@ -515,7 +541,10 @@ An example is the **Smoke Tests** errand, which checks the health of the RabbitM
 
 You can toggle errands on and off on the <%= vars.ops_manager %> **Review Pending Changes** page.
 
-![Configuring One-time Errands](images/errands-installation-pending-changes.png)
+![Screenshot of the RabbitMQ tile on the Ops Manager Review Pending Changes page. An enabled checkbox 
+is next to the RabbitMQ logo. A multi-select field labeled 'Select errands to run during the deploy' has 
+the following errands enabled: 'Pre-Provisioned Broker Registrar', 'Pre-Provisioned Smoke Tests', 'Register On Demand 
+Service Broker', and 'Upgrade All Service Instances'.](images/errands-installation-pending-changes.png)
 
 This is a one-time action before an update.
 You can change these defaults by clicking **Errands** in the <%= vars.product_short %>

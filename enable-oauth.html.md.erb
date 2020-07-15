@@ -1,0 +1,136 @@
+---
+title: Enabling OAuth
+owner: RabbitMQ
+---
+
+This topic explains how to enable app developers to authorize using JWT-encoded OAuth 2.0 access
+tokens.
+
+
+## <a id='overview'></a> Overview
+
+To enable OAuth for an on-demand offering:
+
+1. [Configure UAA Groups for RabbitMQ](#configure-uaa-groups)
+1. [Enable OAuth in <%= vars.ops_manager %>](#enable-oauth)
+
+
+## <a id='configure-uaa-groups'></a> Configure UAA Groups for RabbitMQ
+
+1. [Get Admin User Credentials for UAA](#uaa-admin-user)
+1. [Set up UAAC](#create-rmq-uaa-group)
+1. [Create UAA Groups](#create-rmq-uaa-group)
+1. [Configure Users for the RabbitMQ UAA Groups](#configure-users)
+
+
+### <a id='uaa-admin-user'></a> Get Admin User Credentials for UAA
+
+To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
+
+1. Click on the <%= vars.app_runtime_full %> tile.
+1. Click the **Credentials** tab.
+    ![Screenshot of the Ops Manager TAZ UI. The location of the Credentials tab is indicated with a red circle. The 
+    Credentials tab is the third tab from the left, after 'Settings' and 'Status'.](/images/oauth-create-uaa-group-1.png) <%# Images require helpful alt text. %>
+1. Locate the Admin Client Credentials in the UAA job.
+    ![Admin Client Credential](/images/oauth-create-uaa-group-2.png) <%# Images require helpful alt text. %>
+1. Click **Link to Credential**.
+1. Record the text in the identity field (`UAA-ADMIN-CLIENT-IDENTITY` in the next step) and password
+field (`UAA-ADMIN-CLIENT-SECRET` in the next step).
+
+
+### <a id='create-rmq-uaa-group'></a> Set up UAAC
+
+To set up UAAC:
+
+1. Run:
+
+    ```
+    uaac target UAA-URL
+    uaac token client get UAA-ADMIN-CLIENT-IDENTITY -s UAA-ADMIN-CLIENT-SECRET
+    ```
+    Where:
+    * `UAA-URL` is the UAA URL.
+    * `UAA-ADMIN-CLIENT-IDENTITY` and `UAA-ADMIN-CLIENT-SECRET` are the from text you recorded in
+    [Get Admin User Credentials for UAA](#uaa-admin-user) above.
+
+
+### <a id='create-rmq-uaa-group'></a> Create a UAA Group
+
+You must create a group for each space in <%= vars.app_runtime_full %> that contains,
+or is expected to contain, on-demand <%= vars.product_short %> service instances.
+
+To create a UAA group for a space:
+
+1. Display the space GUID by running:
+
+    ```
+    cf space SPACE-NAME --guid
+    ```
+    Where `SPACE-NAME` is the name of the space.
+
+1. Record the space GUID.
+
+1. Create a UAA group using the space GUID and a RabbitMQ tag by running:
+
+    ```
+    uaac group add p-rabbitmq_SPACE-GUID.tag:RABBITMQ-TAG
+    ```
+
+    Where:
+    * `SPACE-GUID` is the space GUID.
+    * `RABBITMQ-TAG` is the RabbitMQ tag. For more information about RabbitMQ tags, see the
+    [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions).
+
+    For example:
+    <pre class="terminal">
+    $ uaac group add p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker
+    </pre>
+
+The on-demand broker creates a separate UAA client with scope `p-rabbitmq_SPACE-GUID` for every
+new on-demand service instance.
+When an access token is created, UAA intersects the user groups with the client scopes.
+The intersection of these two fields are scopes that can be populated in the access token.
+
+
+### <a id='configure-users'></a> Configure Users for the RabbitMQ UAA Groups
+
+You can either map external identity provider groups to the RabbitMQ UAA groups or add UAA members
+to the groups.
+
+Do one of the following:
+
+- Map the RabbitMQ UAA groups created above to your identity provider group by running the following
+command for every RabbitMQ UAA group:
+
+    ```
+    uaac group map --name "RABBITMQ-UAA-GROUP" "GROUP-DISTINGUISHED-NAME"
+    ```
+
+    Where:
+    * `RABBITMQ-UAA-GROUP` is the UAA group name created above. For example: `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker`
+    * `GROUP-DISTINGUISHED-NAME` is the name of the LDAP group.
+
+  The users in the identity provider group mapped above gain the permissions specified by the RabbitMQ
+tag provided in the UAA group name.
+
+- Add UAA members to UAA groups by running:
+
+    ```
+    uaac member add RABBITMQ-UAA-GROUP USERNAME
+    ```
+
+    Where:
+    * `RABBITMQ-UAA-GROUP` is the UAA group name created above. For example, `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:policymaker`
+    * `USERNAME` is a UAA group member. For example, a CF user.
+
+
+## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
+
+To enable OAuth in <%= vars.ops_manager %>:
+
+1. Go to the **Security for On-Demand Plans** section of the <%= vars.app_runtime_abbr %> tile.
+1. Select the **Enable OAuth** checkbox.
+1. Click **Save**.
+1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
+1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
+![Enable OAuth](/images/enable-oauth.png) <%# Images require helpful alt text. %>
