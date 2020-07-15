@@ -29,10 +29,10 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
 
 1. Click on the <%= vars.app_runtime_full %> tile.
 1. Click the **Credentials** tab.
-    ![Screenshot of the Ops Manager TAZ UI. The location of the Credentials tab is shown with a
+    ![Screenshot of the Tanzu Application Service tile UI in Ops Manager. The location of the Credentials tab is shown with a
     red circle. The Credentials tab is the third tab from the left, after 'Settings' and 'Status'.](/images/oauth-create-uaa-group-1.png)
 1. Locate the Admin Client Credentials in the UAA job.
-    ![Screenshot of the Ops Manager TAZ UI. There is a list of credential types and, next to it, a
+    ![Screenshot of the Tanzu Application Service tile UI in Ops Manager. There is a list of credential types and, next to it, a
     list of corresponding links. The location of the link for Admin Client Credentials is shown with
     a red circle.](/images/oauth-create-uaa-group-2.png)
 1. Click **Link to Credential** next to **Admin Client Credentials**.
@@ -54,6 +54,8 @@ To install and set up UAAC:
 
     ```
     uaac target UAA-URL
+    ```
+    ```
     uaac token client get UAA-ADMIN-CLIENT-IDENTITY -s UAA-ADMIN-CLIENT-SECRET
     ```
     Where:
