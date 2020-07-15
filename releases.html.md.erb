@@ -31,22 +31,13 @@ If you are upgrading a version other than v1.16 or v1.15, do not skip minor vers
 
 This release fixes the following issues:
 
-* **The pre-stop script no longer fails with a timeout error.**
-Previously, the pre-stop script failed with the error:
-`Timed out waiting for mirror queue critical node to sync after 3600 seconds`.
-To prevent this, the following checks in the pre-stop script are disabled by default:
-  * `rabbitmq-diagnostics check_if_node_is_mirror_sync_critical`
-  * `rabbitmq-diagnostics check_if_node_is_quorum_critical`
-
-    To enable these checks, select the **Wait for Queue Synchronization** checkbox in
-the configuration for on-demands plans.
-For more information about this setting, see [Configure the Service Plan](./install-config.html#service-plan).
-
-* **Downstream federated queues consuming messages from an upstream queue are no longer duplicated after upgrading.**
-This is because the RabbitMQ cluster name defaults to `rabbit@localhost` instead of its service instance GUID.
-To set the cluster name to its service instance GUID, select the **Use Service Instance ID as cluster name**
-checkbox in **Global Settings for On-Demand Plans**.
-For more information about this setting, see [Configure Global Settings](./install-config.html#global).
+* The checks `rabbitmq-diagnostics check_if_node_is_mirror_sync_critical` and `rabbitmq-diagnostics check_if_node_is_quorum_critical`
+in the pre-stop script are disabled by default. Therefore, the pre-stop script will not fail anymore with the following error:
+"Timed out waiting for mirror queue critical node to sync after 3600 seconds". The checks can be enabled by selecting the checkbox
+"Wait for Queue Synchronization" in the OpsMan UI for RabbitMQ on-demand plans.
+* The RabbitMQ cluster name defaults to `rabbit@localhost` instead of its service instance GUID. This fixes the issue that
+after upgrading, the downstream federated queues consuming messages from an upstream queue are duplicated.
+To set the cluster name to its service instance GUID, select the checkbox "Use Service Instance ID as cluster name" in Global Settings for On-Demand Plans.
 
 ### Known Issues
 
@@ -129,10 +120,9 @@ The following components are compatible with this release:
 	<tr>
 		<td>syslog</td>
 		<td>11.6.1</td>
-	</tr>
-</table>
+	</tr></table>
 
-<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.5">v3.8.5</a> GitHub documentation.
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.5">v3.8.5</a> GitHub documentation.
 
 ## <a id="1-18-6"></a> v1.18.6
 
