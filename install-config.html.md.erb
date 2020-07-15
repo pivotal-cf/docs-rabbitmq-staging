@@ -56,8 +56,8 @@ The configuration screen below appears when you click the <%= vars.product_short
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
 A green checkmark indicates that the tab is preconfigured and you may optionally change its settings.
 
-![Screenshot of the <%= vars.product_short %> tile view. Under the header, 'AZ and Network Assignments',
-is a series of fields including 'Place singleton jobs in', 'Balance other jobs in',
+![Screenshot of the <%= vars.product_short %> tile view. Under the header, 'AZ and Network Assignments', 
+is a series of fields including 'Place singleton jobs in', 'Balance other jobs in', 
 'Network', and 'Service Network'.](images/rmq_tile_config.png)
 
 
@@ -141,13 +141,6 @@ Follow the steps below to configure global settings.
       </tr>
 
       <tr>
-        <td><strong>Use Service Instance ID as cluster name</strong></td>
-        <td>Select this checkbox to set the cluster name to its service instance GUID
-          instead of the default name `rabbit@localhost`.
-          This enables you to filter metrics by cluster name.</td>
-      </tr>
-
-      <tr>
         <td><strong>External TCP domain</strong></td>
         <td>
         Enter the external URL assigned to the TCP router.
@@ -219,13 +212,13 @@ To configure the TLS settings, do the following:
   <li>Ensure that you have performed the procedures in <a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a> before configuring the tile and applying changes.</li>
   <li>Click the <strong>Security for On-Demand Plans</strong> tab.</li>
 
-  <img src="images/security.png" alt="Screenshot with header 'Security for On-Demand Plans' and a description
-  that says, 'A CA certificate must be added to Credhub when enabling TLS. See the docs for more information.'
-  Underneath is a group of three radio buttons with the label 'TLS Options'. The three buttons are labeled the following:
+  <img src="images/security.png" alt="Screenshot with header 'Security for On-Demand Plans' and a description 
+  that says, 'A CA certificate must be added to Credhub when enabling TLS. See the docs for more information.' 
+  Underneath is a group of three radio buttons with the label 'TLS Options'. The three buttons are labeled the following:  
   Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS,'
-  Radio button 2. 'Optional - Developers may configure their On Demand service instances to use TLS',
-  Radio button 3. 'Enforced - All new and existing On Demand service innstances will be connfigured to use TLS. On
-  applying this setting, amy applications that use non-TLS binding will require re-binding and must support TLS connections.'
+  Radio button 2. 'Optional - Developers may configure their On Demand service instances to use TLS', 
+  Radio button 3. 'Enforced - All new and existing On Demand service innstances will be connfigured to use TLS. On 
+  applying this setting, amy applications that use non-TLS binding will require re-binding and must support TLS connections.' 
   '">
 
   <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
@@ -254,20 +247,19 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 <p class="note"><strong>Note</strong>: You must fully configure <strong>On Demand Instance: Plan 1</strong> even if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).</p>
 
 
-1. Choose the on-demand service instance you want to configure.
-You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this plan.
+1. Choose the on-demand service instance you want to configure. You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this plan <br><br>
 
-    ![Screenshot with the header 'Global Settings for On-Demand Plans' with
-    many fields underneath including 'Dedicated Instance Service Quota',
-    'Dedicated Instance VM Options', 'RabbitMQ plugins that can be enabled by App Devleopers',
+    ![Screenshot with the header 'Global Settings for On-Demand Plans' with 
+    many fields underneath including 'Dedicated Instance Service Quota', 
+    'Dedicated Instance VM Options', 'RabbitMQ plugins that can be enabled by App Devleopers', 
     'External TCP domain', 'Port Range', and more. A 'Save' button is at the bottom.](images/plan-1-configuration.png)
 
 2. Configure the fields as follows:
     <table>
       <tr><th>Field</th><th>Instructions</th></tr>
-      <tr><td><strong>Enable This Plan</strong></td>
+      <tr><td><strong>Enable This Plan</strong></strong></td>
           <td>For Plans 2 - 5, enable the plan by selecting **Plan Enable**.</td></tr>
-      <tr><td><strong>CF Service Access</strong></td>
+      <tr><td><strong>CF Service Access</strong></strong></td>
       <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
           If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
           If you change this default setting, the smoke tests fail.
@@ -285,35 +277,23 @@ You must complete the required fields for **On Demand Instance: Plan 1** even if
           <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
       <tr><td><strong>Plan Description</strong></td>
           <td>Accept the default or enter a description.  This description appears in the Marketplace.</td></tr>
-      <tr>
-        <td><strong>Paid Plan</strong></td>
-        <td>Select this checkbox to indicate that this service plan is paid.
-          The plan is marked with an asterisk in the <code>cf marketplace</code> list and
-          labeled <code>paid</code> in the <code><strong>free or paid</strong></code> column when individual plans are listed.
-        </td>
-      </tr>
-      <tr>
-        <td><strong>Service Gateway Access</strong></td>
-        <td>Select this checkbox to enable service gateway access. For information, see
-        <a href="./service-gateway-access.html">Enabling Service-Gateway Access</a>.</td>
-      </tr>
-      <tr>
-        <td><strong>Wait for Queue Synchronization</strong></td>
-        <td>Select this checkbox to enable the following pre-stop checks:
-          <ul>
-            <li><code>rabbitmq-diagnostics check\_if\_node\_is\_mirror\_sync\_critical</code></li>
-            <li><code>rabbitmq-diagnostics check\_if\_node\_is\_quorum\_critical</code></li>
-          </ul>
-        </td>
-      </tr>
+      <tr><td><strong>Paid Plan</strong></td>
+          <td>Select this checkbox to indicate that this service plan is paid.
+              The plan is marked with an asterisk in the <code>cf marketplace</code> list and
+              labeled <code>paid</code> in the <code><strong>free or paid</strong></code> column when individual plans are listed.</td></tr>
+              <tr>
+                <td><strong>Service Gateway Access</strong></td>
+                <td>Select this checkbox to enable service gateway access. For information, see
+                <a href="./service-gateway-access.html">Enabling Service-Gateway Access</a>.</td>
+              </tr>
       <tr><td><strong>Plan Features</strong></td>
           <td>Accept the default or enter a description.  This description appears in Apps Manager.</td></tr>
       <tr><td><strong>Plan Quota</strong></td>
           <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td></tr>
-      <tr><td><strong>Number of Nodes</strong></td>
+      <tr><td><strong>Number of Nodes</strong></strong></td>
           <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
               Previously deployed service instances are **not** updated.</td></tr>
-      <tr><td><strong>Network Partition Behaviour</strong></td>
+      <tr><td><strong>Network Partition Behaviour</strong></strong></td>
           <td>Select <code>pause_minority</code> or <code>autoheal</code>. VMware recommends using pause minority.
               For more information, see <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a>.</td></tr>
               <tr><td><strong>AZ Placement</strong></td>
@@ -355,10 +335,10 @@ The **RabbitMQ VM Type** and **Persistent disk type** are required fields on the
 service plan configuration pages.
 These properties are pre-configured by default.
 
-<%= image_tag("images/vm-ram-disk-example.png", :width => "400",
-:alt => "Screenshot of the dropdown field labeled 'RabbitMQ VM Type'
-with a selected value of 'medium (cpu: 2, ram: 4 GB, disk: 8 GB)',
-and the dropdown field labeled 'Persistent disk type.' Each field
+<%= image_tag("images/vm-ram-disk-example.png", :width => "400", 
+:alt => "Screenshot of the dropdown field labeled 'RabbitMQ VM Type' 
+with a selected value of 'medium (cpu: 2, ram: 4 GB, disk: 8 GB)', 
+and the dropdown field labeled 'Persistent disk type.' Each field 
 has a red asterisk to indicate they are required.") %>
 
 VMware recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
@@ -442,14 +422,14 @@ cluster after a deploy or upgrade.
 
 You can toggle errands on and off on the **Review Pending Changes** page.
 
-![Screenshot of the 'RabbitMQ' tile in the 'Review Pending Changes' page
-of the Ops Manager UI. Underneath 'Select errands to run during the deploy'
-is the following checkbox fields:
+![Screenshot of the 'RabbitMQ' tile in the 'Review Pending Changes' page 
+of the Ops Manager UI. Underneath 'Select errands to run during the deploy' 
+is the following checkbox fields: 
 Enabled checkbox, 'Pre-Provisioned Broker Registrar',
 Enabled checkbox, 'Pre-Provisioned Smoke Tests',
 Enabled checkbox, 'Register On Demand Service Broker',
-Enabled checkbox, 'On Demand Instance Smoke Tests',
-Enabled checkbox, 'Upgrade All Service Instances',
+Enabled checkbox, 'On Demand Instance Smoke Tests', 
+Enabled checkbox, 'Upgrade All Service Instances', 
 Disabled checkbox, 'Recreate All Service Instances'](./images/errands-installation-pending-changes.png)
 
 <p class='note warning'><strong>Warning:</strong> In <%= vars.product_short %> v1.9.0 and later,
@@ -617,8 +597,8 @@ You can enable disabled plugins by doing the following:
 1. Select the plugins you want to enable under **RabbitMQ plugins that can be enabled by App Developers**.
   ![Screenshot with header 'Global Settings for On-Demand Plans'. Underneath is a few fields, including:
   required text field, 'Dedicated Instance Service Quota (min: 0)',
-  checkbox field, 'Dedicated Instance VM Options',
-  multi-checkbox field, 'RabbitMQ plugins that can be enabled by App Developers' with
+  checkbox field, 'Dedicated Instance VM Options', 
+  multi-checkbox field, 'RabbitMQ plugins that can be enabled by App Developers' with 
   the checkboxes 'rabbitmq_event_exchange' and 'rabbitmq_mqtt'.](images/on-demand-plugins-operator.png)
 
   After plugins are enabled for the platform, developers can enable them for each service instance.
