@@ -61,8 +61,6 @@ sync. When this queue needs to sync, the node where the queue leader runs can
 use up to 5&nbsp;GB of extra memory. The same applies to the node where the new queue
 follower is created.
 
-
-
 ## <a id="viewing"></a> Setting or Changing the Policy
 
 To set the RabbitMQ policy, do the following:
@@ -73,10 +71,10 @@ To set the RabbitMQ policy, do the following:
 
 1. Select **Enable custom policy on new instances**.
 
-	<%= image_tag("images/policy_opsman.png", 
+	<%= image_tag("images/policy_opsman.png",
 	:alt => "Screenshot of two fields:
-	enabled checkbox field, 'Enable custom policy on new instances, and 
-	textarea field, 'Policy for new instances,' which has the value, 
+	enabled checkbox field, 'Enable custom policy on new instances, and
+	text area field, 'Policy for new instances,' which has the value,
 	{'ha-mode':'exactly','ha-params':2,'ha-sync-mode':'automatic'}") %>
 1. In the **Policy for new instances** field, paste the policy.
 
@@ -93,18 +91,18 @@ You can view RabbitMQ policies in the RabbitMQ Management UI, shown below.
 The example policy entered in the <%= vars.product_short %> tile above is applied to all queues and given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
-<%= image_tag("images/policy_config.jpeg", 
-:alt => "Screenshot of RabbitMQ management UI. Main header is 'Policies'. An 
-expanded accordion called 'All Policies' shows a filter text field, a regex checkbox, an a table 
-with colums titled 'Name', 'Pattern', 'Apply to', 'Definition', and 'Priority'. 
+<%= image_tag("images/policy_config.jpeg",
+:alt => "Screenshot of RabbitMQ management UI. Main header is 'Policies'. An
+expanded accordion called 'All Policies' shows a filter text field, a regex checkbox, an a table
+with columns titled 'Name', 'Pattern', 'Apply to', 'Definition', and 'Priority'.
 One item is in the table with the name 'operator_set_policy' and a Priority of '50'.") %>
 
 In the **Queues** section shown below, you can see that any new queues created have the policy automatically applied.
 
-<%= image_tag("images/policy_queue.jpeg", 
-:alt => "Screenshot of RabbitMQ management UI. Main header is 'Queues'. An 
-expanded accordion called 'All quues' shows a filter text field, a regex checkbox field, and a table 
-with one item named 'test'. The policy called 'operator_set_policy' is highlighted in blue in the 'Features' 
+<%= image_tag("images/policy_queue.jpeg",
+:alt => "Screenshot of RabbitMQ management UI. Main header is 'Queues'. An
+expanded accordion called 'All queues' shows a filter text field, a regex checkbox field, and a table
+with one item named 'test'. The policy called 'operator_set_policy' is highlighted in blue in the 'Features'
 column of the table. The 'state' column shows the item is green and 'running'.") %>
 
 <p class="note"><strong>Note</strong>: Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code> for app developers.</p>

@@ -24,12 +24,12 @@ In this use case:
 	* A pre-provisioned service is used as a backing service for SCS <br>
 	* An on-demand service is used to create three completely isolated single node service instances
 * Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team.
-<br><br>![Flowchat showing the step-by-step setup flow in three categories:
-'Unreplicated (default) tile', 
+<br><br>![Flowchart showing the step-by-step setup flow in three categories:
+'Unreplicated (default) tile',
 'Replica Tile for Team 1', and
-'Replica Tile for team 2'. 
+'Replica Tile for team 2'.
 'Unreplicated (default) tile' includes two set-up instruction flows. The first setup flow:
-1. Download the <%= vars.product_short %> tile, 
+1. Download the <%= vars.product_short %> tile,
 2. Configure the tile and turn off the register service broker errand,
 3. Apply Changes,
 4. Register the service in the system org in CF. These steps result in a RabbitMQ deployment called 'Dedicated 3 node RabbitMQ Cluster for SCS. Service Name: p-rabbitmq (not visible in marketplace)'. The second 'Unnreplicated tile flow' is the following:
@@ -45,13 +45,13 @@ The second flow category is 'Replica Tile for Team 1' and it has the following s
 3. Configure the tile and turn off the register service broker errand,
 4. Apply Changes,
 5. Register the service inn CF so only team 1 has access.
-These steps result in the RabbitMQ deployment, which is 
+These steps result in the RabbitMQ deployment, which is
 Dedicated 3 node RabbitMQ Cluster for Team 1. Service name: p-rabbitmq-team1. The third and final category is 'Replica Tile for Team 2' and it has the following setup instruction flow:
 1. Download the <%= vars.product_short %> tile,
 2. Use the Replicator to generate renamed tile (e.g. 'team 2'),
 3. Configure the tile and turn off the register service broker errand.
 4. Register the service in CF so only team 2 has access.
-These stps result in the RabbitMQ deployment, which is a dedicated 3 node RabbitMQ cluster for team 2. Service name: 
+These stps result in the RabbitMQ deployment, which is a dedicated 3 node RabbitMQ cluster for team 2. Service name:
 p-rabbitmq-team2.](/images/flowchart.png)
 [Click here to view a larger version of this image.](./images/flowchart.png)
 
@@ -162,11 +162,11 @@ The On-Demand service is not offered on replica tiles.
 
 When you replicate <%= vars.product_short %>, the replica tile has the **Broker Registrar** errand set to **On** by default.
 This field appears in the **Errands** tab in the tile:
-<br><br>![Screenshot of the <%= vars.product_short %> tile. Header is 'Errands'.
+<br><br>![Screenshot of the RabbitMQ tile. Header is 'Errands'.
 Description says 'Errands are scripts that run at designated points durinng an installation.'
-A subheader says, 'Post-Deploy Errands'. Underneath is two dropdown fields called 
-'Pre-Provisioned Broker Registrar' and 'Pre-Provisioned Smoke tests'. Both fields are 
-set to 'Default (On)'. ](/images/broker_registrar_errand.png)
+A subheader says, 'Post-Deploy Errands'. Underneath is two dropdown fields called
+'Pre-Provisioned Broker Registrar' and 'Pre-Provisioned Smoke tests'. Both fields are
+set to 'Default (On)'.](/images/broker_registrar_errand.png)
 
 With any tile, if the **Broker Registrar** errand is set to **On**, it runs automatically when you finish installing the tile
 and causes the tile to be available to all CF orgs.

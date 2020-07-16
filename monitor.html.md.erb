@@ -38,7 +38,9 @@ The endpoint serves as the input to a monitoring platform such as Datadog, Paper
 To specify the destination for <%= vars.product_short %> log entries:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
-1. In the <%= vars.product_short %> tile, click the **Settings** tab. ![Screenshot of <%= vars.product_short %> tile settings with header 
+1. In the <%= vars.product_short %> tile, click the **Settings** tab.
+1. Click **Syslog**.
+![Screenshot of RabbitMQ tile settings with header
 called 'Syslog'. The page has several fields:
 Radio button group, 'Do you want to configure Syslog fowarding?'
 with two options: 'No, do not forward Syslog' or 'Yes'.
@@ -50,10 +52,8 @@ grayed required text field, 'Permitted Peer'.
 grayed required textarea field, 'SSL Certificate',
 text field, 'Queue Size',
 checkbox field, 'Forward Debug Logs', and
-textarea field, 'Custom rsyslog Configuration'. 
-A blue botton is at the bottom called 'Save Syslog Settings'.
-](images/syslog-config-1.20.0.png)
-1. Click **Syslog**.
+textarea field, 'Custom rsyslog Configuration'.
+A blue botton is at the bottom called 'Save Syslog Settings'.](images/syslog-config-1.20.0.png)
 1. Configure the fields on the Syslog pane as follows:
 <table class="nice">
     <th>Field</th>
@@ -139,13 +139,13 @@ To configure the metrics polling interval:
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
 1. In the <%= vars.product_short %> tile, click the **Settings** tab.
-![Screenshot of the tile with header 'Metrics settings for both Pre-Provisioned and On-Demand service offerings' 
+1. Click **Metrics**.
+![Screenshot of the RabbitMQ tile with header 'Metrics settings for both Pre-Provisioned and On-Demand service offerings'
 with one field:
-required text field, 'Metrics polling interval' with entered value 30 
+required text field, 'Metrics polling interval' with entered value 30
 and help text, 'Select the polling interval for the RabbitMQ service metrics ins econds. Setting this field to -1 disabled metrics.'
 A blue 'Save' button is at the bottom of the page.](images/metrics-configuration-1.20.png)
 
-1. Click **Metrics**.
 1. Configure the fields on the Metrics Syslog pane as follows:
 <table class="nice">
     <th>Field</th>

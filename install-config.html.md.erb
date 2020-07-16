@@ -59,7 +59,7 @@ The configuration screen below appears when you click the <%= vars.product_short
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
 A green check mark indicates that the tab is preconfigured and you can change its settings.
 
-![Screenshot of the <%= vars.product_short %> tile view. Under the header, 'AZ and Network Assignments',
+![Screenshot of the RabbitMQ tile view. Under the header, 'AZ and Network Assignments',
 there are three radio buttons for selecting where to place singleton jobs and three checkboxes for
 selecting where to balance other jobs. Beneath the checkboxes is a dropdown for selecting the network
 and a dropdown for selecting the service network.](images/rmq_tile_config.png)
@@ -121,8 +121,9 @@ Follow the steps below to configure global settings:
 
 1. Click the **Global Settings for On-Demand Plans** tab.
   ![Screenshot of the Global Settings for On-demand Plans tab.
-  The tab has many sections, including 'Dedicated Instance Service Quota', 'Dedicated Instance VM Options',
-   and 'RabbitMQ plugins that can be enabled by App Developers'.](images/global-settings.png)
+  The tab has many sections, including 'Dedicated Instance Service Quota',
+  'Dedicated Instance VM Options', 'RabbitMQ plugins that can be enabled by App Devleopers',
+  'External TCP domain', 'Port Range', and more. A 'Save' button is at the bottom.](images/global-settings.png)
 1. Configure the settings:
     <table>
       <tr>
@@ -234,13 +235,13 @@ To configure the TLS settings:
   <li>Ensure that you have performed the procedures in <a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a> before configuring the tile and applying changes.</li>
   <li>Click the <strong>Security for On-Demand Plans</strong> tab.</li>
 
-  <img src="images/security.png" alt="Screenshot with header 'Security for On-Demand Plans' and a description
-  that reads 'A CA certificate must be added to CredHub when enabling TLS. See the docs for more information.'
-  Underneath is a group of three radio buttons with the label TLS Options. The three buttons are labeled the following:
-  Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS',
+  <%= image_tag("images/security.png", :alt => "Screenshot with header 'Security for On-Demand Plans' and a description
+  that says, 'A CA certificate must be added to CredHub when enabling TLS. See the docs for more information.'
+  Underneath is a group of three radio buttons with the label 'TLS Options'. The three buttons are labeled the following:
+  Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS,'
   Radio button 2. 'Optional - Developers may configure their On Demand service instances to use TLS',
   Radio button 3. 'Enforced - All new and existing On Demand service instances will be configured to use TLS. On
-  applying this setting, any applications that use non-TLS binding will require re-binding and must support TLS connections.'"/>
+  applying this setting, any applications that use non-TLS binding will require re-binding and must support TLS connections.'") %>
 
   <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
 
@@ -277,10 +278,7 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 1. Choose the on-demand service instance you want to configure.
 You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this plan.
 
-    ![Screenshot with the header 'Global Settings for On-Demand Plans'. There are many fields underneath,
-    including those labeled 'Dedicated Instance Service Quota', 'Dedicated Instance VM Options',
-    'RabbitMQ plugins that can be enabled by App Developers', 'External TCP domain', and 'Port Range'.
-    A 'Save' button is at the bottom.](images/plan-1-configuration.png)
+    ![](images/plan-1-configuration.png)
 
 2. Configure the fields as follows:
     <table>
