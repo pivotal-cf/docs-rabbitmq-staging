@@ -70,11 +70,12 @@ and a dropdown for selecting the service network.](images/rmq_tile_config.png)
 Follow the steps below to configure the AZs and networks:
 
 1. Click **Assign AZs and Networks**.
-     <p class="note warning">
-       <strong>Warning:</strong> You cannot change the regions or networks after you have clicked <strong>Apply Changes</strong> in the <a id="#apply-changes">Apply Changes from Your Configuration</a> below.
-     </p>
 
- 2. Configure the fields on the **Assign AZs and Networks** as follows:
+    <p class="note warning">
+      <strong>Warning:</strong> You cannot change the regions or networks after you have clicked <strong>Apply Changes</strong> in the <a id="#apply-changes">Apply Changes from Your Configuration</a> below.
+    </p>
+
+ 1. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
      <tr><th>Field</th><th>Instructions</th></tr>
      <tr><td><strong>Place singleton jobs in</strong></td>
@@ -101,20 +102,20 @@ Follow the steps below to configure the AZs and networks:
        For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
      </p>
 
- 3. Click **Save**.
+ 1. Click **Save**.
 
 <p class="note">
   <strong>Note:</strong> BOSH randomly deploys single node on-demand service instances across
   configured AZs. This minimizes the impact of an AZ outage and removes single points of failure.
 </p>
 
-### <a id='logging'></a>Configure Logging and Monitoring
+### <a id='logging'></a> Configure Logging and Monitoring
 
 VMware recommends that you configure logging to monitor the health of <%= vars.product_short %>.
 Follow the instructions in [Set Up Syslog Forwarding and Metrics Polling Interval](./monitor.html#config).
 
 
-### <a id="global"></a>Configure Global Settings
+### <a id="global"></a> Configure Global Settings
 
 Follow the steps below to configure global settings:
 
@@ -454,7 +455,7 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 1. Click **Apply Changes** to complete the installation of <%= vars.product_short %>.
 
-## <a id='errands'></a>Errands
+## <a id='errands'></a> Errands
 
 When deploying or updating <%= vars.product_short %>, <%= vars.ops_manager %> can run a series of
 [Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
@@ -490,7 +491,7 @@ For more information, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/c
 In earlier releases, a new VM was deployed for each errand.
 For more information about errands, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).
 
-### <a id='post-deploy-errands'></a>Post-Deploy Errands
+### <a id='post-deploy-errands'></a> Post-Deploy Errands
 
 <table class="nice">
   <th>Errand</th>
@@ -529,7 +530,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   </tr>
 </table>
 
-### <a id='pre-delete-errands'></a>Pre-Delete Errands
+### <a id='pre-delete-errands'></a> Pre-Delete Errands
 
 <table class="nice">
   <th>Errand</th>
@@ -548,7 +549,7 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
   </tr>
 </table>
 
-## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
+## <a id="admin-service-key"></a> Create an Admin User for a Service Instance
 
 To give app developers admin privileges to the RabbitMQ Management UI, you can create an admin user
 for a service instance and share the user credentials with app developers.
