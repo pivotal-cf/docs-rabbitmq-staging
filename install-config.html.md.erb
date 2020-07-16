@@ -70,39 +70,53 @@ and a dropdown for selecting the service network.](images/rmq_tile_config.png)
 Follow the steps below to configure the AZs and networks:
 
 1. Click **Assign AZs and Networks**.
+  <p class="note warning">
+    <strong>Warning:</strong> You cannot change the regions or networks after you
+    have clicked <strong>Apply Changes</strong> in the <a id="#apply-changes">Apply Changes from Your Configuration</a> below.
+  </p>
 
-    <p class="note warning">
-    <strong>Warning:</strong> You cannot change the regions or networks after you have clicked <strong>Apply Changes</strong> in the <a id="#apply-changes">Apply Changes from Your Configuration</a> below.
-    </p>
+1. Configure the fields on the **Assign AZs and Networks** as follows:
+  <table>
+    <tr><th>Field</th><th>Instructions</th></tr>
+    <tr>
+      <td><strong>Place singleton jobs in</strong></td>
+      <td>Select the region that you want for singleton VMs.
+        <%= vars.ops_manager %> creates the RabbitMQ broker in this AZ.
+      </td>
+    </tr>
+    <tr><td><strong>Balance other jobs in</strong></td>
+      <td>Select additional region.
+        This selection does not affect the on-demand <%= vars.product_short %> service.
+      </td>
+    </tr>
+    <tr><td><strong>Network</strong></td>
+      <td>Select a network for the <%= vars.product_short %> on-demand broker.<br><br>
+        This should be a separate network from the one you select for <strong>Service Network</strong>.
+        For more information about the Default Network, see
+        <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
+        Typically, you select the network used for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
+        components.
+      </td>
+    </tr>
+    <tr><td><strong>Service Network</strong></td>
+      <td> Select a separate network that the on-demand service instances run on.<br><br>
+        A typical practice is to put all on-demand services on a single network,
+        separate from the network that <%= vars.app_runtime_abbr %> and the on-demand broker run on.
+        For information about the Service Network, see
+        <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
+        This field is also required for the pre-provisioned service, though in that case,
+        it does not matter which network you select.
+      </td>
+    </tr>
+  </table>
+  <p class="note warning">
+    <strong>Warning:</strong> Changing the Network or Service Network
+    after you have configured them or changing their IP configurations
+    results in a failed deployment.
+    For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
+  </p>
 
- 1. Configure the fields on the **Assign AZs and Networks** as follows:
-   <table>
-     <tr><th>Field</th><th>Instructions</th></tr>
-     <tr><td><strong>Place singleton jobs in</strong></td>
-         <td>Select the region that you want for singleton VMs. <%= vars.ops_manager %> creates the RabbitMQ broker in this AZ.</td></tr>
-     <tr><td><strong>Balance other jobs in</strong></td>
-         <td>Select additional region. This selection does not affect the on-demand <%= vars.product_short %> service.</td></tr>
-     <tr><td><strong>Network</strong></td>
-         <td>Select a network for the <%= vars.product_short %> on-demand broker.<br><br>
-             This should be a separate network from the one you select for <strong>Service Network</strong>.
-             For more information about the Default Network, see <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
-             Typically, you select the network used for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) components.
-         </td></tr>
-     <tr><td><strong>Service Network</strong></td>
-         <td> Select a separate network that the on-demand service instances run on.<br><br>
-              A typical practice is to put all on-demand services on a single network, separate from the network that <%= vars.app_runtime_abbr %> and the on-demand broker run on.
-              For information about the Service Network, see <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
-              This field is also required for the pre-provisioned service, though in that case, it does not matter which network you select.</td></tr>
-   </table>
-
-    <p class="note warning">
-      <strong>Warning:</strong> Changing the Network or Service Network
-       after you have configured them or changing their IP configurations
-       results in a failed deployment.
-       For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
-     </p>
-
- 1. Click **Save**.
+1. Click **Save**.
 
 <p class="note">
   <strong>Note:</strong> BOSH randomly deploys single node on-demand service instances across
@@ -219,7 +233,8 @@ Follow the steps below to configure global settings:
 
       <tr>
         <td><strong>Custom apps domain for smoke tests</strong></td>
-        <td>Configure to provide a custom apps domain for the smoke tests. If left blank, the default CF apps domain is used.</td>
+        <td>Configure to provide a custom apps domain for smoke tests.
+          If left blank, the default CF apps domain is used.</td>
       </tr>
     </table>
 
