@@ -13,7 +13,7 @@ see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitm
 <div class="note"><strong>Notes:</strong> <br><br><ul><li>For how to install and
   configure the <%= vars.product_short %> pre-provisioned service,
   see <a href="./install-config-pp.html">Installing and Configuring the Pre-Provisioned Service.</a></li>
-  <li>For how to turn off the pre-provisioned service,
+  <li>For how to disable the pre-provisioned service,
     see <a href="./turn-pre-provisioned-off.html">Turning Off the Pre-Provisioned Service</a>.</li></ul>
   </div>
 
@@ -30,14 +30,14 @@ For more information about roles in <%= vars.ops_manager %>, see
 
 ## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
 
-Before deploying <%= vars.product_short %> as an on-demand service, ensure the following:
+Before deploying <%= vars.product_short %> as an on-demand service meet the prerequisites below:
 
-*  <strong>Networking:</strong> You must ensure that the required network rules are in place to allow various components to communicate.
+*  <strong>Networking:</strong> Ensure that the required network rules are in place to allow various components to communicate.
 See [Required Networking Rules for On-Demand Services](about.html#network-rules)
 for details about the network connections that must be open to enable the on-demand service.
 
-* <strong>Transport Layer Security (TLS):</strong> If you want to use TLS to secure communication between apps and <%= vars.product_short %> service instances,
-you must follow the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile.
+* <strong>Transport Layer Security (TLS):</strong> To secure communication between apps and <%= vars.product_short %> service instances through TLS,
+follow the procedures in [Provide or Generate a CA Certificate](./prepare-tls.html#provide-generate-pcf) before installing and configuring the tile.
 
 ## <a id="install"></a> Download and Install <%= vars.product_short %>
 
@@ -57,11 +57,12 @@ This lets you begin configuring the tile. The installation is complete when you 
 
 The configuration screen below appears when you click the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
 An orange circle indicates that you are required to configure fields on the tab before you can deploy the tile.
-A green check mark indicates that the tab is preconfigured and you can optionally change its settings.
+A green check mark indicates that the tab is preconfigured and you can change its settings.
 
 ![Screenshot of the <%= vars.product_short %> tile view. Under the header, 'AZ and Network Assignments',
-is a series of fields including 'Place singleton jobs in', 'Balance other jobs in',
-'Network', and 'Service Network'.](images/rmq_tile_config.png)
+there are three radio buttons for selecting where to place singleton jobs and three checkboxes for
+selecting where to balance other jobs. Beneath the checkboxes is a dropdown for selecting the network
+and a dropdown for selecting the service network.](images/rmq_tile_config.png)
 
 
 ### <a id="azs-networks"></a> Configure AZs and Networks
@@ -69,7 +70,9 @@ is a series of fields including 'Place singleton jobs in', 'Balance other jobs i
 Follow the steps below to configure the AZs and networks:
 
 1. Click **Assign AZs and Networks**.
-     <p class="note warning"><strong>Warning:</strong> You cannot change the regions or networks after you have clicked <strong>Apply Changes</strong> in the <a id="#apply-changes">Apply Changes from Your Configuration</a> below.</p>
+     <p class="note warning">
+       <strong>Warning:</strong> You cannot change the regions or networks after you have clicked <strong>Apply Changes</strong> in the <a id="#apply-changes">Apply Changes from Your Configuration</a> below.
+     </p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
@@ -94,13 +97,14 @@ Follow the steps below to configure the AZs and networks:
     <p class="note warning"><strong>Warning:</strong> Changing the Network or Service Network
        after you have configured them or changing their IP configurations
        results in a failed deployment.
-       For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
+       For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
+     </p>
 
  3. Click **Save**.
 
-<p class="note"><strong>Note:</strong>
-  BOSH randomly deploys single node on-demand service instances across configured AZs.
-  This minimizes the impact of an AZ outage and removes single points of failure.
+<p class="note">
+  <strong>Note:</strong> BOSH randomly deploys single node on-demand service instances across
+  configured AZs. This minimizes the impact of an AZ outage and removes single points of failure.
 </p>
 
 ### <a id='logging'></a>Configure Logging and Monitoring
@@ -114,8 +118,8 @@ Follow the instructions in [Set Up Syslog Forwarding and Metrics Polling Interva
 Follow the steps below to configure global settings:
 
 1. Click the **Global Settings for On-Demand Plans** tab.
-  ![Global Settings Tab](images/global-settings.png)
-1. Configure the following:
+  ![Screenshot of the Global Settings for On-demand Plans tab](images/global-settings.png)
+1. Configure the settings:
     <table>
       <tr>
         <th>Field</th>
@@ -140,7 +144,7 @@ Follow the steps below to configure global settings:
 
       <tr>
         <td><strong>RabbitMQ plugins that can be enabled by App Developers</strong></td>
-        <td>For more information, see <a href="#optional-plugins">Optional RabbitMQ Server Plugins</a> below.</td>
+        <td>For more information, see <a href="#optional-plugins">Enable Extra Optional RabbitMQ Server Plugins</a> below.</td>
       </tr>
 
       <tr>
@@ -227,25 +231,28 @@ To configure the TLS settings:
   <li>Click the <strong>Security for On-Demand Plans</strong> tab.</li>
 
   <img src="images/security.png" alt="Screenshot with header 'Security for On-Demand Plans' and a description
-  that says, 'A CA certificate must be added to Credhub when enabling TLS. See the docs for more information.'
-  Underneath is a group of three radio buttons with the label 'TLS Options'. The three buttons are labeled the following:
-  Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS,'
+  that reads 'A CA certificate must be added to CredHub when enabling TLS. See the docs for more information.'
+  Underneath is a group of three radio buttons with the label TLS Options. The three buttons are labeled the following:
+  Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS',
   Radio button 2. 'Optional - Developers may configure their On Demand service instances to use TLS',
-  Radio button 3. 'Enforced - All new and existing On Demand service innstances will be connfigured to use TLS. On
-  applying this setting, amy applications that use non-TLS binding will require re-binding and must support TLS connections.'
-  '">
+  Radio button 3. 'Enforced - All new and existing On Demand service instances will be configured to use TLS. On
+  applying this setting, any applications that use non-TLS binding will require re-binding and must support TLS connections.'"/>
 
   <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
 
-<p class='note breaking'><strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong> errand are applied. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their <%= vars.product_short %> service instance through TLS.</p>
+<p class='note breaking'>
+  <strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong> errand are applied. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their <%= vars.product_short %> service instance through TLS.
+</p>
 
-<p class="note"><strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing service instances continue to use TLS. However, new instances are not configured with TLS.</p>
+<p class="note">
+  <strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing service instances continue to use TLS. However, new instances are not configured with TLS.
+</p>
 
   <li>Click <strong>Save</strong>.</li>
 
   <li>Click <strong>Review Pending Changes</strong>. For more information about this <%= vars.ops_manager %> page, see <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">Reviewing Pending Product Changes</a>.</li>
 
-  <li>In the Installation Dashboard<%# |<%= vars.ops_manager %> Installation Dashboard| is preferred. %>, ensure the <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>, and then click <strong>Apply Changes</strong>.</li>
+  <li>In the <%= vars.ops_manager %> Installation Dashboard, ensure the <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>, and then click <strong>Apply Changes</strong>.</li>
 
   <li>After deploying the tile, app developers can configure their service instances to use TLS. For developer instructions, see <a href="use.html#tls">Enable Transport Layer Security (TLS) for Your Service Instance</a>. <%# (and <a href="modify-apps-tls.html">Modifying Apps for TLS</a>.) %></li>
 </ol>
@@ -258,16 +265,18 @@ To enable the on-demand service, you must configure at least one on-demand plan.
 * You can configure all on-demand plans to have 1, 3, 5, or 7 RabbitMQ nodes.
 * If the on-demand service is not enabled, the on-demand broker is deployed alongside the <%= vars.product_short %> installation, but it is not available in the Marketplace.
 
-<p class="note"><strong>Note</strong>: You must fully configure <strong>On Demand Instance: Plan 1</strong> even if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).</p>
+<p class="note">
+  <strong>Note:</strong> You must fully configure <strong>On Demand Instance: Plan 1</strong> even if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).
+</p>
 
 
 1. Choose the on-demand service instance you want to configure.
 You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this plan.
 
-    ![Screenshot with the header 'Global Settings for On-Demand Plans' with
-    many fields underneath including 'Dedicated Instance Service Quota',
-    'Dedicated Instance VM Options', 'RabbitMQ plugins that can be enabled by App Devleopers',
-    'External TCP domain', 'Port Range', and more. A 'Save' button is at the bottom.](images/plan-1-configuration.png)
+    ![Screenshot with the header 'Global Settings for On-Demand Plans'. There are many fields underneath,
+    including those labeled 'Dedicated Instance Service Quota', 'Dedicated Instance VM Options',
+    'RabbitMQ plugins that can be enabled by App Developers', 'External TCP domain', and 'Port Range'.
+    A 'Save' button is at the bottom.](images/plan-1-configuration.png)
 
 2. Configure the fields as follows:
     <table>
@@ -343,8 +352,10 @@ You must complete the required fields for **On Demand Instance: Plan 1** even if
 
 #### <a id="determineaz"></a> Determine which AZs a Service Instance Uses
 
-<p class='note warning'><strong>Warning:</strong> If you change this configuration after you have selected AZs and deployed service instances, existing instances are not placed in the newly configured AZs when the Upgrade All Service Instances or Recreate All Service Instances errands are run. This prevents re-creation of the VMs in different AZs, which could lead to data loss.
-<br>All new service instances, however, are created in the newly configured AZs.</p>
+<p class='note warning'>
+  <strong>Warning:</strong> If you change this configuration after you have selected AZs and deployed service instances, existing instances are not placed in the newly configured AZs when the Upgrade All Service Instances or Recreate All Service Instances errands are run. This prevents re-creation of the VMs in different AZs, which could lead to data loss.
+<br>All new service instances, however, are created in the newly configured AZs.
+</p>
 
 <br>To determine which AZs a service instance is placed in, do one of the following:
 
@@ -363,10 +374,10 @@ service plan configuration pages.
 These properties are pre-configured by default.
 
 <%= image_tag("images/vm-ram-disk-example.png", :width => "400",
-:alt => "Screenshot of the dropdown field labeled 'RabbitMQ VM Type'
-with a selected value of 'medium (cpu: 2, ram: 4 GB, disk: 8 GB)',
-and the dropdown field labeled 'Persistent disk type.' Each field
-has a red asterisk to indicate they are required.") %>
+:alt => "Screenshot of the 'RabbitMQ VM Type' dropdown, which
+has the value 'medium (cpu: 2, ram: 4 GB, disk: 8 GB)',
+and the 'Persistent disk type' dropdown, which has the value '10 GB'. Each field
+has a red asterisk to show they are required.") %>
 
 VMware recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
 
@@ -415,7 +426,7 @@ Minimum resources required for each RabbitMQ VM:
 - Ephemeral disk: 2&nbsp;GB
 - Persistent disk: 4&nbsp;GB
 
-For more information, see the following:
+For more information, see:
 
 + [Memory and Disk Alarms](http://www.rabbitmq.com/alarms.html)
 + [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
@@ -442,28 +453,30 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating <%= vars.product_short %>, <%= vars.ops_manager %> can optionally run a
-series of [Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
-An example is the Smoke Tests errand, which checks the health of the RabbitMQ
-cluster after a deploy or upgrade.
+When deploying or updating <%= vars.product_short %>, <%= vars.ops_manager %> can run a series of
+[Post-Deploy Errands](#post-deploy-errands), detailed in the section below.
+An example is the Smoke Tests errand, which checks the health of the RabbitMQ cluster after a deploy
+or upgrade.
 
 You can toggle errands on and off on the **Review Pending Changes** page.
 
-![Screenshot of the 'RabbitMQ' tile in the 'Review Pending Changes' page
-of the Ops Manager UI. Underneath 'Select errands to run during the deploy'
-is the following checkbox fields:
-Enabled checkbox, 'Pre-Provisioned Broker Registrar',
-Enabled checkbox, 'Pre-Provisioned Smoke Tests',
-Enabled checkbox, 'Register On Demand Service Broker',
-Enabled checkbox, 'On Demand Instance Smoke Tests',
-Enabled checkbox, 'Upgrade All Service Instances',
-Disabled checkbox, 'Recreate All Service Instances'](./images/errands-installation-pending-changes.png)
+![Screenshot of the RabbitMQ tile in the 'Review Pending Changes' page of the Ops Manager UI.
+Underneath the text 'Select errands to run during the deploy' are the following checkboxes:
+'Pre-Provisioned Broker Registrar',
+'Pre-Provisioned Smoke Tests',
+'Register On Demand Service Broker',
+'On Demand Instance Smoke Tests',
+'Upgrade All Service Instances',
+'Recreate All Service Instances'.
+All the checkboxes are enabled except for 'Recreate All Service Instances'](./images/errands-installation-pending-changes.png)
 
-<p class='note warning'><strong>Warning:</strong> In <%= vars.product_short %> v1.9.0 and later,
+<p class='note warning'>
+  <strong>Warning:</strong> In <%= vars.product_short %> v1.9.0 and later,
   post-deploy errands are on by default except for the Recreate All Service Instances errand.
   VMware recommends keeping these defaults, because the smoke tests can encounter
   unexpected issues, and on-demand instances of <%= vars.product_short %> might fall behind
-  if the Upgrade All Service Instances errand is not on by default.</p>
+  if the Upgrade All Service Instances errand is not on by default.
+</p>
 
 You can change these defaults by clicking **Errands** in the <%= vars.product_short %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
@@ -534,7 +547,8 @@ For more information about errands, see [Errands](http://docs.pivotal.io/tiledev
 
 ## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
 
-If you want to give app developers admin privileges to the RabbitMQ Management UI, you can create an admin user for a service instance and share the user credentials with app developers.
+To give app developers admin privileges to the RabbitMQ Management UI, you can create an admin user
+for a service instance and share the user credentials with app developers.
 
 Both operators and app developers can use this procedure.
 
@@ -608,7 +622,7 @@ The following plugins are enabled by default, you cannot disable them:
 * `rabbitmq_prometheus`: For more information, see
 [rabbitmq prometheus](https://github.com/rabbitmq/rabbitmq-prometheus/blob/master/README.md) in GitHub.
 
-### <a id="optional-plugins"></a> Optional RabbitMQ Server Plugins
+### <a id="optional-plugins"></a> (Optional) Enable Extra RabbitMQ Server Plugins
 
 The following plugins are disabled by default:
 
@@ -622,11 +636,10 @@ To enable disabled plugins:
 1. Navigate to **<%= vars.ops_manager %> Installation Dashboard** > **RabbitMQ** > **Settings** > **Global Settings for On-Demand Plans**.
 
 1. Select the plugins you want to enable under **RabbitMQ plugins that can be enabled by App Developers**.
-  ![Screenshot with header 'Global Settings for On-Demand Plans'. Underneath is a few fields, including:
-  required text field, 'Dedicated Instance Service Quota (min: 0)',
-  checkbox field, 'Dedicated Instance VM Options',
-  multi-checkbox field, 'RabbitMQ plugins that can be enabled by App Developers' with
-  the checkboxes 'rabbitmq_event_exchange' and 'rabbitmq_mqtt'.](images/on-demand-plugins-operator.png)
+  ![Screenshot with the header 'Global Settings for On-Demand Plans'.
+   Underneath is the required field 'Dedicated Instance Service Quota (min: 0)', a 'Dedicated Instance
+   VM Options' checkbox, and optional checkboxes for 'RabbitMQ plugins that can be enabled by App Developers'.
+   These checkboxes are labeled 'rabbitmq_event_exchange' and 'rabbitmq_mqtt'.](images/on-demand-plugins-operator.png)
 
   After plugins are enabled for the platform, developers can enable them for each service instance.
   For more information, see [Enable Optional Plugins](./use.html#optional-plugins).
