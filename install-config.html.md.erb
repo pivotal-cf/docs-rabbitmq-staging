@@ -226,7 +226,7 @@ Follow the steps below to configure global settings:
 
       <tr>
         <td><strong>Use Service Instance ID as cluster name</strong></td>
-        <td><strong>In <%= vars.product_short %> v1.18.7 and later patches:</strong>
+        <td>
           Select this checkbox to set the cluster name to its service instance GUID
           instead of the default name `rabbit@localhost`.
           This enables you to filter metrics by cluster name.
@@ -515,7 +515,7 @@ plan.
       </tr>
       <tr>
         <td><strong>Wait for Queue Synchronization</strong></td>
-        <td><strong>In <%= vars.product_short %> v1.18.7 and later patches:</strong>
+        <td>
           Select this checkbox to enable the following pre-stop checks:
           <ul>
             <li><code>rabbitmq-upgrade await\_online\_quorum\_plus\_one --timeout 3600</code></li>
