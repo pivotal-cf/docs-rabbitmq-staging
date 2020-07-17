@@ -12,4 +12,4 @@ owner: RabbitMQ
 This topic describes how to access BOSH CredHub, check expiration dates,
 and rotate certificates using <%= vars.product_full %>.
 
-<%= partial vars.path_to_partials + "/certs/rotating-certs", :locals => { :local_product_name => vars.product_full } %>
+<%= partial vars.path_to_partials + "/certs/rotating-certs", :locals => { :maestro_incompatible => true } %>
