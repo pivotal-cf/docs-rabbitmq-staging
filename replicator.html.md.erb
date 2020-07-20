@@ -24,7 +24,7 @@ In this use case:
 	* A pre-provisioned service is used as a backing service for SCS <br>
 	* An on-demand service is used to create three completely isolated single node service instances
 * Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team.
-<br><br>![Flowchart showing the step-by-step setup flow in three categories:
+<br><br><%= image_tag("flowchart.png" :alt => "Flowchart showing the step-by-step setup flow in three categories:
 'Unreplicated (default) tile',
 'Replica Tile for Team 1', and
 'Replica Tile for team 2'.
@@ -51,8 +51,8 @@ Dedicated 3 node RabbitMQ Cluster for Team 1. Service name: p-rabbitmq-team1. Th
 2. Use the Replicator to generate renamed tile (e.g. 'team 2'),
 3. Configure the tile and turn off the register service broker errand.
 4. Register the service in CF so only team 2 has access.
-These stps result in the RabbitMQ deployment, which is a dedicated 3 node RabbitMQ cluster for team 2. Service name:
-p-rabbitmq-team2.](/images/flowchart.png)
+These steps result in the RabbitMQ deployment, which is a dedicated 3 node RabbitMQ cluster for team 2. Service name:
+p-rabbitmq-team2.") %>
 [Click here to view a larger version of this image.](./images/flowchart.png)
 
 These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Pre-Provisioned Dedicated Cluster](#dedicated).
