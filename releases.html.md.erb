@@ -7,6 +7,16 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/pcf-name-change' %>
 
+<p class="note breaking">
+  <strong>Breaking Change:</strong>
+  Users are no longer automatically logged in when navigating to the RabbitMQ dashboard URL.
+  Instead, users must enter their username and password on the RabbitMQ dashboard login page.
+  This is because usernames and passwords are removed from the RabbitMQ dashboard URL in a service
+  binding because of a potential XSS vector.
+  For more information, see the pull request <a href="https://github.com/rabbitmq/rabbitmq-management/pull/748">Remove
+  direct login route</a> in GitHub.<br>
+</p>
+
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
 For <%= vars.product_short %> v1.15 and v1.16, you can skip a minor version when you upgrade.
