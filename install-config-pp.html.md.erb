@@ -49,7 +49,7 @@ A green check mark indicates that the tab is preconfigured and you are able to c
 An orange circle indicates that you are required to configure fields on the tab before you can deploy
 the tile.
 
-![Screenshot of the Ops Manager UI showing the configuration pane
+![Screenshot of the <%= vars.ops_manager %> UI showing the configuration pane
 called 'AZ and Network Assignments'. The screenshot shows several
 fields including radio buttons for 'singleton jobs', a 'Network' field,
 and a 'Service Network' field.](images/rmq_tile_config.png)
@@ -261,7 +261,7 @@ To add HAProxy ports:
 1. In the **RabbitMQ cluster HAproxy ports** field, enter the ports HAProxy should load balance to
 the RabbitMQ nodes.
 
-    <%= image_tag("images/config-haproxy.png", :alt => "Screenshot of text field with the label 'RabbitMQ cluster HAproxy ports'.
+    <%= image_tag("images/config-haproxy.png", :alt => "Screenshot of text field with the label 'RabbitMQ cluster HAProxy ports'.
     Next to the label is a red asterisk to indicate the field is required. The text field has the following ports entered:
     15672, 5672, 5671, 1883, 8883, 61613, 61614. The ports numbers are separated by commas.") %>
 
@@ -301,7 +301,7 @@ text area field has placeholder text called 'Private Key PEM'. Underneath
 this field is a blue link called 'Generate RSA Certificate.' The next field
 is another text area field labeled 'RabbitMQ server CA certificates'. The next two fields
 are checkboxes labeled 'Enable 'verify_peer' SSL certificate verification' and
-'Require peer certificate validation'. The last field is a textbox labeled 'SSL certificate
+'Require peer certificate validation'. The last field is a text field labeled 'SSL certificate
 verification depth.' The field has a value of '5'.") %>
 
 SSL is simultaneously provided for AMQPS, STOMP and MQTT.
@@ -338,7 +338,7 @@ There are three checkboxes labeled 'TLS v1.0', 'TLS v1.1', and 'TLS v1.2'. 'TLS 
 **RabbitMQ configuration** field.
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.<br>
 <%= image_tag("images/config_rabbitmq.png",
-:alt => "Screenshot of a textarea field labeled 'RabbitMQ configuration'
+:alt => "Screenshot of a text field labeled 'RabbitMQ configuration'
 and help text that says 'RabbitMQ config file contents, can be blank'.") %>
 <br>
 The input in this field must be encoded in Base64.
@@ -362,7 +362,7 @@ For example, to configure the `rates_mode` of the `rabbitmq_management` stats be
 2. Paste the above into the **RabbitMQ configuration** field:
 
     <%= image_tag("images/config_rabbitmq_file.png",
-    :alt => "Screenshot of a text area field labeled 'RabbitMQ configuration'.
+    :alt => "Screenshot of a text field labeled 'RabbitMQ configuration'.
     The field has the value 'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K'.
     The field also has help text that says, 'RabbitMQ config file contents, can be blank'.") %>
 
@@ -496,7 +496,7 @@ To specify the destination for <%= vars.product_short %> log entries:
 1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile.
 1. In the <%= vars.product_short %> tile, click the **Settings** tab.
 1. Click **Syslog**.
-![Screenshot of the entire 'Syslog' pane in the Ops Manager UI. The pane has several fields
+![Screenshot of the entire 'Syslog' pane in the <%= vars.ops_manager %> UI. The pane has several fields
 labeled 'Do you want to configure Syslog forwarding?', 'Address',
 'Port', 'Transport Protocol', 'Enable TLS', 'Permitted Peer', 'SSL Certificate',
 'Queue Size', 'Forward Debug Logs', and 'Custom rsyslog Configuration'.](images/syslog-config-1.20.0.png)
@@ -544,9 +544,13 @@ labeled 'Do you want to configure Syslog forwarding?', 'Address',
     </tr>
     <tr>
         <td><strong>Custom Rules</strong></td>
-        <td>The custom rsyslog rules shown below are written in
-          <a href="https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html">RainerScript</a>.
-          The custom rules are inserted before the rule that forwards logs.</td>
+        <td>The custom rsyslog rules are written in
+          <a href="https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html">RainerScript</a>
+          and are inserted before the rule that forwards logs.
+          For the list of custom rules, see
+          [RabbitMQ Syslog Custom Rules](./monitor.html#rabbitmq-syslog-custom-rules).
+          For the program names to use in reference to the rules, see
+          [Program Names](./monitor.html#program-names).</td>
     </tr>
 </table>
 
@@ -599,7 +603,7 @@ see [Sharing Service Instances](https://docs.pivotal.io/pivotalcf/devguide/servi
 
 2. Select **Enable Service Instance Sharing**<br>
 
-    ![Screenshot of a checkbox field labeled 'Enable Service Instance Sharing' with the help text 'App Developers can have the ability to share their Cloud Foundy Service Instances across Orgs and Spaces.'](images/sharing-instances.png)
+    ![Screenshot of a check box labeled 'Enable Service Instance Sharing' with the help text 'App Developers can have the ability to share their Cloud Foundry Service Instances across Orgs and Spaces.'](images/sharing-instances.png)
 
 
 3. Click **Save**.
@@ -627,7 +631,7 @@ For more information, see [Post-Deploy Errands](#post-deploy-errands) below.
 
 You can toggle errands on and off on the <%= vars.ops_manager %> **Review Pending Changes** page.
 
-![Screenshot of the RabbitMQ tile on the Ops Manager Review Pending Changes page. An enabled checkbox
+![Screenshot of the RabbitMQ tile on the <%= vars.ops_manager %> Review Pending Changes page. An enabled checkbox
 is next to the RabbitMQ logo. A multi-select field labeled 'Select errands to run during the deploy' has
 the following errands enabled: 'Pre-Provisioned Broker Registrar', 'Pre-Provisioned Smoke Tests', 'Register On Demand
 Service Broker', and 'Upgrade All Service Instances'.](images/errands-installation-pending-changes.png)
@@ -854,7 +858,7 @@ For example, you cannot change the subnet into which the RabbitMQ cluster was or
 Doing so causes the deployment to fail.
 For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-### <a id="switching"></a>Preserving Dynamically Assigned IPs
+### <a id="switching"></a>Preserve Dynamically Assigned IPs
 
 You cannot switch from dynamically assigned IP addresses to a different set of static IP addresses.
 However, you can configure <%= vars.ops_manager %> so the
