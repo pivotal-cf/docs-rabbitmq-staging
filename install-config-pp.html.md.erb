@@ -64,7 +64,7 @@ Follow the steps below to configure the AZs and networks:
      you have clicked <strong>Apply Changes</strong> during the
      <a id="#apply-changes">Apply Configuration and Complete the Installation</a> procedure below.</p>
 
- 2. Configure the fields on the **Assign AZs and Networks** as follows.
+2. Configure the fields on the **Assign AZs and Networks** as follows.
     **All fields are required**, though some do not apply to the pre-provisioned service.
    <table>
      <tr><th>Required Fields</th><th>Instructions</th></tr>
@@ -93,7 +93,7 @@ Follow the steps below to configure the AZs and networks:
       <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
     </p>
 
- 3. Click **Save**.
+3. Click **Save**.
 
 
 ## <a id="rabbitmq-cluster"></a> Pre-Provisioned RabbitMQ
@@ -139,9 +139,9 @@ A checkbox field called 'rabbitmq_management' is enabled.") %>
 For more information about RabbitMQ plugins, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/plugins.html).
 
-### <a id="erlang"></a>Erlang Cookie
+### <a id="erlang"></a> (Optional) Provide an Erlang Cookie
 
-(Optional) In this section of the **Pre-Provisioned RabbitMQ** tab, provide an Erlang cookie for the
+1. In this section of the **Pre-Provisioned RabbitMQ** tab, provide an Erlang cookie for the
 cluster to use.
 This is useful if you want to connect directly to the RabbitMQ cluster, for example with
 `rabbitmqctl`, or to connect other VMs running Erlang.
@@ -614,7 +614,11 @@ This tab only applies to the on-demand service. However, you must complete the f
 this tab even if you are not using the on-demand service.
 Therefore, if you are not using the on-demand service:
 
-* Select or enter any values in the required fields, select the **Acknowledge** checkbox, and click **Save**.
+1. Select or enter any values in the required fields.
+
+1. Select the **Acknowledge** checkbox.
+
+1. Click **Save**.
 
 For information about configuring the on-demand service, see
 [Installing and Configuring the On-Demand Service](./install-config.html).
