@@ -196,7 +196,7 @@ If you rely on the tile to generate the Erlang cookie but need to upgrade to
 <%= vars.product_short %> v1.16 without a cluster shutdown, set the Erlang cookie to its existing value:
 
 1. Follow the steps in
-[Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather), up to and including the section **Log in to the BOSH Director**:
+[Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather), up to and including the section _Log in to the BOSH Director_:
 
 1. SSH into the RabbitMQ server by running:
 
@@ -233,7 +233,7 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 </p>
 
 
-### <a id="load-balance"></a> Set an External Load Balancer <%# Is this whole section optional? %>
+### <a id="load-balance"></a> (Optional) Set an External Load Balancer <%# Is this whole section optional? %>
 
 To set an external load balancer:
 
@@ -389,7 +389,7 @@ the event of a network partition.
   nodes and two HAProxies spread across low-latency AZs.
 
 
-### <a id="disk_free_alarm_selector"></a> Disk-free Alarm Limit
+### <a id="disk_free_alarm_selector"></a> Disk Free Alarm Limit
 
 To set the alarm for the amount of free disk space remaining:
 
@@ -449,8 +449,8 @@ space free to satisfy the **Disk free alarm limit** that you choose.
 
 #### <a name='50mb'></a> When to Use the 50MB Value
 
-VMware discourages using this value in production. However, if you are experimenting with a local
-machine you might want to use a small disk to keep down costs, even though this increases the
+VMware discourages using this value in production. However, if you are experimenting with a
+development environment you might want to use a small disk to keep down costs, even though this increases the
 risk of RabbitMQ crashing and losing data.
 
 ### <a id="networking"></a>Specify Static IP Addresses
@@ -482,7 +482,7 @@ To specify static IP addresses:
 
 ## <a id="config"></a> Configure Syslog Forwarding
 
-From <%= vars.product_short %> v1.9.0, syslog forwarding is preconfigured and enabled by default.
+Syslog forwarding is preconfigured and enabled by default.
 VMware recommends that you keep the default setting because it is good operational practice.
 However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the
 <%= vars.ops_manager %> **Settings** tab.
@@ -540,7 +540,7 @@ labeled 'Do you want to configure Syslog forwarding?', 'Address',
     <tr>
         <td><strong>Forward Debug Logs</strong></td>
         <td>Some components produce very long debug logs. This option prevents them from being
-          forwarded. They will still be written to local disk.</td>
+          forwarded. These logs are still written to local disk.</td>
     </tr>
     <tr>
         <td><strong>Custom Rules</strong></td>
@@ -571,7 +571,7 @@ To configure the metrics polling interval:
 On-Demand service offerings', which has one required field labeled 'Metrics polling interval'
 with a value of 30, and a save button.](images/metrics-configuration-1.20.png)
 1. Click **Metrics**.
-1. Configure the fields on the Metrics Syslog pane as follows:
+1. Configure the fields on the Metrics pane as follows:
 <table class="nice">
     <th>Field</th>
     <th>Description</th>
@@ -862,14 +862,14 @@ For example, you cannot change the subnet into which the RabbitMQ cluster was or
 Doing so causes the deployment to fail.
 For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
-### <a id="switching"></a>Preserve Dynamically Assigned IPs
+### <a id="switching"></a>Preserve Dynamically Assigned IP Addresses
 
 You cannot switch from dynamically assigned IP addresses to a different set of static IP addresses.
 However, you can configure <%= vars.ops_manager %> so the
 current set of dynamically assigned IP addresses always continue to be used.
 This might be useful when upgrading.
 
-To do so:
+To preserve the current set of dynamically assigned IP addresses:
 
 1. Go to the **Status** page in the <%= vars.product_short %> tile.
 2. Take note of the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
