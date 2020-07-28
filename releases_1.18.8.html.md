@@ -6,6 +6,11 @@
 
 This release fixes the following issues:
 
+Previously, the smoke test would pick up the default cf domain. This might 
+cause smoke tests to fail when the smoke tests domain is not accessible from
+the RabbitMQ Service Instance domain for on-demand services. 
+Operators can now configure the smoke tests domain to ensure that the service instance is accessible during smoke tests.
+
 
 ### Known Issues
 
