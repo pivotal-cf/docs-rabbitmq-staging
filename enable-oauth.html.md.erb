@@ -29,10 +29,10 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
 
 1. Click on the <%= vars.app_runtime_full %> tile.
 1. Click the **Credentials** tab.
-    ![Screenshot of the Tanzu Application Service tile UI in Ops Manager. The location of the Credentials tab is shown with a
+    ![Screenshot of the <%= vars.app_runtime_full %> tile UI in <%= vars.ops_manager %>. The location of the Credentials tab is shown with a
     red circle. The Credentials tab is the third tab from the left, after 'Settings' and 'Status'.](/images/oauth-create-uaa-group-1.png)
 1. Locate the Admin Client Credentials in the UAA job.
-    ![Screenshot of the Tanzu Application Service tile UI in Ops Manager. There is a list of credential types and, next to it, a
+    ![Screenshot of the Tanzu Application Service <%= vars.app_runtime_full %> tile UI in <%= vars.ops_manager %>. There is a list of credential types and, next to it, a
     list of corresponding links. The location of the link for Admin Client Credentials is shown with
     a red circle.](/images/oauth-create-uaa-group-2.png)
 1. Click **Link to Credential** next to **Admin Client Credentials**.
@@ -135,16 +135,18 @@ command for every RabbitMQ UAA group:
 
 ## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
 
+<p class="note">
+  <strong>Note:</strong> Enabling OAuth neither changes the behavior of service keys nor removes users from the internal backend of existing <%= vars.product_short %> instances.
+</p>
+
 To enable OAuth in <%= vars.ops_manager %>:
 
 1. Go to the **Security for On-Demand Plans** section of the <%= vars.app_runtime_abbr %> tile.
 1. Select the **Enable OAuth** checkbox.
-![Screenshot of the Security for On-demand Plans section, which includes TLS Option radio buttons, a
-checkbox for enabling OAuth, and a Save button. The Not Configured radio button and the Enable OAuth
-checkbox are selected.](/images/enable-oauth.png)
+![Screenshot of the Security for On-Demand Plans section, which includes 'TLS Option' radio buttons, a
+checkbox for enabling OAuth, and a Save button. The 'Not Configured' radio button and the
+'Enable OAuth' checkbox are selected.](/images/enable-oauth.png)
 [Click here to view a larger version of the image above.](./images/enable-oauth.png)
 1. Click **Save**.
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
-
-Enabling OAuth will neither change the behaviour of service keys, nor remove users from the internal backend of existing RMQ instances.
