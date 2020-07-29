@@ -18,6 +18,12 @@ downtime during upgrades.
 
 ### <a id="general-downtime"></a> General Notes About Downtime
 
+The length of downtime during upgrades depends on whether there is a stemcell update to
+replace the operating system image, or whether the update is for the RabbitMQ software only.
+Stemcell updates incur additional downtime while the IaaS creates the new VM.
+The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
+This is stated in the release notes for those versions.
+
 Resilient apps are less likely to crash during downtime.
 For how developers can create resilient apps, see the [workloads](https://github.com/rabbitmq/workloads/tree/master/resiliency#resilient-applications-in-java-handle-connection-failures-and-more)
 repository in GitHub.
@@ -25,13 +31,6 @@ repository in GitHub.
 A guide for downtime during upgrade deployments is shown in the table below.
 In some cases, the RabbitMQ cluster remains available during a tile upgrade,
 but individual queues on cluster nodes might be taken offline.
-
-The length of the downtime depends on whether there is a stemcell update to
-replace the operating system image, or whether the update is for the RabbitMQ software only.
-Stemcell updates incur additional downtime while the IaaS creates the new VM.
-
-The RabbitMQ cluster becomes unavailable only when upgrading between specific versions of Erlang or RabbitMQ.
-This is stated in the release notes for those versions.
 
 <p class="note warning"><strong>IMPORTANT</strong>: The following table is only a guide.
 Always check the release notes for the version you are upgrading to.</p>
@@ -93,6 +92,25 @@ the upgrade and you must not interrupt this process.
 * <%= vars.ops_manager %> ensures the instances are updated with the new packages and any
 configuration changes are applied automatically.
 
+### <a id="vm-strategy"></a> VM Update Strategy
+
+On-demand service instances created using <%= vars.product_short %> v1.20 and later
+use the `vm_strategy` `create-swap-delete`.
+This significantly reduces downtime because VM creation and deletion does not affect the downtime
+of a RabbitMQ node being updated.
+Depending on your IaaS, VM creation and deletion can take a few seconds up to several minutes.
+
+Your IaaS resource usage surges during the deploy while BOSH creates additional VMs in preparation for the update.
+You might need to review resource limits for your IaaS and account.
+If your limits are too low, your deployment fails.
+
+For more information about `create-swap-delete`, see
+[Changing VM Update Strategy](https://bosh.io/docs/changing-deployment-vm-strategy/)
+in the BOSH documentation.
+
+<p class="note">
+  <strong>Note:</strong> On-demand service instances that were created using <%= vars.product_short %> v1.19 or earlier
+  and upgraded to v1.20 or later continue to use the <code>vm_strategy</code> <code>delete-create</code>.</p>
 
 ### <a id="policy"></a> Release Policy
 
