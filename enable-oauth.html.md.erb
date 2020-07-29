@@ -6,6 +6,9 @@ owner: RabbitMQ
 This topic explains how to enable app developers to authenticate users through JWT-encoded OAuth
 2.0 access tokens.
 
+<p class="note">
+  <strong>Note:</strong> Enabling OAuth neither changes the behavior of service keys nor removes user credentials from the internal backend of existing <%= vars.product_short %> instances.
+</p>
 
 ## <a id='overview'></a> Overview
 
@@ -134,10 +137,6 @@ command for every RabbitMQ UAA group:
 
 
 ## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
-
-<p class="note">
-  <strong>Note:</strong> Enabling OAuth neither changes the behavior of service keys nor removes users from the internal backend of existing <%= vars.product_short %> instances.
-</p>
 
 To enable OAuth in <%= vars.ops_manager %>:
 
