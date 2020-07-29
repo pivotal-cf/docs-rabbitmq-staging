@@ -9,7 +9,8 @@ owner: London Services
 
 <p class="note breaking">
   <strong>Breaking Change:</strong>
-  Users are no longer automatically logged in when navigating to the URL for the RabbitMQ Management UI.
+  In <%= vars.product_short %> v1.18.2 and later, users are no longer automatically
+	logged in when navigating to the URL for the RabbitMQ Management UI.
   Instead, users must enter their username and password on the RabbitMQ Management UI login page.
   This is because usernames and passwords are removed from the RabbitMQ dashboard URL located in
   service bindings because of a potential XSS vector.
@@ -632,15 +633,6 @@ This functionality is planned for other supported protocols in later releases.
 [RabbitMQ documentation](https://www.rabbitmq.com/quorum-queues.html).
 * Previously, operators could not set an upper limit on the number of on-demand service instances higher than 200.
 This restriction no longer exists.
-
-<p class="note warning">
-  <strong>Warning:</strong> Usernames and passwords are removed from the RabbitMQ dashboard URL in a service
-  binding because of a potential XSS vector.
-  For more information, see this <a href="https://github.com/rabbitmq/rabbitmq-management/pull/748">Remove
-  direct login route pull request</a> in GitHub.<br>
-  This means users are no longer automatically logged in when navigating to the dashboard URL.
-  Instead, the user must explicitly enter their username and password on the RabbitMQ dashboard login page.
-</p>
 
 ### Known Issues
 
