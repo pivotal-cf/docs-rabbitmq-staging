@@ -13,12 +13,12 @@ This topic applies to both the on-demand and pre-provisioned services.
 
 ## <a id="upgrade"></a> Upgrade <%= vars.product_short %>
 
-To upgrade the product, follow these steps:
+To upgrade the product:
 
 1. Download the latest version of the product from [<%= vars.product_network %>](https://network.pivotal.io/products/pivotal-rabbitmq-service).
 1. Upload the new .pivotal file to <%= vars.ops_manager %>.
-1. Upload the stemcell associated with the update (*if required*).
-1. Update any new mandatory configuration parameters (*if required*).
+1. If required, upload the stemcell associated with the update.
+1. If required, update any new mandatory configuration parameters.
 1. Click **Review Pending Changes**.
 For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
@@ -68,8 +68,8 @@ A guide for downtime during upgrade deployments is shown in the table below.
 In some cases, the RabbitMQ cluster remains available during a tile upgrade,
 but individual queues on cluster nodes might be taken offline.
 
-<p class="note warning"><strong>IMPORTANT</strong>: The following table is only a guide.
-Always check the release notes for the version you are upgrading to.</p>
+<p class="note warning"><strong>Warning:</strong> The following table is only a guide.
+Always read the release notes for the version you are upgrading to.</p>
 
 
 <table border="1" class="nice">
@@ -79,7 +79,7 @@ Always check the release notes for the version you are upgrading to.</p>
 </tr>
 <tr>
   <th>Major Tile Version</th>
-  <td>Refer to the release notes for that version.
+  <td>See the release notes for that version.
   </td>
 </tr>
 <tr>
@@ -106,13 +106,14 @@ Always check the release notes for the version you are upgrading to.</p>
 
 ### <a id="vm-strategy"></a> VM Update Strategy
 
-On-demand service instances created using <%= vars.product_short %> v1.20 and later
-use the `vm_strategy` `create-swap-delete`.
+On-demand service instances created using <%= vars.product_short %> v1.20 and later use the
+`vm_strategy` `create-swap-delete`.
 This significantly reduces downtime because VM creation and deletion does not affect the downtime
 of a RabbitMQ node being updated.
-Depending on your IaaS, VM creation and deletion can take a few seconds up to several minutes.
+Depending on your IaaS, VM creation and deletion can take between a few seconds and several minutes.
 
-Your IaaS resource usage surges during the deploy while BOSH creates additional VMs in preparation for the update.
+Your IaaS resource usage surges during the deployment while BOSH creates additional VMs in preparation
+for the update.
 You might need to review resource limits for your IaaS and account.
 If your limits are too low, your deployment fails.
 
