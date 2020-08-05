@@ -34,13 +34,13 @@ If you are upgrading a version other than v1.16 or v1.15, do not skip minor vers
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="1-18-7"></a> v1.18.7
+## <a id="1-18-8"></a> v1.18.8
 
-**Release Date**: July 14, 2020
+**Release Date**: July 17, 2020
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release fixes the following issue:
 
 * **The pre-stop script no longer fails with a timeout error.**
 Previously, the pre-stop script failed with the error:
@@ -59,6 +59,13 @@ To set the cluster name to its service instance GUID, select the **Use Service I
 checkbox in **Global Settings for On-Demand Plans**.
 For more information about this setting, see [Configure Global Settings](./install-config.html#global).
 
+* **Configure a custom apps domain to ensure smoke tests work:**
+Previously, the smoke test picked up the default Cloud Foundry domain, which could cause smoke tests
+to fail when the RabbitMQ service instance domain for on-demand services could not access the smoke tests domain.<br><br>
+Operators can now configure the smoke tests domain to ensure that the service instance is accessible
+during smoke tests.<br>
+For more information, see [Configure Global Settings](./install-config.html#global).
+
 ### Known Issues
 
 This release has the following known issue:
@@ -71,7 +78,7 @@ The following components are compatible with this release:
 
 <table class="nice"> <th>Component</th> <th>Version</th> 	<tr>
 		<td>Erlang</td>
-		<td>22.3.4.2</td>
+		<td>22.3.4.3</td>
 	</tr>
 	<tr>
 		<td>HAProxy</td>
@@ -86,8 +93,8 @@ The following components are compatible with this release:
 		<td>621.x</td>
 	</tr>
 	<tr>
-		<td>Tanzu Application Service</td>
-		<td>2.7.*, 2.8.*, 2.9.*</td>
+		<td><%= vars.app_runtime_full %></td>
+		<td>2.7.x, 2.8.x, 2.9.x</td>
 	</tr>
 	<tr>
 		<td>bpm</td>
@@ -95,11 +102,11 @@ The following components are compatible with this release:
 	</tr>
 	<tr>
 		<td>cf-cli</td>
-		<td>1.26.0</td>
+		<td>1.27.0</td>
 	</tr>
 	<tr>
 		<td>cf-rabbitmq</td>
-		<td>310.0.0</td>
+		<td>312.0.0</td>
 	</tr>
 	<tr>
 		<td>cf-rabbitmq-multitenant-broker</td>
@@ -111,7 +118,7 @@ The following components are compatible with this release:
 	</tr>
 	<tr>
 		<td>cf-rabbitmq-smoke-tests</td>
-		<td>54.0.0</td>
+		<td>55.0.0</td>
 	</tr>
 	<tr>
 		<td>loggregator-agent</td>
@@ -119,7 +126,7 @@ The following components are compatible with this release:
 	</tr>
 	<tr>
 		<td>on-demand-service-broker</td>
-		<td>0.39.0</td>
+		<td>0.40.0</td>
 	</tr>
 	<tr>
 		<td>rabbitmq-metrics</td>
@@ -127,11 +134,11 @@ The following components are compatible with this release:
 	</tr>
 	<tr>
 		<td>rabbitmq-on-demand-adapter</td>
-		<td>136.0.0</td>
+		<td>139.0.0</td>
 	</tr>
 	<tr>
 		<td>routing</td>
-		<td>0.202.0</td>
+		<td>0.203.0</td>
 	</tr>
 	<tr>
 		<td>service-metrics</td>
@@ -143,7 +150,9 @@ The following components are compatible with this release:
 	</tr>
 </table>
 
-<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.5">v3.8.5</a> GitHub documentation.
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.5">v3.8.5</a> GitHub documentation.
+
 
 ## <a id="1-18-6"></a> v1.18.6
 
@@ -170,6 +179,7 @@ This release has the following known issue:
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
 
 
 ### Compatibility
@@ -283,6 +293,7 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
 
 ### Compatibility
 
@@ -364,7 +375,6 @@ The following components are compatible with this release:
 		<td>syslog</td>
 		<td>11.6.1</td>
 	</tr>
-
 </table>
 
 <sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.3">v3.8.3</a> GitHub documentation.
@@ -417,7 +427,7 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-same-cluster-names" %>
-
+<%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
 
 ### Compatibility
 
@@ -501,6 +511,7 @@ The following components are compatible with this release:
 </table>
 <sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.3">v3.8.3</a> GitHub documentation.
 
+
 ## <a id="1-18-3"></a> v1.18.3
 
 **Release Date**: January 10, 2020
@@ -531,6 +542,7 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-same-cluster-names" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
 
 
 ### Compatibility
@@ -615,6 +627,7 @@ The following components are compatible with this release:
 </table>
 <sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.2">v3.8.2</a> GitHub documentation.
 
+
 ## <a id="1-18-2"></a> v1.18.2
 
 **Release Date**: December 17, 2019
@@ -646,6 +659,7 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-same-cluster-names" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
 
 ### Compatibility
 
