@@ -235,7 +235,11 @@ Follow the steps below to configure global settings:
       <tr>
         <td><strong>Custom apps domain for smoke tests</strong></td>
         <td>Configure to provide a custom apps domain for smoke tests.
-          If left blank, the default CF apps domain is used.</td>
+          If left blank, the default CF apps domain is used.<br>
+          Failure to configure a custom apps domain could cause smoke tests to fail if the smoke
+          tests domain is not accessible from the RabbitMQ Service Instance domain for on-demand
+          services.
+        </td>
       </tr>
     </table>
 
