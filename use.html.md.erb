@@ -433,6 +433,12 @@ If a node becomes unavailable, BOSH DNS removes it from the list of resolved IP 
 Because of this, apps should not cache the IP addresses of the nodes, as the cache might become outdated.
 The Java buildpack automatically disables DNS caching.
 
+
+### <a id="individual-upgrades"></a> Upgrade an Individual Service Instance
+
+<%= partial vars.path_to_partials + "/services/upgrade-one-si" %>
+
+
 ## <a id="restart"></a>Update a Service Instance
 
 If you bind a new service or change the service bindings, you need to run
