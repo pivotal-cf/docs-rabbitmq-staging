@@ -135,7 +135,9 @@ For more information, see [Configure Security](./install-config.html#security).
 
 To configure TLS for your service instance:
 
-<p class="note"><strong>Note:</strong> If you enable TLS for a service instance, you can no longer connect to it without using TLS.</p>
+<p class="note">
+  <strong>Note:</strong> If you enable TLS for a service instance, you can no longer connect to it without using TLS.
+</p>
 
 1. Enable TLS by doing one of the following steps:
   * If you have already created a <%= vars.product_short %> service instance, update the service instance to use TLS by running:
@@ -214,7 +216,9 @@ For more information, see [Configure Security](./install-config.html#security).
 
 ### <a id="tls-java-spring"></a> Activate TLS for Java and Spring Apps
 
-<p class="note"><strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.</p>
+<p class="note">
+  <strong>Note:</strong> If your app is not written in Java or Spring, see <a href="./modify-apps-tls.html"> Modifying Apps for TLS</a>.
+</p>
 
 
 For an app to use TLS, you must update it to request encrypted communications when connecting to a <%= vars.product_short %> service instance.
@@ -247,8 +251,9 @@ the `cf push` command.
         cf restart APP-NAME
         ```
 
-<p class="note"><strong>Note:</strong> If the operator used a self-signed certificate,
-configure your app to use the same CA certificate and valid certificate and key.
+<p class="note">
+  <strong>Note:</strong> If the operator used a self-signed certificate,
+  configure your app to use the same CA certificate and valid certificate and key.
 </p>
 
 
@@ -258,9 +263,10 @@ For a list of RabbitMQ plugins that are enabled or disabled by default in
 on-demand <%= vars.product_short %> instances, see
 [RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
-<p class="note"><strong>Note:</strong> If a plugin is disabled by default,
-the operator must enable the plugin for the platform before you can enable it on your service instances.
-For more information, see <a href="./install-config.html#optional-plugins">Enable Extra RabbitMQ Server Plugins</a>.
+<p class="note">
+  <strong>Note:</strong> If a plugin is disabled by default,
+  the operator must enable the plugin for the platform before you can enable it on your service instances.
+  For more information, see <a href="./install-config.html#optional-plugins">Enable Extra RabbitMQ Server Plugins</a>.
 </p>
 
 You can enable plugins when you create a service instance or by updating an existing
@@ -434,7 +440,7 @@ Because of this, apps should not cache the IP addresses of the nodes, as the cac
 The Java buildpack automatically disables DNS caching.
 
 
-### <a id="individual-upgrades"></a> Upgrade an Individual Service Instance
+## <a id="individual-upgrades"></a> Upgrade an Individual Service Instance
 
 <%= partial vars.path_to_partials + "/services/upgrade-one-si" %>
 
