@@ -40,7 +40,7 @@ You can also run the `rabbitmqctl cluster_status` command on any of the RabbitMQ
 
 1. `$ sudo su -`
 1. `$ cd /var/vcap/packages`
-1. `$ export ERL_DIR=$PWD/erlang/bin/`
+1. `$ export PATH=$PATH:erlang/bin/`
 1. `$ cd rabbitmq-server/bin/`
 1. `$ ./rabbitmqctl cluster_status`
 
@@ -65,7 +65,7 @@ You can also run the `sync_queue` command to synchronize a queue manually. To ru
 
 1. `$ sudo su -`
 1. `$ cd /var/vcap/packages`
-1. `$ export ERL_DIR=$PWD/erlang/bin/`
+1. `$ export PATH=$PATH:erlang/bin/`
 1. `$ cd rabbitmq-server/bin/`
 1. `$ ./rabbitmqctl list_queues`
 1. `$ ./rabbitmqctl sync_queue name`
