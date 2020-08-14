@@ -13,27 +13,34 @@ owner: London Services
 
 New features in this release:
 
-<%= partial vars.path_to_partials + '/services/you-can-upgrade-one-si' %>
+New features in this release:
 
-* **Syslog forwarding:** <%= vars.product_short %> syslog configuration is now managed by
+* **Syslog forwarding:** + <%= vars.product_short %> syslog configuration is now managed by
 <%= vars.ops_manager %>.
 This improvement does not affect syslog configuration for within the tile.
 However, for new service instances the default program name will be different.
 To learn how to configure syslog to keep the log format consistent, see
 [Configure Syslog Forwarding](./monitor.html#config)
 
-* **Reduced downtime:**
-To reduce downtime, on-demand service instances created using <%= vars.product_short %> v1.20 and
-later use the `vm_strategy` `create-swap-delete`.
-During deployment, IaaS resource usage surges while BOSH creates additional VMs in preparation for
-the update. You might need to review resource limits for your IaaS and account.
-If your limits are too low, your deployment fails.<br><br>
-On-demand service instances that were created using <%= vars.product_short %> v1.19 or earlier
-and upgraded to v1.20 or later continue to use the `vm_strategy` `delete-create`.
-For more information about how this affects downtime, see
-[VM Update Strategy](./upgrade.html#vm-strategy).
+* ** Bosh Hot Swap:** On-demand service instances created in <%= vars.product_short %> versions `[>=1.20.0]`
+use the `vm_strategy` `create-swap-delete` (see https://bosh.io/docs/changing-deployment-vm-strategy/).
+This significantly reduces downtime because VM creation and deletion does not affect anymore the downtime
+of a RabbitMQ node being updated. Depending on your IaaS, VM creation and deletion can take a few seconds
+up to several minutes. Your IaaS resource usage will surge during the deploy while BOSH creates additional VMs in preparation for the update.
+You may need to review any resource limits which are in effect for your IaaS and account.
+On-demand service instances that were created in <%= vars.product_short %> versions `[<1.20.0]`
+and upgraded to `[>=1.20.0]` continue to use the `vm_strategy` `delete-create`.
 
-* **Run-in Heading:** Feature
+* **Upgrade One:** <%= vars.product_short %> now has support for Upgrade One.
+This lets service instance owners choose when to upgrade their Service Instance via, `cf service [name of service] --upgrade`.
+Running the errand `upgrade-all-service-instances` will still force an upgrade.
+
+For more information on this feature see the [Tanzu documentation](https://docs.cloudfoundry.org/devguide/services/managing-services.html#upgrade)
+
+* **OAuth:** Support for the [RabbitMQ OAuth plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) has now arrived in <%= vars.product_short %>
+In this release users can authenticate with the RabbitMQ dashboard through JWT-encoded OAuth 2.0 access tokens.
+
+Extensive documentation on how to enable OAuth in this release, is [here.](/rabbitmq-cf/1-n/enable-oauth.html)
 
 
 ### Resolved Issues
