@@ -13,34 +13,41 @@ owner: London Services
 
 New features in this release:
 
-New features in this release:
-
-* **Syslog forwarding:** + <%= vars.product_short %> syslog configuration is now managed by
-<%= vars.ops_manager %>.
+* **Syslog forwarding:** <%= vars.ops_manager %> now manages <%= vars.product_short %> syslog
+configuration.
 This improvement does not affect syslog configuration for within the tile.
-However, for new service instances the default program name will be different.
+However, for new service instances the default program name is different.
 To learn how to configure syslog to keep the log format consistent, see
 [Configure Syslog Forwarding](./monitor.html#config)
 
-* ** Bosh Hot Swap:** On-demand service instances created in <%= vars.product_short %> versions `[>=1.20.0]`
-use the `vm_strategy` `create-swap-delete` (see https://bosh.io/docs/changing-deployment-vm-strategy/).
-This significantly reduces downtime because VM creation and deletion does not affect anymore the downtime
-of a RabbitMQ node being updated. Depending on your IaaS, VM creation and deletion can take a few seconds
-up to several minutes. Your IaaS resource usage will surge during the deploy while BOSH creates additional VMs in preparation for the update.
-You may need to review any resource limits which are in effect for your IaaS and account.
-On-demand service instances that were created in <%= vars.product_short %> versions `[<1.20.0]`
-and upgraded to `[>=1.20.0]` continue to use the `vm_strategy` `delete-create`.
+* **BOSH Hot Swap:** On-demand service instances created in <%= vars.product_short %> v1.20.0 and
+later use the `vm_strategy` `create-swap-delete`.<br>
+For more information, see
+[Changing VM Update Strategy](https://bosh.io/docs/changing-deployment-vm-strategy/) in the BOSH
+documentation.<br><br>
+This change significantly reduces downtime because VM creation and deletion no longer affects the
+downtime of a RabbitMQ node being updated.<br>
+Depending on your IaaS, VM creation and deletion can take between a few seconds and several minutes.
+Your IaaS resource usage surges during the deployment while BOSH creates additional VMs to prepare
+for the update.
+You might need to review any resource limits for your IaaS and account.
+On-demand service instances that were created in <%= vars.product_short %> v1.20.0 and upgraded to
+later versions continue to use the `vm_strategy` `delete-create`.
 
 * **Upgrade One:** <%= vars.product_short %> now has support for Upgrade One.
-This lets service instance owners choose when to upgrade their Service Instance via, `cf service [name of service] --upgrade`.
-Running the errand `upgrade-all-service-instances` will still force an upgrade.
+This enables service instance owners to choose when to upgrade their service instance through
+`cf service SERVICE-NAME --upgrade`.
+Running the errand `upgrade-all-service-instances` still forces an upgrade.
 
-For more information on this feature see the [Tanzu documentation](https://docs.cloudfoundry.org/devguide/services/managing-services.html#upgrade)
+For more information about this feature see the
+[Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/services/managing-services.html#upgrade).
 
-* **OAuth:** Support for the [RabbitMQ OAuth plugin](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) has now arrived in <%= vars.product_short %>
-In this release users can authenticate with the RabbitMQ dashboard through JWT-encoded OAuth 2.0 access tokens.
-
-Extensive documentation on how to enable OAuth in this release, is [here.](/rabbitmq-cf/1-n/enable-oauth.html)
+* **OAuth:** Support for the RabbitMQ OAuth plugin has now arrived in <%= vars.product_short %>.
+In this release, users can authenticate with the RabbitMQ dashboard through JWT-encoded OAuth 2.0
+access tokens.
+For more information about the plugin, see
+[rabbitmq-auth-backend-oauth2](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) in GitHub.
+For information about how to enable OAuth in this release, see [Enabling OAuth](./enable-oauth.html).
 
 
 ### Resolved Issues
@@ -48,6 +55,7 @@ Extensive documentation on how to enable OAuth in this release, is [here.](/rabb
 This release fixes the following issue:
 
 * **Run-in Heading:** Fixed issue
+
 
 ### Known Issues
 
