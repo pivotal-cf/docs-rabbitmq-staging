@@ -22,7 +22,7 @@ To learn how to configure syslog to keep the log format consistent, see
 
 * **BOSH Hot Swap:** To reduce downtime, on-demand service instances created using
 <%= vars.product_short %> v1.20 and later use the `vm_strategy` `create-swap-delete`.
-During deployment, IaaS resource usage surges while BOSH creates additional VMs in preparation for
+During deployment, IaaS resource usage surges while BOSH creates additional VMs to prepare for
 the update. You might need to review resource limits for your IaaS and account.
 If your limits are too low, your deployment fails.<br>
 On-demand service instances that were created using <%= vars.product_short %> v1.19 or earlier
@@ -38,13 +38,6 @@ access tokens.
 For more information about the plugin, see
 [rabbitmq-auth-backend-oauth2](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2) in GitHub.
 For how to enable OAuth in <%= vars.product_short %>, see [Enabling OAuth](./enable-oauth.html).
-
-
-### Resolved Issues
-
-This release fixes the following issue:
-
-* **Run-in Heading:** Fixed issue
 
 
 ### Known Issues
