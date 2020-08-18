@@ -64,7 +64,7 @@ The RabbitMQ cluster becomes unavailable only when upgrading between specific ve
 This is stated in the release notes for those versions.
 For on-demand service instances created with <%= vars.product_short %> v1.20 and later,
 stemcell updates no longer incur additional downtime while the IaaS creates the new VM.
-For more information, see [VM Update Strategy](#vm-strategy) below.
+For more information, see [BOSH Hot Swap](#vm-strategy) below.
 
 Resilient apps are less likely to crash during downtime.
 For how developers can create resilient apps, see the [workloads](https://github.com/rabbitmq/workloads/tree/master/resiliency#resilient-applications-in-java-handle-connection-failures-and-more)
@@ -112,7 +112,7 @@ but individual queues on cluster nodes might be taken offline.
 </tr>
 </table>
 
-### <a id="vm-strategy"></a> VM Update Strategy
+### <a id="vm-strategy"></a> BOSH Hot Swap
 
 On-demand service instances created using <%= vars.product_short %> v1.20 and later use the
 `vm_strategy` `create-swap-delete`.
