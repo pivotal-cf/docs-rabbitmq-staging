@@ -35,7 +35,23 @@ you provided in the <%= vars.product_short %> tile configuration in <%= vars.ops
 
 ### <a id="admin"></a>On-Demand Service Instances
 
-You can access the RabbitMQ Management UI for an on-demand service instance using Apps Manager or the cf CLI.
+If OAuth is enabled, you can access the RabbitMQ Management UI for an on-demand service instance using you cf credentials.
+You can determine that management dashboard URL using Apps Manager or the cf CLI.
+
+**Use the cf CLI:**
+
+1. Navigate to the `dashboard_url` shown by `cf service <SERVICE-INSTANCE-NAME>`.
+
+1. Sign in using your cf username and password.
+
+**Use Apps Manager:**
+
+1. Navigate to the service instance you want to access the Management UI for.
+
+1. Click **Manage**.
+
+
+If OAuth is not enabled, you can access the RabbitMQ Management UI for an on-demand service instance using Apps Manager or the cf CLI.
 This is done using credentials that only provide access to a specific <strong>vhost</strong>.
 
 To access the RabbitMQ Management UI, do one of the following:
