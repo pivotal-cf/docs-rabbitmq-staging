@@ -11,10 +11,10 @@ This topic lists frequently asked questions that apply to the <%= vars.product_f
 
 ### <a id="check-deploy"></a> What should I check before deploying a new version of the tile?
 
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.
-You cannot rely solely
-on the BOSH `instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
-the RabbitMQ application.
+Ensure that all nodes in the cluster are healthy through the RabbitMQ Management UI, or health
+metrics exposed via the firehose.
+You cannot rely solely on the BOSH `instances` output as that reflects the state of the Erlang VM
+used by RabbitMQ and not the RabbitMQ application.
 
 
 ### <a id="stopstart"></a>  What is the correct way to stop and start <%= vars.product_full %>?
@@ -27,7 +27,8 @@ For example:
 
 
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH.  You can also stop individual instances by running the stop command and specifying `JOB [index]`
+stopped through BOSH. You can also stop individual instances by running the stop command and
+specifying `JOB [index]`.
 
 <p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code> as this does not call the drain scripts</p>
 
@@ -73,12 +74,15 @@ failing.
 
 ### <a id="backup"></a> How can I manually back up the state of the RabbitMQ cluster?
 
-It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned services  using the
-RabbitMQ Management API. Backups include vhosts, exchanges, queues and users.
+It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned
+services using the RabbitMQ Management API.
+Backups include virtual hosts, exchanges, queues, and users.
 
 #### Back up Manually
 
 1. Log in to the RabbitMQ Management UI as the admin user you created.
+For instructions about how to do so with or without OAuth enabled, see
+[Access the RabbitMQ Management UI](./managing.html#manage-dash).
 
 1. Select **export definitions** from the main page.
 
@@ -106,10 +110,13 @@ Use the API to run scripts with code similar to the following:
 Before doing any upgrade of RabbitMQ, VMware recommends checking the following:
 
 1. In Operations Manager check that the status of all of the instances is healthy.
-2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy, that is,
+1. Log in to the RabbitMQ Management UI.
+For instructions about how to do so with or without OAuth enabled, see
+[Access the RabbitMQ Management UI](./managing.html#manage-dash).
+1. Check that no alarms have been triggered and that all nodes are healthy, that is,
 they should display as green.
-3. Check that the system is not close to hitting either the memory or disk alarm. Do this by looking at what has been
-consumed by each node in the RabbitMQ Management UI.
+1. Check that the system is not close to hitting either the memory or disk alarm.
+Do this by looking at what each node has consumed in the RabbitMQ Management UI.
 
 ## <a id="kb"></a> Knowledge Base (Community)
 

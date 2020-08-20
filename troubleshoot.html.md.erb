@@ -357,7 +357,9 @@ Backups include virtual hosts, exchanges, queues, and users.
 #### Back up Manually
 
 <ol>
-    <li>Log in to the RabbitMQ Management UI as the admin user you created.</li>
+    <li>Log in to the RabbitMQ Management UI as the admin user you created.
+      For instructions about how to do so with or without OAuth enabled, see
+      [Access the RabbitMQ Management UI](./managing.html#manage-dash).</li>
     <li>Select <strong>export definitions</strong> from the main page.</li>
 </ol>
 
@@ -387,10 +389,16 @@ curl -u "$USERNAME:$PASSWORD" "http://$RABBIT-ADDRESS:15672/api/definitions"
 
 Before doing any upgrade of RabbitMQ, VMware recommends checking the following:
 <ol>
-    <li>In <%= vars.ops_manager %> check that the status of all of the instances is healthy.</li>
     <li>
-        Log into the RabbitMQ Management UI and check that no alarms have been triggered
-        and that all nodes display as green, showing they are healthy.
+      In <%= vars.ops_manager %> check that the status of all of the instances is healthy.
+    </li>
+    <li>
+      Log in to the RabbitMQ Management UI. For instructions about how to do so with or without
+      OAuth enabled, see [Access the RabbitMQ Management UI](./managing.html#manage-dash).
+    </li>
+    <li>
+      Check that no alarms have been triggered and that all nodes display as green, showing they
+      are healthy.
     </li>
     <li>
         Check that the system is not close to hitting either the memory or disk alarm.
