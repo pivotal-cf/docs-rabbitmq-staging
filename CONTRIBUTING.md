@@ -2,7 +2,7 @@
 
 Thanks for your interest in contributing to Pivotal's Open Source projects!
 
-This project is maintained by the VMware Tanzu RabbitMQ [VMs] team.
+This project is maintained by the VMware Tanzu® RabbitMQ™ for VMs team.
 
 **At the moment, the team is not actively reviewing contributions to this project.**
 
