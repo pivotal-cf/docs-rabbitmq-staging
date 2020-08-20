@@ -3,17 +3,17 @@ title: Enabling OAuth
 owner: RabbitMQ
 ---
 
-This topic explains how to enable app developers to access the RabbitMQ Management UI
-using their <%= vars.app_runtime_full %> credentials.
+This topic explains how to enable OAuth.
+This enables developers to access the RabbitMQ Management UI using their <%= vars.app_runtime_full %> credentials.
 
 
 ## <a id='overview'></a> Overview
 
-If you enable OAuth, developers can access the RabbitMQ Management UI using their
-<%= vars.app_runtime_full %> credentials instead of using the service instance credentials
+OAuth enables developers to access the RabbitMQ Management UI using their
+<%= vars.app_runtime_abbr %> credentials instead of using the service instance credentials
 from a service key.
 After enabling OAuth, developers authenticate through a JWT-encoded OAuth 2.0 access
-token obtained from UAA.
+token obtained from User Account and Authentication (UAA).
 
 <p class="note">
   <strong>Note:</strong>
@@ -45,7 +45,7 @@ To fetch the UAA Admin Client secret from the <%= vars.ops_manager %> UI:
     ![Screenshot of the <%= vars.app_runtime_full %> tile UI in <%= vars.ops_manager %>. The location of the Credentials tab is shown with a
     red circle. The Credentials tab is the third tab from the left, after 'Settings' and 'Status'.](/images/oauth-create-uaa-group-1.png)
 1. Locate the Admin Client Credentials in the UAA job.
-    ![Screenshot of the Tanzu Application Service <%= vars.app_runtime_full %> tile UI in <%= vars.ops_manager %>. There is a list of credential types and, next to it, a
+    ![Screenshot of the <%= vars.app_runtime_full %> tile UI in <%= vars.ops_manager %>. There is a list of credential types and, next to it, a
     list of corresponding links. The location of the link for Admin Client Credentials is shown with
     a red circle.](/images/oauth-create-uaa-group-2.png)
 1. Click **Link to Credential** next to **Admin Client Credentials**.
@@ -79,7 +79,7 @@ To install and set up UAAC:
 
 ### <a id='create-rmq-uaa-group'></a> Create a UAA Group
 
-You must create a group for each space in <%= vars.app_runtime_full %> that contains,
+You must create a group for each space in <%= vars.app_runtime_abbr %> that contains,
 or is expected to contain, on-demand <%= vars.product_short %> service instances.
 
 To create a UAA group for a space:
