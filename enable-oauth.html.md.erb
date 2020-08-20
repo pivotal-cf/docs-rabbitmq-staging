@@ -148,6 +148,11 @@ command for every RabbitMQ UAA group:
 
 ## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
 
+<p class="note warning">
+  <strong>Warning:</strong> JSON Web Token (JWT) signing key rotation through the UAA API is not
+  supported.
+</p>
+
 To enable OAuth in <%= vars.ops_manager %>:
 
 1. Go to the **Security for On-Demand Plans** section of the <%= vars.app_runtime_abbr %> tile.
@@ -159,7 +164,3 @@ checkbox for enabling OAuth, and a Save button. The 'Not Configured' radio butto
 1. Click **Save**.
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
-
-<p class="note warning">
-  <strong>Warning:</strong> JSON Web Token (JWT) signing key rotation via the UAA API is not supported.
-</p>
