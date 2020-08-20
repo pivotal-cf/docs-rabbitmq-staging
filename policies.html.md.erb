@@ -9,7 +9,7 @@ owner: London Services
 ## <a id="policy"></a> About RabbitMQ Policies
 
 You can set a default queue and an exchange policy in the <%= vars.product_full %> tile to be applied to the RabbitMQ cluster.
-After you deploy the tile, VMware recommends that you use the RabbitMQ Management Interface to make configuration changes.
+After you deploy the tile, VMware recommends that you use the RabbitMQ Management UI to make configuration changes.
 
 For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
 
@@ -20,7 +20,7 @@ The following rules apply to polices set through the <%= vars.product_short %> t
 * A new policy, or an update to a policy, only applies to new instances (vhosts).
 Existing instances are not affected by the policy.
 * The policy can only be deleted manually from the RabbitMQ nodes.
-* Policies can be added dynamically using the RabbitMQ Management Interface.
+* Policies can be added dynamically using the RabbitMQ Management UI.
 * It is not possible to use pattern matching with policies. Policies will be
 applied to all queues and exchanges.
 
