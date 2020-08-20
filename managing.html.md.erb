@@ -7,63 +7,82 @@ owner: London Services
 This topic describes how to access the RabbitMQ Management UI.
 
 
-## <a id="manage-dash"></a>Access the RabbitMQ Management UI
+## <a id="manage-dash"></a> Access the RabbitMQ Management UI
 
 You can access the management UI for both on-demand and for pre-provisioned service instances.
 The image below shows an example RabbitMQ Management UI.
 
-<%= image_tag("images/dashboard.jpeg", 
-:alt => "Screenshot of the RabbitMQ Management UI. The 'Overview' 
-tab is highlighted in orange. The body has an 'Overview' header 
-and several sections including 'Totals', 'Nodes', and 'Ports and contents'.") %>
+<%= image_tag("images/dashboard.jpeg", :alt => "Screenshot of the RabbitMQ Management UI.
+The 'Overview' tab is highlighted in orange.
+The body has an 'Overview' header and several sections, including 'Totals', 'Nodes', and 'Ports and
+contents'.") %>
 
 
-### <a id="admin"></a>Pre-Provisioned Service Instances
+### <a id="manage-pp"></a> Manage Pre-Provisioned Service Instances
 
-To access the RabbitMQ Management UI as the `admin` user, do the following:
+To access the RabbitMQ Management UI as the `admin` user:
 
-1. Retrieve your system domain, by doing the following:
-  1. Navigate to your <%= vars.app_runtime_full %> tile.
-  1. In the **Domains** tab, record the value in the **System Domain** field.
+1. Navigate to your <%= vars.app_runtime_full %> tile.
 
-1. Visit `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the system domain
-you found in step 1.
+1. In the **Domains** tab, record the value in the **System Domain** field.
 
-1. The username and password for the Management UI is the username and password
-you provided in the <%= vars.product_short %> tile configuration in <%= vars.ops_manager %>.
+1. Visit `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the value you recorded from the
+**System Domain** field.
+
+1. When prompted for credentials, enter the username and password you provided in the
+<%= vars.product_short %> tile configuration in <%= vars.ops_manager %>.
 
 
-### <a id="admin"></a>On-Demand Service Instances
+### <a id="si-with-oa"></a> Manage On-Demand Service Instances with OAuth
 
-You can access the RabbitMQ Management UI for an on-demand service instance using Apps Manager or the cf CLI.
-This is done using credentials that only provide access to a specific <strong>vhost</strong>.
+If OAuth is enabled, you can access the RabbitMQ Management UI for an on-demand service instance
+using your Cloud Foundry credentials.
 
-To access the RabbitMQ Management UI, do one of the following:
+You can discover the management dashboard URL through Apps Manager or the cf CLI.
 
-**Use the cf CLI:**
+* **If using the cf CLI:**
 
-1. Create credentials using the cf CLI.
-For instructions, see [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
+  1. Navigate to the `dashboard_url` shown by `cf service SERVICE-INSTANCE-NAME`.
 
-1. Using the output from step 2 of _Create an Admin User for a Service Instance_,
-navigate to the URL in `dashboard_url` and use the `username` and `password`
-to log in to the RabbitMQ Management UI.
+  1. Sign in using your Cloud Foundry username and password.
 
-**Use Apps Manager:**
+* **If using Apps Manager:**
 
-1. In Apps Manager, navigate to the service instance you want to access the Management UI for.
+  1. Navigate to the service instance you want to manage.
+
+  1. Click **Manage**.
+
+
+### <a id="si-without-oa"></a> Manage On-Demand Service Instances without OAuth
+
+If OAuth is not enabled, you can access the RabbitMQ Management UI for an on-demand service instance
+through Apps Manager or the cf CLI.
+You do so by using credentials that grant access only to a specific virtual host.
+
+* **If using the cf CLI:**
+
+  1. Create credentials using the cf CLI.
+  For more information, see
+  [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
+
+  1. Navigate to the URL in `dashboard_url` that you acquired during the
+  [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) procedure.
+
+  1. Log in to the RabbitMQ Management UI with the username and password you acquired during the
+  [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) procedure.
+
+* **If using Apps Manager:**
+
+1. In Apps Manager, navigate to the service instance you want to manage.
 
 1. Click **CREATE SERVICE KEY** and give it a name of your choice.
 
-    <%= image_tag("images/console_manage.png", 
-    :alt => "Screenshot of an example space management page in the 
-    Apps Manager UI. To the right of the 'Service Key Credentials' header 
-    is a button called 'Create Service Key'. The button is outlined in 
-    red to indicate its location. ") %>
+    <%= image_tag("images/console_manage.png", :alt => "Screenshot of an example space management page
+    in the Apps Manager UI.
+    To the right of the 'Service Key Credentials' header is a button labeled 'Create Service Key'.
+    The button is outlined in red to indicate its location.") %>
 
-    The service key you create should appear in the **Service Key Credentials** section.
+1. From the **Service Key Credentials** section, select the service key you just created.
 
-1. Select the service key you created in the previous step.
-
-1. From the information displayed, navigate to the URL in `dashboard_url`.
-Use the `username` and `password` to log in to the RabbitMQ Management UI.
+1. From the information displayed, navigate to the URL in `dashboard_url` and then use the username
+and password to log in to the RabbitMQ Management UI.
