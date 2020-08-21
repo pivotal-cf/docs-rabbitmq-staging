@@ -12,7 +12,7 @@ This topic lists frequently asked questions that apply to the <%= vars.product_f
 ### <a id="check-deploy"></a> What should I check before deploying a new version of the tile?
 
 Ensure that all nodes in the cluster are healthy through the RabbitMQ Management UI, or health
-metrics exposed via the firehose.
+metrics exposed by the firehose.
 You cannot rely solely on the BOSH `instances` output as that reflects the state of the Erlang VM
 used by RabbitMQ and not the RabbitMQ application.
 
@@ -80,7 +80,7 @@ Backups include virtual hosts, exchanges, queues, and users.
 
 #### Back up Manually
 
-1. Log in to the RabbitMQ Management UI as the admin user you created.
+1. Log in to the RabbitMQ Management UI as the admin user that you created.
 For instructions about how to do so with or without OAuth enabled, see
 [Access the RabbitMQ Management UI](./managing.html#manage-dash).
 
@@ -109,7 +109,7 @@ Use the API to run scripts with code similar to the following:
 
 Before doing any upgrade of RabbitMQ, VMware recommends checking the following:
 
-1. In Operations Manager check that the status of all of the instances is healthy.
+1. In <%= vars.ops_manager %>, check that the status of all of the instances is healthy.
 1. Log in to the RabbitMQ Management UI.
 For instructions about how to do so with or without OAuth enabled, see
 [Access the RabbitMQ Management UI](./managing.html#manage-dash).
