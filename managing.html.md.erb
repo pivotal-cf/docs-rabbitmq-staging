@@ -26,7 +26,7 @@ To access the RabbitMQ Management UI as the `admin` user:
 
 1. In the **Domains** tab, record the value in the **System Domain** field.
 
-1. Visit `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the value you recorded from the
+1. Navigate to `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the value you recorded from the
 **System Domain** field.
 
 1. When prompted for credentials, enter the username and password you provided in the
@@ -38,40 +38,40 @@ To access the RabbitMQ Management UI as the `admin` user:
 If OAuth is enabled, you can access the RabbitMQ Management UI for an on-demand service instance
 using your Cloud Foundry credentials.
 
-You can discover the management dashboard URL through Apps Manager or the cf CLI.
+You can retrieve the URL for the RabbitMQ Management UI using Apps Manager or the cf CLI.
 
-* **If using the cf CLI:**
+**If using the cf CLI:**
 
-  1. Navigate to the `dashboard_url` shown by `cf service SERVICE-INSTANCE-NAME`.
+1. Navigate to the `dashboard_url` shown by `cf service SERVICE-INSTANCE-NAME`.
 
-  1. Sign in using your Cloud Foundry username and password.
+1. Sign in using your Cloud Foundry username and password.
 
-* **If using Apps Manager:**
+**If using Apps Manager:**
 
-  1. Navigate to the service instance you want to manage.
+1. Navigate to the service instance you want to manage.
 
-  1. Click **Manage**.
+1. Click **Manage**.
 
 
 ### <a id="si-without-oa"></a> Manage On-Demand Service Instances without OAuth
 
 If OAuth is not enabled, you can access the RabbitMQ Management UI for an on-demand service instance
-through Apps Manager or the cf CLI.
+using Apps Manager or the cf CLI.
 You do so by using credentials that grant access only to a specific virtual host.
 
-* **If using the cf CLI:**
+**If using the cf CLI:**
 
-  1. Create credentials using the cf CLI.
-  For more information, see
-  [Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
+1. Create credentials using the cf CLI.
+For more information, see
+[Create an Admin User for a Service Instance](./install-config.html#admin-service-key).
 
-  1. Navigate to the URL in `dashboard_url` that you acquired during the
-  [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) procedure.
+1. Navigate to the URL in `dashboard_url` that you acquired during the
+[Create an Admin User for a Service Instance](./install-config.html#admin-service-key) procedure.
 
-  1. Log in to the RabbitMQ Management UI with the username and password you acquired during the
-  [Create an Admin User for a Service Instance](./install-config.html#admin-service-key) procedure.
+1. Log in to the RabbitMQ Management UI with the username and password you acquired during the
+[Create an Admin User for a Service Instance](./install-config.html#admin-service-key) procedure.
 
-* **If using Apps Manager:**
+**If using Apps Manager:**
 
 1. In Apps Manager, navigate to the service instance you want to manage.
 

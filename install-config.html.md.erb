@@ -411,7 +411,7 @@ You must complete the required fields for **On Demand Instance: Plan 1** even if
 
 <br>To determine which AZs a service instance is placed in, do one of the following:
 
-<ul><li>Retrieve the service GUID using the <code>cf service SERVICE_INSTANCE --guid</code> command
+<ul><li>Retrieve the service GUID using the <code>cf service SERVICE-INSTANCE --guid</code> command
        and then run the BOSH <code>instances</code> command for the <code>service-instance_GUID</code> deployment.</li>
 
   <li>With syslog forwarding enabled, inspect the service broker logs
@@ -606,8 +606,8 @@ Both operators and app developers can use this procedure.
 
 <p class="note">
   <strong>Note:</strong> If OAuth is enabled, you log in to the RabbitMQ Management UI using your
-  TAS credentials. For more information, see
-  [Manage On-Demand Service Instances with OAuth](./managing.html#si-with-oa).
+  <%= vars.app_runtime_full %> credentials. For more information, see
+  <a href="./managing.html#si-with-oa">Manage On-Demand Service Instances with OAuth</a>.
 </p>
 
 To create an admin user on a <%= vars.product_short %> service instance:
@@ -615,12 +615,12 @@ To create an admin user on a <%= vars.product_short %> service instance:
 1. Run this command to create a service key:
 
     ```
-    cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'
+    cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'
     ```
 
     <br>Where:
-    * `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`
-    * `SERVICE_KEY` is a name you choose to identify the service key
+    * `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`
+    * `SERVICE-KEY` is a name you choose to identify the service key
 
     <br>For example:
 
@@ -633,7 +633,7 @@ To create an admin user on a <%= vars.product_short %> service instance:
 1. Run this command to get the admin user credentials:
 
     ```
-    cf service-key SERVICE_INSTANCE SERVICE_KEY
+    cf service-key SERVICE-INSTANCE SERVICE-KEY
     ```
     Where the variables are the same as above.
 
