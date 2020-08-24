@@ -7,18 +7,19 @@ owner: London Services
 This topic describes how to access the RabbitMQ Management UI.
 
 
-## <a id="manage-dash"></a> Access the RabbitMQ Management UI
+## <a id="overview"></a> Overview
 
-You can access the management UI for both on-demand and for pre-provisioned service instances.
+You can access the management UI for both on-demand and pre-provisioned service instances.
 The image below shows an example RabbitMQ Management UI.
 
-<%= image_tag("images/dashboard.jpeg", :alt => "Screenshot of the RabbitMQ Management UI.
+<%= image_tag("images/dashboard.jpeg",
+:alt => "Screenshot of the RabbitMQ Management UI.
 The 'Overview' tab is highlighted in orange.
 The body has an 'Overview' header and several sections, including 'Totals', 'Nodes', and 'Ports and
 contents'.") %>
 
 
-### <a id="manage-pp"></a> Manage Pre-Provisioned Service Instances
+## <a id="access-ui-pp"></a> Access RabbitMQ Management UI for Pre-Provisioned Service Instances
 
 To access the RabbitMQ Management UI as the `admin` user:
 
@@ -26,19 +27,25 @@ To access the RabbitMQ Management UI as the `admin` user:
 
 1. In the **Domains** tab, record the value in the **System Domain** field.
 
-1. Navigate to `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the value you recorded from the
-**System Domain** field.
+1. Navigate to `http://pivotal-rabbitmq.SYS-DOMAIN`, where `SYS-DOMAIN` is the value you recorded
+from the **System Domain** field.
 
 1. When prompted for credentials, enter the username and password you provided in the
 <%= vars.product_short %> tile configuration in <%= vars.ops_manager %>.
 
 
-### <a id="si-with-oa"></a> Manage On-Demand Service Instances with OAuth
+## <a id="access-ui-od"></a> Access RabbitMQ Management UI for On-Demand Service Instances
+
+The options available for accessing RabbitMQ Management UI depend on whether you have OAuth enabled.
+
+
+### <a id="ui-with-oa"></a> Access RabbitMQ Management UI with OAuth Enabled
 
 If OAuth is enabled, you can access the RabbitMQ Management UI for an on-demand service instance
-using your Cloud Foundry credentials.
+with your <%= vars.app_runtime_abbr %> credentials.
 
-You can retrieve the URL for the RabbitMQ Management UI using Apps Manager or the cf CLI.
+You can retrieve the URL for the RabbitMQ Management UI using Apps Manager or the Cloud Foundry
+Command Line Interface (cf CLI).
 
 **If using the cf CLI:**
 
@@ -53,7 +60,7 @@ You can retrieve the URL for the RabbitMQ Management UI using Apps Manager or th
 1. Click **Manage**.
 
 
-### <a id="si-without-oa"></a> Manage On-Demand Service Instances without OAuth
+### <a id="ui-without-oa"></a> Access RabbitMQ Management UI without OAuth Enabled
 
 If OAuth is not enabled, you can access the RabbitMQ Management UI for an on-demand service instance
 using Apps Manager or the cf CLI.
@@ -77,8 +84,8 @@ For more information, see
 
 1. Click **CREATE SERVICE KEY** and give it a name of your choice.
 
-    <%= image_tag("images/console_manage.png", :alt => "Screenshot of an example space management page
-    in the Apps Manager UI.
+    <%= image_tag("images/console_manage.png",
+    :alt => "Screenshot of an example space management page in the Apps Manager UI.
     To the right of the 'Service Key Credentials' header is a button labeled 'Create Service Key'.
     The button is outlined in red to indicate its location.") %>
 
