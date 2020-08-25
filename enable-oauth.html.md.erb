@@ -15,9 +15,8 @@ After enabling OAuth, developers authenticate through a JSON Web Token (JWT) enc
 token obtained from User Account and Authentication (UAA).
 
 <p class="note">
-  <strong>Note:</strong>
-  Enabling OAuth does not remove user credentials from service keys or from the
-  internal backend of existing <%= vars.product_short %> instances.
+  <strong>Note:</strong> Enabling OAuth does not remove user credentials from service keys or from
+  the internal backend of existing <%= vars.product_short %> instances.
   However, you can no longer use these credentials.
 </p>
 
@@ -147,7 +146,7 @@ command for every RabbitMQ UAA group:
 
     Where:
     * `RABBITMQ-UAA-GROUP` is the UAA group name created above. For example, `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring`
-    * `USERNAME` is a UAA group member. For example, a CF user.
+    * `USERNAME` is a UAA group member, such as a Cloud Foundry user.
 
 
 ## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
