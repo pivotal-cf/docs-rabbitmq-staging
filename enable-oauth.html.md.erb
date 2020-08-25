@@ -6,19 +6,22 @@ owner: RabbitMQ
 This topic explains how to enable OAuth.
 This enables developers to access the RabbitMQ Management UI using their <%= vars.app_runtime_full %> credentials.
 
+<p class="note warning">
+  <strong>Warning:</strong> JSON Web Token (JWT) signing key rotation through the UAA API is not
+  supported. Doing so renders RabbitMQ Management UI inaccessible.
+</p>
+
 
 ## <a id='overview'></a> Overview
 
 OAuth enables developers to access the RabbitMQ Management UI using their
-<%= vars.app_runtime_abbr %> credentials instead of using the service instance credentials
-from a service key.
+<%= vars.app_runtime_abbr %> credentials instead of using the binding credentials from a service key.
 After enabling OAuth, developers authenticate through a JWT-encoded OAuth 2.0 access
 token obtained from User Account and Authentication (UAA).
 
 <p class="note">
-  <strong>Note:</strong>
-  Enabling OAuth does not remove user credentials from service keys or from the
-  internal backend of existing <%= vars.product_short %> instances.
+  <strong>Note:</strong> Enabling OAuth does not remove user credentials from service keys or from
+  the internal backend of existing <%= vars.product_short %> instances.
   However, you can no longer use these credentials.
 </p>
 
@@ -143,15 +146,10 @@ command for every RabbitMQ UAA group:
 
     Where:
     * `RABBITMQ-UAA-GROUP` is the UAA group name created above. For example, `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring`
-    * `USERNAME` is a UAA group member. For example, a CF user.
+    * `USERNAME` is a UAA group member, such as a Cloud Foundry user.
 
 
 ## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
-
-<p class="note warning">
-  <strong>Warning:</strong> JSON Web Token (JWT) signing key rotation through the UAA API is not
-  supported.
-</p>
 
 To enable OAuth in <%= vars.ops_manager %>:
 
