@@ -6,17 +6,12 @@ owner: RabbitMQ
 This topic explains how to enable OAuth.
 This enables developers to access the RabbitMQ Management UI using their <%= vars.app_runtime_full %> credentials.
 
-<p class="note warning">
-  <strong>Warning:</strong> Manually rotating the JSON Web Token (JWT) signing key using the UAA API
-  is not supported. Doing so renders RabbitMQ Management UI inaccessible.
-</p>
-
 ## <a id='overview'></a> Overview
 
 OAuth enables developers to access the RabbitMQ Management UI using their
 <%= vars.app_runtime_abbr %> credentials instead of using the service instance credentials
 from a service key.
-After enabling OAuth, developers authenticate through a JWT-encoded OAuth 2.0 access
+After enabling OAuth, developers authenticate through a JSON Web Token (JWT) encoded OAuth 2.0 access
 token obtained from User Account and Authentication (UAA).
 
 <p class="note">
@@ -24,6 +19,11 @@ token obtained from User Account and Authentication (UAA).
   Enabling OAuth does not remove user credentials from service keys or from the
   internal backend of existing <%= vars.product_short %> instances.
   However, you can no longer use these credentials.
+</p>
+
+<p class="note warning">
+  <strong>Warning:</strong> Manually rotating the JWT signing key using the UAA API
+  is not supported. Doing so renders RabbitMQ Management UI inaccessible.
 </p>
 
 To enable OAuth for an on-demand offering:
