@@ -2,18 +2,25 @@
 title: On-Demand Service Architecture
 owner: London Services
 ---
+<div class="quick-links">
+    <ul>
+        <li><a href="#service-network">Service Network Requirement</a></li>
+        <li><a href="#architecture_networks">Default Network and Service Network</a></li>
+        <li><a href="#network-rules">Required Networking Rules for On-Demand Services</a></li>
+    </ul>
+</div>
 
 This topic describes the architecture for on-demand <%= vars.product_full %>.
 
 For information about architecture of the older, pre-provisioned service, see [Deploying the <%= vars.product_short %> Service](./deploying.html).
 
-## <a id="service-network"></a>Service Network Requirement
+<h2> <a id="service-network"></a>Service Network Requirement </h2>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/service-networks-v3' %>
 
-## <a id ="architecture_networks"></a>Default Network and Service Network
+<h2> <a id ="architecture_networks"></a>Default Network and Service Network </h2>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
@@ -21,7 +28,7 @@ For information about architecture of the older, pre-provisioned service, see [D
   :product_short => vars.product_short} %>
 
 
-## <a id="network-rules"></a>Required Networking Rules for On-Demand Services
+<h2> <a id="network-rules"></a>Required Networking Rules for On-Demand Services </h2>
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
