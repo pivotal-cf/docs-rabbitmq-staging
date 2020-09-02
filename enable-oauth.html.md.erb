@@ -11,13 +11,13 @@ This enables developers to access the RabbitMQ Management UI using their <%= var
 OAuth enables developers to access the RabbitMQ Management UI using their
 <%= vars.app_runtime_abbr %> credentials instead of using the service instance credentials
 from a service key.
-After enabling OAuth, developers authenticate through a JSON Web Token (JWT) encoded OAuth 2.0 access
+After enabling OAuth, developers are authenticated through a JSON Web Token (JWT) encoded OAuth 2.0 access
 token obtained from User Account and Authentication (UAA).
 
 <p class="note">
   <strong>Note:</strong> Enabling OAuth does not remove user credentials from service keys or from
   the internal backend of existing <%= vars.product_short %> instances.
-  However, you can no longer use these credentials.
+  However, you can no longer use these credentials to access the RabbitMQ Management UI.
 </p>
 
 <p class="note warning">
