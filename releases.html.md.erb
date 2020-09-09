@@ -44,14 +44,14 @@ This release bumps the major version of Erlang used by service instances to 23.
 
 ### Resolved Issues
 
-This release fixes the following issues:
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA:** the drain script is expected 
-  to output just an integer to determine success (0) or failure (non-zero). In some cases, it was outputting some errors, even though the
-        operation had the desired outcome, causing a failure in the drain operation
+This release has the following fix:
+
+- **The on-demand-adapter cleanly exits the drain script when the credentials are not present in UAA:**
+The drain script now has the correct output for success (0) and failure (non-zero).
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
@@ -133,6 +133,7 @@ The following components are compatible with this release:
 	</tr></table>
 
 * For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.8">v3.8.8</a> GitHub documentation.
+
 ## <a id="1-18-8"></a> v1.18.8
 
 **Release Date**: August 5, 2020
@@ -167,11 +168,10 @@ For more information, see [Configure Global Settings](./install-config.html#glob
 
 ### Known Issues
 
-This release has the following known issue:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.18.9.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
 ### Compatibility
 
@@ -275,15 +275,13 @@ For more information, see the
 
 ### Known Issues
 
-This release has the following known issue:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
-
-
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.18.9.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
 ### Compatibility
 
@@ -389,7 +387,7 @@ This release fixes the following issues:
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
@@ -397,8 +395,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.18.9.
 
 ### Compatibility
 
@@ -521,9 +519,10 @@ This release fixes the following issues:
 
 * Post-deploy scripts for the on-demand broker no longer fail because of a timing issue.
 
+
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
@@ -533,8 +532,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-same-cluster-names" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.18.9.
 
 ### Compatibility
 
@@ -639,7 +638,7 @@ For more information, see [Service-Gateway Access (Beta)](./service-gateway-acce
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
@@ -650,8 +649,7 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-same-cluster-names" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
-
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.18.9.
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
 
 ### Compatibility
@@ -758,7 +756,7 @@ This restriction no longer exists.
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/quorum-upgrade-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
@@ -769,8 +767,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-health-check-time-out" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-same-cluster-names" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.18.9.
 
 ### Compatibility
 
