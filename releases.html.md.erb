@@ -15,14 +15,15 @@ This release bumps the major version of Erlang used by service instances to 23.
 
 ### Resolved Issues
 
-This release fixes the following issues:
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA:** the drain script is expected 
-  to output just an integer to determine success (0) or failure (non-zero). In some cases, it was outputting some errors, even though the
-        operation had the desired outcome, causing a failure in the drain operation
+This release has the following fix:
+
+- **The on-demand-adapter cleanly exits the drain script when the credentials are not present in UAA:**
+The drain script now has the correct output for success (0) and failure (non-zero).
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issue:
+
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
 ### Compatibility
@@ -141,12 +142,10 @@ For more information about this setting, see
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.19.4.
-
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
 ### Compatibility
 
@@ -251,14 +250,14 @@ For more information, see the
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.19.4.
 
 ### Compatibility
 
@@ -374,10 +373,9 @@ This release fixes the following issue:
 experience downtime during a rolling upgrade.
 This is because <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
 
-
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
@@ -385,8 +383,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.19.4.
 
 ### Compatibility
 
