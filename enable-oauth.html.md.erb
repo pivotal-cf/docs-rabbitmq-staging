@@ -130,7 +130,7 @@ Users gain the permissions specified by the RabbitMQ tag provided in the UAA gro
 
 Do one of the following:
 
-- Map the RabbitMQ UAA groups created above to your identity provider group by running the following
+- Map the RabbitMQ UAA groups created above to your LDAP provider group by running the following
 command for every RabbitMQ UAA group:
 
     ```
@@ -142,6 +142,19 @@ command for every RabbitMQ UAA group:
     `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring`
     * `GROUP-DISTINGUISHED-NAME` is the Distinguished Name (DN) of the LDAP group. For example:
     `ou=operators,dc=example,dc=com`
+
+- Map the RabbitMQ UAA groups created above to your SAML IdP group by running the following
+command for every RabbitMQ UAA group:
+
+    ```
+    uaac group map --name "RABBITMQ-UAA-GROUP" "GROUP-NAME" --origin "PROVIDER-NAME"
+    ```
+
+    Where:
+    * `RABBITMQ-UAA-GROUP` is the UAA group name created above. For example:
+    `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring`
+    * `GROUP-NAME` is the name of the group in the SAML IdP
+    * `PROVIDER-NAME` is the name of the SAML IdP.
 
 - Add UAA members to UAA groups by running:
 
