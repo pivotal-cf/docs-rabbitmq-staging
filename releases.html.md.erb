@@ -7,19 +7,23 @@ owner: London Services
 
 ## <a id="1-20-1"></a> v1.20.1
 
-**Release Date**: September 09, 2020
+**Release Date**: September 23, 2020
 
 ### Features
 
-This release bumps the major version of Erlang used by service instances to 23.
+New features and changes in this release:
+
+* **Erlang:** Upgraded to v23.0.3.
 
 ### Resolved Issues
 
-This release fixes the following issues:
-- **The management dashboard is not accessible when using OAuth2 with a SAML IdP:** the management dashboard is now accessible using OAuth2 with a SAML IdP.
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA:** the drain script is expected
-  to output just an integer to determine success (0) or failure (non-zero). In some cases, it was outputting some errors, even though the
-      operation had the desired outcome, causing a failure in the drain operation
+This release has the following fixes:
+
+- **The on-demand adapter cleanly exits the drain script when the credentials are not present in UAA:**
+The drain script now has the correct output for success (0) and failure (non-zero).
+
+- **Accessing the RabbitMQ Management UI:**
+You can now access the RabbitMQ Management UI using OAuth2 with a SAML identity provider.
 
 ### Known Issues
 
@@ -141,8 +145,10 @@ For how to enable OAuth in <%= vars.product_short %>, see [Enabling OAuth](./ena
 
 This release has the following known issues:
 
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.20.1+
-- **The management dashboard is not accessible when using OAuth2 with a SAML IdP.** This is fixed in 1.20.1+
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
+- **Accessing the RabbitMQ Management UI:**
+If you are using OAuth2 with a SAML identity provider, you cannot access the RabbitMQ Management UI.
+This is fixed in v1.20.1 and later.
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
