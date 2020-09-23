@@ -5,6 +5,106 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="1-19-4"></a> v1.19.4
+
+**Release Date**: September 09, 2020
+
+### Features
+
+This release bumps the major version of Erlang used by service instances to 23.
+
+### Resolved Issues
+
+This release has the following fix:
+
+- **The on-demand-adapter cleanly exits the drain script when the credentials are not present in UAA:**
+The drain script now has the correct output for success (0) and failure (non-zero).
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice"> <th>Component</th> <th>Version</th> 	<tr>
+		<td>Erlang</td>
+		<td>23.0.3</td>
+	</tr>
+	<tr>
+		<td>HAProxy</td>
+		<td>1.8.26</td>
+	</tr>
+	<tr>
+		<td>OSS RabbitMQ*</td>
+		<td>3.8.8</td>
+	</tr>
+	<tr>
+		<td>Stemcell</td>
+		<td>621.x</td>
+	</tr>
+	<tr>
+		<td>Tanzu Application Service</td>
+		<td>2.7.*, 2.8.*, 2.9.*</td>
+	</tr>
+	<tr>
+		<td>bpm</td>
+		<td>1.1.9</td>
+	</tr>
+	<tr>
+		<td>cf-cli</td>
+		<td>1.29.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq</td>
+		<td>318.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-multitenant-broker</td>
+		<td>78.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-service-gateway</td>
+		<td>28.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-smoke-tests</td>
+		<td>64.0.0</td>
+	</tr>
+	<tr>
+		<td>loggregator-agent</td>
+		<td>3.21.5</td>
+	</tr>
+	<tr>
+		<td>on-demand-service-broker</td>
+		<td>0.40.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-metrics</td>
+		<td>40.0.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-on-demand-adapter</td>
+		<td>145.0.0</td>
+	</tr>
+	<tr>
+		<td>routing</td>
+		<td>0.207.0</td>
+	</tr>
+	<tr>
+		<td>service-metrics</td>
+		<td>1.12.5</td>
+	</tr>
+	<tr>
+		<td>syslog</td>
+		<td>11.6.1</td>
+	</tr></table>
+
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.8">v3.8.8</a> GitHub documentation.
+
 ## <a id="1-19-3"></a> v1.19.3
 
 **Release Date**: August 5, 2020
@@ -43,10 +143,10 @@ For more information about this setting, see
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
 
 ### Compatibility
 
@@ -151,12 +251,14 @@ For more information, see the
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
+
 
 ### Compatibility
 
@@ -272,10 +374,9 @@ This release fixes the following issue:
 experience downtime during a rolling upgrade.
 This is because <%= vars.product_short %> waits for quorum and mirror-sync critical nodes to sync before upgrades.
 
-
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-replicated-tile" %>
@@ -283,6 +384,8 @@ This release has the following known issues:
 <%= partial vars.path_to_partials + "/rabbitmq/ki-ha-sync-mode-timeout" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-renamed-federated-queues" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-smoke-test-custom-domain" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-drain-script" %>
+
 
 ### Compatibility
 
