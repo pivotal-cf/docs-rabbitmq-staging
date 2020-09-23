@@ -16,7 +16,8 @@ This release bumps the major version of Erlang used by service instances to 23.
 ### Resolved Issues
 
 This release fixes the following issues:
-- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA:** the drain script is expected 
+- **The management dashboard is not accessible when using OAuth2 with a SAML IdP:** the management dashboard is now accessible using OAuth2 with a SAML IdP.
+- **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA:** the drain script is expected
   to output just an integer to determine success (0) or failure (non-zero). In some cases, it was outputting some errors, even though the
       operation had the desired outcome, causing a failure in the drain operation
 
@@ -141,6 +142,7 @@ For how to enable OAuth in <%= vars.product_short %>, see [Enabling OAuth](./ena
 This release has the following known issues:
 
 - **On-demand-adapter does not cleanly exit the drain script when the credentials are not present in UAA.** This is fixed in 1.20.1+
+- **The management dashboard is not accessible when using OAuth2 with a SAML IdP.** This is fixed in 1.20.1+
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
