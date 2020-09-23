@@ -36,17 +36,19 @@ If you are upgrading a version other than v1.16 or v1.15, do not skip minor vers
 
 ## <a id="1-18-9"></a> v1.18.9
 
-**Release Date**: September 09, 2020
+**Release Date**: September 23, 2020
 
-## Features
+### Features
 
-This release bumps the major version of Erlang used by service instances to 23.
+New features and changes in this release:
+
+* **Erlang:** Upgraded to v23.0.3.
 
 ### Resolved Issues
 
 This release has the following fix:
 
-- **The on-demand-adapter cleanly exits the drain script when the credentials are not present in UAA:**
+- **The on-demand adapter cleanly exits the drain script when the credentials are not present in UAA:**
 The drain script now has the correct output for success (0) and failure (non-zero).
 
 ### Known Issues
@@ -140,7 +142,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release fixes the following issue:
+This release has the following fixes:
 
 * **The pre-stop script no longer fails with a timeout error.**
 Previously, the pre-stop script failed with the error:
@@ -261,7 +263,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fixes:
 
 * Upgrading a replicated tile no longer fails with the error `this migration in a replicated tile
 caused the error "TypeError: Cannot read property 'value' of undefined".`
@@ -369,7 +371,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fixes:
 
 * When used in production, quorum queues no longer experience downtime during a
   rolling upgrade. This is because <%= vars.product_short %> waits for quorum
@@ -515,7 +517,7 @@ You can skip v1.17 in this case to save time.
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fix:
 
 * Post-deploy scripts for the on-demand broker no longer fail because of a timing issue.
 
@@ -624,7 +626,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fixes:
 
 * These upgrade paths, each starting from v1.15.x with TLS set to optional, no longer fail:
   - v1.15.x to v1.17.0 to v1.18.3
