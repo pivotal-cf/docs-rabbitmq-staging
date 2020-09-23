@@ -7,17 +7,19 @@ owner: London Services
 
 ## <a id="1-19-4"></a> v1.19.4
 
-**Release Date**: September 09, 2020
+**Release Date**: September 23, 2020
 
 ### Features
 
-This release bumps the major version of Erlang used by service instances to 23.
+New features and changes in this release:
+
+* **Erlang:** Upgraded to v23.0.3.
 
 ### Resolved Issues
 
 This release has the following fix:
 
-- **The on-demand-adapter cleanly exits the drain script when the credentials are not present in UAA:**
+- **The on-demand adapter cleanly exits the drain script when the credentials are not present in UAA:**
 The drain script now has the correct output for success (0) and failure (non-zero).
 
 ### Known Issues
@@ -111,7 +113,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release fixes the following issue:
+This release has the following fixes:
 
 * **Configure a custom apps domain to ensure smoke tests work:**
 Previously, the smoke test picked up the default Cloud Foundry domain, which could cause smoke tests
@@ -237,7 +239,7 @@ The following components are compatible with this release:
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fixes:
 
 * Upgrading a replicated tile no longer fails with the error `this migration in a replicated tile
 caused the error "TypeError: Cannot read property 'value' of undefined".`
@@ -368,7 +370,7 @@ GUID, enabling operators to filter metrics by cluster names.
 
 ### Resolved Issues
 
-This release fixes the following issue:
+This release has the following fixes:
 
 * **Quorum queue downtime during rolling upgrades:** When used in production, quorum queues no longer
 experience downtime during a rolling upgrade.
