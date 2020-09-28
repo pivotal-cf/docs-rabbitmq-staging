@@ -142,8 +142,8 @@ command for every RabbitMQ UAA group:
     * `GROUP-DISTINGUISHED-NAME` is the Distinguished Name (DN) of the LDAP group. For example:
     `ou=operators,dc=example,dc=com`.
 
-- Map the RabbitMQ UAA groups created above to your SAML IdP group by running the following
-command for every RabbitMQ UAA group:
+- Map the RabbitMQ UAA groups created above to your SAML IdP group by running the following command
+for every RabbitMQ UAA group:
 
     ```
     uaac group map --name "RABBITMQ-UAA-GROUP" "GROUP-NAME" --origin "PROVIDER-NAME"
@@ -167,9 +167,9 @@ command for every RabbitMQ UAA group:
 
 ## <a id='configure-oauth'></a> Configure OAuth in <%= vars.ops_manager %>
 
-To configure OAuth in <%= vars.ops_manager %>:
+To configure OAuth in the <%= vars.product_short %> tile:
 
-1. Go to the **Security for On-Demand Plans** section of the <%= vars.app_runtime_abbr %> tile.
+1. Go to the **Security for On-Demand Plans** section of the <%= vars.product_short %> tile.
 1. There are three different **OAuth Options**: **Not Configured**, **Optional**, and **Enforced**:
     * **Not Configured** does not use OAuth.<br><br>
     * **Optional** enforces OAuth for developers accessing the RabbitMQ Management UI. Apps accessing
@@ -179,12 +179,12 @@ To configure OAuth in <%= vars.ops_manager %>:
     store any user credentials, delete all service bindings and service keys, and then run the
     **Upgrade All Service Instances** errand after upgrading to `1.21.x` and before enforcing OAuth.
 
-    ![Screenshot of the Security for On-Demand Plans section. This shows the **TLS Options** group of radio
-    buttons, the **OAuth Options** group of radio buttons, and a Save button.
+    ![Screenshot of the Security for On-Demand Plans section. This shows the **TLS Options** group
+    of radio buttons, the **OAuth Options** group of radio buttons, and a Save button.
     The example shows the **Not Configured** radio button selected for TLS and the **Optional**
     radio button selected for OAuth.](/images/configure-oauth.png)
     <a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">Click here to view a larger version of this image</a>
 
 1. Click **Save**.
-1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
+1. Go back to **<%= vars.ops_manager %> Installation Dashboard** &gt; **Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.

@@ -194,18 +194,23 @@ Follow the steps below to configure global settings:
       <tr>
         <td><strong>Shareable Instances</strong></td>
         <td>Click <strong>Yes</strong> to enable the feature for sharing instances.<br>
-        Sharing a service instance between spaces enables apps in different spaces to share databases and
-        messaging queues. For more information,
-        see <a href="https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html">Sharing Service Instances</a>.</td>
+        Sharing a service instance between spaces enables apps in different spaces to share databases
+        and messaging queues. For more information, see
+        <a href="https://docs.pivotal.io/pivotalcf/devguide/services/sharing-instances.html">
+          Sharing Service Instances</a>.
+        </td>
       </tr>
       <a id="credhub"></a>
       <tr>
         <td><strong>On Demand - Secure Service Instance Credentials with Runtime CredHub</strong></td>
-        <td>For on-demand services instances, click <strong>Yes</strong> to secure credentials with CredHub.
-        <p class="note"><strong>Note:</strong> For this feature to work you must also enable it in <%= vars.app_runtime_abbr %>.
+        <td>For on-demand services instances, click <strong>Yes</strong> to secure credentials with
+          CredHub.
+        <p class="note"><strong>Note:</strong> For this feature to work you must also enable it in
+          <%= vars.app_runtime_abbr %>.
           For instructions, see <a href="https://docs.pivotal.io/application-service/operating/secure-si-creds.html#pas-config">Step 1: Configure the <%= vars.app_runtime_abbr %> Tile</a>.
-          After deploying the tile, notify developers that they must unbind and rebind existing service instances
-          to secure their credentials with CredHub.</p></td>
+          After deploying the tile, notify developers that they must unbind and rebind existing
+          service instances to secure their credentials with CredHub.</p>
+        </td>
       </tr>
 
       <tr>
@@ -217,15 +222,17 @@ Follow the steps below to configure global settings:
       <tr>
         <td><strong>Number of upgrade canary instances</strong></td>
         <td>Set the number of canary instances
-        on which to run the <code>upgrade-all-service-instances</code> or the <code>recreate-all-service-instances</code> errands first.
+        on which to run the <code>upgrade-all-service-instances</code> or the
+        <code>recreate-all-service-instances</code> errands first.
         If the errand succeeds on all canary instances, it runs on the remaining instances.</td>
       </tr>
 
       <tr>
         <td><strong>Maximum number of instances upgraded in parallel</strong></td>
         <td>Set the limit for the
-        number of instances on which to simultaneously run the <code>upgrade-all-service-instances</code> errand
-        or the <code>recreate-all-service-instances</code> errand.
+        number of instances on which to simultaneously run the
+        <code>upgrade-all-service-instances</code> errand or the
+        <code>recreate-all-service-instances</code> errand.
         The number of available BOSH workers limits the number of simultaneous runs.
         See <a href="https://bosh.io/jobs/director?source=github.com/cloudfoundry/bosh#p=director.workers">workers</a>
         in the BOSH documentation.
@@ -236,71 +243,100 @@ Follow the steps below to configure global settings:
         <td><strong>Custom apps domain for smoke tests</strong></td>
         <td>Configure to provide a custom apps domain for the smoke tests.
           If left blank, the default CF apps domain is used.<br>
-          Failure to configure a custom apps domain could cause smoke tests to fail if the smoke tests
-          domain is not accessible from the RabbitMQ Service Instance domain for on-demand services.
+          Failure to configure a custom apps domain could cause smoke tests to fail if the smoke
+          tests domain is not accessible from the RabbitMQ Service Instance domain for on-demand
+          services.
         </td>
       </tr>
     </table>
 
 1. Click **Save**.
 
+
 ### <a id="security"></a> Configure Security
 
-<%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure communication between apps and <%= vars.product_short %> service instances.
+<%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure communication between
+apps and <%= vars.product_short %> service instances.
 
 To configure the TLS settings:
 
 <ol>
-  <li>Ensure that you have performed the procedures in <a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a> before configuring the tile and applying changes.</li>
+  <li>Ensure that you have performed the procedures in
+    <a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a> before
+    configuring the tile and applying changes.</li>
   <li>Click the <strong>Security for On-Demand Plans</strong> tab.</li>
 
-  <%= image_tag("images/security.png", :alt => "Screenshot with header 'Security for On-Demand Plans' and a description
-  that says, 'A CA certificate must be added to CredHub when enabling TLS. See the docs for more information.'
-  Underneath is a group of three radio buttons with the label 'TLS Options'. The three buttons are labeled the following:
-  Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS,'
-  Radio button 2. 'Optional - Developers may configure their On Demand service instances to use TLS',
-  Radio button 3. 'Enforced - All new and existing On Demand service instances will be configured to use TLS. On
-  applying this setting, any applications that use non-TLS binding will require re-binding and must support TLS connections.'") %>
+  <%= image_tag("/images/configure-oauth.png", :alt => "Screenshot of the Security for On-Demand
+  Plans section. This shows the **TLS Options** group of radio buttons, the **OAuth Options** group
+  of radio buttons, and a Save button.
+  The example shows the **Not Configured** radio button selected for TLS and the **Optional**
+  radio button selected for OAuth.") %>
+  <a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">
+    Click here to view a larger version of this image</a>
 
-  <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
+  <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or
+    <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their
+    <%= vars.product_short %> service instances to use TLS.
+    <strong>Enforced</strong> requires TLS to be enabled.</li>
 
 <p class='note breaking'>
-  <strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong> errand are applied. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their <%= vars.product_short %> service instance through TLS.
+  <strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing
+  service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong>
+  errand are applied. Any apps not using TLS are no longer able to communicate with their service
+  instances. Such apps require a new binding and must be configured to communicate with their
+  <%= vars.product_short %> service instance through TLS.
 </p>
 
 <p class="note">
-  <strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing service instances continue to use TLS. However, new instances are not configured with TLS.
+  <strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing
+  service instances continue to use TLS. However, new instances are not configured with TLS.
 </p>
+
+  <li>For information about configuring the OAuth options, see
+    [Configure OAuth in Ops Manager](./enable-oauth.html#configure-oauth).</li>
 
   <li>Click <strong>Save</strong>.</li>
 
-  <li>Click <strong>Review Pending Changes</strong>. For more information about this <%= vars.ops_manager %> page, see <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">Reviewing Pending Product Changes</a>.</li>
+  <li>Click <strong>Review Pending Changes</strong>. For more information about this
+    <%= vars.ops_manager %> page, see
+    <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">
+      Reviewing Pending Product Changes</a>.</li>
 
-  <li>In the <%= vars.ops_manager %> Installation Dashboard, ensure the <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>, and then click <strong>Apply Changes</strong>.</li>
+  <li>In the <%= vars.ops_manager %> Installation Dashboard, ensure the
+    <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>,
+    and then click <strong>Apply Changes</strong>.</li>
 
-  <li>After deploying the tile, app developers can configure their service instances to use TLS. For developer instructions, see <a href="use.html#tls">Enable Transport Layer Security (TLS) for Your Service Instance</a>. <%# (and <a href="modify-apps-tls.html">Modifying Apps for TLS</a>.) %></li>
+  <li>After deploying the tile, app developers can configure their service instances to use TLS.
+    For developer instructions, see
+    <a href="use.html#tls">Enable Transport Layer Security (TLS) for Your Service Instance</a>.
+    <%# (and <a href="modify-apps-tls.html">Modifying Apps for TLS</a>.) %></li>
 </ol>
+
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
 To enable the on-demand service, you must configure at least one on-demand plan.
 
-* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance: Plan 5**.
+* You can configure up to five on-demand plans: **On Demand Instance: Plan 1 -- On Demand Instance:
+Plan 5**.
 * You can configure all on-demand plans to have 1, 3, 5, or 7 RabbitMQ nodes.
-* If the on-demand service is not enabled, the on-demand broker is deployed alongside the <%= vars.product_short %> installation, but it is not available in the Marketplace.
+* If the on-demand service is not enabled, the on-demand broker is deployed alongside the
+<%= vars.product_short %> installation, but it is not available in the Marketplace.
 
 <p class="note">
-  <strong>Note:</strong> You must fully configure <strong>On Demand Instance: Plan 1</strong> even if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).
+  <strong>Note:</strong> You must fully configure <strong>On Demand Instance: Plan 1</strong> even
+  if you disable access to this plan (see <strong>CF Service Access</strong> in the table below).
 </p>
 
-
 1. Choose the on-demand service instance you want to configure.
-You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this plan.
+You must complete the required fields for **On Demand Instance: Plan 1** even if you disable this
+plan.
 
     ![Screenshot with a main header called 'Plan 1 Configuration' and several of the following fields:
     required dropdown field, 'CF Service Access' with 'Enable Service Access' selected,
     required text field, 'Plan Name' with the value 'single-node',
-    required text area field, 'Plan Description' with value 'This plan provides a single dedicated RabbitMQ node',
+    required text area field, 'Plan Description' with value
+    'This plan provides a single dedicated RabbitMQ node',
     checkbox field, 'Paid Plan',
     checkbox field, 'Service-Gateway Access',
     checkbox field, 'Wait for Queue Synchronization',
@@ -309,9 +345,11 @@ You must complete the required fields for **On Demand Instance: Plan 1** even if
     required text field, 'Number of Nodes (min: 1, min: 7)' with a value of 1,
     required dropdown field, 'Network Partition Behavior' with 'pause_minority' selected,
     required multi-select field, 'AZ Placement',
-    required dropdown field, 'RabbitMQ VM Type' with 'Automatic: large (CPU: 2, RAM 8 GB, disk: 16 GB)' selected,
+    required dropdown field, 'RabbitMQ VM Type' with 'Automatic: large
+    (CPU: 2, RAM 8 GB, disk: 16 GB)' selected,
     required dropdown field, 'Persistent Disk Type' with 'Automatic: 30 GB' selected,
-    required checkbox field, 'I acknowledge that I have configured the Persistent Disk Size to be at least 2x the amount of RAM of the selected VM type' with an enabled checkbox for 'Acknowledge'.
+    required checkbox field, 'I acknowledge that I have configured the Persistent Disk Size to be at
+    least 2x the amount of RAM of the selected VM type' with an enabled checkbox for 'Acknowledge'.
     A blue 'Save' button is at the bottom of the form.](images/plan-1-configuration.png)
 
 2. Configure the fields as follows:
@@ -431,12 +469,15 @@ has the value 'medium (cpu: 2, ram: 4 GB, disk: 8 GB)',
 and the 'Persistent disk type' dropdown, which has the value '10 GB'. Each field
 has a red asterisk to show they are required.") %>
 
-VMware recommends that the value of **Persistent disk type** be twice the amount of RAM of the selected **RabbitMQ VM Type**.
+VMware recommends that the value of **Persistent disk type** be twice the amount of RAM of the
+selected **RabbitMQ VM Type**.
 
-* You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the <%= vars.product_short %> service instances.
-  For example, if you are running out of disk space you might want to increase the persistent disk size
-  by changing the **Persistent disk type** field.
-  If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the RabbitMQ VM type.
+* You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the
+<%= vars.product_short %> service instances.
+For example, if you are running out of disk space you might want to increase the persistent disk size
+by changing the **Persistent disk type** field.
+If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the
+RabbitMQ VM type.
 
 * RabbitMQ raises alarms when disk space drops below the configured limit.
 Incorrect disk sizes might cause the deployed instance not to start.
