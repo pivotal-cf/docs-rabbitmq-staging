@@ -142,8 +142,8 @@ command for every RabbitMQ UAA group:
     * `GROUP-DISTINGUISHED-NAME` is the Distinguished Name (DN) of the LDAP group. For example:
     `ou=operators,dc=example,dc=com`.
 
-- Map the RabbitMQ UAA groups created above to your SAML IdP group by running the following
-command for every RabbitMQ UAA group:
+- Map the RabbitMQ UAA groups created above to your SAML IdP group by running the following command
+for every RabbitMQ UAA group:
 
     ```
     uaac group map --name "RABBITMQ-UAA-GROUP" "GROUP-NAME" --origin "PROVIDER-NAME"
@@ -176,5 +176,5 @@ a checkbox for enabling OAuth, and a Save button. The 'Not Configured' radio but
 'Enable OAuth' checkbox are selected.](/images/enable-oauth.png)
 [Click here to view a larger version of the image above.](./images/enable-oauth.png)
 1. Click **Save**.
-1. Go back to **<%= vars.ops_manager %> Installation Dashboard &gt; Review Pending Changes**.
+1. Go back to **<%= vars.ops_manager %> Installation Dashboard** &gt; **Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.
