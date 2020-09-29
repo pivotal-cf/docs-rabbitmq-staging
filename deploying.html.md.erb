@@ -22,7 +22,7 @@ The diagram below shows the default <%= vars.product_short %> pre-provisioned de
 Tanzu Application Service and an app within it. The app communnicates to the HAProxy, which communicates to three RabbitMQ nodes. The HAProxy and RabbitMQ nodes are within
 VMware Tanzu RabbitMQ, which is within availability zone 1.") %>
 
-### <a id="default-consider"></a>Considerations for this deployment
+### <a id="default-consider"></a>Considerations for the Default Deployment
 
 * Provides high availability for the RabbitMQ cluster
 * Queues must be configured to be high availability as they are placed on one node by default
@@ -51,21 +51,21 @@ tries to communicate with the failed RabbitMQ node before communicating
 with a functioning RabbitMQ node. These components are inside the VMware Tanzu RabbitMQ
 service, within Availability Zone 1 and Availability Zone 2.") %>
 
-### <a id="upgrade-from-single-az"></a>Upgrading to this deployment from a single AZ deployment
+### <a id="upgrade-from-single-az"></a>Upgrading to the Recommended Deployment from a Single AZ Deployment
 
 It is **not** possible to upgrade to this setup from the default deployment across a single AZ.
 
 This is because the AZ setup cannot be changed after the tile has been deployed for the first time.
 This is to protect against data loss when moving jobs between AZs.
 
-### <a id="upgrade-from-multi-az"></a>Upgrading to this deployment from a multi AZ deployment
+### <a id="upgrade-from-multi-az"></a>Upgrading to the Recommended Deployment from a Multi AZ Deployment
 
 If you have deployed the tile across two AZs, but with a single HAProxy instance,
 you can migrate to this setup by deploying an additional HAProxy instance through <%= vars.ops_manager %>.
 New or re-bound apps to the <%= vars.product_short %> service instance see the IPs of both HAProxies immediately.
 Existing bound apps will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
 
-### <a id="recommended-consider"></a>Considerations for this deployment
+### <a id="recommended-consider"></a>Considerations for the Recommended Deployment
 
 * Requires IaaS configuration for AZs ahead of deploying the <%= vars.product_short %> tile
 * Application developers are handed the IPs of each deployed HAProxy in their environment variables
@@ -98,7 +98,7 @@ These are only be known after the deployment is finished.
  The IPs should remain the same during subsequent deployments but there is a risk they might change.
 
 
-### <a id="upgrade-from-recommended"></a>Upgrading to this deployment from the recommended deployment
+### <a id="upgrade-from-recommended"></a>Upgrading to the Advanced from the Recommended Deployment
 
 It is possible to first deploy with multiple HAProxy jobs, as per the recommended deployment, and later use your own external load balancer.
 
@@ -115,13 +115,13 @@ Any existing service instances continue to use the HAProxy IP addresses in their
 
 This approach works as any existing bound apps have their `VCAP_SERVICES` information cached in Cloud Controller and are only updated by a re-bind request.
 
-### <a id="downgrade-to-recommended"></a>Downgrading from this deployment to the recommended deployment
+### <a id="downgrade-to-recommended"></a>Downgrading from the Advanced Deployment to the Recommended Deployment
 
 If you are currently using an external load balancer, then you can move back to using HAProxies instead.
 
 You can achieve this by following the above steps in reverse order and re-instating the HAProxy jobs.
 
-## <a id="resource-requirements"></a>Resource requirements
+## <a id="resource-requirements"></a>Resource Requirements
 
 The following table shows the default resource and IP requirements for installing the tile:
 <table border="1" class="nice">
