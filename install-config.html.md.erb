@@ -344,8 +344,10 @@ Follow the steps below to configure global settings:
 
 <%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure communication between
 apps and <%= vars.product_short %> service instances.
+You can also use OAuth 2.0 to enable developers to access the RabbitMQ Management
+UI using their <%= vars.app_runtime_full %> credentials.
 
-To configure the TLS settings:
+To configure the security settings:
 
 <ol>
   <li>
@@ -383,7 +385,7 @@ To configure the TLS settings:
   service instances continue to use TLS. However, new instances are not configured with TLS.
 </p>
 
-  <li>For information about configuring the OAuth options, see
+  <li>For information about configuring the <strong>OAuth options</strong>, see
     <a href="./enable-oauth.html#configure-oauth">Configure OAuth in <%= vars.ops_manager %></a>.
   </li>
 
