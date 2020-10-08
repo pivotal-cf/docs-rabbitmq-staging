@@ -5,6 +5,102 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="1-20-2"></a> v1.20.2
+
+**Release Date**: October 21, 2020
+
+### Resolved Issues
+
+This release fixes the following issues:
+
+- For on-demand service instances created in v1.20.0 and v1.20.1, the rabbitmq-server-metrics BOSH job
+does not provide memory and disk metrics. You will see the following error messsage in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
+`"source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}`
+and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
+`[error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}`.
+This is fixed when upgrading these service instances to v1.20.2.
+
+### Known Issues
+
+This release has the following known issues:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice"> <th>Component</th> <th>Version</th> 	<tr>
+		<td>Erlang</td>
+		<td>23.1.1</td>
+	</tr>
+	<tr>
+		<td>HAProxy</td>
+		<td>1.8.26</td>
+	</tr>
+	<tr>
+		<td>OSS RabbitMQ*</td>
+		<td>3.8.9</td>
+	</tr>
+	<tr>
+		<td>Stemcell</td>
+		<td>621.x</td>
+	</tr>
+	<tr>
+		<td>Tanzu Application Service</td>
+		<td>2.7.*, 2.8.*, 2.9.*, 2.10.*</td>
+	</tr>
+	<tr>
+		<td>bpm</td>
+		<td>1.1.9</td>
+	</tr>
+	<tr>
+		<td>cf-cli</td>
+		<td>1.31.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq</td>
+		<td>331.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-multitenant-broker</td>
+		<td>81.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-service-gateway</td>
+		<td>30.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-smoke-tests</td>
+		<td>67.0.0</td>
+	</tr>
+	<tr>
+		<td>loggregator-agent</td>
+		<td>3.21.5</td>
+	</tr>
+	<tr>
+		<td>on-demand-service-broker</td>
+		<td>0.40.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-metrics</td>
+		<td>43.0.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-on-demand-adapter</td>
+		<td>151.0.0</td>
+	</tr>
+	<tr>
+		<td>routing</td>
+		<td>0.207.0</td>
+	</tr>
+	<tr>
+		<td>service-metrics</td>
+		<td>1.12.5</td>
+	</tr></table>
+
+* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">v3.8.9</a> GitHub documentation.
+
 ## <a id="1-20-1"></a> v1.20.1
 
 **Release Date**: September 23, 2020
@@ -30,6 +126,11 @@ You can now access the RabbitMQ Management UI using OAuth2 with a SAML identity 
 This release has the following known issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+- For on-demand service instances created in v1.20.0 and v1.20.1, the rabbitmq-server-metrics BOSH job
+does not provide memory and disk metrics. Instead you will see the following error messsage in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
+`"source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}`
+and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
+`[error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}`.
 
 ### Compatibility
 
@@ -153,6 +254,11 @@ This release has the following known issues:
 - **Accessing the RabbitMQ Management UI:**
 If you are using OAuth2 with a SAML identity provider, you cannot access the RabbitMQ Management UI.
 This is fixed in v1.20.1 and later.
+- For on-demand service instances created in v1.20.0 and v1.20.1, the rabbitmq-server-metrics BOSH job
+does not provide memory and disk metrics. Instead you will see the following error messsage in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
+`"source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}`
+and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
+`[error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}`.
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
