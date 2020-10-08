@@ -432,7 +432,7 @@ the <%= vars.product_short %> service.
       <td>Ephemeral Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
-      Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
+      Healthmonitor reports when RabbitMQ uses more than 50% of its Ephemeral Disk for the past ten minutes.
       <br><br>
       <strong>Origin</strong>:  BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -444,12 +444,12 @@ the <%= vars.product_short %> service.
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; 60 <br>
+      <td><strong>Yellow warning</strong>: &gt; 50 <br>
       <strong>Red critical</strong>: &gt; 75</td>
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Remember that "an empty rabbit is a happy rabbit". Add more consumers to drain the queue as fast as possible.
+      <td>Remember that "an empty rabbit is a happy rabbit". Add more consumers to drain the queue as fast as possible. Insufficient disk space will lead to node failures and may result in data loss as all disk writes will fail.
       </td>
    </tr>
 </table>
@@ -463,7 +463,7 @@ the <%= vars.product_short %> service.
       <td>Persistent Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
-      Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
+      Healthmonitor reports when RabbitMQ uses more than 50% of its Persistent Disk.
       <br><br>
       <strong>Origin</strong>:  BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -475,12 +475,12 @@ the <%= vars.product_short %> service.
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; 60 <br>
+      <td><strong>Yellow warning</strong>: &gt; 50 <br>
       <strong>Red critical</strong>: &gt; 75</td>
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Remember that "an empty rabbit is a happy rabbit". Add more consumers to drain the queue as fast as possible.
+      <td>Remember that "an empty rabbit is a happy rabbit". Add more consumers to drain the queue as fast as possible. Insufficient disk space will lead to node failures and may result in data loss as all disk writes will fail.
       </td>
    </tr>
 </table>
