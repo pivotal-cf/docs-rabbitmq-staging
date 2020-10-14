@@ -106,9 +106,8 @@ To create a UAA group for a space:
     Where:
     * `SPACE-GUID` is the space GUID.
     * `RABBITMQ-TAG` must be either `monitoring` or `administrator`. The RabbitMQ tag dictates what
-    the user is permitted to do.
-    For more information about the RabbitMQ tags, see the
-    [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions).
+    the user is permitted to do. For more information about RabbitMQ tags, see
+    the [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions)
 
     For example:
 
@@ -116,11 +115,27 @@ To create a UAA group for a space:
     $ uaac group add p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring
     </pre>
 
+
+1. (Optional) If the `monitoring` group is used, additional permissions must be granted to allow the user
+    to view resources by running:
+
+    ```
+    uaac group add p-rabbitmq_SPACE-GUID.PERMISSION:VHOST-PATTERN/NAME-PATTERN[/ROUTING-KEY-PATTERN]
+    ```
+
+    For more information about RabbitMQ permissions, see the
+    [OAuth plugin documentation](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#scope-to-permission-translation).
+
+    For example:
+
+    <pre class="terminal">
+    $ uaac group add 'p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.read:*/*'
+    </pre>
+
 The on-demand broker creates a separate UAA client with scope `p-rabbitmq_SPACE-GUID` for every
 new on-demand service instance.
 When an access token is created, UAA intersects the user groups with the client scopes.
 The intersection of these two fields are scopes that can be populated in the access token.
-
 
 ### <a id='configure-users'></a> Configure Users for the RabbitMQ UAA Groups
 
