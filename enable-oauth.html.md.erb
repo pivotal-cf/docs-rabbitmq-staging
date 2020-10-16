@@ -123,15 +123,16 @@ To create a UAA group for a space:
     uaac group add p-rabbitmq_SPACE-GUID.PERMISSION:VHOST-PATTERN/NAME-PATTERN[/ROUTING-KEY-PATTERN]
     ```
 
-    For more information about RabbitMQ permissions, see the
-    [OAuth plugin documentation](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#scope-to-permission-translation)
-    in GitHub.
-
     For example:
 
     <pre class="terminal">
     $ uaac group add 'p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.read:*/*'
     </pre>
+
+    For more information about RabbitMQ permissions, see the
+    [OAuth plugin documentation](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#scope-to-permission-translation)
+    in GitHub.
+
 
 The on-demand broker creates a separate UAA client with scope `p-rabbitmq_SPACE-GUID` for every
 new on-demand service instance.
