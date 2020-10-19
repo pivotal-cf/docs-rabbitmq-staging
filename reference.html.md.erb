@@ -4,9 +4,10 @@ title: RabbitMQ Environment Variables
 owner: London Services
 ---
 
-This topic provides a reference for the environment variables that <%= vars.app_runtime_full %> stores
-for <%= vars.product_full %> service instances.
+This topic provides a reference for the environment variables that <%= vars.app_runtime_full %>
+stores for <%= vars.product_full %> service instances.
 These variables include the credentials that apps use to access the service instances.
+
 
 ## <a id='vcap-services'></a>VCAP_SERVICES
 
@@ -63,24 +64,28 @@ An example hash is show below:
 
 You can search for your service by its `name`, given when creating the service instance,
 or dynamically through the `tags` or `label` properties.
-The `credentials` property can be used as follows:
+You can use the `credentials` property as follows:
 
-* The top level properties `uri`, `uris`, `vhost`, `username`, `password`, `hostname`,
-and `hostnames` provide access to the AMQP 0.9.1 protocol.
+* The top level properties `uri`, `uris`, `vhost`, `username`, `password`, `hostname`, and `hostnames` provide access to the AMQP 0.9.1 protocol.
 
-* A more flexible approach is provided by the `credentials.protocols` property,
-which has a key per enabled protocol. The possible keys are `amqp`, `management`, `mqtt`, and `stomp`.
-If SSL is enabled, then the keys are `amqp+ssl`, `management+ssl`, `mqtt+ssl`, and `stomp+ssl` respectively.
+* The `credentials.protocols` property has a key per enabled protocol, providing a more flexible
+approach. The possible keys are `amqp`, `management`, `mqtt`, and `stomp`.
+If SSL is enabled, the keys are `amqp+ssl`, `management+ssl`, `mqtt+ssl`, and `stomp+ssl`
+respectively.
 
 * The values associated with each of these keys gives access credentials specific to each protocol.
 In all cases, URIs are provided, along with the individual components.
 
+
 ## <a id='plugins-protocols'></a>Changing Enabled Plugins and Protocols
 
-<p class="note"><strong>Note</strong>: Removing or adding plugins or protocols might cause apps bound with <%= vars.product_short %> to break.</p>
+<p class="note">
+  <strong>Note:</strong> Removing or adding plugins or protocols might cause apps bound with
+  <%= vars.product_short %> to break.
+</p>
 
-If you adjust the plugins and protocols enabled for RabbitMQ,
-you might need to force all app's `VCAP_SERVICES` environment variable to be regenerated.
+If you adjust the plugins and protocols enabled for RabbitMQ, you might need to force the
+`VCAP_SERVICES` environment variables of all apps to be regenerated.
 Adding and removing the following plugins require bound apps to be restaged:
 
 * rabbitmq_management
@@ -89,6 +94,6 @@ Adding and removing the following plugins require bound apps to be restaged:
 * rabbitmq_mqtt
 * rabbitmq\_amqp1\_0
 
-In common with all services in <%= vars.app_runtime_abbr %>,
-the `VCAP_SERVICES` environment variable for an app is only modified when the app is bound to a service instance.
+In common with all services in <%= vars.app_runtime_abbr %>, the `VCAP_SERVICES` environment variable
+for an app is only modified when the app is bound to a service instance.
 Users need to `cf unbind-service`, `cf bind-service`, and `cf restage` their app in this scenario.

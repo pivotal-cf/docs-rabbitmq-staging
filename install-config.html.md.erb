@@ -26,9 +26,8 @@ see the Production Checklist in the
 
 ## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager %>
 
-<%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which
-operators can make deployment changes, view credentials, and manage user roles in
-<%= vars.ops_manager %>.
+<%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which operators
+can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
 Therefore, your role permissions might not permit you to follow every procedure in this operator
 guide.
 
@@ -146,8 +145,8 @@ Follow the steps below to configure the AZs and networks:
           separate from the network that <%= vars.app_runtime_abbr %> and the on-demand broker run on.
           For information about the Service Network, see
           <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
-          This field is also required for the pre-provisioned service, though in that case, it does not
-          matter which network you select.
+          This field is also required for the pre-provisioned service, though in that case, it does
+          not matter which network you select.
         </td>
       </tr>
     </table>
@@ -232,7 +231,7 @@ Follow the steps below to configure global settings:
         </td>
         <td>
           Select this checkbox to set the cluster name to its service instance GUID instead of the
-          default name `rabbit@localhost`.
+          default name <code>rabbit@localhost</code>.
           This enables you to filter metrics by cluster name.
         </td>
       </tr>
@@ -455,12 +454,13 @@ plan.
     <table>
       <tr><th>Field</th><th>Instructions</th></tr>
       <tr><td><strong>Enable This Plan</strong></td>
-          <td>For Plans 2 - 5, enable the plan by selecting **Plan Enable**.</td></tr>
+          <td>For Plans 2 - 5, enable the plan by selecting <strong>Plan Enable</strong>.</td></tr>
       <tr><td><strong>CF Service Access</strong></td>
       <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
-          If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
+          If you enable Plan 1, the default setting for Plans 2 - 5 is
+          <strong>Enable Service Access</strong>.
           If you change this default setting, the smoke tests fail.
-          Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
+          Therefore, if you enable Plan 1 and want to change this default, before doing so, set the <strong>On-Demand Instance Smoke Tests</strong> errand to <strong>Off</strong>.
           For more information, see <a href="#errands">Errands</a> below.<br>
         <br><ul>
           <li><strong>Enable Service Access</strong>---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
@@ -503,10 +503,10 @@ plan.
       <tr><td><strong>Plan Features</strong></td>
           <td>Accept the default or enter a description. This description appears in Apps Manager.</td></tr>
       <tr><td><strong>Plan Quota</strong></td>
-          <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td></tr>
+          <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a>.</td></tr>
       <tr><td><strong>Number of Nodes</strong></td>
           <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
-              Previously deployed service instances are **not** updated.</td></tr>
+              Previously deployed service instances are <strong>not</strong> updated.</td></tr>
       <tr><td><strong>Network Partition Behaviour</strong></td>
           <td>Select <code>pause_minority</code> or <code>autoheal</code>.
             VMware recommends using pause minority.
@@ -514,7 +514,7 @@ plan.
       </tr>
       <tr><td><strong>AZ Placement</strong></td>
         <td>This field is available after you complete the Assign AZs and Networks page.
-          For more information, see <a href="#azs-networks">Assign AZs and Networks</a>.
+          For more information, see <a href="#azs-networks">Assign AZs and Networks</a> above.
           <ul>
             <li>For a single-node plan, select one or more AZs.</li>
             <li>For a plan containing multiple nodes, select only one AZ.
@@ -526,7 +526,7 @@ plan.
               If you change this selection after deployment, existing instances are not affected by
               the change.
               For more information, see
-              <a href="#determineaz">Determine which AZs a Service Instance Uses</a>.
+              <a href="#determineaz">Determine Which AZs a Service Instance Uses</a> below.
             </li>
           </ul>
         </td>
@@ -542,9 +542,9 @@ plan.
 3. Click **Save**.
 
 
-#### <a id="determineaz"></a> Determine which AZs a Service Instance Uses
+#### <a id="determineaz"></a> Determine Which AZs a Service Instance Uses
 
-<p class='note warning'>
+<p class="note warning">
   <strong>Warning:</strong> If you change this configuration after you have selected AZs and deployed
   service instances, existing instances are not placed in the newly configured AZs when the
   Upgrade All Service Instances or Recreate All Service Instances errands are run.
@@ -555,9 +555,9 @@ plan.
 <br>To learn which AZs a service instance is placed in, do one of the following:
 
 <ul>
-  <li>Retrieve the service GUID using the <code>cf service SERVICE-INSTANCE --guid</code> command
-       and then run the BOSH <code>instances</code> command for the
-       <code>service-instance_GUID</code> deployment.
+  <li>Retrieve the service GUID using the <code>cf service SERVICE-INSTANCE-NAME --guid</code>
+    command and then run the BOSH <code>instances</code> command for the
+    <code>service-instance_GUID</code> deployment.
   </li>
   <li>With syslog forwarding enabled, inspect the service broker logs when running the
     <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the
@@ -583,7 +583,7 @@ selected **RabbitMQ VM Type**.
 
 * You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the
 <%= vars.product_short %> service instances.
-For example, if you are running out of disk space you might want to increase the persistent disk size
+For example, if you are running out of disk space you can increase the persistent disk size
 by changing the **Persistent disk type** field.
 If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the
 RabbitMQ VM type.
@@ -686,7 +686,8 @@ All the checkboxes are enabled except for 'Recreate All Service Instances'](./im
 You can change these defaults by clicking **Errands** in the <%= vars.product_short %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
-For more information, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
+For more information, see
+[Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
 
 <%= vars.product_short %> errands are co-located with their brokers to decrease errand run time and
 VM footprint.
@@ -772,12 +773,12 @@ To create an admin user on a <%= vars.product_short %> service instance:
 1. Run this command to create a service key:
 
     ```
-    cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'
+    cf create-service-key SERVICE-INSTANCE-NAME SERVICE-KEY -c '{"tags": "administrator"}'
     ```
 
     <br>Where:
-    * `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`
-    * `SERVICE-KEY` is a name you choose to identify the service key
+    * `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
+    * `SERVICE-KEY` is a name you choose to identify the service key.
 
     <br>For example:
 
@@ -790,7 +791,7 @@ To create an admin user on a <%= vars.product_short %> service instance:
 1. Run this command to get the admin user credentials:
 
     ```
-    cf service-key SERVICE-INSTANCE SERVICE-KEY
+    cf service-key SERVICE-INSTANCE-NAME SERVICE-KEY
     ```
     Where the variables are the same as above.
 
@@ -813,6 +814,7 @@ To create an admin user on a <%= vars.product_short %> service instance:
 <%= vars.product_short %> supports a subset of available RabbitMQ plugins.
 See the sections below for which plugins are supported, and whether they are
 enabled or disabled by default.
+
 
 ### <a id="enabled-plugins"></a> Enabled RabbitMQ Server Plugins
 
