@@ -12,7 +12,7 @@ variable credentials hash called `VCAP_SERVICES`.
 
 An example hash is shown below:
 
-```
+<pre>
 {
     "p-rabbitmq": [{
         "label": "p-rabbitmq",
@@ -66,7 +66,7 @@ An example hash is shown below:
                     "uris": [
                         "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@q-s0.rabbitmq-server.services-subnet.service-instance-e0e7fc5f-c1c7-4211-81b9-284fb29ba851.bosh:15672/api",
                     ]}}}}]}
-```
+</pre>
 
 You can search for your service by its `name`, given when creating the service instance, or
 dynamically through the `tags` or `label` properties. The `credentials` property can be used as
