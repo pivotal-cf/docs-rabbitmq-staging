@@ -249,6 +249,33 @@ The following KPIs from the RabbitMQ server component:
    </tr>
 </table>
 
+### <a id="prometheus"></a> Enable The Prometheus Plugin
+
+VMWare Tanzu RabbitMQ supports enabling the `rabbitmq_prometheus` plugin for on-demand instances. 
+More information about the plugin and monitoring RabbitMQ using Prometheus and Grafana can be found in the [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html). 
+For a list of plugins that can be enabled for on-demand instances, see [RabbitMQ Server Plugins](./install-config.html#server-plugins).
+
+Enabling the plugin results in Prometheus style metrics being emmitted at `<service-instance-id>:15692/metrics`. 
+A Prometheus instance will need to be configured in order to pull these metrics from the service instances. 
+Assuming a Prometheus has been deployed in the environment, the following scrape config can be used in the Proemtheus config file to discover RabbitMQ instances.
+
+```
+job_name: rabbitmq
+metrics_path: "/metrics"
+scheme: http
+dns_sd_configs:
+- names:
+   - q-s4.rabbitmq-server.*.*.bosh.
+    type: A
+     port: 15692
+
+```
+
+The regular expression in the scrape config name will ensure all future service instances also will be discovered by Prometheus.
+
+The RabbitMQ team has also written pre-set Grafana dashboards which can be imported into Grafana. 
+More information about these dashboards can be found in the [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html). 
+
 ### <a id="bosh"></a> BOSH System Health Metrics
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
