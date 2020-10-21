@@ -11,27 +11,14 @@ owner: London Services
 
 ### Resolved Issues
 
-This release fixes the following issues:
+This release has the following fix:
 
-- For on-demand service instances created in v1.20.0 and v1.20.1,
-the rabbitmq-server-metrics BOSH job does not provide memory and disk metrics.
-The following error messsage appears in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
-
-	<pre class="terminal">
-	  "source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}
-	</pre>
-
-	and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
-
-	<pre class="terminal">
-	  [error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}
-	</pre>
-
-	This is fixed when upgrading these service instances to v1.20.2.
+- **rabbitmq-server-metrics BOSH Job Does Not Provide Memory And Disk Metrics:**
+This is fixed when upgrading these service instances to v1.20.2.
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
@@ -139,11 +126,20 @@ You can now access the RabbitMQ Management UI using OAuth2 with a SAML identity 
 This release has the following known issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-- For on-demand service instances created in v1.20.0 and v1.20.1, the rabbitmq-server-metrics BOSH job
-does not provide memory and disk metrics. Instead you will see the following error messsage in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
-`"source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}`
-and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
-`[error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}`.
+- **rabbitmq-server-metrics BOSH Job Does Not Provide Memory And Disk Metrics:**
+For on-demand service instances created in v1.20.0 and v1.20.1,
+the rabbitmq-server-metrics BOSH job does not provide memory and disk metrics.
+The following error messsage appears in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
+
+	<pre class="terminal">
+	  "source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}
+	</pre>
+
+	and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
+
+	<pre class="terminal">
+	  [error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}
+	</pre>
 
 ### Compatibility
 
@@ -267,11 +263,20 @@ This release has the following known issues:
 - **Accessing the RabbitMQ Management UI:**
 If you are using OAuth2 with a SAML identity provider, you cannot access the RabbitMQ Management UI.
 This is fixed in v1.20.1 and later.
-- For on-demand service instances created in v1.20.0 and v1.20.1, the rabbitmq-server-metrics BOSH job
-does not provide memory and disk metrics. Instead you will see the following error messsage in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
-`"source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}`
-and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
-`[error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}`.
+- **rabbitmq-server-metrics BOSH Job Does Not Provide Memory And Disk Metrics:**
+For on-demand service instances created in v1.20.0 and v1.20.1,
+the rabbitmq-server-metrics BOSH job does not provide memory and disk metrics.
+The following error messsage appears in `/var/vcap/data/sys/log/service-metrics/rabbitmq-server-metrics.log`:
+
+	<pre class="terminal">
+	  "source":"rabbitmq-server-metrics","message":"rabbitmq-server-metrics.metrics-fetching-failed","log_level":2,"data":{"error":"GetNode: Error 500 from RabbitMQ: EOF","provider":"APIProvider"}
+	</pre>
+
+	and the following error message in `/var/vcap/data/sys/log/rabbitmq-server/rabbit@<BOSH DNS name>.log`:
+
+	<pre class="terminal">
+	  [error] <pid> CRASH REPORT Process <pid> with 0 neighbours crashed with reason: {function_clause,[]}
+	</pre>
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
