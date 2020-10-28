@@ -250,9 +250,9 @@ The following KPIs from the RabbitMQ server component:
 </table>
 
 
-### <a id="prometheus"></a> Enable The Prometheus Plugin
+### <a id="prometheus"></a> Enable the Prometheus Plugin
 
-VMware Tanzu RabbitMQ supports enabling the `rabbitmq_prometheus` plugin for on-demand instances.
+<%= vars.product_short %> supports enabling the `rabbitmq_prometheus` plugin for on-demand instances.
 For more information about the plugin and monitoring RabbitMQ using Prometheus and Grafana, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html).
 For a list of plugins that can be enabled for on-demand instances, see
@@ -260,10 +260,10 @@ For a list of plugins that can be enabled for on-demand instances, see
 
 Enabling the plugin causes Prometheus-style metrics to be emitted at
 `<service-instance-id>:15692/metrics`.
-A Prometheus instance needs to be configured in order to pull these metrics from the service
+You must configure a Prometheus instance to pull these metrics from the service
 instances.
-If Prometheus is deployed in the environment, you can use the following scrape configuration in
-the Prometheus config file to discover RabbitMQ instances.
+If Prometheus is deployed in the environment, use the following scrape configuration in
+the Prometheus config file to discover RabbitMQ instances:
 
 ```
 job_name: rabbitmq
@@ -280,7 +280,7 @@ dns_sd_configs:
 The regular expression in the scrape config name ensures that Prometheus discovers all future service
 instances.
 
-The RabbitMQ team has written pre-set Grafana dashboards which can be imported into Grafana.
+The RabbitMQ team has written pre-set Grafana dashboards that you can import into Grafana.
 For more information about these dashboards, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html).
 
