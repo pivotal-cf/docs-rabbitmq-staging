@@ -363,9 +363,8 @@ For a list of plugins that can be enabled for on-demand instances, see
 [RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
 Enabling the plugin causes Prometheus-style metrics to be emitted at
-`<service-instance-id>:15692/metrics`.
-You must configure a Prometheus instance to pull these metrics from the service
-instances.
+`SERVICE-INSTANCE-ID:15692/metrics`.
+To pull these metrics from the service instances, you must configure a Prometheus instance.
 If Prometheus is deployed in the environment, use the following scrape configuration in
 the Prometheus config file to discover RabbitMQ instances:
 
