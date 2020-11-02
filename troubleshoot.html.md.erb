@@ -279,6 +279,10 @@ Alternatively, you can run these scripts on individual nodes:
         instance, or <code>restore-amqp-traffic</code> to start accepting traffic again.</li>
 </ol>
 
+### <a id="service-gateway"></a> Troubleshooting Service Gateway
+
+Service Gateway leverages the Tanzu Application Service TCP Router. When debugging problems with Service Gateway, it can be useful to reference the [Troubleshooting TCP Routing guide](https://docs.pivotal.io/application-service/adminguide/troubleshooting_tcp_routing.html). Each Service Instance and protocol for which Service Gateway is enabled should correspond to a route in the TCP Router.
+
 
 ## <a id="faq"></a> Frequently Asked Questions
 
