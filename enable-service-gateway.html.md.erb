@@ -54,15 +54,15 @@ To configure the load balancer:
 
 1. Use the IaaS console and the CID you noted down earlier to find the VM that runs the TCP router.
 1. Create an external TCP load balancer that points to the VM running the TCP router.
-1. Configure a new external port range that does not overlap with the TCP networking port or port range you
+1. Configure a new distinct external port range that does not overlap with the TCP networking port or port range you
 configured in [Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#tcp-routing) above.
-For example, if your TCP routing port range is `1024-1123` then your load balancer port range must not be
-`1000-1100`.
+For example, if your TCP routing port range is `1024-1123` then your load balancer port range for service gateway must not overlap `1024-1123`.
    <p class="note">
         <strong>Note:</strong> Each <%= vars.product_short %> service instance using service-gateway access requires a unique
         port. Ensure that the port range configured above has enough capacity to accommodate the maximum number
         of service instances desired. The start port and the end port are both inclusive.
    </p>
+   ![Service Gateway port ranges](images/service-gateway-ports.png)
 1. Note down this port range.
 
 
