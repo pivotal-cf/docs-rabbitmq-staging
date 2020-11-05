@@ -55,8 +55,8 @@ To configure the load balancer:
 1. Use the IaaS console and the CID that you recorded earlier to find the VM that runs the TCP router.
 1. Create an external TCP load balancer that points to the VM running the TCP router.
 1. Configure a distinct external port range that does not overlap with the TCP networking port
-   or port range that you configured in [Enable TCP Routing Using the <%= vars.app_runtime_abbr %>
-   Tile](#tcp-routing) above.
+   or port range that you configured in 
+   [Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#tcp-routing) above.
 
     For example, if your TCP routing port range is `1024-1123`,
      then your load balancer port range for service gateway must not overlap `1024-1123`.
@@ -69,8 +69,9 @@ To configure the load balancer:
    ![Diagram showing Service Gateway port ranges: Traffic flows to the apps from the Load Balancer
 using ports in the TAS LB port range through the TCP Router using ports in the TAS TCP port range.
 Traffic flows to the RabbitMQ for VMs service instances from the Load Balancer using ports
-in the Service Gateway LB port range through the TPC Router using ports in the Service Gateway TCP port range.
-](images/service-gateway-ports.png)
+in the Service Gateway LB port range through the TPC Router using ports in the Service Gateway 
+TCP port range.](images/service-gateway-ports.png)
+[Click here to view a larger version of this image.](./images/service-gateway-ports.png)
 1. Record this port range.
 
 
