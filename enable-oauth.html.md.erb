@@ -116,12 +116,18 @@ To create a UAA group for a space:
     </pre>
 
 
-1. (Optional) If the `monitoring` group is used, additional permissions must be granted to allow the user
-    to view resources by running:
+1. If you used the `monitoring` tag, grant additional permissions to allow the user to view resources
+by running:
 
     ```
     uaac group add p-rabbitmq_SPACE-GUID.PERMISSION:VHOST-PATTERN/NAME-PATTERN[/ROUTING-KEY-PATTERN]
     ```
+    Where:
+    * `SPACE-GUID` is the space GUID.
+    * `PERMISSION` is an access permission -- `configure`, `read`, or `write`.
+    * `VHOST-PATTERN` is a wildcard pattern for virtual hosts.
+    * `NAME-PATTERN` is a wildcard pattern for a resource name.
+    * `ROUTING-KEY-PATTERN` is an optional wildcard pattern for a routing key in topic authorization.
 
     For example:
 
