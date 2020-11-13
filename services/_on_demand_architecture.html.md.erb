@@ -37,16 +37,16 @@ Logic is included to append '-vmware' to the filename if rebranded to VMware.
 %>
 <% if vars.product_short.include?("On-Demand Services SDK") or vars.product_short.include?("GemFire") or vars.product_short.include?("Cloud Cache") %>
 
-<img src="<%= vars.path_to_partials %>/images/odb-architecture<%= vars.book_title.include?('VMware') ? '-vmware' : ''  %>.png" alt="Diagram shows a Default Network and
-Services Network. The Default Network shows the Cloud Controller, communicatinng to the On-Demand Broker, which communicates using cf create-service to the BOSH Director, 
+<img src="./images/odb-architecture<%= vars.book_title.include?('VMware') ? '-vmware' : ''  %>.png" alt="Diagram shows a Default Network and
+Services Network. The Default Network shows the Cloud Controller, communicatinng to the On-Demand Broker, which communicates using cf create-service to the BOSH Director,
 which communicates to the On-Demand Instances for CF Space, which has several Worker VMs.">
 
-<a href="<%= vars.path_to_partials %>/images/odb-architecture<%= vars.book_title.include?('VMware') ? '-vmware' : ''  %>.png" target="_blank">View a larger version of this image</a>
+<a href="./images/odb-architecture<%= vars.book_title.include?('VMware') ? '-vmware' : ''  %>.png" target="_blank">View a larger version of this image</a>
 
 <% else %>
 
 <img src="./images/odb-architecture<%= vars.book_title.include?('VMware') ? '-vmware' : ''  %>.png" alt="Diagram shows a Default Network and
-Services Network. The Default Network shows the Cloud Controller, communicatinng to the On-Demand Broker, which communicates using cf create-service to the BOSH Director, 
+Services Network. The Default Network shows the Cloud Controller, communicatinng to the On-Demand Broker, which communicates using cf create-service to the BOSH Director,
 which communicates to the On-Demand Instances for CF Space, which has several Worker VMs.">
 
 <a href="./images/odb-architecture<%= vars.book_title.include?('VMware') ? '-vmware' : ''  %>.png" target="_blank">View a larger version of this image</a>
