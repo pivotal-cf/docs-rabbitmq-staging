@@ -4,9 +4,9 @@ title: RabbitMQ for Pivotal Platform
 owner: London Services
 ---
 
-<%= partial vars.path_to_partials + '/branding-change' %>
+<%= partial '/branding-change' %>
 
-<%= partial vars.path_to_partials + '/pcf-name-change' %>
+<%= partial '/pcf-name-change' %>
 
 ## <a id='AboutTile'></a>About <%= vars.product_full %>
 
@@ -150,7 +150,7 @@ To see release notes for another version, select the version from the dropdown a
 
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
-<%= partial vars.path_to_partials + '/services/on-demand-service-table', :locals => {
+<%= partial '/services/on-demand-service-table', :locals => {
   :service_name => vars.product_full,
   :rabbit => vars.product_full,
   :redis => "Redis for Pivotal Platform",
