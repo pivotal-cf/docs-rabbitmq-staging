@@ -364,7 +364,7 @@ For the list of enabled plugins for on-demand instances, see
 
 Prometheus-style metrics are available at `SERVICE-INSTANCE-ID:15692/metrics`.
 To pull these metrics from the service instances, you must configure a Prometheus instance.
-If Prometheus is deployed in the environment, for example, via the Healthwatch v2 tile,
+If Prometheus is deployed in the environment, for example, with the Healthwatch v2 tile,
 use the following scrape configuration in the Prometheus config file to discover RabbitMQ instances:
 
 ```
@@ -380,13 +380,15 @@ dns_sd_configs:
 ```
 
 The regular expression in the scrape config name ensures that Prometheus discovers all future service
-instances. If Prometheus is deployed via the Healthwatch v2 tile, this config should be added to the
-["additional scrape config" property](https://docs.pivotal.io/healthwatch/2-0/federation.html).
+instances. If Prometheus is deployed with the Healthwatch v2 tile, then add the configuration above
+as an additional property under `scrape_job`.
+For more information, see [Federation](https://docs.pivotal.io/healthwatch/2-0/federation.html)
+in the _Healthwatch_ documentation.
 
 The RabbitMQ team has written pre-set Grafana dashboards that you can import into Grafana.
 For more information about these dashboards, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html). If Grafana is deployed using the
-Healthwatch v2 tile, these dashboards can be loaded by selecting the "Enable RabbitMQ dashboards"
+Healthwatch v2 tile, these dashboards can be loaded by selecting the **Enable RabbitMQ dashboards**
 checkbox in the Healthwatch tile.
 
 
