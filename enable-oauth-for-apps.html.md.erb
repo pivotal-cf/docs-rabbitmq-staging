@@ -3,8 +3,7 @@ title: Enable OAuth for Apps
 owner: RabbitMQ
 ---
 
-This topic explains how to connect apps to RabbitMQ using OAuth 2.0.
-
+This topic explains how to connect apps to RabbitMQ using OAuth2.
 
 ## <a id='overview'></a> Overview
 
@@ -25,31 +24,18 @@ To connect apps to RabbitMQ using OAuth, you must:
 1. [Grant Authorities to the App](#grant-authorities)
 
 
-## <a id='prerequisites'></a> Prerequisites
+To connect apps to RabbitMQ using OAuth2, you must:
 
-Before you enable OAuth for apps, you must:
-
-* Install the Single Sign-On tile.
-For more information,
-[Installing Single Sign-On for VMware Tanzu](https://docs.pivotal.io/p-identity/installation.html).
-* Enable the UAA/System plan for any orgs that will contain apps needing to access RabbitMQ service
-instances. You can do this using the Single Sign-On tile dashboard or by running the following
-cf CLI command:
-    ```
-    cf enable-service-access p-identity -p uaa -o ORG-NAME
-    ```
-    Where `ORG-NAME` is the name of the Cloud Foundry org you want to enable access to.
-* Install the UAA CLI.
-For more information, see
-[Install UAAC](https://docs.pivotal.io/p-identity/configure-internal-us.html#install-uaac).
-
+1. [Create UAA Groups for a Space](#create-uaa-groups)
+1. [Assign an Identity to the App](#assign-identity)
+1. [Grant Authorities to the App](#grant-authorities)
 
 ## <a id='create-uaa-groups'></a> Create UAA Groups for a Space
 
-You must create UAA groups for each space in <%= vars.app_runtime_full %> for VMs that contains,
+You must create UAA groups for each space in VMware Tanzu Application Service for VMs that contains,
 or is expected to contain, on-demand VMware Tanzu RabbitMQ service instances.
-These groups correspond to RabbitMQ resources and can be granted as authorities to clients which
-interact with RabbitMQ.
+These groups correspond to RabbitMQ resources and can be granted as authorities to clients
+which interact with RabbitMQ.
 
 To create a UAA group for a space:
 
@@ -62,7 +48,7 @@ To create a UAA group for a space:
 
 1. Record the space GUID.
 
-1. Retrieve the UAA admin client credentials from <%= vars.ops_manager %> by running:
+1. Retrieve the UAA admin client credentials from Ops Manager.
 
     ```
     om credentials --product-name cf \
