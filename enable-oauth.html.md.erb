@@ -106,9 +106,8 @@ To create a UAA group for a space:
     Where:
     * `SPACE-GUID` is the space GUID.
     * `RABBITMQ-TAG` must be either `monitoring` or `administrator`. The RabbitMQ tag dictates what
-    the user is permitted to do.
-    For more information about the RabbitMQ tags, see the
-    [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions).
+    the user is permitted to do. For more information about RabbitMQ tags, see
+    the [RabbitMQ documentation](https://www.rabbitmq.com/management.html#permissions)
 
     For example:
 
@@ -139,6 +138,7 @@ by running:
     For more information about RabbitMQ permissions, see the
     [OAuth plugin documentation](https://github.com/rabbitmq/rabbitmq-auth-backend-oauth2#scope-to-permission-translation)
     in GitHub.
+
 
 The on-demand broker creates a separate UAA client with scope `p-rabbitmq_SPACE-GUID` for every
 new on-demand service instance.
@@ -187,16 +187,26 @@ for every RabbitMQ UAA group:
     `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring`.
     * `USERNAME` is a UAA group member, such as a Cloud Foundry user.
 
+
 ## <a id='configure-oauth'></a> Configure OAuth in <%= vars.ops_manager %>
 
 To configure OAuth in the <%= vars.product_short %> tile:
 
 1. Go to the **Security for On-Demand Plans** section of the <%= vars.product_short %> tile.
-1. Select the **Enable OAuth** checkbox.
-![Screenshot of the Security for On-Demand Plans section, which includes 'TLS Option' radio buttons,
-a checkbox for enabling OAuth, and a Save button. The 'Not Configured' radio button and the
-'Enable OAuth' checkbox are selected.](/images/enable-oauth.png)
-<a href="./images/enable-oauth.png" target="_blank" aria-hidden="true">Click here to view a larger version of the image above</a>
+1. There are three different **OAuth Options**: **Not Configured**, **Optional**, and **Enforced**:
+    * **Not Configured** does not use OAuth.<br><br>
+    * **Optional** enforces OAuth for developers accessing the RabbitMQ Management UI. Apps accessing
+    RabbitMQ can use either basic authentication or OAuth.<br><br>
+    * **Enforced** enforces OAuth for both developers and apps to access RabbitMQ. No user is created
+    or returned as part of a service binding or service key creation. To ensure RabbitMQ does not
+    store any user credentials, delete all service bindings and service keys, and then run the
+    **Upgrade All Service Instances** errand after upgrading to `1.21.x` and before enforcing OAuth.
+
+    ![Screenshot of the Security for On-Demand Plans section. This shows the **TLS Options** group
+    of radio buttons, the **OAuth Options** group of radio buttons, and a Save button.
+    The example shows the **Not Configured** radio button selected for TLS and the **Optional**
+    radio button selected for OAuth.](/images/configure-oauth.png)
+    <a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">Click here to view a larger version of the image above</a>
 
 1. Click **Save**.
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard** &gt; **Review Pending Changes**.

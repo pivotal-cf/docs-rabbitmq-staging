@@ -26,10 +26,8 @@ see the Production Checklist in the
 
 ## <a id="rbac"></a>Role-Based Access in <%= vars.ops_manager %>
 
-<%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which
-operators can make deployment changes, view credentials, and manage user roles in
-<%= vars.ops_manager %>.
-
+<%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which operators
+can make deployment changes, view credentials, and manage user roles in <%= vars.ops_manager %>.
 Therefore, your role permissions might not permit you to follow every procedure in this operator
 guide.
 
@@ -147,8 +145,8 @@ Follow the steps below to configure the AZs and networks:
           separate from the network that <%= vars.app_runtime_abbr %> and the on-demand broker run on.
           For information about the Service Network, see
           <a href="./about.html#on-demand">Default Network and Service Network</a>.<br><br>
-          This field is also required for the pre-provisioned service, though in that case, it does not
-          matter which network you select.
+          This field is also required for the pre-provisioned service, though in that case, it does
+          not matter which network you select.
         </td>
       </tr>
     </table>
@@ -358,11 +356,12 @@ To configure the security settings:
   </li>
   <li>
     Click the <strong>Security for On-Demand Plans</strong> tab.
-    <%= image_tag("/images/enable-oauth.png", :alt => "Screenshot of the Security for On-Demand
-    Plans section. This shows the **TLS Options** group of radio buttons, the **Enable OAuth** checkbox, and a Save button.
-    The example shows the **Not Configured** radio button selected for TLS and the **Enable OAuth**
-    checkbox selected.") %>
-    <a href="./images/enable-oauth.png" target="_blank" aria-hidden="true">
+    <%= image_tag("/images/configure-oauth.png", :alt => "Screenshot of the Security for On-Demand
+    Plans section. This shows the **TLS Options** group of radio buttons, the **OAuth Options** group
+    of radio buttons, and a Save button.
+    The example shows the **Not Configured** radio button selected for TLS and the **Optional** radio
+    button selected for OAuth.") %>
+    <a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">
     Click here to view a larger version of the image above</a>
   </li>
   <li>
@@ -385,7 +384,7 @@ To configure the security settings:
   service instances continue to use TLS. However, new instances are not configured with TLS.
 </p>
 
-  <li>For information about configuring OAuth and the <strong>Enable OAuth</strong> checkbox, see
+  <li>For information about configuring the <strong>OAuth options</strong>, see
     <a href="./enable-oauth.html#configure-oauth">Configure OAuth in <%= vars.ops_manager %></a>.
   </li>
 
@@ -461,7 +460,7 @@ plan.
           If you enable Plan 1, the default setting for Plans 2 - 5 is
           <strong>Enable Service Access</strong>.
           If you change this default setting, the smoke tests fail.
-          Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
+          Therefore, if you enable Plan 1 and want to change this default, before doing so, set the <strong>On-Demand Instance Smoke Tests</strong> errand to <strong>Off</strong>.
           For more information, see <a href="#errands">Errands</a> below.<br>
         <br><ul>
           <li><strong>Enable Service Access</strong>---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
@@ -515,7 +514,7 @@ plan.
       </tr>
       <tr><td><strong>AZ Placement</strong></td>
         <td>This field is available after you complete the Assign AZs and Networks page.
-          For more information, see <a href="#azs-networks">Assign AZs and Networks</a>.
+          For more information, see <a href="#azs-networks">Assign AZs and Networks</a> above.
           <ul>
             <li>For a single-node plan, select one or more AZs.</li>
             <li>For a plan containing multiple nodes, select only one AZ.
@@ -527,7 +526,7 @@ plan.
               If you change this selection after deployment, existing instances are not affected by
               the change.
               For more information, see
-              <a href="#determineaz">Determine which AZs a Service Instance Uses</a>.
+              <a href="#determineaz">Determine Which AZs a Service Instance Uses</a> below.
             </li>
           </ul>
         </td>
@@ -543,9 +542,9 @@ plan.
 3. Click **Save**.
 
 
-#### <a id="determineaz"></a> Determine which AZs a Service Instance Uses
+#### <a id="determineaz"></a> Determine Which AZs a Service Instance Uses
 
-<p class='note warning'>
+<p class="note warning">
   <strong>Warning:</strong> If you change this configuration after you have selected AZs and deployed
   service instances, existing instances are not placed in the newly configured AZs when the
   Upgrade All Service Instances or Recreate All Service Instances errands are run.
@@ -556,9 +555,9 @@ plan.
 <br>To learn which AZs a service instance is placed in, do one of the following:
 
 <ul>
-  <li>Retrieve the service GUID using the <code>cf service SERVICE-INSTANCE --guid</code> command
-       and then run the BOSH <code>instances</code> command for the
-       <code>service-instance_GUID</code> deployment.
+  <li>Retrieve the service GUID using the <code>cf service SERVICE-INSTANCE-NAME --guid</code>
+    command and then run the BOSH <code>instances</code> command for the
+    <code>service-instance_GUID</code> deployment.
   </li>
   <li>With syslog forwarding enabled, inspect the service broker logs when running the
     <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the
@@ -584,7 +583,7 @@ selected **RabbitMQ VM Type**.
 
 * You can change the RabbitMQ VM type and the size of the persistent disk that is attached to the
 <%= vars.product_short %> service instances.
-For example, if you are running out of disk space you might want to increase the persistent disk size
+For example, if you are running out of disk space you can increase the persistent disk size
 by changing the **Persistent disk type** field.
 If you make changes, ensure that the persistent disk size is still twice the size of the RAM of the
 RabbitMQ VM type.
@@ -774,12 +773,12 @@ To create an admin user on a <%= vars.product_short %> service instance:
 1. Run this command to create a service key:
 
     ```
-    cf create-service-key SERVICE-INSTANCE SERVICE-KEY -c '{"tags": "administrator"}'
+    cf create-service-key SERVICE-INSTANCE-NAME SERVICE-KEY -c '{"tags": "administrator"}'
     ```
 
     <br>Where:
-    * `SERVICE-INSTANCE` is the name you supplied when you ran `cf create-service`
-    * `SERVICE-KEY` is a name you choose to identify the service key
+    * `SERVICE-INSTANCE-NAME` is the name you supplied when you ran `cf create-service`.
+    * `SERVICE-KEY` is a name you choose to identify the service key.
 
     <br>For example:
 
@@ -792,7 +791,7 @@ To create an admin user on a <%= vars.product_short %> service instance:
 1. Run this command to get the admin user credentials:
 
     ```
-    cf service-key SERVICE-INSTANCE SERVICE-KEY
+    cf service-key SERVICE-INSTANCE-NAME SERVICE-KEY
     ```
     Where the variables are the same as above.
 
