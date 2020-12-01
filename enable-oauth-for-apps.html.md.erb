@@ -3,7 +3,7 @@ title: Enable OAuth for Applications
 owner: RabbitMQ
 ---
 
-This topic explains how to Connect Apps to RabbitMQ using OAuth2.
+This topic explains how to connect apps to RabbitMQ using OAuth2.
 
 ## <a id='overview'></a> Overview
 Apps authenticate with RabbitMQ using the OAuth2 client flow as follows:
@@ -14,13 +14,17 @@ Apps authenticate with RabbitMQ using the OAuth2 client flow as follows:
 For an example Spring app that uses the OAuth2 client flow, see https://github.com/vmware-samples/rabbitmq-oauth-example-app
 
 To connect apps to RabbitMQ using OAuth2, you must:
-1. Create UAA Groups for a Space
-1. Assign an Identity to the Application
-1. Grant Authorities to the Application
+
+1. [Create UAA Groups for a Space](#create-uaa-groups)
+1. [Assign an Identity to the App](#assign-identity)
+1. [Grant Authorities to the App](#grant-authorities)
 
 ## <a id='create-uaa-groups'></a> Create UAA Groups for a Space
 
-You must create UAA groups for each space in VMware Tanzu Application Service for VMs that contains, or is expected to contain, on-demand VMware Tanzu RabbitMQ service instances. These groups correspond to RabbitMQ resources, and can be granted as authorities to clients which interact with RabbitMQ.
+You must create UAA groups for each space in VMware Tanzu Application Service for VMs that contains,
+or is expected to contain, on-demand VMware Tanzu RabbitMQ service instances.
+These groups correspond to RabbitMQ resources and can be granted as authorities to clients
+which interact with RabbitMQ.
 
 To create a UAA group for a space:
 
@@ -30,8 +34,10 @@ To create a UAA group for a space:
     cf space SPACE-NAME --guid
     ```
     Where `SPACE-NAME` is the name of the space.
-1. Record the space GUID
-1. Retrieve the UAA admin client credentials from Ops Manager
+
+1. Record the space GUID.
+
+1. Retrieve the UAA admin client credentials from Ops Manager.
 
     ```
     om credentials --product-name cf \
