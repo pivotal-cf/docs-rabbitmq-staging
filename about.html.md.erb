@@ -12,7 +12,8 @@ owner: London Services
 
 This topic describes the architecture for on-demand <%= vars.product_full %>.
 
-For information about architecture of the older, pre-provisioned service, see [Deploying the <%= vars.product_short %> Service](./deploying.html).
+For information about architecture of the older, pre-provisioned service, see
+[Deploying the <%= vars.product_short %> Service](./deploying.html).
 
 <h2> <a id="service-network"></a>Service Network Requirement </h2>
 
@@ -33,121 +34,122 @@ For information about architecture of the older, pre-provisioned service, see [D
 <%# The below partial is in https://github.com/pivotal-cf/docs-partials %>
 
 <%= partial vars.path_to_partials + '/services/service_networks_table', :locals => {
-	:app_runtime_full => vars.app_runtime_full,
-	:product_short => "RabbitMQ"} %>
+  :app_runtime_full => vars.app_runtime_full,
+  :product_short => "RabbitMQ"} %>
 
 <br>
-Regardless of the specific network layout, the operator must ensure network
-rules are set up so that connections are open as described in the table below.
+Regardless of the specific network layout, the operator must ensure network rules are set up so that
+connections are open as described in the table below.
 
 <table class="nice">
-	<th>Source Component</th>
-	<th>Destination Component</th>
-	<th>Default TCP Port</th>
-	<th>Notes</th>
-	<tr>
-		<td><strong>ODB</strong></td>
-		<td>
-		    <strong>BOSH Director</strong><br><br>
-		    <strong>BOSH UAA</strong>
-		</td>
-		<td>
-				25555 (BOSH Director)<br><br>
-				8443 (UAA)<br><br>
-				8844 (CredHub)<br><br>
-		</td>
-		<td>The default ports are not configurable.</td>
-	</tr>
-	<tr>
-		<td><strong>ODB</strong></td>
-		<td><strong>Deployed service instances</strong>
-		</td>
-		<td>
-		  15672 (RabbitMQ Management UI)<br><br>
-		  15671 (RabbitMQ Management UI over TLS)<br><br>
-		</td>
-		<td>This connection is for administrative tasks.<br><br>
-			Avoid opening general use, app-specific ports for this connection.</td>
-	</tr>
-
-	<tr>
-		<td><strong>ODB</strong></td>
-		<td><strong><%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)</strong>
-		</td>
-		<td>8443 (UAA)</td>
-		<td>The default port is not configurable.</td>
-	</tr>
-	<tr>
-		<td><strong>Errand VMs</strong></td>
-		<td>
-				<strong><%= vars.app_runtime_abbr %></strong><br><br>
-				<strong>ODB</strong><br><br>
-				<strong>Deployed Service Instances</strong><br><br>
-		</td>
-		<td>
-				8443 (UAA)<br><br>
-				8080<br><br>
-				15672 (RabbitMQ Management UI)<br><br>
-				15671 (RabbitMQ Management UI over TLS)<br><br>
-				5672 (AMQP)<br><br>
-				5671 (AMQPS)<br><br>
-		</td>
-		<td>The default port is not configurable.</td>
-	</tr>
-	<tr>
-		<td><strong>BOSH Agent</strong></td>
-		<td><strong>BOSH Director</strong>
-		</td>
-		<td>4222</td>
-		<td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.<br><br>
-			The BOSH Agent initiates the connection with the BOSH Director.<br><br>
-			The default port is not configurable.<br><br>
-			The communication between these components is two-way.</td>
-	</tr>
-	<tr>
-		<td><strong>Deployed apps on <%= vars.app_runtime_abbr %></strong></td>
-		<td><strong>Deployed service instances</strong>
-		</td>
-		<td>
-				15672 (RabbitMQ Management UI)<br><br>
-				15671 (RabbitMQ Management UI over TLS)<br><br>
-				5672 (AMQP)<br><br>
-				5671 (AMQPS)<br><br>
-				61613 (STOMP)<br><br>
-				61614 (STOMPS)<br><br>
-				1883 (MQTT)<br><br>
-				8883 (MQTTS)<br><br>
-		</td>
-		<td>This connection is for general use, app-specific tasks.<br><br>
-			Avoid opening administrative ports for this connection.</td>
-	</tr>
-	<tr>
-		<td><strong><%= vars.app_runtime_abbr %></strong></td>
-		<td><strong>ODB</strong>
-		</td>
-		<td>8080</td>
-		<td>This port may be different for individual services.<br><br>
-			This port may also be configurable by the operator if allowed by the
-			tile developer.</td>
-	</tr>
-		<tr>
-		<td><strong>Deployed apps on <%= vars.app_runtime_abbr %></strong></td>
-		<td><strong>Runtime CredHub</strong>
-		</td>
-		<td>8844 (CredHub)</td>
-		<td>This port is needed if secure service instance credentials are enabled.
-		</td>
-	</tr>
-	</tr>
+  <th>Source Component</th>
+  <th>Destination Component</th>
+  <th>Default TCP Port</th>
+  <th>Notes</th>
   <tr>
-		<td><strong><%= vars.app_runtime_abbr %></strong></td>
-		<td><strong>Deployed service instances</strong>
-		</td>
-		<td>
-		  15692 (RabbitMQ Prometheus plugin)<br><br>
-		</td>
+    <td><strong>ODB</strong></td>
+    <td>
+        <strong>BOSH Director</strong><br><br>
+        <strong>BOSH UAA</strong>
+    </td>
+    <td>
+        25555 (BOSH Director)<br><br>
+        8443 (UAA)<br><br>
+        8844 (CredHub)<br><br>
+    </td>
+    <td>The default ports are not configurable.</td>
+  </tr>
+  <tr>
+    <td><strong>ODB</strong></td>
+    <td><strong>Deployed service instances</strong>
+    </td>
+    <td>
+      15672 (RabbitMQ Management UI)<br><br>
+      15671 (RabbitMQ Management UI over TLS)<br><br>
+    </td>
+    <td>This connection is for administrative tasks.<br><br>
+      Avoid opening general use, app-specific ports for this connection.</td>
+  </tr>
+
+  <tr>
+    <td><strong>ODB</strong></td>
+    <td><strong><%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)</strong>
+    </td>
+    <td>8443 (UAA)</td>
+    <td>The default port is not configurable.</td>
+  </tr>
+  <tr>
+    <td><strong>Errand VMs</strong></td>
+    <td>
+        <strong><%= vars.app_runtime_abbr %></strong><br><br>
+        <strong>ODB</strong><br><br>
+        <strong>Deployed Service Instances</strong><br><br>
+    </td>
+    <td>
+        8443 (UAA)<br><br>
+        8080<br><br>
+        15672 (RabbitMQ Management UI)<br><br>
+        15671 (RabbitMQ Management UI over TLS)<br><br>
+        5672 (AMQP)<br><br>
+        5671 (AMQPS)<br><br>
+    </td>
+    <td>The default port is not configurable.</td>
+  </tr>
+  <tr>
+    <td><strong>BOSH Agent</strong></td>
+    <td><strong>BOSH Director</strong>
+    </td>
+    <td>4222</td>
+    <td>The BOSH Agent runs on every VM in the system, including the BOSH Director VM.<br><br>
+      The BOSH Agent initiates the connection with the BOSH Director.<br><br>
+      The default port is not configurable.<br><br>
+      The communication between these components is two-way.</td>
+  </tr>
+  <tr>
+    <td><strong>Deployed apps on <%= vars.app_runtime_abbr %></strong></td>
+    <td><strong>Deployed service instances</strong>
+    </td>
+    <td>
+        15672 (RabbitMQ Management UI)<br><br>
+        15671 (RabbitMQ Management UI over TLS)<br><br>
+        5672 (AMQP)<br><br>
+        5671 (AMQPS)<br><br>
+        61613 (STOMP)<br><br>
+        61614 (STOMPS)<br><br>
+        15674 (Web STOMP)<br><br>
+        15673 (Web STOMPS)<br><br>
+        1883 (MQTT)<br><br>
+        8883 (MQTTS)<br><br>
+    </td>
+    <td>This connection is for general use, app-specific tasks.<br><br>
+      Avoid opening administrative ports for this connection.</td>
+  </tr>
+  <tr>
+    <td><strong><%= vars.app_runtime_abbr %></strong></td>
+    <td><strong>ODB</strong>
+    </td>
+    <td>8080</td>
+    <td>This port might be different for individual services.<br><br>
+      This port might also be configurable by the operator if allowed by the
+      tile developer.</td>
+  </tr>
+    <tr>
+    <td><strong>Deployed apps on <%= vars.app_runtime_abbr %></strong></td>
+    <td><strong>Runtime CredHub</strong>
+    </td>
+    <td>8844 (CredHub)</td>
+    <td>This port is needed if secure binding credentials are enabled.
+    </td>
+  </tr>
+  <tr>
+    <td><strong><%= vars.app_runtime_abbr %></strong></td>
+    <td><strong>Deployed service instances</strong>
+    </td>
+    <td>
+      15692 (RabbitMQ Prometheus plugin)<br><br>
+    </td>
     <td>This connection is enables Prometheus to collect metrics from RabbitMQ nodes. <br><br>
     For more information, see the
     <a href="https://www.rabbitmq.com/prometheus.html">RabbitMQ documentation</a>.</td>
-	</tr>
+  </tr>
 </table>

@@ -13,9 +13,9 @@ For related procedures, see:
 * [Create a Service Instance with Service-Gateway Access](./create-service-gateway-instance.html)
 
 <p class="note">
-  <strong>Note:</strong> Service-Gateway access is no longer in the beta stage. It works with Advanced Message
-  Queuing Protocol (AMQP), MQ Telemetry Transport (MQTT), Simple (or Streaming) Text Orientated Messaging
-  Protocol (STOMP), and AMQP 1.0.
+  <strong>Note:</strong> Service-gateway access is no longer in the beta stage. It works with
+  Advanced Message Queuing Protocol (AMQP), MQ Telemetry Transport (MQTT), Simple (or Streaming) Text
+  Orientated Messaging Protocol (STOMP), STOMP over a WebSocket connection (Web STOMP), and AMQP 1.0.
 </p>
 
 
@@ -31,16 +31,19 @@ for example, to set up federation for disaster recovery
 with <%= vars.app_runtime_abbr %>-deployed apps
 - Using RabbitMQ as a service for apps that are not deployed to <%= vars.app_runtime_abbr %>
 
+
 ## <a id='architecture'></a> Architecture
 
-Service-gateway access to <%= vars.product_short %> instances leverages the TCP router in <%= vars.app_runtime_abbr %>.
+Service-gateway access to <%= vars.product_short %> instances leverages the TCP router in
+<%= vars.app_runtime_abbr %>.
 
-Any RabbitMQ requests that an app makes are forwarded through DNS to a load balancer that can route traffic from
-outside to inside the foundation.
+Any RabbitMQ requests that an app makes are forwarded through DNS to a load balancer that can route
+traffic from outside to inside the foundation.
 This load balancer opens a range of ports that are reserved for RabbitMQ traffic.
-When an app developer creates a service instance on a plan with service-gateway access enabled, a port from
-the range is provisioned for that service instance.
-The load balancer then forwards the requests for this <%= vars.product_short %> service instance to the TCP router.
+When an app developer creates a service instance on a plan with service-gateway access enabled, a
+port from the range is provisioned for that service instance.
+The load balancer then forwards the requests for this <%= vars.product_short %> service instance to
+the TCP router.
 The TCP router internally load balances between the <%= vars.product_short %> service instance nodes.
 
 The diagram below shows how the traffic is routed from apps to the RabbitMQ nodes in this case.

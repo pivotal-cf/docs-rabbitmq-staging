@@ -26,10 +26,10 @@ access token obtained from User Account and Authentication (UAA).
   Doing so renders RabbitMQ Management UI inaccessible.
 </p>
 
-To enable OAuth for an on-demand offering:
+To configure OAuth for an on-demand offering:
 
 1. [Configure UAA Groups for RabbitMQ](#configure-uaa-groups)
-1. [Enable OAuth in <%= vars.ops_manager %>](#enable-oauth)
+1. [Configure OAuth in <%= vars.ops_manager %>](#configure-oauth)
 
 
 ## <a id='configure-uaa-groups'></a> Configure UAA Groups for RabbitMQ
@@ -145,7 +145,6 @@ new on-demand service instance.
 When an access token is created, UAA intersects the user groups with the client scopes.
 The intersection of these two fields are scopes that can be populated in the access token.
 
-
 ### <a id='configure-users'></a> Configure Users for the RabbitMQ UAA Groups
 
 You can either map external identity provider groups to the RabbitMQ UAA groups or add UAA members
@@ -188,10 +187,9 @@ for every RabbitMQ UAA group:
     `p-rabbitmq_64bd9d4d-d2c8-4207-bb76-91a245e67d9d.tag:monitoring`.
     * `USERNAME` is a UAA group member, such as a Cloud Foundry user.
 
+## <a id='configure-oauth'></a> Configure OAuth in <%= vars.ops_manager %>
 
-## <a id='enable-oauth'></a> Enable OAuth in <%= vars.ops_manager %>
-
-To enable OAuth in <%= vars.product_short%> tile:
+To configure OAuth in the <%= vars.product_short %> tile:
 
 1. Go to the **Security for On-Demand Plans** section of the <%= vars.product_short %> tile.
 1. Select the **Enable OAuth** checkbox.
@@ -199,6 +197,7 @@ To enable OAuth in <%= vars.product_short%> tile:
 a checkbox for enabling OAuth, and a Save button. The 'Not Configured' radio button and the
 'Enable OAuth' checkbox are selected.](/images/enable-oauth.png)
 <a href="./images/enable-oauth.png" target="_blank" aria-hidden="true">Click here to view a larger version of the image above</a>
+
 1. Click **Save**.
 1. Go back to **<%= vars.ops_manager %> Installation Dashboard** &gt; **Review Pending Changes**.
 1. Click **Apply Changes** to apply the changes to the <%= vars.product_short %> tile.

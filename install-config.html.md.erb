@@ -29,6 +29,7 @@ see the Production Checklist in the
 <%= vars.ops_manager %> admins can use Role-Based Access Control (RBAC) to manage which
 operators can make deployment changes, view credentials, and manage user roles in
 <%= vars.ops_manager %>.
+
 Therefore, your role permissions might not permit you to follow every procedure in this operator
 guide.
 
@@ -232,7 +233,7 @@ Follow the steps below to configure global settings:
         </td>
         <td>
           Select this checkbox to set the cluster name to its service instance GUID instead of the
-          default name `rabbit@localhost`.
+          default name <code>rabbit@localhost</code>.
           This enables you to filter metrics by cluster name.
         </td>
       </tr>
@@ -454,10 +455,11 @@ plan.
     <table>
       <tr><th>Field</th><th>Instructions</th></tr>
       <tr><td><strong>Enable This Plan</strong></td>
-          <td>For Plans 2 - 5, enable the plan by selecting **Plan Enable**.</td></tr>
+          <td>For Plans 2 - 5, enable the plan by selecting <strong>Plan Enable</strong>.</td></tr>
       <tr><td><strong>CF Service Access</strong></td>
       <td>Enable or disable access to this plan, or leave access unchanged.<br><br>
-          If you enable Plan 1, the default setting for Plans 2 - 5 is **Enable Service Access**.
+          If you enable Plan 1, the default setting for Plans 2 - 5 is
+          <strong>Enable Service Access</strong>.
           If you change this default setting, the smoke tests fail.
           Therefore, if you enable Plan 1 and want to change this default, before doing so, set the **On-Demand Instance Smoke Tests** errand to **Off**.
           For more information, see <a href="#errands">Errands</a> below.<br>
@@ -502,10 +504,10 @@ plan.
       <tr><td><strong>Plan Features</strong></td>
           <td>Accept the default or enter a description. This description appears in Apps Manager.</td></tr>
       <tr><td><strong>Plan Quota</strong></td>
-          <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see [Setting Limits for On-Demand Service Instances](./set-quotas.html).</td></tr>
+          <td>Enter the maximum number of on-demand service instances that can be available at one time. For more information, see <a href="./set-quotas.html">Setting Limits for On-Demand Service Instances</a>.</td></tr>
       <tr><td><strong>Number of Nodes</strong></td>
           <td>Enter 1, 3, 5 or 7. This setting only affects new service instances.
-              Previously deployed service instances are **not** updated.</td></tr>
+              Previously deployed service instances are <strong>not</strong> updated.</td></tr>
       <tr><td><strong>Network Partition Behaviour</strong></td>
           <td>Select <code>pause_minority</code> or <code>autoheal</code>.
             VMware recommends using pause minority.
@@ -638,7 +640,7 @@ For information about all preconfigured settings, see
 ### <a id="stemcell"></a> Verify the Stemcell
 
 To verify that you have the correct stemcell, follow the procedure in
-[Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html).
+[Importing and Managing Stemcells](https://docs.pivotal.io/ops-manager/opsguide/managing-stemcells.html).
 
 
 ### <a id="apply-changes"></a> Apply Changes from Your Configuration
@@ -685,7 +687,8 @@ All the checkboxes are enabled except for 'Recreate All Service Instances'](./im
 You can change these defaults by clicking **Errands** in the <%= vars.product_short %>
 **Settings** tab as well as the defaults for [pre-delete](#pre-delete-errands) errands.
 
-For more information, see [Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
+For more information, see
+[Errand Run Rules](https://docs.pivotal.io/pivotalcf/customizing/managing_errands.html#rules).
 
 <%= vars.product_short %> errands are co-located with their brokers to decrease errand run time and
 VM footprint.
@@ -813,6 +816,7 @@ To create an admin user on a <%= vars.product_short %> service instance:
 See the sections below for which plugins are supported, and whether they are
 enabled or disabled by default.
 
+
 ### <a id="enabled-plugins"></a> Enabled RabbitMQ Server Plugins
 
 The following plugins are enabled by default, you cannot disable them:
@@ -846,6 +850,7 @@ The following plugins are disabled by default:
 * `rabbitmq_event_exchange`: For more information, see the [Event Exchange Plugin](https://www.rabbitmq.com/event-exchange.html) in the RabbitMQ documentation.
 * `rabbitmq_mqtt`: For more information, see the [MQTT Plugin](https://www.rabbitmq.com/mqtt.html) in the RabbitMQ documentation.
 * `rabbitmq_stomp`: For more information, see [STOMP Plugin](https://www.rabbitmq.com/stomp.html) in the RabbitMQ documentation.
+* `rabbitmq_web_stomp`: For more information, see [Web STOMP Plugin](https://www.rabbitmq.com/web-stomp.html) in the RabbitMQ documentation.
 * `rabbitmq_amqp1_0`: For more information, see [AMQP 1.0 Plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0/blob/v3.8.0/README.md) in GitHub.
 
 To enable disabled plugins:

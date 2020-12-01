@@ -12,9 +12,10 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 | Branch Name| Use for… |
 |------------| ---------|
-| master     | v1.20 (staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html) |
+| master     | v1.21 (staged here: http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-n/index.html) |
+| 1.20       | v1.20 (http://docs.pivotal.io/rabbitmq-cf/1-20/) |
 | 1.19       | v1.19 (http://docs.pivotal.io/rabbitmq-cf/1-19/) |
-| 1.18       | v1.18 (http://docs.pivotal.io/rabbitmq-cf/1-18/) |
+| 1.18       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-18/) |
 | 1.17       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-17/) |
 | 1.16       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-16/) |
 | 1.15-live  | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-15/) |
