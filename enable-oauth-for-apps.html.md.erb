@@ -1,30 +1,55 @@
 ---
-title: Enable OAuth for Applications
+title: Enable OAuth for Apps
 owner: RabbitMQ
 ---
 
-This topic explains how to connect apps to RabbitMQ using OAuth2.
+This topic explains how to connect apps to RabbitMQ using OAuth 2.0.
+
 
 ## <a id='overview'></a> Overview
-Apps authenticate with RabbitMQ using the OAuth2 client flow as follows:
 
-1. The app queries UAA for a JWT token with relevant scopes, using the client credentials granted through binding with the Single Sign-On instance. 
-1. The app then uses this JWT token, in place of a password, to authenticate with the RabbitMQ service instance.
+Apps authenticate with RabbitMQ using the OAuth client flow as follows:
 
-For an example Spring app that uses the OAuth2 client flow, see https://github.com/vmware-samples/rabbitmq-oauth-example-app
+1. The app queries UAA for a JWT token with relevant scopes, using the client credentials granted
+through binding with the Single Sign-On instance.
+1. The app then uses this JWT token, in place of a password, to authenticate with the RabbitMQ
+service instance.
 
-To connect apps to RabbitMQ using OAuth2, you must:
+For an example of a Spring app that uses the OAuth client flow, see
+[rabbitmq-oauth-example-app](https://github.com/vmware-samples/rabbitmq-oauth-example-app) in GitHub.
+
+To connect apps to RabbitMQ using OAuth, you must:
 
 1. [Create UAA Groups for a Space](#create-uaa-groups)
 1. [Assign an Identity to the App](#assign-identity)
 1. [Grant Authorities to the App](#grant-authorities)
 
+
+## <a id='prerequisites'></a> Prerequisites
+
+Before you enable OAuth for apps, you must:
+
+* Install the Single Sign-On tile.
+For more information,
+[Installing Single Sign-On for VMware Tanzu](https://docs.pivotal.io/p-identity/installation.html).
+* Enable the UAA/System plan for any orgs that will contain apps needing to access RabbitMQ service
+instances. You can do this using the Single Sign-On tile dashboard or by running the following
+cf CLI command:
+    ```
+    cf enable-service-access p-identity -p uaa -o ORG-NAME
+    ```
+    Where `ORG-NAME` is the name of the Cloud Foundry org you want to enable access to.
+* Install the UAA CLI.
+For more information, see
+[Install UAAC](https://docs.pivotal.io/p-identity/configure-internal-us.html#install-uaac).
+
+
 ## <a id='create-uaa-groups'></a> Create UAA Groups for a Space
 
-You must create UAA groups for each space in VMware Tanzu Application Service for VMs that contains,
+You must create UAA groups for each space in <%= vars.app_runtime_full %> for VMs that contains,
 or is expected to contain, on-demand VMware Tanzu RabbitMQ service instances.
-These groups correspond to RabbitMQ resources and can be granted as authorities to clients
-which interact with RabbitMQ.
+These groups correspond to RabbitMQ resources and can be granted as authorities to clients which
+interact with RabbitMQ.
 
 To create a UAA group for a space:
 
@@ -37,61 +62,71 @@ To create a UAA group for a space:
 
 1. Record the space GUID.
 
-1. Retrieve the UAA admin client credentials from Ops Manager.
+1. Retrieve the UAA admin client credentials from <%= vars.ops_manager %> by running:
 
     ```
     om credentials --product-name cf \
       --credential-reference .uaa.admin_client_credentials
     ```
 
-1. Authenticate with UAA
+1. Authenticate with UAA by running:
+
     ```
     uaac target https://uaa.SYSTEM-DOMAIN
     uaac token client get CLIENT -s SECRET
     ```
     Where:
-    * `SYSTEM-DOMAIN` is the system domain for your TAS foundation 
-    * `CLIENT` and `SECRET` are the credentials for the uaa admin client. 
-    
+    * `SYSTEM-DOMAIN` is the system domain for your <%= vars.app_runtime_abbr %> foundation
+    * `CLIENT` and `SECRET` are the credentials for the UAA admin client.
+
 1. Create UAA groups using the space GUID and RabbitMQ resources by running:
 
     ```
     uaac group add p-rabbitmq_SPACE-GUID.SCOPE:VHOST/NAME[/ROUTING-KEY]
     ```
     Where:
-    * `SPACE-GUIDz was recorded in step 2 above 
-    * `SCOPE` is an access permission, one of configure, read, or write
-    * `VHOST` is a wildcard pattern for the vhosts you want to grant the client access to 
-    * `NAME` is a wildcard pattern for the queues and exchanges that you want to grant the client access to 
-    * (Optional) `ROUTING-KEY` is a pattern for routing keys in topics
-    Wildcard patterns match as following:
+    * `SPACE-GUID` was recorded above.
+    * `SCOPE` is an access permission, such as configure, read, or write.
+    * `VHOST` is a wildcard pattern for the vhosts that you want to grant the client access to
+    * `NAME` is a wildcard pattern for the queues and exchanges that you want to grant the client access to
+    * (Optional) `ROUTING-KEY` is a pattern for routing keys in topics.
+    Wildcard patterns match as follows:
       `*` matches any string
       `foo*` matches any string starting with foo
       `*foo` matches any string ending with foo
       `foo*bar` matches any string starting with foo and ending with bar
-      There can be multiple wildcards in a pattern
-    For example:
-      p-rabbitmq_SPACE-GUID.read:*/*
-      p-rabbitmq_SPACE-GUID.write:*/*
-      p-rabbitmq_SPACE-GUID.configure:*/*
+      You can include multiple wildcards in a pattern. For example:
+      `p-rabbitmq_SPACE-GUID.read:*/*`
+      `p-rabbitmq_SPACE-GUID.write:*/*`
+      `p-rabbitmq_SPACE-GUID.configure:*/*`
 
-## <a id='assign-identity'></a> Assign an Identity to the Application
-You must associate any applications needing to interact with a RabbitMQ instance with a UAA client.  You must grant this client appropriate authorities corresponding to the RabbitMQ resources it will interact with. 
+
+## <a id='assign-identity'></a> Assign an Identity to the App
+
+<p class='note'>
+  <strong>Note:</strong> In most cases, app developers follow this procedure.
+</p>
+
+Before an app can interact with a RabbitMQ instance, you must associate the app with a UAA client.
+You must grant this client authorities that correspond to the RabbitMQ resources it will interact
+with.
 
 To assign an identity to an application using the Single Sign-On tile:
 
-1. Install the VMware Tanzu Single Sign-On tile
-1. Enable the UAA/System plan for any orgs which contain applications needing to access RabbitMQ service instances. You can do this using the Single Sign-On tile dashboard or by running the following CF CLI command:
-    ```
-    cf enable-service-access p-identity -p uaa -o ORG-NAME
-    ```
-    where `ORG-NAME` is the name of the cf org you want to enable access to.
-1. In each space containing an application needing to be bound to a RabbitMQ instance, create a Single Sign-On service instance with the following CF CLI command:
+1. In each space containing an app that needs to be bound to a RabbitMQ instance, create a
+Single Sign-On service instance by running the following cf CLI command:
+
     ```
     cf create-service p-identity uaa INSTANCE-NAME
     ```
-    where `INSTANCE-NAME` is a name of your choosing.
-1. Create a binding parameters JSON file named binding.json. SSO uses this file to  configure the OAuth client when binding the application to the SSO service instance. This should include any RabbitMQ scopes which should be granted to the app, corresponding to the UAA groups created above. For example, an app requiring read, write, and configure access to a RabbitMQ instance would have the following binding json:
+    Where `INSTANCE-NAME` is a name of your choice.
+
+1. Create a JSON file named `binding.json` that contains the binding parameters.
+SSO uses this file to configure the OAuth client when binding the app to the SSO service instance.
+Include the RabbitMQ scopes that must be granted to the app, corresponding to the UAA groups created
+above. For example, an app requiring read, write, and configure access to a RabbitMQ instance has the
+following binding JSON:
+
     ```
     {
       "grant_types": ["client_credentials"],
@@ -106,38 +141,49 @@ To assign an identity to an application using the Single Sign-On tile:
     ]
     }
     ```
-    where `SPACE-GUID` was recorded above.
-1. Bind the application to the Single Sign-On service instance with the binding parameters
+    Where `SPACE-GUID` was the value you recorded earlier.
+
+1. Bind the app to the Single Sign-On service instance with the binding parameters by running:
+
     ```
     cf bind-service APP-NAME INSTANCE-NAME -c binding.json
     ```
-    where `APP-NAME` is the name of the application and INSTANCE-NAME was chosen in step 3.
-Note: App developers can do steps 3, 4, and 5..
+    Where:
+    * `APP-NAME` is the name of the app.
+    * `INSTANCE-NAME` is the name of the instance you created earlier.
 
-## <a id='grant-authorities'></a> Grant Authorities to the Application
-To grant the relevant authorities to the application and grant it access to a RabbitMQ instance:
 
-1. Determine the name of the UAA client associated with the application. To do this,  look up the application in the SSO instance dashboard, or run the following UAA CLI command:
+## <a id='grant-authorities'></a> Grant Authorities to the App
+
+To grant the relevant authorities to the app and grant it access to a RabbitMQ instance:
+
+1. Learn the name of the UAA client associated with the app. To do this, look up the app in the
+SSO instance dashboard or run the following UAA CLI command:
+
     ```
-    uaac clients | grep -B 10 “name: APPLICATION-NAME”
+    uaac clients | grep -B 10 “name: APP-NAME”
     ```
-    where `APPLICATION-NAME` is the name of the application
+    Where `APP-NAME` is the name of the app.
 
-1. From the output of the above command, record the CLIENT-NAME.
-1. Verify this is the correct UAA client by examining the output of the command:
+1. From the output of the above command, record the `CLIENT-NAME`.
+1. Verify that this is the correct UAA client by examining the output of the command:
+
     ```
     uaac client get CLIENT-NAME
     ```
 
-1. Grant the UAA client relevant authorities using the UAA CLI by running:
+1. Grant the UAA client relevant authorities by running:
+
     ```
     uaac client update CLIENT-NAME \
       --authorities LIST-OF-AUTHORITIES
     ```
     Where:
-    * `CLIENT-NAME` is the name of the UAA client associated with the application recorded above 
-    * `LIST-OF-AUTHORITIES` is a single string containing a space separated list of scopes the client should be granted, corresponding to one or more of the UAA groups created above. The authorities use the format p-rabbitmq_SPACE-GUID.SCOPE:VHOST/QUEUE[/ROUTING-KEY].You might also need to grant additional authorities such as openid, roles, user_attributes, and uaa.resource.
-    Any authorities requested by the application via the Single Sign-On Binding not included in this list will not be granted.
-
-
-
+    * `CLIENT-NAME` is the name of the UAA client associated with the application recorded above
+    * `LIST-OF-AUTHORITIES` is a single string containing a space-separated list of scopes the client
+    should be granted, corresponding to one or more of the UAA groups created above.
+    The authorities use the format `p-rabbitmq_SPACE-GUID.SCOPE:VHOST/QUEUE[/ROUTING-KEY]`.
+    You might also need to grant additional authorities such as `openid`, `roles`, `user_attributes`,
+    and `uaa.resource`.
+    Any authorities the app requests through the Single Sign-On binding that are not in this list
+    will not be granted.
