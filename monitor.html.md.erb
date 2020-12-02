@@ -391,6 +391,8 @@ For more information about these dashboards, see the
 Healthwatch v2 tile, these dashboards can be loaded by selecting the **Enable RabbitMQ dashboards**
 checkbox in the Healthwatch tile.
 
+In addition to the aggregated metrics provided by the `/metrics` endpoint, there is also an endpoint which provides per-object metrics available at `SERVICE-INSTANCE-ID:15692/metrics/per-object`. Per-object metrics have a greater memory and computational cost to collect, and scraping this endpoint can impact RabbitMQ performance. Therefore, we recommend that, in the case per-object metrics are required, these metrics be scraped less frequently than the aggregated metrics.
+
 
 ### <a id="bosh"></a> BOSH System Health Metrics
 
