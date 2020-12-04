@@ -7,8 +7,7 @@ owner: London Services
 
 ## <a id="1-21-0"></a> v1.21.0
 
-**Release Date**: MMMM DD, 2020
-
+**Release Date**: November 30, 2020
 
 ### Features
 
@@ -17,18 +16,109 @@ New features and changes in this release:
 * **RabbitMQ Web STOMP plugin can now be enabled for on-demand instances:** It can be used with TLS
 and Service Gateway.
 
+* **OAuth can now be enforced for On-Demand Instances:** When OAuth is enforced, the Tile does not return RabbitMQ user credentials 
+in the binding, making OAuth the only source for application authentication and authorisation. There is also an option to enable OAuth
+without enforcing it, which will still return RabbitMQ user credentials in the binding while also having the OAuth plugin enabled for 
+the instance.
+
+* Option to limit TLS versions supported for On-Demand. RabbitMQ supports TLS versions 1.0, 1.1 and 1.2 (default) as of this tile release.
+Additionally, from this version of the tile, you may select the TLS versions you would like to enable in RabbitMQ. This will result
+in the other TLS versions being disabled. For more information on disabling TLS versions, please refer to the [Limiting TLS versions](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit) page 
+in the open source RabbitMQ documentation.
+
+* Add VM Extensions to On-Demand instances. You may now provide a list of [VM Extensions](https://bosh.io/docs/terminology/#vm-extension) to be 
+added to On-Demand service instances. This feature was created out of the need to exclude VMs hosting On-Demand service instances from being
+dynamically provisioned by an underlying IaaS. This is just one example of the capabilities of a VM Extension.
+
+* Include the UAA url in service key and binding when OAuth is enabled. This assists applications as they need to fetch the OAuth 
+token from UAA. For more imformation, please see the [OAuth documentation](./enable-oauth.html).
+
+* Improved internal security for Service Gateway. For delete operations, the On-Demand service broker now communicates over mutual TLS with routing components.
 
 ### Known Issues
 
-This release has the following known issues:
+This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-
 
 ### Compatibility
 
 The following components are compatible with this release:
 
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+		<td>Erlang</td>
+		<td>23.1.4</td>
+	</tr>
+	<tr>
+		<td>HAProxy</td>
+		<td>1.8.27</td>
+	</tr>
+	<tr>
+		<td>OSS RabbitMQ*</td>
+		<td>3.8.9</td>
+	</tr>
+	<tr>
+		<td>Stemcell</td>
+		<td>621.x</td>
+	</tr>
+	<tr>
+		<td>Tanzu Application Service</td>
+		<td>2.7.*, 2.8.*, 2.9.*, 2.10.*</td>
+	</tr>
+	<tr>
+		<td>bpm</td>
+		<td>1.1.9</td>
+	</tr>
+	<tr>
+		<td>cf-cli</td>
+		<td>1.31.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq</td>
+		<td>343.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-multitenant-broker</td>
+		<td>85.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-service-gateway</td>
+		<td>28.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-smoke-tests</td>
+		<td>84.0.0</td>
+	</tr>
+	<tr>
+		<td>loggregator-agent</td>
+		<td>3.21.5</td>
+	</tr>
+	<tr>
+		<td>on-demand-service-broker</td>
+		<td>0.40.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-metrics</td>
+		<td>40.0.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-on-demand-adapter</td>
+		<td>162.0.0</td>
+	</tr>
+	<tr>
+		<td>routing</td>
+		<td>0.209.0</td>
+	</tr>
+	<tr>
+		<td>service-metrics</td>
+		<td>1.12.5</td>
+	</tr>
+</table>
+
+<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">v3.8.9</a> GitHub documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
