@@ -13,33 +13,34 @@ owner: London Services
 
 New features and changes in this release:
 
-* **Enable RabbitMQ Web STOMP plugin for on-demand instances:**
-You can use this plugin with TLS and service-gateway.
+* **RabbitMQ Web STOMP plugin for on-demand instances:**
+You can enable this plugin for on-demand instances including instances with TLS
+and service-gateway.
 
-* **Enforce OAuth for on-demand instances:**
+* **Option to enforce OAuth for on-demand instances:**
 When OAuth is enforced, the tile does not return RabbitMQ user credentials
 in the binding, making OAuth the only source for application authentication and authorization.
 There is also an option to enable OAuth without enforcing it.
 This still returns RabbitMQ user credentials in the binding while also having the OAuth plugin enabled for
 the instance.
+For more information, see [Enabling OAuth for RabbitMQ](./enable-oauth-for-rabbitmq.html).
 
 * **Includes the UAA URL in service keys and bindings when OAuth is enabled:**
 This helps apps to fetch the OAuth token from UAA.
-For more information, see [Enabling OAuth for RabbitMQ](./enable-oauth-for-rabbitmq.html).
 
-* **Limit TLS versions supported for on-demand:**
+* **Option to limit the TLS versions enabled for on-demand instances:**
 <%= vars.product_short %> v1.21.0 supports TLS v1.0, v1.1, and v1.2 (default).
-Additionally, from this version of the tile, you can select the TLS versions to enable in RabbitMQ.
-This disables the other TLS versions.
+Additionally, you can now select the TLS versions to enable in RabbitMQ.
+This disables the other TLS versions. <%# needs cross ref to procedure %>
 For more information about disabling TLS versions, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 
-* **Add VM extensions to on-demand instances:**
+* **Option to add VM extensions to on-demand instances:**
 You can provide a list of VM extensions to add to on-demand service instances.
 This feature enables you to exclude VMs hosting on-demand service instances from being
 dynamically provisioned by an underlying IaaS, among other capabilities.
 For more information, see [VM Extension](https://bosh.io/docs/terminology/#vm-extension)
-in the BOSH documentation.
+in the BOSH documentation. <%# needs cross ref to procedure %>
 
 * **Improved internal security for service-gateway:**
 For delete operations, the on-demand service broker now communicates with routing
