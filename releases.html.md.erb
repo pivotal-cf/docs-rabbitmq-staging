@@ -7,22 +7,29 @@ owner: London Services
 
 ## <a id="1-19-5"></a> v1.19.5
 
-**Release Date**: November 30, 2020
+**Release Date**: MMM DD, YYYY
 
 ### Features
 
 New features and changes in this release:
 
-* Option to limit TLS versions supported for On-Demand. RabbitMQ supports TLS versions 1.0, 1.1 and 1.2 (default) as of this tile release.
-Additionally, from this version of the tile, you may select the TLS versions you would like to enable in RabbitMQ. This will result
-in the other TLS versions being disabled. For more information on disabling TLS versions, please refer to the [Limiting TLS versions](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit) page 
-in the open source RabbitMQ documentation.
+* **Option to limit the TLS versions enabled for on-demand instances:**
+<%= vars.product_short %> v1.21.0 supports TLS v1.0, v1.1, and v1.2 (default).
+Additionally, you can now select the TLS versions to enable in RabbitMQ.
+This disables the other TLS versions. <%# needs cross ref to procedure %>
+For more information about disabling TLS versions, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 
-* Add VM Extensions to On-Demand instances. You may now provide a list of [VM Extensions](https://bosh.io/docs/terminology/#vm-extension) to be 
-added to On-Demand service instances. This feature was created out of the need to exclude VMs hosting On-Demand service instances from being
-dynamically provisioned by an underlying IaaS. This is just one example of the capabilities of a VM Extension.
+* **Option to add VM extensions to on-demand instances:**
+You can provide a list of VM extensions to add to on-demand service instances.
+This feature enables you to exclude VMs hosting on-demand service instances from being
+dynamically provisioned by an underlying IaaS, among other capabilities.
+For more information, see [VM Extension](https://bosh.io/docs/terminology/#vm-extension)
+in the BOSH documentation. <%# needs cross ref to procedure %>
 
-* Improved internal security for Service Gateway. For delete operations, the On-Demand service broker now communicates over mutual TLS with routing components.
+* **Improved internal security for service-gateway:**
+For delete operations, the on-demand service broker now communicates with routing
+components over mutual TLS.
 
 ### Known Issues
 
@@ -46,7 +53,7 @@ The following components are compatible with this release:
 		<td>1.8.27</td>
 	</tr>
 	<tr>
-		<td>OSS RabbitMQ*</td>
+		<td>OSS RabbitMQ<sup>*</sup></td>
 		<td>3.8.9</td>
 	</tr>
 	<tr>
@@ -54,8 +61,8 @@ The following components are compatible with this release:
 		<td>621.x</td>
 	</tr>
 	<tr>
-		<td>Tanzu Application Service</td>
-		<td>2.7.*, 2.8.*, 2.9.*, 2.10.*</td>
+		<td><%= vars.app_runtime_full %></td>
+		<td>2.7.x, 2.8.x, 2.9.x, 2.10.x</td>
 	</tr>
 	<tr>
 		<td>bpm</td>
