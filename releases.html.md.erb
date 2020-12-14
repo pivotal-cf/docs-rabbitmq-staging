@@ -7,7 +7,7 @@ owner: London Services
 
 ## <a id="1-21-0"></a> v1.21.0
 
-**Release Date**: MMM DD, YYYY
+**Release Date**: December 14, 2020
 
 ### Features
 
@@ -31,7 +31,7 @@ This helps apps to fetch the OAuth token from UAA.
 * **Option to limit the TLS versions enabled for on-demand instances:**
 <%= vars.product_short %> v1.21.0 supports TLS v1.0, v1.1, and v1.2 (default).
 Additionally, you can now select the TLS versions to enable in RabbitMQ.
-This disables the other TLS versions. <%# needs cross ref to procedure %>
+This disables the other TLS versions.
 For more information about disabling TLS versions, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 
@@ -39,8 +39,8 @@ For more information about disabling TLS versions, see the
 You can provide a list of VM extensions to add to on-demand service instances.
 This feature enables you to exclude VMs hosting on-demand service instances from being
 dynamically provisioned by an underlying IaaS, among other capabilities.
-For more information, see [VM Extension](https://bosh.io/docs/terminology/#vm-extension)
-in the BOSH documentation. <%# needs cross ref to procedure %>
+For more information, see [List of VM Extensions](./install-config.html#vm-extentions)
+in _Installing and Configuring the On-Demand Service_.
 
 * **Improved internal security for service-gateway:**
 For delete operations, the on-demand service broker now communicates with routing
