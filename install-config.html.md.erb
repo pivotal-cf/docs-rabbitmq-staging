@@ -335,6 +335,19 @@ Follow the steps below to configure global settings:
           services.
         </td>
       </tr>
+      <tr>
+        <td><strong>List of VM Extensions</strong></td>
+        <td>Enter names of VM extensions to apply to all service instances.
+          You can manage custom VM Extensions in <%= vars.ops_manager %> or through the OM CLI.
+          For more information, see
+          <a href="https://docs.pivotal.io/ops-manager/2-10/install/custom-vm-extensions.html#create-vm-extension">
+            Create or Update a VM Extension</a> or
+          <a href="https://github.com/pivotal-cf/om/blob/main/docs/create-vm-extension/README.md">
+            om create-vm-extension</a> in GitHub.
+          You can use this to disable IaaS specific behavior.
+          For example, you can use a VM extension to disable vMotion in a vSphere infrastructure.
+        </td>
+      </tr>
     </table>
 
 1. Click **Save**.
