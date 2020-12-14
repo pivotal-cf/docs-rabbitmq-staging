@@ -5,6 +5,120 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="1-20-3"></a> v1.20.3
+
+**Release Date**: MMM DD, YYYY
+
+### Features
+
+New features and changes in this release:
+
+* **Option to limit the TLS versions enabled for on-demand instances:**
+<%= vars.product_short %> v1.21.0 supports TLS v1.0, v1.1, and v1.2 (default).
+Additionally, you can now select the TLS versions to enable in RabbitMQ.
+This disables the other TLS versions. <%# needs cross ref to procedure %>
+For more information about disabling TLS versions, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
+
+* **Option to add VM extensions to on-demand instances:**
+You can provide a list of VM extensions to add to on-demand service instances.
+This feature enables you to exclude VMs hosting on-demand service instances from being
+dynamically provisioned by an underlying IaaS, among other capabilities.
+For more information, see [VM Extension](https://bosh.io/docs/terminology/#vm-extension)
+in the BOSH documentation. <%# needs cross ref to procedure %>
+
+* **Includes the UAA URL in service keys and bindings when OAuth is enabled:**
+This helps apps to fetch the OAuth token from UAA.
+
+* **Improved internal security for service-gateway:**
+For delete operations, the on-demand service broker now communicates with routing
+components over mutual TLS.
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+		<td>Erlang</td>
+		<td>23.1.4</td>
+	</tr>
+	<tr>
+		<td>HAProxy</td>
+		<td>1.8.27</td>
+	</tr>
+	<tr>
+		<td>OSS RabbitMQ<sup>*</sup></td>
+		<td>3.8.9</td>
+	</tr>
+	<tr>
+		<td>Stemcell</td>
+		<td>621.x</td>
+	</tr>
+	<tr>
+		<td><%= vars.app_runtime_full %></td>
+		<td>2.7.x, 2.8.x, 2.9.x, 2.10.x</td>
+	</tr>
+	<tr>
+		<td>bpm</td>
+		<td>1.1.9</td>
+	</tr>
+	<tr>
+		<td>cf-cli</td>
+		<td>1.31.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq</td>
+		<td>343.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-multitenant-broker</td>
+		<td>85.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-service-gateway</td>
+		<td>28.0.0</td>
+	</tr>
+	<tr>
+		<td>cf-rabbitmq-smoke-tests</td>
+		<td>84.0.0</td>
+	</tr>
+	<tr>
+		<td>loggregator-agent</td>
+		<td>3.21.5</td>
+	</tr>
+	<tr>
+		<td>on-demand-service-broker</td>
+		<td>0.40.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-metrics</td>
+		<td>40.0.0</td>
+	</tr>
+	<tr>
+		<td>rabbitmq-on-demand-adapter</td>
+		<td>162.0.0</td>
+	</tr>
+	<tr>
+		<td>routing</td>
+		<td>0.209.0</td>
+	</tr>
+	<tr>
+		<td>service-metrics</td>
+		<td>1.12.5</td>
+	</tr>
+</table>
+
+<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">v3.8.9</a> GitHub documentation.
+
 ## <a id="1-20-2"></a> v1.20.2
 
 **Release Date**: October 21, 2020
@@ -14,7 +128,7 @@ owner: London Services
 This release has the following fix:
 
 - **rabbitmq-server-metrics BOSH job did not provide memory and disk metrics:**
-This issue affected on-demand service instances created in v1.20.0 and v1.20.1 but is 
+This issue affected on-demand service instances created in v1.20.0 and v1.20.1 but is
 fixed when you upgrade these service instances to v1.20.2.
 
 ### Known Issues
