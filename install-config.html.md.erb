@@ -222,7 +222,7 @@ Follow the steps below to configure global settings.
         Failure to configure a custom apps domain could cause smoke tests to fail if the smoke tests
         domain is not accessible from the RabbitMQ Service Instance domain for on-demand services.</td>
       </tr>
-      <tr>
+      <tr><a name="vm-extensions"></a>
         <td><strong>List of VM Extensions</strong></td>
         <td>Enter names of VM extensions to apply to all service instances.
           You can manage custom VM Extensions in <%= vars.ops_manager %> or through the OM CLI.
@@ -230,7 +230,7 @@ Follow the steps below to configure global settings.
           <a href="https://docs.pivotal.io/ops-manager/2-10/install/custom-vm-extensions.html#create-vm-extension">
             Create or Update a VM Extension</a> or
           <a href="https://github.com/pivotal-cf/om/blob/main/docs/create-vm-extension/README.md">
-            om create-vm-extension</a> in GitHub.
+            om create-vm-extension</a> in GitHub.<br><br>
           You can use this to disable IaaS specific behavior.
           For example, you can use a VM extension to disable vMotion in a vSphere infrastructure.
         </td>
