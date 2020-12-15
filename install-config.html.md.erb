@@ -397,6 +397,20 @@ To configure the security settings:
   service instances continue to use TLS. However, new instances are not configured with TLS.
 </p>
 
+  <li>
+    Select the TLS versions to support.
+    TLS v1.0 and v1.1 are deprecated and disabled by default.
+    TLS v1.2 is enabled by default.<br>
+    For more information about TLS versions, see the
+    [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
+  </li>
+
+<p class='note warning'>
+  <strong>Warning:</strong>
+  Future versions of <%= vars.product_short %> will disallow TLS v1.0 and v1.1.
+  Make sure to update all RabbitMQ client applications to use TLS v1.2.
+</p>
+
   <li>For information about configuring the <strong>OAuth options</strong>, see
     <a href="./enable-oauth-for-rabbitmq.html#configure-oauth">Configure OAuth in <%= vars.ops_manager %></a>.
   </li>
