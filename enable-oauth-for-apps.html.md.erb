@@ -97,10 +97,10 @@ To create a UAA group for a space:
 
     Wildcard patterns match as follows:
     <ul>
-      <li>`*` matches any string, </li>
-      <li>`foo*` matches any string starting with foo</li>
-      <li>`*foo` matches any string ending with foo, and</li>
-      <li>`foo*bar` matches any string starting with foo and ending with bar.</li>
+      <li><code>\*</code> matches any string</li>
+      <li><code>foo\*</code> matches any string starting with foo</li>
+      <li><code>\*foo</code> matches any string ending with foo</li>
+      <li><code>foo\*bar</code> matches any string starting with foo and ending with bar</li>
     </ul>
     You can include multiple wildcards in a pattern. For example:<br>
     `p-rabbitmq_SPACE-GUID.read:*/*`<br>
