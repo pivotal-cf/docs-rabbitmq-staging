@@ -32,6 +32,7 @@ Before you enable OAuth for apps, you must:
 * Install the Single Sign-On tile.
 For more information,
 [Installing Single Sign-On for VMware Tanzu](https://docs.pivotal.io/p-identity/installation.html).
+
 * Enable the UAA/System plan for any orgs that will contain apps needing to access RabbitMQ service
 instances. You can do this using the Single Sign-On tile dashboard or by running the following
 cf CLI command:
@@ -48,7 +49,7 @@ For more information, see
 
 ## <a id='create-uaa-groups'></a> Create UAA Groups for a Space
 
-You must create UAA groups for each space in <%= vars.app_runtime_full %> for VMs that contains,
+You must create UAA groups for each space in <%= vars.app_runtime_abbr %> that contains,
 or is expected to contain, on-demand VMware Tanzu RabbitMQ service instances.
 These groups correspond to RabbitMQ resources and can be granted as authorities to clients which
 interact with RabbitMQ.
@@ -78,7 +79,7 @@ To create a UAA group for a space:
     uaac token client get CLIENT -s SECRET
     ```
     Where:
-    * `SYSTEM-DOMAIN` is the system domain for your <%= vars.app_runtime_abbr %> foundation
+    * `SYSTEM-DOMAIN` is the system domain for your <%= vars.app_runtime_abbr %> foundation.
     * `CLIENT` and `SECRET` are the credentials for the UAA admin client.
 
 1. Create UAA groups using the space GUID and RabbitMQ resources by running:
@@ -88,14 +89,19 @@ To create a UAA group for a space:
     ```
     Where:
     * `SPACE-GUID` was recorded above.
-    * `SCOPE` is an access permission, such as configure, read, or write.
-    * `VHOST` is a wildcard pattern for the vhosts that you want to grant the client access to
+    * `SCOPE` is an access permission, such as `configure`, `read`, or `write`.
+    * `VHOST` is a wildcard pattern for the vhosts that you want to grant the client access to.
     * `NAME` is a wildcard pattern for the queues and exchanges that you want to grant the client
-    access to
+    access to.
     * (Optional) `ROUTING-KEY` is a pattern for routing keys in topics.<br>
-    Wildcard patterns match as follows:<br>
-    `*` matches any string, `foo*` matches any string starting with foo, `*foo` matches any string
-    ending with foo, and `foo*bar` matches any string starting with foo and ending with bar.<br>
+
+    Wildcard patterns match as follows:
+    <ul>
+      <li>`*` matches any string, </li>
+      <li>`foo*` matches any string starting with foo</li>
+      <li>`*foo` matches any string ending with foo, and</li>
+      <li>`foo*bar` matches any string starting with foo and ending with bar.</li>
+    </ul>
     You can include multiple wildcards in a pattern. For example:<br>
     `p-rabbitmq_SPACE-GUID.read:*/*`<br>
     `p-rabbitmq_SPACE-GUID.write:*/*`<br>
@@ -125,24 +131,26 @@ Single Sign-On service instance by running the following cf CLI command:
 1. Create a JSON file named `binding.json` that contains the binding parameters.
 SSO uses this file to configure the OAuth client when binding the app to the SSO service instance.
 Include the RabbitMQ scopes that must be granted to the app, corresponding to the UAA groups created
-above. For example, an app requiring read, write, and configure access to a RabbitMQ instance has the
+above.
+<br><br>
+For example, an app requiring read, write, and configure access to a RabbitMQ instance has the
 following binding JSON:
 
-    ```
+    ```json
     {
       "grant_types": ["client_credentials"],
       "authorities": [
-    "p-rabbitmq_SPACE-GUID.read:*/*",
-              "p-rabbitmq_SPACE-GUID.write:*/*",
-          "p-rabbitmq_SPACE-GUID.configure:*/*",
-          "openid",
-          "roles",
-    "user_attributes",
-      "uaa.resource",
-    ]
+        "p-rabbitmq_SPACE-GUID.read:*/*",
+        "p-rabbitmq_SPACE-GUID.write:*/*",
+        "p-rabbitmq_SPACE-GUID.configure:*/*",
+        "openid",
+        "roles",
+        "user_attributes",
+        "uaa.resource",
+      ]
     }
     ```
-    Where `SPACE-GUID` was the value you recorded earlier.
+    Where `SPACE-GUID` is the GUID for the space.
 
 1. Bind the app to the Single Sign-On service instance with the binding parameters by running:
 
@@ -151,14 +159,14 @@ following binding JSON:
     ```
     Where:
     * `APP-NAME` is the name of the app.
-    * `INSTANCE-NAME` is the name of the instance you created earlier.
+    * `INSTANCE-NAME` is the name of the Single Sign-On instance you created earlier.
 
 
 ## <a id='grant-authorities'></a> Grant Authorities to the App
 
 To grant the relevant authorities to the app and grant it access to a RabbitMQ instance:
 
-1. Learn the name of the UAA client associated with the app. To do this, look up the app in the
+1. Find the name of the UAA client associated with the app. To do this, look up the app in the
 SSO instance dashboard or run the following UAA CLI command:
 
     ```
@@ -180,10 +188,10 @@ SSO instance dashboard or run the following UAA CLI command:
       --authorities LIST-OF-AUTHORITIES
     ```
     Where:
-    * `CLIENT-NAME` is the name of the UAA client associated with the application recorded above
+    * `CLIENT-NAME` is the name of the UAA client associated with the application recorded above.
     * `LIST-OF-AUTHORITIES` is a single string containing a space-separated list of scopes the client
-    should be granted, corresponding to one or more of the UAA groups created above.
-    The authorities use the format `p-rabbitmq_SPACE-GUID.SCOPE:VHOST/QUEUE[/ROUTING-KEY]`.
+    must be granted, corresponding to one or more of the UAA groups created above.
+    The authorities use the format `p-rabbitmq_SPACE-GUID.SCOPE:VHOST/QUEUE[/ROUTING-KEY]`.<br>
     You might also need to grant additional authorities such as `openid`, `roles`, `user_attributes`,
     and `uaa.resource`.
     Any authorities the app requests through the Single Sign-On binding that are not in this list
