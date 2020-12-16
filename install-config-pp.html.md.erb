@@ -183,11 +183,15 @@ If you rely on the tile to generate the Erlang cookie but need to upgrade to
 <%= vars.product_short %> v1.16 without a cluster shutdown, you can
 set the Erlang cookie to its existing value by following the steps below:
 
-1. Follow the steps in the following link, up to and including the section _Log in to the BOSH Director_:
-  [Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather).
+1. Follow the steps in the following link, up to and including the section
+_Log in to the BOSH Director_:
+[Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather).
 
-1. Run the following command: <br>
-    `bosh ssh rabbitmq-server/0`
+1. Run:
+
+    ```
+    bosh ssh rabbitmq-server/0
+    ```
 
 1. Run the following commands:
 
@@ -196,11 +200,11 @@ set the Erlang cookie to its existing value by following the steps below:
     echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
     ```
 
-1. Paste the value returned from the last command into the Erlang cookie field in the **Pre-Provisioned RabbitMQ** tab.
-This field is shown [above](#erlang).
+1. Paste the value returned from the last command into the Erlang cookie field in the
+**Pre-Provisioned RabbitMQ** tab. This field is shown [above](#erlang).
 
-1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first row,
-raise the value for the number of **Instances** of the **RabbitMQ node**.
+1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first
+row, raise the value for the number of **Instances** of the **RabbitMQ node**.
 
 1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
@@ -210,10 +214,12 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 
 1. Click **Apply Changes**.
 
-<p class="note"><strong>Note</strong>: BOSH tells you that the cookie has changed---this is because the
-default value in the manifest is empty, which results in an auto-generated
-cookie. However, the value of the cookie on the server remains the same, so there
-is no downtime.</p>
+<p class="note">
+  <strong>Note:</strong> BOSH tells you that the cookie has changed---this is because the default
+  value in the manifest is empty, which results in an auto-generated cookie.
+  However, the value of the cookie on the server remains the same, so there is no downtime.
+</p>
+
 
 ### <a id="load-balance"></a> External Load Balancer
 
