@@ -256,7 +256,22 @@ To configure the TLS settings, do the following:
   Radio button 3. 'Enforced - All new and existing On Demand service instances will be configured to use TLS. On
   applying this setting, any applications that use non-TLS binding will require re-binding and must support TLS connections.'") %>
 
-  <li>Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.</li>
+  <li>
+    Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.
+  </li>
+
+  <li>
+    Select the TLS versions to support.
+    TLS v1.0 and v1.1 are deprecated and disabled by default.
+    TLS v1.2 is enabled by default.<br>
+    For more information about TLS versions, see the
+    <a href="https://www.rabbitmq.com/ssl.html#tls-versions-why-limit">RabbitMQ documentation</a>.
+  </li>
+
+<p class='note warning'>
+  <strong>Warning:</strong> Future versions of <%= vars.product_short %> disallow TLS v1.0 and v1.1.
+  Update all RabbitMQ client apps to use TLS v1.2.
+</p>
 
 <p class='note breaking'><strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong> errand are applied. Any apps not using TLS are no longer able to communicate with their service instances. Such apps require a new binding and must be configured to communicate with their <%= vars.product_short %> service instance through TLS.</p>
 
