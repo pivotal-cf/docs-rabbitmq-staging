@@ -180,9 +180,7 @@ Follow the steps below to configure global settings:
 
 1. Click the **Global Settings for On-Demand Plans** tab.
   ![Screenshot of the Global Settings for On-Demand Plans tab.
-  The tab has many sections, including 'Dedicated Instance Service Quota',
-  'Dedicated Instance VM Options', 'RabbitMQ plugins that App Developers can enable',
-  'External TCP domain', 'Port Range', and more. A 'Save' button is at the bottom.](images/global-settings.png)
+  The fields are described in the table below.](images/global-settings.png)
 1. Configure the settings:
     <table>
       <tr>
@@ -337,7 +335,7 @@ Follow the steps below to configure global settings:
       </tr>
       <tr>
         <td><strong>List of VM Extensions</strong></td>
-        <td>Enter names of VM extensions to apply to all service instances.
+        <td>Click <strong>Add</strong> to enter names of VM extensions to apply to all service instances.
           You can manage custom VM Extensions in <%= vars.ops_manager %> or through the OM CLI.
           For more information, see
           <a href="https://docs.pivotal.io/ops-manager/2-10/install/custom-vm-extensions.html#create-vm-extension">
@@ -345,7 +343,8 @@ Follow the steps below to configure global settings:
           <a href="https://github.com/pivotal-cf/om/blob/main/docs/create-vm-extension/README.md">
             om create-vm-extension</a> in GitHub.<br><br>
           You can use this to disable IaaS specific behavior.
-          For example, you can use a VM extension to disable vMotion in a vSphere infrastructure.
+          For example, you can use a VM extension to disable vMotion in a vSphere infrastructure.<br><br>
+          To remove a VM extension, click the trash can icon.
         </td>
       </tr>
     </table>
