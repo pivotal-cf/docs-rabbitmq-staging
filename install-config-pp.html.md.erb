@@ -88,7 +88,7 @@ Follow the steps below to configure the AZs and networks:
 
     <p class="note warning">
       <strong>Warning:</strong> Changing the Network after you have configured it, or changing the IP
-      address configuration, results in a failed deployment.
+      address configuration, causes a failed deployment.
       For more information, see
       <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.
     </p>
@@ -114,7 +114,7 @@ You can use a combination of upper or lowercase alphanumerics and supported spec
 `-=_+":;/?.><,~`.
 
 <p class="note">
-  <strong>Note:</strong> You cannot use back quote <code>`</code> or single quote <code>'</code>.
+  <strong>Note:</strong> You cannot use a back quote <code>`</code> or single quote <code>'</code>.
 </p>
 
 This grants you full admin access to the RabbitMQ Management UI.
@@ -143,8 +143,8 @@ For more information about RabbitMQ plugins, see the
 
 1. In this section of the **Pre-Provisioned RabbitMQ** tab, provide an Erlang cookie for the
 cluster to use.
-This is useful if you want to connect directly to the RabbitMQ cluster, for example with
-`rabbitmqctl`, or to connect other VMs running Erlang.
+This is useful if you want to connect directly to the RabbitMQ cluster, for example, with
+`rabbitmqctl` or to connect other VMs running Erlang.
 
 If you leave this field blank, BOSH CredHub generates a secure Erlang cookie.
 
@@ -295,11 +295,11 @@ To provide SSL certificates:
 cluster to use.<br>
 <%= image_tag("images/config_ssl.png", :width =>"450",
 :alt => "Screenshot of several fields related to certificates.
-Two text area fields are labeled 'RabbitMQ server certificate.' The first
-text area field has placeholder text called 'Certificate PEM'. The second
-text area field has placeholder text called 'Private Key PEM'. Underneath
+Two text fields are labeled 'RabbitMQ server certificate.' The first
+text field has placeholder text called 'Certificate PEM'. The second
+text field has placeholder text called 'Private Key PEM'. Underneath
 this field is a blue link called 'Generate RSA Certificate.' The next field
-is another text area field labeled 'RabbitMQ server CA certificates'. The next two fields
+is another text field labeled 'RabbitMQ server CA certificates'. The next two fields
 are checkboxes labeled 'Enable 'verify_peer' SSL certificate verification' and
 'Require peer certificate validation'. The last field is a text field labeled 'SSL certificate
 verification depth.' The field has a value of '5'.") %>
@@ -324,12 +324,19 @@ For more information about SSL support, see the
 
 To configure TLS support:
 
-1. Select the TLS versions to support. TLS v1.0 is disabled by default, due to security issues.
-TLS v1.1 and v1.2 are enabled by default.<br>
+1. Select the TLS versions to support. TLS v1.0 and v1.1 are deprecated and disabled by default.
+TLS v1.2 is enabled by default.<br>
+For more information about TLS versions, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 <%= image_tag("images/config_tls.png", :width => "400",
 :alt => "Screenshot of a multi-select checkbox field labeled 'RabbitMQ TLS Versions'.
-There are three checkboxes labeled 'TLS v1.0', 'TLS v1.1', and 'TLS v1.2'. 'TLS v1.1' and
-'TLS v1.2' are enabled.") %>
+There are three checkboxes labeled 'TLS v1.0', 'TLS v1.1', and 'TLS v1.2'.
+'TLS v1.2' is enabled.") %>
+
+<p class='note warning'>
+  <strong>Warning:</strong> Future versions of <%= vars.product_short %> disallow TLS v1.0 and v1.1.
+  Update all RabbitMQ client apps to use TLS v1.2.
+</p>
 
 
 ### <a id="configfile"></a> (Optional) Configure the RabbitMQ Service
@@ -450,8 +457,8 @@ space free to satisfy the **Disk free alarm limit** that you choose.
 #### <a name='50mb'></a> When to Use the 50MB Value
 
 VMware discourages using this value in production. However, if you are experimenting with a
-development environment you might want to use a small disk to keep down costs, even though this increases the
-risk of RabbitMQ crashing and losing data.
+development environment you might want to use a small disk to keep down costs, even though this
+increases the risk of RabbitMQ crashing and losing data.
 
 ### <a id="networking"></a>Specify Static IP Addresses
 
@@ -470,7 +477,8 @@ To specify static IP addresses:
     and must not be in the **Service Network**.
     This IP address is assigned to your Pre-Provisioned Service Broker node.
 
-    <p class="note"><strong>Note</strong>: If any of the above fields are left blank,
+    <p class="note">
+      <strong>Note:</strong> If any of the above fields are left blank,
       BOSH allocates an IP address.</p>
 
     <%= image_tag("config-networking-pp.png", :width => "350",
@@ -548,9 +556,9 @@ labeled 'Do you want to configure Syslog forwarding?', 'Address',
           <a href="https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html">RainerScript</a>
           and are inserted before the rule that forwards logs.
           For the list of custom rules you can add in this field, see
-          [RabbitMQ Syslog Custom Rules](./monitor-pp.html#rabbitmq-syslog-custom-rules)
+          <a href="./monitor-pp.html#rabbitmq-syslog-custom-rules">RabbitMQ Syslog Custom Rules</a>.
           For more information about the program names you can use in the custom rules, see
-          [Program Names](./monitor-pp.html#program-names).</td>
+          <a href="./monitor-pp.html#program-names">Program Names</a>.</td>
     </tr>
 </table>
 
@@ -605,7 +613,6 @@ see [Sharing Service Instances](https://docs.pivotal.io/pivotalcf/devguide/servi
 
     ![Screenshot of a check box labeled 'Enable Service Instance Sharing' with the help text 'App Developers can have the ability to share their Cloud Foundry Service Instances across Orgs and Spaces.'](images/sharing-instances.png)
 
-
 3. Click **Save**.
 
 ## <a id="singlenode"></a> Dedicated Instance: Single Node Plan
@@ -627,10 +634,10 @@ For information about configuring the on-demand service, see
 
 (Optional) In the **Errands** tab, choose the defaults for when errands run.
 
-Errands can be thought of as tasks. For example, when deploying or updating <%= vars.product_short %>,
+You can think of errands as tasks. For example, when deploying or updating <%= vars.product_short %>,
 <%= vars.ops_manager %> can optionally run a series of post-deploy errands.
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a
-deploy or upgrade.
+deployment or upgrade.
 For more information, see [Post-Deploy Errands](#post-deploy-errands) below.
 
 You can toggle errands on and off on the <%= vars.ops_manager %> **Review Pending Changes** page.
@@ -751,7 +758,7 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 ### <a id='ha-cluster'></a>Connecting to a Highly Available RabbitMQ Cluster
 
 The <%= vars.product_short %> tile allows for a highly available cluster through multiple
-HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added
+HAProxy nodes. The `hostnames`, `uris`, and `hosts` properties were added
 and should be used in preference over the equivalent singular properties. The
 singular properties are maintained for backwards compatibility and always
 contain the first value from the equivalent plural property. The singular
@@ -857,7 +864,7 @@ Create an ASG named `rabbitmq-app-containers` with the above configuration and b
 
 ### <a id="assigned_ips"></a> Assigned IPs
 
-<%= vars.product_short %> does not support changing the IP addresses which have been assigned to the <%= vars.product_short %> deployments.
+<%= vars.product_short %> does not support changing the IP addresses that were assigned to the <%= vars.product_short %> deployments.
 For example, you cannot change the subnet into which the RabbitMQ cluster was originally provisioned.
 Doing so causes the deployment to fail.
 For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
