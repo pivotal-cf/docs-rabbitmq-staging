@@ -298,11 +298,12 @@ For more information about SSL support, see the [RabbitMQ documentation](https:/
 
 Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
 
-1. Select the TLS versions to support. TLS v1.0 and v1.1 are deprecated and disabled by default.
+1. In the **Pre-Provisioned RabbitMQ** tab, select the TLS versions to support.
+TLS v1.0 and v1.1 are deprecated and disabled by default.
 TLS v1.2 is enabled by default.<br>
 For more information about TLS versions, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
-<%= image_tag("images/config_tls.png", :width => "400",
+<%= image_tag("images/config_tls.png", :width => "225",
 :alt => "Screenshot of a multi-select checkbox field labeled 'RabbitMQ TLS Versions'.
 There are three checkboxes labeled 'TLS v1.0', 'TLS v1.1', and 'TLS v1.2'. 'TLS v1.1' and
 'TLS v1.2' are enabled.") %>
@@ -350,7 +351,6 @@ For example, suppose you want to configure the
     :alt => "Screenshot of a text area field labeled 'RabbitMQ configuration'.
     The field has the value 'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K'.
     The field also has help text that says, 'RabbitMQ config file contents, can be blank'.") %>
-
 
 For an example `rabbitmq.config` file, see
 [rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.conf.example)
