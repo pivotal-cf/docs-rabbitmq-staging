@@ -4,14 +4,21 @@ title: Setting Default Policies for the RabbitMQ Service
 owner: London Services
 ---
 
-<div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
+<div class="note">
+  <strong>Note:</strong> <%= vars.note_pre_provisioned %>
+</div>
+
 
 ## <a id="policy"></a> About RabbitMQ Policies
 
-You can set a default queue and an exchange policy in the <%= vars.product_full %> tile to be applied to the RabbitMQ cluster.
-After you deploy the tile, VMware recommends that you use the RabbitMQ Management UI to make configuration changes.
+You can set a default queue and an exchange policy in the <%= vars.product_full %> tile to be applied
+to the RabbitMQ cluster.
+After you deploy the tile, VMware recommends that you use the RabbitMQ Management UI to make
+configuration changes.
 
-For more information about RabbitMQ policies, see the [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
+For more information about RabbitMQ policies, see the
+[RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
+
 
 ## <a id="rules"></a> Rules for Policies Set in the Tile
 
@@ -21,12 +28,12 @@ The following rules apply to polices set through the <%= vars.product_short %> t
 Existing instances are not affected by the policy.
 * The policy can only be deleted manually from the RabbitMQ nodes.
 * Policies can be added dynamically using the RabbitMQ Management UI.
-* It is not possible to use pattern matching with policies. Policies will be
-applied to all queues and exchanges.
+* It is not possible to use pattern matching with policies. Policies apply to all queues and exchanges.
 
     For granular policy settings, VMware recommends using the
     RabbitMQ Management UI. Set a `priority number` lower than
     `50`, the default `priority number` applied through the <%= vars.ops_manager %> configuration.
+
 
 ## <a id="example"></a> An Example Policy: Mirror on Two Nodes
 
@@ -40,15 +47,19 @@ Here is an example policy that ensures messages are mirrored on two nodes:
 }
 ```
 
-Operators should consider some of the performance implications of making queues and exchanges highly available.
-For more information about highly available queues, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
+Operators should consider some of the performance implications of making queues and exchanges highly
+available.
+For more information about highly available queues, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
+
 
 ### <a id="syncing_queues"></a>Best Practice for Syncing Queues
 
 When a queue syncs all its messages, they are loaded into memory.
 When queues are syncing, they can use as much memory as the total size of all messages.
 This applies to both nodes---the node where the queue leader runs (from node)
-and the node where the queue follower runs (to node), but only applies to newly created queue followers.
+and the node where the queue follower runs (to node), but only applies to newly created queue
+followers.
 
 This behavior is especially relevant when any change affects the deployment,
 for example: stemcell updates, deployment configuration changes, and network changes.
@@ -56,39 +67,42 @@ Verify that you have enough memory and disk available to support all messages.
 
 For example:
 
-There are 5&nbsp;GB of messages in a mirrored queue that is set to automatic
-sync. When this queue needs to sync, the node where the queue leader runs can
-use up to 5&nbsp;GB of extra memory. The same applies to the node where the new queue
-follower is created.
+There are 5&nbsp;GB of messages in a mirrored queue that is set to automatic sync.
+When this queue needs to sync, the node where the queue leader runs can use up to 5&nbsp;GB of extra
+memory. The same applies to the node where the new queue follower is created.
 
-## <a id="viewing"></a> Setting or Changing the Policy
 
-To set the RabbitMQ policy, do the following:
+## <a id="viewing"></a> Set or Change the Policy
 
-1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile and then click the **Pre-Provisioned RabbitMQ** tab.
+To set the RabbitMQ policy:
+
+1. From the <%= vars.ops_manager %> Installation Dashboard, click the <%= vars.product_short %> tile
+and then click the **Pre-Provisioned RabbitMQ** tab.
 
 1. Under **Deploy Pre-Provisioned service offering**, click **Yes**.
 
 1. Select **Enable custom policy on new instances**.
 
-	<%= image_tag("images/policy_opsman.png",
-	:alt => "Screenshot of two fields:
-	enabled checkbox field, 'Enable custom policy on new instances, and
-	text area field, 'Policy for new instances,' which has the value,
-	{'ha-mode':'exactly','ha-params':2,'ha-sync-mode':'automatic'}") %>
+    <%= image_tag("images/policy_opsman.png",
+    :alt => "Screenshot of two fields:
+    enabled checkbox field, 'Enable custom policy on new instances, and
+    text area field, 'Policy for new instances,' which has the value,
+    {'ha-mode':'exactly','ha-params':2,'ha-sync-mode':'automatic'}") %>
 1. In the **Policy for new instances** field, paste the policy.
 
-	The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
+The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
+
+<p class="note">
+  <strong>Note:</strong> No policy validation occurs during the deployment, and errors can cause the
+  deployment to fail or policies to be applied incorrectly.
+</p>
 
 
-<p class="note"><strong>Note</strong>: No policy validation occurs during the deployment,
-   and errors can cause the deployment to fail or policies to be applied incorrectly.</p>
-
-
-## <a id="dashboard"></a> Viewing Policies in the RabbitMQ Management UI
+## <a id="dashboard"></a> View Policies in the RabbitMQ Management UI
 
 You can view RabbitMQ policies in the RabbitMQ Management UI, shown below.
-The example policy entered in the <%= vars.product_short %> tile above is applied to all queues and given a **Priority** of **50**.
+The example policy entered in the <%= vars.product_short %> tile above is applied to all queues and
+given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
 <%= image_tag("images/policy_config.jpeg",
@@ -97,12 +111,16 @@ expanded accordion called 'All Policies' shows a filter text field, a regex chec
 with columns titled 'Name', 'Pattern', 'Apply to', 'Definition', and 'Priority'.
 One item is in the table with the name 'operator_set_policy' and a Priority of '50'.") %>
 
-In the **Queues** section shown below, you can see that any new queues created have the policy automatically applied.
+In the **Queues** section shown below, you can see that any new queues created have the policy
+automatically applied.
 
 <%= image_tag("images/policy_queue.jpeg",
 :alt => "Screenshot of RabbitMQ management UI. Main header is 'Queues'. An
 expanded accordion called 'All queues' shows a filter text field, a regex checkbox field, and a table
-with one item named 'test'. The policy called 'operator_set_policy' is highlighted in blue in the 'Features'
-column of the table. The 'state' column shows the item is green and 'running'.") %>
+with one item named 'test'. The policy called 'operator_set_policy' is highlighted in blue in the
+'Features' column of the table. The 'state' column shows the item is green and 'running'.") %>
 
-<p class="note"><strong>Note</strong>: Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code> for app developers.</p>
+<p class="note">
+  <strong>Note:</strong> Developers can obtain the URL of the policy from <code>VCAP_SERVICES</code>
+  for app developers.
+</p>
