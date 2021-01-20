@@ -46,23 +46,23 @@ Obtain the RabbitMQ management API credentials `http_api_uri`, `vhost`, `passwor
 1. Use one of the options described in [Setting up Policies in On-Demand RabbitMQ](#policy) above.
 In the example below, an app called `demo-app` is pushed and bound to the `rmq` service instance:
 
-<pre class="terminal">
-  > mkdir demo-app
-  > cd demo-app
-  > touch Staticfile
-  > touch index.html
-  > echo "<html><body><h1>Hello world!</h1></body></html>" > index.html
-  > cd ..
-  > cf push demo-app -p demo-app
-  > cf bind-service demo-app rmq
-</pre>
+    <pre class="terminal">
+      > mkdir demo-app
+      > cd demo-app
+      > touch Staticfile
+      > touch index.html
+      > echo "<html><body><h1>Hello world!</h1></body></html>" > index.html
+      > cd ..
+      > cf push demo-app -p demo-app
+      > cf bind-service demo-app rmq
+    </pre>
 
 1. Obtain the credentials for the user assigned to the app by running:
 
-```
-cf env APP-NAME
-```
-Where `APP-NAME` is the name of your app. This prints out information similar to the below:
+    ```
+    cf env APP-NAME
+    ```
+    Where `APP-NAME` is the name of your app. This prints out information similar to the below:
 
 <pre class="terminal">
 ...
@@ -98,7 +98,7 @@ In the example, the scripts `set-policy` and `list-policies` were created.
 These rely on the `cf`, `curl`, and `jq` commands, which you must have installed.
 
 The `set-policy` script assumes the app is bound to a single RabbitMQ service instance.
-It accepts the following parameters:
+It accepts these parameters:
 
 1. The app's name, which in this example is `demo-app`
 1. The name of the policy
@@ -151,27 +151,27 @@ To combine multiple features you must create a policy that combines both. For mo
 
 1. To create a policy that combines `ha` and `dlx`, run:
 
-```
-./set-policy APP-NAME ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, //
-"ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
-```
-Where `APP-NAME` is the name of the app.
+    ```
+    ./set-policy APP-NAME ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, //
+    "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
+    ```
+    Where `APP-NAME` is the name of the app.
 
 
 ### <a id="temp-q-policy"></a> Set up a Policy for Temporal Queues
 
-All queues named `temp.*` must have a maximum length and message time to live (TTL).
+All queues named `temp.*` must have a maximum length and message time to live (TTL):
 
 1. To create a policy for temporal queues, run:
 
-```
-./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, "overflow": "reject-publish", //
-"message-ttl": MILLISECONDS}'
-```
-Where:
-* `APP-NAME` is the name of the app.
-* `NUMBER` is the maximum number of messages, such as 2.
-* `MILLISECONDS` is a number of milliseconds, such as 60000.
+    ```
+    ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, "overflow": "reject-publish", //
+    "message-ttl": MILLISECONDS}'
+    ```
+    Where:
+    * `APP-NAME` is the name of the app.
+    * `NUMBER` is the maximum number of messages, such as 2.
+    * `MILLISECONDS` is a number of milliseconds, such as 60000.
 
 When the queue is full, the broker rejects further publishing attempts.
 If the publisher uses the protocol extension Publisher Confirm, it gets a `nack`.
@@ -186,7 +186,7 @@ A concrete queue must be named `event-log` and the queue mode must be `lazy`.
 
 1. To set up a policy for a concrete queue, run:
 
-```
-./set-policy APP-NAME ha "^event-log$" '{"queue-mode":"lazy"}'
-```
-Where `APP-NAME` is the name of the app.
+    ```
+    ./set-policy APP-NAME ha "^event-log$" '{"queue-mode":"lazy"}'
+    ```
+    Where `APP-NAME` is the name of the app.
