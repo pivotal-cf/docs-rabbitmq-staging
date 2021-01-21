@@ -64,25 +64,25 @@ In the example below, an app called `demo-app` is pushed and bound to the `rmq` 
     ```
     Where `APP-NAME` is the name of your app. This prints out information similar to the below:
 
-<pre class="terminal">
-...
+    <pre class="terminal">
+    ...
 
-System-Provided:
-VCAP_SERVICES: {
- "p.rabbitmq": [
-  {
-    "credentials": {
-      ...
-      "http_api_uri": "https://a9b37966-d67a-448f-b93d-744e3dc95890:hWD38Vvc9wdQAXG8Lh_AAjRI@rmq-a1d3c836-c670-4d22-9191-3e497b68a885.sys.philippinepink.cf-app.com/api/",
-      "password": "xxxxxx",
-      "username": "a9b37966-d67a-448f-b93d-xxxxx",
-      "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885"
-      ...
+    System-Provided:
+    VCAP_SERVICES: {
+     "p.rabbitmq": [
+      {
+        "credentials": {
+          ...
+          "http_api_uri": "https://a9b37966-d67a-448f-b93d-744e3dc95890:hWD38Vvc9wdQAXG8Lh_AAjRI@rmq-a1d3c836-c670-4d22-9191-3e497b68a885.sys.philippinepink.cf-app.com/api/",
+          "password": "xxxxxx",
+          "username": "a9b37966-d67a-448f-b93d-xxxxx",
+          "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885"
+          ...
+        }
+      }
     }
-  }
-}
-...
-</pre>
+    ...
+    </pre>
 
 
 ## <a id="declare"></a> Declare a RabbitMQ Policy Through the Management API
@@ -119,6 +119,7 @@ synchronization, as seen in the example below:
 
 Running the command `./list-policies demo-app` displays the policy just created:
 
+```
 [
   {
     "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
@@ -133,10 +134,12 @@ Running the command `./list-policies demo-app` displays the policy just created:
     "priority": 0
   }
 ]
+```
 
 The `set-policy` script does not enable you to set the policy's priority.
 <%# How do you set priority? %>
 As shown above, RabbitMQ assigns `0` to priority when no value is provided.
+
 You do not need to assign a value to the priority if you have no overlapping policies.
 When there are two or more policies that match the same queue or exchange, the policies overlap and
 RabbitMQ compares their priorities to choose which one to apply.
