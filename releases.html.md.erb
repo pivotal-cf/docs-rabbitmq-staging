@@ -14,8 +14,7 @@ owner: London Services
 New features and changes in this release:
 
 * **RabbitMQ Web STOMP plugin for on-demand instances:**
-You can enable this plugin for on-demand instances including instances with TLS
-and service-gateway.
+You can enable this plugin for on-demand instances including instances with TLS and service-gateway.
 
 * **OAuth for apps:**
 Apps can now authenticate with RabbitMQ using the OAuth client flow.
@@ -25,8 +24,8 @@ For more information, see [Enabling OAuth for Apps](./enable-oauth-for-apps.html
 When OAuth is enforced, the tile does not return RabbitMQ user credentials
 in the binding, making OAuth the only source for application authentication and authorization.
 There is also an option to enable OAuth without enforcing it.
-This still returns RabbitMQ user credentials in the binding while also having the OAuth plugin enabled for
-the instance.
+This still returns RabbitMQ user credentials in the binding while also having the OAuth plugin
+enabled for the instance.
 For more information, see [Enabling OAuth for RabbitMQ](./enable-oauth-for-rabbitmq.html).
 
 * **Includes the UAA URL in service keys and bindings when OAuth is enabled:**
@@ -38,7 +37,8 @@ For more information, see [Enabling OAuth for RabbitMQ](./enable-oauth-for-rabbi
 Additionally, you can now select the TLS versions to enable in RabbitMQ.
 This disables the other TLS versions.<br>
 To configure TLS, follow the procedure in [Configure Security](./install-config.html#security).<br>
-For more information about disabling TLS versions, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
+For more information about disabling TLS versions, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 
 * **Option to add VM extensions to on-demand instances:**
 You can provide a list of VM extensions to add to on-demand service instances.
@@ -48,17 +48,19 @@ For more information, see [Configure Global Settings](./install-config.html#glob
 in _Installing and Configuring the On-Demand Service_.
 
 * **Improved internal security for service-gateway:**
-For delete operations, the on-demand service broker now communicates with routing
-components over mutual TLS.
+For delete operations, the on-demand service broker now communicates with routing components over
+mutual TLS.
 
 ### Known Issues
 
 This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-- **Direct reply-to feature:**
+- **The direct reply-to feature is not supported:**
 For on-demand service instances created in v1.20.0 - v1.20.3 and v1.21.0,
-the [direct reply-to feature](https://www.rabbitmq.com/direct-reply-to.html) is not supported.
+the direct reply-to feature is not supported.
+For more information about the direct reply-to feature, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/direct-reply-to.html).
 
 ### Compatibility
 
@@ -137,7 +139,9 @@ The following components are compatible with this release:
   </tr>
 </table>
 
-<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">v3.8.9</a> GitHub documentation.
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">v3.8.9</a> GitHub
+documentation.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
