@@ -54,24 +54,27 @@ To configure the load balancer:
 
 1. Use the IaaS console and the CID that you recorded earlier to find the VM that runs the TCP router.
 1. Create an external TCP load balancer that points to the VM running the TCP router.
-1. Configure a distinct external port range that does not overlap with the TCP networking port
-   or port range that you configured in
-   [Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#tcp-routing) above.
+1. Configure a distinct external port range that does not overlap with any of the following:
+    * The port range configured for service-gateway access for other service tiles, such as VMware
+    Tanzu SQL with MySQL for VMs.
+    * The TCP networking port or port range that you configured in
+    [Enable TCP Routing Using the <%= vars.app_runtime_abbr %> Tile](#tcp-routing) above.
 
     For example, if your TCP routing port range is `1024-1123`,
-     then your load balancer port range for service gateway must not overlap `1024-1123`.
-   <p class="note">
-        <strong>Note:</strong> Each <%= vars.product_short %> service instance using service-gateway access requires a unique
-        port. Ensure that the port range configured above has enough capacity to accommodate all the
-        service instances that you need.
-        The start port and the end port are both inclusive.
-   </p>
-   ![Diagram showing Service Gateway port ranges: Traffic flows to the apps from the Load Balancer
-using ports in the TAS LB port range through the TCP Router using ports in the TAS TCP port range.
-Traffic flows to the RabbitMQ for VMs service instances from the Load Balancer using ports
-in the Service Gateway LB port range through the TPC Router using ports in the Service Gateway
-TCP port range.](images/service-gateway-ports.png)
-<a href="./images/service-gateway-ports.png" target="_blank" aria-hidden="true">Click here to view a larger version of the image above</a>
+    then your load balancer port range for service gateway must not overlap `1024-1123`.
+    <p class="note">
+      <strong>Note:</strong> Each <%= vars.product_short %> service instance using service-gateway
+      access requires a unique port.
+      Ensure that the port range configured above has enough capacity to accommodate all the service
+      instances that you need. The start port and the end port are both inclusive.
+    </p>
+    ![Diagram showing Service Gateway port ranges: Traffic flows to the apps from the Load Balancer
+    using ports in the TAS LB port range through the TCP Router using ports in the TAS TCP port
+    range. Traffic flows to the RabbitMQ for VMs service instances from the Load Balancer using ports
+    in the Service Gateway LB port range through the TPC Router using ports in the Service Gateway
+    TCP port range.](images/service-gateway-ports.png)
+    <a href="./images/service-gateway-ports.png" target="_blank" aria-hidden="true">Click here to
+      view a larger version of the image above</a>
 1. Record this port range.
 
 
