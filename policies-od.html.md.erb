@@ -93,13 +93,14 @@ There are, at minimum, two methods to declare policies through the management AP
 replacing `api/` in `http_api_uri` with `cli/rabbitmqadmin`. This tool requires Python to be
 installed.
 * Using curl or another HTTP client tool to send HTTP requests directly to the `http_api_uri` you
-obtained from the app or service-key. This method is used in the example below.
+obtained from the app or service-key. This method is used in the [Set up an HA Policy](#ha-policy)
+procedure below.
 
 This example uses the scripts `set-policy` and `list-policies`.
 To view these scripts, see
-[set-policy](https://gist.github.com/MarcialRosales/8cae6ef203b120ff400c4232ab8980e7#file-set-policy)
+[set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
 and
-[list-policies](https://gist.github.com/MarcialRosales/8cae6ef203b120ff400c4232ab8980e7#file-list-policies) in GitHub.
+[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub.
 
 The scripts rely on the `cf`, `curl`, and `jq` commands, which you must have installed.
 
@@ -110,56 +111,66 @@ It accepts these parameters:
 1. The name of the policy
 1. The policy pattern
 1. The definition
+1. The priority
 
-You can use this script to create a new policy and modify it.
+You can use this script to create a new policy and modify it
 
 
 ### <a id="ha-policy"></a> Set up an HA Policy
 
 To set up an HA policy:
 
-1. If you have no overlapping policies
-<%# Finish with with Feroz's recommend script changes if they won't change the actual script. %>
+1. Install the `cf`, `curl`, and `jq` commands, if you have not already done so.
 
-RabbitMQ assigns `0` to priority when no value is provided.
-
-You do not need to assign a value to the priority if you have no overlapping policies.
-When there are two or more policies that match the same queue or exchange, the policies overlap and
-RabbitMQ compares their priorities to choose which one to apply.
-
+1. Save the `set-policy` and `list-policies` scripts somewhere on your machine.
+To access the policies, go to
+[set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
+and
+[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub.
 
 1. Run:
 
-```
-./set-policy APP-NAME ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic"}'
-```
-Where `APP-NAME` is your app.
+    ```
+    ./set-policy APP-NAME ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
+    "ha-sync-mode":"automatic"}' NUMBER
+    ```
+    Where:
+    * `APP-NAME` is your app.
+    * `NUMBER` is the priority value, such as `10`.
+
+When there are two or more policies that match the same queue or exchange, RabbitMQ compares the
+priority values of the policies to choose which one policy to apply.
+
+RabbitMQ assigns `0` to priority when no value is provided.
+You do not need to assign a value to the priority if you have no overlapping policies.
 
 All queues with names that start with `ha.` are mirrored with one replica and with automatic
 synchronization, as seen in the example below:
 
-```
-./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic"}'
-```
+    ```
+    ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
+    "ha-sync-mode":"automatic"}' 10
+    ```
 
-1. Run the command `./list-policies demo-app` to display the policy just created:
+1. Run the command `./list-policies APP-NAME` to check the policy just created, as in the example
+below:
 
-```
-[
-  {
-    "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
-    "name": "test",
-    "pattern": "^ha\\.",
-    "apply-to": "all",
-    "definition": {
-      "ha-mode": "exactly",
-      "ha-params": 2,
-      "ha-sync-mode": "automatic"
-    },
-    "priority": 0
-  }
-]
-```
+    ```
+    [
+      {
+        "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
+        "name": "test",
+        "pattern": "^ha\\.",
+        "apply-to": "all",
+        "definition": {
+          "ha-mode": "exactly",
+          "ha-params": 2,
+          "ha-sync-mode": "automatic"
+        },
+        "priority": 10
+      }
+    ]
+    ```
 
 
 ### <a id="ha-dlx-policy"></a> Set up an HA Plus DLX Policy
@@ -167,7 +178,7 @@ synchronization, as seen in the example below:
 All queues named `ha-dlx.*` are mirrored with one replica, with automatic synchronization, and with
 a dead-letter exchange.
 To combine multiple features you must create a policy that combines both. For more information, see
-[Combining Policy Definitions](https://www.rabbitmq.com/parameters.html#combining-policy-definitions).
+the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#combining-policy-definitions).
 
 1. To create a policy that combines `ha` and `dlx`, run:
 
@@ -190,8 +201,8 @@ All queues named `temp.*` must have a maximum length and message time to live (T
     ```
     Where:
     * `APP-NAME` is the name of the app.
-    * `NUMBER` is the maximum number of messages, such as 2.
-    * `MILLISECONDS` is a number of milliseconds, such as 60000.
+    * `NUMBER` is the maximum number of messages, such as `2`.
+    * `MILLISECONDS` is a number of milliseconds, such as `60000`.
 
 When the queue is full, the broker rejects further publishing attempts.
 If the publisher uses the protocol extension Publisher Confirm, it gets a `nack`.
@@ -201,12 +212,15 @@ For more information about Publisher Confirm, see the
 
 ### <a id="conc-q-policy"></a> Set up a Policy for a Concrete Queue
 
-A concrete queue must be named `event-log` and the queue mode must be `lazy`.
-<%# Is event-log the mandatory name for a concrete queue? %>
+To set up a policy for a concrete queue:
 
-1. To set up a policy for a concrete queue, run:
+1. Run:
 
     ```
-    ./set-policy APP-NAME ha "^event-log$" '{"queue-mode":"lazy"}'
+    ./set-policy APP-NAME ha "^CONCRETE-QUEUE$" '{"queue-mode":"lazy"}'
     ```
-    Where `APP-NAME` is the name of the app.
+    Where:
+    * `APP-NAME` is the name of the app.
+    * `CONCRETE-QUEUE` is the name of the concrete queue, such as `event-log`.
+
+    The queue mode must be `lazy`.
