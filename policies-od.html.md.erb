@@ -175,11 +175,11 @@ the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#combining-
     Where `APP-NAME` is the name of the app.
 
 
-### <a id="temp-q-policy"></a> Set up a Policy for Temporal Queues
+### <a id="temp-q-policy"></a> Set up a Policy for Temporary Queues
 
 All queues named `temp.*` must have a maximum length and message time to live (TTL):
 
-1. To create a policy for temporal queues, run:
+1. To create a policy for temporary queues, run:
 
     ```
     ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, //
