@@ -103,11 +103,10 @@ To set up an HA policy:
 
 1. Install the `cf`, `curl`, and `jq` commands, if you have not already done so.
 
-1. Save the `set-policy` and `list-policies` scripts somewhere on your local machine.
-To access the scripts, go to
+1. Download copies of the scripts
 [set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
 and
-[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub.
+[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub to your local machine.
 The `set-policy` script assumes the app is bound to a single RabbitMQ service instance.
 It accepts these parameters:
 
@@ -128,7 +127,7 @@ It accepts these parameters:
     * `NUMBER` is the priority value, such as `10`.
 
     When there are two or more policies that match the same queue or exchange, RabbitMQ compares the
-    priority values of the policies to choose which one policy to apply.<br>
+    priority values of the policies to choose which policy to apply.<br>
     RabbitMQ assigns `0` to priority when no value is provided.<br>
     You do not need to assign a value to the priority if you have no overlapping policies.<br><br>
     All queues with names that start with `ha.` are mirrored with one replica and with automatic
@@ -183,8 +182,8 @@ All queues named `temp.*` must have a maximum length and message time to live (T
 1. To create a policy for temporal queues, run:
 
     ```
-    ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, "overflow": "reject-publish", //
-    "message-ttl": MILLISECONDS}'
+    ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, //
+    "overflow": "reject-publish", "message-ttl": MILLISECONDS}'
     ```
     Where:
     * `APP-NAME` is the name of the app.
