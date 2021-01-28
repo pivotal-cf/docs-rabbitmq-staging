@@ -103,7 +103,7 @@ To set up an HA policy:
 
 1. Install the `cf`, `curl`, and `jq` commands, if you have not already done so.
 
-1. Save the `set-policy` and `list-policies` scripts somewhere on your machine.
+1. Save the `set-policy` and `list-policies` scripts somewhere on your local machine.
 To access the scripts, go to
 [set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
 and
@@ -127,12 +127,12 @@ It accepts these parameters:
     * `APP-NAME` is your app.
     * `NUMBER` is the priority value, such as `10`.
 
-When there are two or more policies that match the same queue or exchange, RabbitMQ compares the
-priority values of the policies to choose which one policy to apply.<br>
-RabbitMQ assigns `0` to priority when no value is provided.<br>
-You do not need to assign a value to the priority if you have no overlapping policies.<br><br>
-All queues with names that start with `ha.` are mirrored with one replica and with automatic
-synchronization, as seen in the example below:
+    When there are two or more policies that match the same queue or exchange, RabbitMQ compares the
+    priority values of the policies to choose which one policy to apply.<br>
+    RabbitMQ assigns `0` to priority when no value is provided.<br>
+    You do not need to assign a value to the priority if you have no overlapping policies.<br><br>
+    All queues with names that start with `ha.` are mirrored with one replica and with automatic
+    synchronization, as seen in the example below:
 
     ```
     ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
