@@ -21,14 +21,15 @@ used by RabbitMQ and not the RabbitMQ application.
 
 Only BOSH commands should be used by the operator to interact with the RabbitMQ app.
 
-For example:
-
-`bosh stop rabbitmq-server` and  `bosh start rabbitmq-server`.
-
-
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
 stopped through BOSH. You can also stop individual instances by running the stop command and
 specifying `JOB [index]`.
+
+Before introducing you to the bosh commands, you need to know that there is a peculiarity when stopping the full cluster. Nodes need to be started in reverse order they were shutdown. When you do `bosh stop rabbitmq-server`, bosh stops rabbitmq-server/0, rabbitmq-server/1 and then rabbitmq-server/2. You can't then use `bosh start rabbitmq-server`because this will try to start rabbitmq-server/0 first (it always starts with job index 0), but this node, since it wasn't the first one it was stopped, will wait until the first one that was stopped starts. This will never happen because bosh starts the nodes sequencially and won't go to the others node until this is started. The correct way to start the nodes will be to starts the instances individually specifying the job index. This is `bosh start rabbitmq-server/2`, `bosh start rabbitmq-server/1` and `bosh start rabbitmq-server/0`
+
+The other option can be to stop the nodes indivually as follows, `bosh stop rabbitmq-server/2`, `bosh stop rabbitmq-server/1` and `bosh stop rabbitmq-server/0` and then use `bosh start rabbitmq-server` that will start the nodes from index 0 to 2.
+
+Finally, you can stop and start the nodes individually, making sure the order rule is followed.
 
 <p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code> as this does not call the drain scripts</p>
 
