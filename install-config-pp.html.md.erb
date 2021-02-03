@@ -8,7 +8,7 @@ configure, and deploy the <%= vars.product_full %> tile to provide a pre-provisi
 
 The RabbitMQ open source product provides additional documentation.
 For more information about getting started with RabbitMQ and ensuring production readiness,
-see the Production Checklist in the [RabbitMQ Documentation](https://www.rabbitmq.com/production-checklist.html).
+see the Production Checklist in the [RabbitMQ documentation](https://www.rabbitmq.com/production-checklist.html).
 
 <div class="note"><strong>Note: </strong><%= vars.note_pre_provisioned %></div>
 
@@ -52,9 +52,10 @@ and a 'Service Network' field.](images/rmq_tile_config.png)
 
  Follow the steps below to configure the AZs and networks.
 
- 1. In the [Settings](#tile_configurations) screen, click **Assign AZs and Networks**.
-     <p class="note warning"><strong>Warning:</strong> You cannot change the regions or networks after
-     you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+1. In the [Settings](#tile_configurations) screen, click **Assign AZs and Networks**.
+    <p class="note warning">
+      <strong>Warning:</strong> You cannot change the regions or networks after you have clicked
+      <strong>Apply Changes</strong> during the <a id="#apply-changes">Apply Configuration and Complete the Installation</a> procedure below.</p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows.
     **All fields are required**, though some do not apply to the pre-provisioned service.
@@ -263,43 +264,39 @@ The list defaults to the following:
 * If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
 
-### <a id="ssl"></a> SSL
+### <a id="ssl"></a>(Optional) Provide SSL Certificates
 
-(Optional) Provide SSL certificates and keys for use by the RabbitMQ cluster in this section of the **Pre-Provisioned RabbitMQ** tab:
-
-<%= image_tag("images/config_ssl.png", :width =>"450",
-:alt => "Screenshot of several fields related to certificates.
-Two text fields are labeled 'RabbitMQ server certificate.' The first
-text field has placeholder text called 'Certificate PEM'. The second
-text field has placeholder text called 'Private Key PEM'. Underneath
-this field is a blue link called 'Generate RSA Certificate.' The next field
-is another text field labeled 'RabbitMQ server CA certificates'. The next two fields
-are checkboxes labeled 'Enable 'verify_peer' SSL certificate verification' and
-'Require peer certificate validation'. The last field is a textbox labeled 'SSL certificate
-verification depth.' The field has a value of '5'.") %>
-
-* SSL is simultaneously provided for AMQPS, STOMP and MQTT.
+If you provide a certificate, SSL is simultaneously provided for AMQPS, STOMP, and MQTT.
 No other plugins are automatically configured for use with SSL.
 
-* If you provide SSL keys and certificates, non-SSL support for AMQP is disabled.
-If you previously deployed this service without SSL support and
-have apps connected to the service using AMQP, these apps lose
-their connections and must reconnect using AMQPS. Apps
-connected to the cluster over MQTT and STOMP continue to function
-without SSL.
+If you provide SSL keys and certificates, non-SSL support for AMQP is disabled.
+If you previously deployed this service without SSL support and have apps connected to the service
+using AMQP, these apps lose their connections and must reconnect using AMQPS.
+Apps connected to the cluster over MQTT and STOMP continue to function without SSL.
+SSL settings are applied equally across all VMs in the cluster.
 
-* SSL settings are applied equally across all VMs in the cluster.
-
-* You can provide more then one CA certificate.
-
-<<<<<<< HEAD
-For more information about SSL support, see the [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
-=======
-To enable support for mTLS, select **Enable 'verify_peer' SSL certificate verification**. To enforce mTLS, additionally select **Require peer certificate validation**.
+You can provide more then one CA certificate.
 
 For more information about SSL support, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
->>>>>>> 32114e1... Add documentation on mTLS support.
+
+To provide SSL certificates:
+
+1. In the **RabbitMQ server certificate** fields on the **Pre-Provisioned RabbitMQ** tab, enter SSL
+certificates and keys for the RabbitMQ cluster to use.<br>
+    <%= image_tag("images/config_ssl.png", :width =>"450",
+    :alt => "Screenshot of several fields related to certificates.
+    Two text fields are labeled 'RabbitMQ server certificate.' The first
+    text field has placeholder text called 'Certificate PEM'. The second
+    text field has placeholder text called 'Private Key PEM'. Underneath
+    this field is a blue link called 'Generate RSA Certificate.' The next field
+    is another text field labeled 'RabbitMQ server CA certificates'. The next two fields
+    are checkboxes labeled 'Enable 'verify_peer' SSL certificate verification' and
+    'Require peer certificate validation'. The last field is a text field labeled 'SSL certificate
+    verification depth.' The field has a value of '5'.") %>
+
+1. To enable support for mTLS, select **Enable 'verify_peer' SSL certificate verification**.
+1. To enforce mTLS, additionally select **Require peer certificate validation**.
 
 
 ### <a id="tls"></a>TLS Support
@@ -464,7 +461,8 @@ To specify static IP addresses, do the following:
 
     <p class="note">
       <strong>Note:</strong> If any of the above fields are left blank,
-      BOSH allocates an IP address.</p>
+      BOSH allocates an IP address.
+    </p>
 
     <%= image_tag("config-networking-pp.png", :width => "350",
     :alt => "Screenshot of three text fields labeled 'Pre-Provisioned HAProxy Static IPs',
@@ -570,7 +568,7 @@ For information about configuring the on-demand service, see [Installing and Con
 (Optional) In the **Errands** tab, choose the defaults for when errands run.
 
 You can think of errands as tasks. For example, when deploying or updating <%= vars.product_short %>,
-<%= vars.ops_manager %> can optionally run a series of post-deploy errands.
+<%= vars.ops_manager %> can run a series of post-deploy errands.
 An example is the **Smoke Tests** errand, which checks the health of the RabbitMQ cluster after a
 deployment or upgrade.
 For more information, see [Post-Deploy Errands](#post-deploy-errands) below.
