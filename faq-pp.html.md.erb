@@ -4,7 +4,8 @@ owner: London Services Enablement
 ---
 
 
-This topic lists frequently asked questions that apply to the <%= vars.product_full %> pre-provisioned service.
+This topic lists frequently asked questions that apply to the <%= vars.product_full %> pre-provisioned
+service.
 
 
 ## <a id="faq"></a> Frequently Asked Questions
@@ -12,47 +13,71 @@ This topic lists frequently asked questions that apply to the <%= vars.product_f
 ### <a id="check-deploy"></a> What should I check before deploying a new version of the tile?
 
 Ensure that all nodes in the cluster are healthy through the RabbitMQ Management UI, or health
-metrics exposed by the firehose.
+metrics exposed by the Firehose.
 You cannot rely solely on the BOSH `instances` output as that reflects the state of the Erlang VM
 used by RabbitMQ and not the RabbitMQ application.
 
 
 ### <a id="stopstart"></a>  What is the correct way to stop and start <%= vars.product_full %>?
 
-Only BOSH commands should be used by the operator to interact with the RabbitMQ app.
-
-For example:
-
-`bosh stop rabbitmq-server` and  `bosh start rabbitmq-server`.
-
+The operator should use only BOSH commands to interact with the RabbitMQ app.
 
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH. You can also stop individual instances by running the stop command and
-specifying `JOB [index]`.
+stopped through BOSH. You can also stop individual instances by running the `stop` command with a
+specific job index.
 
-<p class="note"><strong>Note: </strong>Do not use <code>monit stop rabbitmq-server</code> as this does not call the drain scripts</p>
+Extra care must be taken after stopping the full cluster given that nodes must be started in reverse
+order of when they were shut down.
+This means that after running `bosh stop rabbitmq-server`, which stops rabbitmq-server/0 and then
+rabbitmq-server/1 and then rabbitmq-server/2, you cannot run `bosh start rabbitmq-server`.
+
+This is because `bosh start rabbitmq-server` tries to start rabbitmq-server/0 first (it always starts
+with job index 0), but this node cannot start first because it was not the last node to stop.
+
+To start the nodes after running `bosh stop rabbitmq-server`, start each instance individually by
+specifying each job index. For example:
+
+```
+bosh start rabbitmq-server/2
+bosh start rabbitmq-server/1
+bosh start rabbitmq-server/0
+```
+
+Alternatively, you can stop a full cluster by stopping each node individually, from highest index to
+lowest, and then running `bosh start rabbitmq-server`. See the example below:
+
+```
+bosh stop rabbitmq-server/2
+bosh stop rabbitmq-server/1
+bosh stop rabbitmq-server/0
+bosh start rabbitmq-server
+```
+
+<p class="note">
+  <strong>Note:</strong> Do not use <code>monit stop rabbitmq-server</code> as this does not call the
+  drain scripts.
+</p>
+
 
 ### <a id="boshstop"></a> What happens when I run bosh stop rabbitmq-server?
 
 BOSH starts the shutdown sequence from the bootstrap instance.
 
-We start by telling the RabbitMQ application to shutdown and then shutdown the
-Erlang VM within which it is running. If this succeeds, we run the following
-checks to ensure that the RabbitMQ application and Erlang VM have stopped:
+Tell the RabbitMQ app to shutdown and then shutdown the
+Erlang VM within which it is running. If this succeeds, run the following checks to ensure that the
+RabbitMQ app and Erlang VM have stopped:
 
 1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside
-this file does not point to a running Erlang VM process. Notice that we are
-tracking the Erlang PID and not the RabbitMQ PID.
-1. Check that `rabbitmqctl` does not return an Erlang VM PID
+this file does not point to a running Erlang VM process. The Erlang PID is tracked and the RabbitMQ
+PID is not.
+1. Verify that `rabbitmqctl` does not return an Erlang VM PID.
 
-Once this completes on the bootstrap instance, BOSH will continue the same
-sequence on the next instance. All remaining rabbitmq-server instances will be
-stopped one by one.
+After this completes on the bootstrap instance, BOSH continues the same sequence on the next instance.
+All remaining rabbitmq-server instances stop one by one.
 
 ### <a id="serverfailprocess"></a> What happens when bosh stop rabbitmq-server fails?
 
-If the BOSH `stop` fails, you will likely get an error saying that the drain
-script failed with:
+If the BOSH `stop` fails, you are likely to see the error below:
 
 <pre class="terminal">result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
 </pre>
@@ -60,21 +85,19 @@ script failed with:
 ### <a id="serverfailactions"></a> What do I do when bosh stop rabbitmq-server fails?
 
 The drain script logs to `/var/vcap/sys/log/rabbitmq-server/drain.log`. If you
-have a remote syslog configured, this will appear as the `rmq_server_drain`
-program.
+have a remote syslog configured, this appears as the `rmq_server_drain` program.
 
-First, BOSH `ssh` into the failing rabbitmq-server instance and start the
-rabbitmq-server job by running `monit start rabbitmq-server`. You will not be
-able to start the job via BOSH `start` as this always runs the drain script first
-and will fail since the drain script is failing.
+First, BOSH `ssh` into the failing rabbitmq-server instance and start the rabbitmq-server job by
+running `monit start rabbitmq-server`.
+You are not able to start the job through `bosh start` as this always runs the drain script first and
+fails because the drain script is failing.
 
-Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
-`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
-failing.
+After rabbitmq-server job is running (confirm this through `monit status`), run `DEBUG=1`
+`/var/vcap/jobs/rabbitmq-server/bin/drain`. This tells you exactly why it is failing.
 
 ### <a id="backup"></a> How can I manually back up the state of the RabbitMQ cluster?
 
-It is possible to back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned
+You can back up the state of a RabbitMQ cluster for both the on-demand and pre-provisioned
 services using the RabbitMQ Management API.
 Backups include virtual hosts, exchanges, queues, and users.
 
@@ -107,16 +130,15 @@ Use the API to run scripts with code similar to the following:
 
 ### <a id="preupgrade"></a> What pre-upgrade checks should I do?
 
-Before doing any upgrade of RabbitMQ, VMware recommends checking the following:
+Before doing any upgrade of RabbitMQ:
 
 1. In <%= vars.ops_manager %>, check that the status of all of the instances is healthy.
 1. Log in to the RabbitMQ Management UI.
 For instructions about how to do so with or without OAuth enabled, see
 [Using the RabbitMQ Management UI](./managing.html).
-1. Check that no alarms have been triggered and that all nodes are healthy, that is,
-they should display as green.
-1. Check that the system is not close to hitting either the memory or disk alarm.
-Do this by looking at what each node has consumed in the RabbitMQ Management UI.
+1. Verify that no alarms were triggered and that all nodes are green.
+1. In the RabbitMQ Management UI, look at what each node has consumed to verify that the system is
+not close to hitting either the memory or disk alarm.
 
 ## <a id="kb"></a> Knowledge Base (Community)
 
