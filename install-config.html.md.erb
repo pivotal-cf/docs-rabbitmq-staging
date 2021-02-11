@@ -358,8 +358,8 @@ You must complete the required fields for **On Demand Instance: Plan 1** even if
         <td><strong>In <%= vars.product_short %> v1.19.2 and later patches:</strong>
           Select this checkbox to enable the following pre-stop checks:
           <ul>
-            <li><code>rabbitmq-diagnostics check\_if\_node\_is\_mirror\_sync\_critical</code></li>
-            <li><code>rabbitmq-diagnostics check\_if\_node\_is\_quorum\_critical</code></li>
+            <li><code>rabbitmq-upgrade await\_online\_quorum\_plus\_one --timeout 3600</code></li>
+            <li><code>rabbitmq-upgrade await\_online\_synchronized\_mirror --timeout 3600</code></li>
           </ul>
           Enabling these checks ensures that queues are synced before an upgrade.
           <p class="note warning"><strong>Warning:</strong>
