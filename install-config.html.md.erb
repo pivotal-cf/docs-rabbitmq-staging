@@ -514,8 +514,8 @@ plan.
         <td><strong>Wait for Queue Synchronization</strong></td>
         <td>Select this checkbox to enable the following pre-stop checks:
           <ul>
-            <li><code>rabbitmq-diagnostics check\_if\_node\_is\_mirror\_sync\_critical</code></li>
-            <li><code>rabbitmq-diagnostics check\_if\_node\_is\_quorum\_critical</code></li>
+            <li><code>rabbitmq-upgrade await\_online\_quorum\_plus\_one --timeout 3600</code></li>
+            <li><code>rabbitmq-upgrade await\_online\_synchronized\_mirror --timeout 3600</code></li>
           </ul>
           Enabling these checks ensures that queues are synced before an upgrade.
           <p class="note">
