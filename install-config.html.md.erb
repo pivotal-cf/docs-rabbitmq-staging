@@ -527,11 +527,7 @@ plan.
           <p class="note warning"><strong>Warning:</strong>
             If you enable these checks, the pre-stop script can fail with the error:
             <code>Timed out waiting for mirror queue critical node to sync after 3600 seconds</code><br><br>
-            This occurs if you use mirrored queues with the default policy setting `ha-sync-mode: manual`,
-            and you have not manually synced your queues.
-            To manually sync your queues, run <code>rabbitmqctl sync\_queue</code>.
-            To set <code>ha-sync-mode</code> to <code>automatic</code> instead, see
-            <a href="./policies-pp.html#viewing">Setting or Changing the Policy</a>.
+            For more information, see <a href="troubleshoot.html#manual-queues">Pre-stop Script Times Out When Waiting for Queue Synchronization</a>.
           </p>
         </td>
       </tr>
