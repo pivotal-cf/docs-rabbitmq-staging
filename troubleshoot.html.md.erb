@@ -87,12 +87,14 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 <%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
     id: 'manual-queues',
     description: 'Pre-stop Script Times Out When Waiting for Queue Synchronization',
-    symptom: 'A pre-stop script times out with the error message <pre class="terminal">Timed out
-      waiting for mirror queue critical node to sync after 3600 seconds</pre>',
+    symptom: 'A pre-stop script times out with the error message
+    <pre class="terminal">
+      Timed out waiting for mirror queue critical node to sync after 3600 seconds
+    </pre>',
     cause: 'You selected the <strong>Wait for Queue Synchronization</strong> checkbox, and you have
-    mirrored queues with the default policy setting `ha-sync-mode: manual`, but you have not manually
-    synced your queues.',
-    solution: 'To manually sync your queues, run <code>rabbitmqctl sync\_queue</code>.
+    mirrored queues with the default policy setting <code>ha-sync-mode: manual</code>, but you have 
+    not manually synced your queues.',
+    solution: 'To manually sync your queues, run <code>rabbitmqctl sync_queue</code>.
     To set <code>ha-sync-mode</code> to <code>automatic</code> instead, see <a href="./policies-pp.html#viewing">Setting or Changing the Policy</a>.'
 } %>
 
