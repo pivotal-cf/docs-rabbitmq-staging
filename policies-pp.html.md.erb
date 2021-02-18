@@ -1,13 +1,12 @@
 ---
 breadcrumb: VMware Tanzu RabbitMQ for VMs Documentation
-title: Setting Default Policies for the RabbitMQ Service
+title: Setting Default Policies for the Pre-Provisioned RabbitMQ Service
 owner: London Services
 ---
 
 <div class="note">
   <strong>Note:</strong> <%= vars.note_pre_provisioned %>
 </div>
-
 
 ## <a id="policy"></a> About RabbitMQ Policies
 
@@ -106,7 +105,7 @@ given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
 <%= image_tag("images/policy_config.jpeg",
-:alt => "Screenshot of RabbitMQ management UI. Main header is 'Policies'. An
+:alt => "Screenshot of RabbitMQ Management UI. Main header is 'Policies'. An
 expanded accordion called 'All Policies' shows a filter text field, a regex checkbox, an a table
 with columns titled 'Name', 'Pattern', 'Apply to', 'Definition', and 'Priority'.
 One item is in the table with the name 'operator_set_policy' and a Priority of '50'.") %>
@@ -115,7 +114,7 @@ In the **Queues** section shown below, you can see that any new queues created h
 automatically applied.
 
 <%= image_tag("images/policy_queue.jpeg",
-:alt => "Screenshot of RabbitMQ management UI. Main header is 'Queues'. An
+:alt => "Screenshot of RabbitMQ Management UI. Main header is 'Queues'. An
 expanded accordion called 'All queues' shows a filter text field, a regex checkbox field, and a table
 with one item named 'test'. The policy called 'operator_set_policy' is highlighted in blue in the
 'Features' column of the table. The 'state' column shows the item is green and 'running'.") %>
