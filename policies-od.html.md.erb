@@ -6,7 +6,7 @@ owner: London Services
 
 ## <a id="policy"></a> Setting up Policies in On-Demand RabbitMQ
 
-In On-Demand RabbitMQ, the operator cannot set a default policy globally for all service plans or
+In on-demand RabbitMQ, the operator cannot set a default policy globally for all service plans or
 for a concrete service plan. Instead, it is up to the service instance owner (the Cloud Foundry
 space developer who created the service instance) to define policies and otherwise manage the
 RabbitMQ cluster.
@@ -15,15 +15,15 @@ The developer sets up policies in RabbitMQ through the management API or through
 to use a browser.
 To access the management API, the developer needs a username and password in addition to the URL.
 
-The developer can get a RabbitMQ user's credentials through the RabbitMQ management UI or through
+You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through
 the cf CLI.
 
 When using the cf CLI there are two methods to get the credentials:
 
 * Through a service key that you create by running `cf create-service-key`
 * Through a service binding, which is invoked manually by running `cf bind-service` or automatically
-when pushing the app if you declared the services block in the app's manifest file.
-For more information about service blocks, see the
+when pushing the app if you declared the `services` block in the app's manifest file.
+For more information about `services` blocks, see the
 [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block).
 
 Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
@@ -36,7 +36,11 @@ To manage policies as a developer, follow the procedures below.
 
 Create a service instance named `rmq`:
 
-1. Run `cf create-service p.rabbitmq single-node rmq`.
+1. Run:
+
+    ```
+    cf create-service p.rabbitmq single-node rmq
+    ```
 
 
 ## <a id="obtain"></a> Obtain the RabbitMQ Management API Credentials
@@ -87,7 +91,7 @@ In the example below, an app called `demo-app` is pushed and bound to the `rmq` 
 
 ## <a id="declare"></a> Declare a RabbitMQ Policy Through the Management API
 
-There are, at minimum, two methods to declare policies through the management API:
+There are at least two methods to declare policies through the management API:
 
 * Using the command line tool rabbitmqadmin, which you can download from `http_api_uri` after
 replacing `api/` in `http_api_uri` with `cli/rabbitmqadmin`. This tool requires Python to be
@@ -99,9 +103,12 @@ procedure below.
 
 ### <a id="ha-policy"></a> Set up an HA Policy
 
+All queues with names that start with `ha.` are mirrored with one replica and with automatic
+synchronization.
+
 To set up an HA policy:
 
-1. Install the `cf`, `curl`, and `jq` commands, if you have not already done so.
+1. Install the `curl` and `jq` command line tools, if you have not already done so.
 
 1. Download copies of the scripts
 [set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
@@ -130,18 +137,22 @@ It accepts these parameters:
     priority values of the policies to choose which policy to apply.<br>
     RabbitMQ assigns `0` to priority when no value is provided.<br>
     You do not need to assign a value to the priority if you have no overlapping policies.<br><br>
-    All queues with names that start with `ha.` are mirrored with one replica and with automatic
-    synchronization, as seen in the example below:
+    For example:
 
-    ```
-    ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
+    <pre class="terminal">
+    $ ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
     "ha-sync-mode":"automatic"}' 10
-    ```
+    </pre>
 
-1. Run the command `./list-policies APP-NAME` to read the policy just created, as in the example
-below:
+1. To see the policies you created, run:
 
     ```
+    ./list-policies APP-NAME
+    ```
+    For example:
+    <pre class="terminal">
+    $ ./list-policies APP-NAME
+
     [
       {
         "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
@@ -156,7 +167,7 @@ below:
         "priority": 10
       }
     ]
-    ```
+    </pre>
 
 
 ### <a id="ha-dlx-policy"></a> Set up an HA Plus DLX Policy
