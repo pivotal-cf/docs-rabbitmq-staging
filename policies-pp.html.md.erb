@@ -1,6 +1,6 @@
 ---
 breadcrumb: VMware Tanzu RabbitMQ [VMs] Documentation
-title: Setting Default Policies for the RabbitMQ Service
+title: Setting Default Policies for the Pre-Provisioned RabbitMQ Service
 owner: London Services
 ---
 
@@ -8,13 +8,8 @@ owner: London Services
   <strong>Note:</strong> <%= vars.note_pre_provisioned %>
 </div>
 
-
 ## <a id="policy"></a> About RabbitMQ Policies
 
-<<<<<<< HEAD
-You can set a default queue and an exchange policy in the <%= vars.product_full %> tile to be applied to the RabbitMQ cluster.
-After you deploy the tile, VMware recommends that you use the RabbitMQ Management Interface to make configuration changes.
-=======
 You can set a default queue and an exchange policy in the <%= vars.product_full %> tile to be applied
 to the RabbitMQ cluster.
 After you deploy the tile, VMware recommends that you use the RabbitMQ Management UI to make
@@ -22,7 +17,6 @@ configuration changes.
 
 For more information about RabbitMQ policies, see the
 [RabbitMQ documentation](http://www.rabbitmq.com/parameters.html#policies).
->>>>>>> fd07536... [#175230920] Style edits to Policies for PP
 
 
 ## <a id="rules"></a> Rules for Policies Set in the Tile
@@ -32,14 +26,8 @@ The following rules apply to polices set through the <%= vars.product_short %> t
 * A new policy, or an update to a policy, only applies to new instances (vhosts).
 Existing instances are not affected by the policy.
 * The policy can only be deleted manually from the RabbitMQ nodes.
-<<<<<<< HEAD
-* Policies can be added dynamically using the RabbitMQ Management Interface.
-* It is not possible to use pattern matching with policies. Policies will be
-applied to all queues and exchanges.
-=======
 * Policies can be added dynamically using the RabbitMQ Management UI.
 * It is not possible to use pattern matching with policies. Policies apply to all queues and exchanges.
->>>>>>> fd07536... [#175230920] Style edits to Policies for PP
 
     For granular policy settings, VMware recommends using the
     RabbitMQ Management UI. Set a `priority number` lower than
@@ -117,7 +105,7 @@ given a **Priority** of **50**.
 This allows you to override it by defining another policy with a higher priority.
 
 <%= image_tag("images/policy_config.jpeg",
-:alt => "Screenshot of RabbitMQ management UI. Main header is 'Policies'. An
+:alt => "Screenshot of RabbitMQ Management UI. Main header is 'Policies'. An
 expanded accordion called 'All Policies' shows a filter text field, a regex checkbox, an a table
 with columns titled 'Name', 'Pattern', 'Apply to', 'Definition', and 'Priority'.
 One item is in the table with the name 'operator_set_policy' and a Priority of '50'.") %>
@@ -126,7 +114,7 @@ In the **Queues** section shown below, you can see that any new queues created h
 automatically applied.
 
 <%= image_tag("images/policy_queue.jpeg",
-:alt => "Screenshot of RabbitMQ management UI. Main header is 'Queues'. An
+:alt => "Screenshot of RabbitMQ Management UI. Main header is 'Queues'. An
 expanded accordion called 'All queues' shows a filter text field, a regex checkbox field, and a table
 with one item named 'test'. The policy called 'operator_set_policy' is highlighted in blue in the
 'Features' column of the table. The 'state' column shows the item is green and 'running'.") %>
