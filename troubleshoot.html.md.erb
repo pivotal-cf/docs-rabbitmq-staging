@@ -77,7 +77,7 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
     symptom: 'Your deployment fails after editing the <strong>Assign AZs and Networks</strong>
     pane in the ' + vars.product_short + ' tile.' ,
     cause: 'This error might occur if you change the
-    IP addresses assigned to the <code>RabbitMQ Server</code> job.' + vars.product_short + 'requires
+    IP addresses assigned to the <code>RabbitMQ Server</code> job. ' + vars.product_short + ' requires
     that you do not change these IP addresses after they are assigned.
     This includes changes made to your current installation or during an upgrade.' ,
     solution: 'To diagnose and solve this issue, see
@@ -86,12 +86,12 @@ The following troubleshooting errors are specific to <%= vars.product_short %>:
 
 <%= partial "/troubleshoot-template", locals: {
     id: 'manual-queues',
-    description: 'Pre-stop Script Times Out When Waiting for Queue Synchronization',
-    symptom: 'A pre-stop script times out with the error message
+    description: 'Pre-Stop Script Times Out When Waiting for Queue Synchronization',
+    symptom: 'A pre-stop script times out with the error message:
     <pre class="terminal">Timed out waiting for mirror queue critical node to sync after 3600 seconds</pre>',
-    cause: 'You selected the <strong>Wait for Queue Synchronization</strong> checkbox, and you have
-    mirrored queues with the default policy setting <code>ha-sync-mode: manual</code>, but you have
-    not manually synced your queues.',
+    cause: 'You have not manually synced your queues,
+    but you selected the <strong>Wait for Queue Synchronization</strong> checkbox and have
+    mirrored queues with the default policy setting <code>ha-sync-mode: manual</code>.',
     solution: 'To manually sync your queues, run <code>rabbitmqctl sync_queue</code>.
     To set <code>ha-sync-mode</code> to <code>automatic</code> instead, see <a href="./policies.html#viewing">Setting or Changing the Policy</a>.'
 } %>
