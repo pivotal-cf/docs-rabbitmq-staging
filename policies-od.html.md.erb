@@ -95,8 +95,7 @@ There are at least two methods to declare policies through the management API:
 replacing `api/` in `http_api_uri` with `cli/rabbitmqadmin`. This tool requires Python to be
 installed.
 * Using curl or another HTTP client tool to send HTTP requests directly to the `http_api_uri` you
-obtained from the app or service-key. This method is used in the [Set up an HA Policy](#ha-policy)
-procedure below.
+obtained from the app or service-key. This method is used in the procedures below.
 
 
 ### <a id="ha-policy"></a> Set up an HA Policy
@@ -149,8 +148,7 @@ It accepts these parameters:
     ```
     For example:
     <pre class="terminal">
-    $ ./list-policies APP-NAME
-
+    $ ./list-policies demo-app
     [
       {
         "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
@@ -183,6 +181,11 @@ the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#combining-
     ```
     Where `APP-NAME` is the name of the app.
 
+    For example:
+    <pre class="terminal">
+    $ ./set-policy demo-app ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, //
+    "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
+    </pre>
 
 ### <a id="temp-q-policy"></a> Set up a Policy for Temporary Queues
 
@@ -198,6 +201,12 @@ All queues named `temp.*` must have a maximum length and message time to live (T
     * `APP-NAME` is the name of the app.
     * `NUMBER` is the maximum number of messages, such as `2`.
     * `MILLISECONDS` is a number of milliseconds, such as `60000`.
+
+    For example:
+    <pre class="terminal">
+    $ ./set-policy demo-app ha "^temp\." '{"max-length": 2, //
+    "overflow": "reject-publish", "message-ttl": 60000}'
+    </pre>
 
 When the queue is full, the broker rejects further publishing attempts.
 If the publisher uses the protocol extension Publisher Confirm, it gets a `nack`.
@@ -219,3 +228,8 @@ To set up a policy for a concrete queue:
     * `CONCRETE-QUEUE` is the name of the concrete queue, such as `event-log`.
 
     The queue mode must be `lazy`.
+
+    For example:
+    <pre class="terminal">
+    $ ./set-policy demo-app ha "^event-log$" '{"queue-mode":"lazy"}'
+    </pre>
