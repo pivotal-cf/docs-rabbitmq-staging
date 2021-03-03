@@ -4,6 +4,10 @@ title: Setting Default RabbitMQ Policies for the On&#8209;Demand Service
 owner: London Services
 ---
 
+This topic is about setting default policies for the on-demand RabbitMQ service.
+For setting pre-provisioned policies, see
+[Setting Default RabbitMQ Policies for the Pre-Provisioned Service](policies-pp.html).
+
 ## <a id="policy"></a> Setting up Policies in On-Demand RabbitMQ
 
 In on-demand RabbitMQ, the operator cannot set a default policy globally for all service plans or
@@ -15,49 +19,57 @@ The developer sets up policies in RabbitMQ through the management API or through
 to use a browser.
 To access the management API, the developer needs a username and password in addition to the URL.
 
-You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through
-the cf CLI.
+To set policies:
 
-When using the cf CLI there are two methods to get the credentials:
-
-* Through a service key that you create by running `cf create-service-key`
-* Through a service binding, which is invoked manually by running `cf bind-service` or automatically
-when pushing the app if you declared the `services` block in the app's manifest file.
-For more information about `services` blocks, see the
-[Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#services-block).
-
-Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
-`policymaker` is the key user tag that permits a developer to create and delete policies.
+1. [Create a Service Instance](#create)
+1. [Obtain the RabbitMQ Management API Credentials](#obtain)
+1. [Declare a RabbitMQ Policy Through the Management API](#declare)
 
 
 ## <a id="create"></a> Create a Service Instance
 
-Create a service instance named `rmq`:
+Create a service instance:
 
 1. Run:
 
     ```
-    cf create-service p.rabbitmq single-node rmq
+    cf create-service p.rabbitmq PLAN SERVICE-INSTANCE-NAME
     ```
+    Where:
+    `SERVICE-INSTANCE-NAME` is a name of your choice.
+    `PLAN` is the plan. For example, `single-node`.
 
 
 ## <a id="obtain"></a> Obtain the RabbitMQ Management API Credentials
 
 Obtain the RabbitMQ management API credentials `http_api_uri`, `vhost`, `password`, and `username`:
 
-1. Use one of the options described in [Setting up Policies in On-Demand RabbitMQ](#policy) above.
-In the example below, an app called `demo-app` is pushed and bound to the `rmq` service instance:
-
+1. You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through the
+cf CLI. When using the cf CLI there are two options:
+    * Create and use a service key by running:
     <pre class="terminal">
-      > mkdir demo-app
-      > cd demo-app
-      > touch Staticfile
-      > touch index.html
-      > echo "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello world!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" > index.html
-      > cd ..
-      > cf push demo-app -p demo-app
-      > cf bind-service demo-app rmq
+    cf create-service-key
+    cf service-key SERVICE KEY
     </pre>
+    Where `SERVICE` is your service and `KEY` is your key.
+    * Use a service binding, which you invoke manually by running `cf bind-service` or automatically
+    when pushing the app if you declared the `services` block in the app's manifest file.
+    In the example below, an app called `demo-app` is pushed and bound to your newly created service
+    instance:
+    <pre class="terminal">
+    > mkdir demo-app
+    > cd demo-app
+    > touch Staticfile
+    > touch index.html
+    > echo "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello world!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" > index.html
+    > cd ..
+    > cf push demo-app -p demo-app
+    > cf bind-service demo-app SERVICE-INSTANCE-NAME
+    </pre>
+    Where `SERVICE-INSTANCE-NAME` is the name you gave your service instance earlier.
+
+Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
+`policymaker` is the key user tag that permits a developer to create and delete policies.
 
 1. Obtain the credentials for the user assigned to the app by running:
 
@@ -98,19 +110,24 @@ installed.
 obtained from the app or service-key. This method is used in the procedures below.
 
 
+### <a id="prereqs"></a> Prerequisites
+
+The prerequisites for the below procedures are:
+
+1. Install the `curl` command line tool. For more information, see the [curl documentation](https://curl.se/).
+1. Install the `jq` command line tool. For more information, see the [jq documentation]>(https://stedolan.github.io/jq/)
+in GitHub.
+1. Download copies of the scripts
+[set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
+and
+[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub to your local machine.
+
+
 ### <a id="ha-policy"></a> Set up an HA Policy
 
 All queues with names that start with `ha.` are mirrored with one replica and with automatic
 synchronization.
 
-To set up an HA policy:
-
-1. Install the `curl` and `jq` command line tools, if you have not already done so.
-
-1. Download copies of the scripts
-[set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
-and
-[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub to your local machine.
 The `set-policy` script assumes the app is bound to a single RabbitMQ service instance.
 It accepts these parameters:
 
@@ -120,11 +137,12 @@ It accepts these parameters:
     1. The definition
     1. The priority
 
+To set up an HA policy:
+
 1. Set the policy by running:
 
     ```
-    ./set-policy APP-NAME ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
-    "ha-sync-mode":"automatic"}' NUMBER
+    ./set-policy APP-NAME ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic"}' NUMBER
     ```
     Where:
     * `APP-NAME` is your app.
@@ -137,9 +155,11 @@ It accepts these parameters:
     For example:
 
     <pre class="terminal">
-    $ ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, //
-    "ha-sync-mode":"automatic"}' 10
+    $ ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic"}' 10
     </pre>
+
+
+### <a id="list-policy"></a> List HA Policies
 
 1. To see the policies you created, run:
 
@@ -176,16 +196,15 @@ the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#combining-
 1. To create a policy that combines `ha` and `dlx`, run:
 
     ```
-    ./set-policy APP-NAME ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, //
-    "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
+    ./set-policy APP-NAME ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
     ```
     Where `APP-NAME` is the name of the app.
 
     For example:
     <pre class="terminal">
-    $ ./set-policy demo-app ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, //
-    "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
+    $ ./set-policy demo-app ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
     </pre>
+
 
 ### <a id="temp-q-policy"></a> Set up a Policy for Temporary Queues
 
@@ -194,8 +213,7 @@ All queues named `temp.*` must have a maximum length and message time to live (T
 1. To create a policy for temporary queues, run:
 
     ```
-    ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, //
-    "overflow": "reject-publish", "message-ttl": MILLISECONDS}'
+    ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, "overflow": "reject-publish", "message-ttl": MILLISECONDS}'
     ```
     Where:
     * `APP-NAME` is the name of the app.
@@ -204,8 +222,7 @@ All queues named `temp.*` must have a maximum length and message time to live (T
 
     For example:
     <pre class="terminal">
-    $ ./set-policy demo-app ha "^temp\." '{"max-length": 2, //
-    "overflow": "reject-publish", "message-ttl": 60000}'
+    $ ./set-policy demo-app ha "^temp\." '{"max-length": 2, "overflow": "reject-publish", "message-ttl": 60000}'
     </pre>
 
 When the queue is full, the broker rejects further publishing attempts.
