@@ -306,8 +306,8 @@ Configure TLS in this section of the **Pre-Provisioned RabbitMQ** tab:
 1. In the **Pre-Provisioned RabbitMQ** tab, select the TLS versions to support.
 TLS v1.0 and v1.1 are deprecated and disabled by default.
 TLS v1.3 and TLS v1.2 are enabled by default.
-Note that TLS v1.3 is incompatible with TLS v1.1 and TLS v1.0 and must not be enabled alongside TLS v1.1 or TLS v1.0. 
-Doing so will cause the pre-provisioned deployment to fail.
+TLS v1.3 is incompatible with TLS v1.1 and TLS v1.0. Do not enable it alongside TLS v1.1 or
+TLS v1.0: doing so would cause the pre-provisioned deployment to fail.
 <br>
 For more information about TLS versions, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
