@@ -5,6 +5,98 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="1-19-6"></a> v1.19.6
+
+**Release Date**: Feb 24, 2021
+
+### Features
+
+New features and changes in this release:
+
+* Support for TLS 1.3: Both the pre-provisioned and on-demand offerings now support TLS 1.3 in RabbitMQ. It is worth noting that TLS 1.3
+is incompatible with TLS 1.1 and TLS 1.0 so they must not be enabled at the same time. For more information on configuring the supported TLS versions, 
+   please see [Configure Security](./install-config.html#security) for on-demand, and [Configure TLS Support](./install-config-pp.html#tls) for pre-provisioned.
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+    <td>Erlang</td>
+    <td>23.2.5</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.28</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ<sup>*</sup></td>
+    <td>3.8.12</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full%></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>354.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>91.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>46.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>91.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>52.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>170.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.211.0</td>
+  </tr>
+
+<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.12">v3.8.12</a> GitHub documentation.
+
 ## <a id="1-19-5"></a> v1.19.5
 
 **Release Date**: December 14, 2020
@@ -593,3 +685,5 @@ The following components are compatible with this release:
 ## <a id="view"></a> View Release Notes for Another Version
 To view the release notes for another product version, select the version from the dropdown at the top of this
 page.
+
+
