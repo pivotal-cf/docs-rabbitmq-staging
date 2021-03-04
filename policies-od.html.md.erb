@@ -36,8 +36,8 @@ Create a service instance:
     cf create-service p.rabbitmq PLAN SERVICE-INSTANCE-NAME
     ```
     Where:
-    `SERVICE-INSTANCE-NAME` is a name of your choice.
-    `PLAN` is the plan. For example, `single-node`.
+    * `SERVICE-INSTANCE-NAME` is a name of your choice.
+    * `PLAN` is the plan. For example, `single-node`.
 
 
 ## <a id="obtain"></a> Obtain the RabbitMQ Management API Credentials
@@ -51,7 +51,7 @@ cf CLI. When using the cf CLI there are two options:
     cf create-service-key
     cf service-key SERVICE KEY
     </pre>
-    Where `SERVICE` is your service and `KEY` is your key.
+    Where `SERVICE` is your service and `KEY` is your key.<br><br>
     * Use a service binding, which you invoke manually by running `cf bind-service` or automatically
     when pushing the app if you declared the `services` block in the app's manifest file.
     In the example below, an app called `demo-app` is pushed and bound to your newly created service
@@ -131,11 +131,11 @@ synchronization.
 The `set-policy` script assumes the app is bound to a single RabbitMQ service instance.
 It accepts these parameters:
 
-    1. The app's name
-    1. The name of the policy
-    1. The policy pattern
-    1. The definition
-    1. The priority
+1. The app's name
+1. The name of the policy
+1. The policy pattern
+1. The definition
+1. The priority
 
 To set up an HA policy:
 
