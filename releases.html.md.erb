@@ -5,7 +5,7 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="1-22-0"></a> v1.22.0
+## <a id="2-0-0"></a> v2.0.0
 
 **Release Date**: MMM DD, YYYY
 
@@ -14,6 +14,17 @@ owner: London Services
 New features and changes in this release:
 
 * **Run-in heading:** Feature description.
+
+* **Additional Rabbitmq server plugins for on-demand:** These plugins are available for on-demand services:<br>
+
+    `rabbitmq_auth_backend_cache`, `rabbitmq_auth_backend_http`, `rabbitmq_auth_backend_ldap`,
+    `rabbitmq_auth_mechanism_ssl`, `rabbitmq_jms_topic_exchange`, `rabbitmq_tracing`,
+    `rabbitmq_trust_store`, `rabbitmq_web_mqtt`, `rabbitmq_web_mqtt_examples`, and `rabbitmq_web_stomp_examples`.
+
+    The plugins are disabled by default.
+    For the complete list of plugins and for information on how to enable them,
+    see [RabbitMQ Server Plugins](install-config.html#server-plugins)
+    in _Installing and Configuring the On-Demand Service_.
 
 ### Known Issues
 
