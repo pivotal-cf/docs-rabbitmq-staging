@@ -851,47 +851,123 @@ enabled or disabled by default.
 
 The following plugins are enabled by default, you cannot disable them:
 
-* `rabbitmq_management`: For more information, see
-[Management Plugin](https://www.rabbitmq.com/management.html) in the RabbitMQ documentation.
+<table class="nice">
+<col width="40%">
+<col width="60%">
+	<th>Plugin</th>
+	<th>For more information, see…</th>
+	<tr>
+                <td><code>rabbitmq_management</code></td>
+                <td><a href="https://www.rabbitmq.com/management.html">Management Plugin</a> in the RabbitMQ documentation.</td>
+        </tr>
+        <tr>
 
-* `rabbitmq_federation`: For more information, see [Federate Exchanges and Queues](./use.html#federation).
+                <td><code>rabbitmq_federation</code></td>
+                <td><a href="./use.html#federation">Federate Exchanges and Queues</a>.</td>
+        </tr>
+        <tr>
 
-* `rabbitmq_federation_management`
+                <td><code>rabbitmq_federation_management</code></td>
+                <td><em>n/a</em></td>
+        </tr>
+        <tr>
 
-* `rabbitmq_shovel`: For more information, see [Shovel Exchanges and Queues](./use.html#shovel).
+                <td><code>rabbitmq_shovel</code></td>
+                <td><a href="./use.html#shovel">Shovel Exchanges and Queues</a>.</td>
+        </tr>
+        <tr>
 
-* `rabbitmq_shovel_management`
+                <td><code>rabbitmq_shovel_management</code></td>
+                <td><em>n/a</em></td>
+        </tr>
+        <tr>
 
-* `rabbitmq_sharding`: For more information, see
-[rabbitmq sharding](https://github.com/rabbitmq/rabbitmq-sharding/blob/master/README.md) in GitHub.
+                <td><code>rabbitmq_sharding</code></td>
+                <td><a href="https://github.com/rabbitmq/rabbitmq-sharding/blob/master/README.md"> rabbitmq sharding</a> in GitHub.</td>
+        </tr>
+        <tr>
 
-* `rabbitmq_consistent_hash_exchange`: For more information, see
-[rabbitmq consistent hash exchange](https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/blob/master/README.md) in GitHub.
+                <td><code>rabbitmq_consistent_hash_exchange</code></td>
+                <td><a href="https://github.com/rabbitmq/rabbitmq-consistent-hash-exchange/blob/master/README.md">rabbitmq consistent hash exchange</a> in GitHub.</td>
+        </tr>
+        <tr>
 
-* `rabbitmq_prometheus`: For more information, see
-[rabbitmq prometheus](https://github.com/rabbitmq/rabbitmq-prometheus/blob/master/README.md) in
-GitHub.
-
+                <td><code>rabbitmq_prometheus</code></td>
+                <td><a href="https://github.com/rabbitmq/rabbitmq-prometheus/blob/master/README.md">rabbitmq prometheus</a> in GitHub.</td>
+        </tr>
+        <tr>
+</table>
 
 ### <a id="optional-plugins"></a> (Optional) Enable Extra RabbitMQ Server Plugins
 
 The following plugins are disabled by default:
 
-* `rabbitmq_amqp1_0`: For more information, see the [AMQP 1.0 Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_amqp1_0/README.md) in GitHub.
-* `rabbitmq_auth_backend_cache`: For more information, see the [Auth Backend Cache Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_backend_cache/README.md) in GitHub.
-* `rabbitmq_auth_backend_http`: For more information, see the [Auth Backend HTTP Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_backend_http/README.md) in GitHub.
-* `rabbitmq_auth_backend_ldap`: For more information, see the [LDAP Plugin](https://www.rabbitmq.com/ldap.html) in the RabbitMQ documentation.
-* `rabbitmq_auth_mechanism_ssl`: For more information, see the [Auth Mechanism SSL Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_mechanism_ssl/README.md) in GitHub.
-* `rabbitmq_event_exchange`: For more information, see the [Event Exchange Plugin](https://www.rabbitmq.com/event-exchange.html) in the RabbitMQ documentation.
-* `rabbitmq_jms_topic_exchange`: For more information, see the [JMS Topic Exchange Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_jms_topic_exchange/README.md) in the RabbitMQ documentation.
-* `rabbitmq_mqtt`: For more information, see the [MQTT Plugin](https://www.rabbitmq.com/mqtt.html) in the RabbitMQ documentation.
-* `rabbitmq_stomp`: For more information, see the [STOMP Plugin](https://www.rabbitmq.com/stomp.html) in the RabbitMQ documentation.
-* `rabbitmq_tracing`: For more information, see the [Tracing Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_tracing/README.md) in GitHub.
-* `rabbitmq_trust_store`: For more information, see the [Trust Store Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_trust_store/README.md) in GitHub.
-* `rabbitmq_web_mqtt`: For more information, see the [Web MQTT Plugin](https://www.rabbitmq.com/web-mqtt.html) in the RabbitMQ documentation.
-* `rabbitmq_web_mqtt_examples`: For more information, see the [Web MQTT Examples Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_web_mqtt_examples/README.md) in GitHub.
-* `rabbitmq_web_stomp`: For more information, see the [Web STOMP Plugin](https://www.rabbitmq.com/web-stomp.html) in the RabbitMQ documentation.
-* `rabbitmq_web_stomp_examples`: For more information, see the [Web STOMP Examples Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_web_stomp_examples/README.md) in GitHub.
+<table class="nice">
+<col width="40%">
+<col width="60%">
+	<th>Plugin</th>
+	<th>For more information, see…</th>
+	<tr>
+                <td><code>rabbitmq_amqp1_0</code></td>
+                <td><a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_amqp1_0/README.md"> AMQP 1.0 Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_auth_backend_cache</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_backend_cache/README.md"> Auth Backend Cache Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_auth_backend_http</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_backend_http/README.md"> Auth Backend HTTP Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_auth_backend_ldap</code></td>
+                <td> <a href="https://www.rabbitmq.com/ldap.html"> LDAP Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_auth_mechanism_ssl</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_mechanism_ssl/README.md"> Auth Mechanism SSL Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_event_exchange</code></td>
+                <td> <a href="https://www.rabbitmq.com/event-exchange.html"> Event Exchange Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_jms_topic_exchange</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_jms_topic_exchange/README.md"> JMS Topic Exchange Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_mqtt</code></td>
+                <td> <a href="https://www.rabbitmq.com/mqtt.html"> MQTT Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_stomp</code></td>
+                <td> <a href="https://www.rabbitmq.com/stomp.html"> STOMP Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_tracing</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_tracing/README.md"> Tracing Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_trust_store</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_trust_store/README.md"> Trust Store Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_web_mqtt</code></td>
+                <td> <a href="https://www.rabbitmq.com/web-mqtt.html"> Web MQTT Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_web_mqtt_examples</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_web_mqtt_examples/README.md"> Web MQTT Examples Plugin</a> in GitHub.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_web_stomp</code></td>
+                <td> <a href="https://www.rabbitmq.com/web-stomp.html"> Web STOMP Plugin</a> in the RabbitMQ documentation.</td>
+	</tr>
+	<tr>
+                <td><code>rabbitmq_web_stomp_examples</code></td>
+                <td> <a href="https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_web_stomp_examples/README.md"> Web STOMP Examples Plugin</a> in GitHub.</td>
+	</tr>
+</table>
 
 To enable disabled plugins:
 
