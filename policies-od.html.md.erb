@@ -24,11 +24,12 @@ To set policies:
 1. [Create a Service Instance](#create)
 1. [Obtain the RabbitMQ Management API Credentials](#obtain)
 1. [Declare a RabbitMQ Policy Through the Management API](#declare)
+1. [List Policies](#list-policy).
 
 
 ## <a id="create"></a> Create a Service Instance
 
-Create a service instance:
+To create a service instance:
 
 1. Run:
 
@@ -42,7 +43,7 @@ Create a service instance:
 
 ## <a id="obtain"></a> Obtain the RabbitMQ Management API Credentials
 
-Obtain the RabbitMQ management API credentials `http_api_uri`, `vhost`, `password`, and `username`:
+To obtain the RabbitMQ management API credentials `http_api_uri`, `vhost`, `password`, and `username`:
 
 1. You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through the
 cf CLI. When using the cf CLI there are two options:
@@ -120,7 +121,7 @@ in GitHub.
 1. Download copies of the scripts
 [set-policy](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-set-policy)
 and
-[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) in GitHub to your local machine.
+[list-policies](https://gist.github.com/ferozjilla/f374a2ba1ae3ebeccbfc316b7ddab486#file-list-policies) from GitHub to your local machine.
 
 
 ### <a id="ha-policy"></a> Set up an HA Policy
@@ -158,35 +159,6 @@ To set up an HA policy:
     $ ./set-policy demo-app ha "^ha\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic"}' 10
     </pre>
 
-
-### <a id="list-policy"></a> List HA Policies
-
-1. To see the policies you created, run:
-
-    ```
-    ./list-policies APP-NAME
-    ```
-    Where `APP-NAME` is your app.
-    For example:
-    <pre class="terminal">
-    $ ./list-policies demo-app
-    [
-      {
-        "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
-        "name": "test",
-        "pattern": "^ha\\.",
-        "apply-to": "all",
-        "definition": {
-          "ha-mode": "exactly",
-          "ha-params": 2,
-          "ha-sync-mode": "automatic"
-        },
-        "priority": 10
-      }
-    ]
-    </pre>
-
-
 ### <a id="ha-dlx-policy"></a> Set up an HA Plus DLX Policy
 
 All queues named `ha-dlx.*` are mirrored with one replica, with automatic synchronization, and with
@@ -194,7 +166,9 @@ a dead-letter exchange.
 To combine multiple features you must create a policy that combines both. For more information, see
 the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#combining-policy-definitions).
 
-1. To create a policy that combines `ha` and `dlx`, run:
+To create a policy that combines `ha` and `dlx`:
+
+1. Set the policy by running:
 
     ```
     ./set-policy APP-NAME ha-dlx "^ha-dlx\." '{"ha-mode":"exactly", "ha-params":2, "ha-sync-mode":"automatic",  "dead-letter-exchange": "ha-dlx" }'
@@ -209,9 +183,11 @@ the [RabbitMQ documentation](https://www.rabbitmq.com/parameters.html#combining-
 
 ### <a id="temp-q-policy"></a> Set up a Policy for Temporary Queues
 
-All queues named `temp.*` must have a maximum length and message time to live (TTL):
+All queues named `temp.*` must have a maximum length and message time to live (TTL).
 
-1. To create a policy for temporary queues, run:
+To create a policy for temporary queues:
+
+1. Set the policy by running:
 
     ```
     ./set-policy APP-NAME ha "^temp\." '{"max-length": NUMBER, "overflow": "reject-publish", "message-ttl": MILLISECONDS}'
@@ -236,7 +212,7 @@ For more information about Publisher Confirm, see the
 
 To set up a policy for a concrete queue:
 
-1. Run:
+1. Set the policy by running:
 
     ```
     ./set-policy APP-NAME ha "^CONCRETE-QUEUE$" '{"queue-mode":"lazy"}'
@@ -250,4 +226,37 @@ To set up a policy for a concrete queue:
     For example:
     <pre class="terminal">
     $ ./set-policy demo-app ha "^event-log$" '{"queue-mode":"lazy"}'
+    </pre>
+
+
+## <a id="list-policy"></a> List Policies
+
+After setting policies, you can list them using the `list-policies` script you
+downloaded in [Prerequisites](#prereqs) above.
+
+To see the policies you created:
+
+1. Run:
+
+    ```
+    ./list-policies APP-NAME
+    ```
+    Where `APP-NAME` is your app.
+    For example:
+    <pre class="terminal">
+    $ ./list-policies demo-app
+    [
+      {
+        "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885",
+        "name": "test",
+        "pattern": "^ha\\.",
+        "apply-to": "all",
+        "definition": {
+          "ha-mode": "exactly",
+          "ha-params": 2,
+          "ha-sync-mode": "automatic"
+        },
+        "priority": 10
+      }
+    ]
     </pre>
