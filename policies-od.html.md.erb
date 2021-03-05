@@ -47,27 +47,30 @@ To obtain the RabbitMQ management API credentials `http_api_uri`, `vhost`, `pass
 
 1. You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through the
 cf CLI. When using the cf CLI there are two options:
-    * Create and use a service key by running:
-    <pre class="terminal">
-    cf create-service-key
-    cf service-key SERVICE KEY
-    </pre>
-    Where `SERVICE` is your service and `KEY` is your key.<br><br>
-    * Use a service binding, which you invoke manually by running `cf bind-service` or automatically
-    when pushing the app if you declared the `services` block in the app's manifest file.
-    In the example below, an app called `demo-app` is pushed and bound to your newly created service
-    instance:
-    <pre class="terminal">
-    > mkdir demo-app
-    > cd demo-app
-    > touch Staticfile
-    > touch index.html
-    > echo "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello world!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;" > index.html
-    > cd ..
-    > cf push demo-app -p demo-app
-    > cf bind-service demo-app SERVICE-INSTANCE-NAME
-    </pre>
-    Where `SERVICE-INSTANCE-NAME` is the name you gave your service instance earlier.
+    * **Service Key method:**
+        1. Create and use a service key by running:<br>
+        ```
+        cf create-service-key SERVICE-INSTANCE-NAME SERVICE-KEY
+        ```<br>
+        Where:
+        * `SERVICE-INSTANCE-NAME` is the name of your service instance.
+        * `SERVICE-KEY` is a name you choose to identify the service key.
+        1. Obtain the credentials by running:<br>
+        ```
+        cf service-key SERVICE-INSTANCE-NAME SERVICE-KEY
+        ```
+    * **Service Binding method:**
+        1. Bind your app to your service instance by running:<br>
+        ```
+        cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+        ```<br>
+        Where:
+        * `APP-NAME` is the name of your app.
+        * `SERVICE-INSTANCE-NAME` is the name of your service instance.
+        1. Obtain the credentials for the user assigned to the app by running:<br>
+        ```
+        cf env APP-NAME
+        ```
 
 Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
 `policymaker` is the key user tag that permits a developer to create and delete policies.
