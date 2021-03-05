@@ -251,11 +251,10 @@ To configure the TLS settings, do the following:
 
   <%= image_tag("images/security.png", :alt => "Screenshot with header 'Security for On-Demand Plans' and a description
   that says, 'A CA certificate must be added to CredHub when enabling TLS. See the docs for more information.'
-  Underneath is a group of three radio buttons with the label 'TLS Options'. The three buttons are labeled the following:
-  Radio button 1. 'Not Configured - Developers will not be able to configure their On Demand service instances to use TLS,'
-  Radio button 2. 'Optional - Developers may configure their On Demand service instances to use TLS',
-  Radio button 3. 'Enforced - All new and existing On Demand service instances will be configured to use TLS. On
-  applying this setting, any applications that use non-TLS binding will require re-binding and must support TLS connections.'") %>
+  Below this is a group of three radio buttons with the label 'TLS Options'.
+  The three buttons are 'Not Configured', 'Optional', and 'Enforced'.
+  Below this is a group of four checkboxes with the label 'RabbitMQ TLS Versions'.
+  The four options are 'TLS v1.3', 'TLS v1.2', 'TLS v1.1', and 'TLS v1.0'.") %>
 
   <li>
     Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or <strong>Enforced</strong>. <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.
@@ -270,7 +269,7 @@ To configure the TLS settings, do the following:
   </li>
 
 <p class='note warning'>
-  <strong>Warning:</strong> TLS v1.3 is incompatible with TLS v1.1 and TLS v1.0, and must not be enabled alongside TLS v1.1 or TLS v1.0. 
+  <strong>Warning:</strong> TLS v1.3 is incompatible with TLS v1.1 and TLS v1.0, and must not be enabled alongside TLS v1.1 or TLS v1.0.
   Doing so causes service instance creation to fail for application developers.
 </p>
 
