@@ -53,7 +53,7 @@ cf CLI. When using the cf CLI there are two options:
         cf create-service-key SERVICE-INSTANCE-NAME SERVICE-KEY
         ```<br>
         Where:
-            *<%# Indent this bullet the same amount as the line above. %> `SERVICE-INSTANCE-NAME` is the name of your service instance.
+            * `SERVICE-INSTANCE-NAME` is the name of your service instance.
             * `SERVICE-KEY` is a name you choose to identify the service key.
         1. Obtain the credentials by running:<br>
         ```
@@ -65,14 +65,15 @@ cf CLI. When using the cf CLI there are two options:
         cf bind-service APP-NAME SERVICE-INSTANCE-NAME
         ```<br>
         Where:
-            *<%# Indent this bullet the same amount as the line above. %> `APP-NAME` is the name of your app.
+            * `APP-NAME` is the name of your app.
             * `SERVICE-INSTANCE-NAME` is the name of your service instance.
         1. Obtain the credentials for the user assigned to the app by running:<br>
         ```
         cf env APP-NAME
-        ```<br><br>
-        Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
-        `policymaker` is the key user tag that permits a developer to create and delete policies.
+        ```
+
+Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
+`policymaker` is the key user tag that permits a developer to create and delete policies.
 
 1. Obtain the credentials for the user assigned to the app by running:
 
