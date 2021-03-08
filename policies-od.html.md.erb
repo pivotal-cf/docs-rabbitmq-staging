@@ -24,7 +24,7 @@ To set policies:
 1. [Create a Service Instance](#create)
 1. [Obtain the RabbitMQ Management API Credentials](#obtain)
 1. [Declare a RabbitMQ Policy Through the Management API](#declare)
-1. [List Policies](#list-policy).
+1. [List Policies](#list-policy)
 
 
 ## <a id="create"></a> Create a Service Instance
@@ -43,64 +43,66 @@ To create a service instance:
 
 ## <a id="obtain"></a> Obtain the RabbitMQ Management API Credentials
 
-To obtain the RabbitMQ management API credentials `http_api_uri`, `vhost`, `password`, and `username`:
+You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through the
+cf CLI.
 
-1. You can get a RabbitMQ user's credentials through the RabbitMQ Management UI or through the
-cf CLI. When using the cf CLI there are two options:
-    * **Service Key method:**
-        1. Create and use a service key by running:<br>
+When using the cf CLI, you can get the credentials through a service key or through a service binding.
+Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
+`policymaker` is the key user tag that permits a developer to create and delete policies.
+
+Choose one of the following methods to obtain the RabbitMQ management API
+credentials `http_api_uri`, `vhost`, `password`, and `username`:
+
+* **Service key method:**
+    1. Create a service key by running:
+
         ```
         cf create-service-key SERVICE-INSTANCE-NAME SERVICE-KEY
-        ```<br>
+        ```
         Where:
-            * `SERVICE-INSTANCE-NAME` is the name of your service instance.
-            * `SERVICE-KEY` is a name you choose to identify the service key.
-        1. Obtain the credentials by running:<br>
+        * `SERVICE-INSTANCE-NAME` is the name of your service instance.
+        * `SERVICE-KEY` is a name you choose to identify the service key.
+    1. Obtain the credentials by running:
+
         ```
         cf service-key SERVICE-INSTANCE-NAME SERVICE-KEY
         ```
-    * **Service Binding method:**
-        1. Bind your app to your service instance by running:<br>
+
+* **Service binding method:**
+    1. Bind your app to your service instance by running:
+
         ```
         cf bind-service APP-NAME SERVICE-INSTANCE-NAME
-        ```<br>
+        ```
         Where:
-            * `APP-NAME` is the name of your app.
-            * `SERVICE-INSTANCE-NAME` is the name of your service instance.
-        1. Obtain the credentials for the user assigned to the app by running:<br>
+        * `APP-NAME` is the name of your app.
+        * `SERVICE-INSTANCE-NAME` is the name of your service instance.
+    1. Obtain the credentials for the user assigned to the app by running:
+
         ```
         cf env APP-NAME
-        ```<br><br>
-        Both methods create a RabbitMQ user with the user tags `management` and `policymaker`.
-        `policymaker` is the key user tag that permits a developer to create and delete policies.
+        ```
+        This prints out information similar to the below:
 
-1. Obtain the credentials for the user assigned to the app by running:
+        <pre class="terminal">
+        ...
 
-    ```
-    cf env APP-NAME
-    ```
-    Where `APP-NAME` is the name of your app. This prints out information similar to the below:
-
-    <pre class="terminal">
-    ...
-
-    System-Provided:
-    VCAP_SERVICES: {
-     "p.rabbitmq": [
-      {
-        "credentials": {
-          ...
-          "http_api_uri": "https://a9b37966-d67a-448f-b93d-744e3dc95890:hWD38Vvc9wdQAXG8Lh_AAjRI@rmq-a1d3c836-c670-4d22-9191-3e497b68a885.sys.philippinepink.cf-app.com/api/",
-          "password": "xxxxxx",
-          "username": "a9b37966-d67a-448f-b93d-xxxxx",
-          "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885"
-          ...
+        System-Provided:
+        VCAP_SERVICES: {
+         "p.rabbitmq": [
+          {
+            "credentials": {
+              ...
+              "http_api_uri": "https://a9b37966-d67a-448f-b93d-744e3dc95890:hWD38Vvc9wdQAXG8Lh_AAjRI@rmq-a1d3c836-c670-4d22-9191-3e497b68a885.sys.philippinepink.cf-app.com/api/",
+              "password": "xxxxxx",
+              "username": "a9b37966-d67a-448f-b93d-xxxxx",
+              "vhost": "a1d3c836-c670-4d22-9191-3e497b68a885"
+              ...
+            }
+          }
         }
-      }
-    }
-    ...
-    </pre>
-
+        ...
+        </pre>
 
 ## <a id="declare"></a> Declare a RabbitMQ Policy Through the Management API
 
