@@ -343,10 +343,18 @@ For more information about TLS versions, see the
 There are four checkboxes labeled 'TLS v1.3', 'TLS v1.2', 'TLS v1.1', and 'TLS v1.0'.
 'TLS v1.3' and 'TLS v1.2' are enabled.") %>
 
-2. By default, both TLS and non-TLS connections are allowed.
+2. When TLS is enabled, both TLS and non-TLS connections are allowed.
 
-    To restrict connections to TLS-only, set the `disable_non_ssl_listeners` property to `true`.
-    For how to set properties, see [(Optional) Configure the RabbitMQ Service](#configfile) below. 
+    To restrict connections to TLS-only, set the `listeners.tcp` property to none:
+
+    ```
+[
+  {rabbit, [
+     {tcp_listeners, []},
+   ]}
+].
+    ```
+    For how to set properties, see [(Optional) Configure the RabbitMQ Service](#configfile) below.
 
 
 
