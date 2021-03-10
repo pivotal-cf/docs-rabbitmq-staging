@@ -9,20 +9,29 @@ owner: London Services
 
 **Release Date**: March 5, 2021
 
-### Bug Fixes
+### Resolved Issues
 
-This release includes the following bug fixes:
+This release has the following fixes:
 
-* Connections and channels to direct reply-to queues do not fail with a string overflow error.
+* **The direct reply-to feature is supported:**
+  For on-demand service instances, the direct reply-to feature is now supported.
+  For information about the direct reply-to feature, see the
+  [RabbitMQ documentation](https://www.rabbitmq.com/direct-reply-to.html).
 
-* When TLS is turned on for the pre-provsioned offering, and the `disable_non_ssl_listeners` property is not set to true (default), then the service binding includes non-TLS AMQP connection credentials too.
+* **For the pre-provisioned offering, when TLS is configured, the service bindings show
+   the non-TLS AMQP connection credentials:**
+   In earlier releases, the service bindings did not show the non-TLS connection credentials
+   even though both TLS and non-TLS connections were allowed.
+
+    If you want to allow only TLS connections, see [Configure TLS Support](install-config-pp.html#tls)
+    in _Installing and Configuring the Pre-Provisioned Service_.
+
 
 ### Known Issues
 
 This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-<%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
 
 ### Compatibility
 
@@ -121,7 +130,7 @@ time. For more information on configuring the supported TLS versions, see
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
@@ -240,7 +249,7 @@ components over mutual TLS.
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
@@ -340,7 +349,7 @@ fixed when you upgrade these service instances to v1.20.2.
 
 ### Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
