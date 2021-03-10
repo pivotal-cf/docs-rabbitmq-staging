@@ -327,21 +327,13 @@ certificates and keys for the RabbitMQ cluster to use.<br>
 To configure TLS support:
 
 1. In the **Pre-Provisioned RabbitMQ** tab, select the TLS versions to support.
-TLS v1.0 and v1.1 are deprecated and disabled by default.
 TLS v1.3 and TLS v1.2 are enabled by default.
-TLS v1.3 is incompatible with TLS v1.1 and TLS v1.0. Do not enable it alongside TLS v1.1 or
-TLS v1.0: doing so would cause the pre-provisioned deployment to fail.<br>
 For more information about TLS versions, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 <%= image_tag("images/config_tls.png", :width => "225",
 :alt => "Screenshot of a multi-select checkbox field labeled 'RabbitMQ TLS Versions'.
-There are four checkboxes labeled 'TLS v1.3', 'TLS v1.2', 'TLS v1.1', and 'TLS v1.0'.
+There are two checkboxes labeled 'TLS v1.3' and 'TLS v1.2'.
 'TLS v1.3' and 'TLS v1.2' are enabled.") %>
-
-<p class='note warning'>
-  <strong>Warning:</strong> Future versions of <%= vars.product_short %> disallow TLS v1.0 and v1.1.
-  Update all RabbitMQ client apps to use TLS v1.2.
-</p>
 
 
 ### <a id="configfile"></a> (Optional) Configure the RabbitMQ Service
