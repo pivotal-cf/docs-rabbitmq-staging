@@ -40,7 +40,7 @@ The book repo associated with this content repo is [**docs-book-rabbitmq**](http
 When a commit is made into any of the above branches, the documentation is deployed by [this concourse build][docs-staging-deploy]. All the supported
 versions will be accessible on the [staging website][docs-staging].
 
-[docs-staging-deploy]: https://wings.concourse.ci/teams/cf-docs/pipelines/cf-services?groups=rabbitmq
+[docs-staging-deploy]: https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-services?group=rabbitmq
 [docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
 
 ## Style Sheet
