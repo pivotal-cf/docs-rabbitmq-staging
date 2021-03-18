@@ -324,6 +324,11 @@ certificates and keys for the RabbitMQ cluster to use.<br>
 
 ### <a id="tls"></a>Configure TLS Support
 
+<p class='note warning'>
+  <strong>Warning:</strong> Future versions of <%= vars.product_short %> disallow TLS v1.0 and v1.1.
+  Update all RabbitMQ client apps to use TLS v1.2.
+</p>
+
 To configure TLS support:
 
 1. In the **Pre-Provisioned RabbitMQ** tab, select the TLS versions to support.
@@ -338,10 +343,19 @@ For more information about TLS versions, see the
 There are four checkboxes labeled 'TLS v1.3', 'TLS v1.2', 'TLS v1.1', and 'TLS v1.0'.
 'TLS v1.3' and 'TLS v1.2' are enabled.") %>
 
-<p class='note warning'>
-  <strong>Warning:</strong> Future versions of <%= vars.product_short %> disallow TLS v1.0 and v1.1.
-  Update all RabbitMQ client apps to use TLS v1.2.
-</p>
+2. When TLS is enabled, both TLS and non-TLS connections are allowed.
+
+    To restrict connections to TLS-only, set the `listeners.tcp` property to none:
+
+    ```
+[
+  {rabbit, [
+     {tcp_listeners, []},
+   ]}
+].
+    ```
+    For how to set properties, see [(Optional) Configure the RabbitMQ Service](#configfile) below.
+
 
 
 ### <a id="configfile"></a> (Optional) Configure the RabbitMQ Service

@@ -5,6 +5,115 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
+## <a id="1-21-2"></a> v1.21.2
+
+**Release Date**: March 5, 2021
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* **The direct reply-to feature is supported:**
+  For on-demand service instances, the direct reply-to feature is now supported.
+  For information about the direct reply-to feature, see the
+  [RabbitMQ documentation](https://www.rabbitmq.com/direct-reply-to.html).
+
+* **For the pre-provisioned offering, when TLS is configured, the service bindings show
+   the non-TLS AMQP connection credentials:**
+   In earlier releases, the service bindings did not show the non-TLS connection credentials
+   even though both TLS and non-TLS connections were allowed.
+
+    If you want to allow only TLS connections, see [Configure TLS Support](install-config-pp.html#tls)
+    in _Installing and Configuring the Pre-Provisioned Service_.
+
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+    <td>Erlang</td>
+    <td>23.2.6</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.28</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ<sup>*</sup></td>
+    <td>3.8.12</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full%></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>358.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>92.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>46.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>91.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>52.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>171.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.211.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.14">v3.8.14</a> GitHub
+documentation.
+
 ## <a id="1-21-1"></a> v1.21.1
 
 **Release Date**: March 4, 2021
