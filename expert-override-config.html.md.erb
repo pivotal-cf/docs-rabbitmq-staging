@@ -56,9 +56,9 @@ Any service instances created under this plan will have this override configurat
     * To provide configuration in the older Erlang-style format:
         1. Encode the configuration as a base64 string.
         For example, to provide the same config as before in the older format, you can do so on Linux
-        by running:<br>
-        ```
-        echo -n '[
+        by running:<br><br>
+        <pre class="terminal">
+        $ echo -n '[
           {rabbitmq_management, [
             {rates_mode, detailed},
             {ssl_options, [
@@ -71,7 +71,7 @@ Any service instances created under this plan will have this override configurat
         ].' | base64
 
         WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
-        ```
+        </pre>
         1. Paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field.
         1. Click **Save**.
         <%= image_tag("images/override-adv-config-od.png",
@@ -99,8 +99,8 @@ In pre-provisioned, to set configuration on all service instances:
 the older 'Erlang-style' format of override configuration.
 For example, you can do this on Linux by running:
 
-```
-echo -n '[
+<pre class="terminal">
+$ echo -n '[
   {rabbitmq_management, [
     {rates_mode, detailed},
     {ssl_options, [
@@ -113,7 +113,7 @@ echo -n '[
 ].' | base64
 
 WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
-```
+</pre>
 
 1. Paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field.
 1. Click **Save**.
