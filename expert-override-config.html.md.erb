@@ -56,7 +56,7 @@ Any service instances created under this plan will have this override configurat
     * To provide configuration in the older Erlang-style format:
         1. Encode the configuration as a base64 string.
         For example, to provide the same config as before in the older format, you can do so on Linux
-        by running:<br><br>
+        by running:<br>
         <pre class="terminal">
         $ echo -n '[
           {rabbitmq_management, [
@@ -75,8 +75,8 @@ Any service instances created under this plan will have this override configurat
         1. Paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field.
         1. Click **Save**.
         <%= image_tag("images/override-adv-config-od.png",
-        :alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field. The field contains the base64 encoded configuration:
-        'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg=='.") %>
+        :alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field.
+        The field contains a base64 encoded configuration that begins with the characters 'WwogIHty'.") %>
 
     After applying changes, new service instances using this plan implement this new configuration.
     Existing service instances implement the configuration after they are upgraded.
@@ -99,27 +99,27 @@ In pre-provisioned, to set configuration on all service instances:
 the older 'Erlang-style' format of override configuration.
 For example, you can do this on Linux by running:
 
-<pre class="terminal">
-$ echo -n '[
-  {rabbitmq_management, [
-    {rates_mode, detailed},
-    {ssl_options, [
-      {ciphers, [
-        "ECDHE-ECDSA-AES256-GCM-SHA384",
-        "ECDHE-RSA-AES256-GCM-SHA384"
+    <pre class="terminal">
+    $ echo -n '[
+      {rabbitmq_management, [
+        {rates_mode, detailed},
+        {ssl_options, [
+          {ciphers, [
+            "ECDHE-ECDSA-AES256-GCM-SHA384",
+            "ECDHE-RSA-AES256-GCM-SHA384"
+          ]}
+        ]}
       ]}
-    ]}
-  ]}
-].' | base64
+    ].' | base64
 
-WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
-</pre>
+    WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
+    </pre>
 
 1. Paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field.
 1. Click **Save**.
 
 <%= image_tag("images/override-adv-config-pp.png",
-:alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field. The field contains the base64 encoded configuration:
-'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg=='.") %>
+:alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field.
+The field contains a base64 encoded configuration that begins with the characters 'WwogIHty'.") %>
 
 After applying changes, pre-provisioned service instances implement this new configuration.
