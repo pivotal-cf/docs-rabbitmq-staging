@@ -77,13 +77,11 @@ Any service instances created under this plan will have this override configurat
         The field contains a base64 encoded configuration that begins with the characters 'WwogIHty'.") %>
         1. Click **Save**.
 
-
     After applying changes, new service instances using this plan implement this new configuration.
-    Existing service instances implement the configuration after they are upgraded.
-
+    Existing service instances implement the configuration after they are upgraded.<br><br>
     You can provide both sysctl-style and Erlang term-style configuration for an on-demand service
-    plan. Where the same configuration is set in both, the Erlang term-style config takes priority.
-
+    plan. Where the same configuration is set in both, the Erlang term-style config takes
+    priority.<br><br>
     For example, if you set the `rates_mode` property above to `detailed` in the
     **Override Server Config** and `none` in the **Override Advanced Server Config**, the resultant
     server takes the `none` value.
