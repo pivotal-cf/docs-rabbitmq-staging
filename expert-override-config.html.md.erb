@@ -1,5 +1,5 @@
 ---
-title: Expert mode - Overriding RabbitMQ Server configuration
+title: Expert Mode - Overriding RabbitMQ Server Configuration
 owner: RabbitMQ
 ---
 
@@ -10,44 +10,94 @@ For more information about the RabbitMQ configuration, see the
 <p class='note warning'>
   <strong>Warning:</strong>
   This feature is for expert users only. Any override configuration set on the RabbitMQ
-  cluster may conflict with other configuration set by the <%= vars.product_short %> broker,
-  and there is no guarantee that conflict does not occur. Any invalid configuration set
-  through an override will cause a deployment to fail.
-
+  cluster might conflict with other configurations set by the <%= vars.product_short %> broker.
+  Any invalid configuration set through an override causes a deployment to fail.<br><br>
   VMware recommends that you thoroughly test any configuration you plan to apply through an override
   on a test environment, and use this feature with caution.
 </p>
 
+
 ## <a id='overview'></a> Overview
 
-On RabbitMQ service instances, the <%= vars.product_short %> broker applies and maintains configuration on the RabbitMQ server.
-It is possible to override this configuration, or to provide your own additional configuration, to be applied on the RabbitMQ service instance.
-This configuration takes priority over any set by the <%= vars.product_short %> broker and is applied last on the server.
+On RabbitMQ service instances, the <%= vars.product_short %> broker applies and maintains
+configuration on the RabbitMQ server.
+You can override this configuration, or provide your own additional configuration to apply on the
+RabbitMQ service instance.
+This configuration takes priority over any set by the <%= vars.product_short %> broker and is applied
+last on the server.
 
-Depending on which service offering you are using, you will have to provide the configuration in either the newer 'sysctl-style' configuration
-format, or the older 'Erlang-style' format. Where possible, you should use the newer format, however not all configuration options
-are available in the newer format. For more information, see https://www.rabbitmq.com/configure.html#config-file-formats.
+Depending on which service offering you are using, you must provide the configuration in either the
+newer 'sysctl-style' configuration format or the older 'Erlang-style' format. Where possible, use the
+newer format. For more information, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/configure.html#config-file-formats).
+
 
 ## <a id='applying'></a> Applying the Override Configuration
 
 Both the On-Demand and Pre-provisioned Service Offering support overriding the instance configuration.
 
-### <a id='applying-od'></a> Override Configuration in On-Demand
 
-Override configuration can be provided on a per-plan basis in On-Demand. Navigate to the <%= vars.product_short %> tile in
-Ops Manager, and select the On-Demand plan you wish to provide override config for from the sidebar. Any Service Instances
-created under this plan will have this override configuration applied to them.
+### <a id='applying-od'></a> Override Configuration for On-Demand
 
-In On-Demand, you may provide override configuration in either config format. To provide config in the newer 'sysctl-style' format,
-paste the config into the **Expert Mode: Override Server Config** field and hit Save. This config can be a multiline string if you require
-multiple configuration items.
+To provide override configuration on a per-plan basis for on-demand service plans:
 
-<%= image_tag("images/override-config-od.png",
-:alt => "Screenshot of the 'Expert Mode: Override Server Config' field. The field contains a multiline string; the lines are
-'management.rates_mode = detailed', 'management.ssl.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384' and 'management.ssl.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384'") %>
+1. Navigate to the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
 
-To provide config in the older 'Erlang-style' format, it is necessary to first encode the config as a base64 string. For example,
-to provide the same config as before in the older format, this can be done on Linux by running:
+1. Select the on-demand plan you want to provide override configuration for from the sidebar.
+Any service instances created under this plan will have this override configuration applied to them.
+
+1. In on-demand, you can provide override configuration in sysctl-style or Erlang-style config format.
+    * To provide configuration in the newer sysctl-style format:
+        1. Paste the configuration into the **Expert Mode: Override Server Config** field.
+        You can make this configuration a multiline string if you require multiple configuration items.
+        <%= image_tag("images/override-config-od.png",
+        :alt => "Screenshot of the 'Expert Mode: Override Server Config' field. The field contains a multiline string; the lines are 'management.rates_mode = detailed', 'management.ssl.ciphers.1 = ECDHE-ECDSA-AES256-GCM-SHA384' and 'management.ssl.ciphers.2 = ECDHE-RSA-AES256-GCM-SHA384'") %>
+        1. Click **Save**.
+    * To provide configuration in the older Erlang-style format:
+        1. Encode the configuration as a base64 string.
+        For example, to provide the same config as before in the older format, you can do so on Linux
+        by running:<br>
+        ```
+        echo -n '[
+          {rabbitmq_management, [
+            {rates_mode, detailed},
+            {ssl_options, [
+              {ciphers, [
+                "ECDHE-ECDSA-AES256-GCM-SHA384",
+                "ECDHE-RSA-AES256-GCM-SHA384"
+              ]}
+            ]}
+          ]}
+        ].' | base64
+
+        WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
+        ```
+        1. Paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field.
+        1. Click **Save**.
+        <%= image_tag("images/override-adv-config-od.png",
+        :alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field. The field contains the base64 encoded configuration:
+        'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg=='.") %>
+
+    After applying changes, new service instances using this plan implement this new configuration.
+    Existing service instances implement the configuration after they are upgraded.
+
+    You can provide both sysctl-style and Erlang term-style configuration for an on-demand service
+    plan. Where the same configuration is set in both, the Erlang term-style config takes priority.
+
+    For example, if you set the `rates_mode` property above to `detailed` in the
+    **Override Server Config** and `none` in the **Override Advanced Server Config**, the resultant
+    server takes the `none` value.
+
+
+### <a id='applying-pp'></a> Override Configuration for Pre-Provisioned
+
+In pre-provisioned, to set configuration on all service instances:
+
+1. Navigate to the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
+1. Select **Pre-Provisioned RabbitMQ** from the sidebar.
+1. Encode your desired config as a base64 string. The pre-provisioned service offering only supports
+the older 'Erlang-style' format of override configuration.
+For example, you can do this on Linux by running:
 
 ```
 echo -n '[
@@ -65,48 +115,11 @@ echo -n '[
 WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
 ```
 
-You can then paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field, and hit Save.
-
-<%= image_tag("images/override-adv-config-od.png",
-:alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field. The field contains the base64 encoded configuration:
-'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg=='.") %>
-
-It is possible to provide both sysctl-style and Erlang term-style config in on-demand. In the case that the same configuration is set in both, the Erlang term-style config takes priority.
-For example, if you set the <code>rates_mode</code> property above to <code>detailed</code> in the **Override Server Config** and <code>none</code> in the **Override Advanced Server Config**,
-the resultant server will take the <code>none</code> value.
-
-After applying changes, any new service instances using this plan will implement this new configuration. Any existing service instances will implement the configuration after
-they are upgraded.
-
-### <a id='applying-pp'></a> Override Configuration in Pre-Provisioned
-
-In Pre-Provisioned, it is possible to set configuration on all service instances. Navigate to the <%= vars.product_short %> tile in
-Ops Manager, and select **Pre-Provisioned RabbitMQ** from the sidebar.
-
-The Pre-Provisioned service offering only supports the older 'Erlang-style' format of override configuration. First, encode your desired config as a base64 string. For example,
-this can be done on Linux by running:
-
-```
-echo -n '[
-  {rabbitmq_management, [
-    {rates_mode, detailed},
-    {ssl_options, [
-      {ciphers, [
-        "ECDHE-ECDSA-AES256-GCM-SHA384",
-        "ECDHE-RSA-AES256-GCM-SHA384"
-      ]}
-    ]}
-  ]}
-].' | base64
-
-WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg==
-```
-
-You can then paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field, and hit Save.
+1. Paste this base64-encoded config into the **Expert Mode: Override Server Advanced Config** field.
+1. Click **Save**.
 
 <%= image_tag("images/override-adv-config-pp.png",
 :alt => "Screenshot of the 'Expert Mode: Override Server Advanced Config' field. The field contains the base64 encoded configuration:
 'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9LAogICAge3NzbF9vcHRpb25zLCBbCiAgICAgIHtjaXBoZXJzLCBbCiAgICAgICAgIkVDREhFLUVDRFNBLUFFUzI1Ni1HQ00tU0hBMzg0IiwKICAgICAgICAiRUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0IgogICAgICBdfQogICAgXX0KICBdfQpdLg=='.") %>
 
-After applying changes, any pre-provisioned service instances will implement this new configuration.
-
+After applying changes, pre-provisioned service instances implement this new configuration.
