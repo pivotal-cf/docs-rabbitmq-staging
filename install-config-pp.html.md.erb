@@ -289,18 +289,18 @@ the deployment.
 
 ### <a id="ssl"></a>(Optional) Provide SSL Certificates
 
-If you provide a certificate, SSL is simultaneously provided for AMQPS, STOMP, and MQTT.
-No other plugins are automatically configured for use with SSL.
-
-By default, apps connected to the cluster over AMQP, MQTT and STOMP continue to function without SSL.
-To restrict apps to only connect over secure protocols, see [Configure TLS Support](#tls) below.
+To enable apps to connect securely to <%= vars.product_short %>, you can provide SSL certificates.
+You can provide more than one CA certificate.
 
 SSL settings are applied equally across all VMs in the cluster.
-
-You can provide more then one CA certificate.
-
-For more information about SSL support, see the
+If you provide a certificate, SSL is simultaneously provided for AMQPS, STOMP, and MQTT.
+No other plugins are automatically configured for use with SSL.
+For more information about SSL support in RabbitMQ, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
+
+After providing a certificate, apps connected to the cluster over AMQP, MQTT and
+STOMP can continue to function without SSL.
+To restrict apps to only connect over secure protocols, see [Configure TLS Support](#tls) below.
 
 To provide SSL certificates:
 
