@@ -298,7 +298,8 @@ No other plugins are automatically configured for use with SSL.
 For more information about SSL support in RabbitMQ, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html).
 
-By default, apps connected to the cluster over AMQP, MQTT and STOMP continue to function without SSL.
+After providing a certificate, apps connected to the cluster over non-SSL AMQP, MQTT, and
+STOMP continue to function without SSL unless developers specify otherwise.
 To restrict apps to only connect over secure protocols, see [Configure TLS Support](#tls) below.
 
 To provide SSL certificates:
@@ -330,7 +331,7 @@ For more information about TLS versions, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
 <%= image_tag("images/config_tls.png", :width => "225",
 :alt => "Screenshot of a multi-select checkbox field labeled 'RabbitMQ TLS Versions'.
-The two checkboxes are labeled 'TLS v1.3' and 'TLS v1.2'. 
+The two checkboxes are labeled 'TLS v1.3' and 'TLS v1.2'.
 They are both enabled.") %>
 
 2. When TLS is enabled, both TLS and non-TLS connections are allowed.
@@ -870,4 +871,3 @@ To preserve the current set of dynamically assigned IP addresses:
     text field, 'RabbitMQ Server Static IPs'.") %>
 
 5. Click **Save**.
-
