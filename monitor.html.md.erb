@@ -139,9 +139,12 @@ Metrics are regularly-generated log entries that report measured component state
 single lines of text that follow the format:
 
 ```mac
-origin:"p.rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p.rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB">
+origin:"p-rabbitmq" eventType:ValueMetric timestamp:1616427704616569016 deployment:"cf-rabbitmq" job:"rabbitmq-broker" index:"0" ip:"10.0.4.101" tags:<key:"instance_id" value:"d4b4fd51-50de-4227-a96f-8ce636960f0b" > tags:<key:"source_id" value:"rabbitmq-broker" > valueMetric:<name:"_p_rabbitmq_service_broker_heartbeat" value:1 unit:"boolean" >
 ```
 
+<p class="note"><strong>Note:</strong> The format of the metrics has changed from version 2 of the tile. 
+All punctuation characters in the metric name are now replaced with the "_" character. For example, the metric 
+`/on-demand-broker/p.rabbitmq/single-node/total_instances` has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`. </p>
 
 ## <a id="metrics-polling-interval"></a> Configure the Metrics Polling Interval
 
@@ -202,15 +205,15 @@ For a list of all <%= vars.product_short %> raw component metrics, see
 
 ### <a id="heartbeats"></a> Component Heartbeats
 
-Key <%= vars.product_short %> components periodically emit heartbeat metrics: the RabbitMQ server
-nodes, HAProxy nodes, and the Service Broker. The heartbeats are Boolean metrics, where <code>1</code>
+The service broker component periodically emit heartbeat metrics. 
+The heartbeats are Boolean metrics, where <code>1</code>
 means the system is available, and <code>0</code> or the absence of a heartbeat metric means the
 service is not responding and should be investigated.
 
 #### <a id="broker-heartbeat"></a> Service Broker Heartbeat
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq/service_broker/heartbeat<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br>_p_rabbitmq_service_broker_heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RabbitMQ Service Broker <code>is alive</code> poll, which indicates if the component is
@@ -245,44 +248,6 @@ service is not responding and should be investigated.
    </tr>
 </table>
 
-
-#### <a id="server-heartbeat"></a> Server Heartbeat
-
-<table>
-   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq/rabbitmq/heartbeat<br><br></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>RabbitMQ Server <code>is alive</code> poll, which indicates if the component is available
-        and able to respond to requests.<br><br>
-
-      <strong>Use</strong>: If the server does not emit heartbeats, this indicates that it is offline.
-      To be functional, service instances require RabbitMQ Server.
-      <br><br>
-      <strong>Origin</strong>: Doppler/Firehose<br>
-      <strong>Type</strong>: boolean<br>
-      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
-   </tr>
-   <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 5 minutes</td>
-   </tr>
-   <tr>
-      <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: N/A<br>
-      <strong>Red critical</strong>: &lt; 1</td>
-   </tr>
-   <tr>
-      <th>Recommended response</th>
-      <td>
-         Search the RabbitMQ Server logs for errors.
-         You can find the VM by targeting your <%= vars.product_short %> deployment with BOSH and
-         listing <code>rabbitmq</code> by running:
-               <code>bosh -d service-instance_GUID vms</code>
-      </td>
-   </tr>
-</table>
-
-
 ### <a id="server-kpis"></a> RabbitMQ Server KPIs
 
 The following KPIs from the RabbitMQ server component:
@@ -290,7 +255,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="file-descriptors"></a> File Descriptors
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq/rabbitmq/system/file_descriptors<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> rabbitmq_process_open_fds<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>File descriptors consumed.<br><br>
@@ -324,7 +289,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="erlang-processes"></a> Erlang Processes
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p.rabbitmq/rabbitmq/erlang/erlang_processes<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> erlang_vm_process_count<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td><a href="https://www.erlang.org/docs">Erlang</a> processes consumed by RabbitMQ, which runs on an Erlang VM.<br><br>
@@ -363,9 +328,8 @@ For the list of enabled plugins for on-demand instances, see
 [RabbitMQ Server Plugins](./install-config.html#server-plugins).
 
 Prometheus-style metrics are available at `SERVICE-INSTANCE-ID:15692/metrics`.
-To pull these metrics from the service instances, you must configure a Prometheus instance.
-If Prometheus is deployed in the environment, for example, with the Healthwatch v2 tile,
-use the following scrape configuration in the Prometheus config file to discover RabbitMQ instances:
+To pull these metrics from the service instances, you must deploy and configure a Prometheus instance.
+The following Prometheus scrape config will discover on-demand RabbitMQ instances:
 
 ```
 job_name: rabbitmq
@@ -380,12 +344,16 @@ dns_sd_configs:
 ```
 
 The regular expression in the scrape config name ensures that Prometheus discovers all future service
-instances. If Prometheus is deployed with the Healthwatch v2 tile, then add the configuration above
+instances too. If Prometheus is deployed with the Healthwatch v2 tile, then add the configuration above
 as an additional scrape job.
 For more information, see [Configuration Overview](https://docs.pivotal.io/healthwatch/2-0/common-configurations/configuration-overview.html)
 in the _Healthwatch_ documentation.
 
-The RabbitMQ team has written pre-set Grafana dashboards that you can import into Grafana.
+### <a id="Grafana"></a> Grafana Dashboards
+
+The RabbitMQ team has written Grafana dashboards for an [overview of the RabbitMQ system](https://grafana.com/grafana/dashboards/10991) 
+and also [for the underlying Erlang distribution](https://grafana.com/grafana/dashboards/11352). The dashboards can be easily imported 
+into Grafana and include documentation for each metric within the dashboard too.
 For more information about these dashboards, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/prometheus.html). If Grafana is deployed using the
 Healthwatch v2 tile, you can load these dashboards by selecting the **Enable RabbitMQ dashboards**
@@ -405,7 +373,7 @@ the <%= vars.product_short %> service.
 #### <a id="ram"></a> RAM
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.mem.percent <br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_mem_percent <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RAM being consumed by the <code>p.rabbitmq</code> VM.<br><br>
@@ -440,7 +408,7 @@ the <%= vars.product_short %> service.
 #### <a id="cpu"></a> CPU
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.cpu.user<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_cpu_user<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>CPU being consumed by user processes on the <code>p.rabbitmq</code> VM.<br><br>
@@ -473,7 +441,7 @@ the <%= vars.product_short %> service.
 #### <a id="ephemeral-disk"></a> Ephemeral Disk
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.disk.ephemeral.percent<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_disk_ephemeral_percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Ephemeral Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
@@ -506,7 +474,7 @@ the <%= vars.product_short %> service.
 #### <a id="persistent-disk"></a> Persistent Disk
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.disk.persistent.percent<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_disk_persistent_percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Persistent Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
@@ -534,178 +502,16 @@ the <%= vars.product_short %> service.
    </tr>
 </table>
 
-
-## <a id="partition-indicator"></a> Determine If There Is a Network Partition
-
-You can use the `reachable_nodes` metric to help to identify network partitions.
-This metric shows how many nodes in the cluster each individual node is aware of.
-A good indication that a node might be in a partition is when it is aware of only itself.
-
-Here is an example of this metrics:
-
-```mac
-origin:"p.rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p.rabbitmq/rabbitmq/erlang/reachable_nodes" value:3 unit:"count">
-```
-
-You can create monitors to emit alerts in case a cluster seems to be in a partition.
-In a healthy cluster that is not undergoing upgrades, each node's `reachable_nodes` count is equal
-to the number of nodes in the cluster.
-
-To monitor for network partition, VMware recommends alerting when one of the nodes starts reporting
-a `reachable_nodes` count that is less than the size of the cluster.
-
-During rolling upgrades, nodes lose contact with other nodes. Therefore, only alert if a lowered
-`reachable_nodes` count persists longer than the expected upgrade time.
-
-
-### <a id="recover"></a> Recover from a Network Partition
-
-For information about how to recover from a network partition, see the
-[RabbitMQ documentation](https://www.rabbitmq.com/partitions.html).
-
-
 ## <a id="reference"></a> Component Metrics Reference
 
 <%= vars.product_short %> component VMs emit the following raw metrics.
-The full name of the metric follows the format: `/p.rabbitmq/COMPONENT/METRIC-NAME`
+The full name of the metric follows the format: `_p_rabbitmq_COMPONENT_METRIC-NAME`
 
+<p class="note"><strong>Note:</strong> The format of the metrics has changed from version 2 of the tile. 
+All punctuation characters in the metric name are now replaced with the "_" character. For example, the metric 
+`/on-demand-broker/p.rabbitmq/single-node/total_instances` has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`. </p>
 
 ### <a id="rabbitmq-metrics"></a> RabbitMQ&nbsp; Server Metrics
 
-<%= vars.product_short %> message server components emit the following metrics.
-
-<table>
-    <tr>
-        <th>Full Name</th>
-        <th>Unit</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/heartbeat</code></td>
-        <td>boolean</td>
-        <td>Indicates whether the RabbitMQ server is available and able to respond to requests</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/erlang/erlang_processes</code></td>
-        <td>count</td>
-        <td>The number of Erlang processes</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/erlang/reachable_nodes</code></td>
-        <td>count</td>
-        <td>The number of nodes the current node can reach</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/system/memory</code></td>
-        <td>MB</td>
-        <td>The memory in MB used by the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/system/mem_alarm</code></td>
-        <td>boolean</td>
-        <td>Indicates if the memory alarm went off</td>
-    </tr>
-    <tr>
-       <td><code>/p.rabbitmq/rabbitmq/system/disk_free</code></td>
-       <td>MB</td>
-       <td>The disk space available on the node</td>
-    </tr>
-    <tr>
-       <td><code>/p.rabbitmq/rabbitmq/system/disk_free_alarm</code></td>
-       <td>boolean</td>
-       <td>Indicates if the disk free alarm went off</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/connections/count</code></td>
-        <td>count</td>
-        <td>The total number of connections to the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/consumers/count</code></td>
-        <td>count</td>
-        <td>The total number of consumers registered in the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/delivered</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>deliver_get</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/delivered_noack</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>deliver_noack</code> on the node</td>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/delivered_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages are being delivered to consumers or clients on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/published</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>publish</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/published_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages are being published by the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/redelivered</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>redeliver</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/redelivered_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages are getting the status <code>redeliver</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/get_no_ack</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>get_no_ack</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/get_no_ack_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages get the status <code>get_no_ack</code> on the node</td>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/pending</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>messages_unacknowledged</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/depth</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>messages_unacknowledged</code> or <code>messages_ready</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/system/file_descriptors</code></td>
-        <td>count</td>
-        <td>The number of open file descriptors on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/exchanges/count</code></td>
-        <td>count</td>
-        <td>The total number of exchanges on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/messages/available</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>messages_ready</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/queues/count</code></td>
-        <td>count</td>
-        <td>The number of queues on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/channels/count</code></td>
-        <td>count</td>
-        <td>The number of channels on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p.rabbitmq/rabbitmq/vhosts/count</code></td>
-        <td>count</td>
-        <td>The number of vhosts</td>
-    </tr>
-</table>
+RabbitMQ server metrics are emmited by the `rabbitmq_prometheus` plugin. 
+The full list of metrics can be found in the [GitHub repository of the plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md).

@@ -43,32 +43,12 @@ The **metrics polling interval** is a configuration option on the <%= vars.produ
 Metrics are long, single lines of text that follow the format:
 
 ```mac
-origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB">
+origin:"p-rabbitmq" eventType:ValueMetric timestamp:1616427704616569016 deployment:"cf-rabbitmq" job:"rabbitmq-broker" index:"0" ip:"10.0.4.101" tags:<key:"instance_id" value:"d4b4fd51-50de-4227-a96f-8ce636960f0b" > tags:<key:"source_id" value:"rabbitmq-broker" > valueMetric:<name:"_p_rabbitmq_service_broker_heartbeat" value:1 unit:"boolean" >
 ```
 
-### <a id="partition-indicator"></a>Partition Indicator
-
-A new metric has been introduced to help to identify network partitions.
-Essentially it exposes how many nodes each node knows. When a node is in
-partition the only node that it recognizes is itself and that is a good
-indication that that node might be in a partition.
-
-An example of that metrics is:
-
-```mac
-origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/erlang/reachable_nodes" value:3 unit:"count">
-```
-
-Monitors can be created to emit alerts in case a cluster seems to be in a
-partition. A metrics is emitted for each node in the cluster. For example: in a
-three-node cluster a monitor can expect to have a total of 9 (nine) because each
-node is expected to emit 3 (2 reachable nodes and itself). Otherwise, an alert
-can be sent to the team.
-
-
-## Recovering from a network partition
-See [Clustering and Network Partitions](https://www.rabbitmq.com/partitions.html) in the RabbitMQ documentation to learn how to recover from a network partition.
-
+<p class="note"><strong>Note:</strong> The format of the metrics has changed from version 2 of the tile. 
+All punctuation characters in the metric name are now replaced with the "_" character. For example, the metric 
+`/on-demand-broker/p.rabbitmq/single-node/total_instances` has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`. </p>
 
 ## <a id="kpi"></a>Key Performance Indicators
 
@@ -83,12 +63,13 @@ For a list of all <%= vars.product_short %> raw component metrics, see [Componen
 
 ### <a id="heartbeats"></a>Component Heartbeats
 
-Key <%= vars.product_short %> components periodically emit heartbeat metrics: the RabbitMQ server nodes, HAProxy nodes, and the Service Broker. The heartbeats are Boolean metrics, where <code>1</code> means the system is available, and <code>0</code> or the absence of a heartbeat metric means the service is not responding and should be investigated.
+The HAProxy nodes and the Service Broker components periodically emit heartbeat metrics.
+The heartbeats are Boolean metrics, where <code>1</code> means the system is available, and <code>0</code> or the absence of a heartbeat metric means the service is not responding and should be investigated.
 
 #### <a id="broker-heartbeat"></a> Service Broker Heartbeat
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.service_broker.heartbeat<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> _p_rabbitmq_service_broker_heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RabbitMQ Service Broker <code>is alive</code> poll, which indicates if the component is available and able to respond to requests.<br><br>
@@ -121,7 +102,7 @@ Key <%= vars.product_short %> components periodically emit heartbeat metrics: th
 #### <a id="haproxy-heartbeat"></a> HAProxy Heartbeat
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.haproxy.heartbeat<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> _p_rabbitmq_haproxy_heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RabbitMQ HAProxy <code>is alive</code> poll, which indicates if the component is available and
@@ -153,41 +134,6 @@ Key <%= vars.product_short %> components periodically emit heartbeat metrics: th
    </tr>
 </table>
 
-#### <a id="server-heartbeat"></a> Server Heartbeat
-
-<table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.heartbeat<br><br></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>RabbitMQ Server <code>is alive</code> poll, which indicates if the component is available and
-          able to respond to requests.<br><br>
-
-      <strong>Use</strong>: If the server does not emit heartbeats, this indicates that it is offline. To be functional, service instances require RabbitMQ Server.
-      <br><br>
-      <strong>Origin</strong>: Doppler/Firehose<br>
-      <strong>Type</strong>: boolean<br>
-      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
-   </tr>
-   <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 5 minutes</td>
-   </tr>
-   <tr>
-      <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: N/A<br>
-      <strong>Red critical</strong>: &lt; 1</td>
-   </tr>
-   <tr>
-      <th>Recommended response</th>
-      <td>
-         Check the RabbitMQ Server logs for errors.
-         You can find the VM by targeting your RabbitMQ deployment with BOSH and
-         running one of the following commands, which lists <code>rabbitmq</code>:<br>
-         <code>bosh -d service-instance_GUID vms</code>
-      </td>
-   </tr>
-</table>
-
 ### <a id="server-kpis"></a>RabbitMQ Server KPIs
 
 The following KPIs from the RabbitMQ server component:
@@ -195,7 +141,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="file-descriptors"></a> File Descriptors
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.file_descriptors<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> rabbitmq_process_open_fds<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>File descriptors consumed.<br><br>
@@ -227,7 +173,7 @@ The following KPIs from the RabbitMQ server component:
 #### <a id="erlang-processes"></a> Erlang Processes
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.erlang.erlang_processes<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> erlang_vm_process_count<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td><a href="https://www.erlang.org/docs">Erlang</a> processes consumed by RabbitMQ, which runs on an Erlang VM.<br><br>
@@ -266,7 +212,7 @@ These component metrics are from <%= vars.product_short %> components, and serve
 #### <a id="ram"></a> RAM
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.mem.percent <br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_mem_percent <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>RAM being consumed by the <code>p-rabbitmq</code> VM.<br><br>
@@ -300,7 +246,7 @@ These component metrics are from <%= vars.product_short %> components, and serve
 #### <a id="cpu"></a> CPU
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.cpu.user<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_cpu_user<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>CPU being consumed by user processes on the <code>p-rabbitmq</code> VM.<br><br>
@@ -333,7 +279,7 @@ These component metrics are from <%= vars.product_short %> components, and serve
 #### <a id="ephemeral-disk"></a> Ephemeral Disk
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.disk.ephemeral.percent<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_disk_ephemeral_percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Ephemeral Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
@@ -364,7 +310,7 @@ These component metrics are from <%= vars.product_short %> components, and serve
 #### <a id="persistent-disk"></a> Persistent Disk
 
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br> system.disk.persistent.percent<br><br></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br> system_disk_persistent_percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>Persistent Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
@@ -394,153 +340,17 @@ These component metrics are from <%= vars.product_short %> components, and serve
 
 ## <a id="reference"></a>Component Metric Reference
 
-<%= vars.product_short %> component VMs emit the following raw metrics. The full name of the metric follows the format: `/p-rabbitmq/COMPONENT/METRIC-NAME`
+<%= vars.product_short %> component VMs emit the following raw metrics.
+The full name of the metric follows the format: `_p_rabbitmq_COMPONENT_METRIC-NAME`
+
+<p class="note"><strong>Note:</strong> The format of the metrics has changed from version 2 of the tile. 
+All punctuation characters in the metric name are now replaced with the "_" character. For example, the metric 
+`/on-demand-broker/p.rabbitmq/single-node/total_instances` has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`. </p>
 
 ### <a id="rabbitmq-metrics"></a>RabbitMQ&nbsp; Server Metrics
 
-<%= vars.product_short %> message server components emit the following metrics.
-
-<table>
-    <tr>
-        <th>Full Name</th>
-        <th>Unit</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq.rabbitmq.heartbeat</code></td>
-        <td>boolean</td>
-        <td>Indicates whether the RabbitMQ server is available and able to respond to requests</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/erlang/erlang_processes</code></td>
-        <td>count</td>
-        <td>The number of Erlang processes</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/system/memory</code></td>
-        <td>MB</td>
-        <td>The memory in MB used by the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/system/mem_alarm</code></td>
-        <td>boolean</td>
-        <td>Indicates if the memory alarm went off</td>
-    </tr>
-    <tr>
-       <td><code>/p-rabbitmq/rabbitmq/system/disk_free_alarm</code></td>
-       <td>boolean</td>
-       <td>Indicates if the disk free alarm went off</td>
-    </tr>
-    <tr>
-       <td><code>/p-rabbitmq/rabbitmq/system/disk_free</code></td>
-       <td>MB</td>
-       <td>The disk space available on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/connections/count</code></td>
-        <td>count</td>
-        <td>The total number of connections to the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/consumers/count</code></td>
-        <td>count</td>
-        <td>The total number of consumers registered in the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/delivered</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>deliver_get</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/delivered_noack</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>deliver_noack</code> on the node</td>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/delivered_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages are being delivered to consumers or clients on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/published</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>publish</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/published_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages are being published by the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/redelivered</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>redeliver</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/redelivered_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages are getting the status <code>redeliver</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/get_no_ack</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>get_no_ack</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/get_no_ack_rate</code></td>
-        <td>rate</td>
-        <td>The rate per second at which messages get the status <code>get_no_ack</code> on the node</td>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/pending</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>messages_unacknowledged</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/depth</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>messages_unacknowledged</code> or <code>messages_ready</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/system/file_descriptors</code></td>
-        <td>count</td>
-        <td>The number of open file descriptors on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/exchanges/count</code></td>
-        <td>count</td>
-        <td>The total number of exchanges on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/messages/available</code></td>
-        <td>count</td>
-        <td>The total number of messages with the status <code>messages_ready</code> on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/queues/count</code></td>
-        <td>count</td>
-        <td>The number of queues on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/channels/count</code></td>
-        <td>count</td>
-        <td>The number of channels on the node</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/vhosts/count</code></td>
-        <td>count</td>
-        <td>The number of vhosts</td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/consumers</code></td>
-        <td>count</td>
-        <td>The number of consumers per virtual host per queue </td>
-    </tr>
-    <tr>
-        <td><code>/p-rabbitmq/rabbitmq/queues/VHOST-NAME/QUEUE-NAME/depth</code></td>
-        <td>count</td>
-        <td>The number of messages with the status <code>messages_unacknowledged</code> or <code>messages_ready</code> per virtual host per queue </td>
-    </tr>
-</table>
-
+RabbitMQ server metrics are emmited by the `rabbitmq_prometheus` plugin. 
+The full list of metrics can be found in the [GitHub repository of the plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md).
 
 ### <a id="haproxy-metrics"></a>HAProxy Metrics
 

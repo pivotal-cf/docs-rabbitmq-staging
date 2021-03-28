@@ -9,6 +9,16 @@ owner: London Services
 
 **Release Date**: MMM DD, YYYY
 
+### Breaking Changes
+
+* **RabbitMQ Server Metrics**: RabbitMQ Server metrics for both the pre-provisioned and the on-demand service instances 
+now serve metrics using the `rabbitmq_prometheus` plugin. For more information about the plugin, please 
+see the [Prometheus Plugin section for On-Demand](monitor.html#prometheus). This changes the metrics emitted by the RabbitMQ Server component. 
+The full list of metrics now emitted can be seen in the [GitHub repository of the plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md).
+
+* **Updated Format Of Firehose Metrics**: All punctuation characters in the metric name are now replaced with the "_" character.
+For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances` has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`.
+ 
 ### Features
 
 New features and changes in this release:
