@@ -354,12 +354,11 @@ They are both enabled.") %>
 <p class='note warning'>
   <strong>Warning:</strong>
   This feature is for expert users only. Any override configuration set on the RabbitMQ
-  cluster may conflict with other configuration set by the <%= vars.product_short %> broker,
-  and there is no guarantee
+  cluster might conflict with other configurations set by the <%= vars.product_short %> broker.
 </p>
 
-It is possible to provide your own configuration to apply to service instances in the Pre-Provisioned
-Service Offering. For more information, see
+You can provide your own configuration to apply to pre-provisioned service instances.
+For more information, see
 [Expert mode: Overriding RabbitMQ Server configuration](./expert-override-config.html).
 
 ### <a id="partition"></a> Select the Network Partition Behavior of the RabbitMQ Cluster
