@@ -3,7 +3,7 @@ title: Expert Mode - Overriding RabbitMQ Server Configuration
 owner: RabbitMQ
 ---
 
-This topic explains how to override configuration set by the broker on RabbitMQ service instances.
+This topic explains how to override the configuration set by the broker on RabbitMQ service instances.
 For more information about the RabbitMQ configuration, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
 
@@ -27,14 +27,14 @@ This configuration takes priority over any set by the <%= vars.product_short %> 
 last on the server.
 
 Depending on which service offering you are using, you must provide the configuration in either the
-newer 'sysctl-style' configuration format or the older 'Erlang-style' format. Where possible, use the
+newer sysctl-style configuration format or the older Erlang-style format. Where possible, use the
 newer format. For more information, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/configure.html#config-file-formats).
 
 
-## <a id='applying'></a> Applying the Override Configuration
+## <a id='applying'></a> Apply the Override Configuration
 
-Both the On-Demand and Pre-provisioned Service Offering support overriding the instance configuration.
+both the on-demand and pre-provisioned service offering support overriding the instance configuration.
 
 
 ### <a id='applying-od'></a> Override Configuration for On-Demand
@@ -55,7 +55,7 @@ Any service instances created under this plan will have this override configurat
         1. Click **Save**.
     * To provide configuration in the older Erlang-style format:
         1. Encode the configuration as a base64 string.
-        For example, to provide the same config as before in the older format, you can do so on Linux
+        For example, to provide the same config as above in the older format, you can do so on Linux
         by running:<br>
         <pre class="terminal">
         $ echo -n '[
@@ -94,7 +94,7 @@ In pre-provisioned, to set configuration on all service instances:
 1. Navigate to the <%= vars.product_short %> tile in <%= vars.ops_manager %>.
 1. Select **Pre-Provisioned RabbitMQ** from the sidebar.
 1. Encode your desired config as a base64 string. The pre-provisioned service offering only supports
-the older 'Erlang-style' format of override configuration.
+the older Erlang-style format of override configuration.
 For example, you can do this on Linux by running:
 
     <pre class="terminal">
