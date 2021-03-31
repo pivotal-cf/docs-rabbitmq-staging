@@ -22,7 +22,7 @@ For the full list of metrics that are emitted, see
 [rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md)
 in GitHub.
 
-* **Updated format for firehose metrics:** The underscore character (`_`)
+* **Updated format for Firehose metrics:** The underscore character (`_`)
 replaces all punctuation characters in metric names.
 For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances`
 has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`.
@@ -31,8 +31,8 @@ has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`.
 
 New features and changes in this release:
 
-* **Expert users only - overriding the RabbitMQ server configuration:**
-You can override the configuration applied by the <%= vars.product_short %> broker,
+* **Expert users only — overriding the RabbitMQ server configuration:**
+You can override the configuration applied by the <%= vars.product_short %> broker
 or provide your own additional configuration to apply on RabbitMQ service instances.
 For more information, see
 [Expert Mode - Overriding RabbitMQ Server Configuration](./expert-override-config.html).
@@ -48,7 +48,7 @@ For more information, see
     see [RabbitMQ Server Plugins](install-config.html#server-plugins)
     in _Installing and Configuring the On-Demand Service_.
 
-* **TLS versions:** TLS v1.0 and v1.1 are not supported anymore.
+* **TLS versions:** TLS v1.0 and v1.1 are no longer supported.
 
 ### Known Issues
 
