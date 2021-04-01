@@ -347,11 +347,11 @@ There are four checkboxes labeled 'TLS v1.3', 'TLS v1.2', 'TLS v1.1', and 'TLS v
     To restrict connections to TLS-only, set the `listeners.tcp` property to none:
 
     ```
-[
-  {rabbit, [
-     {tcp_listeners, []},
-   ]}
-].
+    [
+      {rabbit, [
+         {tcp_listeners, []}
+       ]}
+    ].
     ```
     For how to set properties, see [(Optional) Configure the RabbitMQ Service](#configfile) below.
 
