@@ -7,25 +7,20 @@ owner: London Services
 
 ## <a id="2-0-0"></a> v2.0.0
 
-**Release Date**: MMM DD, 2021
+**Release Date**: April ##, 2021
 
 ### Breaking Changes
 
-Breaking changes in this release:
+* **RabbitMQ Server Metrics**: RabbitMQ Server metrics for both pre-provisioned and on-demand are
+now served using the `rabbitmq_prometheus` plugin. This changes the metrics emitted by the RabbitMQ
+Server component.
+For more information about the plugin, see [Prometheus Plugin](monitor.html#prometheus).
+For the full list of metrics now emitted, see is in the [rabbitmq_prometheus) repository in GitHub.
 
-* **RabbitMQ server metrics:** RabbitMQ server metrics for both pre-provisioned
-and the on-demand are now served using the `rabbitmq_prometheus` plugin.
-For more information about the plugin, see [Prometheus Plugin](monitor.html#prometheus)
-in _Monitoring and KPIs for On-Demand <%= vars.product_short %>_.<br>
-This changes the metrics emitted by the RabbitMQ server component.
-For the full list of metrics that are emitted, see
-[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md)
-in GitHub.
-
-* **Updated format for Firehose metrics:** The underscore character (`_`)
-replaces all punctuation characters in metric names.
-For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances`
-has become `_on_demand_broker_p_rabbitmq_single_node_total_instances`.
+* **Updated Firehose Metrics format**: The `_` character has replaced all punctuation characters in
+the metric name.
+For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances` has become
+`_on_demand_broker_p_rabbitmq_single_node_total_instances`.
 
 ### Features
 
