@@ -15,9 +15,11 @@ owner: London Services
 now served using the `rabbitmq_prometheus` plugin. This changes the metrics emitted by the RabbitMQ
 Server component.
 For more information about the plugin, see [Prometheus Plugin](monitor.html#prometheus).
-For the full list of metrics now emitted, see is in the [rabbitmq_prometheus) repository in GitHub.
+For the full list of metrics now emitted, see the
+[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md)
+repository in GitHub.
 
-* **Updated Firehose Metrics format**: The `_` character has replaced all punctuation characters in
+* **Updated Firehose Metrics format**: The underscore character has replaced all punctuation characters in
 the metric name.
 For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances` has become
 `_on_demand_broker_p_rabbitmq_single_node_total_instances`.

@@ -143,8 +143,8 @@ origin:"p-rabbitmq" eventType:ValueMetric timestamp:1616427704616569016 deployme
 ```
 
 <p class="note">
-  <strong>Note:</strong> The format of the metrics has changed from v2 of the tile.
-  All punctuation characters in the metric name are now replaced with the <code>_</code> character.
+  <strong>Note:</strong> As of <%= vars.product_short %> v2.0, the format of the metrics has changed.
+  All punctuation characters in the metric name are now replaced with the underscore character.
   For example, the metric <code>/on-demand-broker/p.rabbitmq/single-node/total_instances</code> has
   become <code>_on_demand_broker_p_rabbitmq_single_node_total_instances</code>.
 </p>
@@ -208,7 +208,7 @@ For a list of all <%= vars.product_short %> raw component metrics, see
 
 ### <a id="heartbeats"></a> Component Heartbeats
 
-The service broker component periodically emit Boolean heartbeat metrics.
+The service broker component periodically emits Boolean heartbeat metrics.
 <code>1</code> means the system is available, and <code>0</code> or the absence of a heartbeat metric
 means the service is not responding and should be investigated.
 
@@ -510,8 +510,8 @@ the <%= vars.product_short %> service.
 The full name of the metric follows the format: `_p_rabbitmq_COMPONENT_METRIC-NAME`
 
 <p class="note">
-  <strong>Note:</strong> The format of the metrics has changed from v2 of the tile.
-  All punctuation characters in the metric name are now replaced with the <code>_</code> character.
+  <strong>Note:</strong> As of <%= vars.product_short %> v2.0, the format of the metrics has changed.
+  All punctuation characters in the metric name are now replaced with the underscore character.
   For example, the metric <code>/on-demand-broker/p.rabbitmq/single-node/total_instances</code> has
   become <code>_on_demand_broker_p_rabbitmq_single_node_total_instances</code>.
 </p>
@@ -519,4 +519,6 @@ The full name of the metric follows the format: `_p_rabbitmq_COMPONENT_METRIC-NA
 ### <a id="rabbitmq-metrics"></a> RabbitMQ Server Metrics
 
 RabbitMQ server metrics are emitted by the `rabbitmq_prometheus` plugin.
-The full list of metrics is in the [plugin repository](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md) in GitHub.
+For the full list of metrics emitted, see the
+[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md)
+repository in GitHub.
