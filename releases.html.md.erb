@@ -5,49 +5,15 @@ owner: London Services
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
-## <a id="2-0-0"></a> v2.0.0
+## <a id="2-0-x"></a> v2.0.x
 
-**Release Date**: April ##, 2021
-
-### Breaking Changes
-
-Breaking changes in this release:
-
-* **RabbitMQ Server Metrics**: RabbitMQ Server metrics for both pre-provisioned and on-demand are
-now served using the `rabbitmq_prometheus` plugin. This changes the metrics emitted by the RabbitMQ
-Server component.
-For more information about the plugin, see [Prometheus Plugin](monitor.html#prometheus).
-For the full list of metrics now emitted, see the
-[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md)
-repository in GitHub.
-
-* **Updated Firehose Metrics format**: The underscore character has replaced all punctuation characters in
-the metric name.
-For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances` has become
-`_on_demand_broker_p_rabbitmq_single_node_total_instances`.
+**Release Date**: DD MM, YYYY
 
 ### Features
 
 New features and changes in this release:
 
-* **Expert users only — overriding the RabbitMQ server configuration:**
-You can override the configuration applied by the <%= vars.product_short %> broker
-or provide your own additional configuration to apply on RabbitMQ service instances.
-For more information, see
-[Expert Mode - Overriding RabbitMQ Server Configuration](./expert-override-config.html).
-
-* **Additional RabbitMQ server plugins for on-demand:** These plugins are available for on-demand services:<br>
-
-    `rabbitmq_auth_backend_cache`, `rabbitmq_auth_backend_http`, `rabbitmq_auth_backend_ldap`,
-    `rabbitmq_auth_mechanism_ssl`, `rabbitmq_jms_topic_exchange`, `rabbitmq_tracing`,
-    `rabbitmq_trust_store`, `rabbitmq_web_mqtt`, `rabbitmq_web_mqtt_examples`, and `rabbitmq_web_stomp_examples`
-
-    The plugins are disabled by default.
-    For the complete list of plugins and for information about how to enable them,
-    see [RabbitMQ Server Plugins](install-config.html#server-plugins)
-    in _Installing and Configuring the On-Demand Service_.
-
-* **TLS versions:** TLS v1.0 and v1.1 are no longer supported.
+* **Run-in header:** Feature description.
 
 ### Known Issues
 
