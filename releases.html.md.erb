@@ -5,19 +5,7 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-For <%= vars.product_short %> v1.19 and v1.20, you can skip a
-minor version when you upgrade.
-
-See the following table to find your upgrade path:
-
-| If you are on...  | Upgrade to...  |
-|---|---|
-| v1.18.x  | v1.19.6 |
-| v1.19.0-1.19.5  | v1.19.6 |
-| v1.19.6  | v2.0 |
-| v1.20-1.20.4  | v1.20.5 |
-| v1.20.5  | v2.0 |
-| v1.21.x  | v2.0 |
+<%= partial vars.path_to_partials + '/rabbitmq/jumpgrade-2.0' %>
 
 <%= partial vars.path_to_partials + '/upgrade-planner' %>
 
