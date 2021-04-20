@@ -26,6 +26,9 @@ the metric name.
 For example, the metric `/on-demand-broker/p.rabbitmq/single-node/total_instances` has become
 `_on_demand_broker_p_rabbitmq_single_node_total_instances`.
 
+* **TLS v1.0 and v1.1 are no longer supported:** Before upgrading to <%= vars.product_short %> v2.0,
+  update apps that use TLS v1.0 or v1.1 to use TLS v1.2 or v1.3.
+
 ### Features
 
 New features and changes in this release:
@@ -47,7 +50,7 @@ For more information, see
     see [RabbitMQ Server Plugins](install-config.html#server-plugins)
     in _Installing and Configuring the On-Demand Service_.
 
-* **TLS versions:** TLS v1.0 and v1.1 are no longer supported.
+* **TLS versions:** TLS v1.2 and v1.3 are supported.
 
 ### Known Issues
 
