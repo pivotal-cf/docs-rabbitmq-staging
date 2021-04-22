@@ -16,7 +16,7 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 | 2.0        | v2.0 (http://docs.pivotal.io/rabbitmq-cf/2-0/)   |
 | 1.21       | v1.21 (http://docs.pivotal.io/rabbitmq-cf/1-21/) |
 | 1.20       | v1.20 (http://docs.pivotal.io/rabbitmq-cf/1-20/) |
-| 1.19       | v1.19 (http://docs.pivotal.io/rabbitmq-cf/1-19/) |
+| 1.19       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-19/) |
 | 1.18       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-18/) |
 | 1.17       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-17/) |
 | 1.16       | NOT IN USE docs have been deprecated (http://docs.pivotal.io/rabbitmq-cf/1-16/) |
