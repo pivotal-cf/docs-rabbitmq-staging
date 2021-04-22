@@ -574,7 +574,7 @@ To learn how to configure syslog to keep the log format consistent, see
 
 * **BOSH Hot Swap:** To reduce downtime, on-demand service instances created using
 <%= vars.product_short %> v1.20 and later use the `vm_strategy` `create-swap-delete`.
-To use this feature, you must have BOSH DNS enabled.<br>
+To use this feature, you must have BOSH DNS enabled. This is enabled by default.<br>
 During deployment, IaaS resource usage surges while BOSH creates additional VMs to prepare for
 the update. You might need to review resource limits for your IaaS and account.
 If your limits are too low, your deployment fails.<br>
