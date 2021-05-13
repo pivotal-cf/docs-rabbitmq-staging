@@ -222,8 +222,8 @@ However, queues can be configured to mirror across multiple nodes,
 so that any message published to the queue is replicated to all mirrors.
 Enabling mirroring can have a negative impact on queue performance because messages must be copied to all mirrors before being acknowledged.
 
-Each mirrored queue consists of one master and one or more mirrors, with the oldest mirror being promoted to the new master if the old master disappears for any reason.
-Consumers are connected to the master regardless of which node they connect to, and mirrors drop messages that have been acknowledged at the master.
+Each mirrored queue consists of one leader replica and one or more mirrors, with the oldest mirror being promoted to the new leader replica if the old leader replica disappears for any reason.
+Consumers are connected to the leader replica regardless of which node they connect to, and mirrors drop messages that have been acknowledged at the leader replica.
 Queue mirroring enhances queue availability,
 but does not distribute load across nodes because each of the participating nodes must still do all the work.
 
