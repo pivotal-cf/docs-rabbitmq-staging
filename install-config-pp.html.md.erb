@@ -151,28 +151,6 @@ If you leave this field blank, BOSH CredHub generates a secure Erlang cookie.
 <%= image_tag("images/config-erlang.png", :alt => "Screenshot of text field with the label
 'Erlang cookie used by RabbitMQ nodes and rabbitmqctl'.") %>
 
-
-#### <a id="security-fix"></a> Erlang Cookie Security Fix
-
-In <%= vars.product_short %> v1.15 and earlier, if you left the Erlang cookie field blank,
-the tile generated the cookie in a way that could be reverse-engineered.
-For more information about this security issue, see
-[CVE-2018-1279: RabbitMQ cluster compromise due to deterministically generated cookie](https://pivotal.io/security/cve-2018-1279).
-
-In <%= vars.product_short %> v1.16, BOSH CredHub securely generates the Erlang cookie when
-the field is left blank.
-If you rely on the tile to generate the Erlang cookie by leaving the field blank,
-do one of the following:
-
-* (Recommended) Leave the Erlang cookie field blank so that BOSH CredHub generates a new cookie.
-This causes a few minutes of downtime.<br>
-For more information, see [Changing the Erlang Cookie Value Known Issue](#changing-issue) below.
-
-* Set the cookie explicitly to the current value to avoid regeneration.
-This avoids downtime, but the Erlang cookie is not secure.<br>
-For how to do this, see [Set the Erlang Cookie to Existing its Value](#existing-value) below.
-
-
 #### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
 Changing the Erlang cookie value causes a few minutes of downtime because it requires a full cluster
@@ -181,56 +159,6 @@ VMware recommends that you do not change anything else during this time, because
 the configuration to be applied inconsistently during this process.
 
 The deployment might fail after this process. If so, redeploying fixes the issue.
-
-
-#### <a id="existing-value"></a> Set the Erlang Cookie to Its Existing Value
-
-<p class="note warning">
-  <strong>Warning:</strong> VMware recommends that you change the Erlang cookie to prevent
-  CVE-2018-1279 affecting it.
-  For more information, see
-  <a href="./install-config-pp.html#security-fix">Erlang Cookie Security Fix</a> above.
-</p>
-
-If you rely on the tile to generate the Erlang cookie but need to upgrade to
-<%= vars.product_short %> v1.16 without a cluster shutdown, set the Erlang cookie to its existing value:
-
-1. Follow the steps in
-[Advanced Troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#gather), up to and including the section _Log in to the BOSH Director_:
-
-1. SSH into the RabbitMQ server by running:
-
-    ```
-    bosh ssh rabbitmq-server/0
-    ```
-
-1. Get the value of the Erlang cookie by running:
-
-    ```
-    sudo -i
-    echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)
-    ```
-
-1. Paste the value returned from the last command into the Erlang cookie field in the
-**Pre-Provisioned RabbitMQ** tab.
-This field is shown in the [Erlang Cookie](#erlang) section above.
-
-1. To increase the size of your cluster, navigate to the **Resource Config** tab and, in the first
-row, raise the value for the number of **Instances** of the **RabbitMQ node**.
-
-1. Return to the <%= vars.ops_manager %> Installation Dashboard.
-
-1. Click **Review Pending Changes**.
-For more information about this <%= vars.ops_manager %> page,
-see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
-
-1. Click **Apply Changes**.
-
-<p class="note">
-  <strong>Note:</strong> BOSH tells you that the cookie has changed. This is because the default
-  value in the manifest is empty, which results in an auto-generated cookie.
-  However, the value of the cookie on the server remains the same, so there is no downtime.
-</p>
 
 
 ### <a id="load-balance"></a> (Optional) Set an External Load Balancer <%# Is this whole section optional? %>
