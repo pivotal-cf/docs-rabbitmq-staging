@@ -361,7 +361,8 @@ Follow the steps below to configure global settings:
 ### <a id="security"></a> Configure Security
 
 <%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure communication between
-apps and <%= vars.product_short %> service instances. Mutual TLS (mTLS) verification is not supported.
+apps and <%= vars.product_short %> service instances. In addition, you may optionally secure communications
+between <%= vars.product_short %> nodes in a cluster with TLS. Mutual TLS (mTLS) verification is not supported.
 You can also use OAuth 2.0 to enable developers to access the RabbitMQ Management
 UI using their <%= vars.app_runtime_full %> credentials.
 
@@ -378,9 +379,11 @@ To configure the security settings:
     <%= image_tag("/images/configure-oauth.png",
     :alt => "Screenshot of the Security for On-Demand Plans pane.
     The pane contains the **TLS Options** group of radio buttons,
+    a checkbox to **Secure Inter-node communications with TLS**,
     the **RabbitMQ TLS versions** group of checkboxes,
     the **OAuth Options** group of radio buttons, and a Save button.
     The example shows the **Not Configured** radio button selected for TLS Options,
+    the Secure Inter-node communications with TLS checkbox unticked,
     TLS v1.3 and TLS v1.2 checkboxes selected for RabbitMQ TLS versions,
     and the **Optional** radio button selected for OAuth.") %>
     <a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">
@@ -428,6 +431,18 @@ To configure the security settings:
           <a href="./secure-inter-node.html">Securing Inter-node Traffic with TLS</a>.
         </td>
       </tr>
+
+  <li>
+    Select whether to secure inter-node communications in <%= vars.product_short %> service instances.
+    If this is selected, any service instances created with TLS enabled will also secure all communications
+    between nodes in the <%= vars.product_short %> cluster with TLS. This includes any communication
+    with <%= vars.product_short %> CLI tools, such as <code>rabbitmqctl</code>.
+    <p class="note">
+      <strong>Note:</strong> This option has no effect on service instances created with TLS disabled.
+    </p>
+    For more information about secure inter-node communication, see the
+    <a href="https://www.rabbitmq.com/clustering-ssl.html">RabbitMQ documentation</a>.
+  </li>
 
   <li>
     Select the TLS versions to support.
