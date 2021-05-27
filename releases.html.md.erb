@@ -11,10 +11,13 @@ owner: London Services
 
 **Release Date**: May 26, 2021
 
-### Security fixes
+### Security Fixes
 
-This release contains a fix to the following security issues:
-* CVE-2021-30465
+This release includes the following security fix:
+
+* High [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465):
+runc v1.0.0-rc94 and earlier allows a container filesystem breakout through
+directory traversal.
 
 ### Known Issues
 
@@ -43,7 +46,7 @@ The following components are compatible with this release:
 		<td>621.x</td>
 	</tr>
 	<tr>
-		<td>Tanzu Application Service</td>
+		<td><%= vars.app_runtime_full %></td>
 		<td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
 	</tr>
 	<tr>
@@ -95,7 +98,7 @@ The following components are compatible with this release:
 		<td>1.12.5</td>
 	</tr></table>
 
-* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16">v3.8.16</a> GitHub documentation.
+<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16">v3.8.16</a> GitHub documentation.
 
 ## <a id="1-21-3"></a> v1.21.3
 
@@ -114,7 +117,8 @@ Maintenance change in this release:
 This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-* This release does not contain the fix to CVE-2021-30465. VMware advises upgrading to v1.21.4 or later.
+* This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465).
+VMware recommends upgrading to v2.0.2 or later.
 
 ### Compatibility
 
@@ -221,7 +225,8 @@ This release has the following fixes:
 This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
-* This release does not contain the fix to CVE-2021-30465. VMware advises upgrading to v1.21.4 or later.
+* This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465).
+VMware recommends upgrading to v2.0.2 or later.
 
 ### Compatibility
 
@@ -324,7 +329,8 @@ This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
-* This release does not contain the fix to CVE-2021-30465. VMware advises upgrading to v1.21.4 or later.
+* This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465).
+VMware recommends upgrading to v2.0.2 or later.
 
 ### Compatibility
 
@@ -459,6 +465,8 @@ This release has the following issues:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 <%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
+* This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465).
+VMware recommends upgrading to v2.0.2 or later.
 
 ### Compatibility
 
