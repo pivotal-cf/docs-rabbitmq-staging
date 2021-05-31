@@ -339,9 +339,9 @@ metrics_path: "/metrics"
 scheme: http
 dns_sd_configs:
 - names:
-   - q-s4.rabbitmq-server.*.*.bosh.
-    type: A
-     port: 15692
+    - q-s4.rabbitmq-server.*.*.bosh.
+  type: A
+  port: 15692
 ```
 
 The regular expression in the scrape config name ensures that Prometheus discovers all future service
