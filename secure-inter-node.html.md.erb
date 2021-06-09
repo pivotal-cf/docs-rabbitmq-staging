@@ -1,0 +1,126 @@
+---
+breadcrumb: VMware Tanzu RabbitMQ for VMs Documentation
+title: Securing Inter-node Traffic with TLS
+owner: London Services
+---
+
+In <%= vars.product_short %>, nodes in a cluster communicate with other nodes through Erlang distribution links. This is also true of RabbitMQ CLI tools, such as <code>rabbitmqctl</code>, which
+establish connections to nodes in the cluster through distribution links.
+
+For On-demand service instances, it is possible to secure this communication between nodes in the cluster with <%= vars.product_short %>, by using TLS to provide authentication and encryption for the traffic.
+
+For more information on how to configure this in <%= vars.product_short %>, see the following sections of this document.
+To learn more about Clustering with TLS in RabbitMQ, see the <a href="https://www.rabbitmq.com/clustering-ssl.html">RabbitMQ documentation</a>.
+
+##<a id="configuration"></a> Configuring Inter-node TLS
+
+Click the <strong>Security for On-Demand Plans</strong> tab.
+
+<%= image_tag("/images/configure-oauth.png", 
+  :alt => "Screenshot of the Security for On-Demand Plans pane.
+  The pane contains the **TLS Options** group of radio buttons,
+  a checkbox to **Secure Inter-node communications with TLS on new Instances**,
+  the **RabbitMQ TLS versions** group of checkboxes,
+  the **OAuth Options** group of radio buttons, and a Save button.
+  The example shows the **Not Configured** radio button selected for TLS Options,
+  the Secure Inter-node communications with TLS checkbox unticked,
+  TLS v1.3 and TLS v1.2 checkboxes selected for RabbitMQ TLS versions,
+  and the **Optional** radio button selected for OAuth.") %>
+<a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">Click here to view a larger version of the image above</a>
+
+Check the checkbox labelled 'Secure Inter-node communications with TLS on new Instances', and hit <strong>Save</strong>.
+
+Navigate back to the main menu of Ops Manager, and hit <strong>Apply Changes</strong>.
+
+After applying changes, any newly-created service instances will be communicating over TLS for inter-node traffic.
+
+<p class="note">
+  <strong>Note:</strong> Inter-node communication is independent of communication between your apps and RabbitMQ. It is possible to secure inter-node traffic
+  without modifying your apps to communicate over TLS.
+</p>
+<p class="note warning">
+  <strong>Warning:</strong> This option has no effect on existing service instances, and only affects instances created after running Apply Changes.
+  This is because it is not possible to perform a rolling upgrade while switching between inter-node TLS and non-TLS communication without downtime.
+  In order to migrate your app traffic to a cluster using inter-node TLS without downtime, see <a href="#migration">Migrating to a Secure Inter-node Cluster</a>.
+</p>
+
+##<a id="migration"></a> Migrating to a Secure Inter-node Cluster
+
+TODO @coro: !! For each of these, add in a 'you should see X...' as a check so people know they're on track
+TODO @coro: !! Explain what each step is doing a bit better
+
+It is not possible for a Erlang distribution to contain a mix of nodes that are communicating over TLS and nodes that are not. Therefore, it is not possible to switch between the two
+while carrying out a rolling upgrade, and manual migration between the two must be performed. This migration can involve minimal downtime if a blue-green deployment is used.
+
+This set of instructions assumes that you have already enabled 'Secure Inter-node communications with TLS on new Instances', have hit 'Apply Changes', and have a old <%= vars.product_short %>
+service instance running that you would like to migrate from, with producer and consumer apps communicating with that instance.
+
+1. Create a new service instance with the same plan & configuration as the original service instance, in the same subnet. This will be your 'green' service instance,
+  where the old service instance is the 'blue'. For example, if you created the blue instance with TLS enabled, you could run:
+  ```
+  cf create-service p.rabbitmq my-rabbitmq-plan rabbitmq-green -c '{"tls": true}'
+  ```
+
+1. Once the green instance is deployed, if one does not yet exist, create a set of admin credentials on both the blue and green clusters.
+  ```
+  cf create-service-key rabbitmq-blue admin-key -c '{"tags": "administrator"}'
+  cf create-service-key rabbitmq-green admin-key -c '{"tags": "administrator"}'
+  ```
+
+1. Log in to the Management UI on both the blue and green clusters. You can find both the URL for the Management UI, as well as the admin credentials, in the service-keys you just created:
+  ```
+  cf service-key rabbitmq-blue admin-key
+  ```
+  Make note also of the AMQP(S) URI listed in the service-key, as you will need this later to set up federation between the two clusters. This is stored under the key <code>uri</code> in the service-key.
+
+1. In the Overview pane of the UI on the blue (old) cluster, navigate to 'Export Definitions' and hit 'Download broker definitions'. This will save a JSON file to your machine, containing all the topology metadata to recreate
+  the cluster on another service instance.
+  <p class="note">
+    <strong>Note:</strong> If you do not see the 'Export definitions' section of the 'Overview' pane, it is likely that the service-key you created did not contain the tag to enable admin permissions.
+    Re-check the command you ran to create the key.
+  </p>
+
+1. In the Overview pane of the UI on the green (new) cluster, navigate to 'Import Definitions', add the file you just downloaded from the blue cluster and hit 'Upload broker definitions'. This will create the topology
+  required on the green cluster.
+  <p class="note">
+    <strong>Note:</strong> If you do not see the 'Import definitions' section of the 'Overview' pane, it is likely that the service-key you created did not contain the tag to enable admin permissions.
+    Re-check the command you ran to create the key.
+  </p>
+
+1. In the Admin pane of the UI on the green cluster, navigate to 'Federation upstreams' in the sidebar and click on 'Add a new upstream'. The name can be whatever you choose, and the URI must be the URI
+  of the blue cluster you obtained earlier from the service-key.
+
+1. Again on the Admin pane of the green cluster's UI, navigate to Policies in the sidebar and hit 'Add / update a policy'. Pick a name, set 'Pattern' to <code>.*</code>, set 'Apply to' to 'Queues',
+  and under 'Definition' add an entry <code>federation-upstream = your-upstream-name</code>
+
+1. Migrate your consumer applications from the blue cluster to the green cluster. How you achieve this is largely dependent on your application, whether it is stateless, running on the foundation or
+  via Service Gateway, etc.
+  <p class="note warning">
+    <strong>Warning:</strong> Only change the consumer apps at this point. Do not make any changes to the producer apps yet, or you risk building up a large backlog on the green cluster.
+  </p>
+  If you can tolerate some consumer app downtime, you can rebind your consumer apps to the green service instance and restart the app:
+  ```
+  cf bind-service consumer-app rabbitmq-green
+  cf unbind-service consumer-app rabbitmq-blue
+  cf restart consumer-app
+  ```
+  If you are using Service Gateway for your apps to communicate with the service instance, you will instead have to create a new service key on the green cluster, and use this in your app:
+  ```
+  cf create-service-key rabbitmq-green key-name 
+  ```
+  If your app is stateless, or scales horizontally, and handles graceful shutdown, you could choose to blue-green deploy a new 'green' instance of your consumer app connected to the green cluster,
+  and then delete the 'blue' consumer app. Depending on how your applications are architected, this could result in little to no downtime.
+
+1. Configure a shovel on the green cluster to drain any messages from the blue cluster. You can do this in the Management UI of the green cluster: navigate to 'Admin', go to 'Shovel Management'
+  in the sidebar and press 'Add a new shovel'. Under Source, the URI should be set to the URI you retrieved from the blue cluster service key earlier, and Queue must be set to the name of
+  a queue that you want to drain from the blue cluster.
+
+  You must create one shovel for each queue that you wish to drain to the green cluster.
+
+1. TODO @coro: !! Stop producers
+
+1. TODO @coro: !! Wait for queues to drain
+
+1. TODO @coro: !! start producers on the green cluster
+
+1. TODO @coro: !! Decommission blue cluster, delete green admin service key, remove shovel from green
