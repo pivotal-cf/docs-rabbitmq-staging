@@ -368,120 +368,92 @@ UI using their <%= vars.app_runtime_full %> credentials.
 
 To configure the security settings:
 
-<ol>
-  <li>
-    Ensure that you have performed the procedures in
-    <a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a> before
-    configuring the tile and applying changes.
-  </li>
-  <li>
-    Click the <strong>Security for On-Demand Plans</strong> tab.
+1. Ensure that you have performed the procedures in
+<a href="./prepare-tls.html#provide-generate-pcf">Provide or Generate a CA Certificate</a>
+before configuring the tile and applying changes.
+
+1. Click the <strong>Security for On-Demand Plans</strong> tab.
     <%= image_tag("/images/configure-oauth.png",
-    :alt => "Screenshot of the Security for On-Demand Plans pane.
-    The pane contains the **TLS Options** group of radio buttons,
-    a checkbox to **Secure Inter-node communications with TLS on new Instances**,
-    the **RabbitMQ TLS versions** group of checkboxes,
-    the **OAuth Options** group of radio buttons, and a Save button.
-    The example shows the **Not Configured** radio button selected for TLS Options,
-    the Secure Inter-node communications with TLS checkbox unticked,
-    TLS v1.3 and TLS v1.2 checkboxes selected for RabbitMQ TLS versions,
-    and the **Optional** radio button selected for OAuth.") %>
+    :alt => "Screenshot of the Security for On-Demand Plans tab.
+    The fields are described in the table in the next step.") %>
     <a href="./images/configure-oauth.png" target="_blank" aria-hidden="true">
     Click here to view a larger version of the image above</a>
-  </li>
-  <li>
-    Under <strong>TLS Options</strong>, select either <strong>Optional</strong> or
-    <strong>Enforced</strong>.
-    <strong>Optional</strong> enables developers to configure their <%= vars.product_short %> service
-    instances to use TLS. <strong>Enforced</strong> requires TLS to be enabled.
-  </li>
 
-<p class="note breaking">
-  <strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing
-  service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong>
-  errand are applied. Any apps not using TLS are no longer able to communicate with their service
-  instances. Such apps require a new binding and must be configured to communicate with their
-  <%= vars.product_short %> service instance through TLS.
-</p>
-
-<p class="note">
-  <strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing
-  service instances continue to use TLS. However, new instances are not configured with TLS.
-</p>
+1. Configure the settings:
+    <table>
       <tr>
-        <td><strong>Secure Inter-node communications with TLS on new Instances</strong></td>
+        <th>Field</th>
+        <th>Instructions</th>
+      </tr>
+
+      <tr>
+        <td><strong>TLS Options</strong></td>
         <td>
-          Select this checkbox to secure all communication between nodes in the
-          <%= vars.product_short %> cluster with TLS.
-          This includes communication with <%= vars.product_short %> CLI tools,
-          such as <code>rabbitmqctl</code>.
-          <p class="note warning">
-            <strong>Warning:</strong> This option only affects service instances
-            created after running <strong>Apply Changes</strong>.
-            It has no effect on existing service instances.
-            To migrate your app traffic to a cluster using inter-node TLS, see
-            <a href="./secure-inter-node.html#migration">Migrating to a Secure Inter-node Cluster</a>.
+          Select either <strong>Optional</strong> or <strong>Enforced</strong>.
+          <strong>Optional</strong> enables developers to configure their
+          <%= vars.product_short %> service instances to use TLS.
+          <strong>Enforced</strong> requires TLS to be enabled.
+          <p class="note breaking">
+            <strong>Breaking Change:</strong> If TLS is set to <strong>Enforced</strong> then all existing
+            service instances use TLS after changes from the <strong>Upgrade All Service Instances</strong>
+            errand are applied. Any apps not using TLS are no longer able to communicate with their service
+            instances. Such apps require a new binding and must be configured to communicate with their
+            <%= vars.product_short %> service instance through TLS.
           </p>
           <p class="note">
-            <strong>Note:</strong> Inter-node communication is independent of communication
-            between your apps and RabbitMQ. You can secure inter-node traffic without modifying
-            your apps to communicate over TLS.
+            <strong>Note:</strong> When TLS is subsequently set to <strong>Not Configured</strong>, existing
+            service instances continue to use TLS. However, new instances are not configured with TLS.
           </p>
-          For more information about secure inter-node communication, see
-          <a href="./secure-inter-node.html">Securing Inter-node Traffic with TLS</a>.
         </td>
       </tr>
 
-  <li>
-    Select whether to secure inter-node communications in <%= vars.product_short %> service instances.
-    If this is selected, any service instances created after running Apply Changes will secure all communications
-    between nodes in the <%= vars.product_short %> cluster with TLS. This includes any communication
-    the on-demand broker performs using RabbitMQ CLI tools, such as <code>rabbitmqctl</code>.
-    <p class="note">
-      <strong>Note:</strong> Inter-node communication is independent of communication between your apps and RabbitMQ. It is possible to secure inter-node traffic
-      without modifying your apps to communicate over TLS.
-    </p>
-    <p class="note warning">
-      <strong>Warning:</strong> This option has no effect on existing service instances, and only affects instances created after running Apply Changes.
-      This is because it is not possible to perform a rolling upgrade while switching between inter-node TLS and non-TLS communication without downtime.
-      In order to migrate your app traffic to a cluster using inter-node TLS without downtime, see <a href="./secure-inter-node.html#migration">Migrating to a Secure Inter-node Cluster</a>.
-    </p>
-    For more information about secure inter-node communication, see
-    <a href="./secure-inter-node.html">Securing Inter-node Traffic with TLS</a>.
-  </li>
+      <tr>
+        <td><strong>Secure Inter-node communications with TLS</strong></td>
+        <td>
+          Select this checkbox to enable TLS to secure all communication between nodes in the
+          <%= vars.product_short %> cluster for service instances with TLS enabled.
+          This includes communication with <%= vars.product_short %> CLI tools,
+          such as <code>rabbitmqctl</code>.
+          <p class="note">
+            <strong>Note:</strong> This option has no effect on service instances created with TLS disabled.
+          </p>
+          For more information about secure inter-node communication, see the
+          <a href="https://www.rabbitmq.com/clustering-ssl.html">RabbitMQ documentation</a>.
+        </td>
+      </tr>
 
-  <li>
-    Select the TLS versions to support.
-    TLS v1.3 and TLS v1.2 are enabled by default.
-    For more information about TLS versions, see the
-    <a href="https://www.rabbitmq.com/ssl.html#tls-versions-why-limit">RabbitMQ documentation</a>.
-  </li>
+      <tr>
+        <td><strong>RabbitMQ TLS Versions</strong></td>
+        <td>
+          Select the TLS versions to support.
+          TLS v1.3 and TLS v1.2 are enabled by default.
+          For more information about TLS versions, see the
+          <a href="https://www.rabbitmq.com/ssl.html#tls-versions-why-limit">RabbitMQ documentation</a>.
+        </td>
+      </tr>
 
-  <li>For information about configuring the <strong>OAuth options</strong>, see
-    <a href="./enable-oauth-for-rabbitmq.html#configure-oauth">Configure OAuth in <%= vars.ops_manager %></a>.
-  </li>
+      <tr>
+        <td><strong>OAuth Options</strong></td>
+        <td>
+          For information about configuring <strong>OAuth options</strong>, see
+          <a href="./enable-oauth-for-rabbitmq.html#configure-oauth">Configure OAuth in <%= vars.ops_manager %></a>.
+        </td>
+      </tr>
+    </table>
 
-  <li>
-    Click <strong>Save</strong>.
-  </li>
+1. Click <strong>Save</strong>.
 
-  <li>
-    Click <strong>Review Pending Changes</strong>. For more information about this
-    <%= vars.ops_manager %> page, see
-    <a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">
-      Reviewing Pending Product Changes</a>.
-  </li>
+1. Click <strong>Review Pending Changes</strong>. For more information about this
+<%= vars.ops_manager %> page, see
+<a href="https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html">Reviewing Pending Product Changes</a>.
 
-  <li>In the <%= vars.ops_manager %> Installation Dashboard, ensure the
-    <strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>,
-    and then click <strong>Apply Changes</strong>.</li>
+1. In the <%= vars.ops_manager %> Installation Dashboard, ensure the
+<strong>Upgrade All Service Instances</strong> errand is set to <strong>On</strong>,
+and then click <strong>Apply Changes</strong>.
 
-  <li>After deploying the tile, app developers can configure their service instances to use TLS.
-    For developer instructions, see
-    <a href="use.html#tls">Enable Transport Layer Security (TLS) for Your Service Instance</a>.
-    <%# (and <a href="modify-apps-tls.html">Modifying Apps for TLS</a>.) %>
-  </li>
-</ol>
+1. After deploying the tile, app developers can configure their service instances to use TLS.
+For developer instructions, see <a href="use.html#tls">Enable Transport Layer Security (TLS) for Your Service Instance</a>.
+<%# (and <a href="modify-apps-tls.html">Modifying Apps for TLS</a>.) %>
 
 
 ### <a id="service-plan"></a> Configure the Service Plan
