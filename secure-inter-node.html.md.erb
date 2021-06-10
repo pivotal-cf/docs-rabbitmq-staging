@@ -40,8 +40,8 @@ After applying changes, any newly-created service instances will be communicatin
 </p>
 <p class="note warning">
   <strong>Warning:</strong> This option has no effect on existing service instances, and only affects instances created after running Apply Changes.
-  This is because it is not possible to perform a rolling upgrade while switching between inter-node TLS and non-TLS communication without downtime.
-  In order to migrate your app traffic to a cluster using inter-node TLS without downtime, see <a href="#migration">Migrating to a Secure Inter-node Cluster</a>.
+  This is because it is not possible to perform a rolling upgrade while switching between inter-node TLS and non-TLS communication.
+  In order to migrate your app traffic to a cluster using inter-node TLS, see <a href="#migration">Migrating to a Secure Inter-node Cluster</a>.
 </p>
 
 ##<a id="migration"></a> Migrating to a Secure Inter-node Cluster
@@ -51,10 +51,15 @@ TODO @coro: !! Explain what each step is doing a bit better, rather than rote 'd
 TODO @coro: !! Screenshots of the UI
 
 It is not possible for a Erlang distribution to contain a mix of nodes that are communicating over TLS and nodes that are not. Therefore, it is not possible to switch between the two
-while carrying out a rolling upgrade, and manual migration between the two must be performed. This migration can involve minimal downtime if a blue-green deployment is used.
+while carrying out a rolling upgrade, and manual migration between the two must be performed. This migration can involve less downtime if a blue-green deployment is used.
 
 This set of instructions assumes that you have already enabled 'Secure Inter-node communications with TLS on new Instances', have hit 'Apply Changes', and have a old <%= vars.product_short %>
 service instance running that you would like to migrate from, with producer and consumer apps communicating with that instance.
+
+<p class="note">
+  <strong>Note:</strong> This process requires manual creation of some RabbitMQ objects, which may not be feasible for you if you have many (100+) queues.
+  VMware Support can provide a script to perform some of these steps for you if needed.
+</p>
 
 1. Create a new service instance with the same plan & configuration as the original service instance, in the same subnet. This will be your 'green' service instance,
   where the old service instance is the 'blue'. For example, if you created the blue instance with TLS enabled, you could run:
@@ -97,7 +102,8 @@ service instance running that you would like to migrate from, with producer and 
   in the sidebar and press 'Add a new shovel'. Under Source, the URI should be set to the URI you retrieved from the blue cluster service key earlier (except if you're using TLS for AMQP traffic, see Note below),
   Queue must be set to the name of a queue that you want to drain from the blue cluster, and Auto-delete should be set to 'After initial length transferred'.
 
-  You must create one shovel for each queue that you wish to drain to the green cluster.
+  You must create one shovel for each queue that you wish to drain to the green cluster. If you have many queues, VMware recommends creating these in batches and waiting for them to complete before creating
+  new shovels, to avoid overloading the system.
 
   <p class="note">
     <strong>Note:</strong> If your clusters are using TLS for AMQP traffic, you must add a query parameter onto the end of your AMQPS URI when configuring the shovel.
