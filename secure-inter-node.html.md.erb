@@ -7,7 +7,7 @@ owner: London Services
 In <%= vars.product_short %>, nodes in a cluster communicate with other nodes through Erlang distribution links. This is also true of RabbitMQ CLI tools, such as <code>rabbitmqctl</code>, which
 establish connections to nodes in the cluster through distribution links.
 
-For On-demand service instances, it is possible to secure this communication between nodes in the cluster with <%= vars.product_short %>, by using TLS to provide authentication and encryption for the traffic.
+For On-demand service instances, it is possible to secure this communication between nodes in the cluster with <%= vars.product_short %>, by using mutual TLS to provide authentication and encryption for the traffic.
 
 For more information on how to configure this in <%= vars.product_short %>, see the following sections of this document.
 To learn more about Clustering with TLS in RabbitMQ, see the <a href="https://www.rabbitmq.com/clustering-ssl.html">RabbitMQ documentation</a>.
@@ -32,7 +32,7 @@ Check the checkbox labelled 'Secure Inter-node communications with TLS on new In
 
 Navigate back to the main menu of Ops Manager, and hit <strong>Apply Changes</strong>.
 
-After applying changes, any newly-created service instances will be communicating over TLS for inter-node traffic.
+After applying changes, any newly-created service instances will be communicating with mutual TLS for inter-node traffic.
 
 <p class="note">
   <strong>Note:</strong> Inter-node communication is independent of communication between your apps and RabbitMQ. It is possible to secure inter-node traffic
@@ -46,14 +46,13 @@ After applying changes, any newly-created service instances will be communicatin
 
 ##<a id="migration"></a> Migrating to a Secure Inter-node Cluster
 
-TODO @coro: !! For each of these, add in a 'you should see X...' as a check so people know they're on track
-TODO @coro: !! Explain what each step is doing a bit better, rather than rote 'do this then do that'
-TODO @coro: !! Screenshots of the UI
-
 It is not possible for a Erlang distribution to contain a mix of nodes that are communicating over TLS and nodes that are not. Therefore, it is not possible to switch between the two
 while carrying out a rolling upgrade, and manual migration between the two must be performed. This migration can involve less downtime if a blue-green deployment is used.
 
-This set of instructions assumes that you have already enabled 'Secure Inter-node communications with TLS on new Instances', have hit 'Apply Changes', and have a old <%= vars.product_short %>
+This set of instructions assumes that you have familiarity with RabbitMQ concepts, such as dynamic shovels and how to configure them. If you are unclear of the process at any point,
+contact a VMware Support representative to aid you during the process.
+
+You should also have already enabled 'Secure Inter-node communications with TLS on new Instances', hit 'Apply Changes', and have a old <%= vars.product_short %>
 service instance running that you would like to migrate from, with producer and consumer apps communicating with that instance.
 
 <p class="note">
@@ -90,6 +89,8 @@ service instance running that you would like to migrate from, with producer and 
     <strong>Note:</strong> If you do not see the 'Export definitions' section of the 'Overview' pane, it is likely that the service-key you created did not contain the tag to enable admin permissions.
     Re-check the command you ran to create the key.
   </p>
+
+1. Modify this definitions file to remove anything you do not want on your new cluster. For example, the new cluster will create its own users, so you must remove any user credentials before importing on the new cluster.
 
 1. In the Overview pane of the UI on the green (new) cluster, navigate to 'Import Definitions', add the file you just downloaded from the blue cluster and hit 'Upload broker definitions'. This will create the topology
   required on the green cluster.
