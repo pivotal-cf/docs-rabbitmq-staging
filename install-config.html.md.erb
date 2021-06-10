@@ -360,11 +360,13 @@ Follow the steps below to configure global settings:
 
 ### <a id="security"></a> Configure Security
 
-<%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure communication between
-apps and <%= vars.product_short %> service instances. In addition, you may optionally secure communications
-between <%= vars.product_short %> nodes in a cluster with TLS. Mutual TLS (mTLS) verification is not supported.
-You can also use OAuth 2.0 to enable developers to access the RabbitMQ Management
-UI using their <%= vars.app_runtime_full %> credentials.
+<%= vars.product_short %> lets you use Transport Layer Security (TLS) to secure
+communication between apps and service instances.
+You can also enable TLS to secure communication between <%= vars.product_short %>
+nodes in a cluster. Mutual TLS (mTLS) verification is not supported.
+
+<%= vars.product_short %> also lets you use OAuth 2.0 to enable developers to
+access the RabbitMQ Management UI using their <%= vars.app_runtime_full %> credentials.
 
 To configure the security settings:
 
