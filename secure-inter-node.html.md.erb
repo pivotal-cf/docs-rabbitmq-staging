@@ -47,7 +47,8 @@ After applying changes, any newly-created service instances will be communicatin
 ##<a id="migration"></a> Migrating to a Secure Inter-node Cluster
 
 TODO @coro: !! For each of these, add in a 'you should see X...' as a check so people know they're on track
-TODO @coro: !! Explain what each step is doing a bit better
+TODO @coro: !! Explain what each step is doing a bit better, rather than rote 'do this then do that'
+TODO @coro: !! Screenshots of the UI
 
 It is not possible for a Erlang distribution to contain a mix of nodes that are communicating over TLS and nodes that are not. Therefore, it is not possible to switch between the two
 while carrying out a rolling upgrade, and manual migration between the two must be performed. This migration can involve minimal downtime if a blue-green deployment is used.
@@ -71,7 +72,12 @@ service instance running that you would like to migrate from, with producer and 
   ```
   cf service-key rabbitmq-blue admin-key
   ```
-  Make note also of the AMQP(S) URI listed in the service-key, as you will need this later to set up federation between the two clusters. This is stored under the key <code>uri</code> in the service-key.
+  Make note also of the AMQP(S) URI listed in the service-key, as you will need this later to set up shovels between the two clusters. This is stored under the key <code>uri</code> in the service-key.
+
+1. Stop your applications, so that no new messages are sent to the blue cluster, and no new topology objects (such as queues, policies, etc.) are created. If you're using the CF CLI, this can be done with:
+  ```
+  cf stop messaging-app
+  ```
 
 1. In the Overview pane of the UI on the blue (old) cluster, navigate to 'Export Definitions' and hit 'Download broker definitions'. This will save a JSON file to your machine, containing all the topology metadata to recreate
   the cluster on another service instance.
@@ -87,40 +93,42 @@ service instance running that you would like to migrate from, with producer and 
     Re-check the command you ran to create the key.
   </p>
 
-1. In the Admin pane of the UI on the green cluster, navigate to 'Federation upstreams' in the sidebar and click on 'Add a new upstream'. The name can be whatever you choose, and the URI must be the URI
-  of the blue cluster you obtained earlier from the service-key.
-
-1. Again on the Admin pane of the green cluster's UI, navigate to Policies in the sidebar and hit 'Add / update a policy'. Pick a name, set 'Pattern' to <code>.*</code>, set 'Apply to' to 'Queues',
-  and under 'Definition' add an entry <code>federation-upstream = your-upstream-name</code>
-
-1. Migrate your consumer applications from the blue cluster to the green cluster. How you achieve this is largely dependent on your application, whether it is stateless, running on the foundation or
-  via Service Gateway, etc.
-  <p class="note warning">
-    <strong>Warning:</strong> Only change the consumer apps at this point. Do not make any changes to the producer apps yet, or you risk building up a large backlog on the green cluster.
-  </p>
-  If you can tolerate some consumer app downtime, you can rebind your consumer apps to the green service instance and restart the app:
-  ```
-  cf bind-service consumer-app rabbitmq-green
-  cf unbind-service consumer-app rabbitmq-blue
-  cf restart consumer-app
-  ```
-  If you are using Service Gateway for your apps to communicate with the service instance, you will instead have to create a new service key on the green cluster, and use this in your app:
-  ```
-  cf create-service-key rabbitmq-green key-name 
-  ```
-  If your app is stateless, or scales horizontally, and handles graceful shutdown, you could choose to blue-green deploy a new 'green' instance of your consumer app connected to the green cluster,
-  and then delete the 'blue' consumer app. Depending on how your applications are architected, this could result in little to no downtime.
-
 1. Configure a shovel on the green cluster to drain any messages from the blue cluster. You can do this in the Management UI of the green cluster: navigate to 'Admin', go to 'Shovel Management'
-  in the sidebar and press 'Add a new shovel'. Under Source, the URI should be set to the URI you retrieved from the blue cluster service key earlier, and Queue must be set to the name of
-  a queue that you want to drain from the blue cluster.
+  in the sidebar and press 'Add a new shovel'. Under Source, the URI should be set to the URI you retrieved from the blue cluster service key earlier (except if you're using TLS for AMQP traffic, see Note below),
+  Queue must be set to the name of a queue that you want to drain from the blue cluster, and Auto-delete should be set to 'After initial length transferred'.
 
   You must create one shovel for each queue that you wish to drain to the green cluster.
 
-1. TODO @coro: !! Stop producers
+  <p class="note">
+    <strong>Note:</strong> If your clusters are using TLS for AMQP traffic, you must add a query parameter onto the end of your AMQPS URI when configuring the shovel.
+    This query parameter is <strong>always</strong> <code>?cacertfile=/var/vcap/jobs/rabbitmq-server/etc/cacert.pem&certfile=/var/vcap/jobs/rabbitmq-server/etc/cert.pem&keyfile=/var/vcap/jobs/rabbitmq-server/etc/key.pem&verify=verify_peer</code>.
+    For example, your shovel's source URI will look similar to: <code>amqps://user:password@server-name?cacertfile=/var/vcap/jobs/rabbitmq-server/etc/cacert.pem&certfile=/var/vcap/jobs/rabbitmq-server/etc/cert.pem&keyfile=/var/vcap/jobs/rabbitmq-server/etc/key.pem&verify=verify_peer</code>
+  </p>
 
-1. TODO @coro: !! Wait for queues to drain
+1. Wait for all of the shovels to disappear from the Management UI of the green cluster. This will indicate that all messages have been successfully drained from the blue cluster.
 
-1. TODO @coro: !! start producers on the green cluster
+1. Unbind your apps from the blue cluster and bind them to the green cluster. How you do this will depend on if your apps are running in the same foundation as the service instance.
+  If your apps are running on the same foundation, this can be done through the CF CLI or Apps Manager:
+  ```
+  cf unbind-service messaging-app rabbitmq-blue
+  cf bind-service messaging-app rabbitmq-green
+  ```
+  If your apps are running off-foundation, and are communicating with RabbitMQ through the Service Gateway, you will need to create a new service key on the green cluster, and supply this to your app
+  so that it might communicate with the new cluster.
+  ```
+  cf create-service-key rabbitmq-green messaging-app-key
+  ```
 
-1. TODO @coro: !! Decommission blue cluster, delete green admin service key, remove shovel from green
+1. Restart your applications. If you know which of your applications are consumers and which are producers, VMware recommends restarting the consumers first, in order to avoid building up a backlog on the green cluster.
+  If you're using the CF CLI, this can be done with:
+  ```
+  cf start messaging-app
+  ```
+
+1. Confirm in the Management UI of both clusters that the blue cluster no longer has any messages in queues, nor any throughput, and the green cluster has the expected throughput.
+
+1. Once you are happy with the green cluster, delete the blue cluster.
+  ```
+  cf delete-service rabbitmq-blue
+  ```
+
