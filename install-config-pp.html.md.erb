@@ -285,11 +285,20 @@ There are four checkboxes labeled 'TLS v1.3', 'TLS v1.2', 'TLS v1.1', and 'TLS v
 
 
 
-### <a id="configfile"></a> (Optional) Configure the RabbitMQ Service
+### <a id="configfile"></a> (Optional, Expert only) Override RabbitMQ Server Advanced Configuration
 
-1. In the **Pre-Provisioned RabbitMQ** tab, provide a full <code>rabbitmq.config</code>
+On RabbitMQ service instances, the <%= vars.product_short %> broker applies and maintains configuration on the RabbitMQ server.
+It is possible to override this configuration, or to provide your own additional configuration, to be applied on the RabbitMQ service instance.
+This configuration takes priority over any set by the <%= vars.product_short %> broker and is applied last on the server.
+
+<p class='note warning'>
+  <strong>Warning:</strong>
+  This feature is for expert users only. Any override configuration set on the RabbitMQ cluster might conflict with other configurations set by the Tanzu RabbitMQ broker.
+</p>
+
+1. In the **Pre-Provisioned RabbitMQ** tab, provide a full <code>advanced.config</code>
 file by pasting its contents in the **RabbitMQ configuration** field.
-This `rabbitmq.config` file is then provided to all the nodes in the cluster.<br>
+This `advanced.config` file is then provided to all the nodes in the cluster.<br>
 <%= image_tag("images/config_rabbitmq.png",
 :alt => "Screenshot of a text field labeled 'RabbitMQ configuration'
 and help text that says 'RabbitMQ config file contents, can be blank'.") %>
@@ -319,8 +328,8 @@ For example, to configure the `rates_mode` of the `rabbitmq_management` stats be
     The field has the value 'WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K'.
     The field also has help text that says, 'RabbitMQ config file contents, can be blank'.") %>
 
-For an example `rabbitmq.config` file, see
-[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.conf.example)
+For an example `advanced.config` file, see
+[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/v3.8.x/deps/rabbit/docs/advanced.config.example)
 in GitHub.<br><br>
 For more information about the RabbitMQ configuration, see the
 [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
