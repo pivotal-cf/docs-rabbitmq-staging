@@ -14,6 +14,13 @@ pre-provisioned <%= vars.product_short %> service components.
 For information about metrics for the pre-provisioned service,
 see [Monitoring and KPIs for Pre‑Provisioned <%= vars.product_full %>](./monitor-pp.html).
 
+As of <%= vars.product_short %> v2.0, RabbitMQ Server metrics are now provided by the `rabbitmq_prometheus` plugin.
+Consequently, many metric names will change when upgrading to <%= vars.product_short %> v2.0.
+Both On-Demand <%= vars.product_short %> and Pre-Provisioned <%= vars.product_short %> are affected by this.
+For the full list of metrics that are emitted, see the
+[rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/metrics.md)
+repository in Github.
+
 <%# , but with the prefix `p.rabbitmq` instead of `p-rabbitmq`. %>
 
 <p class="note">
