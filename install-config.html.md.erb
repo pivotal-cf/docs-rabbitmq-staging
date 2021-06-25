@@ -410,17 +410,26 @@ before configuring the tile and applying changes.
       </tr>
 
       <tr>
-        <td><strong>Secure Inter-node communications with TLS</strong></td>
+        <td><strong>Secure Inter-node communications with TLS on new Instances</strong></td>
         <td>
-          Select this checkbox to enable TLS to secure all communication between nodes in the
-          <%= vars.product_short %> cluster for service instances with TLS enabled.
+          Select this checkbox to secure all communication between nodes in the
+          <%= vars.product_short %> cluster with TLS.
           This includes communication with <%= vars.product_short %> CLI tools,
           such as <code>rabbitmqctl</code>.
-          <p class="note">
-            <strong>Note:</strong> This option has no effect on service instances created with TLS disabled.
+          <p class="note warning">
+            <strong>Warning:</strong> This option only affects service instances
+            created after running <strong>Apply Changes</strong>.
+            It has no effect on existing service instances.
+            To migrate your app traffic to a cluster using inter-node TLS, see
+            <a href="./secure-inter-node.html#migration">Migrating to a Secure Inter-node Cluster</a>.
           </p>
-          For more information about secure inter-node communication, see the
-          <a href="https://www.rabbitmq.com/clustering-ssl.html">RabbitMQ documentation</a>.
+          <p class="note">
+            <strong>Note:</strong> Inter-node communication is independent of communication
+            between your apps and RabbitMQ. You can secure inter-node traffic without modifying
+            your apps to communicate over TLS.
+          </p>
+          For more information about secure inter-node communication, see
+          <a href="./secure-inter-node.html">Securing Inter-node Traffic with TLS</a>.
         </td>
       </tr>
 
