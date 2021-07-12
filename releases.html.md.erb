@@ -15,15 +15,16 @@ owner: London Services
 
 Maintenance change in this release:
 
-* **Updated RabbitMQ to v3.8.18 and Erlang to version 24** For more information, see
+* **Updated RabbitMQ to v3.8.18 and Erlang to v24.0.2** For more information, see
 [RabbitMQ 3.8.18](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18) in GitHub.
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-* **Smoke tests:** This version fixes a bug that caused the smoke tests to fail with a buildpack error on the latest TAS versions.
-* **Grafana Dashboards for on-demand instances:** This version fixes a bug which caused Grafana dashboards for on-demand instances to fail rendering.
+* **Smoke Tests:** This version fixes an issue that caused the smoke tests to fail with a buildpack error on
+the latest <%= vars.product_short %> versions.
+* **Grafana Dashboards for On-Demand instances:** This version fixes a bug which caused Grafana dashboards for on-demand instances to fail rendering.
 
 ### Known Issues
 
@@ -31,10 +32,12 @@ This release has the following issue:
 
 <%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
 
-* **Duplicated RabbitMQ server metrics when both the Healthwatch Exporter for TAS and the Healthwatch tile are installed:** 
-For version 2 of the Healthwatch tile, installing the Healthwatch Exporter for TAS along with the Healthwatch tile results 
-in duplicated metrics. This is because Heathwatch scrapes the metrics from both the Prometheus port of the RabbitMQ 
-service instance and from the Loggregator system of TAS.
+* **Duplicated RabbitMQ server metrics when both the Healthwatch Exporter for TAS and the
+Healthwatch tile are installed:**
+When using v2 of the Healthwatch tile, installing the Healthwatch Exporter for TAS along with the Healthwatch
+tile results in duplicated metrics.
+This is because Heathwatch scrapes the metrics from both the Prometheus port of the RabbitMQ service instance
+and from the Loggregator system of TAS.
 
 ### Compatibility
 
@@ -57,8 +60,8 @@ The following components are compatible with this release:
 		<td>621.x</td>
 	</tr>
 	<tr>
-		<td>Tanzu Application Service</td>
-		<td>2.7.*, 2.8.*, 2.9.*, 2.10.*</td>
+		<td><%= vars.product_full %></td>
+		<td>2.7.x, 2.8.x, 2.9.x, 2.10.x</td>
 	</tr>
 	<tr>
 		<td>bpm</td>
@@ -107,9 +110,11 @@ The following components are compatible with this release:
 	<tr>
 		<td>service-metrics</td>
 		<td>1.12.5</td>
-	</tr></table>
+	</tr>
+</table>
 
-* For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18">v3.8.18</a> GitHub documentation.
+<sup>*</sup>For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18">v3.8.18</a> GitHub documentation.
 
 ## <a id="1-21-4"></a> v1.21.4
 
@@ -245,7 +250,7 @@ The following components are compatible with this release:
     <td>1.8.30</td>
   </tr>
   <tr>
-    <td>OSS RabbitMQ*</td>
+    <td>OSS RabbitMQ<sup>*</sup></td>
     <td>3.8.16</td>
   </tr>
   <tr>
